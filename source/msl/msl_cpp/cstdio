@@ -1,0 +1,16 @@
+#pragma once
+
+#include <msl/msl_c/stdio.h>
+
+namespace std
+{
+
+using ::FILE;
+
+using ::snprintf;
+using ::sprintf;
+using ::vprintf;
+using ::vsnprintf;
+using ::vsprintf;
+
+} // namespace std

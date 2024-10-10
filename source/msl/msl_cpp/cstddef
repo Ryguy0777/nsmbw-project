@@ -1,0 +1,10 @@
+#pragma once
+
+#include <msl/msl_c/stddef.h>
+
+namespace std
+{
+
+using ::size_t;
+
+} // namespace std

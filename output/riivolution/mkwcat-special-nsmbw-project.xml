@@ -1,0 +1,28 @@
+<wiidisc version="1" shiftfiles="true" log="true">
+	<id game="SMN">
+		<region type="P"/>
+		<region type="E"/>
+		<region type="J"/>
+		<region type="K"/>
+		<region type="W"/>
+	</id>
+	<options>
+		<section name="mkwcat">
+			<option name="special nsmbw project" id="mkwcat-special-nsmbw-project" default="1">
+				<choice name="Enabled"><patch id="mkwcat-special-nsmbw-project"/></choice>
+			</option>
+		</section>
+	</options>
+	<patch id="mkwcat-special-nsmbw-project">
+		<!-- Loader -->
+		<memory offset="0x800047E4" valuefile="mkwcat-special-nsmbw-project/Loader.img" />
+		<!-- EU --> <memory offset='0x80328478' value='800047E4' original='8015BC60'/>
+		<!-- US --> <memory offset='0x80328130' value='800047E4' original='8015BB20'/>
+		<!-- JP --> <memory offset='0x80327E98' value='800047E4' original='8015B930'/>
+		<!-- KR --> <memory offset='0x80334E60' value='800047E4' original='8015C060'/>
+		<!-- TW --> <memory offset='0x80333218' value='800047E4' original='8015C060'/>
+
+		<!-- Data -->
+		<file disc="/NSMBWProjectData.arc" external="mkwcat-special-nsmbw-project/NSMBWProjectData.arc" create="true"/>
+	</patch>
+</wiidisc>
