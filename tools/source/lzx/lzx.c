@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <io.h>
 
 /*----------------------------------------------------------------------------*/
 #define CMD_DECODE    0x00       // decode

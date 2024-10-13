@@ -3,19 +3,19 @@ ENTRY(_prolog)
 SECTIONS {
 	.text : {
 		*(.text*)
-		*(.extern_repl*)
-		KEEP(*(.replaced*))
+		KEEP(*(replaced))
+		KEEP(*(extern))
 	}
 
 	.data : {
         . = ALIGN(4);
         _replarray = .;
-        KEEP(*(.replarray))
+        KEEP(*(replace_array))
         _replarray_end = .;
 
         . = ALIGN(4);
         _replrelarray = .;
-        KEEP(*(.replrelarray))
+        KEEP(*(replace_data_array))
         _replrelarray_end = .;
 
         . = ALIGN(4);
@@ -25,7 +25,7 @@ SECTIONS {
 
         . = ALIGN(4);
         _externarray = .;
-        KEEP(*(.externarray))
+        KEEP(*(extern_array))
         _externarray_end = .;
 
         *(.rodata*)

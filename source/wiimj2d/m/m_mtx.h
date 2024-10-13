@@ -7,6 +7,8 @@
  */
 class mMtx_c
 {
+    SIZE_ASSERT(0x30);
+
 public:
     /**
      * Constructs an empty matrix.
@@ -88,5 +90,3 @@ public:
      */
     static mMtx_c Identity;
 };
-
-static_assert(sizeof(mMtx_c) == 0x30);

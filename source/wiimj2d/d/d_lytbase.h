@@ -8,9 +8,10 @@
 #include <nw4r/lyt/TextBox.h>
 #include <nw4r/lyt/Window.h>
 
-
 class LytBase_c : public d2d::Multi_c
 {
+    SIZE_ASSERT(0x198);
+
 public:
     /* 0x800C89A0 */
     LytBase_c();
@@ -41,5 +42,3 @@ public:
 
     FILL(0x0AC, 0x198);
 };
-
-static_assert(sizeof(LytBase_c) == 0x198);

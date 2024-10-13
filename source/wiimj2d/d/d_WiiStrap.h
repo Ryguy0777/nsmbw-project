@@ -4,6 +4,8 @@
 
 class dWiiStrap_c : public dBase_c
 {
+    SIZE_ASSERT(0x20A);
+
 public:
     /* 0x60 VTABLE 0x80323118 */
 
@@ -12,5 +14,3 @@ public:
     /* 0x208 */ bool mReady;
     /* 0x209 */ bool mVisible;
 };
-
-static_assert(sizeof(dWiiStrap_c) == 0x20C);

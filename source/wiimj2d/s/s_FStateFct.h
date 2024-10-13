@@ -32,5 +32,5 @@ public:
     }
 
 private:
-    sFState_c<T> mState;
+    /* 0x4 */ sFState_c<T> mState;
 };

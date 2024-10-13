@@ -1,15 +1,20 @@
 #pragma once
 
+#include "System.h"
 extern "C" {
 
 struct OSModuleInfo;
 
 struct OSModuleLink {
-    /* 0x00 */ OSModuleInfo* next;
-    /* 0x04 */ OSModuleInfo* prev;
+    SIZE_ASSERT(0x8);
+
+    /* 0x0 */ OSModuleInfo* next;
+    /* 0x4 */ OSModuleInfo* prev;
 };
 
 struct OSModuleInfo {
+    SIZE_ASSERT(0x20);
+
     /* 0x00 */ u32 id;
     /* 0x04 */ OSModuleLink head;
     /* 0x0C */ u32 numSections;
@@ -20,6 +25,8 @@ struct OSModuleInfo {
 };
 
 struct OSModuleHeader {
+    SIZE_ASSERT(0x4C);
+
     /* 0x00 */ OSModuleInfo info;
     /* 0x20 */ u32 bssSize;
     /* 0x24 */ u32 relOffset;
@@ -38,13 +45,17 @@ struct OSModuleHeader {
 };
 
 struct OSModuleImportInfo {
-    /* 0x00 */ u32 moduleId;
-    /* 0x04 */ u32 offset;
+    SIZE_ASSERT(0x8);
+
+    /* 0x0 */ u32 moduleId;
+    /* 0x4 */ u32 offset;
 };
 
 struct OSModuleSectionInfo {
-    /* 0x00 */ u32 offset;
-    /* 0x04 */ u32 length;
+    SIZE_ASSERT(0x8);
+
+    /* 0x0 */ u32 offset;
+    /* 0x4 */ u32 length;
 };
 
 enum {
@@ -68,10 +79,12 @@ enum {
 };
 
 struct OSModuleRelInfo {
-    /* 0x00 */ u16 offset;
-    /* 0x02 */ u8 type;
-    /* 0x03 */ u8 section;
-    /* 0x04 */ u32 addend;
+    SIZE_ASSERT(0x8);
+
+    /* 0x0 */ u16 offset;
+    /* 0x2 */ u8 type;
+    /* 0x3 */ u8 section;
+    /* 0x4 */ u32 addend;
 };
 
 /* 0x801B2060 */

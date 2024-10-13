@@ -4,6 +4,8 @@
 
 class dWmDemoActor_c : public dWmActor_c
 {
+    SIZE_ASSERT(0x174);
+
     /* 0x060 VTABLE 0x8031C170 */
 
 public:
@@ -66,5 +68,3 @@ public:
 
     FILL(0x138, 0x174);
 };
-
-static_assert(sizeof(dWmDemoActor_c) == 0x174);

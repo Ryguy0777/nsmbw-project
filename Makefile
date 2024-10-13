@@ -9,15 +9,17 @@ DVDDATA_SRC := assets/dvddata
 TARGET := project_P1
 LOADER := Loader
 OUTPUT := output/riivolution/mkwcat-special-nsmbw-project
+TOOLS := tools/x86_64-windows
 
 
 # Compiler definitions
-CLANG := D:\wii\src\kuribo-clang\llvm-project\build\bin\clang
+# CLANG := $(TOOLS)/clang
+CLANG := D:\wii\repo\llvm-project\build\bin\clang
 CC := $(CLANG)
 LD := $(DEVKITPPC)/bin/powerpc-eabi-ld
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
-ELF2REL := tool/win32/elf2rel.exe
-LZX := tool/win32/lzx.exe
+ELF2REL := $(TOOLS)/elf2rel
+LZX := $(TOOLS)/lzx
 
 SOURCES :=
 -include sources.mk
@@ -37,7 +39,7 @@ LOADER_DEPS	:= $(LOADER_OFILES:.o=.d)
 
 DUMMY != mkdir -p $(BUILD)/source $(BUILD)/loader $(OUTPUT) $(DVDDATA) 
 
-CFLAGS := --target=powerpc-gekko-ibm-kuribo-eabi -O3 -fno-rtti -fno-short-enums -fshort-wchar \
+CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -O3 -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 \
 -fdeclspec -fno-exceptions -nodefaultlibs -ffreestanding -ffunction-sections -fdata-sections -fno-threadsafe-statics -fno-use-cxa-atexit \
 -Isource -Isource/msl/msl_c -Isource/msl/msl_cpp -Isource/wiimj2d -DLOADER_REL_LZ -fkeep-static-consts -femit-all-decls -include System.h
 
@@ -64,11 +66,11 @@ $(DVDDATA)/%: $(DVDDATA_SRC)/%
 
 $(BUILD)/%_c.o: %.c
 	@echo $<
-	@$(CC) -x c++ -std=c++17 -MMD $(CFLAGS) -c -o $@ ./$<
+	@$(CC) -x c++ -MMD $(CFLAGS) -c -o $@ ./$<
 
 $(BUILD)/%_cpp.o: %.cpp
 	@echo $<
-	@$(CC) -x c++ -std=c++17 -MMD $(CFLAGS) -c -o $@ ./$<
+	@$(CC) -x c++ -MMD $(CFLAGS) -c -o $@ ./$<
 
 $(BUILD)/$(TARGET)_ungc.elf: $(OFILES)
 	@echo Link: $(TARGET)_ungc.elf
@@ -89,11 +91,11 @@ $(DVDDATA)/rels/$(TARGET).rel.LZ: $(BUILD)/$(TARGET).rel
 
 $(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
 	@echo Build: $(ARCHIVE).arc
-	@python tool/python/wuj5/wuj5.py encode $(BUILD)/$(ARCHIVE).arc.d --root= --outputs=$@
+	@python $(TOOLS)/../python/wuj5/wuj5.py encode $(BUILD)/$(ARCHIVE).arc.d --root= --outputs=$@
 
 $(DVDDATA)/wiimj2d.SMAP: $(BUILD)/$(TARGET)_ungc.elf
 	@echo Make: wiimj2d.SMAP
-	@python tool/python/generate_symbol_map.py $(BUILD)/$(TARGET)_ungc.elf $(DVDDATA)/wiimj2d.SMAP
+	@python $(TOOLS)/../python/generate_symbol_map.py $(BUILD)/$(TARGET)_ungc.elf $(DVDDATA)/wiimj2d.SMAP
 
 $(BUILD)/$(LOADER).elf: $(LOADER_OFILES)
 	@echo Link: $(LOADER).elf

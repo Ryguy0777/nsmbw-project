@@ -1,18 +1,22 @@
 #pragma once
 
+#include "System.h"
+
 extern "C" {
 
 struct ARCHeader {
-    u32 magic;
-    u32 fstOffset;
-    u32 fstSize;
-    u32 fileStart;
-    u8 reserved[0x10];
+    SIZE_ASSERT(0x20);
+
+    /* 0x00 */ u32 magic;
+    /* 0x04 */ u32 fstOffset;
+    /* 0x08 */ u32 fstSize;
+    /* 0x0C */ u32 fileStart;
+    /* 0x10 */ u8 reserved[0x10];
 };
 
-static_assert(sizeof(ARCHeader) == 0x20);
-
 struct ARCHandle {
+    SIZE_ASSERT(0x1C);
+
     /* 0x00 */ void* archiveStartAddr;
     /* 0x04 */ void* FSTStart;
     /* 0x08 */ void* fileStart;
@@ -22,35 +26,35 @@ struct ARCHandle {
     /* 0x18 */ u32 currDir;
 };
 
-static_assert(sizeof(ARCHandle) == 0x1C);
-
 struct ARCFileInfo {
-    ARCHandle* handle;
-    u32 startOffset;
-    u32 length;
-};
+    SIZE_ASSERT(0xC);
 
-static_assert(sizeof(ARCFileInfo) == 0xC);
+    /* 0x0 */ ARCHandle* handle;
+    /* 0x4 */ u32 startOffset;
+    /* 0x8 */ u32 length;
+};
 
 struct ARCDir {
-    ARCHandle* handle;
-    u32 entryNum;
-    u32 location;
-    u32 next;
-};
+    SIZE_ASSERT(0x10);
 
-static_assert(sizeof(ARCDir) == 0x10);
+    /* 0x00 */ ARCHandle* handle;
+    /* 0x04 */ u32 entryNum;
+    /* 0x08 */ u32 location;
+    /* 0x0C */ u32 next;
+};
 
 struct ARCDirEntry {
+    SIZE_ASSERT(0x10);
+
     FILL(0x00, 0x04);
-    u32 entryNum;
-    bool isDir;
-    char* name;
+    /* 0x04 */ u32 entryNum;
+    /* 0x08 */ bool isDir;
+    /* 0x0C */ char* name;
 };
 
-static_assert(sizeof(ARCDirEntry) == 0x10);
-
 struct FstEntry {
+    SIZE_ASSERT(0xC);
+
     u8 isDir : 8;
     u32 stringOffset : 24;
 

@@ -11,6 +11,8 @@ class fBase_c;
  */
 class fLiNdBa_c : public cListNd_c
 {
+    SIZE_ASSERT(0xC);
+
 public:
     /**
      * Constructs a new list node.
@@ -44,5 +46,3 @@ public:
      */
     /* 0x8 */ fBase_c* mpOwner;
 };
-
-static_assert(sizeof(fLiNdBa_c) == 0xC);

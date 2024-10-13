@@ -4,6 +4,8 @@
 
 class fBase_c
 {
+    SIZE_ASSERT(0x64);
+
 public:
     /**
      * The possible lifecycle states.
@@ -326,5 +328,3 @@ public:
      */
     virtual ~fBase_c();
 };
-
-static_assert(sizeof(fBase_c) == 0x64);

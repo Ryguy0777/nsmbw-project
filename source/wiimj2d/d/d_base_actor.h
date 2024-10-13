@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include <d/d_base.h>
 #include <f/f_list_nd.h>
 #include <m/m_angle.h>
@@ -11,6 +12,8 @@
  */
 class dBaseActor_c : public dBase_c
 {
+    SIZE_ASSERT(0x125);
+
 public:
     /**
      * An identifier that represents the actor's kind. This is only used in world maps.
@@ -350,5 +353,3 @@ private:
      */
     // static fLiMgBa_c m_actorManage;
 };
-
-static_assert(sizeof(dBaseActor_c) == 0x128);

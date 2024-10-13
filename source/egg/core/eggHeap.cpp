@@ -118,3 +118,8 @@ EXTERN_TEXT(
   0x802B93D0, //
   void operator delete[](void* block)
 );
+
+void operator delete(void* block, u32 size)
+{
+    operator delete(block);
+}

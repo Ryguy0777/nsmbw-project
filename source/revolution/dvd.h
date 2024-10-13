@@ -1,25 +1,26 @@
 #pragma once
 
+#include "System.h"
 #include <revolution/arc.h>
 
 extern "C" {
 
-typedef struct {
+struct DVDCommandBlock {
+    SIZE_ASSERT(0x30);
+
     FILL(0x00, 0x0C);
     s32 state;
     FILL(0x10, 0x30);
-} DVDCommandBlock;
+};
 
-static_assert(sizeof(DVDCommandBlock) == 0x30);
+struct DVDFileInfo {
+    SIZE_ASSERT(0x3C);
 
-typedef struct {
     DVDCommandBlock cb;
     u32 startAddr;
     u32 length;
     void* callback;
-} DVDFileInfo;
-
-static_assert(sizeof(DVDFileInfo) == 0x3C);
+};
 
 void __DVDEXInit(s32 arcEntryNum, ARCHandle* arcHandle);
 

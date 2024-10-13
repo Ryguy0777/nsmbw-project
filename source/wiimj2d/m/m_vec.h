@@ -7,6 +7,8 @@
  */
 class mVec2_c
 {
+    SIZE_ASSERT(0x8);
+
 public:
     /**
      * Constructs an empty vector.
@@ -183,6 +185,8 @@ public:
  */
 class mVec3_c
 {
+    SIZE_ASSERT(0xC);
+
 public:
     /**
      * Constructs an empty vector.

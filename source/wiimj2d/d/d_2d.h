@@ -10,6 +10,8 @@ class ResAccMult_c;
 
 class Multi_c : public m2d::Base_c
 {
+    SIZE_ASSERT(0xAC);
+
 public:
     /* 0x80006CD0 */
     Multi_c();
@@ -44,7 +46,5 @@ private:
 
     FILL(0x88, 0xAC);
 };
-
-static_assert(sizeof(Multi_c) == 0xAC);
 
 } // namespace d2d

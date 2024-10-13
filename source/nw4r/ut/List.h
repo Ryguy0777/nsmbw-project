@@ -4,20 +4,20 @@ namespace nw4r::ut
 {
 
 struct Node {
+    SIZE_ASSERT(0x8);
+
     void* prev;
     void* next;
 };
 
-static_assert(sizeof(Node) == 0x8);
-
 struct List {
+    SIZE_ASSERT(0xC);
+
     Node* m_head;
     Node* m_tail;
     u16 m_count;
     u16 m_offset;
 };
-
-static_assert(sizeof(List) == 0xC);
 
 /* 0x80228F10 */
 void List_Init(List* list, u16 offset);

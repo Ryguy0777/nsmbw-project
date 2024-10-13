@@ -4,6 +4,8 @@
 
 class dWmPlayerBase_c : public dWmDemoActor_c
 {
+    SIZE_ASSERT(0x1C9);
+
 public:
     dWmPlayerBase_c()
       : dWmDemoActor_c()
@@ -76,5 +78,3 @@ public:
 
     /* 0x1C8 */ u8 m_0x1C8;
 };
-
-static_assert(sizeof(dWmPlayerBase_c) == 0x1CC);

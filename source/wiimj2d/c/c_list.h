@@ -6,6 +6,8 @@
  */
 class cListNd_c
 {
+    SIZE_ASSERT(0x8);
+
 public:
     /**
      * Constructs a new list node.
@@ -30,12 +32,12 @@ protected:
     /**
      * The previous node.
      */
-    cListNd_c* mpPrev;
+    /* 0x0 */ cListNd_c* mpPrev;
 
     /**
      * The next node.
      */
-    cListNd_c* mpNext;
+    /* 0x4 */ cListNd_c* mpNext;
 
     friend class cListMg_c;
 };
@@ -46,6 +48,8 @@ protected:
  */
 class cListMg_c
 {
+    SIZE_ASSERT(0x8);
+
 public:
     /**
      * Constructs a new list container.
@@ -110,5 +114,3 @@ protected:
      */
     /* 0x4 */ cListNd_c* mpLast;
 };
-
-static_assert(sizeof(cListNd_c) == 0x8);

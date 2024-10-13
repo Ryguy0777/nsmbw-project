@@ -1,11 +1,14 @@
 #pragma once
 
+#include "System.h"
 #include "d_base.h"
 
 class sPhase_c;
 
 class dScene_c : public dBase_c
 {
+    SIZE_ASSERT(0x74);
+
 public:
     /* 0x800E1AA0 */
     dScene_c();
@@ -17,5 +20,3 @@ public:
 
     /* 0x80428A42 */ static u16 m_nowScene;
 };
-
-static_assert(sizeof(dScene_c) == 0x74);

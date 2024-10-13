@@ -9,6 +9,8 @@ namespace EGG
 
 class DvdFile : public File
 {
+    SIZE_ASSERT(0xF4);
+
     /* 0x00 VTABLE 0x8034FF20 */
 
 public:
@@ -72,7 +74,5 @@ private:
     /* 0x80423B70 */
     static nw4r::ut::List sDvdList;
 };
-
-static_assert(sizeof(EGG::DvdFile) == 0xF4);
 
 } // namespace EGG

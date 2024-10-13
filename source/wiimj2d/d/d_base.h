@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include <f/f_base.h>
 
 /**
@@ -8,6 +9,8 @@
  */
 class dBase_c : public fBase_c
 {
+    SIZE_ASSERT(0x70);
+
 public:
     /* 0x8006C420 */
     dBase_c();
@@ -88,5 +91,3 @@ public:
      */
     /* 0x6C */ const char* mpNameString;
 };
-
-static_assert(sizeof(dBase_c) == 0x70);

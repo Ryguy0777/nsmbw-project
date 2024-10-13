@@ -85,10 +85,10 @@ typedef double f64;
 
 #define offsetof(_TYPE, _MEMBER) __builtin_offsetof(_TYPE, _MEMBER)
 
-#define ASM(...) asm(#__VA_ARGS__)
+#define ASM(...) __asm__(#__VA_ARGS__)
 
 #define ASM_FUNCTION(_PROTOTYPE, ...)                                                              \
-    __attribute__((naked)) _PROTOTYPE                                                              \
+    [[__gnu__::__naked__]] _PROTOTYPE                                                              \
     {                                                                                              \
         ASM(__VA_ARGS__);                                                                          \
     }
@@ -97,6 +97,11 @@ typedef struct {
     unsigned int* addr;
     unsigned int* dest;
 } __replace_struct;
+
+struct __replace_struct_int {
+    unsigned int* addr;
+    void (*dest)();
+};
 
 typedef struct {
     unsigned int* addr;
@@ -110,54 +115,49 @@ typedef struct {
     unsigned int* dest;
 } _MRel_InsertData;
 
-#define REPLACE(addr, prototype)                                                                   \
-    extern "C" {                                                                                   \
-    extern unsigned int ext_##addr;                                                                \
-    extern unsigned int replaced_func_##addr;                                                      \
-    __attribute__((__section__(".replarray")))                                                     \
-    __replace_struct replstruct_##addr = {&ext_##addr, &replaced_func_##addr};                     \
-    asm(".section .replaced." #addr "\n"                                                           \
-        ".global replaced_func_" #addr "\n"                                                        \
-        ".p2align 2\n"                                                                             \
-        "replaced_func_" #addr ":\n");                                                             \
-    }                                                                                              \
-    __attribute__((__section__(".replaced." #addr))) prototype
-
-#define REPLACE_ASM(addr, prototype, ...)                                                          \
-    extern "C" {                                                                                   \
-    extern unsigned int ext_##addr;                                                                \
-    extern unsigned int replaced_func_##addr;                                                      \
-    __attribute__((__section__(".replarray")))                                                     \
-    __replace_struct replstruct_##addr = {&ext_##addr, &replaced_func_##addr};                     \
-    asm(".section .replaced." #addr "\n"                                                           \
-        ".global replaced_func_" #addr "\n"                                                        \
-        ".p2align 2\n"                                                                             \
-        "replaced_func_" #addr ":\n");                                                             \
-    }                                                                                              \
-    __attribute__((__section__(".replaced." #addr))) __attribute__((__naked__)) prototype          \
+#define _REPLACE_THUNK(_ADDR)                                                                      \
+    [[__gnu__::__section__("replaced")]] void __replaced_func_##_ADDR()                            \
     {                                                                                              \
-        ASM(__VA_ARGS__);                                                                          \
+        __builtin_unreachable();                                                                   \
+    }                                                                                              \
+    extern unsigned int __ext_##_ADDR __asm__("ext_" #_ADDR);                                      \
+    [[__gnu__::__section__("replace_array"                                                         \
+    )]] constinit __replace_struct_int __replace_entry_##_ADDR = {                                 \
+      &__ext_##_ADDR, &__replaced_func_##_ADDR                                                     \
+    };
+
+#define REPLACE(_ADDR, _PROTOTYPE)                                                                 \
+    _REPLACE_THUNK(_ADDR)                                                                          \
+    [[__gnu__::__section__("replaced")]] _PROTOTYPE
+
+#define REPLACE_ASM(_ADDR, _PROTOTYPE, _ASM_CONTENT...)                                            \
+    _REPLACE_THUNK(_ADDR)                                                                          \
+    [[__gnu__::__section__("replaced")]] [[__gnu__::__naked__]] _PROTOTYPE                         \
+    {                                                                                              \
+        ASM(_ASM_CONTENT);                                                                         \
     }
 
-#define REPLACE_DATA(_ADDR, _LENGTH, ...)                                                          \
-    extern "C" {                                                                                   \
-    extern unsigned int ext_##_ADDR;                                                               \
-    extern unsigned int replaced_data_##_ADDR;                                                     \
-    __attribute__((__section__(".replrelarray")))                                                  \
-    _MRel_ReplaceRel _MRel_ReplaceRel_##_ADDR = {&ext_##_ADDR, _LENGTH, &replaced_data_##_ADDR};   \
+#define _REPLACE_THUNK_DATA(_ADDR, _LENGTH)                                                        \
+    [[__gnu__::__section__("replaced")]] void __replaced_func_##_ADDR()                            \
+    {                                                                                              \
+        __builtin_unreachable();                                                                   \
     }                                                                                              \
-    asm(".section .replaced." #_ADDR "\n"                                                          \
-        ".global replaced_data_" #_ADDR "\n"                                                       \
-        ".p2align 2\n"                                                                             \
-        "replaced_data_" #_ADDR ":\n");                                                            \
-    __attribute__((__section__(".replaced." #_ADDR))) __VA_ARGS__
+    extern unsigned int __ext_##_ADDR __asm__("ext_" #_ADDR);                                      \
+    [[__gnu__::__section__("replace_data_array")]]                                                 \
+    constinit _MRel_ReplaceRel __replace_data_entry_##_ADDR = {                                    \
+      &__ext_##_ADDR, _LENGTH, reinterpret_cast<unsigned int*>(&__replaced_func_##_ADDR)           \
+    };
+
+#define REPLACE_DATA(_ADDR, _LENGTH, ...)                                                          \
+    _REPLACE_THUNK_DATA(_ADDR, _LENGTH)                                                            \
+    [[__gnu__::__section__("replaced")]] __VA_ARGS__
 
 #define INSERT_DATA(_ADDR, _LENGTH, ...)                                                           \
     extern "C" {                                                                                   \
     extern unsigned int ext_##_ADDR;                                                               \
     extern unsigned int replaced_data_##_ADDR;                                                     \
-    __attribute__((__section__(".replinsertarray")))                                               \
-    _MRel_InsertData _MRel_InsertData_##_ADDR = {&ext_##_ADDR, _LENGTH, &replaced_data_##_ADDR};   \
+    __attribute__((__section__(".replinsertarray"))                                                \
+    ) _MRel_InsertData _MRel_InsertData_##_ADDR = {&ext_##_ADDR, _LENGTH, &replaced_data_##_ADDR}; \
     }                                                                                              \
     asm(".section .replaced." #_ADDR "\n"                                                          \
         ".global replaced_data_" #_ADDR "\n"                                                       \
@@ -165,60 +165,50 @@ typedef struct {
         "replaced_data_" #_ADDR ":\n");                                                            \
     __attribute__((__section__(".replaced." #_ADDR))) __VA_ARGS__
 
-#define EXTERN_TEXT(addr, prototype)                                                               \
+#define EXTERN_TEXT(_ADDR, _PROTOTYPE)                                                             \
     _Pragma("GCC diagnostic push");                                                                \
     _Pragma("GCC diagnostic ignored \"-Wreturn-type\"");                                           \
-    __attribute__((__section__(".external." #addr))) __attribute__((__weak__)) prototype           \
+    [[__gnu__::__section__(".external." #_ADDR)]] [[__gnu__::__weak__]] _PROTOTYPE                 \
     {                                                                                              \
         __builtin_unreachable();                                                                   \
     }                                                                                              \
     _Pragma("GCC diagnostic pop");
 
-#define EXTERN_TEXT_INLINE(addr, prototype)                                                        \
-    __attribute__((__section__(".external." #addr))) prototype
+#define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE)                                                      \
+    [[__gnu__::__section__(".external." #_ADDR)]] _PROTOTYPE
 
-#define EXTERN_TEXT_STATIC(addr, prototype) EXTERN_TEXT(addr, prototype)
+#define EXTERN_TEXT_STATIC(_ADDR, _PROTOTYPE) EXTERN_TEXT(_ADDR, _PROTOTYPE)
 
-#define EXTERN_REPL(addr, prototype)                                                               \
-    extern "C" {                                                                                   \
-    extern unsigned int ext_##addr;                                                                \
-    extern unsigned int extern_func_##addr;                                                        \
-    __attribute__((__section__(".externarray")))                                                   \
-    __replace_struct externstruct_##addr = {&ext_##addr, &extern_func_##addr};                     \
-    asm(".section .extern_repl." #addr "\n"                                                        \
-        ".global extern_func_" #addr "\n"                                                          \
-        ".p2align 2\n"                                                                             \
-        "extern_func_" #addr ":\n");                                                               \
-    }                                                                                              \
-    _Pragma("GCC diagnostic push");                                                                \
-    _Pragma("GCC diagnostic ignored \"-Wreturn-type\"");                                           \
-    __attribute__((__section__(".extern_repl." #addr))) __attribute__((__weak__))                  \
-    __attribute__((__naked__)) prototype                                                           \
-    {                                                                                              \
-        ASM(nop; b ext_##addr + 4;);                                                               \
-    }                                                                                              \
-    _Pragma("GCC diagnostic pop");
-
-#define EXTERN_TEXT_C(addr, prototype)                                                             \
-    _Pragma("GCC diagnostic push");                                                                \
-    _Pragma("GCC diagnostic ignored \"-Wreturn-type\"");                                           \
-    __attribute__((__section__(".external." #addr)))                                               \
-    __attribute__((__weak__)) extern "C" prototype                                                 \
+#define EXTERN_REPL(_ADDR, _PROTOTYPE)                                                             \
+    [[__gnu__::__section__("extern")]] void __extern_func_##_ADDR()                                \
     {                                                                                              \
         __builtin_unreachable();                                                                   \
     }                                                                                              \
-    _Pragma("GCC diagnostic pop");
+    _Pragma("GCC diagnostic push");                                                                \
+    _Pragma("GCC diagnostic ignored \"-Wreturn-type\"");                                           \
+    [[__gnu__::__section__("extern")]] [[__gnu__::__weak__]] [[__gnu__::__naked__]] _PROTOTYPE     \
+    {                                                                                              \
+        ASM(nop; b ext_##_ADDR + 4;);                                                              \
+    }                                                                                              \
+    _Pragma("GCC diagnostic pop");                                                                 \
+    extern unsigned int __ext2_##_ADDR __asm__("ext_" #_ADDR);                                     \
+    [[__gnu__::__section__("extern_array")]]                                                       \
+    constinit __replace_struct_int __extern_entry_##_ADDR = {                                      \
+      &__ext2_##_ADDR, &__extern_func_##_ADDR                                                      \
+    };
 
-#define EXTERN_DATA(addr, prototype) __attribute__((__section__(".external." #addr))) prototype
+#define EXTERN_TEXT_C(_ADDR, _PROTOTYPE) EXTERN_TEXT(_ADDR, extern "C" _PROTOTYPE)
 
-#define EXTERN_TEXT_CONSTRUCTOR(addr, prototype) EXTERN_TEXT(addr, prototype)
+#define EXTERN_DATA(_ADDR, _PROTOTYPE) [[__gnu__::__section__(".external." #_ADDR)]] _PROTOTYPE
+
+#define EXTERN_TEXT_CONSTRUCTOR(_ADDR, _PROTOTYPE) EXTERN_TEXT(_ADDR, _PROTOTYPE)
 
 /**
  * Define an external function by its symbol name only
  */
-#define EXTERN_SYMBOL(_ADDRESS, _NAME)                                                             \
-    void __ext_sym_##_ADDRESS() asm(_NAME);                                                        \
-    __attribute__((__section__(".external." #_ADDRESS))) void __ext_sym_##_ADDRESS()               \
+#define EXTERN_SYMBOL(_ADDR, _NAME)                                                                \
+    void __ext_sym_##_ADDR() asm(_NAME);                                                           \
+    [[__gnu__::__section__(".external." #_ADDR)]] void __ext_sym_##_ADDR()                         \
     {                                                                                              \
         __builtin_unreachable();                                                                   \
     }
@@ -245,3 +235,43 @@ constexpr T ToUncached(T addr)
 }
 
 #define restrict __restrict
+
+struct [[__gnu__::__packed__]] __offset_assert {
+    int empty[0];
+};
+
+static_assert(sizeof(__offset_assert) == 0);
+
+#define _SIZE_ASSERT3(_SIZE, _COUNTER)                                                             \
+    constexpr void __size_assert_##_COUNTER()                                                      \
+    {                                                                                              \
+        static_assert(__datasizeof(*this) == _SIZE);                                               \
+    }
+
+#define _SIZE_ASSERT2(_SIZE, _COUNTER) _SIZE_ASSERT3(_SIZE, _COUNTER)
+
+#define _SIZE_ASSERT1(_SIZE, _COUNTER) _SIZE_ASSERT2(_SIZE, _COUNTER)
+
+#define SIZE_ASSERT(_SIZE) _SIZE_ASSERT2(_SIZE, __COUNTER__)
+
+template <class T>
+struct __get_this {
+    typedef T type;
+};
+
+template <class T>
+struct __get_this<T&> {
+    typedef T type;
+};
+
+#define OFFSET_ASSERT(_OFFSET)                                                                     \
+    __offset_assert _offset_assert_##_OFFSET = []() -> __offset_assert {                           \
+        _Pragma("GCC diagnostic push");                                                            \
+        _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"");                                  \
+        static_assert(                                                                             \
+          __builtin_offsetof(__get_this<decltype(*this)>::type, _offset_assert_##_OFFSET) ==       \
+          _OFFSET                                                                                  \
+        );                                                                                         \
+        _Pragma("GCC diagnostic pop");                                                             \
+        return __offset_assert{};                                                                  \
+    }()

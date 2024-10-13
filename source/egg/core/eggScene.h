@@ -5,6 +5,8 @@ namespace EGG
 
 class Scene
 {
+    SIZE_ASSERT(0x30);
+
 public:
     Scene();
     virtual ~Scene();
@@ -19,7 +21,5 @@ public:
 private:
     u8 _04[0x30 - 0x04];
 };
-
-static_assert(sizeof(Scene) == 0x30);
 
 } // namespace EGG

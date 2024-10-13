@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include <d/d_base_actor.h>
 #include <m/m_sphere.h>
 
@@ -13,6 +14,8 @@ class bmdl_c;
  */
 class dWmActor_c : public dBaseActor_c
 {
+    SIZE_ASSERT(0x138);
+
 public:
     /* 0x800F2820 */
     dWmActor_c();
@@ -127,5 +130,3 @@ private:
      */
     /* 0x128 */ mSphere_c mCullSphere;
 };
-
-static_assert(sizeof(dWmActor_c) == 0x138);

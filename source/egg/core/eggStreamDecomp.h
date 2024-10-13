@@ -1,10 +1,14 @@
 #pragma once
 
+#include "System.h"
+
 namespace EGG
 {
 
 class StreamDecomp
 {
+    SIZE_ASSERT(0x4);
+
 public:
     /* VT+0x08 */
     virtual bool init(void* dst, u32 maxCompressedSize) = 0;
@@ -19,10 +23,10 @@ public:
     virtual u32 getUncompressedSize(const void* src) = 0;
 };
 
-static_assert(sizeof(StreamDecomp) == 0x4);
-
 class StreamDecompLZ : public StreamDecomp
 {
+    SIZE_ASSERT(0x24);
+
 public:
     StreamDecompLZ() = default;
     ~StreamDecompLZ() = default;
@@ -43,10 +47,10 @@ private:
     FILL(0x4, 0x24);
 };
 
-static_assert(sizeof(StreamDecompLZ) == 0x24);
-
 class StreamDecompRL : public StreamDecomp
 {
+    SIZE_ASSERT(0x1C);
+
 public:
     StreamDecompRL() = default;
     ~StreamDecompRL() = default;
@@ -67,10 +71,10 @@ private:
     FILL(0x4, 0x1C);
 };
 
-static_assert(sizeof(StreamDecompRL) == 0x1C);
-
 class StreamDecompLH : public StreamDecomp
 {
+    SIZE_ASSERT(0x8B4);
+
 public:
     StreamDecompLH() = default;
     ~StreamDecompLH() = default;
@@ -91,10 +95,10 @@ private:
     FILL(0x4, 0x8B4);
 };
 
-static_assert(sizeof(StreamDecompLH) == 0x8B4);
-
 class StreamDecompLRC : public StreamDecomp
 {
+    SIZE_ASSERT(0x9038);
+
 public:
     StreamDecompLRC() = default;
     ~StreamDecompLRC() = default;
@@ -115,10 +119,10 @@ private:
     FILL(0x4, 0x9038);
 };
 
-static_assert(sizeof(StreamDecompLRC) == 0x9038);
-
 class StreamDecompSZS : public StreamDecomp
 {
+    SIZE_ASSERT(0x20);
+
 public:
     StreamDecompSZS() = default;
     ~StreamDecompSZS() = default;
@@ -138,7 +142,5 @@ public:
 private:
     FILL(0x4, 0x20);
 };
-
-static_assert(sizeof(StreamDecompSZS) == 0x20);
 
 } // namespace EGG

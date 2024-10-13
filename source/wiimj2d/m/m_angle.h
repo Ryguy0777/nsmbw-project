@@ -4,6 +4,8 @@
  * A one-dimensional short angle vector.
  */
 struct mAng {
+    SIZE_ASSERT(0x2);
+
     /**
      * Constructs an empty vector.
      */
@@ -130,6 +132,8 @@ struct mAng {
  */
 class mAng3_c
 {
+    SIZE_ASSERT(0x6);
+
 public:
     /**
      * Constructs an empty vector.
@@ -279,5 +283,3 @@ public:
      */
     static mAng3_c Ez;
 };
-
-static_assert(sizeof(mAng3_c) == 0x6);

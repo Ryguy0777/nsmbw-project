@@ -81,7 +81,18 @@ public:
     }
 
 private:
-    stateFunc mpInitialize; ///< The initialize method for this state ID.
-    stateFunc mpExecute; ///< The execute method for this state ID.
-    stateFunc mpFinalize; ///< The finalize method for this state ID.
+    /**
+     * The initialize method for this state ID.
+     */
+    /* 0x0C */ stateFunc mpInitialize;
+
+    /**
+     * The execute method for this state ID.
+     */
+    /* 0x18 */ stateFunc mpExecute;
+
+    /**
+     * The finalize method for this state ID.
+     */
+    /* 0x24 */ stateFunc mpFinalize;
 };

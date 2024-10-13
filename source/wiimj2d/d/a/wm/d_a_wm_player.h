@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include <d/d_player_model_manager.h>
 #include <d/wm/d_wm_player_base.h>
 #include <m/m_vec.h>
@@ -14,6 +15,8 @@ public:
 
 class daWmPlayer_c : public dWmPlayerBase_c
 {
+    SIZE_ASSERT(0x30C);
+
     /* 0x060 VTABLE 0x809893F8 */
 
 public:
@@ -155,5 +158,3 @@ public:
 
     /* 0x809A0DB8 */ static u32 m_activeCharaFlag[4];
 };
-
-static_assert(sizeof(daWmPlayer_c) == 0x30C);

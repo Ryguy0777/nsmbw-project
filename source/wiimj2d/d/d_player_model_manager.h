@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include <d/d_player_model_base.h>
 #include <m/m_angle.h>
 #include <m/m_mtx.h>
@@ -7,6 +8,8 @@
 
 class dPyMdlMng_c
 {
+    SIZE_ASSERT(0xC);
+
     /* 0x0 VTABLE 0x80318D98 */
 
 public:
@@ -55,5 +58,3 @@ public:
 
     // /* 0x803710A0 */ static dPyMdlBase_HIO_c m_hio;
 };
-
-static_assert(sizeof(dPyMdlMng_c) == 0xC);

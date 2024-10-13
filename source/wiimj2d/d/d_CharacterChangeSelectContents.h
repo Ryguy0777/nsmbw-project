@@ -1,10 +1,10 @@
 #pragma once
 
+#include "System.h"
 #include <d/d_base.h>
 #include <d/d_lytbase.h>
 #include <nw4r/lyt/Pane.h>
 #include <s/s_State.h>
-
 
 class dCharacterChangeSelectContents_c : public dBase_c
 {
@@ -27,8 +27,9 @@ public:
     //
     // Member Data
     //
+    OFFSET_ASSERT(0x070);
 
-    /* 0x70 */ LytBase_c mLayout;
+    /* 0x070 */ LytBase_c mLayout;
 
     FILL(0x208, 0x248);
 
@@ -43,14 +44,14 @@ public:
     u32 m0x28C; // Set 6 in create
     u32 m0x290; // Set 6 in create
     u32 m0x294; // Set 6 in create
-    u32 m0x298; // Set 2 in create    
+    u32 m0x298; // Set 2 in create
 
     u8 m0x29C; // Set 1 in create
     u8 m0x29D; // Set 0 in create
     u8 m0x29E; // Set 0 in create
     u8 m0x29F; // Set 0 in create
     u8 m0x2A0; // Set 0 in create
-    
+
     FILL(0x2A1, 0x2B4);
 
     float m0x2B4;
@@ -58,6 +59,7 @@ public:
     //
     // Added Member Data
     //
+    OFFSET_ASSERT(0x2B8);
 
     /* 0x2B8 */ nw4r::lyt::Picture* mpaMarioPictures[2];
 
@@ -69,5 +71,3 @@ public:
     sState_Extern(0x80990EA0, dCharacterChangeSelectContents_c, AnimeWait);
     sState_Extern(0x80990EE0, dCharacterChangeSelectContents_c, HitAnimeEndWait);
 };
-
-static_assert(sizeof(dCharacterChangeSelectContents_c) == 0x2C0);
