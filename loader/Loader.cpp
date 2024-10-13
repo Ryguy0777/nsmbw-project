@@ -36,7 +36,7 @@
 #include <revolution/os/OSFatal.c>
 #include <revolution/os/OSLink.c>
 #include <runtime/__mem.c>
-#include <wiimj2d/s/s_Print.cpp>
+#include <wiimj2d/state/s_Print.cpp>
 
 // Function definitions. Define as extern "C" to avoid symbol name mangling for references from ASM.
 extern "C" {
@@ -243,11 +243,11 @@ __attribute__((noinline)) static void LoaderAssertFail(const char* expr, s32 lin
       printMsg, 0x400,
       "Loader assertion failed\n"
       "  %s\n"
-      "  line %d\n",
+      "  line %ld\n",
       expr, line
     );
 
-    OSFatal((GXColor){255, 255, 255, 255}, (GXColor){0, 0, 0, 255}, printMsg);
+    OSFatal(GXColor{255, 255, 255, 255}, GXColor{0, 0, 0, 255}, printMsg);
     while (1) {
     }
 }

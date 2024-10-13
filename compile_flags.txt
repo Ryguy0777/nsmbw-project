@@ -1,6 +1,7 @@
 -x
 c++
--std=c++17
+-fno-PIC
+-std=c++23
 --target=powerpc-eabi
 -fno-rtti
 -fno-short-enums
@@ -11,6 +12,7 @@ c++
 -fno-use-cxa-atexit
 -fkeep-static-consts
 -femit-all-decls
+-Wpedantic
 -Isource
 -Isource/msl/msl_c
 -Isource/msl/msl_cpp

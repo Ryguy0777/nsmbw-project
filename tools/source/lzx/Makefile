@@ -1,5 +1,5 @@
-CC	= clang
-COPTS	= -O4 -I.
+CC	    := clang
+CFLAGS	:= -O4 -I.
 CLIBS	=
 
 all: lzx.c

@@ -2,181 +2,190 @@
 SOURCES += source/Rel.cpp
 
 #
-# wiimj2d/d
+# wiimj2d/dynamic
 #
 
 # d_2d.cpp
 # NSMBW: 0x80006790 - 0x80007510
-SOURCES += source/wiimj2d/d/d_2d.cpp
+SOURCES += source/wiimj2d/dynamic/d_2d.cpp
 
 #
-# wiimj2d/d/a
+# wiimj2d/dynamic/actor
 #
 
 # d_a_player_manager.cpp
 # NSMBW: 0x8005E9A0 - 0x800613B0
-SOURCES += source/wiimj2d/d/a/d_a_player_manager.cpp
+SOURCES += source/wiimj2d/dynamic/actor/d_a_player_manager.cpp
 
 #
-# wiimj2d/d
+# wiimj2d/dynamic
 #
 
 # d_base.cpp
 # NSMBW: 0x8006C420 - 0x8006C6D0
-SOURCES += source/wiimj2d/d/d_base.cpp
+SOURCES += source/wiimj2d/dynamic/d_base.cpp
 # d_base_actor.cpp
 # NSMBW: 0x8006C6D0 - 0x8006CF40
-SOURCES += source/wiimj2d/d/d_base_actor.cpp
+SOURCES += source/wiimj2d/dynamic/d_base_actor.cpp
 
 # d_game_common.cpp
 # NSMBW .text: 0x800B2E70 - 0x800B5930
-SOURCES += source/wiimj2d/d/d_game_common.cpp
+SOURCES += source/wiimj2d/dynamic/d_game_common.cpp
 
 # d_game_key_core.cpp
 # NSMBW: 0x800B5B50 - 0x800B64A0
-SOURCES += source/wiimj2d/d/d_game_key_core.cpp
+SOURCES += source/wiimj2d/dynamic/d_game_key_core.cpp
 
 # d_info.cpp
 # NSMBW .text: 0x800BB0E0 - 0x800BBD80
 # NSMBW .data: 0x80315E90 - 0x80315EB0
 # NSMBW .bss: 0x80359054 - 0x803590F0
 # NSMBW .sbss: 0x8042A25C - 0x8042A268
-SOURCES += source/wiimj2d/d/d_info.cpp
+SOURCES += source/wiimj2d/dynamic/d_info.cpp
 
 # d_lytbase.cpp
 # NSMBW: 0x800C89A0 - 0x800C9B50
-SOURCES += source/wiimj2d/d/d_lytbase.cpp
+SOURCES += source/wiimj2d/dynamic/d_lytbase.cpp
 
+# d_kinopico_model.cpp
+# NSMBW: ---
+SOURCES += source/wiimj2d/dynamic/d_kinopico_model.cpp
+# d_player_model.cpp
+# NSMBW: 0x800D2EC0 - 0x800D5420
+SOURCES += source/wiimj2d/dynamic/d_player_model.cpp
+# d_player_model_base.cpp
+# NSMBW: 0x800D5420 - 0x800D6DB0
+SOURCES += source/wiimj2d/dynamic/d_player_model_base.cpp
 # d_player_model_manager.cpp
 # NSMBW: 0x800D6DB0 - 0x800D7190
-SOURCES += source/wiimj2d/d/d_player_model_manager.cpp
+SOURCES += source/wiimj2d/dynamic/d_player_model_manager.cpp
 
 # d_scene.cpp
 # NSMBW .text: 0x800E1AA0 - 0x800E2070
 # NSMBW .sdata: 0x80428A40 - 0x80428A50
-SOURCES += source/wiimj2d/d/d_scene.cpp
+SOURCES += source/wiimj2d/dynamic/d_scene.cpp
 
 # d_CharacterChangeIndicator.cpp
 # NSMBW d_bases.text: 0x8076D880 - 0x8076DEE0
-SOURCES += source/wiimj2d/d/d_CharacterChangeIndicator.cpp
+SOURCES += source/wiimj2d/dynamic/d_CharacterChangeIndicator.cpp
 # d_CharacterChangeSelectArrow.cpp
 # NSMBW d_bases.text: 0x8076DEE0 - 0x8076F350
-SOURCES += source/wiimj2d/d/d_CharacterChangeSelectArrow.cpp
+SOURCES += source/wiimj2d/dynamic/d_CharacterChangeSelectArrow.cpp
 # d_CharacterChangeSelectBase.cpp
 # NSMBW d_bases.text: 0x8076F350 - 0x80772A50
-SOURCES += source/wiimj2d/d/d_CharacterChangeSelectBase.cpp
+SOURCES += source/wiimj2d/dynamic/d_CharacterChangeSelectBase.cpp
 # d_CharacterChangeSelectContents.cpp
 # NSMBW: 0x80772A50 - 0x80773F30
-SOURCES += source/wiimj2d/d/d_CharacterChangeSelectContents.cpp
+SOURCES += source/wiimj2d/dynamic/d_CharacterChangeSelectContents.cpp
 
 # d_NumberOfPeopleChange.cpp
 # NSMBW d_bases.text: 0x8079F630 - 0x807A2CF0
-SOURCES += source/wiimj2d/d/d_NumberOfPeopleChange.cpp
+SOURCES += source/wiimj2d/dynamic/d_NumberOfPeopleChange.cpp
 
 # d_SelectPlayer.cpp
 # NSMBW: 0x807ABE10 - 0x807AD5F0
-SOURCES += source/wiimj2d/d/d_SelectPlayer.cpp
+SOURCES += source/wiimj2d/dynamic/d_SelectPlayer.cpp
 
 #
-# wiimj2d/d/wm
+# wiimj2d/dynamic/worldmap
 #
 
 # d_wm_actor.cpp
 # NSMBW: 0x800F2820 - 0x800F2C00
-SOURCES += source/wiimj2d/d/wm/d_wm_actor.cpp
+SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_actor.cpp
 
 # d_wm_demo_actor.cpp
 # NSMBW: 0x800F60E0 - 0x800F7050
-SOURCES += source/wiimj2d/d/wm/d_wm_demo_actor.cpp
+SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_demo_actor.cpp
 
 # d_wm_path.cpp
 # NSMBW: 0x800FDB60 - 0x800FDC40
-SOURCES += source/wiimj2d/d/wm/d_wm_path.cpp
+SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_path.cpp
 # d_wm_player_base.cpp
 # NSMBW: 0x800FDC40 - 0x800FE140
-SOURCES += source/wiimj2d/d/wm/d_wm_player_base.cpp
+SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_player_base.cpp
 
 #
-# wiimj2d/d/a/wm
+# wiimj2d/dynamic/actor/worldmap
 #
 
 # d_a_wm_player_static.cpp
 # NSMBW .text: 0x80100A10 - 0x801016B0
 # NSMBW .sbss: 0x8042A47E - 0x8042A484
-SOURCES += source/wiimj2d/d/a/wm/d_a_wm_player_static.cpp
+SOURCES += source/wiimj2d/dynamic/actor/worldmap/d_a_wm_player_static.cpp
 
 # d_a_wm_sub_player.cpp
 # NSMBW d_bases.text: 0x808E8AA0 - 0x808EF8D0
-SOURCES += source/wiimj2d/d/a/wm/d_a_wm_sub_player.cpp
+SOURCES += source/wiimj2d/dynamic/actor/worldmap/d_a_wm_sub_player.cpp
 
 # d_a_wm_player.cpp
 # NSMBW d_bases.text: 0x80902790 - 0x8090D220
-SOURCES += source/wiimj2d/d/a/wm/d_a_wm_player.cpp
+SOURCES += source/wiimj2d/dynamic/actor/worldmap/d_a_wm_player.cpp
 
 #
-# wiimj2d/d
+# wiimj2d/dynamic
 #
 
 # d_WiiStrap.cpp
 # NSMBW: 0x8010F080 - 0x8010F530
-SOURCES += source/wiimj2d/d/d_WiiStrap.cpp
+SOURCES += source/wiimj2d/dynamic/d_WiiStrap.cpp
 
 #
-# wiimj2d/d/s
+# wiimj2d/dynamic/scene
 #
 
 # d_s_boot.cpp
 # NSMBW: 0x8015C270 - 0x8015F270
-SOURCES += source/wiimj2d/d/s/d_s_boot.cpp
+SOURCES += source/wiimj2d/dynamic/scene/d_s_boot.cpp
 
 # d_s_game_setup.cpp
 # NSMBW d_bases.text: 0x80917960 - 0x8091A2F0
-SOURCES += source/wiimj2d/d/s/d_s_game_setup.cpp
+SOURCES += source/wiimj2d/dynamic/scene/d_s_game_setup.cpp
 
 #
-# wiimj2d/s
+# wiimj2d/state
 #
 
 # s_Print.cpp
 # NSMBW: 0x8015F810 - 0x8015F900
-SOURCES += source/wiimj2d/s/s_Print.cpp
+SOURCES += source/wiimj2d/state/s_Print.cpp
 # s_StateID.cpp
 # NSMBW: 0x8015F900 - 0x8015FAE0
-SOURCES += source/wiimj2d/s/s_StateID.cpp
+SOURCES += source/wiimj2d/state/s_StateID.cpp
 
 #
-# wiimj2d/f
+# wiimj2d/framework
 #
 
 # f_base_profile.cpp
 # NSMBW: ---
-SOURCES += source/wiimj2d/f/f_base_profile.cpp
+SOURCES += source/wiimj2d/framework/f_base_profile.cpp
 
 # f_base.cpp
 # NSMBW: 0x80161C10 - 0x80162C80
-SOURCES += source/wiimj2d/f/f_base.cpp
+SOURCES += source/wiimj2d/framework/f_base.cpp
 
 #
-# wiimj2d/m
+# wiimj2d/machine
 #
 
 # m_dvd.cpp
 # NSMBW: 0x8016B090 - 0x8016C540
-SOURCES += source/wiimj2d/m/m_dvd.cpp
+SOURCES += source/wiimj2d/machine/m_dvd.cpp
 
 # m_fader.cpp
 # NSMBW .text: 0x8016DBE0 - 0x8016DD40
 # NSMBW .sbss: 0x8042A720 - 0x8042A728
-SOURCES += source/wiimj2d/m/m_fader.cpp
+SOURCES += source/wiimj2d/machine/m_fader.cpp
 
 # m_pad.cpp
 # NSMBW: 0x8016F330 - 0x8016F880
-SOURCES += source/wiimj2d/m/m_pad.cpp
+SOURCES += source/wiimj2d/machine/m_pad.cpp
 
 # m_vec.cpp
 # NSMBW .text: 0x80170AC0 - 0x80170D90
 # NSMBW .bss: 0x803780C8 - 0x803780F8
-SOURCES += source/wiimj2d/m/m_vec.cpp
+SOURCES += source/wiimj2d/machine/m_vec.cpp
 
 #
 # revolution/arc

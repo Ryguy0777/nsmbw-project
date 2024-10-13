@@ -83,6 +83,8 @@ typedef double f64;
 #define f30 30
 #define f31 31
 
+#define PRAGMA _Pragma
+
 #define offsetof(_TYPE, _MEMBER) __builtin_offsetof(_TYPE, _MEMBER)
 
 #define ASM(...) __asm__(#__VA_ARGS__)
@@ -130,11 +132,11 @@ typedef struct {
     _REPLACE_THUNK(_ADDR)                                                                          \
     [[__gnu__::__section__("replaced")]] _PROTOTYPE
 
-#define REPLACE_ASM(_ADDR, _PROTOTYPE, _ASM_CONTENT...)                                            \
+#define REPLACE_ASM(_ADDR, _PROTOTYPE, ...)                                                        \
     _REPLACE_THUNK(_ADDR)                                                                          \
     [[__gnu__::__section__("replaced")]] [[__gnu__::__naked__]] _PROTOTYPE                         \
     {                                                                                              \
-        ASM(_ASM_CONTENT);                                                                         \
+        ASM(__VA_ARGS__);                                                                          \
     }
 
 #define _REPLACE_THUNK_DATA(_ADDR, _LENGTH)                                                        \
@@ -166,13 +168,13 @@ typedef struct {
     __attribute__((__section__(".replaced." #_ADDR))) __VA_ARGS__
 
 #define EXTERN_TEXT(_ADDR, _PROTOTYPE)                                                             \
-    _Pragma("GCC diagnostic push");                                                                \
-    _Pragma("GCC diagnostic ignored \"-Wreturn-type\"");                                           \
+    PRAGMA("clang diagnostic push")                                                                \
+    PRAGMA("clang diagnostic ignored \"-Wreturn-type\"")                                           \
     [[__gnu__::__section__(".external." #_ADDR)]] [[__gnu__::__weak__]] _PROTOTYPE                 \
     {                                                                                              \
         __builtin_unreachable();                                                                   \
     }                                                                                              \
-    _Pragma("GCC diagnostic pop");
+    PRAGMA("clang diagnostic pop")
 
 #define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE)                                                      \
     [[__gnu__::__section__(".external." #_ADDR)]] _PROTOTYPE
@@ -184,13 +186,13 @@ typedef struct {
     {                                                                                              \
         __builtin_unreachable();                                                                   \
     }                                                                                              \
-    _Pragma("GCC diagnostic push");                                                                \
-    _Pragma("GCC diagnostic ignored \"-Wreturn-type\"");                                           \
+    PRAGMA("clang diagnostic push")                                                                \
+    PRAGMA("clang diagnostic ignored \"-Wreturn-type\"")                                           \
     [[__gnu__::__section__("extern")]] [[__gnu__::__weak__]] [[__gnu__::__naked__]] _PROTOTYPE     \
     {                                                                                              \
         ASM(nop; b ext_##_ADDR + 4;);                                                              \
     }                                                                                              \
-    _Pragma("GCC diagnostic pop");                                                                 \
+    PRAGMA("clang diagnostic pop")                                                                 \
     extern unsigned int __ext2_##_ADDR __asm__("ext_" #_ADDR);                                     \
     [[__gnu__::__section__("extern_array")]]                                                       \
     constinit __replace_struct_int __extern_entry_##_ADDR = {                                      \
@@ -237,7 +239,10 @@ constexpr T ToUncached(T addr)
 #define restrict __restrict
 
 struct [[__gnu__::__packed__]] __offset_assert {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wzero-length-array"
     int empty[0];
+#pragma clang diagnostic pop
 };
 
 static_assert(sizeof(__offset_assert) == 0);
@@ -266,12 +271,11 @@ struct __get_this<T&> {
 
 #define OFFSET_ASSERT(_OFFSET)                                                                     \
     __offset_assert _offset_assert_##_OFFSET = []() -> __offset_assert {                           \
-        _Pragma("GCC diagnostic push");                                                            \
-        _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"");                                  \
+        PRAGMA("clang diagnostic push")                                                            \
+        PRAGMA("clang diagnostic ignored \"-Winvalid-offsetof\"")                                  \
         static_assert(                                                                             \
           __builtin_offsetof(__get_this<decltype(*this)>::type, _offset_assert_##_OFFSET) ==       \
           _OFFSET                                                                                  \
         );                                                                                         \
-        _Pragma("GCC diagnostic pop");                                                             \
-        return __offset_assert{};                                                                  \
+        PRAGMA("clang diagnostic pop") return __offset_assert{};                                   \
     }()

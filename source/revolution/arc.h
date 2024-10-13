@@ -58,16 +58,19 @@ struct FstEntry {
     u8 isDir : 8;
     u32 stringOffset : 24;
 
-    union {
-        struct {
-            u32 parent;
-            u32 next;
-        } dir;
+    struct Dir {
+        u32 parent;
+        u32 next;
+    };
 
-        struct {
-            u32 startAddr;
-            u32 length;
-        } file;
+    struct File {
+        u32 startAddr;
+        u32 length;
+    };
+
+    union {
+        Dir dir;
+        File file;
     };
 };
 

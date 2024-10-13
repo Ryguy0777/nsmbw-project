@@ -1,6 +1,6 @@
 #include "System.h"
 
-#include <d/s/d_s_boot.h>
+#include <dynamic/scene/d_s_boot.h>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>
