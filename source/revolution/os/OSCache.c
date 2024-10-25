@@ -7,10 +7,8 @@ extern "C" {
 
 // UNUSED: DCFlashInvalidate
 
-EXTERN_TEXT(
-  0x801AC560, //
-  void DCEnable()
-);
+[[address(0x801AC560)]]
+void DCEnable();
 
 // UNUSED: DCDisable
 
@@ -28,52 +26,34 @@ EXTERN_TEXT(
 
 // UNUSED: DCBlockInvalidate
 
-EXTERN_TEXT(
-  0x801AC580, //
-  void DCInvalidateRange(void* addr, u32 amount)
-);
+[[address(0x801AC580)]]
+void DCInvalidateRange(void* addr, u32 amount);
 
-EXTERN_TEXT(
-  0x801AC5B0, //
-  void DCFlushRange(void* addr, u32 amount)
-);
+[[address(0x801AC5B0)]]
+void DCFlushRange(void* addr, u32 amount);
 
-EXTERN_TEXT(
-  0x801AC5E0, //
-  void DCStoreRange(void* addr, u32 amount)
-);
+[[address(0x801AC5E0)]]
+void DCStoreRange(void* addr, u32 amount);
 
-EXTERN_TEXT(
-  0x801AC610, //
-  void DCFlushRangeNoSync(void* addr, u32 amount)
-);
+[[address(0x801AC610)]]
+void DCFlushRangeNoSync(void* addr, u32 amount);
 
-EXTERN_TEXT(
-  0x801AC640, //
-  void DCStoreRangeNoSync(void* addr, u32 amount)
-);
+[[address(0x801AC640)]]
+void DCStoreRangeNoSync(void* addr, u32 amount);
 
-EXTERN_TEXT(
-  0x801AC670, //
-  void DCZeroRange(void* addr, u32 amount)
-);
+[[address(0x801AC670)]]
+void DCZeroRange(void* addr, u32 amount);
 
 // UNUSED: DCTouchRange
 
-EXTERN_TEXT(
-  0x801AC6A0, //
-  void ICInvalidateRange(void* addr, u32 amount)
-);
+[[address(0x801AC6A0)]]
+void ICInvalidateRange(void* addr, u32 amount);
 
-EXTERN_TEXT(
-  0x801AC6E0, //
-  void ICFlashInvalidate()
-);
+[[address(0x801AC6E0)]]
+void ICFlashInvalidate();
 
-EXTERN_TEXT(
-  0x801AC6F0, //
-  void ICEnable()
-);
+[[address(0x801AC6F0)]]
+void ICEnable();
 
 // UNUSED: ICDisable
 
@@ -90,15 +70,11 @@ EXTERN_TEXT_STATIC(
   void __LCEnable()
 );
 
-EXTERN_TEXT(
-  0x801AC7E0, //
-  void LCEnable()
-);
+[[address(0x801AC7E0)]]
+void LCEnable();
 
-EXTERN_TEXT(
-  0x801AC820, //
-  void LCDisable()
-);
+[[address(0x801AC820)]]
+void LCDisable();
 
 // UNUSED: LCIsEnable
 
@@ -106,15 +82,11 @@ EXTERN_TEXT(
 
 // UNUSED: LCAllocTags
 
-EXTERN_TEXT(
-  0x801AC850, //
-  void LCLoadBlocks(void* param_1, void* param_2, u32 param_3)
-);
+[[address(0x801AC850)]]
+void LCLoadBlocks(void* param_1, void* param_2, u32 param_3);
 
-EXTERN_TEXT(
-  0x801AC880, //
-  void LCStoreBlocks(void* param_1, void* param_2, u32 param_3)
-);
+[[address(0x801AC880)]]
+void LCStoreBlocks(void* param_1, void* param_2, u32 param_3);
 
 // UNUSED: LCAlloc
 
@@ -122,20 +94,14 @@ EXTERN_TEXT(
 
 // UNUSED: LCLoadData
 
-EXTERN_TEXT(
-  0x801AC8B0, //
-  u32 LCStoreData(void* param_1, void* param_2, u32 param_3)
-);
+[[address(0x801AC8B0)]]
+u32 LCStoreData(void* param_1, void* param_2, u32 param_3);
 
-EXTERN_TEXT(
-  0x801AC950, //
-  u32 LCQueueLength()
-);
+[[address(0x801AC950)]]
+u32 LCQueueLength();
 
-EXTERN_TEXT(
-  0x801AC960, //
-  u32 LCQueueWait(u32 param_1)
-);
+[[address(0x801AC960)]]
+u32 LCQueueWait(u32 param_1);
 
 // UNUSED: LCFlushQueue
 
@@ -154,9 +120,7 @@ EXTERN_TEXT_STATIC(
   void DMAErrorHandler()
 );
 
-EXTERN_TEXT(
-  0x801ACAD0, //
-  void __OSCacheInit()
-);
+[[address(0x801ACAD0)]]
+void __OSCacheInit();
 
 } // extern "C"

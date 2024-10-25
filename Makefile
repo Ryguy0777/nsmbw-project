@@ -39,7 +39,7 @@ LOADER_DEPS	:= $(LOADER_OFILES:.o=.d)
 
 DUMMY != mkdir -p $(BUILD)/source $(BUILD)/loader $(OUTPUT) $(DVDDATA) 
 
-CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -O3 -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wpedantic \
+CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -O3 -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wno-out-of-line-declaration -Wno-gcc-compat \
 -fdeclspec -fno-exceptions -nodefaultlibs -ffreestanding -ffunction-sections -fdata-sections -fno-threadsafe-statics -fno-use-cxa-atexit \
 -Isource -Isource/msl/msl_c -Isource/msl/msl_cpp -Isource/wiimj2d -DLOADER_REL_LZ -fkeep-static-consts -femit-all-decls -include System.h
 
@@ -56,12 +56,13 @@ DVD_FILES := \
 $(DVDDATA)/rels/$(TARGET).rel.LZ \
 $(DVDDATA)/wiimj2d.SMAP \
 $(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/blyt/characterChangeSelectContents_05.brlyt.json5 \
-$(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/timg/Im_plofileMario_00.tpl
+$(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/timg/Im_plofileMario_00.tpl \
+$(DVDDATA)/Object/Kinopico.arc/g3d/model.brres
 
 
 $(DVDDATA)/%: $(DVDDATA_SRC)/%
 	@echo Copy: $<
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	@cp $< $@
 
 $(BUILD)/%_c.o: %.c

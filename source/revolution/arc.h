@@ -4,6 +4,8 @@
 
 extern "C" {
 
+#define ARC_MAGIC 0x55AA382D
+
 struct ARCHeader {
     SIZE_ASSERT(0x20);
 

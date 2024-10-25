@@ -3,9 +3,7 @@
 
 extern "C" {
 
-EXTERN_TEXT(
-  0x802E1BA0, //
-  int __StringRead(void* pPtr, int ch, int act)
-);
+[[address(0x802E1BA0)]]
+int __StringRead(void* pPtr, int ch, int act);
 
 } // extern "C"

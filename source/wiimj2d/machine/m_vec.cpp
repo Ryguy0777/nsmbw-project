@@ -40,34 +40,26 @@ EXTERN_DATA(
  * Normalizes the vector.
  * @return The vector's magnitude.
  */
-EXTERN_TEXT(
-  0x80170AC0, //
-  float mVec3_c::normalize()
-);
+[[address(0x80170AC0)]]
+float mVec3_c::normalize();
 
 /**
  * Normalizes the vector.
  * @return If the operation was successful.
  */
-EXTERN_TEXT(
-  0x80170B40, //
-  bool mVec3_c::normalizeRS()
-);
+[[address(0x80170B40)]]
+bool mVec3_c::normalizeRS();
 
 /**
  * Rotates the vector on the X axis by the given angle.
  */
-EXTERN_TEXT(
-  0x80170BD0, //
-  void mVec3_c::rotX(mAng angle)
-);
+[[address(0x80170BD0)]]
+void mVec3_c::rotX(mAng angle);
 
 /**
  * Rotates the vector on the Y axis by the given angle.
  */
-EXTERN_TEXT(
-  0x80170C80, //
-  void mVec3_c::rotY(mAng angle)
-);
+[[address(0x80170C80)]]
+void mVec3_c::rotY(mAng angle);
 
 // 0x80170D30: __sinit_\m_vec_cpp

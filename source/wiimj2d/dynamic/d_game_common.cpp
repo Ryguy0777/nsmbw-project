@@ -3,7 +3,5 @@
 
 #include "d_game_common.h"
 
-EXTERN_TEXT(
-  0x800B53F0, //
-  bool dGameCom::chkCancelButton(int player)
-);
+[[address(0x800B53F0)]]
+bool dGameCom::chkCancelButton(int player);

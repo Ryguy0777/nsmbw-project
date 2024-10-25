@@ -8,9 +8,8 @@
 #include <framework/f_base_profile.h>
 #include <machine/m_pad.h>
 
-REPLACE_ASM( //
-  0x807A0060, //
-  void dNumberOfPeopleChange_c::UNDEF_807A0060(),
+[[address(0x807A0060)]]
+void dNumberOfPeopleChange_c::UNDEF_807A0060() ASM_METHOD(
   // clang-format off
 /* 807A0060 9421FFD0 */  stwu     r1, -48(r1);
 /* 807A0064 7C0802A6 */  mflr     r0;
@@ -88,9 +87,8 @@ UNDEF_807a0118:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A0170, //
-  void dNumberOfPeopleChange_c::UNDEF_807A0170(),
+[[address(0x807A0170)]]
+void dNumberOfPeopleChange_c::UNDEF_807A0170() ASM_METHOD(
   // clang-format off
 /* 807A0170 9421FED0 */  stwu     r1, -304(r1);
 /* 807A0174 7C0802A6 */  mflr     r0;
@@ -275,9 +273,8 @@ UNDEF_807a0418:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A0440, //
-  void dNumberOfPeopleChange_c::assignPositions(),
+[[address(0x807A0440)]]
+void dNumberOfPeopleChange_c::assignPositions() ASM_METHOD(
   // clang-format off
 /* 807A0440 9421FEF0 */  stwu     r1, -272(r1);
 /* 807A0444 7C0802A6 */  mflr     r0;
@@ -512,12 +509,10 @@ UNDEF_807a0784:;
   // clang-format on
 );
 
-REPLACE(
-  0x807A0D20, //
-  bool dNumberOfPeopleChange_c::checkCancel()
-)
+[[address(0x807A0D20)]]
+bool dNumberOfPeopleChange_c::checkCancel()
 {
-    bool p1Active = mCcSelBase[0]->mDecided;
+    bool p1Active = mpaCcSelBase[0]->mDecided;
 
     if (dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
         if (!p1Active) {
@@ -537,9 +532,8 @@ REPLACE(
     return dGameCom::chkCancelButton(0);
 }
 
-REPLACE_ASM( //
-  0x807A0DB0, //
-  void dNumberOfPeopleChange_c::initializeState_InitialSetup(),
+[[address(0x807A0DB0)]]
+void dNumberOfPeopleChange_c::initializeState_InitialSetup() ASM_METHOD(
   // clang-format off
 /* 807A0DB0 9421FFF0 */  stwu     r1, -16(r1);
 /* 807A0DB4 7C0802A6 */  mflr     r0;
@@ -790,9 +784,8 @@ UNDEF_807a10dc:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A11A0, //
-  void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait(),
+[[address(0x807A11A0)]]
+void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait() ASM_METHOD(
   // clang-format off
 /* 807A11A0 9421FFE0 */  stwu     r1, -32(r1);
 /* 807A11A4 7C0802A6 */  mflr     r0;
@@ -878,9 +871,8 @@ UNDEF_807a12ac:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A14D0, //
-  void dNumberOfPeopleChange_c::initializeState_NowEntrantRecruit(),
+[[address(0x807A14D0)]]
+void dNumberOfPeopleChange_c::initializeState_NowEntrantRecruit() ASM_METHOD(
   // clang-format off
 /* 807A14D0 38A00001 */  li       r5, 1;
 /* 807A14D4 98A30680 */  stb      r5, 1664(r3);
@@ -900,9 +892,8 @@ UNDEF_807a14f8:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A1510, //
-  void dNumberOfPeopleChange_c::executeState_NowEntrantRecruit(),
+[[address(0x807A1510)]]
+void dNumberOfPeopleChange_c::executeState_NowEntrantRecruit() ASM_METHOD(
   // clang-format off
 /* 807A1510 9421FFF0 */  stwu     r1, -16(r1);
 /* 807A1514 7C0802A6 */  mflr     r0;
@@ -1022,9 +1013,8 @@ UNDEF_807a16a0:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A16D0, //
-  void dNumberOfPeopleChange_c::initializeState_StoryModeCourseSelectExitWait(),
+[[address(0x807A16D0)]]
+void dNumberOfPeopleChange_c::initializeState_StoryModeCourseSelectExitWait() ASM_METHOD(
   // clang-format off
 /* 807A16D0 38A00001 */  li       r5, 1;
 /* 807A16D4 98A30680 */  stb      r5, 1664(r3);
@@ -1046,9 +1036,8 @@ UNDEF_807a1700:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807A1710, //
-  void dNumberOfPeopleChange_c::executeState_StoryModeCourseSelectExitWait(),
+[[address(0x807A1710)]]
+void dNumberOfPeopleChange_c::executeState_StoryModeCourseSelectExitWait() ASM_METHOD(
   // clang-format off
 /* 807A1710 9421FFF0 */  stwu     r1, -16(r1);
 /* 807A1714 7C0802A6 */  mflr     r0;

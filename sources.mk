@@ -60,6 +60,11 @@ SOURCES += source/wiimj2d/dynamic/d_player_model_base.cpp
 # NSMBW: 0x800D6DB0 - 0x800D7190
 SOURCES += source/wiimj2d/dynamic/d_player_model_manager.cpp
 
+# d_resource_manager.cpp
+# NSMBW: 0x800DF770 - 0x800DF950
+# NSMBW .sbss: 0x8042A318 - 0x8042A31C
+SOURCES += source/wiimj2d/dynamic/d_resource_manager.cpp
+
 # d_scene.cpp
 # NSMBW .text: 0x800E1AA0 - 0x800E2070
 # NSMBW .sdata: 0x80428A40 - 0x80428A50
@@ -142,6 +147,10 @@ SOURCES += source/wiimj2d/dynamic/scene/d_s_boot.cpp
 # NSMBW d_bases.text: 0x80917960 - 0x8091A2F0
 SOURCES += source/wiimj2d/dynamic/scene/d_s_game_setup.cpp
 
+# d_s_crsin.cpp
+# NSMBW d_bases.text: 0x8091EC10 - 0x80921060
+SOURCES += source/wiimj2d/dynamic/scene/d_s_crsin.cpp
+
 #
 # wiimj2d/state
 #
@@ -166,6 +175,18 @@ SOURCES += source/wiimj2d/framework/f_base_profile.cpp
 SOURCES += source/wiimj2d/framework/f_base.cpp
 
 #
+# wiimj2d/machine/m3d
+#
+
+# m_anmtexpat.cpp
+# NSMBW: 0x80166560 - 0x80167140
+SOURCES += source/wiimj2d/machine/m3d/m_anmtexpat.cpp
+
+# m_mdl.cpp
+# NSMBW: 0x801696A0 - 0x8016A150
+SOURCES += source/wiimj2d/machine/m3d/m_mdl.cpp
+
+#
 # wiimj2d/machine
 #
 
@@ -177,6 +198,10 @@ SOURCES += source/wiimj2d/machine/m_dvd.cpp
 # NSMBW .text: 0x8016DBE0 - 0x8016DD40
 # NSMBW .sbss: 0x8042A720 - 0x8042A728
 SOURCES += source/wiimj2d/machine/m_fader.cpp
+
+# m_heap.cpp
+# NSMBW .bss: 0x80377F48 - 0x80377F58
+SOURCES += source/wiimj2d/machine/m_heap.cpp
 
 # m_pad.cpp
 # NSMBW: 0x8016F330 - 0x8016F880
@@ -222,6 +247,14 @@ SOURCES += source/revolution/os/OSLink.c
 # dvdfs.c
 # NSMBW: 0x801CA790 - 0x801CADA0
 SOURCES += source/revolution/dvd/dvdfs.c
+
+#
+# nw4r/g3d
+#
+
+# g3d_resfile.cpp
+# NSMBW: 0x80239F70 - 0x8023B2F0
+SOURCES += source/nw4r/g3d/ResFile.cpp
 
 #
 # egg/core

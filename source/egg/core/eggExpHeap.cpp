@@ -6,9 +6,7 @@
 namespace EGG
 {
 
-EXTERN_TEXT(
-  0x802B9840, //
-  u32 ExpHeap::getSizeForMBlock(const void* block)
-);
+[[address(0x802B9840)]]
+u32 ExpHeap::getSizeForMBlock(const void* block);
 
 } // namespace EGG

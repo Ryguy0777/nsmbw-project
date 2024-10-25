@@ -1,8 +1,15 @@
 #pragma once
 
+#include "System.h"
+#include <dynamic/d_CharacterChangeIndicator.h>
+#include <dynamic/d_CharacterChangeSelectArrow.h>
 #include <dynamic/d_CharacterChangeSelectBase.h>
+#include <dynamic/d_CharacterChangeSelectContents.h>
 #include <dynamic/d_base.h>
 #include <state/s_State.h>
+
+
+class da2DPlayer_c;
 
 class dNumberOfPeopleChange_c : public dBase_c
 {
@@ -38,5 +45,15 @@ public:
 
     FILL(0x70, 0x74);
 
-    /* 0x74 */ dCharacterChangeSelectBase_c* mCcSelBase[4];
+    /* 0x74 */ dCharacterChangeSelectBase_c* mpaCcSelBase[4];
+    /* 0x84 */ dCharacterChangeSelectContents_c* mpaCcSelContents[4];
+    /* 0x94 */ dCharacterChangeSelectArrow_c* mpaCcSelArrow[4];
+    /* 0xA4 */ dCharacterChangeIndicator_c* mpaCcIndicator[4];
+
+    FILL(0xB4, 0x64C);
+
+    /* 0x64C */ da2DPlayer_c* mpaPlayers[4];
+
+    FILL(0x65C, 0x710);
+    OFFSET_ASSERT(0x710);
 };

@@ -87,6 +87,11 @@ public:
      */
     u32 getTotalFileSize() const;
 
+    /**
+     * Adds a root entry with the provided name if it doesn't already exist.
+     */
+    void addRootEntry(const char* name);
+
 private:
     static bool isSkippableName(const char* name)
     {
@@ -221,7 +226,7 @@ s32 MultiArchiveBuilder_c::copyArchive2(
   const char* srcFst, u32 startIndex, s32 dstIndex, u32 offsetDisplacement
 )
 {
-    FstEntry* srcFstEntries = (FstEntry*) srcFst;
+    const FstEntry* srcFstEntries = reinterpret_cast<const FstEntry*>(srcFst);
     const char* srcStrTab = srcFst + (srcFstEntries[0].dir.next * sizeof(FstEntry));
 
     ASSERT(srcFstEntries[startIndex].isDir);
@@ -237,7 +242,7 @@ s32 MultiArchiveBuilder_c::copyArchive2(
     u32 copyCount = srcFstEntries[startIndex].dir.next;
 
     for (u32 index = startIndex + 1; index < copyCount; index++) {
-        FstEntry* srcEntry = srcFstEntries + index;
+        const FstEntry* srcEntry = srcFstEntries + index;
         const char* srcEntryName = srcStrTab + srcEntry->stringOffset;
         if (isSkippableName(srcEntryName)) {
             continue;
@@ -282,14 +287,6 @@ s32 MultiArchiveBuilder_c::copyArchive2(
             }
 
             continue;
-        }
-
-        if (cond > 0) {
-            OS_REPORT("Adding %s\n", srcEntryName);
-        } else {
-            OS_REPORT(
-              "Inserting %s before %s\n", srcEntryName, mDstStrTab + dstEntry->stringOffset
-            );
         }
 
         // Add a new entry
@@ -358,6 +355,34 @@ u32 MultiArchiveBuilder_c::getTotalFileSize() const
     return totalSize;
 }
 
+void MultiArchiveBuilder_c::addRootEntry(const char* name)
+{
+    if (mDstCount != 0) {
+        return;
+    }
+
+    // Create empty filesystem
+    const u32 dataSize = sizeof(FstEntry) + std::strlen(name);
+    char data[dataSize];
+
+    FstEntry* rootEntry = reinterpret_cast<FstEntry*>(data);
+    *rootEntry = {
+      .isDir = 1,
+      .stringOffset = 0,
+      .dir =
+        {
+          .parent = 0,
+          .next = 1,
+        },
+    };
+
+    if (name != nullptr) {
+        std::strcpy(data + sizeof(FstEntry), name);
+    }
+
+    copyArchive(data, dataSize);
+}
+
 void* loadArchive(
   EGG::DvdFile* dvdFile, char* path, EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir,
   u32* outAmountRead, u32* outFileSize
@@ -373,33 +398,34 @@ void* loadArchive(
         return nullptr;
     }
 
-    ARCHeader arcHeader alignas(32);
-    if (dvdFile->readData(&arcHeader, sizeof(ARCHeader), 0) != sizeof(ARCHeader)) {
-        OS_REPORT("Failed to read ARC header\n");
-        return nullptr;
-    }
-
-    if (arcHeader.magic != 0x55AA382D) {
-        OS_REPORT("Invalid ARC magic: %08X\n", arcHeader.magic);
-        return nullptr;
-    }
-
-    EGG::DvdRipper::EAllocDirection tmpAllocDir = allocDir == EGG::DvdRipper::ALLOC_DIR_BOTTOM
-                                                    ? EGG::DvdRipper::ALLOC_DIR_TOP
-                                                    : EGG::DvdRipper::ALLOC_DIR_BOTTOM;
-    u32 finalAllocAlign = allocDir == EGG::DvdRipper::ALLOC_DIR_BOTTOM ? -0x20 : 0x20;
-    u32 tmpAllocAlign = tmpAllocDir == EGG::DvdRipper::ALLOC_DIR_BOTTOM ? -0x20 : 0x20;
+    const EGG::DvdRipper::EAllocDirection tmpAllocDir = allocDir == EGG::DvdRipper::ALLOC_DIR_BOTTOM
+                                                          ? EGG::DvdRipper::ALLOC_DIR_TOP
+                                                          : EGG::DvdRipper::ALLOC_DIR_BOTTOM;
+    const u32 finalAllocAlign = allocDir == EGG::DvdRipper::ALLOC_DIR_BOTTOM ? -0x20 : 0x20;
+    const u32 tmpAllocAlign = tmpAllocDir == EGG::DvdRipper::ALLOC_DIR_BOTTOM ? -0x20 : 0x20;
 
     MultiArchiveBuilder_c builder(heap, tmpAllocDir);
 
-    {
+    if (dvdFile->mIsOpen) {
+        ARCHeader arcHeader alignas(32);
+        if (dvdFile->readData(&arcHeader, sizeof(ARCHeader), 0) != sizeof(ARCHeader)) {
+            OS_REPORT("Failed to read ARC header\n");
+            return nullptr;
+        }
+
+        if (arcHeader.magic != ARC_MAGIC) {
+            OS_REPORT("Invalid ARC magic: %08X\n", arcHeader.magic);
+            return nullptr;
+        }
+
         void* fstData = heap->alloc(arcHeader.fstSize, tmpAllocAlign);
         if (fstData == nullptr) {
             OS_REPORT("Failed to allocate FST buffer\n");
             return nullptr;
         }
 
-        if (dvdFile->readData(fstData, arcHeader.fstSize, arcHeader.fstOffset) != arcHeader.fstSize) {
+        if (dvdFile->readData(fstData, arcHeader.fstSize, arcHeader.fstOffset) !=
+            arcHeader.fstSize) {
             OS_REPORT("Failed to read FST\n");
             heap->free(fstData);
             return nullptr;
@@ -415,6 +441,8 @@ void* loadArchive(
 
         heap->free(fstData);
     }
+
+    builder.addRootEntry("");
 
     // Copy the ex ARC FST now
     {
@@ -437,7 +465,7 @@ void* loadArchive(
 
     // Build the new archive
     const ARCHeader newArcHeader = {
-      .magic = 0x55AA382D,
+      .magic = ARC_MAGIC,
       .fstOffset = sizeof(ARCHeader),
       .fstSize = builder.getDstCount() * sizeof(FstEntry) + builder.getDstStrTabSize(),
       .fileStart = ((newArcHeader.fstOffset + newArcHeader.fstSize) + 0x1F) & ~0x1F,
@@ -476,10 +504,9 @@ void* loadArchive(
             continue;
         }
 
-        OS_REPORT("Read %08X -> %08X\n", fst[i].file.startAddr, newArcData + fileDataOffset);
-
         const u32 length = (fst[i].file.length + 0x1F) & ~0x1F;
-        if (dvdFile->readData(newArcData + fileDataOffset, length, fst[i].file.startAddr * 4) != length) {
+        if (dvdFile->readData(newArcData + fileDataOffset, length, fst[i].file.startAddr * 4) !=
+            length) {
             OS_REPORT("Failed to read file data\n");
             heap->free(newArcData);
             return nullptr;
@@ -499,13 +526,11 @@ void* loadArchive(
     return newArcData;
 }
 
-REPLACE(
-  0x8016B3E0, //
-  void* loadToMainRAM(
+[[address(0x8016B3E0)]]
+void* loadToMainRAM(
     int entryNum, char* dst, EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir, s32 offset,
     u32* outAmountRead, u32* outFileSize, u32 decompressorType
   )
-)
 {
     void* result = nullptr;
     u32 amountRead = 0;
@@ -532,12 +557,12 @@ REPLACE(
         }
     } else {
         char path[256] = {};
-        if (dst == nullptr && heap != nullptr && offset == 0 && //
+        if (DVDEntrynumIsDir(entryNum) && dst == nullptr && heap != nullptr && offset == 0 && //
             DVDConvertEntrynumToPath(entryNum, path, sizeof(path) - 1)) {
             // Check if the path ends with .arc
             if (std::strlen(path) > 4 && std::strcmp(path + std::strlen(path) - 4, ".arc") == 0) {
                 // Try arc subfile replacement
-                dvdFile.open(path);
+                dvdFile.open(__DVDPathToEntrynum(path));
                 result = loadArchive(&dvdFile, path, heap, allocDir, &amountRead, &fileSize);
                 dvdFile.close();
             }

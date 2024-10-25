@@ -3,43 +3,31 @@
 
 #include "d_wm_demo_actor.h"
 
-EXTERN_TEXT(
-  0x800F60E0, //
-  dWmDemoActor_c::dWmDemoActor_c()
-);
+[[address(0x800F60E0)]]
+dWmDemoActor_c::dWmDemoActor_c();
 
 /* VT+0x60 */
-EXTERN_TEXT(
-  0x800F61C0, //
-  void dWmDemoActor_c::VT_0x60()
-);
+[[address(0x800F61C0)]]
+void dWmDemoActor_c::VT_0x60();
 
 /* VT+0x68 */
-EXTERN_TEXT(
-  0x800F61E0, //
-  void dWmDemoActor_c::setCutEnd()
-);
+[[address(0x800F61E0)]]
+void dWmDemoActor_c::setCutEnd();
 
 /* VT+0x6C */
-EXTERN_TEXT(
-  0x800F6EE0, //
-  void dWmDemoActor_c::clearCutEnd()
-);
+[[address(0x800F6EE0)]]
+void dWmDemoActor_c::clearCutEnd();
 
 /* VT+0x64 */
-EXTERN_TEXT(
-  0x800F6EF0, //
-  bool dWmDemoActor_c::checkCutEnd()
-);
+[[address(0x800F6EF0)]]
+bool dWmDemoActor_c::checkCutEnd();
 
 /**
  * VT+0x48
  * Destroys the base.
  */
-EXTERN_TEXT(
-  0x800F6F40, //
-  dWmDemoActor_c::~dWmDemoActor_c()
-);
+[[address(0x800F6F40)]]
+dWmDemoActor_c::~dWmDemoActor_c();
 
 /**
  * VT+0x14
@@ -48,10 +36,8 @@ EXTERN_TEXT(
  *
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x800F6F10, //
-  int dWmDemoActor_c::doDelete()
-);
+[[address(0x800F6F10)]]
+int dWmDemoActor_c::doDelete();
 
 /**
  * VT+0x2C
@@ -59,10 +45,8 @@ EXTERN_TEXT(
  *
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x800F6F20, //
-  int dWmDemoActor_c::draw()
-);
+[[address(0x800F6F20)]]
+int dWmDemoActor_c::draw();
 
 /**
  * VT+0x08
@@ -70,7 +54,5 @@ EXTERN_TEXT(
  *
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x800F6F30, //
-  int dWmDemoActor_c::create()
-);
+[[address(0x800F6F30)]]
+int dWmDemoActor_c::create();

@@ -14,10 +14,8 @@ EXTERN_DATA(
   u32 daWmPlayer_c::m_activeCharaFlag[4]
 );
 
-REPLACE(
-  0x809027C0, //
-  daWmPlayer_c::daWmPlayer_c()
-)
+[[address(0x809027C0)]]
+daWmPlayer_c::daWmPlayer_c()
   : dWmPlayerBase_c()
   , mModelManager(dPyMdlMng_c::ModelType_e::MODEL_NONE)
   , m0x1F0(mVec3_c::Zero)
@@ -34,10 +32,8 @@ REPLACE(
     mp0x29C = nullptr;
 }
 
-REPLACE(
-  0x80902890, //
-  daWmPlayer_c::~daWmPlayer_c()
-)
+[[address(0x80902890)]]
+daWmPlayer_c::~daWmPlayer_c()
 {
     ms_instance = nullptr;
 
@@ -55,10 +51,8 @@ REPLACE(
  *
  * @return A PACK_RESULT_e value.
  */
-REPLACE(
-  0x80902960, //
-  int daWmPlayer_c::create()
-)
+[[address(0x80902960)]]
+int daWmPlayer_c::create()
 {
     mAngle.y = 0;
 
@@ -90,10 +84,8 @@ REPLACE(
  *
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x809029E0, //
-  int daWmPlayer_c::execute()
-);
+[[address(0x809029E0)]]
+int daWmPlayer_c::execute();
 
 /**
  * VT+0x2C
@@ -101,10 +93,8 @@ EXTERN_TEXT(
  *
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x80902AC0, //
-  int daWmPlayer_c::draw()
-);
+[[address(0x80902AC0)]]
+int daWmPlayer_c::draw();
 
 /**
  * VT+0x14
@@ -113,15 +103,11 @@ EXTERN_TEXT(
  *
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x80902B30, //
-  int daWmPlayer_c::doDelete()
-);
+[[address(0x80902B30)]]
+int daWmPlayer_c::doDelete();
 
-REPLACE(
-  0x80902BD0, //
-  void daWmPlayer_c::createSubPlayers()
-)
+[[address(0x80902BD0)]]
+void daWmPlayer_c::createSubPlayers()
 {
     mPrevPlayer = nullptr;
     dWmPlayerBase_c* prevPlayer = this;
@@ -146,9 +132,8 @@ REPLACE(
     prevPlayer->mNextPlayer = nullptr;
 }
 
-REPLACE_ASM( //
-  0x80902CA0, //
-  void daWmPlayer_c::updateActivePlayers(),
+[[address(0x80902CA0)]]
+void daWmPlayer_c::updateActivePlayers() ASM_METHOD(
   // clang-format off
 /* 80902CA0 9421FFD0 */  stwu     r1, -48(r1);
 /* 80902CA4 7C0802A6 */  mflr     r0;
@@ -273,15 +258,11 @@ UNDEF_80902db4:;
 );
 
 /* VT+0x60 0x80909940 */
-EXTERN_TEXT(
-  0x80909940, //
-  void daWmPlayer_c::VT_0x60()
-);
+[[address(0x80909940)]]
+void daWmPlayer_c::VT_0x60();
 
-REPLACE(
-  0x809093D0, //
-  void daWmPlayer_c::initActiveCharaFlags()
-)
+[[address(0x809093D0)]]
+void daWmPlayer_c::initActiveCharaFlags()
 {
     dInfo_c* info = dInfo_c::m_instance;
 
@@ -293,39 +274,29 @@ REPLACE(
 /**
  * VT+0x70
  */
-EXTERN_TEXT(
-  0x8090BE30, //
-  void daWmPlayer_c::VT_0x70()
-);
+[[address(0x8090BE30)]]
+void daWmPlayer_c::VT_0x70();
 
 /**
  * VT+0x74
  */
-EXTERN_TEXT(
-  0x8090C160, //
-  void daWmPlayer_c::VT_0x74()
-);
+[[address(0x8090C160)]]
+void daWmPlayer_c::VT_0x74();
 
 /**
  * VT+0x80
  */
-EXTERN_TEXT(
-  0x8090C8C0, //
-  void daWmPlayer_c::VT_0x80()
-);
+[[address(0x8090C8C0)]]
+void daWmPlayer_c::VT_0x80();
 
 /**
  * VT+0x78
  */
-EXTERN_TEXT(
-  0x8090C8E0, //
-  void daWmPlayer_c::VT_0x78()
-);
+[[address(0x8090C8E0)]]
+void daWmPlayer_c::VT_0x78();
 
 /**
  * VT+0x7C
  */
-EXTERN_TEXT(
-  0x8090C940, //
-  void daWmPlayer_c::procDemoLose()
-);
+[[address(0x8090C940)]]
+void daWmPlayer_c::procDemoLose();

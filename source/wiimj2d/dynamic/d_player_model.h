@@ -1,6 +1,11 @@
 #pragma once
 
+#include "System.h"
 #include "d_player_model_base.h"
+#include <machine/m3d/m_anmmatclr.h>
+#include <machine/m3d/m_anmtexpat.h>
+#include <machine/m3d/m_mdl.h>
+#include <nw4r/g3d/g3d_resfile.h>
 
 class dPlayerMdl_c : public dPyMdlBase_c
 {
@@ -18,6 +23,8 @@ public:
     };
 
     struct ModelData {
+        SIZE_ASSERT(0x38);
+
         /* 0x00 */ const char* mResName;
         /* 0x04 */ const char* mAnmResName;
         /* 0x08 */ const char* mBodyModels[MODEL_COUNT];
@@ -27,8 +34,6 @@ public:
         /* 0x30 */ float mUnkFloat3;
         /* 0x34 */ float mUnkFloat4;
     };
-
-    static_assert(sizeof(ModelData) == 0x38);
 
     /* 0x800D2EC0 */
     dPlayerMdl_c();
@@ -61,7 +66,7 @@ public:
     /* VT+0x28 */
     EXTERN_TEXT(
       0x800BD140, // d_kinopio_model.o
-      virtual void* getBodyMdl() override
+      virtual m3d::mdl_c* getBodyMdl() override
     );
 
     /* VT+0x2C 0x800BD7D0 */
@@ -76,7 +81,7 @@ public:
     /* VT+0x30 0x800D4760 */
     virtual void setPlayerMode(int) override;
     /* VT+0x34 0x800D4870 */
-    virtual void setColorType(u8) override;
+    virtual void setColorType(u8 colorType) override;
     /* VT+0x38 0x800D4880 */
     virtual void setDark(int) override;
 
@@ -106,7 +111,7 @@ public:
     /* VT+0x80 0x800D3CE0 */
     virtual void setTexAnmType(TexAnmType_e) override;
 
-    /* VT+0x94  */
+    /* VT+0x94 */
     EXTERN_TEXT_INLINE(
       0x800BD7C0, //
       virtual void setPropelRollSpeed(u16 speed) override
@@ -115,7 +120,7 @@ public:
         mPropelRollSpeed = speed;
     }
 
-    /* VT+0x98  */
+    /* VT+0x98 */
     EXTERN_TEXT_INLINE(
       0x800BD7B0, //
       virtual s16 getPropelRollSpeed() const override
@@ -124,7 +129,7 @@ public:
         return mPropelRollSpeed;
     }
 
-    /* VT+0x9C  */
+    /* VT+0x9C */
     EXTERN_TEXT_INLINE(
       0x800BD7A0, //
       virtual void setPropelRollAngle(s16 angle) override
@@ -133,7 +138,7 @@ public:
         mPropelRollAngle = angle;
     }
 
-    /* VT+0xA0  */
+    /* VT+0xA0 */
     EXTERN_TEXT_INLINE(
       0x800BD790, //
       virtual s16 getPropelRollAngle() const override
@@ -142,7 +147,7 @@ public:
         return mPropelRollAngle;
     }
 
-    /* VT+0xA4  */
+    /* VT+0xA4 */
     EXTERN_TEXT_INLINE(
       0x800BD780, //
       virtual void setPropelScale(float scale) override
@@ -151,23 +156,57 @@ public:
         mPropelScale = scale;
     }
 
-    /* VT+0xA8  */
+    /* VT+0xA8 */
     EXTERN_TEXT(
       0x800BD760, //
-      virtual float getLegLengthP(u8) override
+      virtual float* getLegLengthP(u8) override
     );
 
+    /* VT+0xAC 0x800D4750 */
+    virtual void setCurrentModel(MODEL_e model);
+
+    /* VT+0xB0 0x800D4E70 */
+    virtual void callbackTimingA(void* param_1, void* param_2);
+
+    /* VT+0xB4 0x800D3360 */
+    virtual float VT_0xB4();
+
+    /* VT+0xB8 0x800D3470 */
+    virtual void createPlayerModel();
+
+    /* 0x800D3DA0 */
+    m3d::anmTexPat_c* getHeadTexAnm();
+
 public:
-    FILL(0x20C, 0x210);
+    //
+    // Member Data
+    //
 
-    /* 0x210 */ u8 mAnimResFile; // Unknown size
+    /* 0x20C */ nw4r::g3d::ResFile mModelResFile;
+    /* 0x210 */ nw4r::g3d::ResFile mCommonAnimResFile;
+    /* 0x214 */ nw4r::g3d::ResFile mAnimResFile;
 
-    FILL(0x211, 0x770);
+    FILL(0x218, 0x468);
+
+    /* @unofficial */
+    struct modelCntr_c {
+        SIZE_ASSERT(0x80);
+        /* 0x00 */ m3d::mdl_c mBody;
+        /* 0x40 */ m3d::mdl_c mHead;
+    };
+
+    /* 0x468 */ modelCntr_c mModels[MODEL_COUNT];
+
+    /* 0x668 */ m3d::anmTexPat_c mBodySwitchAnim;
+    /* 0x694 */ m3d::anmMatClr_c mBodyStarAnim;
+
+    /* 0x6C0 */ m3d::anmTexPat_c mHeadSwitchAnim;
+    /* 0x6EC */ m3d::anmTexPat_c mPropelHeadSwitchAnim;
+    /* 0x718 */ m3d::anmTexPat_c mPenguinHeadSwitchAnim;
+    /* 0x744 */ m3d::anmMatClr_c mHeadStarAnim;
 
     /* 0x770 */ MODEL_e mModelIdx;
-
     /* 0x774 */ MODEL_e mLastModelIdx;
-
     /* 0x778 */ const ModelData* mpModelData;
 
     /* 0x77C */ u32 mFaceJointIdx;

@@ -3,9 +3,8 @@
 
 #include "d_CharacterChangeIndicator.h"
 
-REPLACE_ASM( //
-  0x8076DC80, //
-  void dCharacterChangeIndicator_c::UNDEF_8076DC80(),
+[[address(0x8076DC80)]]
+void dCharacterChangeIndicator_c::UNDEF_8076DC80() ASM_METHOD(
   // clang-format off
 /* 8076DC80 9421FFE0 */  stwu     r1, -32(r1);
 /* 8076DC84 7C0802A6 */  mflr     r0;

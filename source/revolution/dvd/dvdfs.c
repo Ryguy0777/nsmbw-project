@@ -59,15 +59,6 @@ REPLACE(
           ARCConvertPathToEntrynum(s_dvdExArcHandle, *fileName == '/' ? fileName + 1 : fileName);
 
         if (entryNum != -1) {
-            // If this is a directory then we prefer the DVD file. This is required for the m_dvd
-            // archive overlay system!
-            if (ARCEntrynumIsDir(s_dvdExArcHandle, entryNum)) {
-                s32 entryNumDvd = __DVDPathToEntrynum(fileName);
-                if (entryNumDvd != -1) {
-                    return entryNumDvd;
-                }
-            }
-
             return entryNum + DVDEX_ARC_ENTRYNUM_BASE;
         }
     }
@@ -224,6 +215,15 @@ EXTERN_TEXT_STATIC(
 // UNUSED: DVDGetEntrynum
 
 // UNUSED: DVDGetEntryName
+
+bool DVDEntrynumIsDir(s32 entryNum)
+{
+    if (s_dvdExArcHandle != nullptr && entryNum >= DVDEX_ARC_ENTRYNUM_BASE) {
+        return ARCEntrynumIsDir(s_dvdExArcHandle, entryNum - DVDEX_ARC_ENTRYNUM_BASE);
+    }
+
+    return FstStart[entryNum].isDir;
+}
 
 ARCHandle* DVDGetExArcHandle()
 {

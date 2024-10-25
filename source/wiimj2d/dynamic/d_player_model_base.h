@@ -1,6 +1,9 @@
 #pragma once
 
+#include <machine/m3d/m_mdl.h>
+#include <machine/m_allocator.h>
 #include <machine/m_mtx.h>
+
 
 class dPyMdlBase_c
 {
@@ -32,25 +35,37 @@ public:
     /* VT+0x24 0x800D5C70 */
     virtual void draw();
     /* VT+0x28 0x800D5870 */
-    virtual void* getBodyMdl();
+    virtual m3d::mdl_c* getBodyMdl();
     /* VT+0x2C 0x800D62D0 */
     virtual const void* getAnmResFile() const;
     /* VT+0x30 0x800D5730 */
     virtual void setPlayerMode(int);
     /* VT+0x34 0x800D5CC0 */
-    virtual void setColorType(u8);
+    virtual void setColorType(u8 colorType);
     /* VT+0x38 0x800D6D80 */
     virtual void setDark(int);
+
     /* VT+0x3C 0x800BD750 */
-    virtual void VT_0x3C();
+    virtual void VT_0x3C()
+    {
+    }
+
     /* VT+0x40 0x800D6D70 */
     virtual void onStarAnm();
     /* VT+0x44 0x800D6D60 */
     virtual void offStarAnm();
-    /* VT+0x48 0x800BD740 */
-    virtual void onStarEffect();
-    /* VT+0x4C 0x800BD730 */
-    virtual void offStarEffect();
+    /* VT+0x48 */
+    // EXTERN_TEXT(
+    //   0x800BD740, // d_kinopio_model.o
+    //   virtual void onStarEffect()
+    // );
+  virtual void onStarEffect() {}
+
+    /* VT+0x4C */
+    EXTERN_TEXT(
+      0x800BD730, // d_kinopio_model.o
+      virtual void offStarEffect()
+    );
     /* VT+0x50 0x800D5820 */
     virtual void getJointMtx();
     /* VT+0x54 0x800D6D50 */
@@ -95,18 +110,25 @@ public:
     virtual s16 getPropelRollAngle() const;
     /* VT+0xA4 0x800D6D00 */
     virtual void setPropelScale(float);
+
     /* VT+0xA8 0x800D6CF0 */
-    virtual float getLegLengthP(u8);
+    virtual float* getLegLengthP(u8);
+
     /* VT+0xAC 0x800BD720 */
-    virtual void updateBonusCap();
+    virtual void updateBonusCap()
+    {
+    }
 
 public:
-    FILL(0x004, 0x151);
+    /* 0x004 */ mAllocator_c mAllocator;
+
+    FILL(0x020, 0x151);
 
     /* 0x151 */ u8 mCharaID;
     /* 0x152 */ u8 mPowerupID;
+    /* 0x153 */ u8 mCurColorType;
 
-    FILL(0x153, 0x160);
+    FILL(0x154, 0x160);
 
     /* 0x160 */ u32 mFlags;
 

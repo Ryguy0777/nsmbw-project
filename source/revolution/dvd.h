@@ -30,6 +30,8 @@ bool DVDOpen(const char* fileName, DVDFileInfo* fileInfo);
 
 bool DVDClose(DVDFileInfo* fileInfo);
 
+s32 __DVDPathToEntrynum(const char* fileName);
+
 bool DVDConvertEntrynumToPath(s32 entrynum, char* path, u32 maxlen);
 
 s32 DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 prio);
@@ -38,6 +40,8 @@ s32 DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 p
     DVDReadPrio((fileInfo), (addr), (length), (offset), 2)
 
 s32 DVDConvertPathToEntrynum(const char* fileName);
+
+bool DVDEntrynumIsDir(s32 entryNum);
 
 ARCHandle* DVDGetExArcHandle();
 

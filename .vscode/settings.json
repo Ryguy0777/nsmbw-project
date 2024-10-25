@@ -57,5 +57,6 @@
         "xlocnum": "cpp",
         "xloctime": "cpp",
         "xstddef": "cpp"
-    }
+    },
+    "makefile.configureOnOpen": false
 }

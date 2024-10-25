@@ -3,10 +3,8 @@
 
 #include "m_pad.h"
 
-EXTERN_TEXT(
-  0x8016F570, //
-  void mPad::setCurrentChannel(CH_e chan)
-);
+[[address(0x8016F570)]]
+void mPad::setCurrentChannel(CH_e chan);
 
 EXTERN_DATA(
   0x8042A748, //

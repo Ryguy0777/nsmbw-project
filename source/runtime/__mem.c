@@ -4,9 +4,8 @@
 
 #include <string.h>
 
-REPLACE_ASM( //
-  0x80004364, //
-  void* memcpy(void* dest, const void* src, size_t n),
+[[address(0x80004364)]]
+void* memcpy(void* dest, const void* src, size_t n) ASM_METHOD(
   // clang-format off
     subic.  r7, r5, 4;
     bge-    L_MemcpyLong;
@@ -104,9 +103,8 @@ L_MemcpyBegin1Word_2:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x800046B4, //
-  void* memset(void* s, int c, size_t n),
+[[address(0x800046B4)]]
+void* memset(void* s, int c, size_t n) ASM_METHOD(
   // clang-format off
     cmpwi   r5, 4;
     blt-    L_MemsetVeryShort;
@@ -249,7 +247,5 @@ L_MemsetCacheAlignedNonZeroLoop:;
   // clang-format on
 );
 
-EXTERN_TEXT(
-  0x802DC98C, //
-  size_t strlen(const char* s)
-);
+[[address(0x802DC98C)]]
+size_t strlen(const char* s);

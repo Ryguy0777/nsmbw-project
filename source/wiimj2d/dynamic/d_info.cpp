@@ -14,15 +14,11 @@
 
 EXTERN_SYMBOL(0x800BB0E0, "__ct__7dInfo_cFv");
 
-EXTERN_TEXT(
-  0x800BB130, //
-  dInfo_c::~dInfo_c()
-);
+[[address(0x800BB130)]]
+dInfo_c::~dInfo_c();
 
-REPLACE(
-  0x800BB180, //
-  void dInfo_c::PlayerStateInit()
-)
+[[address(0x800BB180)]]
+void dInfo_c::PlayerStateInit()
 {
     daPyMng_c::mPlayerType[0] = 0;
     daPyMng_c::mPlayerType[1] = 1;

@@ -3,23 +3,17 @@
 
 #include "d_CharacterChangeSelectContents.h"
 
-REPLACE(
-  0x80772A50, //
-  dCharacterChangeSelectContents_c* dCharacterChangeSelectContents_c_classInit()
-)
+[[address(0x80772A50)]]
+dCharacterChangeSelectContents_c* dCharacterChangeSelectContents_c_classInit()
 {
     return new dCharacterChangeSelectContents_c();
 }
 
-EXTERN_TEXT(
-  0x80772A80, //
-  dCharacterChangeSelectContents_c::dCharacterChangeSelectContents_c()
-);
+[[address(0x80772A80)]]
+dCharacterChangeSelectContents_c::dCharacterChangeSelectContents_c();
 
-REPLACE(
-  0x80772E30, //
-  bool dCharacterChangeSelectContents_c::createLayout()
-)
+[[address(0x80772E30)]]
+bool dCharacterChangeSelectContents_c::createLayout()
 {
     bool ret = mLayout.hasAccessor();
     if (!ret) {
@@ -80,8 +74,7 @@ REPLACE(
     return ret;
 }
 
-ASM_FUNCTION( //
-  void dCharacterChangeSelectContents_c::setMarioIconVisible(u32 param_2),
+void dCharacterChangeSelectContents_c::setMarioIconVisible(u32 param_2) ASM_METHOD(
   // clang-format off
                          // Based on 0x807730A0
                          stwu     r1, -16(r1);
@@ -116,9 +109,8 @@ ASM_FUNCTION( //
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x80773220, //
-  void dCharacterChangeSelectContents_c::UNDEF_80773220(),
+[[address(0x80773220)]]
+void dCharacterChangeSelectContents_c::UNDEF_80773220() ASM_METHOD(
   // clang-format off
 /* 80773220 9421FFF0 */  stwu     r1, -16(r1);
 /* 80773224 7C0802A6 */  mflr     r0;

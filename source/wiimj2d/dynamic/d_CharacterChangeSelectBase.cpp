@@ -5,15 +5,11 @@
 
 #include <revolution/os.h>
 
-EXTERN_TEXT(
-  0x8076FC80, //
-  bool dCharacterChangeSelectBase_c::isCharacterLocked(u32 character)
-);
+[[address(0x8076FC80)]]
+bool dCharacterChangeSelectBase_c::isCharacterLocked(u32 character);
 
-REPLACE(
-  0x8076FD70, //
-  void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 character, u32 baseIndex)
-)
+[[address(0x8076FD70)]]
+void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 character, u32 baseIndex)
 {
     static const u32 l_iconIndices[] = {6, 0, 1, 2, 7};
 
@@ -56,19 +52,16 @@ u32 getCharacterFromSelectBaseIndex(u32 baseIndex)
     return l_characterIndices[baseIndex];
 }
 
-REPLACE(
-  0x8076FE40, //
-  void dCharacterChangeSelectBase_c::UNDEF_8076FE40()
-)
+[[address(0x8076FE40)]]
+void dCharacterChangeSelectBase_c::UNDEF_8076FE40()
 {
     mDecidedCharacter = getCharacterFromSelectBaseIndex(mSelectedBaseIndex);
 }
 
 u32 sSavedIndexToBaseIndex[] = {4, 3, 2, 1};
 
-REPLACE_ASM( //
-  0x8076FEE0, //
-  void dCharacterChangeSelectBase_c::UNDEF_8076FEE0(),
+[[address(0x8076FEE0)]]
+void dCharacterChangeSelectBase_c::UNDEF_8076FEE0() ASM_METHOD(
   // clang-format off
 /* 8076FEE0 9421FFF0 */  stwu     r1, -16(r1);
 /* 8076FEE4 7C0802A6 */  mflr     r0;
@@ -112,9 +105,8 @@ REPLACE_ASM( //
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x807708E0, //
-  void dCharacterChangeSelectBase_c::executeState_SelectWait(),
+[[address(0x807708E0)]]
+void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
   // clang-format off
 /* 807708E0 9421FFE0 */  stwu     r1, -32(r1);
 /* 807708E4 7C0802A6 */  mflr     r0;
@@ -208,7 +200,7 @@ UNDEF_80770a6c:;
 /* 80770A84 41820048 */  beq-     UNDEF_80770acc;
 /* 80770A88 807E02E0 */  lwz      r3, 736(r30);
 
-                         // Changed to 4 to allow selecting Mario
+                         // Changed from 3 to 4 to allow selecting Mario
 /* 80770A8C          */  cmpwi    r3, 4;
 
 /* 80770A90 4080003C */  bge-     UNDEF_80770acc;
@@ -234,7 +226,10 @@ UNDEF_80770acc:;
 /* 80770ADC 5400077B */  rlwinm.  r0, r0, 0, 29, 29;
 /* 80770AE0 41820044 */  beq-     UNDEF_80770b24;
 /* 80770AE4 807E02E0 */  lwz      r3, 736(r30);
-/* 80770AE8 2C030001 */  cmpwi    r3, 1;
+
+                         // Changed from 1 to 0 to allow selecting Toadette
+/* 80770AE8          */  cmpwi    r3, 0;
+
 /* 80770AEC 40810038 */  ble-     UNDEF_80770b24;
 /* 80770AF0 38800004 */  li       r4, 4;
 /* 80770AF4 909E02A0 */  stw      r4, 672(r30);
@@ -263,9 +258,8 @@ UNDEF_80770b24:;
   // clang-format on
 );
 
-REPLACE_ASM( //
-  0x80771090, //
-  void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait(),
+[[address(0x80771090)]]
+void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait() ASM_METHOD(
   // clang-format off
 /* 80771090 9421FFF0 */  stwu     r1, -16(r1);
 /* 80771094 7C0802A6 */  mflr     r0;

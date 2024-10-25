@@ -19,15 +19,11 @@ EXTERN_SYMBOL(0x801B1AA0, "Relocate");
 
 EXTERN_SYMBOL(0x801B1D70, "Link");
 
-EXTERN_TEXT(
-  0x801B2060, //
-  bool OSLink(OSModuleInfo* info, void* bss)
-);
+[[address(0x801B2060)]]
+bool OSLink(OSModuleInfo* info, void* bss);
 
-EXTERN_TEXT(
-  0x801B2070, //
-  bool OSLinkFixed(OSModuleInfo* info, void* bss)
-);
+[[address(0x801B2070)]]
+bool OSLinkFixed(OSModuleInfo* info, void* bss);
 
 // 0x801B2090: Undo
 

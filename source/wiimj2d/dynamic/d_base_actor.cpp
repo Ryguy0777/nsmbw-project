@@ -3,95 +3,75 @@
 
 #include "d_base_actor.h"
 
-EXTERN_TEXT(
-  0x8006C6D0, //
-  dBaseActor_c::dBaseActor_c()
-);
+[[address(0x8006C6D0)]]
+dBaseActor_c::dBaseActor_c();
 
 /**
  * VT+0x48
  * Destroys the base.
  */
-EXTERN_TEXT(
-  0x8006C7F0, //
-  dBaseActor_c::~dBaseActor_c()
-);
+[[address(0x8006C7F0)]]
+dBaseActor_c::~dBaseActor_c();
 
 /**
  * VT+0x0C
  * pre method for the create operation.
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x8006C870, //
-  int dBaseActor_c::preCreate()
-);
+[[address(0x8006C870)]]
+int dBaseActor_c::preCreate();
 
 /**
  * VT+0x10
  * post method for the create operation.
  */
-EXTERN_TEXT(
-  0x8006C8A0, //
-  void dBaseActor_c::postCreate(fBase_c::MAIN_STATE_e status)
-);
+[[address(0x8006C8A0)]]
+void dBaseActor_c::postCreate(fBase_c::MAIN_STATE_e status);
 
 /**
  * VT+0x18
  * pre method for the delete operation.
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x8006C8B0, //
-  int dBaseActor_c::preDelete()
-);
+[[address(0x8006C8B0)]]
+int dBaseActor_c::preDelete();
 
 /**
  * VT+0x1C
  * post method for the delete operation.
  */
-EXTERN_TEXT(
-  0x8006C8E0, //
-  void dBaseActor_c::postDelete(fBase_c::MAIN_STATE_e status)
-);
+[[address(0x8006C8E0)]]
+void dBaseActor_c::postDelete(fBase_c::MAIN_STATE_e status);
 
 /**
  * VT+0x24
  * pre method for the execute operation.
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x8006C8F0, //
-  int dBaseActor_c::preExecute()
-);
+[[address(0x8006C8F0)]]
+int dBaseActor_c::preExecute();
 
 /**
  * VT+0x28
  * post method for the execute operation.
  */
-EXTERN_TEXT(
-  0x8006C980, //
-  void dBaseActor_c::postExecute(fBase_c::MAIN_STATE_e status)
-);
+[[address(0x8006C980)]]
+void dBaseActor_c::postExecute(fBase_c::MAIN_STATE_e status);
 
 /**
  * VT+0x30
  * pre method for the draw operation.
  * @return A PACK_RESULT_e value.
  */
-EXTERN_TEXT(
-  0x8006C9F0, //
-  int dBaseActor_c::preDraw()
-);
+[[address(0x8006C9F0)]]
+int dBaseActor_c::preDraw();
 
 /**
  * VT+0x34
  * post method for the draw operation.
  */
-EXTERN_TEXT(
-  0x8006CA40, //
-  void dBaseActor_c::postDraw(fBase_c::MAIN_STATE_e status)
-);
+[[address(0x8006CA40)]]
+void dBaseActor_c::postDraw(fBase_c::MAIN_STATE_e status);
 
 /**
  * VT+0x50
@@ -99,10 +79,8 @@ EXTERN_TEXT(
  * pass).This feature is not used in stages. See [here](#drawing-models-over-2d-layouts) for
  * details.
  */
-EXTERN_TEXT(
-  0x8006CA50, //
-  void dBaseActor_c::draw2D()
-);
+[[address(0x8006CA50)]]
+void dBaseActor_c::draw2D();
 
 /**
  * VT+0x54
@@ -110,67 +88,51 @@ EXTERN_TEXT(
  * draw pass). This feature is not used in stages. See [here](#drawing-models-over-2d-layouts)
  * for details.
  */
-EXTERN_TEXT(
-  0x8006CA60, //
-  void dBaseActor_c::draw2D_lyt2()
-);
+[[address(0x8006CA60)]]
+void dBaseActor_c::draw2D_lyt2();
 
 /**
  * Updates the actor's speed (3D actors).
  */
-EXTERN_TEXT(
-  0x8006CC00, //
-  void dBaseActor_c::calcSpeed()
-);
+[[address(0x8006CC00)]]
+void dBaseActor_c::calcSpeed();
 
 /**
  * Updates the actor's speed (2D actors).
  */
-EXTERN_TEXT(
-  0x8006CD50, //
-  void dBaseActor_c::calcSpeedXY()
-);
+[[address(0x8006CD50)]]
+void dBaseActor_c::calcSpeedXY();
 
 /**
  * Updates the actor's X speed.
  */
-EXTERN_TEXT(
-  0x8006CD90, //
-  void dBaseActor_c::calcSpeedX()
-);
+[[address(0x8006CD90)]]
+void dBaseActor_c::calcSpeedX();
 
 /**
  * Updates the actor's falling speed.
  */
-EXTERN_TEXT(
-  0x8006CE70, //
-  void dBaseActor_c::calcFallSpeed()
-);
+[[address(0x8006CE70)]]
+void dBaseActor_c::calcFallSpeed();
 
 /**
  * Updates the actor's Y speed.
  */
-EXTERN_TEXT(
-  0x8006CDE0, //
-  void dBaseActor_c::calcSpeedY()
-);
+[[address(0x8006CDE0)]]
+void dBaseActor_c::calcSpeedY();
 
 /**
  * Updates the actor's forward speed.
  */
-EXTERN_TEXT(
-  0x8006CE10, //
-  void dBaseActor_c::calcSpeedF()
-);
+[[address(0x8006CE10)]]
+void dBaseActor_c::calcSpeedF();
 
 /**
  * Generates a partial transformation matrix for the actor and stores it in mMatrix. The
  * transformation matrix only contains the translation and the rotation on the Y axis.
  */
-EXTERN_TEXT(
-  0x8006CCB0, //
-  void dBaseActor_c::makeMtx()
-);
+[[address(0x8006CCB0)]]
+void dBaseActor_c::makeMtx();
 
 /**
  * Gets the actor's centered position.
@@ -183,42 +145,32 @@ EXTERN_TEXT(
 /**
  * Moves the actor by the given delta.
  */
-EXTERN_TEXT(
-  0x8006CD00, //
-  void dBaseActor_c::posMove(mVec3_c& delta)
-);
+[[address(0x8006CD00)]]
+void dBaseActor_c::posMove(mVec3_c& delta);
 
 /**
  * Moves the actor by its mSpeed "speed".
  */
-EXTERN_TEXT(
-  0x8006CD40, //
-  void dBaseActor_c::posMove()
-);
+[[address(0x8006CD40)]]
+void dBaseActor_c::posMove();
 
 /**
  * Counts the instances of the given actor profile. [why is this not static?]
  */
-EXTERN_TEXT(
-  0x8006CF10, //
-  int dBaseActor_c::GetProfNameActorNum(u16 profile)
-);
+[[address(0x8006CF10)]]
+int dBaseActor_c::GetProfNameActorNum(u16 profile);
 
 /**
  * Calls draw2D on every actor.
  */
-EXTERN_TEXT(
-  0x8006CAE0, //
-  void dBaseActor_c::draw2DActorOnLyt1()
-);
+[[address(0x8006CAE0)]]
+void dBaseActor_c::draw2DActorOnLyt1();
 
 /**
  * Calls draw2D_lyt2 on every actor.
  */
-EXTERN_TEXT(
-  0x8006CB40, //
-  void dBaseActor_c::draw2DActorOnLyt2()
-);
+[[address(0x8006CB40)]]
+void dBaseActor_c::draw2DActorOnLyt2();
 
 /**
  * Creates an actor without a parent. The actor is created as a child of the current scene
@@ -231,12 +183,10 @@ EXTERN_TEXT(
  * @param rotation The actor's rotation.
  * @return A pointer to the instantiated actor, or nullptr.
  */
-EXTERN_TEXT(
-  0x8006CA80, //
-  dBaseActor_c* dBaseActor_c::construct(
+[[address(0x8006CA80)]]
+dBaseActor_c* dBaseActor_c::construct(
     u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation
-  )
-);
+  );
 
 /**
  * Creates a child actor with the given parent.
@@ -248,13 +198,11 @@ EXTERN_TEXT(
  * @param rotation The actor's rotation.
  * @return A pointer to the instantiated actor, or nullptr.
  */
-EXTERN_TEXT(
-  0x8006CBA0, //
-  dBaseActor_c* dBaseActor_c::construct(
+[[address(0x8006CBA0)]]
+dBaseActor_c* dBaseActor_c::construct(
     u16 profName, dBase_c* parent, unsigned long param, const mVec3_c* position,
     const mAng3_c* rotation
-  )
-);
+  );
 
 /**
  * Sets temporary data to be used for the next actor's construction.
@@ -262,7 +210,5 @@ EXTERN_TEXT(
  * @param position The actor's position.
  * @param rotation The actor's rotation.
  */
-EXTERN_TEXT(
-  0x8006CA70, //
-  void dBaseActor_c::setTmpCtData(const mVec3_c* position, const mAng3_c* rotation)
-);
+[[address(0x8006CA70)]]
+void dBaseActor_c::setTmpCtData(const mVec3_c* position, const mAng3_c* rotation);

@@ -8,13 +8,9 @@
 // Unknown 0x8015F820
 
 // Override of the weak symbol from OSError.c
-EXTERN_TEXT(
-  0x8015F870, //
-  void OSReport(const char* format, ...)
-);
+[[address(0x8015F870)]]
+void OSReport(const char* format, ...);
 
 // Override of the weak symbol from OSError.c
-EXTERN_TEXT(
-  0x8015F880, //
-  void OSVReport(const char* format, va_list args)
-);
+[[address(0x8015F880)]]
+void OSVReport(const char* format, va_list args);

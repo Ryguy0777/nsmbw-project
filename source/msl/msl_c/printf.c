@@ -29,10 +29,8 @@
 
 // UNUSED: fprintf_s
 
-EXTERN_TEXT(
-  0x802E1850, //
-  int vprintf(const char* restrict format, va_list ap)
-);
+[[address(0x802E1850)]]
+int vprintf(const char* restrict format, va_list ap);
 
 // UNUSED: vprintf_s
 
@@ -40,32 +38,24 @@ EXTERN_TEXT(
 
 // UNUSED: vfprintf_s
 
-EXTERN_TEXT(
-  0x802E18CC, //
-  int vsnprintf(
+[[address(0x802E18CC)]]
+int vsnprintf(
     char* restrict s, size_t n, const char* restrict format, va_list ap
-  )
-);
+  );
 
 // UNUSED: vsnprintf_s
 
-EXTERN_TEXT(
-  0x802E1954, //
-  int vsprintf(char* restrict s, const char* restrict format, va_list ap)
-);
+[[address(0x802E1954)]]
+int vsprintf(char* restrict s, const char* restrict format, va_list ap);
 
 // UNUSED: vsprintf_s
 
-EXTERN_TEXT(
-  0x802E19D8, //
-  int snprintf(char* restrict s, size_t n, const char* restrict format, ...)
-);
+[[address(0x802E19D8)]]
+int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
 
 // UNUSED: snprintf_s
 
-EXTERN_TEXT(
-  0x802E1ACC, //
-  int sprintf(char* restrict s, const char* restrict format, ...)
-);
+[[address(0x802E1ACC)]]
+int sprintf(char* restrict s, const char* restrict format, ...);
 
 // UNUSED: sprintf_s

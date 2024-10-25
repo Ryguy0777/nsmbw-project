@@ -3,9 +3,8 @@
 
 #include "d_s_game_setup.h"
 
-REPLACE_ASM( //
-  0x80918B00, //
-  void dScGameSetup_c::executeState_StartMember(),
+[[address(0x80918B00)]]
+void dScGameSetup_c::executeState_StartMember() ASM_METHOD(
   // clang-format off
 /* 80918B00 808300D0 */  lwz      r4, 208(r3);
 /* 80918B04 3CC0809A */  lis      r6, UNDEF_809a14d0@ha;

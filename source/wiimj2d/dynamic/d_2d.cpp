@@ -6,9 +6,7 @@
 namespace d2d
 {
 
-EXTERN_TEXT(
-  0x80007220, //
-  nw4r::lyt::Pane* Multi_c::getRootPane()
-);
+[[address(0x80007220)]]
+nw4r::lyt::Pane* Multi_c::getRootPane();
 
 }

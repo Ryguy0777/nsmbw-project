@@ -5,10 +5,8 @@
 
 #include <dynamic/actor/worldmap/d_a_wm_player.h>
 
-REPLACE(
-  0x808EE0C0, //
-  s32 daWmSubPlayer_c::getPlayerOrder()
-)
+[[address(0x808EE0C0)]]
+s32 daWmSubPlayer_c::getPlayerOrder()
 {
     s32 order = 1;
     s32 playerNo = getPlayerNo();

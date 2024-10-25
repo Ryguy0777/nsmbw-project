@@ -95,6 +95,11 @@ typedef double f64;
         ASM(__VA_ARGS__);                                                                          \
     }
 
+#define ASM_METHOD(...)                                                                            \
+    __attribute__((__naked__)) {                                                                   \
+        ASM(__VA_ARGS__);                                                                          \
+    }
+
 typedef struct {
     unsigned int* addr;
     unsigned int* dest;
@@ -117,6 +122,8 @@ typedef struct {
     unsigned int* dest;
 } _MRel_InsertData;
 
+#define address(_ADDRESS) _Clang::__external__(#_ADDRESS)
+
 #define _REPLACE_THUNK(_ADDR)                                                                      \
     [[__gnu__::__section__("replaced")]] void __replaced_func_##_ADDR()                            \
     {                                                                                              \
@@ -128,16 +135,27 @@ typedef struct {
       &__ext_##_ADDR, &__replaced_func_##_ADDR                                                     \
     };
 
-#define REPLACE(_ADDR, _PROTOTYPE)                                                                 \
-    _REPLACE_THUNK(_ADDR)                                                                          \
-    [[__gnu__::__section__("replaced")]] _PROTOTYPE
+#if 0
+#  define REPLACE(_ADDR, _PROTOTYPE)                                                               \
+      _REPLACE_THUNK(_ADDR)                                                                        \
+      [[__gnu__::__section__("replaced")]] _PROTOTYPE
 
-#define REPLACE_ASM(_ADDR, _PROTOTYPE, ...)                                                        \
-    _REPLACE_THUNK(_ADDR)                                                                          \
-    [[__gnu__::__section__("replaced")]] [[__gnu__::__naked__]] _PROTOTYPE                         \
-    {                                                                                              \
-        ASM(__VA_ARGS__);                                                                          \
-    }
+#  define REPLACE_ASM(_ADDR, _PROTOTYPE, ...)                                                      \
+      _REPLACE_THUNK(_ADDR)                                                                        \
+      [[__gnu__::__section__("replaced")]] [[__gnu__::__naked__]] _PROTOTYPE                       \
+      {                                                                                            \
+          ASM(__VA_ARGS__);                                                                        \
+      }
+#else
+#  define REPLACE(_ADDR, _PROTOTYPE) [[_Clang::external(#_ADDR)]] _PROTOTYPE
+
+#  define REPLACE_ASM(_ADDR, _PROTOTYPE, ...)                                                      \
+      [[_Clang::external(#_ADDR)]] [[gnu::naked]] _PROTOTYPE                                       \
+      {                                                                                            \
+          ASM(__VA_ARGS__);                                                                        \
+      }
+
+#endif
 
 #define _REPLACE_THUNK_DATA(_ADDR, _LENGTH)                                                        \
     [[__gnu__::__section__("replaced")]] void __replaced_func_##_ADDR()                            \
@@ -167,14 +185,21 @@ typedef struct {
         "replaced_data_" #_ADDR ":\n");                                                            \
     __attribute__((__section__(".replaced." #_ADDR))) __VA_ARGS__
 
-#define EXTERN_TEXT(_ADDR, _PROTOTYPE)                                                             \
-    PRAGMA("clang diagnostic push")                                                                \
-    PRAGMA("clang diagnostic ignored \"-Wreturn-type\"")                                           \
-    [[__gnu__::__section__(".external." #_ADDR)]] [[__gnu__::__weak__]] _PROTOTYPE                 \
-    {                                                                                              \
-        __builtin_unreachable();                                                                   \
-    }                                                                                              \
-    PRAGMA("clang diagnostic pop")
+#if 0
+
+#  define EXTERN_TEXT(_ADDR, _PROTOTYPE)                                                           \
+      PRAGMA("clang diagnostic push")                                                              \
+      PRAGMA("clang diagnostic ignored \"-Wreturn-type\"")                                         \
+      [[__gnu__::__section__(".external." #_ADDR)]] [[__gnu__::__weak__]] _PROTOTYPE               \
+      {                                                                                            \
+          __builtin_unreachable();                                                                 \
+      }                                                                                            \
+      PRAGMA("clang diagnostic pop")
+
+#else
+
+#  define EXTERN_TEXT(_ADDR, _PROTOTYPE) [[_Clang::external(#_ADDR)]] _PROTOTYPE
+#endif
 
 #define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE)                                                      \
     [[__gnu__::__section__(".external." #_ADDR)]] _PROTOTYPE

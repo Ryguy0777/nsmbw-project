@@ -9,10 +9,8 @@
 
 dScBoot_c::CODE_REGION_e dScBoot_c::m_codeRegion;
 
-REPLACE(
-  0x8015D010, //
-  void dScBoot_c::executeState_WiiStrapFadeOut()
-)
+[[address(0x8015D010)]]
+void dScBoot_c::executeState_WiiStrapFadeOut()
 {
     if (!mFader_c::isStatus(mFaderBase_c::OPAQUE)) {
         return;

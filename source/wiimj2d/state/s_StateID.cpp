@@ -3,15 +3,11 @@
 
 #include "s_StateID.h"
 
-EXTERN_TEXT(
-  0x8015F900, //
-  sStateID_c::sStateID_c(const char* name)
-);
+[[address(0x8015F900)]]
+sStateID_c::sStateID_c(const char* name);
 
-EXTERN_TEXT(
-  0x8015F940, //
-  sStateID_c::~sStateID_c()
-);
+[[address(0x8015F940)]]
+sStateID_c::~sStateID_c();
 
 EXTERN_TEXT(
   0x8015F980, //

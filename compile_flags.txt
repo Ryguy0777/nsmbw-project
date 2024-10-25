@@ -20,3 +20,6 @@ c++
 -DLOADER_REL_LZ
 -include
 source/System.h
+-Wno-out-of-line-declaration
+-Wno-unknown-attributes
+-Wno-gcc-compat

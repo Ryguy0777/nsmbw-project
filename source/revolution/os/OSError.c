@@ -9,10 +9,8 @@ extern "C" {
 
 // OVERRIDDEN: OSVReport
 
-EXTERN_TEXT(
-  0x801AD620, //
-  void OSPanic(const char* file, int line, const char* format, ...)
-);
+[[address(0x801AD620)]]
+void OSPanic(const char* file, int line, const char* format, ...);
 
 /* 0x801AD750 */
 EXTERN_TEXT(

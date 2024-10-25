@@ -9,10 +9,8 @@ EXTERN_DATA(
   daWmPlayer_c* daWmPlayer_c::ms_instance
 );
 
-REPLACE(
-  0x80100B60, //
-  const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
-)
+[[address(0x80100B60)]]
+const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
 {
     switch (character) {
     case dPyMdlMng_c::ModelType_e::MODEL_MARIO:
