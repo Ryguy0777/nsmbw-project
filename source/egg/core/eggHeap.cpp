@@ -10,15 +10,11 @@ namespace EGG
 [[address(0x802B8C80)]]
 void Heap::initialize();
 
-EXTERN_TEXT_CONSTRUCTOR(
-  0x802B8CC0, //
-  Heap::Heap(MEMiHeapHead* rvlHeap)
-);
+[[address(0x802B8CC0)]]
+Heap::Heap(MEMiHeapHead* rvlHeap);
 
-EXTERN_TEXT_CONSTRUCTOR(
-  0x802B8D60, //
-  Heap::~Heap()
-);
+[[address(0x802B8D60)]]
+Heap::~Heap();
 
 [[address(0x802B8E00)]]
 void* Heap::alloc(u32 size, s32 align, Heap* heap);

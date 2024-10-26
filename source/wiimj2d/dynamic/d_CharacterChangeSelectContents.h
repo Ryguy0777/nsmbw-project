@@ -5,6 +5,7 @@
 #include <dynamic/d_lytbase.h>
 #include <nw4r/lyt/Pane.h>
 #include <state/s_State.h>
+#include "d_CharacterChangeSelectBase.h"
 
 class dCharacterChangeSelectContents_c : public dBase_c
 {
@@ -41,10 +42,10 @@ public:
 
     u32 m0x284; // Set to m0x288 in create
     u32 m0x288;
-    u32 m0x28C; // Set 6 in create
-    u32 m0x290; // Set 6 in create
-    u32 m0x294; // Set 6 in create
-    u32 m0x298; // Set 2 in create
+    dCharacterChangeSelectBase_c::Icon_e m0x28C; // Set 6 in create
+    dCharacterChangeSelectBase_c::Icon_e m0x290; // Set 6 in create
+    dCharacterChangeSelectBase_c::Icon_e m0x294; // Set 6 in create
+    dCharacterChangeSelectBase_c::Icon_e m0x298; // Set 2 in create
 
     u8 m0x29C; // Set 1 in create
     u8 m0x29D; // Set 0 in create

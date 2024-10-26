@@ -3,6 +3,41 @@
 
 #include "d_s_game_setup.h"
 
+#include <dynamic/d_CharacterChangeSelectBase.h>
+#include <dynamic/d_NumberOfPeopleChange.h>
+#include <dynamic/d_base_actor.h>
+#include <framework/f_base_profile.h>
+
+[[address(0x80917EB0)]]
+bool dScGameSetup_c::add2dPlayer()
+{
+    u32 id = mPlayerCreateIdx;
+
+    dBaseActor_c* playerBase =
+      dBaseActor_c::construct(+fBaseProfile_e::WM_2D_PLAYER, this, id, nullptr, nullptr);
+    if (playerBase == nullptr) {
+        return false;
+    }
+
+    da2DPlayer_c* player = reinterpret_cast<da2DPlayer_c*>(playerBase);
+
+    if (id < 4) {
+        mpa2DPlayer[id] = player;
+        mpNumPyChg->mpaPlayers[id] = player;
+    } else {
+        mpNumPyChg->mpaExPlayers[id - 4] = player;
+    }
+
+    mPlayerCreateIdx++;
+    if (mPlayerCreateIdx < CHARACTER_LIST_COUNT) {
+        return false;
+    }
+
+    // Done
+    mPlayerCreateIdx = 0;
+    return true;
+}
+
 [[address(0x80918B00)]]
 void dScGameSetup_c::executeState_StartMember() ASM_METHOD(
   // clang-format off

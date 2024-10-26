@@ -64,10 +64,8 @@ public:
     virtual void draw() override;
 
     /* VT+0x28 */
-    EXTERN_TEXT(
-      0x800BD140, // d_kinopio_model.o
-      virtual m3d::mdl_c* getBodyMdl() override
-    );
+    [[address(0x800BD140) /* d_kinopio_model.o */]]
+    virtual m3d::mdl_c* getBodyMdl() override;
 
     /* VT+0x2C 0x800BD7D0 */
     EXTERN_TEXT_INLINE(
@@ -157,10 +155,8 @@ public:
     }
 
     /* VT+0xA8 */
-    EXTERN_TEXT(
-      0x800BD760, //
-      virtual float* getLegLengthP(u8) override
-    );
+    [[address(0x800BD760)]]
+    virtual float* getLegLengthP(u8) override;
 
     /* VT+0xAC 0x800D4750 */
     virtual void setCurrentModel(MODEL_e model);

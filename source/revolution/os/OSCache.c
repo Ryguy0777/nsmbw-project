@@ -65,10 +65,8 @@ void ICEnable();
 
 // UNUSED: ICSync
 
-EXTERN_TEXT_STATIC(
-  0x801AC710, //
-  void __LCEnable()
-);
+[[address(0x801AC710)]]
+/* static */ void __LCEnable();
 
 [[address(0x801AC7E0)]]
 void LCEnable();
@@ -115,10 +113,8 @@ u32 LCQueueWait(u32 param_1);
 
 // UNUSED: L2SetWriteThrough
 
-EXTERN_TEXT_STATIC(
-  0x801AC980, //
-  void DMAErrorHandler()
-);
+[[address(0x801AC980)]]
+/* static */ void DMAErrorHandler();
 
 [[address(0x801ACAD0)]]
 void __OSCacheInit();

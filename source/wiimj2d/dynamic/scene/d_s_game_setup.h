@@ -1,11 +1,42 @@
 #pragma once
 
+#include "System.h"
 #include <dynamic/d_base.h>
 #include <state/s_State.h>
+
+class da2DPlayer_c;
+class dNumberOfPeopleChange_c;
 
 class dScGameSetup_c : public dBase_c
 {
 public:
+    //
+    // Functions
+    //
+
+    /* 0x80917EB0 */
+    bool add2dPlayer();
+
+    //
+    // Member Data
+    //
+
+    FILL(0x070, 0x0B8);
+
+    /* 0x0B8 */ dNumberOfPeopleChange_c* mpNumPyChg;
+
+    FILL(0x0BC, 0x0C0);
+
+    /* 0x0C0 */ da2DPlayer_c* mpa2DPlayer[4];
+
+    FILL(0x0D0, 0x0F8);
+
+    /* 0x0F8 */ u32 mPlayerCreateIdx;
+
+    //
+    // State IDs
+    //
+
     sState_Extern(0x809A14E0, dScGameSetup_c, FadeInEndWait);
     sState_Extern(0x809A1520, dScGameSetup_c, FileSelect);
     sState_Extern(0x809A1560, dScGameSetup_c, FadeOut);

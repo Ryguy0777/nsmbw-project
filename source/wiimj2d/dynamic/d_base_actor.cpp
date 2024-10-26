@@ -137,10 +137,8 @@ void dBaseActor_c::makeMtx();
 /**
  * Gets the actor's centered position.
  */
-EXTERN_TEXT(
-  0x8006CED0, //
-  mVec3_c dBaseActor_c::getCenterPos() const
-);
+[[address(0x8006CED0)]]
+mVec3_c dBaseActor_c::getCenterPos() const;
 
 /**
  * Moves the actor by the given delta.
@@ -185,8 +183,8 @@ void dBaseActor_c::draw2DActorOnLyt2();
  */
 [[address(0x8006CA80)]]
 dBaseActor_c* dBaseActor_c::construct(
-    u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation
-  );
+  u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation
+);
 
 /**
  * Creates a child actor with the given parent.
@@ -200,9 +198,9 @@ dBaseActor_c* dBaseActor_c::construct(
  */
 [[address(0x8006CBA0)]]
 dBaseActor_c* dBaseActor_c::construct(
-    u16 profName, dBase_c* parent, unsigned long param, const mVec3_c* position,
-    const mAng3_c* rotation
-  );
+  u16 profName, dBase_c* parent, unsigned long param, const mVec3_c* position,
+  const mAng3_c* rotation
+);
 
 /**
  * Sets temporary data to be used for the next actor's construction.

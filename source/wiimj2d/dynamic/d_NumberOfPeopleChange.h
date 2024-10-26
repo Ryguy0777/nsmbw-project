@@ -56,4 +56,6 @@ public:
 
     FILL(0x65C, 0x710);
     OFFSET_ASSERT(0x710);
+
+    /* 0x710 */ da2DPlayer_c* mpaExPlayers[4];
 };

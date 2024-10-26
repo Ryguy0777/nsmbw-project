@@ -6,14 +6,10 @@
 namespace EGG
 {
 
-EXTERN_TEXT_CONSTRUCTOR(
-  0x802BA410, //
-  Disposer::Disposer()
-);
+[[address(0x802BA410)]]
+Disposer::Disposer();
 
-EXTERN_TEXT_CONSTRUCTOR(
-  0x802BA470, //
-  Disposer::~Disposer()
-);
+[[address(0x802BA470)]]
+Disposer::~Disposer();
 
 } // namespace EGG

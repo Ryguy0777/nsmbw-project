@@ -100,106 +100,42 @@ typedef double f64;
         ASM(__VA_ARGS__);                                                                          \
     }
 
-typedef struct {
+#define address(_ADDRESS) _Clang::__external__(#_ADDRESS)
+
+#define address_data(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)
+
+struct _MRel_replace_array_entry {
     unsigned int* addr;
     unsigned int* dest;
-} __replace_struct;
+};
 
-struct __replace_struct_int {
+struct _MRel_extern_array_entry {
     unsigned int* addr;
     void (*dest)();
 };
 
-typedef struct {
-    unsigned int* addr;
-    unsigned int size;
-    unsigned int* dest;
-} _MRel_ReplaceRel;
+struct _MRel_PatchRel {
+    u32 addr;
+    u8 type;
+};
 
-typedef struct {
-    unsigned int* addr;
-    unsigned int size;
-    unsigned int* dest;
-} _MRel_InsertData;
+template <u32 N>
+struct _MRel_patch_references_array_entry {
+    const void* addr;
+    u32 count = N;
+    _MRel_PatchRel references[N];
+};
 
-#define address(_ADDRESS) _Clang::__external__(#_ADDRESS)
+#define _PATCH_REFERENCES3(_COUNTER, _DEST, ...)                                                   \
+    [[__gnu__::__section__("patch_references_array"                                                \
+    )]] constinit _MRel_patch_references_array_entry                                               \
+      _MRel_patch_references_array_entry_##_COUNTER = {.addr = &_DEST, .references = __VA_ARGS__};
 
-#define _REPLACE_THUNK(_ADDR)                                                                      \
-    [[__gnu__::__section__("replaced")]] void __replaced_func_##_ADDR()                            \
-    {                                                                                              \
-        __builtin_unreachable();                                                                   \
-    }                                                                                              \
-    extern unsigned int __ext_##_ADDR __asm__("ext_" #_ADDR);                                      \
-    [[__gnu__::__section__("replace_array"                                                         \
-    )]] constinit __replace_struct_int __replace_entry_##_ADDR = {                                 \
-      &__ext_##_ADDR, &__replaced_func_##_ADDR                                                     \
-    };
+#define _PATCH_REFERENCES2(_COUNTER, _DEST, ...) _PATCH_REFERENCES3(_COUNTER, _DEST, __VA_ARGS__)
 
-#if 0
-#  define REPLACE(_ADDR, _PROTOTYPE)                                                               \
-      _REPLACE_THUNK(_ADDR)                                                                        \
-      [[__gnu__::__section__("replaced")]] _PROTOTYPE
+#define _PATCH_REFERENCES1(_COUNTER, _DEST, ...) _PATCH_REFERENCES2(_COUNTER, _DEST, __VA_ARGS__)
 
-#  define REPLACE_ASM(_ADDR, _PROTOTYPE, ...)                                                      \
-      _REPLACE_THUNK(_ADDR)                                                                        \
-      [[__gnu__::__section__("replaced")]] [[__gnu__::__naked__]] _PROTOTYPE                       \
-      {                                                                                            \
-          ASM(__VA_ARGS__);                                                                        \
-      }
-#else
-#  define REPLACE(_ADDR, _PROTOTYPE) [[_Clang::external(#_ADDR)]] _PROTOTYPE
-
-#  define REPLACE_ASM(_ADDR, _PROTOTYPE, ...)                                                      \
-      [[_Clang::external(#_ADDR)]] [[gnu::naked]] _PROTOTYPE                                       \
-      {                                                                                            \
-          ASM(__VA_ARGS__);                                                                        \
-      }
-
-#endif
-
-#define _REPLACE_THUNK_DATA(_ADDR, _LENGTH)                                                        \
-    [[__gnu__::__section__("replaced")]] void __replaced_func_##_ADDR()                            \
-    {                                                                                              \
-        __builtin_unreachable();                                                                   \
-    }                                                                                              \
-    extern unsigned int __ext_##_ADDR __asm__("ext_" #_ADDR);                                      \
-    [[__gnu__::__section__("replace_data_array")]]                                                 \
-    constinit _MRel_ReplaceRel __replace_data_entry_##_ADDR = {                                    \
-      &__ext_##_ADDR, _LENGTH, reinterpret_cast<unsigned int*>(&__replaced_func_##_ADDR)           \
-    };
-
-#define REPLACE_DATA(_ADDR, _LENGTH, ...)                                                          \
-    _REPLACE_THUNK_DATA(_ADDR, _LENGTH)                                                            \
-    [[__gnu__::__section__("replaced")]] __VA_ARGS__
-
-#define INSERT_DATA(_ADDR, _LENGTH, ...)                                                           \
-    extern "C" {                                                                                   \
-    extern unsigned int ext_##_ADDR;                                                               \
-    extern unsigned int replaced_data_##_ADDR;                                                     \
-    __attribute__((__section__(".replinsertarray"))                                                \
-    ) _MRel_InsertData _MRel_InsertData_##_ADDR = {&ext_##_ADDR, _LENGTH, &replaced_data_##_ADDR}; \
-    }                                                                                              \
-    asm(".section .replaced." #_ADDR "\n"                                                          \
-        ".global replaced_data_" #_ADDR "\n"                                                       \
-        ".p2align 2\n"                                                                             \
-        "replaced_data_" #_ADDR ":\n");                                                            \
-    __attribute__((__section__(".replaced." #_ADDR))) __VA_ARGS__
-
-#if 0
-
-#  define EXTERN_TEXT(_ADDR, _PROTOTYPE)                                                           \
-      PRAGMA("clang diagnostic push")                                                              \
-      PRAGMA("clang diagnostic ignored \"-Wreturn-type\"")                                         \
-      [[__gnu__::__section__(".external." #_ADDR)]] [[__gnu__::__weak__]] _PROTOTYPE               \
-      {                                                                                            \
-          __builtin_unreachable();                                                                 \
-      }                                                                                            \
-      PRAGMA("clang diagnostic pop")
-
-#else
-
-#  define EXTERN_TEXT(_ADDR, _PROTOTYPE) [[_Clang::external(#_ADDR)]] _PROTOTYPE
-#endif
+#define PATCH_REFERENCES(_DEST, ...) _PATCH_REFERENCES1(__COUNTER__, _DEST, __VA_ARGS__)
 
 #define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE)                                                      \
     [[__gnu__::__section__(".external." #_ADDR)]] _PROTOTYPE
@@ -207,7 +143,7 @@ typedef struct {
 #define EXTERN_TEXT_STATIC(_ADDR, _PROTOTYPE) EXTERN_TEXT(_ADDR, _PROTOTYPE)
 
 #define EXTERN_REPL(_ADDR, _PROTOTYPE)                                                             \
-    [[__gnu__::__section__("extern")]] void __extern_func_##_ADDR()                                \
+    [[__gnu__::__section__("extern")]] void _MRel_extern_func_##_ADDR()                            \
     {                                                                                              \
         __builtin_unreachable();                                                                   \
     }                                                                                              \
@@ -218,10 +154,10 @@ typedef struct {
         ASM(nop; b ext_##_ADDR + 4;);                                                              \
     }                                                                                              \
     PRAGMA("clang diagnostic pop")                                                                 \
-    extern unsigned int __ext2_##_ADDR __asm__("ext_" #_ADDR);                                     \
+    extern unsigned int _MRel_ext2_##_ADDR __asm__("ext_" #_ADDR);                                 \
     [[__gnu__::__section__("extern_array")]]                                                       \
-    constinit __replace_struct_int __extern_entry_##_ADDR = {                                      \
-      &__ext2_##_ADDR, &__extern_func_##_ADDR                                                      \
+    constinit _MRel_extern_array_entry _MRel_extern_array_entry_##_ADDR = {                        \
+      &_MRel_ext2_##_ADDR, &_MRel_extern_func_##_ADDR                                              \
     };
 
 #define EXTERN_TEXT_C(_ADDR, _PROTOTYPE) EXTERN_TEXT(_ADDR, extern "C" _PROTOTYPE)

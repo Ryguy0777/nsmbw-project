@@ -5,6 +5,7 @@
 // NSMBW .sbss: 0x8042A25C - 0x8042A268
 
 #include "d_info.h"
+#include "dynamic/d_player_model_manager.h"
 
 #include <dynamic/actor/d_a_player_manager.h>
 
@@ -20,10 +21,11 @@ dInfo_c::~dInfo_c();
 [[address(0x800BB180)]]
 void dInfo_c::PlayerStateInit()
 {
-    daPyMng_c::mPlayerType[0] = 0;
-    daPyMng_c::mPlayerType[1] = 1;
-    daPyMng_c::mPlayerType[2] = 3;
-    daPyMng_c::mPlayerType[3] = 2;
+    daPyMng_c::mPlayerType[0] = daPyMng_c::PlayerType_e::MARIO;
+    daPyMng_c::mPlayerType[1] = daPyMng_c::PlayerType_e::LUIGI;
+    daPyMng_c::mPlayerType[2] = daPyMng_c::PlayerType_e::YELLOW_TOAD;
+    daPyMng_c::mPlayerType[3] = daPyMng_c::PlayerType_e::BLUE_TOAD;
+    daPyMng_c::mPlayerType[4] = daPyMng_c::PlayerType_e::TOADETTE;
 
     for (s32 i = 0; i < 4; i++) {
         mPlayerActiveMode[i] = 0;

@@ -3,9 +3,8 @@
 
 #include "d_SelectPlayer.h"
 
-REPLACE_ASM(
-  0x807AC7A0, //
-  void dSelectPlayer_c::executeState_StartMemberSelect(),
+[[address(0x807AC7A0)]]
+void dSelectPlayer_c::executeState_StartMemberSelect() ASM_METHOD(
   // clang-format off
 /* 807AC7A0 9421FFF0 */  stwu     r1, -16(r1);
 /* 807AC7A4 7C0802A6 */  mflr     r0;

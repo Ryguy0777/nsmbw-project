@@ -32,27 +32,19 @@ bool StreamDecompLRC::init(void* dst, u32 maxCompressedSize);
 [[address(0x802B86B0)]]
 bool StreamDecompLRC::decomp(const void*, u32);
 
-EXTERN_TEXT_STATIC(
-  0x802B86E0, //
-  u32 SZS_GetUncompressedSize(const void* src)
-);
+[[address(0x802B86E0)]]
+/* static */ u32 SZS_GetUncompressedSize(const void* src);
 
 struct SZSContext;
 
-EXTERN_TEXT_STATIC(
-  0x802B8710, //
-  void SZSContext_init(SZSContext* ctx)
-);
+[[address(0x802B8710)]]
+/* static */ void SZSContext_init(SZSContext* ctx);
 
-EXTERN_TEXT_STATIC(
-  0x802B8740, //
-  u32 SZS_0x802B8740()
-);
+[[address(0x802B8740)]]
+/* static */ u32 SZS_0x802B8740();
 
-EXTERN_TEXT_STATIC(
-  0x802B8840, //
-  s32 SZSContext_decompSZS(SZSContext* ctx, const void* src, u32 size)
-);
+[[address(0x802B8840)]]
+/* static */ s32 SZSContext_decompSZS(SZSContext* ctx, const void* src, u32 size);
 
 [[address(0x802B8AB0)]]
 bool StreamDecompSZS::init(void* dst, u32 maxCompressedSize);

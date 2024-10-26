@@ -39,9 +39,7 @@ int vprintf(const char* restrict format, va_list ap);
 // UNUSED: vfprintf_s
 
 [[address(0x802E18CC)]]
-int vsnprintf(
-    char* restrict s, size_t n, const char* restrict format, va_list ap
-  );
+int vsnprintf(char* restrict s, size_t n, const char* restrict format, va_list ap);
 
 // UNUSED: vsnprintf_s
 

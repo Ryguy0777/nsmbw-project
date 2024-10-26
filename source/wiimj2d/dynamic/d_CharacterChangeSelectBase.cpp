@@ -3,59 +3,39 @@
 
 #include "d_CharacterChangeSelectBase.h"
 
+#include <dynamic/d_CharacterChangeSelectContents.h>
+#include <dynamic/d_player_model_manager.h>
 #include <revolution/os.h>
 
-[[address(0x8076FC80)]]
-bool dCharacterChangeSelectBase_c::isCharacterLocked(u32 character);
 
-[[address(0x8076FD70)]]
-void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 character, u32 baseIndex)
+dPyMdlMng_c::ModelType_e get_CHARACTER_FROM_BASE(u32 baseIndex)
 {
-    static const u32 l_iconIndices[] = {6, 0, 1, 2, 7};
-
-    u32 iconIndex = l_iconIndices[baseIndex];
-    u32 character2 = character;
-
-    switch (iconIndex) {
-    case 7: // Mario
-        character2 = 0;
-        break;
-
-    case 2: // Luigi
-        character2 = 1;
-        break;
-
-    case 1: // Yellow Toad
-        character2 = 3;
-        break;
-
-    case 0: // Blue Toad
-        character2 = 2;
-        break;
-    }
-
-    if (isCharacterLocked(character2)) {
-        iconIndex += iconIndex != 7 ? 3 : 1;
-    }
-
-    if (character == 0) {
-        m0x074[0x290 / 4] = iconIndex;
-    } else {
-        m0x074[0x298 / 4] = iconIndex;
-    }
+    return dCharacterChangeSelectBase_c::CHARACTER_FROM_BASE[4 - baseIndex];
 }
 
-u32 getCharacterFromSelectBaseIndex(u32 baseIndex)
-{
-    static const u32 l_characterIndices[] = {0, 1, 3, 2, 0};
+[[address(0x8076FC80)]]
+bool dCharacterChangeSelectBase_c::isCharacterLocked(dPyMdlMng_c::ModelType_e character);
 
-    return l_characterIndices[baseIndex];
+[[address(0x8076FD70)]]
+void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 swapIndex, u32 baseIndex)
+{
+    Icon_e iconIndex = ICON_FROM_BASE[4 - baseIndex];
+
+    if (isCharacterLocked(get_CHARACTER_FROM_BASE(baseIndex))) {
+        iconIndex = ICON_LOCKED_FROM_BASE[4 - baseIndex];
+    }
+
+    if (swapIndex == 0) {
+        mpCcSelContents->m0x290 = iconIndex;
+    } else {
+        mpCcSelContents->m0x298 = iconIndex;
+    }
 }
 
 [[address(0x8076FE40)]]
 void dCharacterChangeSelectBase_c::UNDEF_8076FE40()
 {
-    mDecidedCharacter = getCharacterFromSelectBaseIndex(mSelectedBaseIndex);
+    mDecidedCharacter = get_CHARACTER_FROM_BASE(mSelectedBaseIndex);
 }
 
 u32 sSavedIndexToBaseIndex[] = {4, 3, 2, 1};
@@ -150,7 +130,7 @@ UNDEF_80770934:;
 /* 80770978 418200F4 */  beq-     UNDEF_80770a6c;
 
                          lwz      r3, 0x2E0(r30);
-                         bl       getCharacterFromSelectBaseIndex__FUl;
+                         bl       get_CHARACTER_FROM_BASE__FUl;
                          mr       r4, r3;
 /* 807709DC 7FC3F378 */  mr       r3, r30;
 /* 807709E4 4BFFF29D */  bl       UNDEF_8076fc80;
@@ -358,9 +338,9 @@ UNDEF_80771178:;
 /* 80771188 4BA24339 */  bl       UNDEF_801954c0;
 UNDEF_8077118c:;
 /* 8077118C 801F02D8 */  lwz      r0, 728(r31);
-/* 80771190 3C608035 */  lis      r3, UNDEF_80355160@ha;
+/* 80771190 3C608035 */  lis      r3, mPlayerType__9daPyMng_c@ha;
 /* 80771194 80BF02D4 */  lwz      r5, 724(r31);
-/* 80771198 38635160 */  addi     r3, r3, UNDEF_80355160@l;
+/* 80771198 38635160 */  addi     r3, r3, mPlayerType__9daPyMng_c@l;
 /* 8077119C 5404103A */  slwi     r4, r0, 2;
 /* 807711A0 54A0103A */  slwi     r0, r5, 2;
 /* 807711A4 7CA3212E */  stwx     r5, r3, r4;

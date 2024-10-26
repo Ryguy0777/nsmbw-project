@@ -18,15 +18,11 @@ namespace mDvd
 
 int maxChunkSize = 0x10000;
 
-EXTERN_TEXT_STATIC(
-  0x8016B230, //
-  EGG::StreamDecomp* newUncompressObj(u8 type)
-);
+[[address(0x8016B230)]]
+/* static */ EGG::StreamDecomp* newUncompressObj(u8 type);
 
-EXTERN_TEXT_STATIC(
-  0x8016B270, //
-  void deleteUncompressObj(u8 type)
-);
+[[address(0x8016B270)]]
+/* static */ void deleteUncompressObj(u8 type);
 
 class MultiArchiveBuilder_c
 {
@@ -528,9 +524,9 @@ void* loadArchive(
 
 [[address(0x8016B3E0)]]
 void* loadToMainRAM(
-    int entryNum, char* dst, EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir, s32 offset,
-    u32* outAmountRead, u32* outFileSize, u32 decompressorType
-  )
+  int entryNum, char* dst, EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir, s32 offset,
+  u32* outAmountRead, u32* outFileSize, u32 decompressorType
+)
 {
     void* result = nullptr;
     u32 amountRead = 0;

@@ -114,6 +114,10 @@ SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_player_base.cpp
 # wiimj2d/dynamic/actor/worldmap
 #
 
+# d_a_2d_player.cpp
+# NSMBW d_bases.text: 0x808C5100 - 0x808C7D10
+SOURCES += source/wiimj2d/dynamic/actor/worldmap/d_a_2d_player.cpp
+
 # d_a_wm_player_static.cpp
 # NSMBW .text: 0x80100A10 - 0x801016B0
 # NSMBW .sbss: 0x8042A47E - 0x8042A484

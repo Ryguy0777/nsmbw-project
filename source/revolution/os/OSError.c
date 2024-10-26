@@ -13,11 +13,7 @@ extern "C" {
 void OSPanic(const char* file, int line, const char* format, ...);
 
 /* 0x801AD750 */
-EXTERN_TEXT(
-  0x801AD750, //
-  void OSSetErrorHandler(
-    void (*handler)(const char* file, int line, const char* msg)
-  )
-);
+[[address(0x801AD750)]]
+void OSSetErrorHandler(void (*handler)(const char* file, int line, const char* msg));
 
 } // extern "C"

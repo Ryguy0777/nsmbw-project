@@ -1,20 +1,63 @@
 #pragma once
 
 #include <dynamic/d_base.h>
+#include <dynamic/d_player_model_manager.h>
 #include <state/s_State.h>
+
+class dCharacterChangeSelectContents_c;
 
 class dCharacterChangeSelectBase_c : public dBase_c
 {
 public:
     //
+    // Constants and Types
+    //
+#define CHARACTER_LIST_COUNT 5
+    static constexpr dPyMdlMng_c::ModelType_e CHARACTER_FROM_BASE[] = {
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO, dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+      dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD, dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD,
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,
+    };
+
+    enum class Icon_e {
+        // Reserved
+        ICON_NONE = 6,
+
+        ICON_BLUE_TOAD = 0,
+        ICON_BLUE_TOAD_LOCKED = 3,
+        ICON_YELLOW_TOAD = 1,
+        ICON_YELLOW_TOAD_LOCKED = 4,
+        ICON_LUIGI = 2,
+        ICON_LUIGI_LOCKED = 5,
+        ICON_MARIO = 7,
+        ICON_MARIO_LOCKED = 8,
+        ICON_TOADETTE = 9,
+        ICON_TOADETTE_LOCKED = 10,
+    };
+
+    static constexpr Icon_e ICON_FROM_BASE[] = {
+      Icon_e::ICON_MARIO,     Icon_e::ICON_LUIGI,    Icon_e::ICON_YELLOW_TOAD,
+      Icon_e::ICON_BLUE_TOAD, Icon_e::ICON_TOADETTE,
+    };
+
+    static constexpr Icon_e ICON_LOCKED_FROM_BASE[] = {
+      Icon_e::ICON_MARIO_LOCKED,     Icon_e::ICON_LUIGI_LOCKED,    Icon_e::ICON_YELLOW_TOAD_LOCKED,
+      Icon_e::ICON_BLUE_TOAD_LOCKED, Icon_e::ICON_TOADETTE_LOCKED,
+    };
+
+    
+
+    
+
+    //
     // Functions
     //
 
     /* 0x8076FC80 */
-    bool isCharacterLocked(u32 character);
+    bool isCharacterLocked(dPyMdlMng_c::ModelType_e character);
 
     /* 0x8076FD70 */
-    void UNDEF_8076FD70(u32 character, u32 baseIndex);
+    void UNDEF_8076FD70(u32 swapIndex, u32 baseIndex);
 
     /* 0x8076FE40 */
     void UNDEF_8076FE40();
@@ -28,7 +71,7 @@ public:
 
     FILL(0x070, 0x074);
 
-    /* 0x074 */ u32* m0x074;
+    /* 0x074 */ dCharacterChangeSelectContents_c* mpCcSelContents;
 
     FILL(0x078, 0x07C);
 
@@ -40,7 +83,7 @@ public:
 
     FILL(0x29B, 0x2D4);
 
-    /* 0x2D4 */ u32 mDecidedCharacter;
+    /* 0x2D4 */ dPyMdlMng_c::ModelType_e mDecidedCharacter;
     /* 0x2D8 */ u32 mSelectedCharacter;
     /* 0x2DC */ u32 m0x2DC;
     /* 0x2E0 */ u32 mSelectedBaseIndex;

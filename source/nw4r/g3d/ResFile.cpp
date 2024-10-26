@@ -6,14 +6,10 @@
 namespace nw4r::g3d
 {
 
-EXTERN_TEXT(
-  0x80239F70, //
-  ResMdl ResFile::GetResMdl(const char* name) const
-);
+[[address(0x80239F70)]]
+ResMdl ResFile::GetResMdl(const char* name) const;
 
-EXTERN_TEXT(
-  0x8023A340, //
-  ResAnmTexPat ResFile::GetResAnmTexPat(const char* name) const
-);
+[[address(0x8023A340)]]
+ResAnmTexPat ResFile::GetResAnmTexPat(const char* name) const;
 
 } // namespace nw4r::g3d

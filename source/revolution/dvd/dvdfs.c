@@ -47,10 +47,8 @@ EXTERN_REPL(
   s32 __DVDPathToEntrynum(const char* fileName)
 );
 
-REPLACE(
-  0x801CA7C0, //
-  s32 DVDConvertPathToEntrynum(const char* fileName)
-)
+[[address(0x801CA7C0)]]
+s32 DVDConvertPathToEntrynum(const char* fileName)
 {
     OS_REPORT("DVDConvertPathToEntrynum(): %s\n", fileName);
 
@@ -73,10 +71,8 @@ EXTERN_REPL(
   bool __DVDFastOpen(s32 entryNum, DVDFileInfo* fileInfo)
 );
 
-REPLACE(
-  0x801CAAD0, //
-  bool DVDFastOpen(s32 entryNum, DVDFileInfo* fileInfo)
-)
+[[address(0x801CAAD0)]]
+bool DVDFastOpen(s32 entryNum, DVDFileInfo* fileInfo)
 {
     if (s_dvdExArcHandle == nullptr || entryNum < DVDEX_ARC_ENTRYNUM_BASE) {
         return __DVDFastOpen(entryNum, fileInfo);
@@ -115,10 +111,8 @@ bool DVDOpen(const char* fileName, DVDFileInfo* fileInfo)
     return DVDFastOpen(entryNum, fileInfo);
 }
 
-EXTERN_TEXT(
-  0x801CAB40, //
-  bool DVDClose(DVDFileInfo* fileInfo)
-);
+[[address(0x801CAB40)]]
+bool DVDClose(DVDFileInfo* fileInfo);
 
 // UNUSED: entryToPath
 
@@ -168,25 +162,17 @@ bool DVDConvertEntrynumToPath(s32 entrynum, char* path, u32 maxlen)
 
 // UNUSED: DVDChangeDir
 
-EXTERN_TEXT(
-  0x801CAB70, //
-  void DVDReadAsyncPrio()
-);
+[[address(0x801CAB70)]]
+void DVDReadAsyncPrio();
 
-EXTERN_TEXT_STATIC(
-  0x801CAC40, //
-  void cbForReadAsync()
-);
+[[address(0x801CAC40)]]
+/* static */ void cbForReadAsync();
 
-EXTERN_TEXT(
-  0x801CAC60, //
-  s32 DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 prio)
-);
+[[address(0x801CAC60)]]
+s32 DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 prio);
 
-EXTERN_TEXT_STATIC(
-  0x801CAD90, //
-  void cbForReadSync()
-);
+[[address(0x801CAD90)]]
+/* static */ void cbForReadSync();
 
 // UNUSED: DVDSeekAsyncPrio
 

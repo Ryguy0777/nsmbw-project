@@ -60,10 +60,8 @@ void dPyMdlBase_c::setBodyRate(float);
 void dPyMdlBase_c::setAnm(int, float, float, float);
 
 /* VT+0x2C */
-EXTERN_TEXT(
-  0x800D62D0, //
-  const void* dPyMdlBase_c::getAnmResFile() const
-);
+[[address(0x800D62D0)]]
+const void* dPyMdlBase_c::getAnmResFile() const;
 
 /* VT+0x6C */
 [[address(0x800D62E0)]]
@@ -114,20 +112,16 @@ float* dPyMdlBase_c::getLegLengthP(u8);
 void dPyMdlBase_c::setPropelScale(float);
 
 /* VT+0xA0 */
-EXTERN_TEXT(
-  0x800D6D10, //
-  s16 dPyMdlBase_c::getPropelRollAngle() const
-);
+[[address(0x800D6D10)]]
+s16 dPyMdlBase_c::getPropelRollAngle() const;
 
 /* VT+0x9C */
 [[address(0x800D6D20)]]
 void dPyMdlBase_c::setPropelRollAngle(s16);
 
 /* VT+0x98 */
-EXTERN_TEXT(
-  0x800D6D30, //
-  s16 dPyMdlBase_c::getPropelRollSpeed() const
-);
+[[address(0x800D6D30)]]
+s16 dPyMdlBase_c::getPropelRollSpeed() const;
 
 /* VT+0x94 */
 [[address(0x800D6D40)]]
@@ -154,7 +148,5 @@ void dPyMdlBase_c::setDark(int);
 void dPyMdlBase_c::calc2();
 
 /* VT+0x0C */
-EXTERN_TEXT(
-  0x800D6DA0, //
-  int dPyMdlBase_c::getFaceJointIdx() const
-);
+[[address(0x800D6DA0)]]
+int dPyMdlBase_c::getFaceJointIdx() const;

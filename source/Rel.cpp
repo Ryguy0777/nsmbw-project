@@ -13,17 +13,14 @@ typedef void (*PFN_voidfunc)();
 extern PFN_voidfunc _ctors[];
 extern PFN_voidfunc _ctors_end[];
 
-extern __replace_struct _replarray[];
-extern __replace_struct _replarray_end[];
+extern _MRel_replace_array_entry _MRel_replace_array[];
+extern _MRel_replace_array_entry _MRel_replace_array_end[];
 
-extern _MRel_ReplaceRel _replrelarray[];
-extern _MRel_ReplaceRel _replrelarray_end[];
+extern _MRel_replace_array_entry _MRel_extern_array[];
+extern _MRel_replace_array_entry _MRel_extern_array_end[];
 
-extern _MRel_InsertData _replinsertarray[];
-extern _MRel_InsertData _replinsertarray_end[];
-
-extern __replace_struct _externarray[];
-extern __replace_struct _externarray_end[];
+extern _MRel_patch_references_array_entry<0> _MRel_patch_references_array[];
+extern _MRel_patch_references_array_entry<0> _MRel_patch_references_array_end[];
 
 u32 SearchPatch(u32 offset)
 {
@@ -130,22 +127,46 @@ void PatchRelocations(OSModuleImportInfo* importTable, OSModuleImportInfo* impor
 
 extern "C" void _prolog(s32 arcEntryNum, ARCHandle* arcHandle)
 {
-    // Do the external replaced array
-    for (auto repl = _externarray; repl != _externarray_end; ++repl) {
+    // Reference patches
+    for (auto repl = _MRel_patch_references_array; repl != _MRel_patch_references_array_end;) {
+        for (u32 i = 0; i < repl->count; i++) {
+            u32 offset = reinterpret_cast<u32>(repl->addr);
+            u32 ptr = repl->references[i].addr;
+            if (repl->references[i].type == R_PPC_ADDR16_LO) {
+                offset &= 0xFFFF;
+                OS_REPORT("Patched R_PPC_ADDR16_LO at %08X (-> %04X)\n", ptr, offset);
+            } else if (repl->references[i].type == R_PPC_ADDR16_HI) {
+                offset >>= 16;
+                OS_REPORT("Patched R_PPC_ADDR16_HI at %08X (-> %04X)\n", ptr, offset);
+            } else if (repl->references[i].type == R_PPC_ADDR16_HA) {
+                offset = (offset + 0x8000) >> 16;
+                OS_REPORT("Patched R_PPC_ADDR16_HA at %08X (-> %04X)\n", ptr, offset);
+            }
+
+            if (ptr & 2) {
+                *(u32*) ToUncached(ptr - 2) = ((*(u32*) ToUncached(ptr - 2)) & 0xFFFF0000) | offset;
+            } else {
+                *(u32*) ToUncached(ptr) = ((*(u32*) ToUncached(ptr)) & 0xFFFF) | (offset << 16);
+            }
+        }
+
+        // Increment repl to the next entry
+        repl = reinterpret_cast<_MRel_patch_references_array_entry<0>*>(
+          reinterpret_cast<u32>(repl) + sizeof(_MRel_patch_references_array_entry<0>) +
+          repl->count * sizeof(_MRel_PatchRel)
+        );
+    }
+
+    // External replaced array
+    for (auto repl = _MRel_extern_array; repl != _MRel_extern_array_end; ++repl) {
         *ToUncached(repl->dest) = *repl->addr;
         ICInvalidateRange(repl->dest, 4);
     }
 
-    // Do function patches
-    for (auto repl = _replarray; repl != _replarray_end; ++repl) {
+    // Function patches
+    for (auto repl = _MRel_replace_array; repl != _MRel_replace_array_end; ++repl) {
         *ToUncached(repl->addr) = 0x48000000 | ((u32(repl->dest) - u32(repl->addr)) & 0x3FFFFFC);
         ICInvalidateRange(repl->addr, 4);
-    }
-
-    // Do data patches
-    for (auto repl = _replinsertarray; repl != _replinsertarray_end; ++repl) {
-        memcpy(repl->addr, repl->dest, repl->size);
-        DCFlushRange(repl->addr, repl->size);
     }
 
     // Do relocation patches for data symbol overrides

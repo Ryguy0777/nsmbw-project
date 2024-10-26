@@ -3,30 +3,20 @@
 
 #include <revolution/arc.h>
 
-EXTERN_TEXT(
-  0x8019F7A0, //
-  bool ARCInitHandle(void* arcStart, ARCHandle* handle)
-);
+[[address(0x8019F7A0)]]
+bool ARCInitHandle(void* arcStart, ARCHandle* handle);
 
-EXTERN_TEXT(
-  0x8019F840, //
-  bool ARCOpen(ARCHandle* handle, const char* fileName, ARCFileInfo* af)
-);
+[[address(0x8019F840)]]
+bool ARCOpen(ARCHandle* handle, const char* fileName, ARCFileInfo* af);
 
-EXTERN_TEXT(
-  0x8019FAF0, //
-  bool ARCFastOpen(ARCHandle* handle, s32 entrynum, ARCFileInfo* af)
-);
+[[address(0x8019FAF0)]]
+bool ARCFastOpen(ARCHandle* handle, s32 entrynum, ARCFileInfo* af);
 
-EXTERN_TEXT(
-  0x8019FB40, //
-  s32 ARCConvertPathToEntrynum(ARCHandle* handle, const char* pathPtr)
-);
+[[address(0x8019FB40)]]
+s32 ARCConvertPathToEntrynum(ARCHandle* handle, const char* pathPtr);
 
-EXTERN_TEXT_STATIC(
-  0x8019FDC0, //
-  u32 entryToPath(ARCHandle* handle, s32 entrynum, char* path, u32 maxlen)
-);
+[[address(0x8019FDC0)]]
+u32 entryToPath(ARCHandle* handle, s32 entrynum, char* path, u32 maxlen);
 
 bool ARCConvertEntrynumToPath(ARCHandle* handle, s32 entrynum, char* path, u32 maxlen)
 {
@@ -48,30 +38,20 @@ bool ARCEntrynumIsDir(ARCHandle* handle, s32 entrynum)
     return entry->isDir;
 }
 
-EXTERN_TEXT(
-  0x8019FF90, //
-  void* ARCGetStartAddrInMem(ARCFileInfo* af)
-);
+[[address(0x8019FF90)]]
+void* ARCGetStartAddrInMem(ARCFileInfo* af);
 
-EXTERN_TEXT(
-  0x8019FFB0, //
-  u32 ARCGetStartOffset(ARCFileInfo* af)
-);
+[[address(0x8019FFB0)]]
+u32 ARCGetStartOffset(ARCFileInfo* af);
 
-EXTERN_TEXT(
-  0x8019FFC0, //
-  u32 ARCGetLength(ARCFileInfo* af)
-);
+[[address(0x8019FFC0)]]
+u32 ARCGetLength(ARCFileInfo* af);
 
-EXTERN_TEXT(
-  0x8019FFD0, //
-  bool ARCClose(ARCFileInfo* af)
-);
+[[address(0x8019FFD0)]]
+bool ARCClose(ARCFileInfo* af);
 
-EXTERN_TEXT(
-  0x8019FFE0, //
-  bool ARCChangeDir(ARCHandle* handle, const char* dirName)
-);
+[[address(0x8019FFE0)]]
+bool ARCChangeDir(ARCHandle* handle, const char* dirName);
 
 // UNUSED: ARCGetCurrentDir
 
@@ -95,17 +75,11 @@ bool ARCFastOpenDir(ARCHandle* handle, s32 entrynum, ARCDir* dir)
     return true;
 }
 
-EXTERN_TEXT(
-  0x801A0040, //
-  bool ARCOpenDir(ARCHandle* handle, const char* dirName, ARCDir* dir)
-);
+[[address(0x801A0040)]]
+bool ARCOpenDir(ARCHandle* handle, const char* dirName, ARCDir* dir);
 
-EXTERN_TEXT(
-  0x801A00C0, //
-  bool ARCReadDir(ARCDir* dir, ARCDirEntry* dirent)
-);
+[[address(0x801A00C0)]]
+bool ARCReadDir(ARCDir* dir, ARCDirEntry* dirent);
 
-EXTERN_TEXT(
-  0x801A0180, //
-  bool ARCCloseDir(ARCDir* dir)
-);
+[[address(0x801A0180)]]
+bool ARCCloseDir(ARCDir* dir);

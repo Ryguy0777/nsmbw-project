@@ -4,7 +4,6 @@
 #include <machine/m_allocator.h>
 #include <machine/m_mtx.h>
 
-
 class dPyMdlBase_c
 {
     SIZE_ASSERT(0x20C);
@@ -54,18 +53,14 @@ public:
     virtual void onStarAnm();
     /* VT+0x44 0x800D6D60 */
     virtual void offStarAnm();
-    /* VT+0x48 */
-    // EXTERN_TEXT(
-    //   0x800BD740, // d_kinopio_model.o
-    //   virtual void onStarEffect()
-    // );
-  virtual void onStarEffect() {}
 
+    /* VT+0x48 */
+    [[address(0x800BD740) /* d_kinopio_model.o */]]
+    virtual void onStarEffect();
     /* VT+0x4C */
-    EXTERN_TEXT(
-      0x800BD730, // d_kinopio_model.o
-      virtual void offStarEffect()
-    );
+    [[address(0x800BD730) /* d_kinopio_model.o */]]
+    virtual void offStarEffect();
+
     /* VT+0x50 0x800D5820 */
     virtual void getJointMtx();
     /* VT+0x54 0x800D6D50 */

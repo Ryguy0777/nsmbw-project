@@ -21,10 +21,8 @@ public:
      * VT+0x58 0x808EF670 - Inlined somewhere?
      * Gets the actor kind. See ACTOR_KIND_e.
      */
-    EXTERN_TEXT(
-      0x808EF670, //
-      virtual ACTOR_KIND_e GetActorType() override
-    );
+    [[address(0x808EF670)]]
+    virtual ACTOR_KIND_e GetActorType() override;
 
     /**
      * VT+0x70

@@ -122,8 +122,12 @@ void daWmPlayer_c::createSubPlayers()
         prevPlayer = player;
 
         // Set player 1's model if this is player 1's character
-        static const s32 l_idTable[] = {0, 1, 3, 2};
-        s32 character = l_idTable[i % 4];
+        static const daPyMng_c::PlayerType_e l_idTable[] = {
+          daPyMng_c::PlayerType_e::MARIO,     daPyMng_c::PlayerType_e::LUIGI,
+          daPyMng_c::PlayerType_e::BLUE_TOAD, daPyMng_c::PlayerType_e::YELLOW_TOAD,
+          daPyMng_c::PlayerType_e::TOADETTE,
+        };
+        daPyMng_c::PlayerType_e character = l_idTable[i % 4];
         if (character == daPyMng_c::mPlayerType[0]) {
             mModelManager.mModel = player->mModelManager->mModel;
         }
@@ -161,8 +165,8 @@ UNDEF_80902cd8:;
 /* 80902CF8 3B180004 */  addi     r24, r24, 4;
 /* 80902CFC 4180FFDC */  blt+     UNDEF_80902cd8;
 /* 80902D00 3CA08035 */  lis      r5, UNDEF_80355150@ha;
-/* 80902D04 3C808035 */  lis      r4, UNDEF_80355160@ha;
-                         addi     r26, r4, UNDEF_80355160@l;
+/* 80902D04 3C808035 */  lis      r4, mPlayerType__9daPyMng_c@ha;
+                         addi     r26, r4, mPlayerType__9daPyMng_c@l;
 /* 80902D0C 3B800001 */  li       r28, 1;
                          addi     r24, r5, UNDEF_80355150@l;
 /* 80902D14 3FA0809A */  lis      r29, UNDEF_809a0db8@ha;
@@ -212,9 +216,9 @@ UNDEF_80902dac:;
 /* 80902DAC 4B7FA415 */  bl       UNDEF_800fd1c0;
 /* 80902DB0 4BFD5831 */  bl       UNDEF_808d85e0;
 UNDEF_80902db4:;
-/* 80902DB4 3CA08035 */  lis      r5, UNDEF_80355160@ha;
+/* 80902DB4 3CA08035 */  lis      r5, mPlayerType__9daPyMng_c@ha;
 /* 80902DB8 3CC0809A */  lis      r6, UNDEF_809a0db8@ha;
-/* 80902DBC 38A55160 */  addi     r5, r5, UNDEF_80355160@l;
+/* 80902DBC 38A55160 */  addi     r5, r5, mPlayerType__9daPyMng_c@l;
 /* 80902DC0 3C608032 */  lis      r3, UNDEF_8031d6b4@ha;
 /* 80902DC4 80850004 */  lwz      r4, 4(r5);
 /* 80902DC8 38C60DB8 */  addi     r6, r6, UNDEF_809a0db8@l;
@@ -267,7 +271,8 @@ void daWmPlayer_c::initActiveCharaFlags()
     dInfo_c* info = dInfo_c::m_instance;
 
     for (u32 i = 0; i < 4; i++) {
-        m_activeCharaFlag[daPyMng_c::mPlayerType[i]] = info->mPlayerActiveMode[i] == 3 ? 3 : 0;
+        m_activeCharaFlag[s32(daPyMng_c::mPlayerType[i]) % 4] =
+          info->mPlayerActiveMode[i] == 3 ? 3 : 0;
     }
 }
 

@@ -42,10 +42,9 @@ public:
     /* VT+0x18 0x802B7F80 */
     virtual s32 writeData(const void* data, s32 len, s32 offset);
 
-    EXTERN_TEXT(
-      /* VT+0x1C */ 0x8008F750, // d_dylink.cpp
-      virtual s32 getFileSize() const
-    );
+    /* VT+0x1C */
+    [[address(0x8008F750) /* d_dylink.cpp */]]
+    virtual s32 getFileSize() const;
 
 private:
     /* 0x802B7D00 */

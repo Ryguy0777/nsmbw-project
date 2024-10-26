@@ -77,7 +77,5 @@ void dBase_c::postDraw(MAIN_STATE_e state);
  * VT+0x4C
  * Gets a string describing the kind of this base.
  */
-EXTERN_TEXT(
-  0x8006C660, //
-  const char* dBase_c::getKindString() const
-);
+[[address(0x8006C660)]]
+const char* dBase_c::getKindString() const;
