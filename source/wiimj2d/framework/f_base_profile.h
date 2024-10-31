@@ -769,21 +769,19 @@ enum class fBaseProfile_e : u16 {
     LASTACTOR = 749,
 };
 
-[[gnu::const]] static u16 operator+(fBaseProfile_e value)
+[[gnu::const]] static constexpr u16 operator+(fBaseProfile_e value)
 {
     // Apply the region-dependant changes to the value
     u16 v = static_cast<u16>(value);
 
-    if (dScBoot_c::m_codeRegion >= dScBoot_c::CODE_REGION_e::K) {
-        if (value >= fBaseProfile_e::TIME_UP) {
-            v += 2;
-        }
+    if (value >= fBaseProfile_e::TIME_UP &&
+        dScBoot_c::m_codeRegion >= dScBoot_c::CODE_REGION_e::K) {
+        v += 2;
     }
 
-    if (dScBoot_c::m_codeRegion >= dScBoot_c::CODE_REGION_e::C) {
-        if (value >= fBaseProfile_e::WM_CS_SEQ_MNG) {
-            v += 2;
-        }
+    if (value >= fBaseProfile_e::WM_CS_SEQ_MNG &&
+        dScBoot_c::m_codeRegion >= dScBoot_c::CODE_REGION_e::C) {
+        v += 2;
     }
 
     return v;

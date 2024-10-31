@@ -1,42 +1,28 @@
 #include <System.h>
 
-#undef EXTERN_TEXT
-#define EXTERN_TEXT(_ADDR_P1, _PROTOTYPE)                                                          \
-    ASM_FUNCTION(_PROTOTYPE, mflr r12; bl PortCall;.long _ADDR_P1;                                 \
-                   .ascii "[insert ports for other regions]";)
+#undef address
+#define address(...) maybe_unused
 
-#undef EXTERN_REPL
-#define EXTERN_REPL(_ADDR_P1, _PROTOTYPE) EXTERN_TEXT(_ADDR_P1, _PROTOTYPE)
-
-#undef EXTERN_STATIC
-#define EXTERN_STATIC(_ADDR_P1, _PROTOTYPE) EXTERN_TEXT(_ADDR_P1, _PROTOTYPE)
-
-// Unfortunately can't define constructors/destructors this way due to a
-// compiler bug.
-#undef EXTERN_TEXT_CONSTRUCTOR
-#define EXTERN_TEXT_CONSTRUCTOR(...)
+#undef address_data
+#define address_data(...) maybe_unused
 
 #undef EXTERN_SYMBOL
 #define EXTERN_SYMBOL(...)
 
-#undef REPLACE
-#define REPLACE(_ADDR_P1, _PROTOTYPE) _PROTOTYPE
+#undef EXTERN_REPL
+#define EXTERN_REPL(...)
 
-#undef REPLACE_ASM
-#define REPLACE_ASM(_ADDR_P1, _PROTOTYPE, ...) EXTERN_TEXT(_ADDR_P1, _PROTOTYPE)
+#include <cstdio>
+#include <cstring>
+#include <egg/core/eggDvdFile.h>
+#include <egg/core/eggDvdRipper.h>
+#include <egg/core/eggHeap.h>
+#include <egg/core/eggStreamDecomp.h>
+#include <revolution/arc.h>
+#include <revolution/dvd.h>
+#include <revolution/os.h>
 
-#include <egg/core/eggDvdFile.cpp>
-#include <egg/core/eggDvdRipper.cpp>
-#include <egg/core/eggHeap.cpp>
-#include <egg/core/eggStreamDecomp.cpp>
-#include <msl/msl_c/mem.c>
-#include <msl/msl_c/printf.c>
-#include <revolution/arc/arc.c>
-#include <revolution/dvd/dvdfs.c>
-#include <revolution/os/OSFatal.c>
-#include <revolution/os/OSLink.c>
 #include <runtime/__mem.c>
-#include <wiimj2d/state/s_Print.cpp>
 
 // Function definitions. Define as extern "C" to avoid symbol name mangling for references from ASM.
 extern "C" {
@@ -47,14 +33,27 @@ static void LoaderAssertFail(const char* expr, s32 line);
 
 #define LOADER_ASSERT(_EXPR) (((_EXPR) ? (void) 0 : LoaderAssertFail(#_EXPR, __LINE__)))
 
+#define _ADDRESS_LOADER3(_ADDR, _COUNTER)                                                          \
+    __gnu__::__naked__]]  void _LoaderFunction##_COUNTER() asm("_LoaderFunction" #_COUNTER);       \
+    [[__gnu__::__naked__]] void _LoaderFunction##_COUNTER()                                        \
+    {                                                                                              \
+        __asm__("mflr %r12; bl PortCall;.long " #_ADDR                                             \
+                ";.ascii \"[insert ports for other regions]\";");                                  \
+    }                                                                                              \
+        [[__gnu__::__alias__("_LoaderFunction" #_COUNTER)
+
+#define _ADDRESS_LOADER2(_ADDR, _COUNTER) _ADDRESS_LOADER3(_ADDR, _COUNTER)
+#define _ADDRESS_LOADER(_ADDR, _COUNTER) _ADDRESS_LOADER2(_ADDR, _COUNTER)
+#define address_loader(_ADDR) _ADDRESS_LOADER(_ADDR, __COUNTER__)
+
 // Since the same Loader.bin file will be used for every region, ported addresses need to be
 // realized on the fly.
 
 // Regions in the order P1, P2, E1, E2, J1, J2, K, W, C
 u8 g_portIndex = 0xFF;
 
-ASM_FUNCTION(void PortCall(),
-             // clang-format off
+void PortCall() ASM_METHOD(
+  // clang-format off
     mflr    r11; // Addresses
     mtlr    r12; // Restore return address
     lis     r12, g_portIndex@ha;
@@ -62,14 +61,69 @@ ASM_FUNCTION(void PortCall(),
     lwzx    r12, r11, r12;
     mtctr   r12;
     bctr;
-             // clang-format on
+  // clang-format on
 );
 
+[[address_loader(0x8019F7A0)]]
+bool ARCInitHandle(void* arcStart, ARCHandle* handle);
+
+[[address_loader(0x8019F840)]]
+bool ARCOpen(ARCHandle* handle, const char* fileName, ARCFileInfo* af);
+
+[[address_loader(0x8019FAF0)]]
+bool ARCFastOpen(ARCHandle* handle, s32 entrynum, ARCFileInfo* af);
+
+[[address_loader(0x8019FB40)]]
+s32 ARCConvertPathToEntrynum(ARCHandle* handle, const char* pathPtr);
+
+[[address_loader(0x8019FF90)]]
+void* ARCGetStartAddrInMem(ARCFileInfo* af);
+
+[[address_loader(0x8019FFB0)]]
+u32 ARCGetStartOffset(ARCFileInfo* af);
+
+[[address_loader(0x8019FFC0)]]
+u32 ARCGetLength(ARCFileInfo* af);
+
+[[address_loader(0x8019FFD0)]]
+bool ARCClose(ARCFileInfo* af);
+
+[[address_loader(0x801AF710)]]
+void OSFatal(GXColor textColor, GXColor bgColor, const char* text);
+
+[[address_loader(0x801B2060)]]
+bool OSLink(OSModuleInfo* info, void* bss);
+
+[[address_loader(0x801B2070)]]
+bool OSLinkFixed(OSModuleInfo* info, void* bss);
+
+[[address_loader(0x801CA7C0)]]
+s32 DVDConvertPathToEntrynum(const char* fileName);
+
 // Actually a constructor but we can't define it due to a compiler bug.
-EXTERN_TEXT(
-  0x802B7C40, //
-  EGG::DvdFile* MakeDvdFile(void* data)
+[[address_loader(0x802B7C40)]]
+EGG::DvdFile* MakeDvdFile(void* data);
+
+[[address_loader(0x802B8560)]]
+bool EGG::StreamDecompLZ::init(void* dst, u32 maxCompressedSize);
+
+[[address_loader(0x802B8590)]]
+bool EGG::StreamDecompLZ::decomp(const void* src, u32 size);
+
+[[address_loader(0x802B8B90)]]
+u32 EGG::StreamDecompLZ::getUncompressedSize(const void* src);
+
+[[address_loader(0x802B8BA0)]]
+u32 EGG::StreamDecompLZ::getHeaderSize();
+
+[[address_loader(0x802B8290)]]
+u8* EGG::DvdRipper::loadToMainRAMDecomp(
+  DvdFile* file, StreamDecomp* streamDecomp, u8* dst, Heap* heap, EAllocDirection allocDirection,
+  s32 offset, u32 size, u32 maxChunkSize, u32* amountRead, u32* fileSize
 );
+
+[[address_loader(0x802E19D8)]]
+int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
 
 constexpr u32 MODULE_MAX_SIZE = 0x20000;
 
@@ -155,6 +209,27 @@ static EGG::Heap* GetPortByCode()
     return *reinterpret_cast<EGG::Heap**>(g_dylinkHeapAddresses[g_portIndex / 4]);
 }
 
+u32 g_StreamDecompLZVTable[] = {
+  0x8034FFA8, // PAL v1 address
+
+  // "[insert ports for other regions]"
+  0x5B696E73,
+  0x65727420,
+  0x706F7274,
+  0x7320666F,
+  0x72206F74,
+  0x68657220,
+  0x72656769,
+  0x6F6E735D,
+};
+
+EGG::StreamDecompLZ MakeStreamDecompLZ()
+{
+    EGG::StreamDecompLZ lzStream;
+    *reinterpret_cast<u32*>(&lzStream) = g_StreamDecompLZVTable[g_portIndex / 4];
+    return lzStream;
+}
+
 // Loader entry point. Defined in section .start so the linker will always place this first.
 __attribute__((section(".start"))) //
 bool LoaderMain()
@@ -207,7 +282,7 @@ bool LoaderMain()
     bool arcOpenOk = ARCOpen(arcHandle, g_modulePath, &arcFileInfo);
     LOADER_ASSERT(arcOpenOk);
 
-    EGG::StreamDecompLZ lzStream;
+    EGG::StreamDecompLZ lzStream = MakeStreamDecompLZ();
 
     u32 amountRead, fileSize;
     moduleBlock = EGG::DvdRipper::loadToMainRAMDecomp(
@@ -236,10 +311,11 @@ bool LoaderMain()
     return true;
 }
 
-__attribute__((noinline)) static void LoaderAssertFail(const char* expr, s32 line)
+[[gnu::noinline]]
+static void LoaderAssertFail(const char* expr, s32 line)
 {
     char printMsg[0x400];
-    snprintf(
+    std::snprintf(
       printMsg, 0x400,
       "Loader assertion failed\n"
       "  %s\n"

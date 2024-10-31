@@ -53,9 +53,9 @@ public:
     u8 m0x29F; // Set 0 in create
     u8 m0x2A0; // Set 0 in create
 
-    FILL(0x2A1, 0x2B4);
+    /* 0x2A4 */ u32 mLives[4];
 
-    float m0x2B4;
+    /* 0x2B4 */ float m0x2B4;
 
     //
     // Added Member Data

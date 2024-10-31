@@ -4,7 +4,6 @@
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>
-#include <string.h>
 
 constexpr u32 THIS_MODULE_ID = 0x50414C41; // 'PALA'
 

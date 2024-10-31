@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include <dynamic/d_CharacterChangeIndicator.h>
 #include <dynamic/d_CharacterChangeSelectArrow.h>
 #include <dynamic/d_CharacterChangeSelectBase.h>
@@ -54,8 +53,25 @@ public:
 
     /* 0x64C */ da2DPlayer_c* mpaPlayers[4];
 
-    FILL(0x65C, 0x710);
+    FILL(0x65C, 0x690);
+
+    /* 0x690 */ u32 m0x690[4];
+    /* 0x6A0 */ u32 m0x6A0[4];
+  
+    FILL(0x6B0, 0x6E0);
+
+    /* 0x6E0 */ u32 m0x6E0[4];
+    /* 0x6F0 */ u32 m0x6F0[4];
+
+    FILL(0x700, 0x710);
+
     OFFSET_ASSERT(0x710);
 
+    // The offsets are fixed because ASM
     /* 0x710 */ da2DPlayer_c* mpaExPlayers[4];
+
+    /* 0x720 */ u32 mEx0x690[4];
+    /* 0x730 */ u32 mEx0x6A0[4];
+    /* 0x740 */ u32 mEx0x6E0[4];
+    /* 0x750 */ u32 mEx0x6F0[4];
 };

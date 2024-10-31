@@ -12,6 +12,6 @@ extern "C" {
 [[address(0x801AF710)]]
 void OSFatal(GXColor textColor, GXColor bgColor, const char* text);
 
-// 0x801AF900: 0 Halt
+// 0x801AF900: Halt
 
 } // extern "C"

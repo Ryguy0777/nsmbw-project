@@ -3,19 +3,19 @@
 /**
  * A unique identifier for each base.
  */
-enum fBaseID_e {
+enum class fBaseID_e {
     /**
      * Represents the null base.
      */
-    BASE_ID_NULL,
+    NULL = 0,
 
     /**
      * The starting identifier value.
      */
-    BASE_ID_FIRST,
+    FIRST = 1,
 
     /**
      * The maximum identifier value.
      */
-    BASE_ID_MAX = -1,
+    MAX = -1,
 };

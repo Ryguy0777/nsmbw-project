@@ -4,7 +4,11 @@
 
 #include "d_scene.h"
 
-EXTERN_DATA(
-  0x80428A42, //
-  u16 dScene_c::m_nowScene
-);
+[[address_data(0x80428A42)]]
+u16 dScene_c::m_nowScene;
+
+[[address(0x800E2040)]]
+void dScene_c::setFadeInFrame(u16 frames);
+
+[[address(0x800E2050)]]
+void dScene_c::setFadeOutFrame(u16 frames);

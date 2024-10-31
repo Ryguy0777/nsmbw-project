@@ -5,9 +5,31 @@
 
 #include <dynamic/d_ControllerInformation.h>
 #include <dynamic/d_WiiStrap.h>
+#include <dynamic/d_game_common.h>
+#include <dynamic/d_info.h>
+#include <dynamic/d_resource_manager.h>
+#include <dynamic/d_scene.h>
+#include <dynamic/d_system.h>
 #include <machine/m_fader.h>
 
 dScBoot_c::CODE_REGION_e dScBoot_c::m_codeRegion;
+
+[[address(0x8015C550)]]
+int dScBoot_c::create_()
+{
+    dSys_c::setClearColor(nw4r::ut::Color{0, 0, 0, 255});
+    dSys_c::setFrameRate(1);
+
+    dScene_c::setFadeInFrame(30);
+    dScene_c::setFadeOutFrame(30);
+
+    dGameCom::initRandomSeed();
+
+    new dResMng_c();
+    new dInfo_c();
+
+    return 1;
+}
 
 [[address(0x8015D010)]]
 void dScBoot_c::executeState_WiiStrapFadeOut()

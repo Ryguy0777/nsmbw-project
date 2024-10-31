@@ -5,7 +5,6 @@
 // NSMBW .sbss: 0x8042A25C - 0x8042A268
 
 #include "d_info.h"
-#include "dynamic/d_player_model_manager.h"
 
 #include <dynamic/actor/d_a_player_manager.h>
 
@@ -21,14 +20,14 @@ dInfo_c::~dInfo_c();
 [[address(0x800BB180)]]
 void dInfo_c::PlayerStateInit()
 {
-    daPyMng_c::mPlayerType[0] = daPyMng_c::PlayerType_e::MARIO;
-    daPyMng_c::mPlayerType[1] = daPyMng_c::PlayerType_e::LUIGI;
-    daPyMng_c::mPlayerType[2] = daPyMng_c::PlayerType_e::YELLOW_TOAD;
-    daPyMng_c::mPlayerType[3] = daPyMng_c::PlayerType_e::BLUE_TOAD;
-    daPyMng_c::mPlayerType[4] = daPyMng_c::PlayerType_e::TOADETTE;
+    for (s32 i = 0; i < PLAYER_COUNT; i++) {
+        daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
 
-    for (s32 i = 0; i < 4; i++) {
-        mPlayerActiveMode[i] = 0;
+        if (i < 4) {
+            mPlayerActiveMode[i] = 0;
+        } else {
+            mExPlayerActiveMode[i - 4] = 0;
+        }
     }
 }
 
@@ -78,7 +77,8 @@ EXTERN_SYMBOL(0x800BBD60, "__arraydtor$68604");
 // .data
 //
 
-EXTERN_SYMBOL(0x80315E90, "m_startGameInfo__7dInfo_c");
+[[address_data(0x80315E90)]]
+dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
 
 EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
 

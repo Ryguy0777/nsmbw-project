@@ -11,4 +11,7 @@ EXTERN_DATA(
   EGG::Heap* g_gameHeaps[3]
 );
 
+[[address(0x8016E630)]]
+EGG::Heap* setCurrentHeap(EGG::Heap* heap);
+
 } // namespace mHeap

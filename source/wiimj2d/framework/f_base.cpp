@@ -115,6 +115,12 @@ void fBase_c::postDraw(MAIN_STATE_e state);
 void fBase_c::deleteReady();
 
 /**
+ * Requests deletion of the base. Calling this function multiple times has no effect.
+ */
+[[address(0x80162650)]]
+void fBase_c::deleteRequest();
+
+/**
  * VT+0x3C
  * @unused Creates a heap of the given size for the base. If the requested heap space is not
  * available, the heap is adjusted to allocate all the available memory. If that also fails, the

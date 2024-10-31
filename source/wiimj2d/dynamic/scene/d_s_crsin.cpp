@@ -3,7 +3,11 @@
 
 #include "d_s_crsin.h"
 
+#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/d_info.h>
+#include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_resource_manager.h>
+#include <dynamic/scene/d_s_stage.h>
 
 [[address(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()
@@ -12,6 +16,7 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "Mario",
       "Luigi",
       "Kinopio",
+      "Kinopico", // Added
       "Yoshi",
       "P_rcha",
       "L_rcha",
@@ -44,9 +49,6 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "obj_chikuwa_block",
       "lift_rakka_ashiba",
       "Mask",
-
-      // Added
-      "Kinopico",
     };
 
     dResMng_c::m_instance->setRes(
@@ -54,4 +56,45 @@ int dScCrsin_c::loadDefaultObjectResPhase()
     );
 
     return 1;
+}
+
+[[address(0x8091F560)]]
+bool dScCrsin_c::isDoneLoading();
+
+[[address(0x8091FE20)]]
+void dScCrsin_c::executeState_resWaitProc2()
+{
+    if (!isDoneLoading()) {
+        return;
+    }
+
+    if (dInfo_c::m_instance->m_startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
+        // Setup players for title screen
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
+            daPyMng_c::mPlayerEntry[i] = 1;
+
+            int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
+            daPyMng_c::mPlayerMode[i] = 1;
+            daPyMng_c::mCreateItem[i] = 0;
+        }
+    } else if (dScStage_c::m_isStaffCredit) {
+        // Setup players for credits
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            daPyMng_c::mPlayerEntry[i] = 1;
+
+            dRemoconMng_c::m_instance->mpaConnect[i]->m0x54 = 1;
+
+            int playerType = int(daPyMng_c::mPlayerType[i]);
+
+            daPyMng_c::mPlayerMode[playerType] = 1;
+            if (daPyMng_c::mRest[playerType] < 5) {
+                daPyMng_c::mRest[playerType] = 5;
+            }
+
+            daPyMng_c::mCreateItem[playerType] = 0;
+        }
+    }
+
+    changeState(StateID_createReplayHeapProc);
 }

@@ -13,6 +13,13 @@ SOURCES += source/wiimj2d/dynamic/d_2d.cpp
 # wiimj2d/dynamic/actor
 #
 
+# d_a_player_base.cpp
+# NSMBW: 0x800460D0 - 0x8005B3A0
+SOURCES += source/wiimj2d/dynamic/actor/d_a_player_base.cpp
+# d_a_player_demo_manager.cpp
+# NSMBW: 0x8005B3A0 - 0x8005D7E0
+SOURCES += source/wiimj2d/dynamic/actor/d_a_player_demo_manager.cpp
+
 # d_a_player_manager.cpp
 # NSMBW: 0x8005E9A0 - 0x800613B0
 SOURCES += source/wiimj2d/dynamic/actor/d_a_player_manager.cpp
@@ -28,10 +35,21 @@ SOURCES += source/wiimj2d/dynamic/d_base.cpp
 # NSMBW: 0x8006C6D0 - 0x8006CF40
 SOURCES += source/wiimj2d/dynamic/d_base_actor.cpp
 
+# d_course_data.cpp
+# NSMBW: 0x8008DFF0 - 0x8008ECC0
+SOURCES += source/wiimj2d/dynamic/d_course_data.cpp
+
+# d_fader.cpp
+# NSMBW: 0x800B0A20 - 0x800B0EA0
+SOURCES += source/wiimj2d/dynamic/d_fader.cpp
+
 # d_game_common.cpp
 # NSMBW .text: 0x800B2E70 - 0x800B5930
 SOURCES += source/wiimj2d/dynamic/d_game_common.cpp
 
+# d_game_key.cpp
+# NSMBW: 0x800B5930 - 0x800B5B50
+SOURCES += source/wiimj2d/dynamic/d_game_key.cpp
 # d_game_key_core.cpp
 # NSMBW: 0x800B5B50 - 0x800B64A0
 SOURCES += source/wiimj2d/dynamic/d_game_key_core.cpp
@@ -47,6 +65,17 @@ SOURCES += source/wiimj2d/dynamic/d_info.cpp
 # NSMBW: 0x800C89A0 - 0x800C9B50
 SOURCES += source/wiimj2d/dynamic/d_lytbase.cpp
 
+# d_mj2d_game.cpp
+# NSMBW: 0x800CDFB0 - 0x800CE660
+SOURCES += source/wiimj2d/dynamic/d_mj2d_game.cpp
+# d_mj2d_header.cpp
+# NSMBW: 0x800CE660 - 0x800CE7F0
+SOURCES += source/wiimj2d/dynamic/d_mj2d_header.cpp
+
+# d_multi_manager.cpp
+# NSMBW: 0x800CE8F0 - 0x800CED00
+SOURCES += source/wiimj2d/dynamic/d_multi_manager.cpp
+
 # d_kinopico_model.cpp
 # NSMBW: ---
 SOURCES += source/wiimj2d/dynamic/d_kinopico_model.cpp
@@ -60,15 +89,26 @@ SOURCES += source/wiimj2d/dynamic/d_player_model_base.cpp
 # NSMBW: 0x800D6DB0 - 0x800D7190
 SOURCES += source/wiimj2d/dynamic/d_player_model_manager.cpp
 
+# d_remocon_mng.cpp
+# NSMBW: 0x800DBFD0 - 0x800DDA40
+SOURCES += source/wiimj2d/dynamic/d_remocon_mng.cpp
+
 # d_resource_manager.cpp
 # NSMBW: 0x800DF770 - 0x800DF950
 # NSMBW .sbss: 0x8042A318 - 0x8042A31C
 SOURCES += source/wiimj2d/dynamic/d_resource_manager.cpp
 
+# d_save_manager.cpp
+# NSMBW: 0x800E0270 - 0x800E1AA0
+SOURCES += source/wiimj2d/dynamic/d_save_manager.cpp
 # d_scene.cpp
 # NSMBW .text: 0x800E1AA0 - 0x800E2070
 # NSMBW .sdata: 0x80428A40 - 0x80428A50
 SOURCES += source/wiimj2d/dynamic/d_scene.cpp
+
+# d_system.cpp
+# NSMBW: 0x800E46E0 - 0x800E5480
+SOURCES += source/wiimj2d/dynamic/d_system.cpp
 
 # d_CharacterChangeIndicator.cpp
 # NSMBW d_bases.text: 0x8076D880 - 0x8076DEE0
@@ -132,12 +172,36 @@ SOURCES += source/wiimj2d/dynamic/actor/worldmap/d_a_wm_sub_player.cpp
 SOURCES += source/wiimj2d/dynamic/actor/worldmap/d_a_wm_player.cpp
 
 #
+# wiimj2d/dynamic/scene
+#
+
+# d_s_stage_static.cpp
+# NSMBW: 0x80101A50 - 0x8010276C
+SOURCES += source/wiimj2d/dynamic/scene/d_s_stage_static.cpp
+
+#
+# wiimj2d/dynamic/worldmap
+#
+
+# d_wm_effectManager.cpp
+# NSMBW: 0x80103020 - 0x801038D0
+SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_effectManager.cpp
+
+#
 # wiimj2d/dynamic
 #
 
 # d_WiiStrap.cpp
 # NSMBW: 0x8010F080 - 0x8010F530
 SOURCES += source/wiimj2d/dynamic/d_WiiStrap.cpp
+
+#
+# wiimj2d/dynamic/actor
+#
+
+# d_a_player.cpp
+# NSMBW: 0x80126650 - 0x8014A480
+SOURCES += source/wiimj2d/dynamic/actor/d_a_player.cpp
 
 #
 # wiimj2d/dynamic/scene
@@ -151,9 +215,15 @@ SOURCES += source/wiimj2d/dynamic/scene/d_s_boot.cpp
 # NSMBW d_bases.text: 0x80917960 - 0x8091A2F0
 SOURCES += source/wiimj2d/dynamic/scene/d_s_game_setup.cpp
 
+# d_s_world_9_demo.cpp
+# NSMBW d_bases.text: 0x8091CB70 - 0x8091EB60
+SOURCES += source/wiimj2d/dynamic/scene/d_s_world_9_demo.cpp
+
 # d_s_crsin.cpp
 # NSMBW d_bases.text: 0x8091EC10 - 0x80921060
 SOURCES += source/wiimj2d/dynamic/scene/d_s_crsin.cpp
+
+
 
 #
 # wiimj2d/state
@@ -170,13 +240,13 @@ SOURCES += source/wiimj2d/state/s_StateID.cpp
 # wiimj2d/framework
 #
 
-# f_base_profile.cpp
-# NSMBW: ---
-SOURCES += source/wiimj2d/framework/f_base_profile.cpp
-
 # f_base.cpp
 # NSMBW: 0x80161C10 - 0x80162C80
 SOURCES += source/wiimj2d/framework/f_base.cpp
+
+# f_manager.cpp
+# NSMBW: 0x80162E30 - 0x80163130
+SOURCES += source/wiimj2d/framework/f_manager.cpp
 
 #
 # wiimj2d/machine/m3d
@@ -243,6 +313,22 @@ SOURCES += source/revolution/os/OSFatal.c
 # OSLink.c
 # NSMBW: 0x801B1A50 - 0x801B24D0
 SOURCES += source/revolution/os/OSLink.c
+
+#
+# revolution/vi
+#
+
+# vi.c
+# NSMBW: 0x801BBB70 - 0x801BE5C0
+SOURCES += source/revolution/vi/vi.c
+# i2c.c
+# NSMBW: 0x801BE5C0 - 0x801BEEE0
+SOURCES += source/revolution/vi/i2c.c
+# vi3in1.c
+# NSMBW: 0x801BEEE0 - 0x801C0610
+SOURCES += source/revolution/vi/vi3in1.c
+
+
 
 #
 # revolution/dvd

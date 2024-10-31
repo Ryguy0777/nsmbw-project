@@ -123,8 +123,8 @@ void daWmPlayer_c::createSubPlayers()
 
         // Set player 1's model if this is player 1's character
         static const daPyMng_c::PlayerType_e l_idTable[] = {
-          daPyMng_c::PlayerType_e::MARIO,     daPyMng_c::PlayerType_e::LUIGI,
-          daPyMng_c::PlayerType_e::BLUE_TOAD, daPyMng_c::PlayerType_e::YELLOW_TOAD,
+          daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
+          daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
           daPyMng_c::PlayerType_e::TOADETTE,
         };
         daPyMng_c::PlayerType_e character = l_idTable[i % 4];

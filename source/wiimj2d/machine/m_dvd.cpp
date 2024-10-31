@@ -357,9 +357,14 @@ void MultiArchiveBuilder_c::addRootEntry(const char* name)
         return;
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvla-cxx-extension"
+
     // Create empty filesystem
     const u32 dataSize = sizeof(FstEntry) + std::strlen(name);
     char data[dataSize];
+
+#pragma clang diagnostic pop
 
     FstEntry* rootEntry = reinterpret_cast<FstEntry*>(data);
     *rootEntry = {

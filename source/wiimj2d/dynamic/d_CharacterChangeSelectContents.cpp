@@ -2,6 +2,7 @@
 // NSMBW: 0x80772A50 - 0x80773F30
 
 #include "d_CharacterChangeSelectContents.h"
+#include "dynamic/actor/d_a_player_manager.h"
 
 [[address(0x80772A50)]]
 dCharacterChangeSelectContents_c* dCharacterChangeSelectContents_c_classInit()
@@ -460,6 +461,18 @@ UNDEF_80773658:;
 /* 807736A0 7C0803A6 */  mtlr     r0;
 /* 807736A4 38210010 */  addi     r1, r1, 16;
 /* 807736A8 4E800020 */  blr;
-
   // clang-format on
 );
+
+[[address(0x80773840)]]
+void dCharacterChangeSelectContents_c::finalizeState_OnStageWait()
+{
+    for (int i = 0; i < CHARACTER_COUNT; i++) {
+        mLives[i] = daPyMng_c::mRest[i];
+    }
+
+    m0x28C = dCharacterChangeSelectBase_c::Icon_e::ICON_NONE;
+    m0x294 = dCharacterChangeSelectBase_c::Icon_e::ICON_NONE;
+    m0x29E = 0;
+    m0x29F = 0;
+}

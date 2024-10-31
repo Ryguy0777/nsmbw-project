@@ -15,7 +15,16 @@ class dScBoot_c : public dScene_c,
                   public sStateMgr_c<dScBoot_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
 {
 public:
+    // ------------
+    // Constructors
+    // ------------
+
     dScBoot_c();
+
+public:
+    // -------------------
+    // Constants and Types
+    // -------------------
 
     enum class CODE_REGION_e {
         P1, // PAL revision 1
@@ -29,8 +38,35 @@ public:
         C, // CHN (Nvidia Shield TV release)
     };
 
+public:
+    // ---------
+    // Functions
+    // ---------
+
+    /**
+     * 0x8015C550
+     * This is actually the `create` virtual function but it crashes Clang for some reason, gotta
+     * look into that.
+     */
+    int create_();
+
+public:
+    // -----------
+    // Static Data
+    // -----------
+
     static CODE_REGION_e m_codeRegion;
+
+public:
+    // ----------------
+    // Static Functions
+    // ----------------
     static void initCodeRegion();
+
+public:
+    // -----------
+    // Member Data
+    // -----------
 
     FILL(0x0B0, 0x0F0);
     /* 0x0F0 */ dWiiStrap_c* mWiiStrap;

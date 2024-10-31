@@ -5,6 +5,7 @@
 namespace nw4r::ut
 {
 
-using Color = GXColor;
+struct Color : GXColor {
+};
 
 } // namespace nw4r::ut

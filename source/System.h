@@ -240,3 +240,5 @@ struct __get_this<T&> {
         );                                                                                         \
         PRAGMA("clang diagnostic pop") return __offset_assert{};                                   \
     }()
+
+#define BIT_FLAG(_BIT) (1 << _BIT)

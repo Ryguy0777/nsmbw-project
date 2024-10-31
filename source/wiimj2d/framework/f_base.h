@@ -7,6 +7,18 @@ class fBase_c
     SIZE_ASSERT(0x64);
 
 public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* 0x80161C10 */
+    fBase_c();
+
+public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
     /**
      * The possible lifecycle states.
      */
@@ -105,6 +117,11 @@ public:
         DISABLE_DRAW = 8,
     };
 
+public:
+    // -----------
+    // Member Data
+    // -----------
+
     /**
      * Unique ID that is incremented for every created base.
      */
@@ -195,8 +212,9 @@ protected:
     /* 0x10 */ FILL(0x10, 0x60);
 
 public:
-    /* 0x80161C10 */
-    fBase_c();
+    // -----------------
+    // Virtual Functions
+    // -----------------
 
     /**
      * VT+0x08 0x80161EC0
@@ -327,4 +345,15 @@ public:
      * Destroys the base.
      */
     virtual ~fBase_c();
+
+public:
+    // ---------
+    // Functions
+    // ---------
+
+    /**
+     * 0x80162650
+     * Requests deletion of the base. Calling this function multiple times has no effect.
+     */
+    void deleteRequest();
 };
