@@ -58,6 +58,9 @@ s32 daPyMng_c::m_quakeTimer[CHARACTER_COUNT];
 /* 0x803551C0 */
 s32 daPyMng_c::m_quakeEffectFlag[CHARACTER_COUNT];
 
+/* 0x803551E0 */
+static daPyDemoMng_c mDemoManager;
+
 [[address_data(0x80429F80)]]
 int daPyMng_c::mNum;
 
@@ -134,13 +137,13 @@ void daPyMng_c::initGame()
     mKinopioCarryCount = 0;
 }
 
-// TODO
 [[address(0x8005EB10)]]
 void daPyMng_c::initStage()
 {
     checkCorrectCreateInfo();
 
     mNum = 0;
+    AcceptQuake = 0;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         setPlayer(i, nullptr);
@@ -271,9 +274,190 @@ void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
     mKinopioMode = kinopioMode;
 }
 
-// TODO
 [[address(0x8005F5C0)]]
-void daPyMng_c::update();
+void daPyMng_c::update() ASM_METHOD(
+  // clang-format off
+/* 8005F5C0 9421FFD0 */  stwu     r1, -48(r1);
+/* 8005F5C4 7C0802A6 */  mflr     r0;
+/* 8005F5C8 90010034 */  stw      r0, 52(r1);
+/* 8005F5CC 39610030 */  addi     r11, r1, 48;
+/* 8005F5D0 4827DA95 */  bl       UNDEF_802dd064;
+/* 8005F5DC 48001305 */  bl       UNDEF_800608e0;
+/* 8005F5E0 480A2491 */  bl       UNDEF_80101a70;
+/* 8005F5E4 2C030000 */  cmpwi    r3, 0;
+/* 8005F5E8 7C7E1B78 */  mr       r30, r3;
+/* 8005F5EC 41820054 */  beq-     UNDEF_8005f640;
+                         lis      r7, mRest__9daPyMng_c@ha;
+                         lwzu     r8, mRest__9daPyMng_c@l(r7);
+/* 8005F5F8 80C70004 */  lwz      r6, 4(r7);
+/* 8005F5FC 38810008 */  addi     r4, r1, 8;
+/* 8005F600 80A70008 */  lwz      r5, 8(r7);
+/* 8005F604 8007000C */  lwz      r0, 12(r7);
+/* 8005F608 91010008 */  stw      r8, 8(r1);
+/* 8005F60C 90C1000C */  stw      r6, 12(r1);
+/* 8005F610 90A10010 */  stw      r5, 16(r1);
+/* 8005F614 90010014 */  stw      r0, 20(r1);
+/* 8005F618 480FA3A9 */  bl       UNDEF_801599c0;
+/* 8005F61C 48000BE5 */  bl       UNDEF_80060200;
+/* 8005F620 7C641B78 */  mr       r4, r3;
+/* 8005F624 7FC3F378 */  mr       r3, r30;
+/* 8005F628 480FA479 */  bl       UNDEF_80159aa0;
+/* 8005F62C 808DA620 */  lwz      r4, -23008(r13);
+/* 8005F630 7FC3F378 */  mr       r3, r30;
+/* 8005F634 480FA7BD */  bl       UNDEF_80159df0;
+/* 8005F638 7FC3F378 */  mr       r3, r30;
+/* 8005F63C 480FA5F5 */  bl       UNDEF_80159c30;
+UNDEF_8005f640:;
+                         lis      r4, m_quakeTimer__9daPyMng_c@ha;
+                         addi     r4, r4, m_quakeTimer__9daPyMng_c@l;
+                         lis      r5, m_quakeEffectFlag__9daPyMng_c@ha;
+                         addi     r5, r5, m_quakeEffectFlag__9daPyMng_c@l;
+                         li       r0, PLAYER_COUNT;
+                         mtctr    r0;
+
+                         li       r0, 0;
+L_daPyMng_c_update_QuakeLoopStart:;
+/* 8005F648 80640000 */  lwz      r3, 0(r4);
+/* 8005F650 2C030000 */  cmpwi    r3, 0;
+/* 8005F654 41820014 */  beq-     UNDEF_8005f668;
+/* 8005F658 3463FFFF */  subic.   r3, r3, 1;
+/* 8005F65C 90640000 */  stw      r3, 0(r4);
+/* 8005F660 40820008 */  bne-     UNDEF_8005f668;
+/* 8005F664 90050000 */  stw      r0, 0(r5);
+UNDEF_8005f668:;
+                         addi     r4, r4, 4;
+                         addi     r5, r5, 4;
+                         bdnz+    L_daPyMng_c_update_QuakeLoopStart;
+
+UNDEF_8005f6bc:;
+/* 8005F6BC 806DA920 */  lwz      r3, -22240(r13);
+/* 8005F6C0 88030018 */  lbz      r0, 24(r3);
+/* 8005F6C4 2C000000 */  cmpwi    r0, 0;
+/* 8005F6C8 41820088 */  beq-     UNDEF_8005f750;
+/* 8005F6CC 3B800000 */  li       r28, 0;
+/* 8005F6D0 3B600000 */  li       r27, 0;
+/* 8005F6D4 3BC00001 */  li       r30, 1;
+UNDEF_8005f6d8:;
+/* 8005F6D8 5760063E */  clrlwi   r0, r27, 24;
+/* 8005F6DC 886DA608 */  lbz      r3, -23032(r13);
+/* 8005F6E0 7FC00030 */  slw      r0, r30, r0;
+/* 8005F6E4 7C600039 */  and.     r0, r3, r0;
+/* 8005F6E8 41820048 */  beq-     UNDEF_8005f730;
+/* 8005F6EC 7F63DB78 */  mr       r3, r27;
+/* 8005F6F0 480004A1 */  bl       UNDEF_8005fb90;
+/* 8005F6F4 2C030000 */  cmpwi    r3, 0;
+/* 8005F6F8 7C7D1B78 */  mr       r29, r3;
+/* 8005F6FC 41820034 */  beq-     UNDEF_8005f730;
+/* 8005F700 38800064 */  li       r4, 100;
+/* 8005F704 4BFF75ED */  bl       UNDEF_80056cf0;
+/* 8005F708 2C030000 */  cmpwi    r3, 0;
+/* 8005F70C 40820024 */  bne-     UNDEF_8005f730;
+/* 8005F710 819D0060 */  lwz      r12, 96(r29);
+/* 8005F714 7FA3EB78 */  mr       r3, r29;
+/* 8005F718 818C0370 */  lwz      r12, 880(r12);
+/* 8005F71C 7D8903A6 */  mtctr    r12;
+/* 8005F720 4E800421 */  bctrl;
+/* 8005F724 2C030000 */  cmpwi    r3, 0;
+/* 8005F728 40820008 */  bne-     UNDEF_8005f730;
+/* 8005F72C 3B800001 */  li       r28, 1;
+UNDEF_8005f730:;
+/* 8005F730 3B7B0001 */  addi     r27, r27, 1;
+/* 8005F734 2C1B0004 */  cmpwi    r27, PLAYER_COUNT;
+/* 8005F738 4180FFA0 */  blt+     UNDEF_8005f6d8;
+/* 8005F73C 2C1C0000 */  cmpwi    r28, 0;
+/* 8005F740 40820010 */  bne-     UNDEF_8005f750;
+/* 8005F744 806DA920 */  lwz      r3, -22240(r13);
+/* 8005F748 38000000 */  li       r0, 0;
+/* 8005F74C B003001C */  sth      r0, 28(r3);
+UNDEF_8005f750:;
+/* 8005F750 806DA968 */  lwz      r3, -22168(r13);
+/* 8005F754 80030030 */  lwz      r0, 48(r3);
+/* 8005F758 540006B9 */  rlwinm.  r0, r0, 0, 26, 28;
+/* 8005F75C 41820088 */  beq-     UNDEF_8005f7e4;
+/* 8005F760 800DA640 */  lwz      r0, -22976(r13);
+/* 8005F764 2C000000 */  cmpwi    r0, 0;
+/* 8005F768 40820070 */  bne-     UNDEF_8005f7d8;
+/* 8005F76C 3BDF00B0 */  addi     r30, r31, 176;
+/* 8005F770 3B600000 */  li       r27, 0;
+UNDEF_8005f774:;
+/* 8005F774 7F63DB78 */  mr       r3, r27;
+/* 8005F778 48000419 */  bl       UNDEF_8005fb90;
+/* 8005F77C 2C030000 */  cmpwi    r3, 0;
+/* 8005F780 41820048 */  beq-     UNDEF_8005f7c8;
+/* 8005F784 808DA968 */  lwz      r4, -22168(r13);
+/* 8005F788 80840030 */  lwz      r4, 48(r4);
+/* 8005F78C 548006B5 */  rlwinm.  r0, r4, 0, 26, 26;
+/* 8005F790 41820010 */  beq-     UNDEF_8005f7a0;
+/* 8005F794 3880008B */  li       r4, 139;
+/* 8005F798 4BFF74D9 */  bl       UNDEF_80056c70;
+/* 8005F79C 4800002C */  b        UNDEF_8005f7c8;
+UNDEF_8005f7a0:;
+/* 8005F7A0 54800739 */  rlwinm.  r0, r4, 0, 28, 28;
+/* 8005F7A4 41820010 */  beq-     UNDEF_8005f7b4;
+/* 8005F7A8 3880008C */  li       r4, 140;
+/* 8005F7AC 4BFF74C5 */  bl       UNDEF_80056c70;
+/* 8005F7B0 48000018 */  b        UNDEF_8005f7c8;
+UNDEF_8005f7b4:;
+/* 8005F7B4 801E0000 */  lwz      r0, 0(r30);
+/* 8005F7B8 2C000000 */  cmpwi    r0, 0;
+/* 8005F7BC 4082000C */  bne-     UNDEF_8005f7c8;
+/* 8005F7C0 3880008C */  li       r4, 140;
+/* 8005F7C4 4BFF74AD */  bl       UNDEF_80056c70;
+UNDEF_8005f7c8:;
+/* 8005F7C8 3B7B0001 */  addi     r27, r27, 1;
+/* 8005F7CC 3BDE0004 */  addi     r30, r30, 4;
+/* 8005F7D0 2C1B0004 */  cmpwi    r27, PLAYER_COUNT;
+/* 8005F7D4 4180FFA0 */  blt+     UNDEF_8005f774;
+UNDEF_8005f7d8:;
+/* 8005F7D8 38000001 */  li       r0, 1;
+/* 8005F7DC 900DA640 */  stw      r0, -22976(r13);
+/* 8005F7E0 4800000C */  b        UNDEF_8005f7ec;
+UNDEF_8005f7e4:;
+/* 8005F7E4 38000000 */  li       r0, 0;
+/* 8005F7E8 900DA640 */  stw      r0, -22976(r13);
+UNDEF_8005f7ec:;
+/* 8005F7EC 800DA634 */  lwz      r0, -22988(r13);
+/* 8005F7F0 2C000000 */  cmpwi    r0, 0;
+/* 8005F7F4 40820014 */  bne-     UNDEF_8005f808;
+/* 8005F7F8 806DA938 */  lwz      r3, -22216(r13);
+/* 8005F7FC 38800001 */  li       r4, 1;
+/* 8005F800 48071411 */  bl       UNDEF_800d0c10;
+/* 8005F804 48000010 */  b        UNDEF_8005f814;
+UNDEF_8005f808:;
+/* 8005F808 806DA938 */  lwz      r3, -22216(r13);
+/* 8005F80C 38800000 */  li       r4, 0;
+/* 8005F810 48071401 */  bl       UNDEF_800d0c10;
+UNDEF_8005f814:;
+/* 8005F814 806DA638 */  lwz      r3, -22984(r13);
+/* 8005F818 800DA63C */  lwz      r0, -22980(r13);
+/* 8005F81C 7C030000 */  cmpw     r3, r0;
+/* 8005F820 41820030 */  beq-     UNDEF_8005f850;
+/* 8005F824 2C030000 */  cmpwi    r3, 0;
+/* 8005F828 41820014 */  beq-     UNDEF_8005f83c;
+/* 8005F82C 806DA9D0 */  lwz      r3, -22064(r13);
+/* 8005F830 38000001 */  li       r0, 1;
+/* 8005F834 9803000C */  stb      r0, 12(r3);
+/* 8005F838 48000010 */  b        UNDEF_8005f848;
+UNDEF_8005f83c:;
+/* 8005F83C 806DA9D0 */  lwz      r3, -22064(r13);
+/* 8005F840 38000000 */  li       r0, 0;
+/* 8005F844 9803000C */  stb      r0, 12(r3);
+UNDEF_8005f848:;
+/* 8005F848 800DA638 */  lwz      r0, -22984(r13);
+/* 8005F84C 900DA63C */  stw      r0, -22980(r13);
+UNDEF_8005f850:;
+/* 8005F850 806DA5F4 */  lwz      r3, -23052(r13);
+/* 8005F854 4BFFBCFD */  bl       UNDEF_8005b550;
+/* 8005F858 806DA950 */  lwz      r3, -22192(r13);
+/* 8005F85C 48073615 */  bl       UNDEF_800d2e70;
+/* 8005F860 39610030 */  addi     r11, r1, 48;
+/* 8005F864 4827D84D */  bl       UNDEF_802dd0b0;
+/* 8005F868 80010034 */  lwz      r0, 52(r1);
+/* 8005F86C 7C0803A6 */  mtlr     r0;
+/* 8005F870 38210030 */  addi     r1, r1, 48;
+/* 8005F874 4E800020 */  blr;
+  // clang-format on
+);
 
 [[address(0x8005F8C0)]]
 void daPyMng_c::setPlayer(int index, dAcPy_c* player);
@@ -355,7 +539,7 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
 
     using ModelTypeArray = dPyMdlMng_c::ModelType_e[];
     return ModelTypeArray{
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO, dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
       dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
       dPyMdlMng_c::ModelType_e::MODEL_TOADETTE
     }[playerType];
@@ -397,6 +581,14 @@ u8 daPyMng_c::getScrollNum()
 
 [[address(0x8005FDB0)]]
 bool daPyMng_c::addNum(int num);
+
+[[address(0x8005FEB0)]]
+void daPyMng_c::addNum()
+{
+    if (mNum < PLAYER_COUNT) {
+        mNum++;
+    }
+}
 
 [[address(0x8005FEF0)]]
 int daPyMng_c::getNumInGame()

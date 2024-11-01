@@ -3,6 +3,9 @@
 
 #include "d_a_player_base.h"
 
+[[address(0x8004E050)]]
+void daPlBase_c::stopOther();
+
 [[address(0x80056C70)]]
 void daPlBase_c::onStatus(int flag);
 

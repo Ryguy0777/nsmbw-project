@@ -20,6 +20,9 @@ SOURCES += source/wiimj2d/dynamic/actor/d_a_player_base.cpp
 # NSMBW: 0x8005B3A0 - 0x8005D7E0
 SOURCES += source/wiimj2d/dynamic/actor/d_a_player_demo_manager.cpp
 
+# d_a_player_key.cpp
+# NSMBW: 0x8005DFD0 - 0x8005E9A0
+SOURCES += source/wiimj2d/dynamic/actor/d_a_player_key.cpp
 # d_a_player_manager.cpp
 # NSMBW: 0x8005E9A0 - 0x800613B0
 SOURCES += source/wiimj2d/dynamic/actor/d_a_player_manager.cpp
@@ -28,12 +31,20 @@ SOURCES += source/wiimj2d/dynamic/actor/d_a_player_manager.cpp
 # wiimj2d/dynamic
 #
 
+# d_actor.cpp
+# NSMBW: 0x80064110 - 0x800660C0
+SOURCES += source/wiimj2d/dynamic/d_actor.cpp
+
 # d_base.cpp
 # NSMBW: 0x8006C420 - 0x8006C6D0
 SOURCES += source/wiimj2d/dynamic/d_base.cpp
 # d_base_actor.cpp
 # NSMBW: 0x8006C6D0 - 0x8006CF40
 SOURCES += source/wiimj2d/dynamic/d_base_actor.cpp
+
+# d_bg.cpp
+# NSMBW: 0x80076FD0 - 0x8007E180
+SOURCES += source/wiimj2d/dynamic/d_bg.cpp
 
 # d_course_data.cpp
 # NSMBW: 0x8008DFF0 - 0x8008ECC0
@@ -202,6 +213,14 @@ SOURCES += source/wiimj2d/dynamic/d_WiiStrap.cpp
 # d_a_player.cpp
 # NSMBW: 0x80126650 - 0x8014A480
 SOURCES += source/wiimj2d/dynamic/actor/d_a_player.cpp
+
+#
+# wiimj2d/dynamic
+#
+
+# d_bg_gm.cpp
+# NSMBW: 0x80154800 - 0x80156FE0
+SOURCES += source/wiimj2d/dynamic/d_bg_gm.cpp
 
 #
 # wiimj2d/dynamic/scene

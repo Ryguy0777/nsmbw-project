@@ -23,3 +23,4 @@ source/System.h
 -Wno-out-of-line-declaration
 -Wno-unknown-attributes
 -Wno-gcc-compat
+-Wno-invalid-offsetof

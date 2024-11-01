@@ -55,6 +55,9 @@ public:
     // Functions
     // ---------
 
+    /* 0x8004E050 */
+    void stopOther();
+
     /* 0x80056C70 */
     void onStatus(int flag);
 

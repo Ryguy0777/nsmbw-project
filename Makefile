@@ -39,7 +39,7 @@ LOADER_DEPS	:= $(LOADER_OFILES:.o=.d)
 
 DUMMY != mkdir -p $(BUILD)/source $(BUILD)/loader $(OUTPUT) $(DVDDATA) 
 
-CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -O3 -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wno-out-of-line-declaration -Wno-gcc-compat \
+CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -O3 -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wno-out-of-line-declaration -Wno-gcc-compat -Wno-invalid-offsetof \
 -fdeclspec -fno-exceptions -nodefaultlibs -ffreestanding -ffunction-sections -fdata-sections -fno-threadsafe-statics -fno-use-cxa-atexit \
 -Isource -Isource/msl/msl_c -Isource/msl/msl_cpp -Isource/wiimj2d -DLOADER_REL_LZ -fkeep-static-consts -femit-all-decls -include System.h
 

@@ -16,6 +16,9 @@ public:
     /* 0x8013D7B0 */
     void checkRest();
 
+    /* 0x8013DA30 */
+    void stopOtherDownDemo();
+
 public:
     // -----------
     // Member Data
@@ -23,11 +26,11 @@ public:
 
     /* 0x14D4 */ daPyMng_c::PlayerType_e mPlayerType;
 
-    FILL(0x14D8, 0x14F0);
-
-    /* 0x14F0 */ s32 m0x14F0;
-
-    FILL(0x14F4, 0x153C);
+    FILL(0x14D8, 0x153C);
 
     /* 0x153C */ u8 mScrollType;
+
+    FILL(0x153D, 0x1554);
+
+    /* 0x1554 */ int m0x1554;
 };

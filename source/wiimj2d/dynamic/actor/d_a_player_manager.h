@@ -6,6 +6,7 @@
 class dAcPy_c;
 class daYoshi_c;
 class daPlBase_c;
+class daPyDemoMng_c;
 
 class daPyMng_c
 {
@@ -116,6 +117,9 @@ public:
     /* 0x8005FDB0 */
     static bool addNum(int num);
 
+    /* 0x8005FEB0 */
+    static void addNum();
+
     /* 0x8005FEF0 */
     static int getNumInGame();
 
@@ -217,6 +221,9 @@ public:
 
     /* 0x803551C0 */
     static s32 m_quakeEffectFlag[CHARACTER_COUNT];
+
+    /* 0x803551E0 */
+    static daPyDemoMng_c mDemoManager;
 
     /* 0x80429F80 */
     static int mNum;

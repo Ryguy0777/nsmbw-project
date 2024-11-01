@@ -124,8 +124,15 @@ public:
      */
     /* 0x38C */ u8 mActorType;
     /* 0x38D */ u8 mPlayerNo;
-    /* 0x38E */ u8 m_0x38E;
+    /* 0x38E */ u8 m0x38E;
     /* 0x38F */ u8 mLayer;
-    /* 0x390 */ u8 m_0x390;
+    /* 0x390 */ u8 m0x390;
     /* 0x391 */ u8 mOnBackFence;
+
+public:
+    // -----------
+    // Static Data
+    // -----------
+
+    /* 0x80429FD8 */ static u8 mExecStopReq;
 };
