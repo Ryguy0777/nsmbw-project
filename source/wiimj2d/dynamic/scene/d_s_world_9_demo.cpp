@@ -18,7 +18,7 @@ int dScWorld9DeMo_c::create()
     dFader_c::setFader(dFader_c::fader_type_e::FADE);
 
     dSys_c::setClearColor(nw4r::ut::Color{0, 0, 0, 255});
-    mPad::setCurrentChannel(mPad::CHAN_0);
+    mPad::setCurrentChannel(mPad::CH_e::CHAN_0);
 
     dInfo_c::m_instance->m0xAFC = 0;
 

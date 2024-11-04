@@ -7,6 +7,7 @@
 #include <dynamic/actor/d_a_player_demo_manager.h>
 #include <dynamic/actor/d_a_yoshi.h>
 #include <dynamic/d_course_data.h>
+#include <dynamic/d_game_common.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_multi_manager.h>
 #include <dynamic/scene/d_s_stage.h>
@@ -212,54 +213,94 @@ u8 daPyMng_c::getPlayerCreateAction();
 [[address(0x8005EEE0)]]
 bool daPyMng_c::createPlayer(int player, mVec3_c position, s32 gotoKind, bool faceLeft);
 
-// TODO
 [[address(0x8005EF50)]]
 void daPyMng_c::createCourseInit()
 {
     dScStage_c* stage = dScStage_c::m_instance;
+    mVec3_c playerSetPos = getPlayerSetPos(stage->mCourse, stage->mGoto);
+
     u8 entType = getPlayerCreateAction();
 
-    if (entType == 0 /* NORMAL */ || entType == 1 /* NORMAL1 */ || entType == 27 /* BOSS_STAND */) {
-        daPyDemoMng_c::mspInstance->init();
-        decideCtrlPlrNo();
+    if (entType != 0 /* NORMAL */ && entType != 1 /* NORMAL1 */ && entType != 27 /* BOSS_STAND */) {
+        // Handle any other entType values
+        f32 dispCenter = dGameCom::getDispCenterX();
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            mCourseInList[i] = i;
+            createPlayer(i, playerSetPos, entType, dispCenter < 0);
+        }
+    }
 
-        int spawnOrder[PLAYER_COUNT] = {0, 1, 2, 3, 4};
+    // Handle NORMAL, NORMAL1, BOSS_STAND
+    daPyDemoMng_c::mspInstance->init();
+    decideCtrlPlrNo();
 
-        if (!dScStage_c::m_isStaffCredit) {
-            mVec3_c playerSetPos = getPlayerSetPos(stage->mCourse, stage->mGoto);
-            bool isAmbush;
+    if (!dScStage_c::m_isStaffCredit) {
+        bool isAmbush;
 
-            if (stage->m_isCourseIn && dInfo_c::m_instance->m0xAF4 >= 0) {
-                playerSetPos = dInfo_c::m_instance->mCyuukan.mPlayerSetPos;
-                isAmbush = dInfo_c::m_instance->mCyuukan.m0x14 & 1;
-            } else {
-                isAmbush = dCd_c::getFileP(stage->mCourse)->mpCourseInfo->mIsAmbush;
+        if (stage->m_isCourseIn && dInfo_c::m_instance->m0xAF4 >= 0) {
+            playerSetPos = dInfo_c::m_instance->mCyuukan.mPlayerSetPos;
+            isAmbush = dInfo_c::m_instance->mCyuukan.m0x14 & 1;
+        } else {
+            isAmbush = dCd_c::getFileP(stage->mCourse)->mpCourseInfo->mIsAmbush;
+        }
+
+        int spawnOrder[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+        // TODO: Randomize spawn order
+
+        int livePlayerCount = 0;
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            if (mPlayerEntry[i] != 0 && !isCreateBalloon(i)) {
+                livePlayerCount++;
+            }
+        }
+
+        // The code has two separate paths for isAmbush here but they appear to be identical?
+        playerSetPos.x -= 12.0f * livePlayerCount;
+
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            if (spawnOrder[i] == -1) {
+                continue;
             }
 
-            int livePlayerCount = 0;
-            for (int i = 0; i < PLAYER_COUNT; i++) {
-                if (mPlayerEntry[i] != 0 && !isCreateBalloon(i)) {
-                    livePlayerCount++;
+            bool result = createPlayer(spawnOrder[i], playerSetPos, entType, isAmbush);
+
+            if (result && !isCreateBalloon(spawnOrder[i])) {
+                if (isAmbush) {
+                    playerSetPos.x += 24.0f;
+                } else {
+                    playerSetPos.x -= 24.0f;
                 }
             }
+        }
+    } else {
+        // Setup spawn for staff credits
+        static_assert(
+          PLAYER_COUNT <= 8, "Please update the staff credit positions for more than 8 players"
+        );
 
-            // The code has two separate paths for isAmbush here but they appear to be identical?
-            playerSetPos.x -= 12.0f * livePlayerCount;
+        playerSetPos.x += 512 - 320;
 
-            for (int i = 0; i < PLAYER_COUNT; i++) {
-                if (spawnOrder[i] == -1) {
-                    continue;
-                }
+        static const f32 l_STAFF_CREDIT_POS[8][2] = {
+          {-192, -48},
+          {192, -48},
+          {-216, 0},
+          {216, 0},
 
-                bool result = createPlayer(spawnOrder[i], playerSetPos, 0, false);
+          // New positions
+          {-168, -80},
+          {168, -80},
+          {-144, -80},
+          {144, -80},
+        };
 
-                if (result && !isCreateBalloon(spawnOrder[i])) {
-                    if (isAmbush) {
-                        playerSetPos.x += 24.0f;
-                    } else {
-                        playerSetPos.x -= 24.0f;
-                    }
-                }
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            if (mPlayerEntry[i] != 0) {
+                mVec3_c pos = {
+                  playerSetPos.x + l_STAFF_CREDIT_POS[i][0],
+                  playerSetPos.y + l_STAFF_CREDIT_POS[i][1],
+                  playerSetPos.z,
+                };
+                createPlayer(i, pos, 0, l_STAFF_CREDIT_POS[i][0] > 0);
             }
         }
     }

@@ -7,6 +7,9 @@
 namespace EGG
 {
 
+[[address(0x8042B0F0)]]
+Heap* Heap::sCurrentHeap;
+
 [[address(0x802B8C80)]]
 void Heap::initialize();
 

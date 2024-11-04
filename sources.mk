@@ -329,9 +329,27 @@ SOURCES += source/revolution/os/OSError.c
 # NSMBW: 0x801AF2C0 - 0x801AFEF0
 SOURCES += source/revolution/os/OSFatal.c
 
+# OSInterrupt.c
+# NSMBW: 0x801B1280 - 0x801B1A50
+SOURCES += source/revolution/os/OSInterrupt.c
 # OSLink.c
 # NSMBW: 0x801B1A50 - 0x801B24D0
 SOURCES += source/revolution/os/OSLink.c
+
+# OSTime.c
+# NSMBW: 0x801B60C0 - 0x801B64F0
+SOURCES += source/revolution/os/OSTime.c
+
+#
+# revolution/si
+#
+
+# SIBios.c
+# NSMBW: 0x801BA940 - 0x801BB980
+SOURCES += source/revolution/si/SIBios.c
+# SISamplingRate.c
+# NSMBW: 0x801BB980 - 0x801BBA70
+SOURCES += source/revolution/si/SISamplingRate.c
 
 #
 # revolution/vi
@@ -347,8 +365,6 @@ SOURCES += source/revolution/vi/i2c.c
 # NSMBW: 0x801BEEE0 - 0x801C0610
 SOURCES += source/revolution/vi/vi3in1.c
 
-
-
 #
 # revolution/dvd
 #
@@ -356,6 +372,30 @@ SOURCES += source/revolution/vi/vi3in1.c
 # dvdfs.c
 # NSMBW: 0x801CA790 - 0x801CADA0
 SOURCES += source/revolution/dvd/dvdfs.c
+
+#
+# revolution/pad
+#
+
+# Pad.c
+# NSMBW: 0x801DDB10 - 0x801DDB70
+SOURCES += source/revolution/pad/Pad.c
+
+#
+# revolution/wpad
+#
+
+# WPAD.c
+# NSMBW: 0x801DDC90 - 0x801E55A0
+SOURCES += source/revolution/wpad/WPAD.c
+
+#
+# revolution/kpad
+#
+
+# KPAD.c
+# NSMBW: 0x801EAA80 - 0x801EEAE0
+SOURCES += source/revolution/kpad/KPAD.c
 
 #
 # nw4r/g3d
@@ -368,10 +408,6 @@ SOURCES += source/nw4r/g3d/ResFile.cpp
 #
 # egg/core
 #
-
-# eggDisposer.cpp
-# NSMBW: 0x802BA410 - 0x802BA4F0
-SOURCES += source/egg/core/eggDisposer.cpp
 
 # eggDvdFile.cpp
 # NSMBW: 0x802B7C00 - 0x802B8010
@@ -389,6 +425,14 @@ SOURCES += source/egg/core/eggHeap.cpp
 # eggExpHeap.cpp
 # NSMBW: 0x802B93E0 - 0x802B98C0
 SOURCES += source/egg/core/eggExpHeap.cpp
+
+# eggDisposer.cpp
+# NSMBW: 0x802BA410 - 0x802BA4F0
+SOURCES += source/egg/core/eggDisposer.cpp
+
+# eggController.cpp
+# NSMBW: 0x802BC9D0 - 0x802BE710
+SOURCES += source/egg/core/eggController.cpp
 
 #
 # runtime

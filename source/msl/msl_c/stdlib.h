@@ -3,8 +3,8 @@
 #include "string.h"
 
 // Compiler intrinsic functions.
-#define abs(x) __abs(x)
-#define labs(x) __labs(x)
+#define abs(x) __builtin_abs(x)
+#define labs(x) __builtin_abs(x)
 
 long strtol(const char* restrict nptr, char** restrict endptr, int base);
 unsigned long int strtoul(const char* str, char** endptr, int base);

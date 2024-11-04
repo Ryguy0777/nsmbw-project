@@ -3,6 +3,12 @@
 
 #include "d_system.h"
 
+#include <dynamic/scene/d_s_boot.h>
+#include <machine/m_pad.h>
+#include <revolution/dvd.h>
+#include <revolution/pad.h>
+
+
 EXTERN_SYMBOL(0x800E46E0, "#CAE882A9");
 
 EXTERN_SYMBOL(0x800E4750, "beginRender__6dSys_cFv");
@@ -59,3 +65,31 @@ EXTERN_SYMBOL(0x800E5310, "fixHeapsSub__7dSystemFPQ23EGG7ExpHeapi");
 EXTERN_SYMBOL(0x800E53E0, "fixHeaps__7dSystemFv");
 
 EXTERN_SYMBOL(0x800E5440, "__sinit_\\d_system_cpp");
+
+void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
+{
+    dScBoot_c::initCodeRegion();
+
+    mPad::beginPad();
+
+    __DVDEXInit(arcEntryNum, arcHandle);
+}
+
+void dSys_c::initCModule()
+{
+    PADInit();
+}
+
+extern "C" int preinit(s32 param1, void* param2)
+{
+    dSys_c::preCModuleInit(param1, reinterpret_cast<ARCHandle*>(param2));
+
+    return 0;
+}
+
+extern "C" int main()
+{
+    dSys_c::initCModule();
+
+    return 0;
+}

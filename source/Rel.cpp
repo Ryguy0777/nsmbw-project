@@ -1,9 +1,20 @@
-#include "System.h"
-
+#include "revolution/os/OSCache.h"
+#include "revolution/os/OSInterrupt.h"
 #include <dynamic/scene/d_s_boot.h>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>
+
+extern "C" {
+
+int main();
+int preinit(s32, void*);
+
+void _prolog(s32, void*);
+void _epilog();
+void _unresolved();
+
+} // extern "C"
 
 constexpr u32 THIS_MODULE_ID = 0x50414C41; // 'PALA'
 
@@ -124,8 +135,10 @@ void PatchRelocations(OSModuleImportInfo* importTable, OSModuleImportInfo* impor
     }
 }
 
-extern "C" void _prolog(s32 arcEntryNum, ARCHandle* arcHandle)
+extern "C" void _prolog(s32 param1, void* param2)
 {
+    int interrupt = OSDisableInterrupts();
+
     // Reference patches
     for (auto repl = _MRel_patch_references_array; repl != _MRel_patch_references_array_end;) {
         for (u32 i = 0; i < repl->count; i++) {
@@ -147,6 +160,8 @@ extern "C" void _prolog(s32 arcEntryNum, ARCHandle* arcHandle)
             } else {
                 *(u32*) ToUncached(ptr) = ((*(u32*) ToUncached(ptr)) & 0xFFFF) | (offset << 16);
             }
+
+            ICInvalidateRange((u32*) ptr, 4);
         }
 
         // Increment repl to the next entry
@@ -196,14 +211,23 @@ extern "C" void _prolog(s32 arcEntryNum, ARCHandle* arcHandle)
         }
     }
 
-    __DVDEXInit(arcEntryNum, arcHandle);
-
-    dScBoot_c::initCodeRegion();
+    if (preinit(param1, param2) != 0) {
+        OSPanic(__FILE__, __LINE__, "preinit() returned non-zero");
+    }
 
     // Run global constructors
     for (PFN_voidfunc* ctor = _ctors; ctor != _ctors_end && *ctor; ++ctor) {
         (*ctor)();
     }
+
+    OSRestoreInterrupts(interrupt);
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmain"
+    if (main() != 0) {
+        OSPanic(__FILE__, __LINE__, "main() returned non-zero");
+    }
+#pragma clang diagnostic pop
 }
 
 extern "C" void _epilog()

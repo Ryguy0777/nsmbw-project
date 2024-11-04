@@ -1,6 +1,9 @@
 // vi.c
 // NSMBW: 0x801BBB70 - 0x801BE5C0
 
+[[address_data(0x8042AB30)]]
+s32 __VIDimmingFlag_SI_IDLE;
+
 EXTERN_SYMBOL(0x801BBB70, "OnShutdown");
 
 EXTERN_SYMBOL(0x801BBD10, "__VIRetraceHandler");
@@ -86,7 +89,12 @@ EXTERN_SYMBOL(0x801BE590, "VIResetDimmingCount");
 
 EXTERN_SYMBOL(0x801BE5B0, "__VIResetRFIdle");
 
-// UNUSED: __VIResetSIIdle
+bool __VIResetSIIdle()
+{
+    __VIDimmingFlag_SI_IDLE = 0;
+    return true;
+}
+
 // UNUSED: __VIResetDev0Idle
 // UNUSED: __VIResetDev1Idle
 // UNUSED: __VIResetDev2Idle

@@ -74,6 +74,14 @@ public:
 
     /* 0x802B9310 */
     Heap* _becomeCurrentHeapWithoutLock();
+
+public:
+    // -----------
+    // Static Data
+    // -----------
+
+    /* 0x8042B0F0 */
+    static Heap* sCurrentHeap;
 };
 
 } // namespace EGG

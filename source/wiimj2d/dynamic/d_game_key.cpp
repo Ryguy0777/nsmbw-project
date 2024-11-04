@@ -2,6 +2,7 @@
 // NSMBW: 0x800B5930 - 0x800B5B50
 
 #include "d_game_key.h"
+#include "machine/m_pad.h"
 
 #include <dynamic/d_game_key_core.h>
 #include <machine/m_heap.h>
@@ -31,8 +32,8 @@ dGameKey_c* dGameKey_c::createInstance(EGG::Heap* heap)
 dGameKey_c::dGameKey_c()
 {
     static constexpr mPad::CH_e s_channels[] = {
-      mPad::CHAN_0, mPad::CHAN_1, mPad::CHAN_2, mPad::CHAN_3,
-      mPad::CHAN_0, mPad::CHAN_0, mPad::CHAN_0, mPad::CHAN_0,
+      mPad::CH_e::CHAN_0,    mPad::CH_e::CHAN_1,    mPad::CH_e::CHAN_2,    mPad::CH_e::CHAN_3,
+      mPad::CH_e::CHAN_GC_0, mPad::CH_e::CHAN_GC_1, mPad::CH_e::CHAN_GC_2, mPad::CH_e::CHAN_GC_3,
     };
 
     for (int i = 0; i < 8; i++) {

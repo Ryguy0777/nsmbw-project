@@ -6,12 +6,20 @@ namespace nw4r::math
 struct VEC2 {
     SIZE_ASSERT(0x8);
 
+    ~VEC2()
+    {
+    }
+
     /* 0x0 */ f32 x;
     /* 0x4 */ f32 y;
 };
 
 struct VEC3 {
     SIZE_ASSERT(0xC);
+
+    ~VEC3()
+    {
+    }
 
     /* 0x0 */ f32 x;
     /* 0x4 */ f32 y;

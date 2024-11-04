@@ -11,6 +11,9 @@ namespace dGameCom
 [[address(0x800B2E70)]]
 void initRandomSeed();
 
+[[address(0x800B30C0)]]
+f32 getDispCenterX();
+
 [[address(0x800B5340)]]
 bool chkContinue()
 {

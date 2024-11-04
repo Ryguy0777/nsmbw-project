@@ -56,7 +56,7 @@ int daWmPlayer_c::create()
 {
     mAngle.y = 0;
 
-    mPad::setCurrentChannel(mPad::CHAN_0);
+    mPad::setCurrentChannel(mPad::CH_e::CHAN_0);
 
     UNDEF_80903930();
 
