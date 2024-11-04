@@ -277,10 +277,10 @@ public:
     // Virtual Functions
     // -----------------
 
-    /* VT+0x08 */
+    /* VT+0x08 0x802BDBB0 */
     virtual void beginFrame();
 
-    /* VT+0x0C */
+    /* VT+0x0C 0x802BDC60 */
     virtual void endFrame();
 
 public:

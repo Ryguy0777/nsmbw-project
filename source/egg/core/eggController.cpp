@@ -126,6 +126,7 @@ void CoreController::beginFrame(PADStatus* padStatus)
         } else {
             stopMotor();
         }
+
         if (mMotorPatternPos == 0) {
             mMotorPatternPos = mMotorPatternLength - 1;
         } else {
@@ -173,6 +174,34 @@ void CoreController::beginFrame(PADStatus* padStatus)
 
 [[address(0x802BD790)]]
 CoreControllerMgr::CoreControllerMgr();
+
+[[address(0x802BDBB0)]]
+void CoreControllerMgr::beginFrame() {
+    for (int i = 0; i < mControllers.getSize(); ++i) {
+        mControllers(i)->beginFrame(nullptr);
+    }
+}
+
+[[address(0x802BDC60)]]
+void CoreControllerMgr::endFrame() {
+    for (int i = 0; i < mControllers.mSize; i++) {
+        mControllers(i)->endFrame();
+
+        WPADDeviceType dev_type;
+        WPADResult result = WPADProbe(static_cast<WPADChannel>(i), &dev_type);
+
+        WPADDeviceType res_dev_type;
+        if (result == WPADResult::WPAD_ERR_OK) {
+            res_dev_type = dev_type;
+        } else if (result == WPADResult::WPAD_ERR_NO_CONTROLLER) {
+            res_dev_type = WPADDeviceType::WPAD_DEV_NONE;
+        } else {
+            continue;
+        }
+
+        mDevTypes(i) = static_cast<eCoreDevType>(res_dev_type);
+    }
+}
 
 void CoreControllerMgr::recreateInstance()
 {
