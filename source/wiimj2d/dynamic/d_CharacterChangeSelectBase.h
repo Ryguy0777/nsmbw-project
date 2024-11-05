@@ -14,7 +14,7 @@ public:
     //
 #define CHARACTER_LIST_COUNT 5
     static constexpr dPyMdlMng_c::ModelType_e CHARACTER_FROM_BASE[] = {
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO, dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
       dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD, dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD,
       dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,
     };
@@ -45,13 +45,12 @@ public:
       Icon_e::ICON_BLUE_TOAD_LOCKED, Icon_e::ICON_TOADETTE_LOCKED,
     };
 
-    
-
-    
-
     //
     // Functions
     //
+
+    /* 0x8076FAE0 */
+    bool updateRemocon();
 
     /* 0x8076FC80 */
     bool isCharacterLocked(dPyMdlMng_c::ModelType_e character);

@@ -9,6 +9,13 @@ class dGameKey_c
     /* 0x00 VTABLE 0x80315900 */
 
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    static constexpr int CORE_COUNT = 8;
+
+public:
     // ------------
     // Constructors
     // ------------
@@ -35,9 +42,20 @@ public:
     static dGameKey_c* createInstance(EGG::Heap* heap);
 
 public:
+    // ---------
+    // Functions
+    // ---------
+
+    /* 0x800B5AB0 */
+    void allclear();
+
+    /* 0x800B5B00 */
+    int read();
+
+public:
     // -----------
     // Member Data
     // -----------
 
-    /* 0x04 */ dGameKeyCore_c* mpCores[8];
+    /* 0x04 */ dGameKeyCore_c* mpCores[CORE_COUNT];
 };

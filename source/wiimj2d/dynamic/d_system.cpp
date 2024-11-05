@@ -3,11 +3,13 @@
 
 #include "d_system.h"
 
+#include <dynamic/d_remocon_mng.h>
 #include <dynamic/scene/d_s_boot.h>
+#include <egg/core/eggController.h>
+#include <machine/m_heap.h>
 #include <machine/m_pad.h>
 #include <revolution/dvd.h>
 #include <revolution/pad.h>
-
 
 EXTERN_SYMBOL(0x800E46E0, "#CAE882A9");
 
@@ -70,14 +72,18 @@ void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
 {
     dScBoot_c::initCodeRegion();
 
-    mPad::beginPad();
-
     __DVDEXInit(arcEntryNum, arcHandle);
 }
 
 void dSys_c::initCModule()
 {
-    PADInit();
+    EGG::CoreControllerMgr::recreateInstance();
+
+    mPad::create();
+
+    dRemoconMng_c::recreate(mHeap::g_gameHeaps[0]);
+
+    dScBoot_c::m_instance->recreate();
 }
 
 extern "C" int preinit(s32 param1, void* param2)

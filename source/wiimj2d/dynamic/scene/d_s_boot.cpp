@@ -10,23 +10,29 @@
 #include <dynamic/d_resource_manager.h>
 #include <dynamic/d_scene.h>
 #include <dynamic/d_system.h>
+#include <egg/core/eggHeap.h>
 #include <machine/m_fader.h>
+#include <machine/m_heap.h>
+
+[[address(0x8042A620)]]
+dScBoot_c* dScBoot_c::m_instance;
 
 dScBoot_c::CODE_REGION_e dScBoot_c::m_codeRegion;
 
-[[address(0x8015C550)]]
-int dScBoot_c::create_()
+int dScBoot_c::recreate()
 {
-    dSys_c::setClearColor(nw4r::ut::Color{0, 0, 0, 255});
-    dSys_c::setFrameRate(1);
+    u8 dInfo_data[dInfo_c::ORIGINAL_SIZE];
+    bool dInfo_copy = false;
+    if (dInfo_c::m_instance != nullptr) {
+        std::memcpy(dInfo_data, static_cast<void*>(dInfo_c::m_instance), dInfo_c::ORIGINAL_SIZE);
+        operator delete(dInfo_c::m_instance);
+        dInfo_copy = true;
+    }
 
-    dScene_c::setFadeInFrame(30);
-    dScene_c::setFadeOutFrame(30);
-
-    dGameCom::initRandomSeed();
-
-    new dResMng_c();
-    new dInfo_c();
+    dInfo_c* newInfo = new (mHeap::g_gameHeaps[0], alignof(dInfo_c)) dInfo_c();
+    if (dInfo_copy) {
+        std::memcpy(static_cast<void*>(newInfo), dInfo_data, dInfo_c::ORIGINAL_SIZE);
+    }
 
     return 1;
 }

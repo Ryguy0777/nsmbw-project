@@ -5,3 +5,9 @@
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
+
+[[address(0x800B5BE0)]]
+void dGameKeyCore_c::allclear();
+
+[[address(0x800B5CB0)]]
+void dGameKeyCore_c::read();

@@ -1,23 +1,27 @@
 #pragma once
 
-#include "revolution/wpad.h"
 #include <egg/core/eggDisposer.h>
 #include <egg/math/eggMatrix.h>
 #include <egg/math/eggVector.h>
 #include <egg/prim/eggBitFlag.h>
 #include <egg/prim/eggBuffer.h>
 #include <revolution/kpad.h>
+#include <revolution/wpad.h>
+
+struct PADStatus;
 
 namespace EGG
 {
 
 enum class eCoreDevType {
-    NONE = 0xFD,
+    GCN = 30,
+    NONE = static_cast<int>(WPADDeviceType::WPAD_DEV_NONE),
 };
 
 constexpr int CORE_COUNT = 8;
 
-struct PADStatus;
+constexpr WPADChannel GC_CHANNEL_BEGIN = static_cast<WPADChannel>(4);
+constexpr WPADChannel GC_CHANNEL_END = static_cast<WPADChannel>(8);
 
 class CoreStatus : public KPADStatus
 {
@@ -198,6 +202,8 @@ public:
     /* 0x802BCCD0 */
     void calc_posture_matrix(Matrix34f& posture, bool checkStable);
 
+    void padToCoreStatus(PADStatus* padStatus);
+
 public:
     // -----------
     // Member Data
@@ -219,7 +225,7 @@ public:
     /* 0xB40 */ s32 mMotorFrameDuration;
     /* 0xB44 */ u8 mMotorPatternLength;
     /* 0xB45 */ u8 mMotorPatternPos;
-    /* 0xB48 */ ControllerRumbleMgr *mRumbleMgr;
+    /* 0xB48 */ ControllerRumbleMgr* mRumbleMgr;
     /* 0xB4C */ Matrix34f mPostureMatrix;
     /* 0xB7C */ Matrix34f mPostureMatrixPrev;
     /* 0xBAC */ TBitFlag<u8> mAccelFlags;
@@ -302,7 +308,8 @@ public:
     FILL(0xE30, 0xE60);
 };
 
-class ControllerRumbleMgr {
+class ControllerRumbleMgr
+{
 public:
     /* 0x802BE150 */
     void calc();

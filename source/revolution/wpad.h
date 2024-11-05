@@ -128,7 +128,8 @@ enum class WPADDeviceMode {
 /**
  * Wii Remote (+ Nunchuk) button bitfield.
  */
-enum class WPADButton : u16 {
+
+enum WPADButton : u16 {
     WPAD_BUTTON_LEFT = (1 << 0),
     WPAD_BUTTON_RIGHT = (1 << 1),
     WPAD_BUTTON_DOWN = (1 << 2),
@@ -150,7 +151,7 @@ enum class WPADButton : u16 {
 /**
  * Classic Controller button bitfield.
  */
-enum class WPADClassicButton : u16 {
+enum WPADClassicButton : u16 {
     WPAD_BUTTON_CL_UP = (1 << 0),
     WPAD_BUTTON_CL_LEFT = (1 << 1),
     WPAD_BUTTON_CL_ZR = (1 << 2),
@@ -432,6 +433,9 @@ void WPADRegisterAllocator(WPADAllocFunc* alloc, WPADFreeFunc* free);
 u8 WPADGetRadioSensitivity(WPADChannel chan);
 // void WPADGetAddress(WPADChannel chan, BD_ADDR_PTR addr);
 u8 WPADGetSensorBarPosition(void);
+
+/* 0x801DFD10 */
+BOOL WPADSetAcceptConnection(BOOL accept);
 
 void WPADGetAccGravityUnit(WPADChannel chan, WPADAccGravityUnitType type, WPADAccGravityUnit* acc);
 

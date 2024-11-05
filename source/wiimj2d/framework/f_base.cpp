@@ -7,6 +7,13 @@
 fBase_c::fBase_c();
 
 /**
+ * VT+0x48
+ * Destroys the base.
+ */
+[[address(0x80161D80)]]
+fBase_c::~fBase_c();
+
+/**
  * VT+0x08
  * do method for the create operation.
  *
@@ -153,8 +160,14 @@ bool fBase_c::entryFrmHeapNonAdjust(u32 size, void* parentHeap);
 bool fBase_c::createHeap();
 
 /**
- * VT+0x48
- * Destroys the base.
+ * Operator new override for all bases. Bases are allocated in mHeap::g_gameHeaps[0] in a
+ * top-down direction, and are zero-initialized.
  */
-[[address(0x80162410)]]
-fBase_c::~fBase_c();
+[[address(0x80162A00)]]
+void* fBase_c::operator new(size_t);
+
+/**
+ * Operator delete override for all bases.
+ */
+[[address(0x80162A60)]]
+void fBase_c::operator delete(void*);

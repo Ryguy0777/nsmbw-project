@@ -39,8 +39,17 @@ extern bool g_IsConnected[PAD_CHAN_COUNT];
 /* 0x8042A750 */
 extern u32 g_PadFrame;
 
+/* 0x8016F330 */
+void create();
+
 /* 0x8016F360 */
 void beginPad();
+
+/* 0x8016F550 */
+void endPad();
+
+/* 0x8016F5A0 @unofficial */
+u8 getBatteryLevel(CH_e chan);
 
 /* 0x8016F570 */
 void setCurrentChannel(CH_e chan);

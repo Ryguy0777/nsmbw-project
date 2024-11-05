@@ -8,7 +8,7 @@ void dCharacterChangeIndicator_c::UNDEF_8076DC80() ASM_METHOD(
   // clang-format off
 /* 8076DC80 9421FFE0 */  stwu     r1, -32(r1);
 /* 8076DC84 7C0802A6 */  mflr     r0;
-/* 8076DC88 3C808043 */  lis      r4, UNDEF_8042a308@ha;
+/* 8076DC88 3C808043 */  lis      r4, m_instance__13dRemoconMng_c@ha;
 /* 8076DC8C 90010024 */  stw      r0, 36(r1);
 /* 8076DC90 93E1001C */  stw      r31, 28(r1);
 /* 8076DC94 93C10018 */  stw      r30, 24(r1);
@@ -17,7 +17,7 @@ void dCharacterChangeIndicator_c::UNDEF_8076DC80() ASM_METHOD(
 /* 8076DCA0 93810010 */  stw      r28, 16(r1);
 /* 8076DCA4 80A3024C */  lwz      r5, 588(r3);
 /* 8076DCA8 80030248 */  lwz      r0, 584(r3);
-/* 8076DCAC 8384A308 */  lwz      r28, UNDEF_8042a308@l(r4);
+/* 8076DCAC 8384A308 */  lwz      r28, m_instance__13dRemoconMng_c@l(r4);
 /* 8076DCB0 7C002800 */  cmpw     r0, r5;
 /* 8076DCB4 40820078 */  bne-     UNDEF_8076dd2c;
 /* 8076DCB8 2C000000 */  cmpwi    r0, 0;

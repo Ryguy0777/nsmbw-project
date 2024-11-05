@@ -43,17 +43,14 @@ public:
     // Functions
     // ---------
 
-    /**
-     * 0x8015C550
-     * This is actually the `create` virtual function but it crashes Clang for some reason, gotta
-     * look into that.
-     */
-    int create_();
+    int recreate();
 
 public:
     // -----------
     // Static Data
     // -----------
+
+    /* 0x8042A620 */ static dScBoot_c* m_instance;
 
     static CODE_REGION_e m_codeRegion;
 

@@ -4,6 +4,7 @@
 #include "eggController.h"
 
 #include <revolution/kpad.h>
+#include <revolution/pad.h>
 #include <revolution/wpad.h>
 
 namespace EGG
@@ -18,6 +19,11 @@ CoreControllerMgr* CoreControllerMgr::sInstance;
 
 [[address_data(0x8042B154)]]
 CoreControllerMgr::T__Disposer* CoreControllerMgr::T__Disposer::sStaticDisposer;
+
+static PADStatus saPadStatus[4];
+
+[[address_data(0x8042B160)]]
+bool s_allocatorCreated;
 
 // ---------
 // Functions
@@ -36,10 +42,24 @@ void CoreController::sceneReset();
 Vector2f CoreController::getDpdRawPos();
 
 [[address(0x802BCBF0)]]
-void CoreController::startMotor();
+void CoreController::startMotor()
+{
+    if (mChannel >= GC_CHANNEL_BEGIN && mChannel < GC_CHANNEL_END) {
+        PADControlMotor(static_cast<int>(mChannel) - static_cast<int>(GC_CHANNEL_BEGIN), 1);
+    } else {
+        WPADControlMotor(mChannel, WPADMotorCommand::WPAD_MOTOR_RUMBLE);
+    }
+}
 
 [[address(0x802BCC00)]]
-void CoreController::stopMotor();
+void CoreController::stopMotor()
+{
+    if (mChannel >= GC_CHANNEL_BEGIN && mChannel < GC_CHANNEL_END) {
+        PADControlMotor(static_cast<int>(mChannel) - static_cast<int>(GC_CHANNEL_BEGIN), 0);
+    } else {
+        WPADControlMotor(mChannel, WPADMotorCommand::WPAD_MOTOR_STOP);
+    }
+}
 
 [[address(0x802BCC10)]]
 void CoreController::createRumbleMgr(u8 numUnits);
@@ -56,30 +76,115 @@ void CoreController::stopRumbleMgr();
 [[address(0x802BCCD0)]]
 void CoreController::calc_posture_matrix(Matrix34f& posture, bool checkStable);
 
+void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
+{
+    u32 lastButton = maStatus->getHold();
+    u32 button = padStatus->button;
+
+    maStatus->init();
+
+    // Convert to sideways Wii Remote buttons
+    if (padStatus->button & PADButton::PAD_BUTTON_LEFT) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_UP;
+    }
+    if (padStatus->button & PADButton::PAD_BUTTON_RIGHT) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_DOWN;
+    }
+    if (padStatus->button & PADButton::PAD_BUTTON_DOWN) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_LEFT;
+    }
+    if (padStatus->button & PADButton::PAD_BUTTON_UP) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
+    }
+
+    if (padStatus->button & PADButton::PAD_BUTTON_A) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_2;
+    }
+    if (padStatus->button & PADButton::PAD_BUTTON_B) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_1;
+    }
+    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_MINUS;
+    }
+    if (padStatus->button & PADButton::PAD_TRIGGER_Z) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_A;
+    }
+    if (padStatus->button & PADButton::PAD_BUTTON_START) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_PLUS;
+    }
+
+    // Map stick to D-pad
+    if (padStatus->stickX < -32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_DOWN)) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_UP;
+    }
+    if (padStatus->stickX > 32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_UP)) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_DOWN;
+    }
+    if (padStatus->stickY < -32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_RIGHT)) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_LEFT;
+    }
+    if (padStatus->stickY > 32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_LEFT)) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
+    }
+
+    maStatus->trigger = maStatus->hold & ~lastButton;
+    maStatus->release = lastButton & ~maStatus->hold;
+    maStatus->error = 0;
+    maStatus->extensionType = static_cast<WPADDeviceType>(eCoreDevType::GCN);
+
+    // For in-game but not for use in menus
+    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_1;
+    }
+
+    // Map tilt to triggers
+    float analogA = padStatus->triggerL;
+    float analogB = padStatus->triggerR;
+
+    float tilt = analogA / 255;
+    tilt -= analogB / 255;
+
+    maStatus->acc.z = tilt;
+    maStatus->accVertical.y = -tilt;
+}
+
 [[address(0x802BD0D0)]]
 void CoreController::beginFrame(PADStatus* padStatus)
 {
-    s32 kpad_result;
-    mReadStatusIdx = KPADReadEx(mChannel, maStatus, 0x10, &kpad_result);
-    if (mReadStatusIdx == 0 && kpad_result == -1 /* Rvl usually uses negative nums for results */) {
-        mReadStatusIdx = 1;
-    }
+    // Is padStatus meant to be an input? that's how we're using it here anyway
+    if (padStatus) {
+        mReadStatusIdx = padStatus->err >= 0 ? 1 : 0;
 
-    WPADDeviceType dev_type;
-    switch (WPADProbe(mChannel, &dev_type)) {
-    case WPADResult::WPAD_ERR_OK: {
-        if (dev_type == WPADDeviceType::WPAD_DEV_NONE) {
-            mFlag.resetBit(0);
-        } else {
+        if (mReadStatusIdx > 0) {
+            padToCoreStatus(padStatus);
             mFlag.setBit(0);
+        } else {
+            mFlag.resetBit(0);
         }
-    } break;
+    } else {
+        s32 kpad_result;
+        mReadStatusIdx = KPADReadEx(mChannel, maStatus, 0x10, &kpad_result);
+        if (mReadStatusIdx == 0 &&
+            kpad_result == -1 /* Rvl usually uses negative nums for results */) {
+            mReadStatusIdx = 1;
+        }
 
-    case WPADResult::WPAD_ERR_NO_CONTROLLER: {
-        mFlag.resetBit(0);
-    } break;
+        WPADDeviceType dev_type;
+        switch (WPADProbe(mChannel, &dev_type)) {
+        case WPADResult::WPAD_ERR_OK: {
+            if (dev_type == WPADDeviceType::WPAD_DEV_NONE) {
+                mFlag.resetBit(0);
+            } else {
+                mFlag.setBit(0);
+            }
+        } break;
 
-    default:
+        case WPADResult::WPAD_ERR_NO_CONTROLLER: {
+            mFlag.resetBit(0);
+        } break;
+
+        default:
+        }
     }
 
     if (mReadStatusIdx > 0) {
@@ -176,37 +281,70 @@ void CoreController::beginFrame(PADStatus* padStatus)
 CoreControllerMgr::CoreControllerMgr();
 
 [[address(0x802BDBB0)]]
-void CoreControllerMgr::beginFrame() {
+void CoreControllerMgr::beginFrame()
+{
+    PADRead(saPadStatus);
+
     for (int i = 0; i < mControllers.getSize(); ++i) {
-        mControllers(i)->beginFrame(nullptr);
+        WPADChannel chan = static_cast<WPADChannel>(i);
+
+        PADStatus* padStatus = nullptr;
+        if (chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END) {
+            padStatus = &saPadStatus[i - static_cast<int>(GC_CHANNEL_BEGIN)];
+        }
+
+        mControllers(i)->beginFrame(padStatus);
     }
 }
 
 [[address(0x802BDC60)]]
-void CoreControllerMgr::endFrame() {
+void CoreControllerMgr::endFrame()
+{
+    u32 gcResetMask = 0;
+
     for (int i = 0; i < mControllers.mSize; i++) {
+        WPADChannel chan = static_cast<WPADChannel>(i);
+
         mControllers(i)->endFrame();
 
-        WPADDeviceType dev_type;
-        WPADResult result = WPADProbe(static_cast<WPADChannel>(i), &dev_type);
+        if (chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END) {
+            eCoreDevType devType = eCoreDevType::GCN;
 
-        WPADDeviceType res_dev_type;
+            if (mControllers(i)->mFlag.off(1)) {
+                // Bit mask starting from the left
+                gcResetMask |= 1 << (31 - (i - 4));
+                devType = eCoreDevType::NONE;
+            }
+
+            mDevTypes(i) = devType;
+            continue;
+        }
+
+        WPADDeviceType devType;
+        WPADResult result = WPADProbe(chan, &devType);
+
+        WPADDeviceType resDevType;
         if (result == WPADResult::WPAD_ERR_OK) {
-            res_dev_type = dev_type;
+            resDevType = devType;
         } else if (result == WPADResult::WPAD_ERR_NO_CONTROLLER) {
-            res_dev_type = WPADDeviceType::WPAD_DEV_NONE;
+            resDevType = WPADDeviceType::WPAD_DEV_NONE;
         } else {
             continue;
         }
 
-        mDevTypes(i) = static_cast<eCoreDevType>(res_dev_type);
+        mDevTypes(i) = static_cast<eCoreDevType>(resDevType);
     }
+
+    PADReset(gcResetMask);
 }
 
 void CoreControllerMgr::recreateInstance()
 {
+    PADInit();
+
     if (sInstance != nullptr) {
         delete sInstance;
+        s_allocatorCreated = true;
     }
 
     sInstance = new CoreControllerMgr();

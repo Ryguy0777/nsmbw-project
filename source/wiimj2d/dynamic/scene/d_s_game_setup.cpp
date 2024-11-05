@@ -190,9 +190,9 @@ void dScGameSetup_c::executeState_StartMember() ASM_METHOD(
 /* 80918B80 7D8903A6 */  mtctr    r12;
 /* 80918B84 4E800420 */  bctr;
 // UNDEF_80918b88:;
-// /* 80918B88 3C808043 */  lis      r4, UNDEF_8042a308@ha;
+// /* 80918B88 3C808043 */  lis      r4, m_instance__13dRemoconMng_c@ha;
 // /* 80918B8C 3CA08043 */  lis      r5, UNDEF_8042a5b8@ha;
-// /* 80918B90 80E4A308 */  lwz      r7, UNDEF_8042a308@l(r4);
+// /* 80918B90 80E4A308 */  lwz      r7, m_instance__13dRemoconMng_c@l(r4);
 // /* 80918B94 388601D0 */  addi     r4, r6, 464;
 // /* 80918B98 38000001 */  li       r0, 1;
 // /* 80918B9C 80C70008 */  lwz      r6, 8(r7);

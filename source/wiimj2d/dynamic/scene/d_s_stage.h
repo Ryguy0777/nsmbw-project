@@ -2,6 +2,7 @@
 
 #include <dynamic/d_fader.h>
 #include <dynamic/d_mj2d_game.h>
+#include <dynamic/d_remocon_mng.h>
 #include <framework/f_base_profile.h>
 
 class dScStage_c
@@ -43,6 +44,9 @@ public:
 
     /* 0x8042A4FF */
     static bool m_isStaffCredit;
+
+    /* 0x803744D0 */
+    static void* m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 public:
     // -----------

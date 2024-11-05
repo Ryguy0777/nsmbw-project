@@ -3,26 +3,13 @@
 
 #include "m_pad.h"
 
+#include <egg/core/eggController.h>
 #include <revolution/os/OSLink.h>
 #include <revolution/pad.h>
+#include <revolution/wpad.h>
 
 namespace mPad
 {
-
-// @unofficial
-struct WPADInfo {
-    SIZE_ASSERT(0x18);
-
-    /* 0x00 */ u32 m0x00;
-    /* 0x04 */ u32 m0x04;
-    /* 0x08 */ u32 m0x08;
-    /* 0x0C */ u32 m0x0C;
-    /* 0x10 */ u32 m0x10;
-    /* 0x14 */ u8 m0x14;
-    /* 0x15 */ u8 m0x15;
-    /* 0x16 */ u8 m0x16;
-    /* 0x17 */ u8 m0x17;
-};
 
 /* 0x80377F88 */
 EGG::CoreController* g_core[PAD_CHAN_COUNT];
@@ -60,6 +47,29 @@ WPADInfo s_WPADInfo[PAD_CHAN_COUNT];
 /* 0x80378068 */
 WPADInfo s_WPADInfoTmp[PAD_CHAN_COUNT];
 
+[[address(0x8042A754)]]
+bool s_WPADInfoAvailableOld[4];
+
+[[address(0x80377FA8)]]
+float g_PadAdditionalDataOld[4][6];
+
+[[address(0x80378008)]]
+WPADInfo s_WPADInfoOld[4];
+
+[[address(0x80378068)]]
+WPADInfo s_WPADInfoTmpOld[4];
+
+void initWPADInfo();
+
+[[address(0x8016F330)]]
+void create()
+{
+    g_padMg = EGG::CoreControllerMgr::sInstance;
+    initWPADInfo();
+    beginPad();
+    endPad();
+}
+
 [[address(0x8016F360)]]
 void beginPad()
 {
@@ -67,7 +77,7 @@ void beginPad()
 
     g_padMg->beginFrame();
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < PAD_CHAN_COUNT; i++) {
         EGG::CoreController* core = g_padMg->getNthController(i);
         g_core[i] = core;
 
@@ -107,7 +117,23 @@ void beginPad()
             if (s_GetWPADInfoInterval != 0 &&
                 (s_GetWPADInfoInterval == 1 || s_GetWPADInfoCount == i ||
                  (s_GetWPADInfoInterval < 4 && ((s_GetWPADInfoCount & 1) == (i & 1))))) {
-                getWPADInfoAsync(static_cast<CH_e>(i));
+                if (i < 4) {
+                    getWPADInfoAsync(static_cast<CH_e>(i));
+                } else {
+                    // Fake WPAD info
+                    s_WPADInfo[i] = {
+                      .dpd = false,
+                      .speaker = false,
+                      .attach = false,
+                      .lowBat = false,
+                      .nearempty = false,
+                      .battery = 0,
+                      .led = 0,
+                      .protocol = 0,
+                      .firmware = 0
+                    };
+                    s_WPADInfoAvailable[i] = true;
+                }
             }
         }
     }
@@ -119,14 +145,40 @@ void beginPad()
     g_currentCore = g_core[static_cast<int>(g_currentCoreID)];
 }
 
+[[address(0x8016F550)]]
+void endPad();
+
 [[address(0x8016F570)]]
 void setCurrentChannel(CH_e chan);
+
+[[address(0x8016F5A0)]]
+u8 getBatteryLevel(CH_e chan);
 
 [[address(0x8016F640)]]
 void clearWPADInfo(CH_e chan)
 {
     s_WPADInfo[static_cast<int>(chan)] = {};
     s_WPADInfoAvailable[static_cast<int>(chan)] = false;
+}
+
+[[address(0x8016F690)]]
+void initWPADInfo()
+{
+    for (int i = 0; i < 4; i++) {
+        s_WPADInfoAvailable[i] = s_WPADInfoAvailableOld[i];
+        g_PadAdditionalData[i][0] = g_PadAdditionalDataOld[i][0];
+        g_PadAdditionalData[i][1] = g_PadAdditionalDataOld[i][1];
+        g_PadAdditionalData[i][2] = g_PadAdditionalDataOld[i][2];
+        g_PadAdditionalData[i][3] = g_PadAdditionalDataOld[i][3];
+        g_PadAdditionalData[i][4] = g_PadAdditionalDataOld[i][4];
+        g_PadAdditionalData[i][5] = g_PadAdditionalDataOld[i][5];
+        s_WPADInfo[i] = s_WPADInfoOld[i];
+        s_WPADInfoTmp[i] = s_WPADInfoTmpOld[i];
+    }
+
+    for (int i = 4; i < PAD_CHAN_COUNT; i++) {
+        clearWPADInfo(static_cast<CH_e>(i));
+    }
 }
 
 [[address(0x8016F710)]]

@@ -44,7 +44,7 @@ public:
     virtual void finalizeStateMethod();
 
     /**
-     * VT+0x18
+     * VT+0x18 0x8015FD50
      * Transitions to a new state ID.
      * @param newStateID The new state ID to transition to.
      */

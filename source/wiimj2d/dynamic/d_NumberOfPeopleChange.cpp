@@ -4,6 +4,8 @@
 #include "d_NumberOfPeopleChange.h"
 
 #include <dynamic/d_game_common.h>
+#include <dynamic/d_info.h>
+#include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_scene.h>
 #include <framework/f_base_profile.h>
 #include <machine/m_pad.h>
@@ -287,9 +289,9 @@ void dNumberOfPeopleChange_c::assignPositions() ASM_METHOD(
 /* 807A0460 DBA100E0 */  stfd     f29, 224(r1);
 /* 807A0464 F3A100E8 */  .long    0xF3A100E8; // psq_st   f29, 232(r1), 0, 0;
 /* 807A0468 4BB3CBF1 */  bl       UNDEF_802dd058;
-/* 807A046C 3C808043 */  lis      r4, UNDEF_80428a42@ha;
+/* 807A046C 3C808043 */  lis      r4, m_nowScene__8dScene_c@ha;
 /* 807A0470 3FC08093 */  lis      r30, UNDEF_809352a0@ha;
-/* 807A0474 A0048A42 */  lhz      r0, UNDEF_80428a42@l(r4);
+/* 807A0474 A0048A42 */  lhz      r0, m_nowScene__8dScene_c@l(r4);
 /* 807A0478 7C7A1B78 */  mr       r26, r3;
 /* 807A047C 3BDE52A0 */  addi     r30, r30, UNDEF_809352a0@l;
 /* 807A0480 28000003 */  cmplwi   r0, 3;
@@ -505,9 +507,32 @@ UNDEF_807a0784:;
 /* 807A07A8 7C0803A6 */  mtlr     r0;
 /* 807A07AC 38210110 */  addi     r1, r1, 272;
 /* 807A07B0 4E800020 */  blr;
-
   // clang-format on
 );
+
+[[address(0x807A07C00)]]
+void dNumberOfPeopleChange_c::disableInactiveControllers()
+{
+    dRemoconMng_c* remoconMng = dRemoconMng_c::m_instance;
+    dInfo_c* info = dInfo_c::m_instance;
+
+    for (int i = 0; i < 4; i++) {
+        if (mControllerActive[i] == 3) {
+            remoconMng->mpaConnect[i]->m0x54 = true;
+            info->mPlayerActiveMode[i] = 0x3;
+        } else {
+            remoconMng->mpaConnect[i]->m0x54 = false;
+        }
+    }
+
+    for (int i = 4; i < dRemoconMng_c::CONNECT_COUNT; i++) {
+        // Hardcode this one for meow
+        // TODO FIXME
+        if (i == 4) {
+            info->mExPlayerActiveMode[i - 4] = 0x3;
+        }
+    }
+}
 
 [[address(0x807A0D20)]]
 bool dNumberOfPeopleChange_c::checkCancel()
@@ -688,8 +713,8 @@ UNDEF_807a0f0c:;
 // /* 807A0FE4 38000000 */  li       r0, 0;
 // /* 807A0FE8 901E06D0 */  stw      r0, 1744(r30);
 
-/* 807A0FEC 3C608043 */  lis      r3, UNDEF_80428a42@ha;
-/* 807A0FF0 A0038A42 */  lhz      r0, UNDEF_80428a42@l(r3);
+/* 807A0FEC 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 807A0FF0 A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
 /* 807A0FF4 28000003 */  cmplwi   r0, 3;
 /* 807A0FF8 40820064 */  bne-     UNDEF_807a105c;
 /* 807A0FFC 807E061C */  lwz      r3, 1564(r30);
@@ -871,6 +896,97 @@ UNDEF_807a12ac:;
   // clang-format on
 );
 
+[[address(0x807A1380)]]
+void dNumberOfPeopleChange_c::executeState_InfoOnStageAnimeEndWait() ASM_METHOD(
+  // clang-format off
+/* 807A1380 9421FFE0 */  stwu     r1, -32(r1);
+/* 807A1384 7C0802A6 */  mflr     r0;
+/* 807A1388 90010024 */  stw      r0, 36(r1);
+/* 807A138C 39610020 */  addi     r11, r1, 32;
+/* 807A1390 4BB3BCD1 */  bl       UNDEF_802dd060;
+/* 807A1394 3C808043 */  lis      r4, m_nowScene__8dScene_c@ha;
+/* 807A1398 3FA08099 */  lis      r29, UNDEF_809944b8@ha;
+/* 807A139C A0048A42 */  lhz      r0, m_nowScene__8dScene_c@l(r4);
+/* 807A13A0 7C7A1B78 */  mr       r26, r3;
+/* 807A13A4 3BBD44B8 */  addi     r29, r29, UNDEF_809944b8@l;
+/* 807A13A8 28000003 */  cmplwi   r0, 3;
+/* 807A13AC 40820080 */  bne-     UNDEF_807a142c;
+/* 807A13B0 3B600000 */  li       r27, 0;
+/* 807A13B4 3B800000 */  li       r28, 0;
+/* 807A13B8 3FC08043 */  lis      r30, m_instance__13dRemoconMng_c@ha;
+/* 807A13BC 3FE08037 */  lis      r31, UNDEF_80371b70@ha;
+UNDEF_807a13c0:;
+/* 807A13C0 801EA308 */  lwz      r0, m_instance__13dRemoconMng_c@l(r30);
+/* 807A13C4 7C60E214 */  add      r3, r0, r28;
+/* 807A13C8 80630004 */  lwz      r3, 4(r3);
+/* 807A13CC 8583005C */  lwzu     r12, 92(r3);
+/* 807A13D0 818C0028 */  lwz      r12, 40(r12);
+/* 807A13D4 7D8903A6 */  mtctr    r12;
+/* 807A13D8 4E800421 */  bctrl;
+/* 807A13DC 81830000 */  lwz      r12, 0(r3);
+/* 807A13E0 389F1B70 */  addi     r4, r31, UNDEF_80371b70@l;
+/* 807A13E4 818C0010 */  lwz      r12, 16(r12);
+/* 807A13E8 7D8903A6 */  mtctr    r12;
+/* 807A13EC 4E800421 */  bctrl;
+/* 807A13F0 2C030000 */  cmpwi    r3, 0;
+/* 807A13F4 40820028 */  bne-     UNDEF_807a141c;
+/* 807A13F8 7F63DB78 */  mr       r3, r27;
+/* 807A13FC 4B913365 */  bl       UNDEF_800b4760;
+/* 807A1400 2C030000 */  cmpwi    r3, 0;
+/* 807A1404 41820018 */  beq-     UNDEF_807a141c;
+/* 807A1408 3C608043 */  lis      r3, UNDEF_8042a5b8@ha;
+/* 807A140C 7F64DB78 */  mr       r4, r27;
+/* 807A1410 8063A5B8 */  lwz      r3, UNDEF_8042a5b8@l(r3);
+/* 807A1414 4B96D2FD */  bl       UNDEF_8010e710;
+/* 807A1418 4800008C */  b        UNDEF_807a14a4;
+UNDEF_807a141c:;
+/* 807A141C 3B7B0001 */  addi     r27, r27, 1;
+/* 807A1420 3B9C0004 */  addi     r28, r28, 4;
+/* 807A1424 2C1B0004 */  cmpwi    r27, REMOCON_CONNECT_COUNT;
+/* 807A1428 4180FF98 */  blt+     UNDEF_807a13c0;
+UNDEF_807a142c:;
+/* 807A142C 807A06A0 */  lwz      r3, 1696(r26);
+/* 807A1430 801A06C4 */  lwz      r0, 1732(r26);
+/* 807A1434 7C030000 */  cmpw     r3, r0;
+/* 807A1438 41800054 */  blt-     UNDEF_807a148c;
+/* 807A143C 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 807A1440 A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
+/* 807A1444 28000003 */  cmplwi   r0, 3;
+/* 807A1448 40820028 */  bne-     UNDEF_807a1470;
+/* 807A144C 7F43D378 */  mr       r3, r26;
+/* 807A1450 4BFFF601 */  bl       UNDEF_807a0a50;
+/* 807A1454 819A059C */  lwz      r12, 1436(r26);
+/* 807A1458 387A059C */  addi     r3, r26, 1436;
+/* 807A145C 389D0110 */  addi     r4, r29, 272;
+/* 807A1460 818C0018 */  lwz      r12, 24(r12);
+/* 807A1464 7D8903A6 */  mtctr    r12;
+/* 807A1468 4E800421 */  bctrl;
+/* 807A146C 48000038 */  b        UNDEF_807a14a4;
+UNDEF_807a1470:;
+/* 807A1470 819A059C */  lwz      r12, 1436(r26);
+/* 807A1474 387A059C */  addi     r3, r26, 1436;
+/* 807A1478 389D0190 */  addi     r4, r29, 400;
+/* 807A147C 818C0018 */  lwz      r12, 24(r12);
+/* 807A1480 7D8903A6 */  mtctr    r12;
+/* 807A1484 4E800421 */  bctrl;
+/* 807A1488 4800001C */  b        UNDEF_807a14a4;
+UNDEF_807a148c:;
+/* 807A148C 819A059C */  lwz      r12, 1436(r26);
+/* 807A1490 387A059C */  addi     r3, r26, 1436;
+/* 807A1494 389D00D0 */  addi     r4, r29, 208;
+/* 807A1498 818C0018 */  lwz      r12, 24(r12);
+/* 807A149C 7D8903A6 */  mtctr    r12;
+/* 807A14A0 4E800421 */  bctrl;
+UNDEF_807a14a4:;
+/* 807A14A4 39610020 */  addi     r11, r1, 32;
+/* 807A14A8 4BB3BC05 */  bl       UNDEF_802dd0ac;
+/* 807A14AC 80010024 */  lwz      r0, 36(r1);
+/* 807A14B0 7C0803A6 */  mtlr     r0;
+/* 807A14B4 38210020 */  addi     r1, r1, 32;
+/* 807A14B8 4E800020 */  blr;
+  // clang-format on
+);
+
 [[address(0x807A14D0)]]
 void dNumberOfPeopleChange_c::initializeState_NowEntrantRecruit() ASM_METHOD(
   // clang-format off
@@ -917,8 +1033,8 @@ UNDEF_807a1558:;
 /* 807A155C 4BFFF7C5 */  bl       UNDEF_807a0d20;
 /* 807A1560 2C030000 */  cmpwi    r3, 0;
 /* 807A1564 418200B0 */  beq-     UNDEF_807a1614;
-/* 807A1568 3C608043 */  lis      r3, UNDEF_80428a42@ha;
-/* 807A156C A0038A42 */  lhz      r0, UNDEF_80428a42@l(r3);
+/* 807A1568 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 807A156C A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
 /* 807A1570 28000003 */  cmplwi   r0, 3;
 /* 807A1574 4082001C */  bne-     UNDEF_807a1590;
 /* 807A1578 3C608043 */  lis      r3, UNDEF_8042a768@ha;
@@ -934,8 +1050,8 @@ UNDEF_807a1590:;
 /* 807A159C 38A00001 */  li       r5, 1;
 /* 807A15A0 4B9F3F21 */  bl       UNDEF_801954c0;
 UNDEF_807a15a4:;
-/* 807A15A4 3C608043 */  lis      r3, UNDEF_80428a42@ha;
-/* 807A15A8 A0038A42 */  lhz      r0, UNDEF_80428a42@l(r3);
+/* 807A15A4 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 807A15A8 A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
 /* 807A15AC 28000003 */  cmplwi   r0, 3;
 /* 807A15B0 40820010 */  bne-     UNDEF_807a15c0;
 /* 807A15B4 38000000 */  li       r0, 0;
@@ -967,8 +1083,8 @@ UNDEF_807a15e8:;
 /* 807A160C 4E800421 */  bctrl;
 /* 807A1610 48000090 */  b        UNDEF_807a16a0;
 UNDEF_807a1614:;
-/* 807A1614 3C608043 */  lis      r3, UNDEF_80428a42@ha;
-/* 807A1618 A0038A42 */  lhz      r0, UNDEF_80428a42@l(r3);
+/* 807A1614 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 807A1618 A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
 /* 807A161C 28000003 */  cmplwi   r0, 3;
 /* 807A1620 41820080 */  beq-     UNDEF_807a16a0;
 /* 807A1624 807F06C4 */  lwz      r3, 1732(r31);
@@ -1061,8 +1177,8 @@ UNDEF_807a1758:;
 /* 807A175C 4BFFF5C5 */  bl       UNDEF_807a0d20;
 /* 807A1760 2C030000 */  cmpwi    r3, 0;
 /* 807A1764 41820094 */  beq-     UNDEF_807a17f8;
-/* 807A1768 3C608043 */  lis      r3, UNDEF_80428a42@ha;
-/* 807A176C A0038A42 */  lhz      r0, UNDEF_80428a42@l(r3);
+/* 807A1768 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 807A176C A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
 /* 807A1770 28000003 */  cmplwi   r0, 3;
 /* 807A1774 4082001C */  bne-     UNDEF_807a1790;
 /* 807A1778 3C608043 */  lis      r3, UNDEF_8042a768@ha;

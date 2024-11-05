@@ -3,6 +3,8 @@
 
 #include "d_s_stage.h"
 
+#include <revolution/os/OSLink.h>
+
 [[address_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
 
@@ -17,6 +19,9 @@ bool dScStage_c::m_isOtehonReturn;
 
 [[address_data(0x8042A4FF)]]
 bool dScStage_c::m_isStaffCredit;
+
+/* 0x803744D0 */
+void* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 [[address(0x80101AA0)]]
 void dScStage_c::setLoopType() ASM_METHOD(
@@ -90,4 +95,18 @@ UNDEF_80101b94:;
 [[address(0x80102370)]]
 void dScStage_c::goToSceneAfterLevel(
   int profile, int param2, int param3, dFader_c::fader_type_e faderType
+);
+
+PATCH_REFERENCES(
+  dScStage_c::m_replayPlay_p,
+  {
+    {0x8006A18A, R_PPC_ADDR16_HA}, {0x8006A18E, R_PPC_ADDR16_LO}, {0x800B5CBA, R_PPC_ADDR16_HA},
+    {0x800B5CC2, R_PPC_ADDR16_LO}, {0x800B61FA, R_PPC_ADDR16_HA}, {0x800B6202, R_PPC_ADDR16_LO},
+    {0x800B62A6, R_PPC_ADDR16_HA}, {0x800B62AA, R_PPC_ADDR16_LO}, {0x80102142, R_PPC_ADDR16_HA},
+    {0x8010214A, R_PPC_ADDR16_LO}, {0x80102182, R_PPC_ADDR16_HA}, {0x80102186, R_PPC_ADDR16_LO},
+    {0x8010226A, R_PPC_ADDR16_HA}, {0x8010226E, R_PPC_ADDR16_LO}, {0x801022C2, R_PPC_ADDR16_HA},
+    {0x801022C6, R_PPC_ADDR16_LO}, {0x8091F6FE, R_PPC_ADDR16_HA}, {0x8091F706, R_PPC_ADDR16_LO},
+    {0x8091F79A, R_PPC_ADDR16_HA}, {0x8091F7B6, R_PPC_ADDR16_LO}, {0x809246AE, R_PPC_ADDR16_HA},
+    {0x809246B6, R_PPC_ADDR16_LO},
+  }
 );

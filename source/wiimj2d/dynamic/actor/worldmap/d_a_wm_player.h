@@ -1,6 +1,6 @@
 #pragma once
 
-#include "System.h"
+#include <dynamic/d_mj2d_game.h>
 #include <dynamic/d_player_model_manager.h>
 #include <dynamic/worldmap/d_wm_player_base.h>
 #include <machine/m_vec.h>
@@ -124,6 +124,9 @@ public:
 
     /* 0x809093D0 */
     void initActiveCharaFlags();
+
+    /* 0x8090CE10 */
+    bool startGame(WORLD_e world, STAGE_e stage, u8 entrance);
 
     /* 0x1CC */ dPyMdlMng_c mModelManager;
 

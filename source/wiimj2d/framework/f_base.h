@@ -1,6 +1,7 @@
 #pragma once
 
-#include "f_base_id.h"
+#include <cstdlib>
+#include <framework/f_base_id.h>
 
 class fBase_c
 {
@@ -13,6 +14,19 @@ public:
 
     /* 0x80161C10 */
     fBase_c();
+
+    /**
+     * 0x80162A00
+     * Operator new override for all bases. Bases are allocated in mHeap::g_gameHeaps[0] in a
+     * top-down direction, and are zero-initialized.
+     */
+    static void* operator new(size_t);
+
+    /**
+     * 0x80162A60
+     * Operator delete override for all bases.
+     */
+    static void operator delete(void*);
 
 public:
     // -------------------

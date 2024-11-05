@@ -1,6 +1,10 @@
 // vi.c
 // NSMBW: 0x801BBB70 - 0x801BE5C0
 
+extern "C" {
+
+#include <revolution/vi.h>
+
 [[address_data(0x8042AB30)]]
 s32 __VIDimmingFlag_SI_IDLE;
 
@@ -105,3 +109,4 @@ bool __VIResetSIIdle()
 // UNUSED: __VIResetDev7Idle
 // UNUSED: __VIResetDev8Idle
 // UNUSED: __VIResetDev9Idle
+}

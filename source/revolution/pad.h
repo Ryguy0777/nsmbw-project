@@ -4,26 +4,25 @@
 
 extern "C" {
 
-// D-pad left
-#define PAD_BUTTON_LEFT 0x0001
-// D-pad right
-#define PAD_BUTTON_RIGHT 0x0002
-// D-pad down
-#define PAD_BUTTON_DOWN 0x0004
-// D-pad up
-#define PAD_BUTTON_UP 0x0008
-#define PAD_TRIGGER_Z 0x0010
-#define PAD_TRIGGER_R 0x0020
-#define PAD_TRIGGER_L 0x0040
-#define PAD_BUTTON_A 0x0100
-#define PAD_BUTTON_B 0x0200
-#define PAD_BUTTON_X 0x0400
-#define PAD_BUTTON_Y 0x0800
-#define PAD_BUTTON_START 0x1000
+enum PADButton : u16 {
+    PAD_BUTTON_LEFT = 0x0001,
+    PAD_BUTTON_RIGHT = 0x0002,
+    PAD_BUTTON_DOWN = 0x0004,
+    PAD_BUTTON_UP = 0x0008,
+    PAD_TRIGGER_Z = 0x0010,
+    PAD_TRIGGER_R = 0x0020,
+    PAD_TRIGGER_L = 0x0040,
+    PAD_BUTTON_A = 0x0100,
+    PAD_BUTTON_B = 0x0200,
+    PAD_BUTTON_X = 0x0400,
+    PAD_BUTTON_Y = 0x0800,
+    PAD_BUTTON_START = 0x1000,
+};
 
 // https://github.com/devkitPro/libogc/blob/bc4b778d558915aa40676e33514c4c9ba2af66b8/gc/ogc/pad.h#L46
 struct PADStatus {
     SIZE_ASSERT(0xC);
+
     /* 0x0 */ u16 button;
     /* 0x2 */ s8 stickX;
     /* 0x3 */ s8 stickY;
@@ -38,6 +37,7 @@ struct PADStatus {
 
 struct PADClampRegion {
     SIZE_ASSERT(0xA);
+
     /* 0x0 */ u8 unk_00;
     /* 0x1 */ u8 unk_01;
     /* 0x2 */ s8 stickMin;
@@ -49,8 +49,6 @@ struct PADClampRegion {
     /* 0x8 */ s8 stickRad;
     /* 0x9 */ s8 substickRad;
 };
-
-static_assert(sizeof(PADClampRegion) == 0xA);
 
 void PAD_ClampCircle(s8*, s8*, s8, s8);
 void PADClampCircle(PADStatus*);

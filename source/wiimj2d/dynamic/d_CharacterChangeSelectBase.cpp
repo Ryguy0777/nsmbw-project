@@ -5,8 +5,123 @@
 
 #include <dynamic/d_CharacterChangeSelectContents.h>
 #include <dynamic/d_player_model_manager.h>
+#include <dynamic/d_remocon_mng.h>
 #include <revolution/os.h>
 
+[[address(0x8076FAE0)]]
+bool dCharacterChangeSelectBase_c::updateRemocon() ASM_METHOD(
+  // clang-format off
+/* 8076FAE0 9421FFE0 */  stwu     r1, -32(r1);
+/* 8076FAE4 7C0802A6 */  mflr     r0;
+/* 8076FAE8 90010024 */  stw      r0, 36(r1);
+/* 8076FAEC 39610020 */  addi     r11, r1, 32;
+/* 8076FAF0 4BB6D571 */  bl       UNDEF_802dd060;
+/* 8076FAF4 800302D8 */  lwz      r0, 728(r3);
+/* 8076FAF8 7C7F1B78 */  mr       r31, r3;
+/* 8076FAFC 2C000000 */  cmpwi    r0, 0;
+/* 8076FB00 4180006C */  blt-     UNDEF_8076fb6c;
+/* 8076FB04 3C608043 */  lis      r3, m_instance__13dRemoconMng_c@ha;
+/* 8076FB08 5400103A */  slwi     r0, r0, 2;
+/* 8076FB0C 8063A308 */  lwz      r3, m_instance__13dRemoconMng_c@l(r3);
+/* 8076FB10 7C630214 */  add      r3, r3, r0;
+/* 8076FB14 80630004 */  lwz      r3, 4(r3);
+/* 8076FB18 8583005C */  lwzu     r12, 92(r3);
+/* 8076FB1C 818C0028 */  lwz      r12, 40(r12);
+/* 8076FB20 7D8903A6 */  mtctr    r12;
+/* 8076FB24 4E800421 */  bctrl;
+/* 8076FB28 81830000 */  lwz      r12, 0(r3);
+/* 8076FB2C 3C808037 */  lis      r4, UNDEF_80371b70@ha;
+/* 8076FB30 38841B70 */  addi     r4, r4, UNDEF_80371b70@l;
+/* 8076FB34 818C0010 */  lwz      r12, 16(r12);
+/* 8076FB38 7D8903A6 */  mtctr    r12;
+/* 8076FB3C 4E800421 */  bctrl;
+/* 8076FB40 2C030000 */  cmpwi    r3, 0;
+/* 8076FB44 40820114 */  bne-     UNDEF_8076fc58;
+/* 8076FB48 801F02D8 */  lwz      r0, 728(r31);
+/* 8076FB4C 38A00000 */  li       r5, 0;
+/* 8076FB50 809F0280 */  lwz      r4, 640(r31);
+/* 8076FB54 7FE3FB78 */  mr       r3, r31;
+/* 8076FB58 5400103A */  slwi     r0, r0, 2;
+/* 8076FB5C 7CA4012E */  stwx     r5, r4, r0;
+/* 8076FB60 4BFFFEE1 */  bl       UNDEF_8076fa40;
+/* 8076FB64 38600001 */  li       r3, 1;
+/* 8076FB68 480000F4 */  b        UNDEF_8076fc5c;
+UNDEF_8076fb6c:;
+/* 8076FB6C 3B400000 */  li       r26, 0;
+/* 8076FB70 3B600000 */  li       r27, 0;
+/* 8076FB74 3F808043 */  lis      r28, m_instance__13dRemoconMng_c@ha;
+/* 8076FB78 3FA08037 */  lis      r29, UNDEF_80371b70@ha;
+/* 8076FB7C 3BC00004 */  li       r30, 4;
+UNDEF_8076fb80:;
+/* 8076FB80 801CA308 */  lwz      r0, m_instance__13dRemoconMng_c@l(r28);
+/* 8076FB84 7C60DA14 */  add      r3, r0, r27;
+/* 8076FB88 80630004 */  lwz      r3, 4(r3);
+/* 8076FB8C 8583005C */  lwzu     r12, 92(r3);
+/* 8076FB90 818C0028 */  lwz      r12, 40(r12);
+/* 8076FB94 7D8903A6 */  mtctr    r12;
+/* 8076FB98 4E800421 */  bctrl;
+/* 8076FB9C 81830000 */  lwz      r12, 0(r3);
+/* 8076FBA0 389D1B70 */  addi     r4, r29, UNDEF_80371b70@l;
+/* 8076FBA4 818C0010 */  lwz      r12, 16(r12);
+/* 8076FBA8 7D8903A6 */  mtctr    r12;
+/* 8076FBAC 4E800421 */  bctrl;
+/* 8076FBB0 2C030000 */  cmpwi    r3, 0;
+/* 8076FBB4 41820094 */  beq-     UNDEF_8076fc48;
+/* 8076FBB8 807F0284 */  lwz      r3, 644(r31);
+/* 8076FBBC 38800000 */  li       r4, 0;
+/* 8076FBC0 80030000 */  lwz      r0, 0(r3);
+/* 8076FBC4 7C1A0000 */  cmpw     r26, r0;
+/* 8076FBC8 41820038 */  beq-     UNDEF_8076fc00;
+/* 8076FBCC 80030004 */  lwz      r0, 4(r3);
+/* 8076FBD0 38800001 */  li       r4, 1;
+/* 8076FBD4 7C1A0000 */  cmpw     r26, r0;
+/* 8076FBD8 41820028 */  beq-     UNDEF_8076fc00;
+/* 8076FBDC 80030008 */  lwz      r0, 8(r3);
+/* 8076FBE0 38800002 */  li       r4, 2;
+/* 8076FBE4 7C1A0000 */  cmpw     r26, r0;
+/* 8076FBE8 41820018 */  beq-     UNDEF_8076fc00;
+/* 8076FBEC 8003000C */  lwz      r0, 12(r3);
+/* 8076FBF0 38800003 */  li       r4, 3;
+/* 8076FBF4 7C1A0000 */  cmpw     r26, r0;
+/* 8076FBF8 41820008 */  beq-     UNDEF_8076fc00;
+/* 8076FBFC 38800004 */  li       r4, 4;
+UNDEF_8076fc00:;
+/* 8076FC00 2C040004 */  cmpwi    r4, 4;
+/* 8076FC04 41800044 */  blt-     UNDEF_8076fc48;
+/* 8076FC08 38A00000 */  li       r5, 0;
+/* 8076FC0C 38600000 */  li       r3, 0;
+/* 8076FC10 7FC903A6 */  mtctr    r30;
+/* 8076FC14 60000000 */  nop;
+UNDEF_8076fc18:;
+/* 8076FC18 809F0284 */  lwz      r4, 644(r31);
+/* 8076FC1C 7C04182E */  lwzx     r0, r4, r3;
+/* 8076FC20 2C000000 */  cmpwi    r0, 0;
+/* 8076FC24 40800018 */  bge-     UNDEF_8076fc3c;
+/* 8076FC28 54A0103A */  slwi     r0, r5, 2;
+/* 8076FC2C 38600001 */  li       r3, 1;
+/* 8076FC30 7F44012E */  stwx     r26, r4, r0;
+/* 8076FC34 935F02D8 */  stw      r26, 728(r31);
+/* 8076FC38 48000024 */  b        UNDEF_8076fc5c;
+UNDEF_8076fc3c:;
+/* 8076FC3C 38630004 */  addi     r3, r3, 4;
+/* 8076FC40 38A50001 */  addi     r5, r5, 1;
+/* 8076FC44 4200FFD4 */  bdnz+    UNDEF_8076fc18;
+UNDEF_8076fc48:;
+/* 8076FC48 3B5A0001 */  addi     r26, r26, 1;
+/* 8076FC4C 3B7B0004 */  addi     r27, r27, 4;
+/* 8076FC50 2C1A0004 */  cmpwi    r26, REMOCON_CONNECT_COUNT;
+/* 8076FC54 4180FF2C */  blt+     UNDEF_8076fb80;
+UNDEF_8076fc58:;
+/* 8076FC58 38600000 */  li       r3, 0;
+UNDEF_8076fc5c:;
+/* 8076FC5C 39610020 */  addi     r11, r1, 32;
+/* 8076FC60 4BB6D44D */  bl       UNDEF_802dd0ac;
+/* 8076FC64 80010024 */  lwz      r0, 36(r1);
+/* 8076FC68 7C0803A6 */  mtlr     r0;
+/* 8076FC6C 38210020 */  addi     r1, r1, 32;
+/* 8076FC70 4E800020 */  blr;
+  // clang-format on
+);
 
 dPyMdlMng_c::ModelType_e get_CHARACTER_FROM_BASE(u32 baseIndex)
 {
@@ -38,7 +153,7 @@ void dCharacterChangeSelectBase_c::UNDEF_8076FE40()
     mDecidedCharacter = get_CHARACTER_FROM_BASE(mSelectedBaseIndex);
 }
 
-u32 sSavedIndexToBaseIndex[] = {4, 3, 2, 1};
+u32 sSavedIndexToBaseIndex[] = {4, 3, 2, 1, 4, 4, 4, 4};
 
 [[address(0x8076FEE0)]]
 void dCharacterChangeSelectBase_c::UNDEF_8076FEE0() ASM_METHOD(
@@ -115,11 +230,11 @@ UNDEF_80770934:;
 /* 8077093C 38800000 */  li       r4, 0;
 /* 80770940 4BFFF431 */  bl       UNDEF_8076fd70;
 /* 80770944 801E02D8 */  lwz      r0, 728(r30);
-/* 80770948 3C608037 */  lis      r3, UNDEF_80377f88@ha;
+/* 80770948 3C608037 */  lis      r3, g_core__4mPad@ha;
 /* 8077094C 3CA08043 */  lis      r5, UNDEF_8042a230@ha;
 /* 80770950 38800900 */  li       r4, 2304;
 /* 80770954 5400103A */  slwi     r0, r0, 2;
-/* 80770958 38637F88 */  addi     r3, r3, UNDEF_80377f88@l;
+/* 80770958 38637F88 */  addi     r3, r3, g_core__4mPad@l;
 /* 8077095C 7C63002E */  lwzx     r3, r3, r0;
 /* 80770960 83A5A230 */  lwz      r29, UNDEF_8042a230@l(r5);
 /* 80770964 81830000 */  lwz      r12, 0(r3);
@@ -148,8 +263,8 @@ UNDEF_807709f0:;
 /* 80770A0C 7C001800 */  cmpw     r0, r3;
 /* 80770A10 41800028 */  blt-     UNDEF_80770a38;
 /* 80770A14 90640000 */  stw      r3, 0(r4);
-/* 80770A18 3C608043 */  lis      r3, UNDEF_80428a42@ha;
-/* 80770A1C A0038A42 */  lhz      r0, UNDEF_80428a42@l(r3);
+/* 80770A18 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
+/* 80770A1C A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
 /* 80770A20 28000003 */  cmplwi   r0, 3;
 /* 80770A24 41820014 */  beq-     UNDEF_80770a38;
 /* 80770A28 3C608043 */  lis      r3, UNDEF_8042a788@ha;

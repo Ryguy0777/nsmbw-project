@@ -5,7 +5,16 @@
 
 extern "C" {
 
+[[address(0x801DFD10)]]
+BOOL WPADSetAcceptConnection(BOOL accept);
+
+[[address(0x801E0F80)]]
+void WPADDisconnect(WPADChannel chan);
+
 [[address(0x801E1080)]]
 WPADResult WPADProbe(WPADChannel chan, WPADDeviceType* devTypeOut);
+
+[[address(0x801E1620)]]
+void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);
 
 } // extern "C"

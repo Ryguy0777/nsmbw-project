@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include <dynamic/actor/d_a_player_manager.h>
 #include <dynamic/d_cyuukan.h>
 
@@ -9,9 +8,9 @@ class dInfo_c
     /* 0x000 VTABLE 0x80315EA0 */
 
 public:
-    //
+    // -------------------
     // Constants and Types
-    //
+    // -------------------
 
     /* @unofficial */
     enum class ScreenType_e {
@@ -52,10 +51,12 @@ public:
         /* 0x0F */ u8 stage2;
     };
 
+    static constexpr u32 ORIGINAL_SIZE = 0xB5C;
+
 public:
-    //
+    // ------------
     // Constructors
-    //
+    // ------------
 
     /* 0x800BB0E0 */
     dInfo_c();
@@ -64,17 +65,17 @@ public:
     virtual ~dInfo_c();
 
 public:
-    //
+    // ---------
     // Functions
-    //
+    // ---------
 
     /* 0x800BB180 */
     void PlayerStateInit();
 
 public:
-    //
+    // -----------
     // Member Data
-    //
+    // -----------
 
     /* 0x004 */ s32 m0x004;
 
@@ -99,12 +100,13 @@ public:
     FILL(0xB00, 0xB5C);
     OFFSET_ASSERT(0xB5C);
 
+#define OFFSET_dInfo_c_mExPlayerActiveMode 0xB5C
     /* 0xB5C */ s32 mExPlayerActiveMode[PLAYER_COUNT - 4];
 
 public:
-    //
+    // -----------
     // Static Data
-    //
+    // -----------
 
     /* 0x80315E98 */ static StartGameInfo_s m_startGameInfo;
 

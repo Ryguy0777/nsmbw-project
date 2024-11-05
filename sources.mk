@@ -50,9 +50,17 @@ SOURCES += source/wiimj2d/dynamic/d_bg.cpp
 # NSMBW: 0x8008DFF0 - 0x8008ECC0
 SOURCES += source/wiimj2d/dynamic/d_course_data.cpp
 
+# d_enemy.cpp
+# NSMBW: 0x80094E80 - 0x800983C0
+SOURCES += source/wiimj2d/dynamic/d_enemy.cpp
+
 # d_fader.cpp
 # NSMBW: 0x800B0A20 - 0x800B0EA0
 SOURCES += source/wiimj2d/dynamic/d_fader.cpp
+
+# d_fukidashiInfo.cpp
+# NSMBW: 0x800B14E0 - 0x800B2D20
+SOURCES += source/wiimj2d/dynamic/d_fukidashiInfo.cpp
 
 # d_game_common.cpp
 # NSMBW .text: 0x800B2E70 - 0x800B5930
@@ -221,6 +229,9 @@ SOURCES += source/wiimj2d/dynamic/actor/d_a_player.cpp
 # d_bg_gm.cpp
 # NSMBW: 0x80154800 - 0x80156FE0
 SOURCES += source/wiimj2d/dynamic/d_bg_gm.cpp
+# d_fukidashiManager.cpp
+# NSMBW: 0x80156FE0 - 0x80157820
+SOURCES += source/wiimj2d/dynamic/d_fukidashiManager.cpp
 
 #
 # wiimj2d/dynamic/scene
@@ -254,6 +265,9 @@ SOURCES += source/wiimj2d/state/s_Print.cpp
 # s_StateID.cpp
 # NSMBW: 0x8015F900 - 0x8015FAE0
 SOURCES += source/wiimj2d/state/s_StateID.cpp
+# s_StateMethod.cpp
+# NSMBW: 0x8015FAE0 - 0x8015FDD0
+SOURCES += source/wiimj2d/state/s_StateMethod.cpp
 
 #
 # wiimj2d/framework
