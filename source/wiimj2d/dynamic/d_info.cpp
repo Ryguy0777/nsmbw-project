@@ -47,6 +47,9 @@ EXTERN_SYMBOL(0x800BB5B0, "initMultiMode__7dInfo_cFv");
 
 EXTERN_SYMBOL(0x800BB7D0, "startGame__7dInfo_cFRCQ27dInfo_c15StartGameInfo_s");
 
+[[address(0x800BB7D0)]]
+void dInfo_c::startGame(const StartGameInfo_s& startGameInfo);
+
 EXTERN_SYMBOL(0x800BB8D0, "startStaffCredit__7dInfo_cFv");
 
 EXTERN_SYMBOL(0x800BB940, "initStage__7dInfo_cFv");

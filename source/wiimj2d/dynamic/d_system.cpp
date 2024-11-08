@@ -3,6 +3,7 @@
 
 #include "d_system.h"
 
+#include <dynamic/actor/d_a_player_manager.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/scene/d_s_boot.h>
 #include <egg/core/eggController.h>
@@ -84,6 +85,8 @@ void dSys_c::initCModule()
     dRemoconMng_c::recreate(mHeap::g_gameHeaps[0]);
 
     dScBoot_c::m_instance->recreate();
+
+    daPyMng_c::initGame();
 }
 
 extern "C" int preinit(s32 param1, void* param2)

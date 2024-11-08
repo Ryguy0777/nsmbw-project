@@ -70,7 +70,7 @@ void dScCrsin_c::executeState_resWaitProc2()
 
     if (dInfo_c::m_instance->m_startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
         // Setup players for title screen
-        for (int i = 0; i < PLAYER_COUNT; i++) {
+        for (int i = 0; i < 5; i++) {
             daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
             daPyMng_c::mPlayerEntry[i] = 1;
 

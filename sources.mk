@@ -10,6 +10,14 @@ SOURCES += source/Rel.cpp
 SOURCES += source/wiimj2d/dynamic/d_2d.cpp
 
 #
+# wiimj2d/dynamic/enemies
+#
+
+# d_a_en_block_main.cpp
+# NSMBW: 0x800208B0 - 0x80023C60
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_block_main.cpp
+
+#
 # wiimj2d/dynamic/actor
 #
 
@@ -46,6 +54,10 @@ SOURCES += source/wiimj2d/dynamic/d_base_actor.cpp
 # NSMBW: 0x80076FD0 - 0x8007E180
 SOURCES += source/wiimj2d/dynamic/d_bg.cpp
 
+# d_block_mng.cpp
+# NSMBW: 0x80087F40 - 0x80088D90
+SOURCES += source/wiimj2d/dynamic/d_block_mng.cpp
+
 # d_course_data.cpp
 # NSMBW: 0x8008DFF0 - 0x8008ECC0
 SOURCES += source/wiimj2d/dynamic/d_course_data.cpp
@@ -65,7 +77,6 @@ SOURCES += source/wiimj2d/dynamic/d_fukidashiInfo.cpp
 # d_game_common.cpp
 # NSMBW .text: 0x800B2E70 - 0x800B5930
 SOURCES += source/wiimj2d/dynamic/d_game_common.cpp
-
 # d_game_key.cpp
 # NSMBW: 0x800B5930 - 0x800B5B50
 SOURCES += source/wiimj2d/dynamic/d_game_key.cpp
@@ -83,6 +94,10 @@ SOURCES += source/wiimj2d/dynamic/d_info.cpp
 # d_lytbase.cpp
 # NSMBW: 0x800C89A0 - 0x800C9B50
 SOURCES += source/wiimj2d/dynamic/d_lytbase.cpp
+
+# d_mask_mng.cpp
+# NSMBW: 0x800CD290 - 0x800CD800
+SOURCES += source/wiimj2d/dynamic/d_mask_mng.cpp
 
 # d_mj2d_game.cpp
 # NSMBW: 0x800CDFB0 - 0x800CE660
@@ -170,6 +185,14 @@ SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_path.cpp
 SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_player_base.cpp
 
 #
+# wiimj2d/dynamic/actor/objects
+#
+
+# d_a_obj_grass.cpp
+# NSMBW: 0x808760E0 - 0x80877510
+SOURCES += source/wiimj2d/dynamic/actor/objects/d_a_obj_grass.cpp
+
+#
 # wiimj2d/dynamic/actor/worldmap
 #
 
@@ -218,6 +241,17 @@ SOURCES += source/wiimj2d/dynamic/d_WiiStrap.cpp
 # wiimj2d/dynamic/actor
 #
 
+# d_a_fireball_player.cpp
+# NSMBW: 0x8011A5B0 - 0x8011B640
+SOURCES += source/wiimj2d/dynamic/actor/d_a_fireball_player.cpp
+
+# d_a_iceball.cpp
+# NSMBW: 0x801233F0 - 0x80124D40
+SOURCES += source/wiimj2d/dynamic/actor/d_a_iceball.cpp
+
+# d_a_mask.cpp
+# NSMBW: 0x80124EB0 - 0x80126650
+SOURCES += source/wiimj2d/dynamic/actor/d_a_mask.cpp
 # d_a_player.cpp
 # NSMBW: 0x80126650 - 0x8014A480
 SOURCES += source/wiimj2d/dynamic/actor/d_a_player.cpp
@@ -253,7 +287,21 @@ SOURCES += source/wiimj2d/dynamic/scene/d_s_world_9_demo.cpp
 # NSMBW d_bases.text: 0x8091EC10 - 0x80921060
 SOURCES += source/wiimj2d/dynamic/scene/d_s_crsin.cpp
 
+#
+# dynamic/actor/enemies
+#
 
+# d_a_en_big_block.cpp
+# NSMBW: 0x809B88C0 - 0x809B9DF0
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_big_block.cpp
+
+# d_a_en_block.cpp
+# NSMBW: 0x809BED80 - 0x809C0770
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_block.cpp
+
+# d_a_en_item.cpp
+# NSMBW: 0x80A26A80 - 0x80A2D610
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_item.cpp
 
 #
 # wiimj2d/state

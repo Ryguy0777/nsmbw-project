@@ -8,6 +8,17 @@
 class dScStage_c
 {
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    struct ReplayPlay_c {
+        FILL(0x00, 0x64);
+
+        /* 0x64 */ u8 mFrameFlags;
+    };
+
+public:
     // ----------------
     // Static Functions
     // ----------------
@@ -46,7 +57,7 @@ public:
     static bool m_isStaffCredit;
 
     /* 0x803744D0 */
-    static void* m_replayPlay_p[REMOCON_CONNECT_COUNT];
+    static ReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 public:
     // -----------

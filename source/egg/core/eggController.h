@@ -271,6 +271,13 @@ public:
 
     static void recreateInstance();
 
+    static bool isGameCubeChannel(WPADChannel chan)
+    {
+        return chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END;
+    }
+
+    static PADStatus* getPadStatus(WPADChannel chan);
+
 public:
     // -----------
     // Static Data

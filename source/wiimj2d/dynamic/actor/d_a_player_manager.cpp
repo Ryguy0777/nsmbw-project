@@ -12,7 +12,9 @@
 #include <dynamic/d_multi_manager.h>
 #include <dynamic/scene/d_s_stage.h>
 #include <framework/f_manager.h>
+#include <framework/f_sound_id.h>
 #include <machine/m_vec.h>
+#include <revolution/os.h>
 #include <revolution/os/OSLink.h>
 
 /* 0x80355110 */
@@ -66,11 +68,11 @@ static daPyDemoMng_c mDemoManager;
 int daPyMng_c::mNum;
 
 [[address_data(0x80429F84)]]
-s32 daPyMng_c::CtrlPlrNo;
+s32 daPyMng_c::mCtrlPlrNo;
 
 static_assert(PLAYER_COUNT <= 8, "Bitfield only supports 8 players");
 [[address_data(0x80429F88)]]
-u8 daPyMng_c::AcceptQuake;
+u8 daPyMng_c::mActPlayerInfo;
 
 /* 0x80429F90 */
 u16 daPyMng_c::m_star_time[CHARACTER_COUNT];
@@ -121,7 +123,7 @@ int daPyMng_c::mKinopioCarryCount;
 [[address(0x8005EA60)]]
 void daPyMng_c::initGame()
 {
-    AcceptQuake |= 1;
+    mActPlayerInfo |= 1;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         mPlayerType[i] = DEFAULT_PLAYER_ORDER[i];
@@ -144,7 +146,7 @@ void daPyMng_c::initStage()
     checkCorrectCreateInfo();
 
     mNum = 0;
-    AcceptQuake = 0;
+    mActPlayerInfo = 0;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         setPlayer(i, nullptr);
@@ -221,6 +223,11 @@ void daPyMng_c::createCourseInit()
 
     u8 entType = getPlayerCreateAction();
 
+    OS_REPORT(
+      "daPyMng_c::createCourseInit: Course(%d) Goto(%d) EntranceType(%d) Position(%f, %f, %f)\n",
+      stage->mCourse, stage->mGoto, entType, playerSetPos.x, playerSetPos.y, playerSetPos.z
+    );
+
     if (entType != 0 /* NORMAL */ && entType != 1 /* NORMAL1 */ && entType != 27 /* BOSS_STAND */) {
         // Handle any other entType values
         f32 dispCenter = dGameCom::getDispCenterX();
@@ -228,6 +235,8 @@ void daPyMng_c::createCourseInit()
             mCourseInList[i] = i;
             createPlayer(i, playerSetPos, entType, dispCenter < 0);
         }
+
+        return;
     }
 
     // Handle NORMAL, NORMAL1, BOSS_STAND
@@ -309,7 +318,7 @@ void daPyMng_c::createCourseInit()
 [[address(0x8005F570)]]
 void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
 {
-    AcceptQuake |= 1 << index;
+    mActPlayerInfo |= 1 << index;
     mPlayerEntry[index] = 1;
     mCreateItem[int(mPlayerType[index])] = 8;
     mKinopioMode = kinopioMode;
@@ -403,7 +412,7 @@ UNDEF_8005f6d8:;
 /* 8005F72C 3B800001 */  li       r28, 1;
 UNDEF_8005f730:;
 /* 8005F730 3B7B0001 */  addi     r27, r27, 1;
-/* 8005F734 2C1B0004 */  cmpwi    r27, PLAYER_COUNT;
+/* 8005F734          */  cmpwi    r27, PLAYER_COUNT;
 /* 8005F738 4180FFA0 */  blt+     UNDEF_8005f6d8;
 /* 8005F73C 2C1C0000 */  cmpwi    r28, 0;
 /* 8005F740 40820010 */  bne-     UNDEF_8005f750;
@@ -418,7 +427,8 @@ UNDEF_8005f750:;
 /* 8005F760 800DA640 */  lwz      r0, -22976(r13);
 /* 8005F764 2C000000 */  cmpwi    r0, 0;
 /* 8005F768 40820070 */  bne-     UNDEF_8005f7d8;
-/* 8005F76C 3BDF00B0 */  addi     r30, r31, 176;
+                         lis      r30, m_quakeEffectFlag__9daPyMng_c@ha;
+                         addi     r30, r30, m_quakeEffectFlag__9daPyMng_c@l;
 /* 8005F770 3B600000 */  li       r27, 0;
 UNDEF_8005f774:;
 /* 8005F774 7F63DB78 */  mr       r3, r27;
@@ -447,7 +457,7 @@ UNDEF_8005f7b4:;
 UNDEF_8005f7c8:;
 /* 8005F7C8 3B7B0001 */  addi     r27, r27, 1;
 /* 8005F7CC 3BDE0004 */  addi     r30, r30, 4;
-/* 8005F7D0 2C1B0004 */  cmpwi    r27, PLAYER_COUNT;
+/* 8005F7D0          */  cmpwi    r27, PLAYER_COUNT;
 /* 8005F7D4 4180FFA0 */  blt+     UNDEF_8005f774;
 UNDEF_8005f7d8:;
 /* 8005F7D8 38000001 */  li       r0, 1;
@@ -510,8 +520,8 @@ dAcPy_c* daPyMng_c::getPlayer(int index);
 void daPyMng_c::decideCtrlPlrNo()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        if (AcceptQuake & (1 << i)) {
-            CtrlPlrNo = i;
+        if (mActPlayerInfo & (1 << i)) {
+            mCtrlPlrNo = i;
             return;
         }
     }
@@ -745,13 +755,199 @@ void daPyMng_c::executeLastAll()
 [[address(0x80060AB0)]]
 void daPyMng_c::deleteCullingYoshi();
 
-// TODO (not important)
+[[gnu::used]]
+int l_QUAKE_SOUND_LIST[] = {
+  SE_PLY_HPDP_SPECIAL_TWO,
+  SE_PLY_HPDP_SPECIAL_THREE,
+  SE_PLY_HPDP_SPECIAL_FOUR,
+};
+
 [[address(0x80060C10)]]
-void daPyMng_c::setHipAttackQuake(int param1, u8 param2);
+void daPyMng_c::setHipAttackQuake(int param1, u8 param2) ASM_METHOD(
+  // clang-format off
+/* 80060C10 9421FFF0 */  stwu     r1, -16(r1);
+/* 80060C14 7C0802A6 */  mflr     r0;
+/* 80060C18 2C04FFFF */  cmpwi    r4, -1;
+/* 80060C1C 3D008035 */  lis      r8, m_playerID__9daPyMng_c@ha;
+/* 80060C20 90010014 */  stw      r0, 20(r1);
+/* 80060C24 39085110 */  addi     r8, r8, m_playerID__9daPyMng_c@l;
+/* 80060C28 41820178 */  beq-     UNDEF_80060da0;
+/* 80060C2C 2C030002 */  cmpwi    r3, 2;
+/* 80060C30 40820020 */  bne-     UNDEF_80060c50;
+/* 80060C34 806DA968 */  lwz      r3, -22168(r13);
+/* 80060C38 7C840774 */  extsb    r4, r4;
+/* 80060C3C 38A00007 */  li       r5, 7;
+/* 80060C40 38C00000 */  li       r6, 0;
+/* 80060C44 38E00000 */  li       r7, 0;
+/* 80060C48 48078059 */  bl       UNDEF_800d8ca0;
+/* 80060C4C 48000154 */  b        UNDEF_80060da0;
+UNDEF_80060c50:;
+/* 80060C50 880DAB7F */  lbz      r0, -21633(r13);
+/* 80060C54 548915BA */  clrlslwi r9, r4, 24, 2;
+                         lis      r6, m_quakeTimer__9daPyMng_c@ha;
+/* 80060C58          */  addi     r6, r6, m_quakeTimer__9daPyMng_c@l;
+/* 80060C5C 38E00005 */  li       r7, 5;
+/* 80060C60 2C000000 */  cmpwi    r0, 0;
+                         lis      r5, m_quakeEffectFlag__9daPyMng_c@ha;
+/* 80060C64          */  addi     r5, r5, m_quakeEffectFlag__9daPyMng_c@l;
+/* 80060C68 38000000 */  li       r0, 0;
+/* 80060C6C 7CE6492E */  stwx     r7, r6, r9;
+/* 80060C70 39400000 */  li       r10, 0;
+/* 80060C74 7C05492E */  stwx     r0, r5, r9;
+/* 80060C78 40820084 */  bne-     UNDEF_80060cfc;
+
+                         li       r11, 0;
+L_daPyMng_c_setHipAttackQuake_LoopStart:;
+                         cmpw     r11, r4;
+                         beq-     L_daPyMng_c_setHipAttackQuake_LoopCond;
+
+                         lwz      r0, 0(r6);
+                         cmpwi    r0, 0;
+                         beq-     L_daPyMng_c_setHipAttackQuake_LoopCond;
+
+                         stw      r7, 0(r6);
+                         addi     r10, r10, 1;
+                        
+L_daPyMng_c_setHipAttackQuake_LoopCond:;
+                         addi     r6, r6, 4;
+                         addi     r11, r11, 1;
+                         cmpwi    r11, PLAYER_COUNT;
+                         blt+     L_daPyMng_c_setHipAttackQuake_LoopStart;
+
+UNDEF_80060cfc:;
+/* 80060CFC 2C0A0000 */  cmpwi    r10, 0;
+/* 80060D00 41820060 */  beq-     UNDEF_80060d60;
+
+                         subic.   r0, r10, 1;
+                         blt-     UNDEF_80060d58;
+                         cmpwi    r0, 2;
+                         blt-     L_daPyMng_c_setHipAttackQuake_ValidNumber;
+                         li       r0, 2;
+L_daPyMng_c_setHipAttackQuake_ValidNumber:;
+
+/* 80060D40 5400103A */  slwi     r0, r0, 2;
+                         lis      r4, l_QUAKE_SOUND_LIST@ha;
+/* 80060D44          */  addi     r4, r4, l_QUAKE_SOUND_LIST@l;
+/* 80060D48 806DADE8 */  lwz      r3, -21016(r13);
+/* 80060D4C 38A00001 */  li       r5, 1;
+/* 80060D50 7C84002E */  lwzx     r4, r4, r0;
+/* 80060D54 4813475D */  bl       UNDEF_801954b0;
+UNDEF_80060d58:;
+/* 80060D58 48000059 */  bl       UNDEF_80060db0;
+/* 80060D5C 48000044 */  b        UNDEF_80060da0;
+UNDEF_80060d60:;
+/* 80060D60 2C030001 */  cmpwi    r3, 1;
+/* 80060D64 40820024 */  bne-     UNDEF_80060d88;
+/* 80060D68 806DA968 */  lwz      r3, -22168(r13);
+/* 80060D6C 7C840774 */  extsb    r4, r4;
+/* 80060D70 38A00003 */  li       r5, 3;
+/* 80060D74 38C00003 */  li       r6, 3;
+/* 80060D78 38E00000 */  li       r7, 0;
+/* 80060D7C 39000000 */  li       r8, 0;
+/* 80060D80 48077E71 */  bl       UNDEF_800d8bf0;
+/* 80060D84 4800001C */  b        UNDEF_80060da0;
+UNDEF_80060d88:;
+/* 80060D88 806DA968 */  lwz      r3, -22168(r13);
+/* 80060D8C 7C840774 */  extsb    r4, r4;
+/* 80060D90 38A00004 */  li       r5, 4;
+/* 80060D94 38C00000 */  li       r6, 0;
+/* 80060D98 38E00000 */  li       r7, 0;
+/* 80060D9C 48077F05 */  bl       UNDEF_800d8ca0;
+UNDEF_80060da0:;
+/* 80060DA0 80010014 */  lwz      r0, 20(r1);
+/* 80060DA4 7C0803A6 */  mtlr     r0;
+/* 80060DA8 38210010 */  addi     r1, r1, 16;
+/* 80060DAC 4E800020 */  blr;
+  // clang-format on
+);
 
 // TODO (not important?)
 [[address(0x80060DB0)]]
-void daPyMng_c::FUN_0x80060DB0();
+void daPyMng_c::FUN_0x80060DB0() ASM_METHOD(
+  // clang-format off
+/* 80060DB0 9421FFB0 */  stwu     r1, -80(r1);
+/* 80060DB4 7C0802A6 */  mflr     r0;
+/* 80060DB8 90010054 */  stw      r0, 84(r1);
+/* 80060DBC 39610040 */  addi     r11, r1, 64;
+/* 80060DC0 DBE10040 */  stfd     f31, 64(r1);
+/* 80060DC4 F3E10048 */  .long    0xF3E10048; // psq_st   f31, 72(r1), 0, 0;
+/* 80060DC8 4827C295 */  bl       UNDEF_802dd05c;
+/* 80060DCC 806DAE08 */  lwz      r3, -20984(r13);
+/* 80060DD0 4813B851 */  bl       UNDEF_8019c620; // onPowerImpact__11SndSceneMgrFv
+/* 80060DD4 3F808035 */  lis      r28, m_quakeTimer__9daPyMng_c@ha;
+/* 80060DD8 3F608035 */  lis      r27, m_quakeEffectFlag__9daPyMng_c@ha;
+/* 80060DDC C3E28A1C */  lfs      f31, -30180(r2);
+/* 80060DE0 3B9C51B0 */  addi     r28, r28, m_quakeTimer__9daPyMng_c@l;
+/* 80060DE4 3B7B51C0 */  addi     r27, r27, m_quakeEffectFlag__9daPyMng_c@l;
+/* 80060DE8 3B400000 */  li       r26, 0;
+/* 80060DEC 3BA00001 */  li       r29, 1;
+/* 80060DF0 3FC08031 */  lis      r30, UNDEF_80309a28@ha;
+/* 80060DF4 3FE08031 */  lis      r31, UNDEF_80309a3c@ha;
+UNDEF_80060df8:;
+/* 80060DF8 801C0000 */  lwz      r0, 0(r28);
+/* 80060DFC 2C000000 */  cmpwi    r0, 0;
+/* 80060E00 418200B4 */  beq-     UNDEF_80060eb4;
+/* 80060E04 801B0000 */  lwz      r0, 0(r27);
+/* 80060E08 2C000000 */  cmpwi    r0, 0;
+/* 80060E0C 408200A8 */  bne-     UNDEF_80060eb4;
+/* 80060E10 93BB0000 */  stw      r29, 0(r27);
+/* 80060E14 7F43D378 */  mr       r3, r26;
+/* 80060E18 4BFFEAE9 */  bl       getPlayer__9daPyMng_cFi;
+/* 80060E1C 2C030000 */  cmpwi    r3, 0;
+/* 80060E20 7C791B78 */  mr       r25, r3;
+/* 80060E24 41820090 */  beq-     UNDEF_80060eb4;
+/* 80060E28 3880004B */  li       r4, 75;
+/* 80060E2C 4BFF5EC5 */  bl       isStatus__10daPlBase_cFi;
+/* 80060E30 2C030000 */  cmpwi    r3, 0;
+/* 80060E34 41820010 */  beq-     UNDEF_80060e44;
+/* 80060E38 7F23CB78 */  mr       r3, r25;
+/* 80060E3C 480D8C55 */  bl       UNDEF_80139a90; // getRideYoshi__7dAcPy_cFv
+/* 80060E40 7C791B78 */  mr       r25, r3;
+UNDEF_80060e44:;
+/* 80060E44 2C190000 */  cmpwi    r25, 0;
+/* 80060E48 4182006C */  beq-     UNDEF_80060eb4;
+/* 80060E4C C01900AC */  lfs      f0, 172(r25);
+/* 80060E50 387E9A28 */  addi     r3, r30, UNDEF_80309a28@l;
+/* 80060E54 D0010008 */  stfs     f0, 8(r1);
+/* 80060E58 38A10008 */  addi     r5, r1, 8;
+/* 80060E5C 38800000 */  li       r4, 0;
+/* 80060E60 38C00000 */  li       r6, 0;
+/* 80060E64 C01900B0 */  lfs      f0, 176(r25);
+/* 80060E68 38E00000 */  li       r7, 0;
+/* 80060E6C D001000C */  stfs     f0, 12(r1);
+/* 80060E70 C01900B4 */  lfs      f0, 180(r25);
+/* 80060E74 D0010010 */  stfs     f0, 16(r1);
+/* 80060E78 4810BB59 */  bl       UNDEF_8016c9d0; // createEffect__3mEfFPCcUlPC7mVec3_cPC7mAng3_cPC7mVec3_c
+/* 80060E7C D3E10010 */  stfs     f31, 16(r1);
+/* 80060E80 387F9A3C */  addi     r3, r31, UNDEF_80309a3c@l;
+/* 80060E84 38A10008 */  addi     r5, r1, 8;
+/* 80060E88 38800000 */  li       r4, 0;
+/* 80060E8C 38C00000 */  li       r6, 0;
+/* 80060E90 38E00000 */  li       r7, 0;
+/* 80060E94 4810BB3D */  bl       UNDEF_8016c9d0; // createEffect__3mEfFPCcUlPC7mVec3_cPC7mAng3_cPC7mVec3_c
+/* 80060E98 806DA968 */  lwz      r3, -22168(r13);
+/* 80060E9C 7F440774 */  extsb    r4, r26;
+/* 80060EA0 38A00003 */  li       r5, 3;
+/* 80060EA4 38C00003 */  li       r6, 3;
+/* 80060EA8 38E00012 */  li       r7, 18;
+/* 80060EAC 39000000 */  li       r8, 0;
+/* 80060EB0 48077D41 */  bl       UNDEF_800d8bf0;
+UNDEF_80060eb4:;
+/* 80060EB4 3B5A0001 */  addi     r26, r26, 1;
+/* 80060EB8 3B7B0004 */  addi     r27, r27, 4;
+/* 80060EBC 2C1A0004 */  cmpwi    r26, PLAYER_COUNT;
+/* 80060EC0 3B9C0004 */  addi     r28, r28, 4;
+/* 80060EC4 4180FF34 */  blt+     UNDEF_80060df8;
+/* 80060EC8 39610040 */  addi     r11, r1, 64;
+/* 80060ECC E3E10048 */  .long    0xE3E10048; // psq_l    f31, 72(r1), 0, 0;
+/* 80060ED0 CBE10040 */  lfd      f31, 64(r1);
+/* 80060ED4 4827C1D5 */  bl       UNDEF_802dd0a8;
+/* 80060ED8 80010054 */  lwz      r0, 84(r1);
+/* 80060EDC 7C0803A6 */  mtlr     r0;
+/* 80060EE0 38210050 */  addi     r1, r1, 80;
+/* 80060EE4 4E800020 */  blr;
+  // clang-format on
+);
 
 [[address(0x80060EF0)]]
 void daPyMng_c::checkBonusNoCap()

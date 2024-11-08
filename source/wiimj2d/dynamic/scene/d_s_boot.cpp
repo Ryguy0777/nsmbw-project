@@ -7,6 +7,7 @@
 #include <dynamic/d_WiiStrap.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_info.h>
+#include <dynamic/d_mj2d_game.h>
 #include <dynamic/d_resource_manager.h>
 #include <dynamic/d_scene.h>
 #include <dynamic/d_system.h>
@@ -51,6 +52,33 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     mWiiStrap->mVisible = false;
 
     changeState(StateID_ControllerInformationFadeIn);
+}
+
+[[address(0x8015D850)]]
+void dScBoot_c::executeState_ProcEnd()
+{
+    // Setup players for title screen test
+    for (int i = 0; i < 5; i++) {
+        daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
+        daPyMng_c::mPlayerEntry[i] = 1;
+
+        int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
+        daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::FIRE_FLOWER);
+        daPyMng_c::mCreateItem[i] = 0;
+    }
+
+    dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
+      .demoTime = 0,
+      .demoType = 0,
+      .gotoID = 0,
+      .courseID = 0,
+      .isDemo = false,
+      .screenType = dInfo_c::ScreenType_e::NORMAL,
+      .world1 = WORLD_e::WORLD_1,
+      .stage1 = STAGE_e::STAGE_1,
+      .world2 = WORLD_e::WORLD_1,
+      .stage2 = STAGE_e::STAGE_1,
+    });
 }
 
 void dScBoot_c::initCodeRegion()

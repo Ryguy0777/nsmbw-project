@@ -15,8 +15,8 @@ public:
     // Constants
     // ---------
 
-#define CHARACTER_COUNT 5
-#define PLAYER_COUNT 5 // Same as CHARACTER_COUNT
+#define CHARACTER_COUNT 8
+#define PLAYER_COUNT 8 // Same as CHARACTER_COUNT
 
     enum class PlayerType_e {
         MARIO = 0,
@@ -229,10 +229,10 @@ public:
     static int mNum;
 
     /* 0x80429F84 */
-    static s32 CtrlPlrNo;
+    static s32 mCtrlPlrNo;
 
     /* 0x80429F88 */
-    static u8 AcceptQuake;
+    static u8 mActPlayerInfo;
 
     /* 0x80429F90 */
     static u16 m_star_time[CHARACTER_COUNT];

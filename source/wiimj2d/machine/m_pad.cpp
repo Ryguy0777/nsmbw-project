@@ -184,6 +184,11 @@ void initWPADInfo()
 [[address(0x8016F710)]]
 int getWPADInfoAsync(CH_e chan);
 
+bool isGameCubeChannel(CH_e chan)
+{
+    return EGG::CoreControllerMgr::isGameCubeChannel(static_cast<WPADChannel>(chan));
+}
+
 PATCH_REFERENCES(
   g_core,
   {

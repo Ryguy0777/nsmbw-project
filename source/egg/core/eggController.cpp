@@ -371,6 +371,15 @@ void CoreControllerMgr::recreateInstance()
     }
 }
 
+PADStatus* CoreControllerMgr::getPadStatus(WPADChannel chan)
+{
+    if (chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END) {
+        return &saPadStatus[static_cast<int>(chan) - static_cast<int>(GC_CHANNEL_BEGIN)];
+    }
+
+    return nullptr;
+}
+
 [[address(0x802BE150)]]
 void ControllerRumbleMgr::calc();
 

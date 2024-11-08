@@ -1,10 +1,11 @@
 #pragma once
 
 #include <machine/m_pad.h>
+#include <machine/m_vec.h>
 
 class dGameKeyCore_c
 {
-    SIZE_ASSERT(0x94);
+    SIZE_ASSERT(0x93);
     /* 0x0 VTABLE 0x80315910 */
 
 public:
@@ -29,6 +30,30 @@ public:
     /* 0x800B5CB0 */
     void read();
 
+    /* 0x800B62A0 */
+    void setShakeY();
+
 public:
-    FILL(0x04, 0x94);
+    /* 0x04 */ mPad::CH_e mChannel;
+    /* 0x08 */ s32 mControllerType;
+
+    FILL(0x0C, 0x34);
+
+    /* 0x34 */ mVec3_c mAccel;
+    /* 0x40 */ mVec3_c mAccelOld;
+    /* 0x4C */ mVec2_c mAccelVerticalX;
+    /* 0x54 */ mVec2_c mAccelVerticalXOld;
+    /* 0x5C */ mVec2_c mAccelVerticalY;
+    /* 0x64 */ mVec2_c mAccelVerticalYOld;
+    /* 0x6C */ mVec2_c mAccelVerticalZ;
+    /* 0x74 */ mVec2_c mAngle;
+    /* 0x7C */ mVec2_c mAngleOld;
+    /* 0x84 */ f32 mMoveDistance;
+    /* 0x88 */ f32 mMoveDistanceOld;
+    /* 0x8C */ bool mShake;
+    /* 0x8D */ bool mShakeOld;
+    /* 0x8E */ u16 mTilt;
+    /* 0x90 */ u8 mShakeTimer1;
+    /* 0x91 */ u8 mShakeTimer2;
+    /* 0x92 */ u8 mShakeTimer3;
 };

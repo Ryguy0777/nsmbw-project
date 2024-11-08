@@ -60,4 +60,6 @@ void clearWPADInfo(CH_e chan);
 /* 0x8016F710 */
 int getWPADInfoAsync(CH_e chan);
 
+bool isGameCubeChannel(CH_e chan);
+
 } // namespace mPad

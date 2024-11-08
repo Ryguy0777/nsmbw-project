@@ -128,7 +128,7 @@ struct _MRel_patch_references_array_entry {
 
 #define _PATCH_REFERENCES3(_COUNTER, _DEST, ...)                                                   \
     [[__gnu__::__section__("patch_references_array"                                                \
-    )]] constinit _MRel_patch_references_array_entry                                               \
+    )]] [[__gnu__::__used__]] static constinit _MRel_patch_references_array_entry                  \
       _MRel_patch_references_array_entry_##_COUNTER = {.addr = &_DEST, .references = __VA_ARGS__};
 
 #define _PATCH_REFERENCES2(_COUNTER, _DEST, ...) _PATCH_REFERENCES3(_COUNTER, _DEST, __VA_ARGS__)

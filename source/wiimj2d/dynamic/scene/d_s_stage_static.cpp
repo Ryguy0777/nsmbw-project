@@ -21,7 +21,7 @@ bool dScStage_c::m_isOtehonReturn;
 bool dScStage_c::m_isStaffCredit;
 
 /* 0x803744D0 */
-void* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
+dScStage_c::ReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 [[address(0x80101AA0)]]
 void dScStage_c::setLoopType() ASM_METHOD(

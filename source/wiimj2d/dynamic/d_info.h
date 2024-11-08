@@ -2,6 +2,7 @@
 
 #include <dynamic/actor/d_a_player_manager.h>
 #include <dynamic/d_cyuukan.h>
+#include <dynamic/d_mj2d_game.h>
 
 class dInfo_c
 {
@@ -45,10 +46,10 @@ public:
 
         /* 0x08 */ ScreenType_e screenType;
 
-        /* 0x0C */ u8 world1;
-        /* 0x0D */ u8 stage1;
-        /* 0x0E */ u8 world2;
-        /* 0x0F */ u8 stage2;
+        /* 0x0C */ WORLD_e world1;
+        /* 0x0D */ STAGE_e stage1;
+        /* 0x0E */ WORLD_e world2;
+        /* 0x0F */ STAGE_e stage2;
     };
 
     static constexpr u32 ORIGINAL_SIZE = 0xB5C;
@@ -71,6 +72,9 @@ public:
 
     /* 0x800BB180 */
     void PlayerStateInit();
+
+    /* 0x800BB7D0 */
+    void startGame(const StartGameInfo_s& startGameInfo);
 
 public:
     // -----------
