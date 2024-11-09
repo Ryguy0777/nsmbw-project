@@ -77,6 +77,9 @@ public:
     /* 0x800510F0 */
     void stopGoalOther();
 
+    /* 0x800511A0 */
+    void playGoalOther();
+
     /* 0x80051E70 */
     bool startControlDemo();
 

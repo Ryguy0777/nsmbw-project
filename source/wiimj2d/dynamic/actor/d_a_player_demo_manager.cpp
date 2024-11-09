@@ -19,8 +19,21 @@ daPyDemoMng_c::~daPyDemoMng_c();
 [[address(0x8005B430)]]
 void daPyDemoMng_c::initStage();
 
+EXTERN_REPL(
+  0x8005B4A0, //
+  void daPyDemoMng_c::baseInit()
+);
+
 [[address(0x8005B4A0)]]
-void daPyDemoMng_c::init();
+void daPyDemoMng_c::init()
+{
+    baseInit();
+
+    for (int i = 4; i < PLAYER_COUNT; i++) {
+        mExPlayerIDs[i - 4] = -1;
+        mExCourseOutList[i - 4] = -1;
+    }
+}
 
 [[address(0x8005B5C0)]]
 void daPyDemoMng_c::setDemoMode(Mode_e mode, int state);
@@ -98,8 +111,9 @@ static int get_index_daPyDemoMng_c(int index)
         return index;
     }
 
-    return index + (offsetof(daPyDemoMng_c, mExPlayerIDs) - offsetof(daPyDemoMng_c, mPlayerIDs)) /
-                     sizeof(int);
+    return (index - 4) +
+           (offsetof(daPyDemoMng_c, mExPlayerIDs) - offsetof(daPyDemoMng_c, mPlayerIDs)) /
+             sizeof(int);
 }
 
 [[gnu::const]] [[gnu::used]]
@@ -109,7 +123,7 @@ static int get_index_daPyDemoMng_c_mCourseOutList(int index)
         return index;
     }
 
-    return index +
+    return (index - 4) +
            (offsetof(daPyDemoMng_c, mExCourseOutList) - offsetof(daPyDemoMng_c, mCourseOutList)) /
              sizeof(int);
 }
@@ -123,7 +137,7 @@ int daPyDemoMng_c::setGoalDemoList(int param)
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mPlayerIDs[convIdx(i)] == -1) {
             mPlayerIDs[convIdx(i)] = param;
-            return convIdx(i);
+            return i;
         }
     }
 
@@ -134,7 +148,7 @@ int daPyDemoMng_c::setGoalDemoList(int param)
 int daPyDemoMng_c::getPoleBelowPlayer(int param)
 {
     for (int i = 0; i < mPlayerCount; i++) {
-        if (mPlayerIDs[convIdx(i)] && i > 0) {
+        if (mPlayerIDs[convIdx(i)] == param && i > 0) {
             return mPlayerIDs[convIdx(i - 1)];
         }
     }
@@ -434,7 +448,7 @@ UNDEF_8005bc60:;
 UNDEF_8005bc7c:;
 /* 8005BC7C 3AF70001 */  addi     r23, r23, 1;
 /* 8005BC80 3B390004 */  addi     r25, r25, 4;
-/* 8005BC84 2C170004 */  cmpwi    r23, PLAYER_COUNT;
+/* 8005BC84          */  cmpwi    r23, PLAYER_COUNT;
 /* 8005BC88 3B180004 */  addi     r24, r24, 4;
 /* 8005BC8C 4180FF90 */  blt+     UNDEF_8005bc1c;
 UNDEF_8005bc90:;
@@ -550,7 +564,7 @@ UNDEF_8005bea0:;
 /* 8005BEA8 4082004C */  bne-     UNDEF_8005bef4;
 /* 8005BEAC          */  lwz      r3, 24(r31); // mPlayerIndex
                          bl       get_index_daPyDemoMng_c__Fi;
-/* 8005BEB0          */  slwi     r3, r3, 2;
+/* 8005BEB0          */  slwi     r0, r3, 2;
 /* 8005BEB4 7C7F0214 */  add      r3, r31, r0;
 /* 8005BEB8 80630020 */  lwz      r3, 32(r3);
 /* 8005BEBC 48003CD5 */  bl       getCtrlPlayer__9daPyMng_cFi;

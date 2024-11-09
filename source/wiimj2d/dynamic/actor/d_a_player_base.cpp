@@ -27,18 +27,41 @@ void daPlBase_c::stopGoalOther()
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         daPlBase_c* ctrlPlayer = daPyMng_c::getCtrlPlayer(i);
+        if (ctrlPlayer == nullptr || !ctrlPlayer->isStatus(101)) {
+            continue;
+        }
+
+        dAcPy_c* player = daPyMng_c::getPlayer(i);
+        if (player != nullptr) {
+            player->m0x38E &= ~0x2;
+        }
+
+        daYoshi_c* yoshi = daPyMng_c::getYoshi(i);
+        if (yoshi != nullptr) {
+            yoshi->m0x38E &= ~0x2;
+        }
+    }
+}
+
+[[address(0x800511A0)]]
+void daPlBase_c::playGoalOther()
+{
+    dActor_c::mExecStopReq &= ~0xF;
+
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        daPlBase_c* ctrlPlayer = daPyMng_c::getCtrlPlayer(i);
         if (ctrlPlayer == nullptr || !isStatus(101)) {
             continue;
         }
 
         dAcPy_c* player = daPyMng_c::getPlayer(i);
         if (player != nullptr) {
-            player->m0x38E &= ~2;
+            player->m0x38E |= 0x2;
         }
 
         daYoshi_c* yoshi = daPyMng_c::getYoshi(i);
         if (yoshi != nullptr) {
-            yoshi->m0x38E &= ~2;
+            yoshi->m0x38E |= 0x2;
         }
     }
 }

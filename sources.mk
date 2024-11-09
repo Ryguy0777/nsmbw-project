@@ -300,6 +300,10 @@ SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_big_block.cpp
 # NSMBW: 0x809BED80 - 0x809C0770
 SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_block.cpp
 
+# d_a_en_goalpole.cpp
+# NSMBW: 0x80A096E0 - 0x80A0BE30
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_goalpole.cpp
+
 # d_a_en_item.cpp
 # NSMBW: 0x80A26A80 - 0x80A2D610
 SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_item.cpp

@@ -33,6 +33,11 @@ public:
         MODE_8 = 8,
     };
 
+    enum GoalDemoFlag_e {
+        FLAG_POLE_DOWN = 0x1,
+        FLAG_POLE_DOWN_DONE = 0x2,
+    };
+
 public:
     // ---------
     // Functions
@@ -40,6 +45,9 @@ public:
 
     /* 0x8005B430 */
     void initStage();
+
+    /* 0x8005B4A0 - extern */
+    void baseInit();
 
     /* 0x8005B4A0 */
     void init();

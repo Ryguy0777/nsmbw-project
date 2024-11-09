@@ -6,6 +6,8 @@
 #include <machine/m_mtx.h>
 #include <machine/m_vec.h>
 
+class dPyMdlBase_HIO_c {};
+
 class dPyMdlMng_c
 {
     SIZE_ASSERT(0xC);
@@ -59,5 +61,5 @@ public:
     /* 0x4 */ dPyMdlBase_c* mModel;
     /* 0x8 */ u32 mDrawReady;
 
-    // /* 0x803710A0 */ static dPyMdlBase_HIO_c m_hio;
+    /* 0x803710A0 */ static dPyMdlBase_HIO_c m_hio;
 };

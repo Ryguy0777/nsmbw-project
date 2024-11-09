@@ -70,14 +70,14 @@ void dScBoot_c::executeState_ProcEnd()
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,
       .demoType = 0,
-      .gotoID = 5,
+      .gotoID = 4,
       .courseID = 0,
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
-      .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_2,
-      .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_2,
+      .world1 = WORLD_e::WORLD_2,
+      .stage1 = STAGE_e::STAGE_3,
+      .world2 = WORLD_e::WORLD_2,
+      .stage2 = STAGE_e::STAGE_3,
     });
 }
 

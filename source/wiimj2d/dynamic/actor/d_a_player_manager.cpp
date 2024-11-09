@@ -49,7 +49,7 @@ s32 daPyMng_c::mCreateItem[CHARACTER_COUNT];
 
 /* 0x80355190 */
 // Index is player type
-s32 daPyMng_c::mRest[CHARACTER_COUNT] = {5, 5, 5, 5, 5};
+s32 daPyMng_c::mRest[CHARACTER_COUNT] = {5, 5, 5, 5, 5, 5, 5, 5};
 
 /* 0x803551A0 */
 // Index is player type

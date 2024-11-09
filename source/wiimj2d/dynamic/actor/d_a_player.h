@@ -19,6 +19,12 @@ public:
     /* 0x8013DA30 */
     void stopOtherDownDemo();
 
+    /**
+     * 0x801400B0
+     * Actually a virtual function
+     */
+    void executeDemoGoal_Run();
+
 public:
     // -----------
     // Member Data
