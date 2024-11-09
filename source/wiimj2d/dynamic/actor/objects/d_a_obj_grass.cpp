@@ -1,7 +1,84 @@
 // d_a_obj_grass.cpp
 // NSMBW: 0x808760E0 - 0x80877510
 
+#include "d_a_obj_grass.h"
+
 #include <dynamic/actor/d_a_player_manager.h>
+
+u32 daObjGrass_c_getSize() {
+    return sizeof(daObjGrass_c);
+}
+
+[[address(0x808760E0)]]
+daObjGrass_c* daObjGrass_c_classInit() ASM_METHOD(
+  // clang-format off
+/* 808760E0 9421FFD0 */  stwu     r1, -48(r1);
+/* 808760E4 7C0802A6 */  mflr     r0;
+/* 808760E8 90010034 */  stw      r0, 52(r1);
+/* 808760EC 39610030 */  addi     r11, r1, 48;
+/* 808760F0 4BA66F6D */  bl       UNDEF_802dd05c;
+/* 808760F4          */  bl       daObjGrass_c_getSize__Fv;
+/* 808760F8 4B8EC909 */  bl       __nw__7fBase_cFUl;
+/* 808760FC 2C030000 */  cmpwi    r3, 0;
+/* 80876100 7C7A1B78 */  mr       r26, r3;
+/* 80876104 418200BC */  beq-     UNDEF_808761c0;
+/* 80876108 4B7F65C9 */  bl       UNDEF_8006c6d0;
+/* 8087610C 3C808097 */  lis      r4, UNDEF_80972760@ha;
+/* 80876110 387A0128 */  addi     r3, r26, 296;
+/* 80876114 38842760 */  addi     r4, r4, UNDEF_80972760@l;
+/* 80876118 909A0060 */  stw      r4, 96(r26);
+/* 8087611C 4B7F2F05 */  bl       UNDEF_80069020;
+/* 80876120 3B3A0144 */  addi     r25, r26, 324;
+/* 80876124 7F23CB78 */  mr       r3, r25;
+/* 80876128 4B8F4029 */  bl       UNDEF_8016a150;
+/* 8087612C 3F608097 */  lis      r27, UNDEF_809727c0@ha;
+/* 80876130 3F80807C */  lis      r28, UNDEF_807bae00@ha;
+/* 80876134 3B7B27C0 */  addi     r27, r27, UNDEF_809727c0@l;
+/* 80876138 3FA08077 */  lis      r29, UNDEF_8076f390@ha;
+/* 8087613C 93790000 */  stw      r27, 0(r25);
+/* 80876140 387900AC */  addi     r3, r25, 172;
+/* 80876144 389CAE00 */  addi     r4, r28, UNDEF_807bae00@l;
+/* 80876148 38BDF390 */  addi     r5, r29, UNDEF_8076f390@l;
+/* 8087614C 38C00008 */  li       r6, 8;
+/* 80876150 38E00064 */  li       r7, 100;
+/* 80876154 4BA66B3D */  bl       UNDEF_802dcc90;
+/* 80876158 3FC08077 */  lis      r30, UNDEF_8076f4e0@ha;
+/* 8087615C 3FE08077 */  lis      r31, UNDEF_8076f350@ha;
+/* 80876160 38790B9C */  addi     r3, r25, 2972;
+/* 80876164 38C0000C */  li       r6, 12;
+/* 80876168 389EF4E0 */  addi     r4, r30, UNDEF_8076f4e0@l;
+/* 8087616C 38BFF350 */  addi     r5, r31, UNDEF_8076f350@l;
+/* 80876170 38E00064 */  li       r7, 100;
+/* 80876174 4BA66B1D */  bl       UNDEF_802dcc90;
+/* 80876178 3B3A12BC */  addi     r25, r26, 4796;
+/* 8087617C 7F23CB78 */  mr       r3, r25;
+/* 80876180 4B8F3FD1 */  bl       UNDEF_8016a150;
+/* 80876184 93790000 */  stw      r27, 0(r25);
+/* 80876188 387900AC */  addi     r3, r25, 172;
+/* 8087618C 389CAE00 */  addi     r4, r28, UNDEF_807bae00@l;
+/* 80876190 38BDF390 */  addi     r5, r29, UNDEF_8076f390@l;
+/* 80876194 38C00008 */  li       r6, 8;
+/* 80876198 38E00064 */  li       r7, 100;
+/* 8087619C 4BA66AF5 */  bl       UNDEF_802dcc90;
+/* 808761A0 38790B9C */  addi     r3, r25, 2972;
+/* 808761A4 389EF4E0 */  addi     r4, r30, UNDEF_8076f4e0@l;
+/* 808761A8 38BFF350 */  addi     r5, r31, UNDEF_8076f350@l;
+/* 808761AC 38C0000C */  li       r6, 12;
+/* 808761B0 38E00064 */  li       r7, 100;
+/* 808761B4 4BA66ADD */  bl       UNDEF_802dcc90;
+/* 808761B8 38000000 */  li       r0, 0;
+/* 808761BC 901A2434 */  stw      r0, 9268(r26);
+UNDEF_808761c0:;
+/* 808761C0 39610030 */  addi     r11, r1, 48;
+/* 808761C4 7F43D378 */  mr       r3, r26;
+/* 808761C8 4BA66EE1 */  bl       UNDEF_802dd0a8;
+/* 808761CC 80010034 */  lwz      r0, 52(r1);
+/* 808761D0 7C0803A6 */  mtlr     r0;
+/* 808761D4 38210030 */  addi     r1, r1, 48;
+/* 808761D8 4E800020 */  blr;
+  // clang-format on
+);
+
 
 [[address(0x80876680)]]
 void daObjGrass_c_onExecute() ASM_METHOD(
@@ -123,6 +200,12 @@ UNDEF_80876820:;
 UNDEF_80876838:;
 /* 80876838 3A100001 */  addi     r16, r16, 1;
 /* 8087683C 39EF0004 */  addi     r15, r15, 4;
+
+                         cmpwi    r16, 4;
+                         bne-     L_daObjGrass_c_onExecute_NoAdjust;
+                         addi     r15, r15, daObjGrass_c_OFFSET_mPlayerDistEx - 0x2474;
+L_daObjGrass_c_onExecute_NoAdjust:;
+
 /* 80876840          */  cmpwi    r16, PLAYER_COUNT;
 /* 80876844 4180FF88 */  blt+     UNDEF_808767cc;
 /* 80876848 A07F2474 */  lhz      r3, 9332(r31);
@@ -435,6 +518,12 @@ UNDEF_80876c28:;
 UNDEF_80876ce8:;
 /* 80876CE8 39EF0001 */  addi     r15, r15, 1;
 /* 80876CEC 3A310004 */  addi     r17, r17, 4;
+
+                         cmpwi    r15, 4;
+                         bne-     L_daObjGrass_c_onExecute_NoAdjust2;
+                         addi     r17, r17, daObjGrass_c_OFFSET_mPlayerDistEx - 0x2474;
+L_daObjGrass_c_onExecute_NoAdjust2:;
+
 /* 80876CF0          */  cmpwi    r15, PLAYER_COUNT;
 /* 80876CF4 4180FF34 */  blt+     UNDEF_80876c28;
 /* 80876CF8 C01609C0 */  lfs      f0, 2496(r22);
@@ -708,7 +797,13 @@ UNDEF_808770a8:;
 UNDEF_808770e0:;
 /* 808770E0 3A730001 */  addi     r19, r19, 1;
 /* 808770E4 3A520004 */  addi     r18, r18, 4;
-/* 808770E8          */  cmpwi    r19, 8;
+
+                         cmpwi    r19, 4;
+                         bne-     L_daObjGrass_c_onExecute_NoAdjust3;
+                         addi     r18, r18, daObjGrass_c_OFFSET_mPlayerDistEx - 0x2474;
+L_daObjGrass_c_onExecute_NoAdjust3:;
+
+/* 808770E8          */  cmpwi    r19, PLAYER_COUNT;
 /* 808770EC 4180FF24 */  blt+     UNDEF_80877010;
 /* 808770F0 C01F2460 */  lfs      f0, 9312(r31);
 /* 808770F4 D01C0B50 */  stfs     f0, 2896(r28);
@@ -830,6 +925,5 @@ UNDEF_80877214:;
 /* 808772B0 7C0803A6 */  mtlr     r0;
 /* 808772B4 38210280 */  addi     r1, r1, 640;
 /* 808772B8 4E800020 */  blr;
-
   // clang-format on
 );

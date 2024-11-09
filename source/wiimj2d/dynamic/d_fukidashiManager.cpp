@@ -3,6 +3,8 @@
 
 #include "d_fukidashiManager.h"
 
+#include <dynamic/actor/d_a_player_manager.h>
+
 [[address(0x80156FE0)]]
 dfukidashiManager_c* dfukidashiManager_c_classInit()
 {
@@ -29,7 +31,7 @@ dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
 /* 80157048 38C0023C */  li       r6, 572;
 /* 8015704C 388414E0 */  addi     r4, r4, UNDEF_800b14e0@l;
 /* 80157050 38A516E0 */  addi     r5, r5, UNDEF_800b16e0@l;
-/* 80157054          */  li       r7, 8;
+/* 80157054          */  li       r7, PLAYER_COUNT;
 /* 80157058 48185C39 */  bl       UNDEF_802dcc90;
 /* 8015705C 93EDAC80 */  stw      r31, -21376(r13);
 /* 80157060 7FE3FB78 */  mr       r3, r31;
@@ -74,7 +76,7 @@ UNDEF_80157154:;
 UNDEF_80157170:;
 /* 80157170 3BDE0001 */  addi     r30, r30, 1;
 /* 80157174 3BFF023C */  addi     r31, r31, 572;
-/* 80157178          */  cmpwi    r30, 8;
+/* 80157178          */  cmpwi    r30, PLAYER_COUNT;
 /* 8015717C 4180FFD8 */  blt+     UNDEF_80157154;
 /* 80157180 38600001 */  li       r3, 1;
 UNDEF_80157184:;
@@ -84,7 +86,7 @@ UNDEF_80157184:;
 /* 80157190 83A10014 */  lwz      r29, 20(r1);
 /* 80157194 7C0803A6 */  mtlr     r0;
 /* 80157198 38210020 */  addi     r1, r1, 32;
-/* 8015719C 4E800020 */  blr      ;
+/* 8015719C 4E800020 */  blr;
   // clang-format on
 );
 
@@ -112,7 +114,7 @@ UNDEF_801571d8:;
 /* 801571DC 4BF5A735 */  bl       UNDEF_800b1910;
 /* 801571E0 3BDE0001 */  addi     r30, r30, 1;
 /* 801571E4 3BFF023C */  addi     r31, r31, 572;
-/* 801571E8          */  cmpwi    r30, 8;
+/* 801571E8          */  cmpwi    r30, PLAYER_COUNT;
 /* 801571EC 4180FFEC */  blt+     UNDEF_801571d8;
 /* 801571F0 38600001 */  li       r3, 1;
 UNDEF_801571f4:;
@@ -121,7 +123,7 @@ UNDEF_801571f4:;
 /* 801571FC 83C10008 */  lwz      r30, 8(r1);
 /* 80157200 7C0803A6 */  mtlr     r0;
 /* 80157204 38210010 */  addi     r1, r1, 16;
-/* 80157208 4E800020 */  blr      ;
+/* 80157208 4E800020 */  blr;
   // clang-format on
 );
 
@@ -141,7 +143,7 @@ UNDEF_8015722c:;
 /* 80157230 4BF5A761 */  bl       UNDEF_800b1990;
 /* 80157234 3BDE0001 */  addi     r30, r30, 1;
 /* 80157238 3BFF023C */  addi     r31, r31, 572;
-/* 8015723C          */  cmpwi    r30, 8;
+/* 8015723C          */  cmpwi    r30, PLAYER_COUNT;
 /* 80157240 4180FFEC */  blt+     UNDEF_8015722c;
 /* 80157244 83E1000C */  lwz      r31, 12(r1);
 /* 80157248 38600001 */  li       r3, 1;
@@ -150,5 +152,46 @@ UNDEF_8015722c:;
 /* 80157254 7C0803A6 */  mtlr     r0;
 /* 80157258 38210010 */  addi     r1, r1, 16;
 /* 8015725C 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x80157260)]]
+int dfukidashiManager_c::doDelete() ASM_METHOD(
+  // clang-format off
+/* 80157260 9421FFF0 */  stwu     r1, -16(r1);
+/* 80157264 7C0802A6 */  mflr     r0;
+/* 80157268 90010014 */  stw      r0, 20(r1);
+/* 8015726C 93E1000C */  stw      r31, 12(r1);
+/* 80157270 93C10008 */  stw      r30, 8(r1);
+/* 80157274 7C7E1B78 */  mr       r30, r3;
+/* 80157278 38630074 */  addi     r3, r3, 116;
+/* 8015727C 4BEAF975 */  bl       UNDEF_80006bf0;
+/* 80157280 2C030000 */  cmpwi    r3, 0;
+/* 80157284 4082000C */  bne-     UNDEF_80157290;
+/* 80157288 38600000 */  li       r3, 0;
+/* 8015728C 48000038 */  b        UNDEF_801572c4;
+UNDEF_80157290:;
+/* 80157290 3BFE0148 */  addi     r31, r30, 328;
+/* 80157294 3BC00000 */  li       r30, 0;
+UNDEF_80157298:;
+/* 80157298 7FE3FB78 */  mr       r3, r31;
+/* 8015729C 4BF5A715 */  bl       UNDEF_800b19b0;
+/* 801572A0 2C030000 */  cmpwi    r3, 0;
+/* 801572A4 4082000C */  bne-     UNDEF_801572b0;
+/* 801572A8 38600000 */  li       r3, 0;
+/* 801572AC 48000018 */  b        UNDEF_801572c4;
+UNDEF_801572b0:;
+/* 801572B0 3BDE0001 */  addi     r30, r30, 1;
+/* 801572B4 3BFF023C */  addi     r31, r31, 572;
+/* 801572B8 2C1E0004 */  cmpwi    r30, PLAYER_COUNT;
+/* 801572BC 4180FFDC */  blt+     UNDEF_80157298;
+/* 801572C0 38600001 */  li       r3, 1;
+UNDEF_801572c4:;
+/* 801572C4 80010014 */  lwz      r0, 20(r1);
+/* 801572C8 83E1000C */  lwz      r31, 12(r1);
+/* 801572CC 83C10008 */  lwz      r30, 8(r1);
+/* 801572D0 7C0803A6 */  mtlr     r0;
+/* 801572D4 38210010 */  addi     r1, r1, 16;
+/* 801572D8 4E800020 */  blr;
   // clang-format on
 );

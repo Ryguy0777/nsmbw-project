@@ -1,6 +1,8 @@
 // d_block_mng.cpp
 // NSMBW: 0x80087F40 - 0x80088D90
 
+// TODO 80087fac
+
 [[address(0x800882E0)]]
 void dBlockMng_c_hitHiddenBlock() ASM_METHOD(
   // clang-format off
@@ -69,7 +71,6 @@ UNDEF_800883b8:;
 /* 800883CC 7C0803A6 */  mtlr     r0;
 /* 800883D0 38210030 */  addi     r1, r1, 48;
 /* 800883D4 4E800020 */  blr;
-
   // clang-format on
 );
 

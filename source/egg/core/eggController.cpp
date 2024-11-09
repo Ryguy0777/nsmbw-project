@@ -342,14 +342,6 @@ void CoreControllerMgr::recreateInstance()
 {
     PADInit();
 
-    if (sInstance != nullptr) {
-        delete sInstance;
-        s_allocatorCreated = true;
-    }
-
-    sInstance = new CoreControllerMgr();
-    T__Disposer::sStaticDisposer = &sInstance->mDisposer;
-
     // Add new controllers
 
     // Moving this object's storage, it will be destroyed once this function returns

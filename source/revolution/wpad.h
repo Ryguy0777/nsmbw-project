@@ -439,6 +439,7 @@ BOOL WPADSetAcceptConnection(BOOL accept);
 
 void WPADGetAccGravityUnit(WPADChannel chan, WPADAccGravityUnitType type, WPADAccGravityUnit* acc);
 
+/* 0x801E0F80 */
 void WPADDisconnect(WPADChannel chan);
 
 /* 0x801E1080 */
@@ -451,7 +452,10 @@ WPADDataFormat WPADGetDataFormat(WPADChannel chan);
 WPADResult WPADSetDataFormat(WPADChannel chan, WPADDataFormat fmt);
 
 WPADResult WPADGetInfoAsync(WPADChannel chan, WPADInfo* info, WPADCallback* cb);
+
+/* 0x801E1620 */
 void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);
+
 void WPADEnableMotor(BOOL enabled);
 BOOL WPADIsMotorEnabled(void);
 WPADResult WPADControlLed(WPADChannel chan, u8 ledFlags, WPADCallback cb);

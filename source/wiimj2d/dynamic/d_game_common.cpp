@@ -4,6 +4,7 @@
 #include "d_game_common.h"
 
 #include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/d_info.h>
 
 namespace dGameCom
 {
@@ -47,50 +48,50 @@ void FUN_800B3600() ASM_METHOD(
 /* 800B3620 7C0620AE */  lbzx     r0, r6, r4;
 /* 800B3624 2C000000 */  cmpwi    r0, 0;
 /* 800B3628 41820068 */  beq-     UNDEF_800b3690;
-/* 800B362C 88070381 */  lbz      r0, 897(r7);
-/* 800B3630 2C000000 */  cmpwi    r0, 0;
-/* 800B3634 41820010 */  beq-     UNDEF_800b3644;
-/* 800B3638 80070368 */  lwz      r0, 872(r7);
-/* 800B363C 7C040000 */  cmpw     r4, r0;
-/* 800B3640 4D820020 */  beqlr-;
-UNDEF_800b3644:;
-/* 800B3644 880705BD */  lbz      r0, 1469(r7);
-/* 800B3648 2C000000 */  cmpwi    r0, 0;
-/* 800B364C 41820010 */  beq-     UNDEF_800b365c;
-/* 800B3650 800705A4 */  lwz      r0, 1444(r7);
-/* 800B3654 7C040000 */  cmpw     r4, r0;
-/* 800B3658 4D820020 */  beqlr-;
-UNDEF_800b365c:;
-/* 800B365C 880707F9 */  lbz      r0, 2041(r7);
-/* 800B3660 38C70478 */  addi     r6, r7, 1144;
-/* 800B3664 2C000000 */  cmpwi    r0, 0;
-/* 800B3668 41820010 */  beq-     UNDEF_800b3678;
-/* 800B366C 80060368 */  lwz      r0, 872(r6);
-/* 800B3670 7C040000 */  cmpw     r4, r0;
-/* 800B3674 4D820020 */  beqlr-;
-UNDEF_800b3678:;
-/* 800B3678 880605BD */  lbz      r0, 1469(r6);
-/* 800B367C 2C000000 */  cmpwi    r0, 0;
-/* 800B3680 41820010 */  beq-     UNDEF_800b3690;
-/* 800B3684 800605A4 */  lwz      r0, 1444(r6);
-/* 800B3688 7C040000 */  cmpw     r4, r0;
-/* 800B368C 4D820020 */  beqlr-;
+
+                         addi     r11, r7, 0x368;
+                         li       r0, PLAYER_COUNT;
+                         mtctr    r0;
+
+L_FUN_800B3600_InfoLoopStart:;
+                         lbz      r0, 0x19(r11);
+                         cmpwi    r0, 0;
+                         beq-     L_FUN_800B3600_InfoLoopCond;
+
+                         lwz      r0, 0x0(r11);
+                         cmpw     r4, r0;
+                         beqlr-;
+
+L_FUN_800B3600_InfoLoopCond:;
+                         addi     r11, r11, 0x23C;
+                         bdnz+    L_FUN_800B3600_InfoLoopStart;
+
 UNDEF_800b3690:;
                          lis      r8, m_instance__7dInfo_c@ha;
                          lwz      r8, m_instance__7dInfo_c@l(r8);
 /* 800B3690 2C040001 */  cmpwi    r4, 1;
 /* 800B3698 40820014 */  bne-     UNDEF_800b36ac;
+
 /* 800B369C 7CC81A14 */  add      r6, r8, r3;
-/* 800B36A0 88060B56 */  lbz      r0, 2902(r6);
+                         cmpwi    r3, 4;
+                         blt-     L_FUN_800B3600_0xB56_NoAdjust;
+                         addi     r6, r6, OFFSET_dInfo_c_mEx0xB56 - 0xB56;
+L_FUN_800B3600_0xB56_NoAdjust:;
+/* 800B36A0 88060B56 */  lbz      r0, 0xB56(r6);
 /* 800B36A4 2C000000 */  cmpwi    r0, 0;
 /* 800B36A8 4C820020 */  bnelr-;
+
 UNDEF_800b36ac:;
 /* 800B36AC 2C070000 */  cmpwi    r7, 0;
 /* 800B36B0 4D820020 */  beqlr-;
 /* 800B36B4 1C030016 */  mulli    r0, r3, 22;
 /* 800B36B8 7C080214 */  add      r0, r8, r0;
 /* 800B36BC 7CC02214 */  add      r6, r0, r4;
-/* 800B36C0 88060AFE */  lbz      r0, 2814(r6);
+                         cmpwi    r3, 4;
+                         blt-     L_FUN_800B3600_0xAFE_NoAdjust;
+                         addi     r6, r6, OFFSET_dInfo_c_mEx0xAFE - 0xAFE;
+L_FUN_800B3600_0xAFE_NoAdjust:;
+/* 800B36C0 88060AFE */  lbz      r0, 0xAFE(r6);
 /* 800B36C4 2C000000 */  cmpwi    r0, 0;
 /* 800B36C8 4C820020 */  bnelr-;
 /* 800B36CC 1C03023C */  mulli    r0, r3, 572;

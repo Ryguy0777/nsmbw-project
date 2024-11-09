@@ -62,7 +62,7 @@ void dRemoconMng_c::execute()
             continue;
         }
 
-        if (connect->mStateMgr.getStateID()->isEqual(connect->StateID_Setup)) {
+        if (!connect->mStateMgr.getStateID()->isEqual(connect->StateID_Setup)) {
             allowConnect = true;
             break;
         }

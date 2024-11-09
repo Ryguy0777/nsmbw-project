@@ -579,6 +579,9 @@ int daPyMng_c::getYoshiNum()
     return yoshiNum;
 }
 
+[[address(0x8005FB90)]]
+daPlBase_c* daPyMng_c::getCtrlPlayer(int index);
+
 [[address(0x8005FBE0)]]
 dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
 {

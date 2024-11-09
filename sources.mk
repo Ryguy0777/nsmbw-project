@@ -1,5 +1,6 @@
 # Root source files
 SOURCES += source/Rel.cpp
+SOURCES += source/Four.cpp
 
 #
 # wiimj2d/dynamic

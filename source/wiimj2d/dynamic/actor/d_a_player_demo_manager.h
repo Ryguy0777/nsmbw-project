@@ -1,6 +1,7 @@
 #pragma once
 
-#include "System.h"
+#include <machine/m_vec.h>
+#include <dynamic/actor/d_a_player_manager.h>
 
 class daPyDemoMng_c
 {
@@ -16,6 +17,23 @@ public:
     virtual ~daPyDemoMng_c();
 
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    enum class Mode_e {
+        MODE_0 = 0,
+        MODE_1 = 1,
+        MODE_2 = 2,
+        MODE_3 = 3,
+        MODE_4 = 4,
+        MODE_5 = 5,
+        MODE_6 = 6,
+        MODE_7 = 7,
+        MODE_8 = 8,
+    };
+
+public:
     // ---------
     // Functions
     // ---------
@@ -25,6 +43,9 @@ public:
 
     /* 0x8005B4A0 */
     void init();
+
+    /* 0x8005B5C0 */
+    void setDemoMode(Mode_e mode, int state);
 
     /* 0x8005B6A0 */
     void calcNotGoalPlayer();
@@ -87,13 +108,13 @@ public:
     bool isLandAll();
 
     /* 0x8005CE50 */
-    void UNDEF_8005CE50(int param);
+    void UNDEF_8005CE50(s32 param);
 
     /* 0x8005CED0 */
     void executeStartToride();
 
     /* 0x8005D050 */
-    void setCourseOutList();
+    void setCourseOutList(s8 param);
 
     /* 0x8005D280 */
     void genCourseInList();
@@ -110,17 +131,35 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x04, 0x1C);
-
+    /* 0x04 */ Mode_e mDemoMode;
+    /* 0x08 */ int mDemoState;
+    /* 0x0C */ s32 m0x0C;
+    /* 0x10 */ u32 mFlags;
+    /* 0x14 */ u32 m0x14;
+    /* 0x18 */ u32 mPlayerIndex;
     /* 0x1C */ int mPlayerCount;
     /* 0x20 */ int mPlayerIDs[4];
+    /* 0x30 */ mVec3_c mGoalCenterPos;
 
-    FILL(0x30, 0x84);
+    FILL(0x3C, 0x54);
+
+    /* 0x54 */ s32 m0x54;
+
+    FILL(0x58, 0x70);
+
+    /* 0x70 */ int mCourseOutList[4];
+
+    FILL(0x80, 0x84);
 
     /* 0x84 */ int mOwnedPlayer;
 
-    FILL(0x88, 0x98);
+    FILL(0x88, 0x8C);
+
+    /* 0x8C */ s32 m0x8C;
+
+    FILL(0x90, 0x98);
     OFFSET_ASSERT(0x98);
 
-    /* 0x98 */ int mExPlayerIDs[4];
+    /* 0x98 */ int mExPlayerIDs[PLAYER_COUNT - 4];
+    /* 0xA8 */ int mExCourseOutList[PLAYER_COUNT - 4];
 };

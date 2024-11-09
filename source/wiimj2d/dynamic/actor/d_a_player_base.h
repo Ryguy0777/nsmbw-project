@@ -33,6 +33,16 @@ public:
         POISON_FOG = 18,
     };
 
+    enum class DemoType_e {
+        DEMO_0 = 0,
+        DEMO_1 = 1,
+        DEMO_2 = 2,
+        DEMO_3 = 3,
+        DEMO_4 = 4,
+        DEMO_5 = 5,
+        DEMO_6 = 6,
+    };
+
 public:
     // -----------------
     // Virtual Functions
@@ -55,8 +65,28 @@ public:
     // Functions
     // ---------
 
+    /* 0x8004DB40 */
+    bool isDemoType(DemoType_e type);
+
+    /* 0x8004E040 */
+    bool isPlayerGameStop();
+
     /* 0x8004E050 */
     void stopOther();
+
+    /* 0x800510F0 */
+    void stopGoalOther();
+
+    /* 0x80051E70 */
+    bool startControlDemo();
+
+    /* 0x80051EF0 */
+    void endControlDemo(int param);
+
+    void UNDEF_80052290(s32 param);
+
+    /* 0x80052470 */
+    bool isBossDemoLand();
 
     /* 0x80056C70 */
     void onStatus(int flag);

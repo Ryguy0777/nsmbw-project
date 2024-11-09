@@ -63,21 +63,21 @@ void dScBoot_c::executeState_ProcEnd()
         daPyMng_c::mPlayerEntry[i] = 1;
 
         int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
-        daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::FIRE_FLOWER);
+        daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::PROPELLER_SHROOM);
         daPyMng_c::mCreateItem[i] = 0;
     }
 
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,
       .demoType = 0,
-      .gotoID = 0,
+      .gotoID = 5,
       .courseID = 0,
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
       .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_1,
+      .stage1 = STAGE_e::STAGE_2,
       .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_1,
+      .stage2 = STAGE_e::STAGE_2,
     });
 }
 

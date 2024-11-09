@@ -103,6 +103,9 @@ public:
     /* 0x8005FB00 */
     static int getYoshiNum();
 
+    /* 0x8005FB90 */
+    static daPlBase_c* getCtrlPlayer(int index);
+
     /* 0x8005FBE0 */
     static dPyMdlMng_c::ModelType_e getCourseInPlayerModelType(u8 index);
 

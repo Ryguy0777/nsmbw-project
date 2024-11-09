@@ -1,5 +1,6 @@
-#include "revolution/os/OSCache.h"
-#include "revolution/os/OSInterrupt.h"
+// Rel.cpp
+
+#include "Four.h"
 #include <dynamic/scene/d_s_boot.h>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
@@ -170,6 +171,8 @@ extern "C" void _prolog(s32 param1, void* param2)
           repl->count * sizeof(_MRel_PatchRel)
         );
     }
+
+    Four::Apply();
 
     // External replaced array
     for (auto repl = _MRel_extern_array; repl != _MRel_extern_array_end; ++repl) {

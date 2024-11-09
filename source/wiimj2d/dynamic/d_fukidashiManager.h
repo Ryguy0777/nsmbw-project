@@ -1,6 +1,6 @@
 #pragma once
 
-#include "System.h"
+#include <dynamic/actor/d_a_player_manager.h>
 #include <dynamic/d_base.h>
 #include <dynamic/d_fukidashiInfo.h>
 
@@ -28,6 +28,9 @@ public:
     /* 0x80157210 */
     int draw() override;
 
+    /* 0x80157260 */
+    int doDelete() override;
+
 public:
     // -----------
     // Member Data
@@ -36,5 +39,5 @@ public:
     FILL(0x070, 0x148);
     OFFSET_ASSERT(0x148);
 
-    /* 0x148 */ dfukidashiInfo_c maInfo[8];
+    /* 0x148 */ dfukidashiInfo_c maInfo[PLAYER_COUNT];
 };

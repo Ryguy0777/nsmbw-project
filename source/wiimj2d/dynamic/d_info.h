@@ -99,13 +99,27 @@ public:
 
     FILL(0xAF8, 0xAFC);
 
-    /* 0xAFC */ s32 m0xAFC;
+    /* 0xAFC */ u8 m0xAFC;
+    FILL(0xAFD, 0xAFE);
+    /* 0xAFE */ u8 m0xAFE[4];
 
-    FILL(0xB00, 0xB5C);
+    FILL(0xB02, 0xB56);
+
+    /* 0xB56 */ u8 m0xB56[4];
+
+    FILL(0xB5A, 0xB5C);
     OFFSET_ASSERT(0xB5C);
 
 #define OFFSET_dInfo_c_mExPlayerActiveMode 0xB5C
     /* 0xB5C */ s32 mExPlayerActiveMode[PLAYER_COUNT - 4];
+
+#define OFFSET_dInfo_c_mEx0xAFE 0xB6C
+    /* 0xB6C */ u8 mEx0xAFE[PLAYER_COUNT - 4];
+
+#define OFFSET_dInfo_c_mEx0xB56 0xB70
+    /* 0xB70 */ u8 mEx0xB56[PLAYER_COUNT - 4];
+
+    OFFSET_ASSERT(0xB74);
 
 public:
     // -----------
