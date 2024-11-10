@@ -36,7 +36,8 @@ s32 daPyMng_c::mPlayerEntry[PLAYER_COUNT];
 // Index is player ID
 daPyMng_c::PlayerType_e daPyMng_c::mPlayerType[PLAYER_COUNT] = {
   DEFAULT_PLAYER_ORDER[0], DEFAULT_PLAYER_ORDER[1], DEFAULT_PLAYER_ORDER[2],
-  DEFAULT_PLAYER_ORDER[3], DEFAULT_PLAYER_ORDER[4]
+  DEFAULT_PLAYER_ORDER[3], DEFAULT_PLAYER_ORDER[4], DEFAULT_PLAYER_ORDER[5],
+  DEFAULT_PLAYER_ORDER[6], DEFAULT_PLAYER_ORDER[7]
 };
 
 /* 0x80355170 */
@@ -230,9 +231,9 @@ void daPyMng_c::createCourseInit()
 
     if (entType != 0 /* NORMAL */ && entType != 1 /* NORMAL1 */ && entType != 27 /* BOSS_STAND */) {
         // Handle any other entType values
+        daPyDemoMng_c::mspInstance->genCourseInList();
         f32 dispCenter = dGameCom::getDispCenterX();
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            mCourseInList[i] = i;
             createPlayer(i, playerSetPos, entType, dispCenter < 0);
         }
 
@@ -254,7 +255,16 @@ void daPyMng_c::createCourseInit()
         }
 
         int spawnOrder[8] = {0, 1, 2, 3, 4, 5, 6, 7};
-        // TODO: Randomize spawn order
+
+        if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
+            // Randomize the spawn order
+            for (int i = 0; i < PLAYER_COUNT; i++) {
+                int randomIndex = dGameCom::rndInt(PLAYER_COUNT);
+                int temp = spawnOrder[i];
+                spawnOrder[i] = spawnOrder[randomIndex];
+                spawnOrder[randomIndex] = temp;
+            }
+        }
 
         int livePlayerCount = 0;
         for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -593,9 +603,10 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
 
     using ModelTypeArray = dPyMdlMng_c::ModelType_e[];
     return ModelTypeArray{
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO, dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
       dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
+      dPyMdlMng_c::ModelType_e::MODEL_LUIGI,     dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
     }[playerType];
 }
 

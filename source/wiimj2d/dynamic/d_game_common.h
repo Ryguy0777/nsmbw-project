@@ -6,6 +6,9 @@ namespace dGameCom
 /* 0x800B2E70 */
 void initRandomSeed();
 
+/* 0x800B2EE0 */
+u32 rndInt(u32 max);
+
 /* 0x800B30C0 */
 f32 getDispCenterX();
 

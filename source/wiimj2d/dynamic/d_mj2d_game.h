@@ -57,7 +57,7 @@ enum class PLAYER_CHARACTER_e {
 /**
  * Various flags applied to the player on occasion.
  */
-enum class PLAYER_CREATE_ITEM_e {
+enum PLAYER_CREATE_ITEM_e {
     NONE = 0,
 
     /**

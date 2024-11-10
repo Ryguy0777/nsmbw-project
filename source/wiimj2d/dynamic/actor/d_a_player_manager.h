@@ -24,13 +24,17 @@ public:
         BLUE_TOAD = 2,
         YELLOW_TOAD = 3,
         TOADETTE = 4,
+        PLAYER_5 = 5,
+        PLAYER_6 = 6,
+        PLAYER_7 = 7,
 
-        COUNT = 5,
+        COUNT = 8,
     };
 
     static constexpr PlayerType_e DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] = {
       PlayerType_e::MARIO,     PlayerType_e::LUIGI,    PlayerType_e::YELLOW_TOAD,
-      PlayerType_e::BLUE_TOAD, PlayerType_e::TOADETTE,
+      PlayerType_e::BLUE_TOAD, PlayerType_e::TOADETTE, PlayerType_e::PLAYER_5,
+      PlayerType_e::PLAYER_6,  PlayerType_e::PLAYER_7
     };
 
 #define POWERUP_COUNT 7

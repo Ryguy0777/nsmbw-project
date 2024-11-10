@@ -5,6 +5,9 @@
 
 #include <dynamic/actor/d_a_player.h>
 #include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/d_game_common.h>
+#include <dynamic/d_mj2d_game.h>
+#include <revolution/os.h>
 
 [[address(0x80429F74)]]
 daPyDemoMng_c* daPyDemoMng_c::mspInstance;
@@ -117,6 +120,18 @@ static int get_index_daPyDemoMng_c(int index)
 }
 
 [[gnu::const]] [[gnu::used]]
+static int get_index_daPyDemoMng_c_mCourseInList(int index)
+{
+    if (index < 4) {
+        return index;
+    }
+
+    return (index - 4) +
+           (offsetof(daPyDemoMng_c, mExCourseInList) - offsetof(daPyDemoMng_c, mCourseInList)) /
+             sizeof(int);
+}
+
+[[gnu::const]] [[gnu::used]]
 static int get_index_daPyDemoMng_c_mCourseOutList(int index)
 {
     if (index < 4) {
@@ -129,6 +144,7 @@ static int get_index_daPyDemoMng_c_mCourseOutList(int index)
 }
 
 #define convIdx get_index_daPyDemoMng_c
+#define convIdx60 get_index_daPyDemoMng_c_mCourseInList
 #define convIdx70 get_index_daPyDemoMng_c_mCourseOutList
 
 [[address(0x8005B780)]]
@@ -896,7 +912,6 @@ bool daPyDemoMng_c::isLandAll()
     return true;
 }
 
-// TODO
 [[address(0x8005CE50)]]
 void daPyDemoMng_c::UNDEF_8005CE50(s32 param)
 {
@@ -959,6 +974,78 @@ void daPyDemoMng_c::setCourseOutList(s8 param)
     }
 }
 
-// TODO
+[[address(0x8005D0D0)]]
+void daPyDemoMng_c::turnNextDemoNo()
+{
+    for (int i = 0; i < PLAYER_COUNT - 1; i++) {
+        mCourseInList[convIdx60(i)] = mCourseInList[convIdx60(i + 1)];
+    }
+    mCourseInList[convIdx60(PLAYER_COUNT - 1)] = -1;
+}
+
+[[address(0x8005D100)]]
+void daPyDemoMng_c::clearDemoNo(s8 param)
+{
+    int demoWriteCount = 0;
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        int demoNo = mCourseInList[convIdx60(i)];
+        if (demoNo != -1 && demoNo != param) {
+            mCourseInList[demoWriteCount++] = demoNo;
+        }
+    }
+
+    for (int i = demoWriteCount; i < PLAYER_COUNT; i++) {
+        mCourseInList[convIdx60(i)] = -1;
+    }
+}
+
 [[address(0x8005D280)]]
-void daPyDemoMng_c::genCourseInList();
+void daPyDemoMng_c::genCourseInList()
+{
+    u32 playerOutMask = 0;
+    int playerOutCount = 0;
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        int plrNo = mCourseOutList[convIdx70(i)];
+        if (plrNo == -1) {
+            break;
+        }
+
+        mCourseInList[convIdx60(i)] = plrNo;
+        playerOutMask |= 1 << plrNo;
+        playerOutCount++;
+    }
+
+    int randomOrder[PLAYER_COUNT];
+    int randomOrderCount = 0;
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        if (playerOutMask & (1 << i) || daPyMng_c::mPlayerEntry[i] == 0) {
+            continue;
+        }
+
+        if (daPyMng_c::mCreateItem[static_cast<int>(daPyMng_c::mPlayerType[i])] &
+            PLAYER_CREATE_ITEM_e::BUBBLE) {
+            continue;
+        }
+
+        randomOrder[randomOrderCount++] = i;
+    }
+
+    // Random swap them
+    for (int i = 0; i < randomOrderCount; i++) {
+        int randomIndex = dGameCom::rndInt(randomOrderCount);
+        int temp = randomOrder[i];
+        randomOrder[i] = randomOrder[randomIndex];
+        randomOrder[randomIndex] = temp;
+    }
+
+    // Copy the randomized order to the final list
+    for (int i = 0, j = playerOutCount; i < randomOrderCount; i++, j++) {
+        mCourseInList[convIdx60(j)] = randomOrder[i];
+    }
+
+    // Copy to player manager and clear course out list
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        daPyMng_c::mCourseInList[i] = mCourseInList[i];
+        mCourseOutList[convIdx70(i)] = -1;
+    }
+}

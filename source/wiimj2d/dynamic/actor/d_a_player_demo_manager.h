@@ -124,6 +124,12 @@ public:
     /* 0x8005D050 */
     void setCourseOutList(s8 param);
 
+    /* 0x8005D0D0 */
+    void turnNextDemoNo();
+
+    /* 0x8005D100 */
+    void clearDemoNo(s8 param);
+
     /* 0x8005D280 */
     void genCourseInList();
 
@@ -153,8 +159,9 @@ public:
 
     /* 0x54 */ s32 m0x54;
 
-    FILL(0x58, 0x70);
+    FILL(0x58, 0x60);
 
+    /* 0x60 */ int mCourseInList[4];
     /* 0x70 */ int mCourseOutList[4];
 
     FILL(0x80, 0x84);
@@ -169,5 +176,6 @@ public:
     OFFSET_ASSERT(0x98);
 
     /* 0x98 */ int mExPlayerIDs[PLAYER_COUNT - 4];
-    /* 0xA8 */ int mExCourseOutList[PLAYER_COUNT - 4];
+    /* 0xA8 */ int mExCourseInList[PLAYER_COUNT - 4];
+    /* 0xB8 */ int mExCourseOutList[PLAYER_COUNT - 4];
 };

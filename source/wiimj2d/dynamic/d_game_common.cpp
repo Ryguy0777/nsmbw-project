@@ -12,6 +12,9 @@ namespace dGameCom
 [[address(0x800B2E70)]]
 void initRandomSeed();
 
+[[address(0x800B2EE0)]]
+u32 rndInt(u32 max);
+
 [[address(0x800B30C0)]]
 f32 getDispCenterX();
 

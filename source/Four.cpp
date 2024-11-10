@@ -18,6 +18,8 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daEnGlpole_c::checkPlayerCollision
   {0x80A0B29A, 2},
   {0x80A0B3EE, 2},
+  {0x80A0AFE6, 2},
+  {0x80A0B0D2, 2},
 };
 
 void Four::Apply()
