@@ -58,7 +58,7 @@ public:
 
 /**
  * The interface for a state holder.
- *  A state holder is linked to a state ID and can execute its corresponding behaviour.
+ * A state holder is linked to a state ID and can execute its corresponding behaviour.
  */
 class sStateIf_c
 {
@@ -213,4 +213,40 @@ public:
      * Returns the previous state ID.
      */
     virtual const sStateIDIf_c* getOldStateID() const = 0;
+};
+
+/**
+ * An interface for two state managers.
+ */
+class sStateStateMgrIf_c : public sStateMgrIf_c
+{
+public:
+    /* VT+0x08 */
+    virtual ~sStateStateMgrIf_c()
+    {
+    }
+
+    /**
+     * VT+0x30
+     * Changes to a sub state.
+     */
+    virtual void changeToSubState(const sStateIDIf_c& newStateID) = 0;
+
+    /**
+     * VT+0x34
+     * Finalizes the sub state and changes to the main state.
+     */
+    virtual void returnState() = 0;
+
+    /**
+     * VT+0x38
+     * Returns true if the current state manager is the sub manager.
+     */
+    virtual bool isSubState() const = 0;
+
+    /**
+     * VT+0x3C
+     * Returns the main state ID.
+     */
+    virtual const sStateIDIf_c* getMainStateID() const = 0;
 };

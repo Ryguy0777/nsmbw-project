@@ -10,10 +10,10 @@ struct GXColor {
 };
 
 struct GXColorS10 {
-    u8 r;
-    u8 g;
-    u8 b;
-    u8 a;
+    s16 r;
+    s16 g;
+    s16 b;
+    s16 a;
 };
 
 struct GXTexObj;

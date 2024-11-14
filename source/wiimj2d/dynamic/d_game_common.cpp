@@ -3,7 +3,7 @@
 
 #include "d_game_common.h"
 
-#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/actor/bases/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 
 namespace dGameCom
@@ -78,7 +78,7 @@ UNDEF_800b3690:;
 /* 800B369C 7CC81A14 */  add      r6, r8, r3;
                          cmpwi    r3, 4;
                          blt-     L_FUN_800B3600_0xB56_NoAdjust;
-                         addi     r6, r6, OFFSET_dInfo_c_mEx0xB56 - 0xB56;
+                         addi     r6, r6, ADJUST_dInfo_c_mEx0xB56;
 L_FUN_800B3600_0xB56_NoAdjust:;
 /* 800B36A0 88060B56 */  lbz      r0, 0xB56(r6);
 /* 800B36A4 2C000000 */  cmpwi    r0, 0;
@@ -92,7 +92,7 @@ UNDEF_800b36ac:;
 /* 800B36BC 7CC02214 */  add      r6, r0, r4;
                          cmpwi    r3, 4;
                          blt-     L_FUN_800B3600_0xAFE_NoAdjust;
-                         addi     r6, r6, OFFSET_dInfo_c_mEx0xAFE - 0xAFE;
+                         addi     r6, r6, ADJUST_dInfo_c_mEx0xAFE;
 L_FUN_800B3600_0xAFE_NoAdjust:;
 /* 800B36C0 88060AFE */  lbz      r0, 0xAFE(r6);
 /* 800B36C4 2C000000 */  cmpwi    r0, 0;

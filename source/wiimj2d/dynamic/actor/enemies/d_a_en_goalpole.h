@@ -1,8 +1,7 @@
 #pragma once
 
-#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/actor/bases/d_a_player_manager.h>
 #include <dynamic/d_enemy.h>
-
 
 class daEnGlpole_c : public dEn_c
 {
@@ -47,7 +46,7 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x392, 0xAAC);
+    FILL(0x524, 0xAAC);
 
     /* 0x0AAC */ u8 mPlayerOnPoleFlag;
 

@@ -10,7 +10,7 @@
  * @tparam Check The state ID checker to use.
  */
 template <class T, class Method, template <class> class Factory, class Check>
-class sStateMgr_c : sStateMgrIf_c
+class sStateMgr_c : public sStateMgrIf_c
 {
 public:
     sStateMgr_c(T& owner, const sStateIDIf_c& initialState)

@@ -3,6 +3,12 @@
 
 #include "s_StateID.h"
 
+/**
+ * A null state instance.
+ */
+[[address(0x80377D04)]]
+sStateID_c sStateID::null;
+
 [[address(0x8015F900)]]
 sStateID_c::sStateID_c(const char* name);
 

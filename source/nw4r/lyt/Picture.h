@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Layout.h"
+#include "Pane.h"
 
 namespace nw4r::lyt
 {
 
-class Picture : Layout
+class Picture : public Pane
 {
 };
 

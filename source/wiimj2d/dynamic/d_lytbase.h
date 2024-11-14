@@ -1,7 +1,7 @@
 #pragma once
 
-#include "d_lyttextbox.h"
-#include <dynamic/d_2d.h>
+#include <dynamic/d_lyttextbox.h>
+#include <dynamic/gx/d_2d.h>
 #include <nw4r/lyt/Layout.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
@@ -39,6 +39,12 @@ public:
 
     /* 0x800C91E0 */
     void GroupRegister(const char** groupNames, const int* param_2, int count);
+
+    /* 0x800C9580 */
+    void AnimeEndSetup(int param1);
+
+    /* 0x800C95F0 */
+    void AllAnimeEndSetup();
 
     FILL(0x0AC, 0x198);
 };

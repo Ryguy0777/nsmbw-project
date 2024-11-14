@@ -1,7 +1,8 @@
 #pragma once
 
-#include "machine/m_vec.h"
+#include <dynamic/actor/bases/d_a_player_manager.h>
 #include <dynamic/d_base_actor.h>
+#include <machine/m_vec.h>
 
 class dActor_c : public dBaseActor_c
 {
@@ -57,7 +58,7 @@ public:
     virtual void setEatMouth(dActor_c* actor);
 
     /* VT+0x8C 0x80065870 */
-    virtual bool setEatSpitOut();
+    virtual bool setEatSpitOut(dActor_c* actor);
 
     /* VT+0x90 0x80065880 */
     virtual bool setEatGlupDown(dActor_c* actor);
@@ -113,11 +114,34 @@ public:
     virtual void poisonSplashEffect(const mVec3_c& position, float scale);
 
 public:
+    // ----------------
+    // Member Functions
+    // ----------------
+
+    /* 0x800651C0 */
+    void carryFukidashiCheck(int param1, mVec2_c param2);
+
+    /* 0x80065480 */
+    void carryFukidashiCancel(int param1, int param2);
+
+    /* 0x80065520 */
+    dAcPy_c* searchCarryFukidashiPlayer(int param1);
+
+public:
     // -----------
     // Member Data
     // -----------
 
-    FILL(0x125, 0x38C);
+    FILL(0x125, 0x175);
+
+    /* 0x175 */ u8 m0x175;
+    /* 0x178 */ u32 m0x178;
+
+    FILL(0x17C, 0x348);
+
+    /* 0x348 */ u8 mDirection;
+
+    FILL(0x349, 0x38C);
 
     /**
      * 0 = Default, 1 = Player, 2 = Yoshi, 3 = Enemy

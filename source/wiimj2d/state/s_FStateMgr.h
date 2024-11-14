@@ -1,8 +1,6 @@
 #pragma once
 
-#include "s_FState.h"
 #include "s_FStateFct.h"
-#include "s_FStateID.h"
 #include "s_StateMgr.h"
 
 /**

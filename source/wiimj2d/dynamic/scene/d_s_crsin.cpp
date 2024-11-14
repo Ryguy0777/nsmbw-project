@@ -3,11 +3,11 @@
 
 #include "d_s_crsin.h"
 
-#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/actor/bases/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_resource_manager.h>
-#include <dynamic/scene/d_s_stage.h>
+#include <dynamic/worldmap/d_s_stage.h>
 
 [[address(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()

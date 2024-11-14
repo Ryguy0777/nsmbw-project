@@ -3,14 +3,15 @@
 
 #include "d_actor.h"
 
-#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/d_info.h>
 
 [[address_data(0x80429FD8)]]
 u8 dActor_c::mExecStopReq;
 
 [[address(0x800651C0)]]
-void FUN_800651C0() ASM_METHOD(
-    // clang-format off
+void dActor_c::carryFukidashiCheck(int param1, mVec2_c param2) ASM_METHOD(
+  // clang-format off
 /* 800651C0 9421FF30 */  stwu     r1, -208(r1);
 /* 800651C4 7C0802A6 */  mflr     r0;
 /* 800651C8 900100D4 */  stw      r0, 212(r1);
@@ -44,13 +45,19 @@ void FUN_800651C0() ASM_METHOD(
 /* 80065238 D061007C */  stfs     f3, 124(r1);
 /* 8006523C D0A10080 */  stfs     f5, 128(r1);
 /* 80065240 801F0128 */  lwz      r0, 296(r31);
-/* 80065244 28000003 */  cmplwi   r0, 3;
+/* 80065244          */  cmplwi   r0, PLAYER_COUNT - 1;
 /* 80065248 41810028 */  bgt-     UNDEF_80065270;
+                         cmpwi    r0, 4;
 /* 8006524C 1C000016 */  mulli    r0, r0, 22;
 /* 80065250 806DA8DC */  lwz      r3, -22308(r13);
 /* 80065254 7C030214 */  add      r0, r3, r0;
 /* 80065258 7C60E214 */  add      r3, r0, r28;
-/* 8006525C 88030AFE */  lbz      r0, 2814(r3);
+
+                         blt      L_dActor_c_carryFukidashiCheck_SkipAFEAdjust;
+                         addi     r3, r3, ADJUST_dInfo_c_mEx0xAFE;
+L_dActor_c_carryFukidashiCheck_SkipAFEAdjust:;
+/* 8006525C 88030AFE */  lbz      r0, 0xAFE(r3);
+
 /* 80065260 2C000000 */  cmpwi    r0, 0;
 /* 80065264 4182000C */  beq-     UNDEF_80065270;
 /* 80065268 3800FFFF */  li       r0, -1;
@@ -191,5 +198,127 @@ UNDEF_80065448:;
 /* 80065470 7C0803A6 */  mtlr     r0;
 /* 80065474 382100D0 */  addi     r1, r1, 208;
 /* 80065478 4E800020 */  blr;
-    // clang-format on
+  // clang-format on
+);
+
+[[address(0x80065480)]]
+void dActor_c::carryFukidashiCancel(int param1, int param2) ASM_METHOD(
+  // clang-format off
+/* 80065480 9421FFE0 */  stwu     r1, -32(r1);
+/* 80065484 7C0802A6 */  mflr     r0;
+/* 80065488 90010024 */  stw      r0, 36(r1);
+/* 8006548C 93E1001C */  stw      r31, 28(r1);
+/* 80065490 3BE00000 */  li       r31, 0;
+/* 80065494 93C10018 */  stw      r30, 24(r1);
+/* 80065498 7CBE2B78 */  mr       r30, r5;
+/* 8006549C 93A10014 */  stw      r29, 20(r1);
+/* 800654A0 7C9D2378 */  mr       r29, r4;
+/* 800654A4 93810010 */  stw      r28, 16(r1);
+/* 800654A8 7C7C1B78 */  mr       r28, r3;
+UNDEF_800654ac:;
+/* 800654AC 7C1FF000 */  cmpw     r31, r30;
+/* 800654B0 40820024 */  bne-     UNDEF_800654d4;
+/* 800654B4 7FE3FB78 */  mr       r3, r31;
+/* 800654B8 7FA4EB78 */  mr       r4, r29;
+/* 800654BC 38A00000 */  li       r5, 0;
+/* 800654C0 4804E261 */  bl       UNDEF_800b3720;
+/* 800654C4 7FE3FB78 */  mr       r3, r31;
+/* 800654C8 7FA4EB78 */  mr       r4, r29;
+/* 800654CC 4804E2B5 */  bl       UNDEF_800b3780;
+/* 800654D0 48000014 */  b        UNDEF_800654e4;
+UNDEF_800654d4:;
+/* 800654D4 7FE3FB78 */  mr       r3, r31;
+/* 800654D8 7FA4EB78 */  mr       r4, r29;
+/* 800654DC 38A00000 */  li       r5, 0;
+/* 800654E0 4804E271 */  bl       UNDEF_800b3750;
+UNDEF_800654e4:;
+/* 800654E4 3BFF0001 */  addi     r31, r31, 1;
+/* 800654E8          */  cmpwi    r31, PLAYER_COUNT;
+/* 800654EC 4180FFC0 */  blt+     UNDEF_800654ac;
+/* 800654F0 3800FFFF */  li       r0, -1;
+/* 800654F4 901C0128 */  stw      r0, 296(r28);
+/* 800654F8 83E1001C */  lwz      r31, 28(r1);
+/* 800654FC 83C10018 */  lwz      r30, 24(r1);
+/* 80065500 83A10014 */  lwz      r29, 20(r1);
+/* 80065504 83810010 */  lwz      r28, 16(r1);
+/* 80065508 80010024 */  lwz      r0, 36(r1);
+/* 8006550C 7C0803A6 */  mtlr     r0;
+/* 80065510 38210020 */  addi     r1, r1, 32;
+/* 80065514 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x80065520)]]
+dAcPy_c* dActor_c::searchCarryFukidashiPlayer(int param1) ASM_METHOD(
+  // clang-format off
+/* 80065520 9421FFC0 */  stwu     r1, -64(r1);
+/* 80065524 7C0802A6 */  mflr     r0;
+/* 80065528 90010044 */  stw      r0, 68(r1);
+/* 8006552C 39610030 */  addi     r11, r1, 48;
+/* 80065530 DBE10030 */  stfd     f31, 48(r1);
+/* 80065534 F3E10038 */  .long    0xF3E10038; // psq_st   f31, 56(r1), 0, 0;
+/* 80065538 48277B2D */  bl       UNDEF_802dd064;
+/* 8006553C 7C9B2378 */  mr       r27, r4;
+/* 80065540 7C641B78 */  mr       r4, r3;
+/* 80065544 38610008 */  addi     r3, r1, 8;
+/* 80065548 48007989 */  bl       UNDEF_8006ced0;
+/* 8006554C C3E28AB8 */  lfs      f31, -30024(r2);
+/* 80065550 3BA00000 */  li       r29, 0;
+/* 80065554 3B800000 */  li       r28, 0;
+/* 80065558 3BC00000 */  li       r30, 0;
+/* 8006555C 3BE00001 */  li       r31, 1;
+UNDEF_80065560:;
+/* 80065560 5780063E */  clrlwi   r0, r28, 24;
+/* 80065564 886DA608 */  lbz      r3, -23032(r13);
+/* 80065568 7FE00030 */  slw      r0, r31, r0;
+/* 8006556C 7C600039 */  and.     r0, r3, r0;
+/* 80065570 41820070 */  beq-     UNDEF_800655e0;
+/* 80065574 806DA8DC */  lwz      r3, -22308(r13);
+/* 80065578 7C1EDA14 */  add      r0, r30, r27;
+/* 8006557C 7C630214 */  add      r3, r3, r0;
+/* 80065580 88030AFE */  lbz      r0, 2814(r3);
+/* 80065584 2C000000 */  cmpwi    r0, 0;
+/* 80065588 40820058 */  bne-     UNDEF_800655e0;
+/* 8006558C 7F83E378 */  mr       r3, r28;
+/* 80065590 4BFFA371 */  bl       UNDEF_8005f900;
+/* 80065594 2C030000 */  cmpwi    r3, 0;
+/* 80065598 41820048 */  beq-     UNDEF_800655e0;
+/* 8006559C C06300AC */  lfs      f3, 172(r3);
+/* 800655A0 C04300D0 */  lfs      f2, 208(r3);
+/* 800655A4 C02300B0 */  lfs      f1, 176(r3);
+/* 800655A8 C00300D4 */  lfs      f0, 212(r3);
+/* 800655AC EC63102A */  fadds    f3, f3, f2;
+/* 800655B0 C0410008 */  lfs      f2, 8(r1);
+/* 800655B4 EC21002A */  fadds    f1, f1, f0;
+/* 800655B8 C001000C */  lfs      f0, 12(r1);
+/* 800655BC EC431028 */  fsubs    f2, f3, f2;
+/* 800655C0 EC010028 */  fsubs    f0, f1, f0;
+/* 800655C4 EC2200B2 */  fmuls    f1, f2, f2;
+/* 800655C8 EC000032 */  fmuls    f0, f0, f0;
+/* 800655CC EC01002A */  fadds    f0, f1, f0;
+/* 800655D0 FC1F0040 */  fcmpo    cr0, f31, f0;
+/* 800655D4 4081000C */  ble-     UNDEF_800655e0;
+/* 800655D8 7C7D1B78 */  mr       r29, r3;
+/* 800655DC FFE00090 */  fmr      f31, f0;
+UNDEF_800655e0:;
+/* 800655E0 3B9C0001 */  addi     r28, r28, 1;
+/* 800655E4 3BDE0016 */  addi     r30, r30, 22;
+
+                         cmpwi    r28, 4;
+                         blt-     L_dActor_c_searchCarryFukidashiPlayer_SkipAFEAdjust;
+                         addi     r30, r30, ADJUST_dInfo_c_mEx0xAFE;
+L_dActor_c_searchCarryFukidashiPlayer_SkipAFEAdjust:;
+
+/* 800655E8          */  cmpwi    r28, PLAYER_COUNT;
+/* 800655EC 4180FF74 */  blt+     UNDEF_80065560;
+/* 800655F0 E3E10038 */  .long    0xE3E10038; // psq_l    f31, 56(r1), 0, 0;
+/* 800655F4 7FA3EB78 */  mr       r3, r29;
+/* 800655F8 CBE10030 */  lfd      f31, 48(r1);
+/* 800655FC 39610030 */  addi     r11, r1, 48;
+/* 80065600 48277AB1 */  bl       UNDEF_802dd0b0;
+/* 80065604 80010044 */  lwz      r0, 68(r1);
+/* 80065608 7C0803A6 */  mtlr     r0;
+/* 8006560C 38210040 */  addi     r1, r1, 64;
+/* 80065610 4E800020 */  blr;
+  // clang-format on
 );

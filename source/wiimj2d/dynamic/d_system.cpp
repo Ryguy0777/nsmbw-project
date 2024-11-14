@@ -3,9 +3,9 @@
 
 #include "d_system.h"
 
-#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/actor/bases/d_a_player_manager.h>
 #include <dynamic/d_remocon_mng.h>
-#include <dynamic/scene/d_s_boot.h>
+#include <dynamic/layout/scene/d_s_boot.h>
 #include <egg/core/eggController.h>
 #include <machine/m_heap.h>
 #include <machine/m_pad.h>

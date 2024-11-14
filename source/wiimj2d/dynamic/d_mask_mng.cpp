@@ -1,7 +1,7 @@
 // d_mask_mng.cpp
 // NSMBW: 0x800CD290 - 0x800CD800
 
-#include <dynamic/actor/d_a_player_manager.h>
+#include <dynamic/actor/bases/d_a_player_manager.h>
 
 namespace dMaskMng
 {

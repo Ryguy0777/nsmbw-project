@@ -18,14 +18,12 @@ bool LytBase_c::build(const char* lytName, d2d::ResAccMult_c* resAcc);
 void LytBase_c::NPaneRegister(const char** paneNames, nw4r::lyt::Pane** nullPanes, int count);
 
 [[address(0x800C8EC0)]]
-void LytBase_c::WPaneRegister(
-    const char** windowNames, nw4r::lyt::Window** windowPanes, int count
-  );
+void LytBase_c::WPaneRegister(const char** windowNames, nw4r::lyt::Window** windowPanes, int count);
 
 [[address(0x800C8F30)]]
 void LytBase_c::PPaneRegister(
-    const char** pictureNames, nw4r::lyt::Picture** picturePanes, int count
-  );
+  const char** pictureNames, nw4r::lyt::Picture** picturePanes, int count
+);
 
 [[address(0x800C8FA0)]]
 void LytBase_c::TPaneRegister(const char** paneNames, LytTextBox_c** textBoxPanes, int count);
@@ -33,17 +31,11 @@ void LytBase_c::TPaneRegister(const char** paneNames, LytTextBox_c** textBoxPane
 [[address(0x800C90A0)]]
 void LytBase_c::AnimeResRegister(const char** animNames, int count);
 
-#if 0
 [[address(0x800C91E0)]]
 void LytBase_c::GroupRegister(const char** groupNames, const int* param_2, int count);
-#endif
 
-#define relimport(_ADDRESS)                                                                        \
-  __gnu__::__section__(".external." #_ADDRESS)]]  void __external_##_ADDRESS() {}                        \
-  [[__gnu__::__alias__("__external_" #_ADDRESS)
+[[address(0x800C9580)]]
+void LytBase_c::AnimeEndSetup(int param1);
 
-
-// [[relimport(0x800C91E0)]]
-
-[[clang::external("0x800C91E0")]]
-void LytBase_c::GroupRegister(const char** groupNames, const int* param_2, int count);
+[[address(0x800C95F0)]]
+void LytBase_c::AllAnimeEndSetup();

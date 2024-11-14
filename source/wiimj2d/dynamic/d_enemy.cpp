@@ -3,6 +3,158 @@
 
 #include "d_enemy.h"
 
+/**
+ * VT+0x24
+ * pre method for the execute operation.
+ *
+ * @return A PACK_RESULT_e value.
+ */
+[[address(0x80095240)]]
+int dEn_c::preExecute() ASM_METHOD(
+  // clang-format off
+/* 80095240 9421FFF0 */  stwu     r1, -16(r1);
+/* 80095244 7C0802A6 */  mflr     r0;
+/* 80095248 90010014 */  stw      r0, 20(r1);
+/* 8009524C 93E1000C */  stw      r31, 12(r1);
+/* 80095250 7C7F1B78 */  mr       r31, r3;
+/* 80095254 4BFCF19D */  bl       UNDEF_800643f0;
+/* 80095258 2C030000 */  cmpwi    r3, 0;
+/* 8009525C 4082000C */  bne-     UNDEF_80095268;
+/* 80095260 38600000 */  li       r3, 0;
+/* 80095264 48000204 */  b        UNDEF_80095468;
+UNDEF_80095268:;
+/* 80095268 881F0390 */  lbz      r0, 912(r31);
+/* 8009526C 2C000000 */  cmpwi    r0, 0;
+/* 80095270 40820100 */  bne-     UNDEF_80095370;
+/* 80095274 819F0394 */  lwz      r12, 916(r31);
+/* 80095278 387F0394 */  addi     r3, r31, 916;
+/* 8009527C 818C0028 */  lwz      r12, 40(r12);
+/* 80095280 7D8903A6 */  mtctr    r12;
+/* 80095284 4E800421 */  bctrl;
+/* 80095288 81830000 */  lwz      r12, 0(r3);
+/* 8009528C 3C808036 */  lis      r4, UNDEF_80358304@ha;
+/* 80095290 38848304 */  addi     r4, r4, UNDEF_80358304@l;
+/* 80095294 818C0014 */  lwz      r12, 20(r12);
+/* 80095298 7D8903A6 */  mtctr    r12;
+/* 8009529C 4E800421 */  bctrl;
+/* 800952A0 7C0300D0 */  neg      r0, r3;
+/* 800952A4 7C001B78 */  or       r0, r0, r3;
+/* 800952A8 54000FFF */  srwi.    r0, r0, 31;
+/* 800952AC 408200C4 */  bne-     UNDEF_80095370;
+/* 800952B0 819F0060 */  lwz      r12, 96(r31);
+/* 800952B4 7FE3FB78 */  mr       r3, r31;
+/* 800952B8 818C0150 */  lwz      r12, 336(r12);
+/* 800952BC 7D8903A6 */  mtctr    r12;
+/* 800952C0 4E800421 */  bctrl;
+/* 800952C4 2C030000 */  cmpwi    r3, 0;
+/* 800952C8 418200A8 */  beq-     UNDEF_80095370;
+/* 800952CC 806DA968 */  lwz      r3, -22168(r13);
+/* 800952D0 80630030 */  lwz      r3, 48(r3);
+/* 800952D4 546007BD */  rlwinm.  r0, r3, 0, 30, 30;
+/* 800952D8 4182003C */  beq-     UNDEF_80095314;
+/* 800952DC 819F0060 */  lwz      r12, 96(r31);
+/* 800952E0 7FE3FB78 */  mr       r3, r31;
+/* 800952E4 818C0218 */  lwz      r12, 536(r12);
+/* 800952E8 7D8903A6 */  mtctr    r12;
+/* 800952EC 4E800421 */  bctrl;
+/* 800952F0 2C030000 */  cmpwi    r3, 0;
+/* 800952F4 4182007C */  beq-     UNDEF_80095370;
+/* 800952F8 819F0060 */  lwz      r12, 96(r31);
+/* 800952FC 7FE3FB78 */  mr       r3, r31;
+/* 80095300 38800000 */  li       r4, 0;
+/* 80095304 818C0144 */  lwz      r12, 324(r12);
+/* 80095308 7D8903A6 */  mtctr    r12;
+/* 8009530C 4E800421 */  bctrl;
+/* 80095310 48000060 */  b        UNDEF_80095370;
+UNDEF_80095314:;
+/* 80095314 5460077B */  rlwinm.  r0, r3, 0, 29, 29;
+/* 80095318 4182003C */  beq-     UNDEF_80095354;
+/* 8009531C 819F0060 */  lwz      r12, 96(r31);
+/* 80095320 7FE3FB78 */  mr       r3, r31;
+/* 80095324 818C0218 */  lwz      r12, 536(r12);
+/* 80095328 7D8903A6 */  mtctr    r12;
+/* 8009532C 4E800421 */  bctrl;
+/* 80095330 2C030000 */  cmpwi    r3, 0;
+/* 80095334 4182003C */  beq-     UNDEF_80095370;
+/* 80095338 819F0060 */  lwz      r12, 96(r31);
+/* 8009533C 7FE3FB78 */  mr       r3, r31;
+/* 80095340 38800001 */  li       r4, 1;
+/* 80095344 818C0144 */  lwz      r12, 324(r12);
+/* 80095348 7D8903A6 */  mtctr    r12;
+/* 8009534C 4E800421 */  bctrl;
+/* 80095350 48000020 */  b        UNDEF_80095370;
+UNDEF_80095354:;
+/* 80095354 546007FF */  clrlwi.  r0, r3, 31;
+/* 80095358 41820018 */  beq-     UNDEF_80095370;
+/* 8009535C 819F0060 */  lwz      r12, 96(r31);
+/* 80095360 7FE3FB78 */  mr       r3, r31;
+/* 80095364 818C0214 */  lwz      r12, 532(r12);
+/* 80095368 7D8903A6 */  mtctr    r12;
+/* 8009536C 4E800421 */  bctrl;
+UNDEF_80095370:;
+/* 80095370 881F0432 */  lbz      r0, 1074(r31);
+/* 80095374 2C000000 */  cmpwi    r0, 0;
+/* 80095378 41820044 */  beq-     UNDEF_800953bc;
+/* 8009537C 881F0390 */  lbz      r0, 912(r31);
+/* 80095380 2C000000 */  cmpwi    r0, 0;
+/* 80095384 4082002C */  bne-     UNDEF_800953b0;
+/* 80095388 38000001 */  li       r0, 1;
+/* 8009538C 981F0390 */  stb      r0, 912(r31);
+/* 80095390 7FE3FB78 */  mr       r3, r31;
+/* 80095394 48002A9D */  bl       UNDEF_80097e30;
+/* 80095398 819F0060 */  lwz      r12, 96(r31);
+/* 8009539C 7FE3FB78 */  mr       r3, r31;
+/* 800953A0 809F0424 */  lwz      r4, 1060(r31);
+/* 800953A4 818C00D4 */  lwz      r12, 212(r12);
+/* 800953A8 7D8903A6 */  mtctr    r12;
+/* 800953AC 4E800421 */  bctrl;
+UNDEF_800953b0:;
+/* 800953B0 38000000 */  li       r0, 0;
+/* 800953B4 981F0432 */  stb      r0, 1074(r31);
+/* 800953B8 48000090 */  b        UNDEF_80095448;
+UNDEF_800953bc:;
+/* 800953BC 887F050C */  lbz      r3, 1292(r31);
+/* 800953C0 2C030000 */  cmpwi    r3, 0;
+/* 800953C4 4182000C */  beq-     UNDEF_800953d0;
+/* 800953C8 3803FFFF */  subi     r0, r3, 1;
+/* 800953CC 981F050C */  stb      r0, 1292(r31);
+UNDEF_800953d0:;
+/* 800953D0 A07F0500 */  lhz      r3, 1280(r31);
+/* 800953D4 2C030000 */  cmpwi    r3, 0;
+/* 800953D8 4182000C */  beq-     UNDEF_800953e4;
+/* 800953DC 3803FFFF */  subi     r0, r3, 1;
+/* 800953E0 B01F0500 */  sth      r0, 1280(r31);
+UNDEF_800953e4:;
+/* 800953E4 A07F0502 */  lhz      r3, 1282(r31);
+/* 800953E8 2C030000 */  cmpwi    r3, 0;
+/* 800953EC 4182000C */  beq-     UNDEF_800953f8;
+/* 800953F0 3803FFFF */  subi     r0, r3, 1;
+/* 800953F4 B01F0502 */  sth      r0, 1282(r31);
+UNDEF_800953f8:;
+
+                         mr       r3, r31;
+                         li       r4, -1;
+                         li       r5, -1;
+                         bl       incrementCollTimer__5dEn_cFii;
+
+UNDEF_80095448:;
+/* 80095448 819F0060 */  lwz      r12, 96(r31);
+/* 8009544C 7FE3FB78 */  mr       r3, r31;
+/* 80095450 818C0228 */  lwz      r12, 552(r12);
+/* 80095454 7D8903A6 */  mtctr    r12;
+/* 80095458 4E800421 */  bctrl;
+/* 8009545C 881F000B */  lbz      r0, 11(r31);
+/* 80095460 7C000034 */  cntlzw   r0, r0;
+/* 80095464 5403D97E */  srwi     r3, r0, 5;
+UNDEF_80095468:;
+/* 80095468 80010014 */  lwz      r0, 20(r1);
+/* 8009546C 83E1000C */  lwz      r31, 12(r1);
+/* 80095470 7C0803A6 */  mtlr     r0;
+/* 80095474 38210010 */  addi     r1, r1, 16;
+/* 80095478 4E800020 */  blr;
+  // clang-format on
+);
+
 [[address(0x80095950)]]
 void dEn_c::normal_collcheck(dCc_c* object, dCc_c* other) ASM_METHOD(
   // clang-format off
@@ -80,22 +232,20 @@ UNDEF_80095a58:;
 /* 80095A58 881E002C */  lbz      r0, 44(r30);
 /* 80095A5C 28000001 */  cmplwi   r0, 1;
 /* 80095A60 41820188 */  beq-     UNDEF_80095be8;
-/* 80095A64 819C0060 */  lwz      r12, 96(r28);
-/* 80095A68 7F83E378 */  mr       r3, r28;
-/* 80095A6C 818C006C */  lwz      r12, 108(r12);
-/* 80095A70 7D8903A6 */  mtctr    r12;
-/* 80095A74 4E800421 */  bctrl;
-/* 80095A78 88030000 */  lbz      r0, 0(r3);
-/* 80095A7C          */  cmplwi   r0, 5;
-/* 80095A80 41810168 */  bgt-     UNDEF_80095be8;
-/* 80095A84 7C000774 */  extsb    r0, r0;
-/* 80095A88 5400083C */  slwi     r0, r0, 1;
-/* 80095A8C 7C7F0214 */  add      r3, r31, r0;
-/* 80095A90 A0030504 */  lhz      r0, 1284(r3);
-/* 80095A94 2C000000 */  cmpwi    r0, 0;
+
+                         // Damage cooldown
+                         mr       r3, r31;
+                         mr       r4, r28;
+                         bl       getCollTimer__5dEn_cCFP8dActor_c;
+
+/* 80095A94          */  cmpwi    r3, 0;
 /* 80095A98 40820150 */  bne-     UNDEF_80095be8;
-/* 80095A9C 38000005 */  li       r0, 5;
-/* 80095AA0 B0030504 */  sth      r0, 1284(r3);
+
+                         mr       r3, r31;
+                         mr       r4, r28;
+                         li       r5, 5;
+                         bl       setCollTimer__5dEn_cFP8dActor_cUc;
+
 /* 80095AA4 7FE3FB78 */  mr       r3, r31;
 /* 80095AA8 7FA4EB78 */  mr       r4, r29;
 /* 80095AAC 819F0060 */  lwz      r12, 96(r31);
@@ -114,7 +264,7 @@ UNDEF_80095ac4:;
 /* 80095ADC 4E800421 */  bctrl;
 /* 80095AE0 88030000 */  lbz      r0, 0(r3);
 /* 80095AE4 7C7C1B78 */  mr       r28, r3;
-/* 80095AE8          */  cmplwi   r0, 5;
+/* 80095AE8          */  cmplwi   r0, PLAYER_COUNT - 1;
 /* 80095AEC 418100FC */  bgt-     UNDEF_80095be8;
 /* 80095AF0 881E002D */  lbz      r0, 45(r30);
 /* 80095AF4 2800000F */  cmplwi   r0, 15;
@@ -149,15 +299,19 @@ UNDEF_80095b1c:;
 /* 80095B64 981D00A1 */  stb      r0, 161(r29);
 /* 80095B68 48000080 */  b        UNDEF_80095be8;
 UNDEF_80095b6c:;
-/* 80095B6C 881C0000 */  lbz      r0, 0(r28);
-/* 80095B70 7C000774 */  extsb    r0, r0;
-/* 80095B74 5400083C */  slwi     r0, r0, 1;
-/* 80095B78 7C7F0214 */  add      r3, r31, r0;
-/* 80095B7C A0030504 */  lhz      r0, 1284(r3);
-/* 80095B80 2C000000 */  cmpwi    r0, 0;
+
+/* 80095B6C          */  lbz      r4, 0(r28);
+                         mr       r3, r31;
+                         bl       getCollTimer__5dEn_cCFi;
+
+/* 80095B80          */  cmpwi    r3, 0;
 /* 80095B84 40820064 */  bne-     UNDEF_80095be8;
-/* 80095B88 38000005 */  li       r0, 5;
-/* 80095B8C B0030504 */  sth      r0, 1284(r3);
+
+                         lbz      r4, 0(r28);
+                         mr       r3, r31;
+                         li       r5, 5;
+                         bl       setCollTimer__5dEn_cFiUc;
+
 /* 80095B90 7FE3FB78 */  mr       r3, r31;
 /* 80095B94 7FA4EB78 */  mr       r4, r29;
 /* 80095B98 819F0060 */  lwz      r12, 96(r31);
@@ -189,7 +343,126 @@ UNDEF_80095be8:;
 /* 80095BF8 83810010 */  lwz      r28, 16(r1);
 /* 80095BFC 7C0803A6 */  mtlr     r0;
 /* 80095C00 38210020 */  addi     r1, r1, 32;
-/* 80095C04 4E800020 */  blr      ;
-
+/* 80095C04 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x80097B90)]]
+void dEn_c::slipBound(dActor_c*) ASM_METHOD(
+  // clang-format off
+/* 80097B90 9421FFF0 */  stwu     r1, -16(r1);
+/* 80097B94 7C0802A6 */  mflr     r0;
+/* 80097B98 90010014 */  stw      r0, 20(r1);
+/* 80097B9C 93E1000C */  stw      r31, 12(r1);
+/* 80097BA0 7C9F2378 */  mr       r31, r4;
+/* 80097BA4 93C10008 */  stw      r30, 8(r1);
+/* 80097BA8 7C7E1B78 */  mr       r30, r3;
+/* 80097BAC C02400AC */  lfs      f1, 172(r4);
+/* 80097BB0 C00300AC */  lfs      f0, 172(r3);
+/* 80097BB4 FC010040 */  fcmpo    cr0, f1, f0;
+/* 80097BB8 4C411382 */  cror     2, 1, 2;
+/* 80097BBC 7C000026 */  mfcr     r0;
+/* 80097BC0 819F0060 */  lwz      r12, 96(r31);
+/* 80097BC4 54001FFE */  extrwi   r0, r0, 1, 2;
+/* 80097BC8 38C29198 */  subi     r6, r2, 28264;
+/* 80097BCC 7C000034 */  cntlzw   r0, r0;
+/* 80097BD0 818C03FC */  lwz      r12, 1020(r12);
+/* 80097BD4 5400EDBA */  rlwinm   r0, r0, 29, 22, 29;
+/* 80097BD8 7FE3FB78 */  mr       r3, r31;
+/* 80097BDC 7C46042E */  lfsx     f2, r6, r0;
+/* 80097BE0 38800001 */  li       r4, 1;
+/* 80097BE4 C02291A0 */  lfs      f1, -28256(r2);
+/* 80097BE8 38A00000 */  li       r5, 0;
+/* 80097BEC 38C00000 */  li       r6, 0;
+/* 80097BF0 7D8903A6 */  mtctr    r12;
+/* 80097BF4 4E800421 */  bctrl;
+
+                         // Damage cooldown
+                         mr       r3, r30;
+                         mr       r4, r31;
+                         li       r5, 3;
+                         bl       setCollTimer__5dEn_cFP8dActor_cUc;
+
+/* 80097C24 83E1000C */  lwz      r31, 12(r1);
+/* 80097C28 83C10008 */  lwz      r30, 8(r1);
+/* 80097C2C 80010014 */  lwz      r0, 20(r1);
+/* 80097C30 7C0803A6 */  mtlr     r0;
+/* 80097C34 38210010 */  addi     r1, r1, 16;
+/* 80097C38 4E800020 */  blr;
+  // clang-format on
+);
+
+/* VT+0x8C */
+[[address(0x80097D30)]]
+bool dEn_c::setEatSpitOut(dActor_c* actor)
+{
+    calcSpitOutPos(actor);
+    setCollTimer(actor, 16);
+
+    mDirection = actor->mDirection;
+
+    reviveCc();
+    setAfterEatScale();
+
+    return true;
+}
+
+void dEn_c::setCollTimer(int player, u8 timer)
+{
+    if (player < 0 || player >= PLAYER_COUNT) {
+        return;
+    }
+
+    mCollTimer[player] = timer;
+}
+
+void dEn_c::setCollTimer(dActor_c* player, u8 timer)
+{
+    setCollTimer(*player->getPlrNo(), timer);
+}
+
+u8 dEn_c::getCollTimer(int player) const
+{
+    if (player < 0 || player >= PLAYER_COUNT) {
+        return 0xFF;
+    }
+
+    return mCollTimer[player];
+}
+
+u8 dEn_c::getCollTimer(dActor_c* player) const
+{
+    return getCollTimer(*player->getPlrNo());
+}
+
+u8 dEn_c::incrementCollTimer(int player, int increment)
+{
+    if (player == -1) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            // Check overflow
+            if (increment > 0 && u8(mCollTimer[i] + increment) < mCollTimer[i]) {
+                mCollTimer[i] = 0xFF;
+                continue;
+            } else if (increment < 0 && u8(mCollTimer[i] + increment) > mCollTimer[i]) {
+                mCollTimer[i] = 0;
+                continue;
+            }
+
+            mCollTimer[i] += increment;
+        }
+        return 0;
+    }
+
+    if (player < 0 || player >= PLAYER_COUNT) {
+        return 0xFF;
+    }
+
+    // Check overflow
+    if (increment > 0 && u8(mCollTimer[player] + increment) < mCollTimer[player]) {
+        return mCollTimer[player] = 0xFF;
+    } else if (increment < 0 && u8(mCollTimer[player] + increment) > mCollTimer[player]) {
+        return mCollTimer[player] = 0;
+    }
+
+    return mCollTimer[player] += increment;
+}

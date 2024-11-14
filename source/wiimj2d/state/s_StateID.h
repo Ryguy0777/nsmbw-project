@@ -77,6 +77,7 @@ namespace sStateID
 {
 
 /**
+ * 0x80377D04
  * A null state instance.
  */
 extern sStateID_c null;
