@@ -1,6 +1,8 @@
 // d_a_en_bomhei.cpp
 // NSMBW: 0x809C8D30 - 0x809CDE70
 
+#include "d_a_en_bomhei.h"
+
 #include <dynamic/actor/bases/d_a_player_manager.h>
 
 [[address(0x809C9DD0)]]
@@ -148,5 +150,96 @@ UNDEF_809c9fd4:;
 /* 809C9FE0 7C0803A6 */  mtlr     r0;
 /* 809C9FE4 38210040 */  addi     r1, r1, 64;
 /* 809C9FE8 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x809CA8D0)]]
+void dEnBomhei_c::hitCallback_HipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
+  // clang-format off
+/* 809CA8D0 9421FFE0 */  stwu     r1, -32(r1);
+/* 809CA8D4 7C0802A6 */  mflr     r0;
+/* 809CA8D8 90010024 */  stw      r0, 36(r1);
+/* 809CA8DC 93E1001C */  stw      r31, 28(r1);
+/* 809CA8E0 7C7F1B78 */  mr       r31, r3;
+/* 809CA8E4 93C10018 */  stw      r30, 24(r1);
+/* 809CA8E8 93A10014 */  stw      r29, 20(r1);
+/* 809CA8EC 83A50004 */  lwz      r29, 4(r5);
+/* 809CA8F0 819D0060 */  lwz      r12, 96(r29);
+
+/* 809CA8F4          */  mr       r4, r29;
+                         bl       getCollTimer__5dEn_cCFP8dActor_c;
+
+/* 809CA924          */  cmpwi    r3, 0;
+/* 809CA928 4182000C */  beq-     UNDEF_809ca934;
+/* 809CA92C 38600001 */  li       r3, 1;
+/* 809CA930 480000E4 */  b        UNDEF_809caa14;
+UNDEF_809ca934:;
+/* 809CA934 C03F00AC */  lfs      f1, 172(r31);
+/* 809CA938 C01D00AC */  lfs      f0, 172(r29);
+/* 809CA93C FC010040 */  fcmpo    cr0, f1, f0;
+/* 809CA940 4C411382 */  cror     2, 1, 2;
+/* 809CA944 40820010 */  bne-     UNDEF_809ca954;
+/* 809CA948 38000000 */  li       r0, 0;
+/* 809CA94C 981F0348 */  stb      r0, 840(r31);
+/* 809CA950 4800000C */  b        UNDEF_809ca95c;
+UNDEF_809ca954:;
+/* 809CA954 38000001 */  li       r0, 1;
+/* 809CA958 981F0348 */  stb      r0, 840(r31);
+UNDEF_809ca95c:;
+/* 809CA95C 989F038D */  stb      r4, 909(r31);
+/* 809CA960 3CA08043 */  lis      r5, UNDEF_8042a03c@ha;
+/* 809CA964 38610008 */  addi     r3, r1, 8;
+/* 809CA968 389F00AC */  addi     r4, r31, 172;
+/* 809CA96C 83C5A03C */  lwz      r30, UNDEF_8042a03c@l(r5);
+/* 809CA970 4B69FB41 */  bl       UNDEF_8006a4b0;
+/* 809CA974 7FC3F378 */  mr       r3, r30;
+/* 809CA978 38A10008 */  addi     r5, r1, 8;
+/* 809CA97C 3880017B */  li       r4, 379;
+/* 809CA980 38C00000 */  li       r6, 0;
+/* 809CA984 4B7CD6BD */  bl       UNDEF_80198040;
+/* 809CA988 819F0060 */  lwz      r12, 96(r31);
+/* 809CA98C 7FE3FB78 */  mr       r3, r31;
+/* 809CA990 389D00AC */  addi     r4, r29, 172;
+/* 809CA994 818C020C */  lwz      r12, 524(r12);
+/* 809CA998 7D8903A6 */  mtctr    r12;
+/* 809CA99C 4E800421 */  bctrl;
+
+                         mr       r3, r31;
+/* 809CA9A0          */  lbz      r4, 909(r31);
+/* 809CA9A4          */  li       r5, 16;
+                         bl       setCollTimer__5dEn_cFiUc;
+
+/* 809CA9B8 801F05EC */  lwz      r0, 1516(r31);
+/* 809CA9BC 2C000000 */  cmpwi    r0, 0;
+/* 809CA9C0 40800020 */  bge-     UNDEF_809ca9e0;
+/* 809CA9C4 3C8080AD */  lis      r4, UNDEF_80ace5dc@ha;
+/* 809CA9C8 380000F0 */  li       r0, 240;
+/* 809CA9CC C024E5DC */  lfs      f1, UNDEF_80ace5dc@l(r4);
+/* 809CA9D0 387F05C0 */  addi     r3, r31, 1472;
+/* 809CA9D4 901F05EC */  stw      r0, 1516(r31);
+/* 809CA9D8 38800000 */  li       r4, 0;
+/* 809CA9DC 4B79BA55 */  bl       UNDEF_80166430;
+UNDEF_809ca9e0:;
+/* 809CA9E0 819F0060 */  lwz      r12, 96(r31);
+/* 809CA9E4 7FE3FB78 */  mr       r3, r31;
+/* 809CA9E8 818C029C */  lwz      r12, 668(r12);
+/* 809CA9EC 7D8903A6 */  mtctr    r12;
+/* 809CA9F0 4E800421 */  bctrl;
+/* 809CA9F4 819F0060 */  lwz      r12, 96(r31);
+/* 809CA9F8 3C8080B1 */  lis      r4, UNDEF_80b12b08@ha;
+/* 809CA9FC 7FE3FB78 */  mr       r3, r31;
+/* 809CAA00 818C00D4 */  lwz      r12, 212(r12);
+/* 809CAA04 38842B08 */  addi     r4, r4, UNDEF_80b12b08@l;
+/* 809CAA08 7D8903A6 */  mtctr    r12;
+/* 809CAA0C 4E800421 */  bctrl;
+/* 809CAA10 38600001 */  li       r3, 1;
+UNDEF_809caa14:;
+/* 809CAA14 80010024 */  lwz      r0, 36(r1);
+/* 809CAA18 83E1001C */  lwz      r31, 28(r1);
+/* 809CAA1C 83C10018 */  lwz      r30, 24(r1);
+/* 809CAA20 83A10014 */  lwz      r29, 20(r1);
+/* 809CAA24 7C0803A6 */  mtlr     r0;
+/* 809CAA28 38210020 */  addi     r1, r1, 32;
+/* 809CAA2C 4E800020 */  blr;
   // clang-format on
 );

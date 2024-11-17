@@ -8,7 +8,7 @@
 
 
 [[address(0x8002D730)]]
-void daEnDpakkunBase_c::hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
+int daEnDpakkunBase_c::hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 8002D730 9421FFE0 */  stwu     r1, -32(r1);
 /* 8002D734 7C0802A6 */  mflr     r0;

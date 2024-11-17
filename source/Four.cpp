@@ -28,6 +28,24 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daEnDpakkunBase_c::initializeState_DieIceBreak
   {0x8002E3D0 + 2, 2, -1},
 
+  // daEnJimenPakkunBase_c::hitCallback_Fire
+  {0x8002FB04 + 2, 2, -1},
+  // daEnJimenPakkunBase_c::hitCallback_Shell
+  {0x8002FC68 + 2, 2, -1},
+  // daEnJimenPakkunBase_c::hitCallback_Star
+  {0x8002FE04 + 2, 2, -1},
+  // daEnJimenPakkunBase_c::hitCallback_YoshiFire
+  {0x8002FF20 + 2, 2, -1},
+  // daEnJimenPakkunBase_c::initializeState_DieOther
+  {0x800304A0 + 2, 2, -1},
+  // daEnJimenPakkunBase_c::initializeState_DieIceBreak
+  {0x8003074C + 2, 2, -1},
+
+  // daEnShell_c::kickSE
+  {0x8003A418 + 2, 2, -1},
+  // daEnShell_c::hitCallback_Ice
+  {0x8003A84C + 2, 2},
+
   // dfukidashiManager_c::FUN_801572F0
   {0x801572FC + 2, 2},
 

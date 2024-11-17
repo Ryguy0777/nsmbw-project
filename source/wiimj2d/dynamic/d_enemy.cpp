@@ -404,21 +404,23 @@ bool dEn_c::setEatSpitOut(dActor_c* actor)
     reviveCc();
     setAfterEatScale();
 
+    changeState(StateID_EatOut);
+
     return true;
 }
 
-void dEn_c::setCollTimer(int player, u8 timer)
+u8 dEn_c::setCollTimer(int player, u8 timer)
 {
     if (player < 0 || player >= PLAYER_COUNT) {
-        return;
+        return 0xFF;
     }
 
-    mCollTimer[player] = timer;
+    return mCollTimer[player] = timer;
 }
 
-void dEn_c::setCollTimer(dActor_c* player, u8 timer)
+u8 dEn_c::setCollTimer(dActor_c* player, u8 timer)
 {
-    setCollTimer(*player->getPlrNo(), timer);
+    return setCollTimer(*player->getPlrNo(), timer);
 }
 
 u8 dEn_c::getCollTimer(int player) const

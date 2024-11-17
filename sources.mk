@@ -50,6 +50,10 @@ SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_dpakkun_base.cpp
 # NSMBW: 0x8002EF50 - 0x800311E0
 SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_jimen_pakkun_base.cpp
 
+# d_a_en_shell.cpp
+# NSMBW: 0x80037EA0 - 0x8003C9F0
+SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_shell.cpp
+
 # d_a_player_base.cpp
 # NSMBW: 0x800460D0 - 0x8005B3A0
 SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_base.cpp
@@ -159,6 +163,9 @@ SOURCES += source/wiimj2d/dynamic/d_enemy_death.cpp
 # NSMBW: 0x800A2870 - 0x800A2B70
 SOURCES += source/wiimj2d/dynamic/d_enemy_fumi.cpp
 
+# d_enemy_toride_kokoopa_slide.cpp
+# NSMBW: 0x800B0800 - 0x800B0A20
+SOURCES += source/wiimj2d/dynamic/d_enemy_toride_kokoopa_slide.cpp
 # d_fader.cpp
 # NSMBW: 0x800B0A20 - 0x800B0EA0
 SOURCES += source/wiimj2d/dynamic/d_fader.cpp

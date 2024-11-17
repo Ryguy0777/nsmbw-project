@@ -1,5 +1,6 @@
 #pragma once
 
+#include "state/s_State.h"
 #include <dynamic/d_actor.h>
 #include <dynamic/d_actor_state.h>
 
@@ -33,8 +34,8 @@ public:
     /* 0x80097B90 */
     void slipBound(dActor_c* actor);
 
-    void setCollTimer(int player, u8 timer);
-    void setCollTimer(dActor_c* player, u8 timer);
+    u8 setCollTimer(int player, u8 timer);
+    u8 setCollTimer(dActor_c* player, u8 timer);
 
     u8 getCollTimer(int player) const;
     u8 getCollTimer(dActor_c* player) const;
@@ -60,4 +61,11 @@ public:
 
     /* 0x80095950 */
     static void normal_collcheck(dCc_c* object, dCc_c* other);
+
+public:
+    // ---------
+    // State IDs
+    // ---------
+
+    sState_Extern(0x80358404, dEn_c, EatOut);
 };
