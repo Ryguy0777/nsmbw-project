@@ -154,7 +154,7 @@ UNDEF_809c9fd4:;
 );
 
 [[address(0x809CA8D0)]]
-void dEnBomhei_c::hitCallback_HipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
+void daEnBomhei_c::hitCallback_HipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 809CA8D0 9421FFE0 */  stwu     r1, -32(r1);
 /* 809CA8D4 7C0802A6 */  mflr     r0;
@@ -241,5 +241,69 @@ UNDEF_809caa14:;
 /* 809CAA24 7C0803A6 */  mtlr     r0;
 /* 809CAA28 38210020 */  addi     r1, r1, 32;
 /* 809CAA2C 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x809CBBC0)]]
+void daEnBomhei_c::initializeState_Slide() ASM_METHOD(
+  // clang-format off
+/* 809CBBC0 9421FFE0 */  stwu     r1, -32(r1);
+/* 809CBBC4 7C0802A6 */  mflr     r0;
+/* 809CBBC8 3C8080AE */  lis      r4, UNDEF_80addb5c@ha;
+/* 809CBBCC 90010024 */  stw      r0, 36(r1);
+/* 809CBBD0 3884DB5C */  addi     r4, r4, UNDEF_80addb5c@l;
+/* 809CBBD4 93E1001C */  stw      r31, 28(r1);
+/* 809CBBD8 3FE080AD */  lis      r31, UNDEF_80ace508@ha;
+/* 809CBBDC 3BFFE508 */  addi     r31, r31, UNDEF_80ace508@l;
+/* 809CBBE0 93C10018 */  stw      r30, 24(r1);
+/* 809CBBE4 7C7E1B78 */  mr       r30, r3;
+/* 809CBBE8 38630544 */  addi     r3, r3, 1348;
+/* 809CBBEC 4B86E605 */  bl       UNDEF_8023a1f0; // GetResAnmChr__Q34nw4r3g3d7ResFileCFPCc
+/* 809CBBF0 90610008 */  stw      r3, 8(r1);
+/* 809CBBF4 387E0588 */  addi     r3, r30, 1416;
+/* 809CBBF8 389E0548 */  addi     r4, r30, 1352;
+/* 809CBBFC 38A10008 */  addi     r5, r1, 8;
+/* 809CBC00 38C00000 */  li       r6, 0;
+/* 809CBC04 4B79972D */  bl       UNDEF_80165330; // setAnm__Q23m3d8anmChr_cFRQ23m3d6bmdl_cQ34nw4r3g3d9ResAnmChrQ23m3d10playMode_e
+/* 809CBC08 C03F013C */  lfs      f1, 316(r31);
+/* 809CBC0C 387E0548 */  addi     r3, r30, 1352;
+/* 809CBC10 389E0588 */  addi     r4, r30, 1416;
+/* 809CBC14 4B79E4AD */  bl       setAnm__Q23m3d5mdl_cFRQ23m3d6banm_cf;
+/* 809CBC18 C03F00D0 */  lfs      f1, 208(r31);
+/* 809CBC1C 387E0588 */  addi     r3, r30, 1416;
+/* 809CBC20 4B79C601 */  bl       UNDEF_80168220; // setRate__Q23m3d6banm_cFf
+/* 809CBC24 7FC3F378 */  mr       r3, r30;
+/* 809CBC28 4B69A089 */  bl       UNDEF_80065cb0; // clrComboCnt__8dActor_cFv
+/* 809CBC2C 88DE0348 */  lbz      r6, 840(r30);
+/* 809CBC30 3C608043 */  lis      r3, UNDEF_8042c484@ha; // l_base_angleY
+
+/* 809CBC38 389F01F0 */  addi     r4, r31, 496;
+/* 809CBC3C 54C5103A */  slwi     r5, r6, 2;
+/* 809CBC40 54C6083C */  slwi     r6, r6, 1;
+/* 809CBC44 7C242C2E */  lfsx     f1, r4, r5;
+/* 809CBC48 3863C484 */  addi     r3, r3, UNDEF_8042c484@l; // l_base_angleY
+/* 809CBC4C 7CC332AE */  lhax     r6, r3, r6;
+/* 809CBC54 C05F01C8 */  lfs      f2, 456(r31);
+/* 809CBC5C C01F00D4 */  lfs      f0, 212(r31);
+/* 809CBC64 D05E011C */  stfs     f2, 284(r30);
+/* 809CBC6C 38000009 */  li       r0, 9;
+/* 809CBC74 D03E00E8 */  stfs     f1, 232(r30);
+/* 809CBC78 D01E00F4 */  stfs     f0, 244(r30);
+/* 809CBC7C B0DE0102 */  sth      r6, 258(r30);
+/* 809CBC84 981E0175 */  stb      r0, 373(r30);
+
+                         mr       r3, r30;
+/* 809CBC34          */  lbz      r4, 909(r30);
+/* 809CBC68 38A0000A */  li       r5, 10;
+                         bl       setCollTimer__5dEn_cFiUc;
+
+/* 809CBC70 7FC3F378 */  mr       r3, r30;
+/* 809CBC88 4BFFF189 */  bl       UNDEF_809cae10;
+/* 809CBC8C 80010024 */  lwz      r0, 36(r1);
+/* 809CBC90 83E1001C */  lwz      r31, 28(r1);
+/* 809CBC94 83C10018 */  lwz      r30, 24(r1);
+/* 809CBC98 7C0803A6 */  mtlr     r0;
+/* 809CBC9C 38210020 */  addi     r1, r1, 32;
+/* 809CBCA0 4E800020 */  blr;
   // clang-format on
 );

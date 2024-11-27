@@ -19,6 +19,19 @@ public:
     /* 0x8013DA30 */
     void stopOtherDownDemo();
 
+public:
+    // -----------------
+    // Virtual Functions
+    // -----------------
+
+    /**
+     * VT+0x08 0x80144EA0
+     * do method for the create operation.
+     *
+     * @return A PACK_RESULT_e value.
+     */
+    virtual int create() override;
+
     /**
      * 0x801400B0
      * Actually a virtual function

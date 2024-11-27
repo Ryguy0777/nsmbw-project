@@ -69,6 +69,22 @@ SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_key.cpp
 SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_manager.cpp
 
 #
+# wiimj2d/dynamic/actor/lift
+#
+
+# d_a_lift_ride_move.cpp
+# NSMBW: 0x80845940 - 0x808468E0
+SOURCES += source/wiimj2d/dynamic/actor/lift/d_a_lift_ride_move.cpp
+
+#
+# wiimj2d/dynamic/actor/objects
+#
+
+# d_a_obj_grass.cpp
+# NSMBW: 0x808760E0 - 0x80877510
+SOURCES += source/wiimj2d/dynamic/actor/objects/d_a_obj_grass.cpp
+
+#
 # wiimj2d/dynamic/actor/enemies
 #
 
@@ -88,6 +104,10 @@ SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_block.cpp
 # NSMBW: 0x809C8D30 - 0x809CDE70
 SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_bomhei.cpp
 
+# d_a_en_brick_block.cpp
+# NSMBW: 0x809D0090 - 0x809D0450
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_brick_block.cpp
+
 # d_a_en_goalpole.cpp
 # NSMBW: 0x80A096E0 - 0x80A0BE30
 SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_goalpole.cpp
@@ -103,14 +123,6 @@ SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_jumpdai.cpp
 # d_a_en_mecha_koopa.cpp
 # NSMBW: 0x80A64110 - 0x80A67470
 SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_mecha_koopa.cpp
-
-#
-# wiimj2d/dynamic/actor/objects
-#
-
-# d_a_obj_grass.cpp
-# NSMBW: 0x808760E0 - 0x80877510
-SOURCES += source/wiimj2d/dynamic/actor/objects/d_a_obj_grass.cpp
 
 #
 # wiimj2d/dynamic

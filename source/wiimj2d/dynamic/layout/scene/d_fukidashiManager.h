@@ -14,6 +14,9 @@ public:
     /* 0x80157010 */
     dfukidashiManager_c();
 
+    /* VT+0x48 0x80157080 */
+    ~dfukidashiManager_c() override;
+
 public:
     // -----------------
     // Virtual Functions

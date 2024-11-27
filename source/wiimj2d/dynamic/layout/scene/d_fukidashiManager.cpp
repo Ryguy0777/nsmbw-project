@@ -31,8 +31,8 @@ dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
 /* 80157038 4BEAFA69 */  bl       UNDEF_80006aa0;
 /* 8015703C 3C80800B */  lis      r4, UNDEF_800b14e0@ha;
 /* 80157040 3CA0800B */  lis      r5, UNDEF_800b16e0@ha;
-/* 80157044 387F0148 */  addi     r3, r31, 328;
-/* 80157048 38C0023C */  li       r6, 572;
+/* 80157044 387F0148 */  addi     r3, r31, 0x148;
+/* 80157048 38C0023C */  li       r6, 0x23C;
 /* 8015704C 388414E0 */  addi     r4, r4, UNDEF_800b14e0@l;
 /* 80157050 38A516E0 */  addi     r5, r5, UNDEF_800b16e0@l;
 /* 80157054          */  li       r7, PLAYER_COUNT;
@@ -44,6 +44,48 @@ dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
 /* 8015706C 7C0803A6 */  mtlr     r0;
 /* 80157070 38210010 */  addi     r1, r1, 16;
 /* 80157074 4E800020 */  blr;
+  // clang-format on
+);
+
+/* VT+0x48 */
+[[address(0x80157080)]]
+dfukidashiManager_c::~dfukidashiManager_c() ASM_METHOD(
+  // clang-format off
+/* 80157080 9421FFF0 */  stwu     r1, -16(r1);
+/* 80157084 7C0802A6 */  mflr     r0;
+/* 80157088 2C030000 */  cmpwi    r3, 0;
+/* 8015708C 90010014 */  stw      r0, 20(r1);
+/* 80157090 93E1000C */  stw      r31, 12(r1);
+/* 80157094 7C9F2378 */  mr       r31, r4;
+/* 80157098 93C10008 */  stw      r30, 8(r1);
+/* 8015709C 7C7E1B78 */  mr       r30, r3;
+/* 801570A0 4182004C */  beq-     UNDEF_801570ec;
+/* 801570A4 38000000 */  li       r0, 0;
+/* 801570A8 3C80800B */  lis      r4, UNDEF_800b16e0@ha; // __dt__16dfukidashiInfo_cFv
+/* 801570AC 900DAC80 */  stw      r0, -21376(r13);
+/* 801570B0 388416E0 */  addi     r4, r4, UNDEF_800b16e0@l; // __dt__16dfukidashiInfo_cFv
+/* 801570B4 38A0023C */  li       r5, 0x23C;
+/* 801570B8          */  li       r6, PLAYER_COUNT;
+/* 801570BC 38630148 */  addi     r3, r3, 0x148;
+/* 801570C0 48185CC9 */  bl       UNDEF_802dcd88; // __destroy_arr
+/* 801570C4 387E0074 */  addi     r3, r30, 116;
+/* 801570C8 3880FFFF */  li       r4, -1;
+/* 801570CC 4BEAFA25 */  bl       UNDEF_80006af0; // __dt__Q23d2d18ResAccMultLoader_cFv
+/* 801570D0 7FC3F378 */  mr       r3, r30;
+/* 801570D4 38800000 */  li       r4, 0;
+/* 801570D8 4BF153B9 */  bl       __dt__7dBase_cFv;
+/* 801570DC 2C1F0000 */  cmpwi    r31, 0;
+/* 801570E0 4081000C */  ble-     UNDEF_801570ec;
+/* 801570E4 7FC3F378 */  mr       r3, r30;
+/* 801570E8 4800B979 */  bl       __dl__7fBase_cFPv;
+UNDEF_801570ec:;
+/* 801570EC 7FC3F378 */  mr       r3, r30;
+/* 801570F0 83E1000C */  lwz      r31, 12(r1);
+/* 801570F4 83C10008 */  lwz      r30, 8(r1);
+/* 801570F8 80010014 */  lwz      r0, 20(r1);
+/* 801570FC 7C0803A6 */  mtlr     r0;
+/* 80157100 38210010 */  addi     r1, r1, 16;
+/* 80157104 4E800020 */  blr;
   // clang-format on
 );
 
