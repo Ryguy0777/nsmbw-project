@@ -18,4 +18,7 @@ bool chkContinue();
 /* 0x800B53F0 */
 bool chkCancelButton(int player);
 
+/* 0x800B3B50 */
+bool isGameStop(u32 flag);
+
 } // namespace dGameCom

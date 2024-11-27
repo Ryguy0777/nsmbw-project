@@ -3,7 +3,7 @@
 
 #include "d_a_wm_player.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/worldmap/d_a_wm_sub_player.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>

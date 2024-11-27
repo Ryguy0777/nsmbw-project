@@ -3,7 +3,7 @@
 
 #include "d_system.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/layout/scene/d_s_boot.h>
 #include <egg/core/eggController.h>

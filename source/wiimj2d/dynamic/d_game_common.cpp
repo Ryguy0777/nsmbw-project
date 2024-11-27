@@ -3,7 +3,7 @@
 
 #include "d_game_common.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 
 namespace dGameCom
@@ -117,5 +117,8 @@ UNDEF_800b3704:;
 /* 800B3710 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x800B3B50)]]
+bool isGameStop(u32 flag);
 
 } // namespace dGameCom

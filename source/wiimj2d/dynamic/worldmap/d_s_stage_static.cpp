@@ -8,6 +8,12 @@
 [[address_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
 
+[[address_data(0x8042A4E0)]]
+u32 dScStage_c::m_exeFrame;
+
+[[address_data(0x8042A4E4)]]
+dScStage_c::GAME_MODE_e dScStage_c::m_gameMode;
+
 [[address_data(0x8042A4FC)]]
 bool dScStage_c::m_isCourseIn;
 
@@ -19,6 +25,12 @@ bool dScStage_c::m_isOtehonReturn;
 
 [[address_data(0x8042A4FF)]]
 bool dScStage_c::m_isStaffCredit;
+
+[[address_data(0x8042A504)]]
+u8 dScStage_c::m_replayMode;
+
+[[address_data(0x8042A506)]]
+bool dScStage_c::m_isReplayGoal;
 
 /* 0x803744D0 */
 dScStage_c::ReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
@@ -91,6 +103,9 @@ UNDEF_80101b94:;
 /* 80101BA0 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x801022C0)]]
+bool dScStage_c::isNowReplay();
 
 [[address(0x80102370)]]
 void dScStage_c::goToSceneAfterLevel(

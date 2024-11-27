@@ -156,6 +156,9 @@ void dRemoconMng_c::dConnect_c::executeState_Setup()
 [[address(0x800DCA60)]]
 void dRemoconMng_c::dConnect_c::execute();
 
+[[address(0x800DCA80)]]
+void dRemoconMng_c::dConnect_c::onRumbleEnable();
+
 [[address(0x800DCFD0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::shutdown();
 

@@ -36,45 +36,45 @@ SOURCES += source/wiimj2d/dynamic/layout/d_NumberOfPeopleChange.cpp
 SOURCES += source/wiimj2d/dynamic/layout/d_SelectPlayer.cpp
 
 #
-# wiimj2d/dynamic/actor/bases
+# wiimj2d/dynamic/actor/static
 #
 
 # d_a_en_block_main.cpp
 # NSMBW: 0x800208B0 - 0x80023C60
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_block_main.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_block_main.cpp
 
 # d_a_en_dpakkun_base.cpp
 # NSMBW: 0x8002CB70 - 0x8002EF50
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_dpakkun_base.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_dpakkun_base.cpp
 # d_a_en_jimen_pakkun_base.cpp
 # NSMBW: 0x8002EF50 - 0x800311E0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_jimen_pakkun_base.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_jimen_pakkun_base.cpp
 
 # d_a_en_shell.cpp
 # NSMBW: 0x80037EA0 - 0x8003C9F0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_en_shell.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_shell.cpp
 
 # d_a_player_base.cpp
 # NSMBW: 0x800460D0 - 0x8005B3A0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_base.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_base.cpp
 # d_a_player_demo_manager.cpp
 # NSMBW: 0x8005B3A0 - 0x8005D7E0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_demo_manager.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_demo_manager.cpp
 
 # d_a_player_key.cpp
 # NSMBW: 0x8005DFD0 - 0x8005E9A0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_key.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_key.cpp
 # d_a_player_manager.cpp
 # NSMBW: 0x8005E9A0 - 0x800613B0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_player_manager.cpp
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_manager.cpp
 
 #
-# wiimj2d/dynamic/actor/lift
+# wiimj2d/dynamic/actor/bases
 #
 
 # d_a_lift_ride_move.cpp
 # NSMBW: 0x80845940 - 0x808468E0
-SOURCES += source/wiimj2d/dynamic/actor/lift/d_a_lift_ride_move.cpp
+SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_lift_ride_move.cpp
 
 #
 # wiimj2d/dynamic/actor/objects
@@ -325,6 +325,9 @@ SOURCES += source/wiimj2d/dynamic/scene/d_s_crsin.cpp
 # wiimj2d/dynamic/layout/system
 #
 
+# d_WarningManager.cpp
+# NSMBW: 0x8010D270 - 0x8010F080
+SOURCES += source/wiimj2d/dynamic/layout/system/d_WarningManager.cpp
 # d_WiiStrap.cpp
 # NSMBW: 0x8010F080 - 0x8010F530
 SOURCES += source/wiimj2d/dynamic/layout/system/d_WiiStrap.cpp
@@ -426,6 +429,14 @@ SOURCES += source/wiimj2d/machine/m_pad.cpp
 # NSMBW .text: 0x80170AC0 - 0x80170D90
 # NSMBW .bss: 0x803780C8 - 0x803780F8
 SOURCES += source/wiimj2d/machine/m_vec.cpp
+
+#
+# wiimj2d/sound
+#
+
+# SndAudioMgr.cpp
+# NSMBW: 0x80194A10 - 0x80197440
+SOURCES += source/wiimj2d/sound/SndAudioMgr.cpp
 
 #
 # revolution/arc

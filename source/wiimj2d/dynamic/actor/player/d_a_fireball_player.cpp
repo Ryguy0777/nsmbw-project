@@ -1,7 +1,7 @@
 // d_a_fireball_player.cpp
 // NSMBW: 0x8011A5B0 - 0x8011B640
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <revolution/os/OSLink.h>
 
 /* 0x80375840 */

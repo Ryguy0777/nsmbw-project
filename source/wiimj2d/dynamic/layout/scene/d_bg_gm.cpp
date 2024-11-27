@@ -3,7 +3,7 @@
 
 #include "d_bg_gm.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 [[address(0x80154F90)]]
 bool dBgGm_c::inW2CastleMazeBounds(float param1, float param2) ASM_METHOD(

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_cyuukan.h>
 #include <dynamic/d_mj2d_game.h>
 

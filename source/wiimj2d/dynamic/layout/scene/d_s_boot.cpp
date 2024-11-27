@@ -3,6 +3,7 @@
 
 #include "d_s_boot.h"
 
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>
@@ -64,12 +65,14 @@ void dScBoot_c::executeState_ProcEnd()
     // Setup players for title screen test
     for (int i = 0; i < 8; i++) {
         daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
-        daPyMng_c::mPlayerEntry[i] = 1;
+        daPyMng_c::mPlayerEntry[i] = 0;
 
         int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
         daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::PROPELLER_SHROOM);
         daPyMng_c::mCreateItem[i] = 0;
     }
+
+    daPyMng_c::mPlayerEntry[4] = 1;
 
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,

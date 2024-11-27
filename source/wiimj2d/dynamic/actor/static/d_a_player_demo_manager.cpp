@@ -4,7 +4,7 @@
 #include "d_a_player_demo_manager.h"
 
 #include <dynamic/actor/player/d_a_player.h>
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_mj2d_game.h>
 #include <revolution/os.h>

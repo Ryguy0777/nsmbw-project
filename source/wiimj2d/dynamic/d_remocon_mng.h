@@ -58,6 +58,9 @@ public:
         /* 0x800DCA60 */
         void execute();
 
+        /* 0x800DCA80 */
+        void onRumbleEnable();
+
     public:
         // -----------
         // Member Data

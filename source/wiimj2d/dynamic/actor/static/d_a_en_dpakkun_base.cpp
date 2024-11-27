@@ -3,7 +3,7 @@
 
 #include "d_a_en_dpakkun_base.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/actor/player/d_a_player.h>
 
 

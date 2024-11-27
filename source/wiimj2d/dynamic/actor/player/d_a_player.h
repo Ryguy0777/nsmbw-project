@@ -1,7 +1,7 @@
 #pragma once
 
-#include <dynamic/actor/bases/d_a_player_base.h>
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_base.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 class dAcPy_c : public daPlBase_c
 {

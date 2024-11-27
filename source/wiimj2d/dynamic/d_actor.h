@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_base_actor.h>
 #include <machine/m_vec.h>
 
@@ -159,4 +159,6 @@ public:
     // -----------
 
     /* 0x80429FD8 */ static u8 mExecStopReq;
+
+    /* 0x80429FDA */ static u8 mExecStop;
 };

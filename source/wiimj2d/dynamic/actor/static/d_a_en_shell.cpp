@@ -3,7 +3,7 @@
 
 #include "d_a_en_shell.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 [[address(0x800389E0)]]
 void daEnShell_c::Normal_VsPlHitCheck(dCc_c* main, dCc_c* other) ASM_METHOD(

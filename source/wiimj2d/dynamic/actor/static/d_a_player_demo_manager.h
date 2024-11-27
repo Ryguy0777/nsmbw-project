@@ -1,7 +1,7 @@
 #pragma once
 
 #include <machine/m_vec.h>
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 class daPyDemoMng_c
 {

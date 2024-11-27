@@ -3,7 +3,7 @@
 
 #include "d_a_player_manager.h"
 
-#include <dynamic/actor/bases/d_a_player_demo_manager.h>
+#include <dynamic/actor/static/d_a_player_demo_manager.h>
 #include <dynamic/actor/player/d_a_player.h>
 #include <dynamic/actor/player/d_a_yoshi.h>
 #include <dynamic/d_course_data.h>

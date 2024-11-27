@@ -3,11 +3,14 @@
 
 #include "d_actor.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 
 [[address_data(0x80429FD8)]]
 u8 dActor_c::mExecStopReq;
+
+[[address_data(0x80429FDA)]]
+u8 dActor_c::mExecStop;
 
 [[address(0x800651C0)]]
 void dActor_c::carryFukidashiCheck(int param1, mVec2_c param2) ASM_METHOD(

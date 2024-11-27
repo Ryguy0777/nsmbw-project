@@ -4,7 +4,7 @@
 #include "d_bg.h"
 
 #include <dynamic/actor/player/d_a_player.h>
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 
 [[address(0x800785E0)]]

@@ -3,7 +3,7 @@
 
 #include "d_s_game_setup.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_base_actor.h>
 #include <dynamic/layout/d_CharacterChangeSelectBase.h>
 #include <dynamic/layout/d_NumberOfPeopleChange.h>

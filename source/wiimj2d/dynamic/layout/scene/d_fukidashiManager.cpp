@@ -3,7 +3,7 @@
 
 #include "d_fukidashiManager.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 
 [[address_data(0x8042A600)]]

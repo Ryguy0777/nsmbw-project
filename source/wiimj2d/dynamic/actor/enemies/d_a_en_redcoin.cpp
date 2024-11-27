@@ -1,7 +1,7 @@
 // d_a_en_redcoin.cpp
 // NSMBW: 0x80A93990 - 0x80A94D90
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 [[address(0x80A94340)]]
 void daEnRedcoin_c_awardItems() ASM_METHOD(

@@ -3,7 +3,7 @@
 
 #include "d_CharacterChangeSelectContents.h"
 
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 
 [[address(0x80772A50)]]
 dCharacterChangeSelectContents_c* dCharacterChangeSelectContents_c_classInit()

@@ -5,7 +5,7 @@
 
 #include <cmath>
 #include <dynamic/actor/player/d_a_player.h>
-#include <dynamic/actor/bases/d_a_player_manager.h>
+#include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/worldmap/d_s_stage.h>
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
