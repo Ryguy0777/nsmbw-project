@@ -1,19 +1,18 @@
 #pragma once
 
-class SndAudioMgr
-{
+class dBalloonMng_c {
 public:
     // ----------------
     // Member Functions
     // ----------------
 
-    /* 0x80196FD0 */
-    void setIsReplay(bool value);
+    /* 0x8006C1C0 */
+    void execute();
 
 public:
     // -----------
     // Static Data
     // -----------
 
-    /* 0x8042A768 */ static SndAudioMgr* sInstance;
+    /* 0x8042A068 */ static dBalloonMng_c* m_instance;
 };

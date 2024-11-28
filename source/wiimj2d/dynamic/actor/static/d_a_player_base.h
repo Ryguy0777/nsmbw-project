@@ -1,10 +1,13 @@
 #pragma once
 
 #include <dynamic/d_actor.h>
+#include <dynamic/d_mj2d_game.h>
 
 class daPlBase_c : public dActor_c
 {
     SIZE_ASSERT(0x14D4);
+
+    /* 0x0060 VTABLE 0x803087C8 */
 
 public:
     // -------------------
@@ -48,17 +51,68 @@ public:
     // Virtual Functions
     // -----------------
 
-    /* VT+0x0D4 */
+    /* VT+0x0D4 0x80046DF0 */
     virtual void executeMain();
 
-    /* VT+0x0D8 */
+    /* VT+0x0D8 0x800588F0 */
     virtual void executeLastPlayer();
 
-    /* VT+0x0DC */
+    /* VT+0x0DC 0x800588E0 */
     virtual void executeLastAll();
 
-    /* VT+0x0E0 */
-    virtual bool isItemKinopio();
+    /* VT+0x0E0 0x80020BE0 */
+    virtual bool isItemKinopio()
+    {
+        return false;
+    }
+
+    /* VT+0x0E4 0x80056BC0 @unofficial */
+    virtual void setPowerup(PLAYER_POWERUP_e powerup);
+
+    /* VT+0x0E8 0x80056D40 */
+    virtual s32 getTailType(s8 param);
+
+    /* VT+0x0EC 0x80048080 */
+    virtual s32 getHeadBgPointData();
+
+    /* VT+0x0F0 0x80054EE0 */
+    virtual s32 getWallBgPointData();
+
+    /* VT+0x0F4 0x80056BB0 */
+    virtual s32 getFootBgPointData();
+
+    /* VT+0x0F8 0x80048090 */
+    virtual f32 VT_0x0F8();
+
+    /* VT+0x0FC 0x800544E0 */
+    virtual void checkBgCrossSub();
+
+    /* VT+0x100 0x80054F80 */
+    virtual void postBgCross();
+
+    /* VT+0x104 0x800552C0 */
+    virtual f32 getSandSinkRate();
+
+    /* VT+0x108 0x80053F90 */
+    virtual void setReductionScale();
+
+    /* VT+0x10C 0x80053FE0 */
+    virtual void initStampReduction();
+
+    /* VT+0x110 0x80054070 */
+    virtual void calcJumpDaiReductionScale(int param1, int param2);
+
+    /* VT+0x114 0x800540D0 */
+    virtual void setReductionBoyon();
+
+    /* VT+0x118 0x800564F0 */
+    virtual bool setPressBgDamage(int param1, int param2);
+
+    /* VT+0x11C 0x80056360 */
+    virtual int setBalloonInDispOut(int param);
+
+    /* VT+0x120 0x8004DCF0 */
+    virtual bool isChange();
 
 public:
     // ---------

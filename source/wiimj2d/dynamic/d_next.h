@@ -1,19 +1,19 @@
 #pragma once
 
-class SndAudioMgr
+class dNext_c
 {
 public:
     // ----------------
     // Member Functions
     // ----------------
 
-    /* 0x80196FD0 */
-    void setIsReplay(bool value);
+    /* 0x800D0360 */
+    void execute();
 
 public:
     // -----------
     // Static Data
     // -----------
 
-    /* 0x8042A768 */ static SndAudioMgr* sInstance;
+    /* 0x8042A2A0 */ static dNext_c* m_instance;
 };

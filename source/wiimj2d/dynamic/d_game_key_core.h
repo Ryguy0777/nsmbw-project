@@ -37,8 +37,14 @@ public:
     /* 0x04 */ mPad::CH_e mChannel;
     /* 0x08 */ s32 mControllerType;
 
-    FILL(0x0C, 0x34);
+    FILL(0x0C, 0x18);
 
+    /* 0x18 */ u32 mHeld;
+    /* 0x1C */ u32 mTriggered;
+
+    FILL(0x20, 0x30);
+
+    /* 0x30 */ u32 m0x30;
     /* 0x34 */ mVec3_c mAccel;
     /* 0x40 */ mVec3_c mAccelOld;
     /* 0x4C */ mVec2_c mAccelVerticalX;

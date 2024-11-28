@@ -1,19 +1,19 @@
 #pragma once
 
-class SndAudioMgr
+class dBeansKuriboMng_c
 {
 public:
     // ----------------
     // Member Functions
     // ----------------
 
-    /* 0x80196FD0 */
-    void setIsReplay(bool value);
+    /* 0x80076BC0 @unofficial */
+    void clear();
 
 public:
     // -----------
     // Static Data
     // -----------
 
-    /* 0x8042A768 */ static SndAudioMgr* sInstance;
+    /* 0x8042A0A0 */ static dBeansKuriboMng_c* m_instance;
 };

@@ -1,0 +1,7 @@
+// d_bg_ctr.cpp
+// NSMBW: 0x8007F7A0 - 0x80081070
+
+#include "d_bg_ctr.h"
+
+[[address(0x80080630)]]
+void dBg_ctr_c::updateObjBg();

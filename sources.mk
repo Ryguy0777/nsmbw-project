@@ -72,6 +72,10 @@ SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_manager.cpp
 # wiimj2d/dynamic/actor/bases
 #
 
+# d_a_last_actor_stage.cpp
+# NSMBW: 0x80830690 - 0x80830C40
+SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_last_actor_stage.cpp
+
 # d_a_lift_ride_move.cpp
 # NSMBW: 0x80845940 - 0x808468E0
 SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_lift_ride_move.cpp
@@ -131,11 +135,26 @@ SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_mecha_koopa.cpp
 # d_actor.cpp
 # NSMBW: 0x80064110 - 0x800660C0
 SOURCES += source/wiimj2d/dynamic/d_actor.cpp
-
+# d_actor_groupid_mng.cpp
+# NSMBW: 0x800660C0 - 0x80066380
+SOURCES += source/wiimj2d/dynamic/d_actor_groupid_mng.cpp
+# d_actor_mng.cpp
+# NSMBW: 0x80066380 - 0x80066FB0
+SOURCES += source/wiimj2d/dynamic/d_actor_mng.cpp
 # d_actor_state.cpp
 # NSMBW: 0x80066FB0 - 0x80068040
 SOURCES += source/wiimj2d/dynamic/d_actor_state.cpp
+# d_actorcreate_mng.cpp
+# NSMBW: 0x80068040 - 0x80069020
+SOURCES += source/wiimj2d/dynamic/d_actorcreate_mng.cpp
 
+# d_attention.cpp
+# NSMBW: 0x800690F0 - 0x80069500
+SOURCES += source/wiimj2d/dynamic/d_attention.cpp
+
+# d_balloon_mng.cpp
+# NSMBW: 0x8006C0B0 - 0x8006C420
+SOURCES += source/wiimj2d/dynamic/d_balloon_mng.cpp
 # d_base.cpp
 # NSMBW: 0x8006C420 - 0x8006C6D0
 SOURCES += source/wiimj2d/dynamic/d_base.cpp
@@ -143,17 +162,35 @@ SOURCES += source/wiimj2d/dynamic/d_base.cpp
 # NSMBW: 0x8006C6D0 - 0x8006CF40
 SOURCES += source/wiimj2d/dynamic/d_base_actor.cpp
 
+# d_beans_kuribo_mng.cpp
+# NSMBW: 0x80076BC0 - 0x80076FD0
+SOURCES += source/wiimj2d/dynamic/d_beans_kuribo_mng.cpp
 # d_bg.cpp
 # NSMBW: 0x80076FD0 - 0x8007E180
 SOURCES += source/wiimj2d/dynamic/d_bg.cpp
+
+# d_bg_ctr.cpp
+# NSMBW: 0x8007F7A0 - 0x80081070
+SOURCES += source/wiimj2d/dynamic/d_bg_ctr.cpp
 
 # d_block_mng.cpp
 # NSMBW: 0x80087F40 - 0x80088D90
 SOURCES += source/wiimj2d/dynamic/d_block_mng.cpp
 
+# d_cc.cpp
+# NSMBW: 0x8008C200 - 0x8008DC80
+SOURCES += source/wiimj2d/dynamic/d_cc.cpp
+
+# d_coin.cpp
+# NSMBW: 0x8008DED0 - 0x8008DFF0
+SOURCES += source/wiimj2d/dynamic/d_coin.cpp
 # d_course_data.cpp
 # NSMBW: 0x8008DFF0 - 0x8008ECC0
 SOURCES += source/wiimj2d/dynamic/d_course_data.cpp
+
+# d_effactor_mng.cpp
+# NSMBW: 0x8008FE30 - 0x80092C00
+SOURCES += source/wiimj2d/dynamic/d_effactor_mng.cpp
 
 # d_enemy.cpp
 # NSMBW: 0x80094E80 - 0x800983C0
@@ -174,6 +211,10 @@ SOURCES += source/wiimj2d/dynamic/d_enemy_death.cpp
 # d_enemy_fumi.cpp
 # NSMBW: 0x800A2870 - 0x800A2B70
 SOURCES += source/wiimj2d/dynamic/d_enemy_fumi.cpp
+
+# d_enemy_manager.cpp
+# NSMBW: 0x800A7450 - 0x800A7DA0
+SOURCES += source/wiimj2d/dynamic/d_enemy_manager.cpp
 
 # d_enemy_toride_kokoopa_slide.cpp
 # NSMBW: 0x800B0800 - 0x800B0A20
@@ -226,6 +267,10 @@ SOURCES += source/wiimj2d/dynamic/d_mj2d_header.cpp
 # NSMBW: 0x800CE8F0 - 0x800CED00
 SOURCES += source/wiimj2d/dynamic/d_multi_manager.cpp
 
+# d_next.cpp
+# NSMBW: 0x800CFCE0 - 0x800D03C0
+SOURCES += source/wiimj2d/dynamic/d_next.cpp
+
 # d_pause_manager.cpp
 # NSMBW: 0x800D0A90 - 0x800D15F0
 SOURCES += source/wiimj2d/dynamic/d_pause_manager.cpp
@@ -257,9 +302,22 @@ SOURCES += source/wiimj2d/dynamic/d_save_manager.cpp
 # NSMBW .sdata: 0x80428A40 - 0x80428A50
 SOURCES += source/wiimj2d/dynamic/d_scene.cpp
 
+# d_stage_timer.cpp
+# NSMBW: 0x800E38E0 - 0x800E3BA0
+SOURCES += source/wiimj2d/dynamic/d_stage_timer.cpp
+# d_start_info.cpp
+# NSMBW: 0x800E3BA0 - 0x800E3BD0
+SOURCES += source/wiimj2d/dynamic/d_start_info.cpp
+# d_switch_flag_mng.cpp
+# NSMBW: 0x800E3BD0 - 0x800E46E0
+SOURCES += source/wiimj2d/dynamic/d_switch_flag_mng.cpp
 # d_system.cpp
 # NSMBW: 0x800E46E0 - 0x800E5480
 SOURCES += source/wiimj2d/dynamic/d_system.cpp
+
+# d_tencoin_mng.cpp
+# NSMBW: 0x800E75D0 - 0x800E78D0
+SOURCES += source/wiimj2d/dynamic/d_tencoin_mng.cpp
 
 # d_wm_actor.cpp
 # NSMBW: 0x800F2820 - 0x800F2C00

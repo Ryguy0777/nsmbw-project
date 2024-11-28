@@ -1,19 +1,19 @@
 #pragma once
 
-class SndAudioMgr
+class dSwitchFlagMng_c
 {
 public:
     // ----------------
     // Member Functions
     // ----------------
 
-    /* 0x80196FD0 */
-    void setIsReplay(bool value);
+    /* 0x800E4100 */
+    void execute();
 
 public:
     // -----------
     // Static Data
     // -----------
 
-    /* 0x8042A768 */ static SndAudioMgr* sInstance;
+    /* 0x8042A358 */ static dSwitchFlagMng_c* m_instance;
 };
