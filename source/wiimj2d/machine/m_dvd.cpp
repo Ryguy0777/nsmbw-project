@@ -31,7 +31,7 @@ public:
 
     MultiArchiveBuilder_c(
       EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir = EGG::DvdRipper::ALLOC_DIR_BOTTOM,
-      u32 dstMaxCount = 0, u32 dstStrTabMaxSize = 0
+      u32 dstMaxCount = 0, u32 dstStrTabMaxSize = 1
     );
 
     ~MultiArchiveBuilder_c();

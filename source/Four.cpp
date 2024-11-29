@@ -312,6 +312,9 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_8082f530
   {0x8082F5CC + 2, 2},
 
+  // UNDEF_808350f0
+  {0x8083517C + 2, 2},
+
   // UNDEF_80836e50
   {0x80836F20 + 2, 2},
 
@@ -320,6 +323,9 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80838A00 + 2, 2},
   {0x80838A38 + 2, 2},
 
+  // daRemoconBalance_c::UNDEF_8083d7b0
+  {0x8083D870 + 2, 2},
+
   // UNDEF_80843940
   {0x808439EC + 2, 2},
   {0x80843AB4 + 2, 2},
@@ -327,12 +333,103 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80843fd0
   {0x80844124 + 2, 2},
 
+  // UNDEF_8085b020
+  {0x8085B224 + 2, 2},
+
+  // TODO 0x80866560 adds lives to each player at the end of the 1-up house minigame
+
+  // TODO 0x80868F00, 0x80868F90, 0x80869110 (daMiniGameWireMesh_c::executeState_PlayMove)
+  // something related to the powerup house minigame
+  // TODO 0x8086AB90, 0x8086AEA0 cursor color or something
+
+  // daMiniGameWireMeshMgrObj_c::executeState_Play
+  {0x8086B7AC + 2, 2},
+  // daMiniGameWireMeshMgrObj_c::UNDEF_8086b7f0
+  {0x8086B850 + 2, 2},
+  // daMiniGameWireMeshMgrObj_c::getAvailablePlayerNo
+  {0x8086B960 + 2, 2},
+  // daMiniGameWireMeshMgrObj_c::UNDEF_8086b990
+  {0x8086BA40 + 2, 2},
+  // daMiniGameWireMeshMgrObj_c::executeState_AllTurnUp
+  {0x8086BC58 + 2, 2},
+  // daMiniGameWireMeshMgrObj_c::executeState_ShowResult
+  {0x8086BF5C + 2, 2},
+
+  // TODO 0x8086EA10 daNextGotoBlock_c::executeState_Move
+
+  // daNiceBoat_c::setPlayerEmblem?
+  {0x80870990 + 2, 2},
+  {0x808709AC + 2, 2},
+
+  // daObjKameck_c::execute
+  {0x8087D2C0 + 2, 2},
+
   // daObjKinoko_c
   {0x8087F808 + 2, 2},
   {0x8087F850 + 2, 2},
 
+  // UNDEF_8088606c
+  {0x8088606C + 2, 2},
+
+  // daPowBlock_c::doDelete
+  {0x80891674 + 2, 2},
+
   // daPowBlock_c::UNDEF_80891a70
   {0x80891A9C + 2, 2},
+
+  // UNDEF_80898190
+  {0x808981E8 + 2, 2},
+
+  // TODO daShipGear_c::UNDEF_808a2180
+
+  // UNDEF_808a5780
+  {0x808A57EC + 2, 2},
+
+  // TODO 0x808AF330 daTarzanIvy_c::create
+
+  // UNDEF_808b3a80
+  {0x808B3B6C + 2, 2},
+
+  // daWakiFire_c::UNDEF_808b5060
+  {0x808B50D4 + 2, 2},
+
+  // daWakiKeronpa_c::UNDEF_808b5d60
+  {0x808B5DA4 + 2, 2},
+
+  // daWakiKeronpa_c::UNDEF_808b6040
+  {0x808B6090 + 2, 2},
+
+  // daWakiKiller_c::executeState_Move
+  {0x808B6424 + 2, 2},
+
+  // daWakiKokoopaFire_c::isAnyPlayerInLocation
+  {0x808B6CA4 + 2, 2},
+
+  // TODO 0x808B6DD0 daWakiKokoopaFire_c::calcVulnPlayers
+
+  // daWakiParabom_c::isPlayerInRect
+  {0x808B8EDC + 2, 2},
+
+  // UNDEF_808b9870
+  {0x808B98C0 + 2, 2},
+
+  // daWakiPukuPuku_c::executeState_NormalWaki
+  {0x808BA158 + 2, 2},
+  {0x808BA168 + 2, 2},
+
+  // TODO 0x808BA220 daWakiPukuPuku_c::executeState_SearchWaki
+
+  // UNDEF_808bafc0
+  {0x808BB010 + 2, 2},
+
+  // daWakiTobiPuku_c::executeState_NormalWaki
+  {0x808BB420 + 2, 2},
+
+  // daWarpCannon_c::UNDEF_808bcc00
+  {0x808BCC54 + 2, 2},
+
+  // daWarpCannon_c::UNDEF_808bcc80
+  {0x808BCDE8 + 2, 2},
 
   // daEnGlpole_c::checkPlayerCollision
   {0x80A0B298 + 2, 2},
