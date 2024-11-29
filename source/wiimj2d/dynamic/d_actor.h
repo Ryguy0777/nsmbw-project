@@ -9,6 +9,19 @@ class dActor_c : public dBaseActor_c
     SIZE_ASSERT(0x392);
 
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    enum class ACTOR_TYPE_e : u8
+    {
+        DEFAULT = 0,
+        PLAYER = 1,
+        YOSHI = 2,
+        ENEMY = 3,
+    };
+
+public:
     // -----------------
     // Virtual Functions
     // -----------------
@@ -143,10 +156,7 @@ public:
 
     FILL(0x349, 0x38C);
 
-    /**
-     * 0 = Default, 1 = Player, 2 = Yoshi, 3 = Enemy
-     */
-    /* 0x38C */ u8 mActorType;
+    /* 0x38C */ ACTOR_TYPE_e mActorType;
     /* 0x38D */ u8 mPlayerNo;
     /* 0x38E */ u8 m0x38E;
     /* 0x38F */ u8 mLayer;

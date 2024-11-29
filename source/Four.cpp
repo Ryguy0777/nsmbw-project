@@ -51,6 +51,11 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daEnShell_c::hitCallback_Ice
   {0x8003A84C + 2, 2},
 
+  // daLiftRemoconMain_c::MultiRemoconShockSet
+  {0x80043A00 + 2, 2},
+  // daLiftRemoconMain_c::PlayerNoRideCheck
+  {0x800441B4 + 2, 2},
+
   // dActor_c::searchNearPlayerNormal
   {0x80064848 + 2, 2},
   // dActor_c::searchNearPlayerLoop
@@ -288,10 +293,10 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80807E10 + 2, 2},
 
   // daKameckForAirshipDemo_c::executeState_Demo1Begin
-    {0x80817D88 + 2, 2},
+  {0x80817D88 + 2, 2},
 
-    // UNDEF_8081dc20
-        {0x8081DD0C + 2, 2},
+  // UNDEF_8081dc20
+  {0x8081DD0C + 2, 2},
 
   // UNDEF_80821030
   {0x80821088 + 2, 2},
@@ -305,7 +310,7 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x8082E9B0 + 2, 2},
 
   // UNDEF_8082f530
-    {0x8082F5CC + 2, 2},
+  {0x8082F5CC + 2, 2},
 
   // UNDEF_80836e50
   {0x80836F20 + 2, 2},

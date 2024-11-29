@@ -115,8 +115,10 @@ int daLastActorStage_c::execute()
         for (int i = 0; i < PLAYER_COUNT && i < dRemoconMng_c::CONNECT_COUNT; i++) {
             if (mBtnPressed[i] != 0) {
                 gameKey->mpCores[i]->m0x30 = gameKey->mpCores[i]->mHeld & mBtnPressed[i];
+                mBtnPressed[i] = 0;
             }
             gameKey->mpCores[i]->mShakeOld = mIsShaking[i];
+            mIsShaking[i] = false;
         }
     }
 

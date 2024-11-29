@@ -208,7 +208,7 @@ void daPyMng_c::setDefaultParam()
 }
 
 [[address(0x8005ED90)]]
-mVec3_c daPyMng_c::getPlayerSetPos(int course, int gotoID);
+mVec3_c daPyMng_c::getPlayerSetPos(u8 course, u8 gotoID);
 
 [[address(0x8005EE90)]]
 u8 daPyMng_c::getPlayerCreateAction();

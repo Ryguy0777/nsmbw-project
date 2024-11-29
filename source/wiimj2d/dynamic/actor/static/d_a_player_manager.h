@@ -66,7 +66,7 @@ public:
 
     /* 0x8005ED90 */
     [[nodiscard]]
-    static mVec3_c getPlayerSetPos(int course, int gotoID);
+    static mVec3_c getPlayerSetPos(u8 course, u8 gotoID);
 
     /* 0x8005EE90 */
     [[nodiscard]]

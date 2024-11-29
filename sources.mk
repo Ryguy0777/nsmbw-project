@@ -54,6 +54,10 @@ SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_jimen_pakkun_base.cpp
 # NSMBW: 0x80037EA0 - 0x8003C9F0
 SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_shell.cpp
 
+# d_a_lift_remocon_main.cpp
+# NSMBW: 0x800439B0 - 0x80044460
+SOURCES += source/wiimj2d/dynamic/actor/static/d_a_lift_remocon_main.cpp
+
 # d_a_player_base.cpp
 # NSMBW: 0x800460D0 - 0x8005B3A0
 SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_base.cpp
