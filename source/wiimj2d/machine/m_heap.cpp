@@ -6,10 +6,8 @@
 namespace mHeap
 {
 
-EXTERN_DATA(
-  0x80377F48, //
-  EGG::Heap* g_gameHeaps[3]
-);
+[[address_data(0x80377F48)]]
+EGG::Heap* g_gameHeaps[3];
 
 [[address(0x8016E630)]]
 EGG::Heap* setCurrentHeap(EGG::Heap* heap);

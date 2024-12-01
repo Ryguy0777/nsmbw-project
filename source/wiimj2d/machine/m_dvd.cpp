@@ -586,4 +586,19 @@ void* loadToMainRAM(
     return result;
 }
 
+void* loadToMainRAM(
+  const char* path, char* dst, EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir,
+  s32 offset, u32* outAmountRead, u32* outFileSize, u32 decompressorType
+)
+{
+    int entryNum = DVDConvertPathToEntrynum(path);
+    if (entryNum < 0) {
+        return nullptr;
+    }
+
+    return loadToMainRAM(
+      entryNum, dst, heap, allocDir, offset, outAmountRead, outFileSize, decompressorType
+    );
+}
+
 } // namespace mDvd

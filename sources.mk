@@ -500,6 +500,10 @@ SOURCES += source/wiimj2d/machine/m_vec.cpp
 # NSMBW: 0x80194A10 - 0x80197440
 SOURCES += source/wiimj2d/sound/SndAudioMgr.cpp
 
+# SndObjctPly.cpp
+# NSMBW: 0x8019A0F0 - 0x8019B240
+SOURCES += source/wiimj2d/sound/SndObjctPly.cpp
+
 #
 # revolution/arc
 #
@@ -599,6 +603,28 @@ SOURCES += source/revolution/kpad/KPAD.c
 # g3d_resfile.cpp
 # NSMBW: 0x80239F70 - 0x8023B2F0
 SOURCES += source/nw4r/g3d/ResFile.cpp
+
+#
+# nw4r/snd
+#
+
+# snd_DvdSoundArchive.cpp
+# NSMBW: 0x80269130 - 0x802697A0
+SOURCES += source/nw4r/snd/DvdSoundArchive.cpp
+
+# snd_SoundArchive.cpp
+# NSMBW: 0x80275780 - 0x80275E80
+SOURCES += source/nw4r/snd/SoundArchive.cpp
+# snd_SoundArchiveFile.cpp
+# NSMBW: 0x80275E80 - 0x80277190
+SOURCES += source/nw4r/snd/SoundArchiveFile.cpp
+# snd_SoundArchiveLoader.cpp
+# NSMBW: 0x80277190 - 0x802777F0
+SOURCES += source/nw4r/snd/SoundArchiveLoader.cpp
+
+# snd_Util.cpp
+# NSMBW: 0x802836F0 - 0x80283BD0
+SOURCES += source/nw4r/snd/Util.cpp
 
 #
 # egg/core

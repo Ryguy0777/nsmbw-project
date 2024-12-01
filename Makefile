@@ -57,7 +57,9 @@ $(DVDDATA)/rels/$(TARGET).rel.LZ \
 $(DVDDATA)/wiimj2d.SMAP \
 $(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/blyt/characterChangeSelectContents_05.brlyt.json5 \
 $(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/timg/Im_plofileMario_00.tpl \
-$(DVDDATA)/Object/Kinopico.arc/g3d/model.brres
+$(DVDDATA)/Object/Kinopico.arc/g3d/model.brres \
+$(DVDDATA)/Sound/BANK_SE_VOC_COURSE_KC.brbnk \
+$(DVDDATA)/Sound/GROUP_SE_VOC_COURSE_KC.brwar
 
 
 $(DVDDATA)/%: $(DVDDATA_SRC)/%

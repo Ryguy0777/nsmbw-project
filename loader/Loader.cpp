@@ -125,7 +125,7 @@ u8* EGG::DvdRipper::loadToMainRAMDecomp(
 [[address_loader(0x802E19D8)]]
 int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
 
-constexpr u32 MODULE_MAX_SIZE = 0x20000;
+constexpr u32 MODULE_MAX_SIZE = 0x30000;
 
 constexpr u32 REGION_INDEX = sizeof("rels/project_") - 1;
 char g_modulePath[] = "rels/project_?1.rel.LZ";

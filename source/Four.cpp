@@ -167,11 +167,18 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dAcPy_c::UNDEF_80147840
   {0x80147904 + 2, 2},
 
+  // daYoshi_c::create
+  {0x8014B964 + 2, 2},
+
   // dfukidashiManager_c::FUN_801572F0
   {0x801572FC + 2, 2},
 
   // dGameDisplay_c::AreaCheck
   {0x80158BA4 + 2, 2},
+
+  // SndObjctPly::startFootSound
+  {0x8019A850 + 2, 2},
+  {0x8019A8B0 + 2, 2},
 
   // dStaffCreditScore_c::initializeState_No1PlayerKiMe
   {0x807AE954 + 2, 2},

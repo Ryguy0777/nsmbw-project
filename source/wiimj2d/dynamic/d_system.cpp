@@ -5,12 +5,19 @@
 
 #include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_remocon_mng.h>
+#include <dynamic/d_resource_manager.h>
 #include <dynamic/layout/scene/d_s_boot.h>
 #include <egg/core/eggController.h>
 #include <machine/m_heap.h>
 #include <machine/m_pad.h>
 #include <revolution/dvd.h>
 #include <revolution/pad.h>
+
+[[address_data(0x8042A370)]]
+EGG::ExpHeap* dSys_c::ms_RootHeapMem1;
+
+[[address_data(0x8042A374)]]
+EGG::ExpHeap* dSys_c::ms_RootHeapMem2;
 
 EXTERN_SYMBOL(0x800E46E0, "#CAE882A9");
 
@@ -53,6 +60,9 @@ EXTERN_SYMBOL(0x800E4F20, "myDylinkInitPhase_4__22@unnamed@d_system_cpp@FPv");
 
 EXTERN_SYMBOL(0x800E4F50, "execute__6dSys_cFv");
 
+namespace dSystem
+{
+
 EXTERN_SYMBOL(0x800E50C0, "createEffectManagerPhase1__7dSystemFPv");
 
 EXTERN_SYMBOL(0x800E5170, "createEffectManagerPhase2__7dSystemFPv");
@@ -67,10 +77,14 @@ EXTERN_SYMBOL(0x800E5310, "fixHeapsSub__7dSystemFPQ23EGG7ExpHeapi");
 
 EXTERN_SYMBOL(0x800E53E0, "fixHeaps__7dSystemFv");
 
-EXTERN_SYMBOL(0x800E5440, "__sinit_\\d_system_cpp");
+} // namespace dSystem
 
 void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
 {
+    // Unlock root heaps
+    ms_RootHeapMem1->mFlags.resetBit(0);
+    ms_RootHeapMem2->mFlags.resetBit(0);
+
     dScBoot_c::initCodeRegion();
 
     __DVDEXInit(arcEntryNum, arcHandle);
@@ -87,6 +101,11 @@ void dSys_c::initCModule()
     dScBoot_c::m_instance->recreate();
 
     daPyMng_c::initGame();
+
+    dResMng_c::m_instance->loadKinopicoSound();
+
+    ms_RootHeapMem1->mFlags.setBit(0);
+    ms_RootHeapMem2->mFlags.setBit(0);
 }
 
 extern "C" int preinit(s32 param1, void* param2)
@@ -102,3 +121,5 @@ extern "C" int main()
 
     return 0;
 }
+
+EXTERN_SYMBOL(0x800E5440, "__sinit_\\d_system_cpp");

@@ -4,13 +4,13 @@ namespace std
 {
 
 template <class T>
-const T& min(const T& l, const T& r)
+constexpr const T& min(const T& l, const T& r)
 {
     return (r < l) ? r : l;
 }
 
 template <class T>
-const T& max(const T& l, const T& r)
+constexpr const T& max(const T& l, const T& r)
 {
     return (l < r) ? r : l;
 }
