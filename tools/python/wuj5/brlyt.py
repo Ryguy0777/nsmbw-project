@@ -98,6 +98,36 @@ def unpack_vstruct(in_data, offset, **kwargs):
             val[field.name] = vals
     return val
 
+def unpack_userdata(in_data, offset, **kwargs):
+    voffset = kwargs['voffset']
+    count = unpack_u16(in_data, offset)
+    offset += 0x4
+    vals = []
+    for i in range(count):
+        entry = {}
+        kwargs = {
+            **kwargs,
+            'voffset': offset,
+        }
+        entry['name'] = unpack_vstring(in_data, offset, **kwargs)
+        val_value = unpack_u32(in_data, offset + 0x4)
+        val_count = unpack_u16(in_data, offset + 0x8)
+        val_type = {
+            0: 'string',
+            1: 'u32',
+            2: 'f32',
+        }[unpack_u8(in_data, offset + 0xA)]
+        if val_type == 'string':
+            entry['value'] = in_data[offset + val_value:offset + val_value + val_count].decode('ascii')
+        elif val_type == 'u32':
+            entry['value'] = [unpack_u32(in_data, offset + val_value + i * 0x4) for i in range(val_count)]
+        elif val_type == 'f32':
+            entry['value'] = [unpack_f32(in_data, offset + val_value + i * 0x4) for i in range(val_count)]
+        entry['count'] = val_count
+        entry['type'] = val_type
+        vals += [entry]
+    return vals
+
 def pack_string64(val, **kwargs):
     return val.encode('ascii').ljust(0x8, b'\0')
 
@@ -202,6 +232,39 @@ def pack_vstruct(val, **kwargs):
             out_data += pack[field.kind](array_val, **kwargs)
     return pack_u32(counts) + out_data
 
+def pack_userdata(vals, **kwargs):
+    out_data = b''.join([
+        pack_u16(len(vals)),
+        b'\x00' * 2,
+    ])
+    out_val_data = b''
+    out_val_offset = len(vals) * 0xC
+    for val in vals:
+        val_name = pack_vstring(val['name'], **kwargs)
+        val_offset = out_val_offset
+        if val['type'] == 'string':
+            out_val_data += val['value'].encode('ascii')
+            out_val_offset += len(val['value'])
+        elif val['type'] == 'u32':
+            out_val_data += b''.join(pack_u32(value) for value in val['value'])
+            out_val_offset += 0x4 * len(val['value'])
+        elif val['type'] == 'f32':
+            out_val_data += b''.join(pack_f32(value) for value in val['value'])
+            out_val_offset += 0x4 * len(val['value'])
+        else:
+            sys.exit(f'Unexpected userdata type {val["type"]}.')
+        val_name_offset = out_val_offset
+        out_data += pack_u32(val_name_offset)
+        out_data += pack_u32(val_offset)
+        out_data += pack_u16(len(val['value']))
+        out_data += {
+            'string': pack_u8(0),
+            'u32': pack_u8(1),
+            'f32': pack_u8(2),
+        }[val['type']]
+        out_data += pack_u8(0) # padding
+    return out_data + out_val_data
+
 brlyt_size = {
     **size,
     'string64': 0x8,
@@ -215,6 +278,7 @@ brlyt_size = {
     'varray8o': 0x8,
     'varray16': 0x4,
     'vstruct': 0x4,
+    'userdata': 0x4,
 }
 
 brlyt_unpack = {
@@ -230,6 +294,7 @@ brlyt_unpack = {
     'varray8o': unpack_varray8o,
     'varray16': unpack_varray16,
     'vstruct': unpack_vstruct,
+    'userdata': unpack_userdata,
 }
 
 brlyt_pack = {
@@ -245,6 +310,7 @@ brlyt_pack = {
     'varray8o': pack_varray8o,
     'varray16': pack_varray16,
     'vstruct': pack_vstruct,
+    'userdata': pack_userdata,
 }
 
 
@@ -549,6 +615,11 @@ gre1_fields = [
     *base_fields,
 ]
 
+usd1_fields = [
+    *base_fields,
+    Field('userdata', 'userdata'),
+]
+
 section_fields = {
     'lyt1': lyt1_fields,
     'txl1': txl1_fields,
@@ -564,6 +635,7 @@ section_fields = {
     'grp1': grp1_fields,
     'grs1': grs1_fields,
     'gre1': gre1_fields,
+    'usd1': usd1_fields,
 }
 
 def unpack_sections(in_data, offset, parent_magic):

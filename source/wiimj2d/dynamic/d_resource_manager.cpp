@@ -25,7 +25,6 @@ static void addKinopicoSound(u32 newId, u32 copyId, const char* newName)
 
 void dResMng_c::loadKinopicoSound()
 {
-
     // Load bank data
     void* bnkData = mDvd::loadToMainRAM(
       "/Sound/BANK_SE_VOC_COURSE_KC.brbnk", nullptr, dSys_c::ms_RootHeapMem2,
