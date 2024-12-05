@@ -55,6 +55,11 @@ public:
         return getEntryNum() == 1;
     }
 
+    [[nodiscard]]
+    static bool isPlayerActive(int player) {
+        return mActPlayerInfo & (1 << player);
+    }
+
     /* 0x8005EA60 */
     static void initGame();
 
@@ -158,6 +163,9 @@ public:
     /* 0x80060860 */
     static void stopYoshiBGM();
 
+    /* 0x800608E0 @unofficial */
+    static void updateBGM();
+
     /* 0x80060970 */
     static void executeLastPlayer();
 
@@ -218,7 +226,7 @@ public:
     static s32 mCreateItem[CHARACTER_COUNT];
 
     /* 0x80355190 */
-    static s32 mRest[CHARACTER_COUNT];
+    static int mRest[CHARACTER_COUNT];
 
     /* 0x803551A0 */
     static s32 mCoin[CHARACTER_COUNT];
@@ -248,7 +256,7 @@ public:
     static u16 m_star_count[CHARACTER_COUNT];
 
     /* 0x80429FA0 */
-    static s32 mScore;
+    static int mScore;
 
     // This is some enum idk what it is
     /* 0x80429FA4 */

@@ -1,9 +1,9 @@
 CC	    := clang
-CFLAGS	:= -O4 -I.
+CFLAGS	:= -O3 -I. -Wno-pointer-sign
 CLIBS	=
 
 all: lzx.c
-	$(CC) $(COPTS) -o ../../win32/lzx.exe lzx.c $(CLIBS) -Wno-deprecated-declarations
+	$(CC) $(CFLAGS) -o ../../macos/lzx lzx.c $(CLIBS) -Wno-deprecated-declarations
 
 clean:
-	rm -f ../../win32/lzx.exe
+	rm -f ../../macos/lzx

@@ -30,11 +30,13 @@ public:
         return 1 << bit;
     }
 
+    [[nodiscard]]
     bool on(T mask) const
     {
         return (value & mask);
     }
 
+    [[nodiscard]]
     bool off(T mask) const
     {
         return !(value & mask);
@@ -50,11 +52,13 @@ public:
         value &= ~mask;
     }
 
+    [[nodiscard]]
     bool onBit(u8 bit) const
     {
         return on(makeMask(bit));
     }
 
+    [[nodiscard]]
     bool offBit(u8 bit) const
     {
         return off(makeMask(bit));
@@ -88,6 +92,7 @@ public:
         }
     }
 
+    [[nodiscard]]
     T getDirect() const
     {
         return value;

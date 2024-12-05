@@ -279,6 +279,12 @@ SOURCES += source/wiimj2d/dynamic/d_next.cpp
 # NSMBW: 0x800D0A90 - 0x800D15F0
 SOURCES += source/wiimj2d/dynamic/d_pause_manager.cpp
 
+# d_player_effect.cpp
+# NSMBW: 0x800D2AE0 - 0x800D2D10
+SOURCES += source/wiimj2d/dynamic/d_player_effect.cpp
+# d_player_effect_mng.cpp
+# NSMBW: 0x800D2D10 - 0x800D2EC0
+SOURCES += source/wiimj2d/dynamic/d_player_effect_mng.cpp
 # d_player_model.cpp
 # NSMBW: 0x800D2EC0 - 0x800D5420
 SOURCES += source/wiimj2d/dynamic/d_player_model.cpp
@@ -288,6 +294,10 @@ SOURCES += source/wiimj2d/dynamic/d_player_model_base.cpp
 # d_player_model_manager.cpp
 # NSMBW: 0x800D6DB0 - 0x800D7190
 SOURCES += source/wiimj2d/dynamic/d_player_model_manager.cpp
+
+# d_quake.cpp
+# NSMBW: 0x800D8940 - 0x800D91B0
+SOURCES += source/wiimj2d/dynamic/d_quake.cpp
 
 # d_remocon_mng.cpp
 # NSMBW: 0x800DBFD0 - 0x800DDA40
@@ -423,6 +433,9 @@ SOURCES += source/wiimj2d/dynamic/layout/scene/d_bg_gm.cpp
 # d_fukidashiManager.cpp
 # NSMBW: 0x80156FE0 - 0x80157820
 SOURCES += source/wiimj2d/dynamic/layout/scene/d_fukidashiManager.cpp
+# d_gamedisplay.cpp
+# 0x80157820 - 0x8015A480
+SOURCES += source/wiimj2d/dynamic/layout/scene/d_gamedisplay.cpp
 
 # d_s_boot.cpp
 # NSMBW: 0x8015C270 - 0x8015F270

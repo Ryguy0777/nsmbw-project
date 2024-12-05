@@ -8,14 +8,12 @@ namespace nw4r::ut
 
 struct Color : GXColor {
     constexpr Color(u8 r = 0, u8 g = 0, u8 b = 0, u8 a = 255)
+      : GXColor{r, g, b, a}
     {
-        r = r;
-        g = g;
-        b = b;
-        a = a;
     }
 
     constexpr Color(const char (&colorCode)[8], u8 alpha = 255)
+      : GXColor{0, 0, 0, 0}
     {
         a = alpha;
 
@@ -45,6 +43,7 @@ struct Color : GXColor {
     }
 
     constexpr Color(const char (&colorCode)[10])
+      : GXColor{0, 0, 0, 0}
     {
         if (colorCode[0] != '#') {
             r = 0;

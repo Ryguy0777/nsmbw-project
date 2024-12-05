@@ -72,6 +72,8 @@ void dScBoot_c::executeState_ProcEnd()
         daPyMng_c::mCreateItem[i] = 0;
     }
 
+    daPyMng_c::mPlayerEntry[4] = 1;
+
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,
       .demoType = 0,

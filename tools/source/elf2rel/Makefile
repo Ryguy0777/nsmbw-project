@@ -1,9 +1,9 @@
 CC	= clang
-COPTS	= -O2 -I.
-CLIBS	=
+COPTS	= -O2 -I. -std=c++20
+CLIBS	= -lc++
 
 all: elf2rel.cpp elf2rel.h
-	$(CC) $(COPTS) -o ../../win32/elf2rel.exe elf2rel.cpp $(CLIBS) -Wno-deprecated-declarations
+	$(CC) $(COPTS) -o ../../macos/elf2rel elf2rel.cpp $(CLIBS) -Wno-deprecated-declarations
 
 clean:
-	rm -f ../../win32/elf2rel.exe
+	rm -f ../../macos/elf2rel

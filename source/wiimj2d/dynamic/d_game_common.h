@@ -1,5 +1,7 @@
 #pragma once
 
+class LytTextBox_c;
+
 namespace dGameCom
 {
 
@@ -20,5 +22,11 @@ bool chkCancelButton(int player);
 
 /* 0x800B3B50 */
 bool isGameStop(u32 flag);
+
+/* 0x800B3B60 @unofficial */
+void setNumInTextBox(int* value, int* maxChars, LytTextBox_c* textBox, int itoaType);
+
+/* 0x800B4780 */
+void Player1upColor(LytTextBox_c* textBox, int player);
 
 } // namespace dGameCom

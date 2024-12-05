@@ -2,19 +2,20 @@
 SUFFIXES += .d
 
 # Project directory
-BUILD := build
+BUILD := ./build
 ARCHIVE := NSMBWProjectData
 DVDDATA := $(BUILD)/$(ARCHIVE).arc.d
-DVDDATA_SRC := assets/dvddata
+DVDDATA_SRC := ./assets/dvddata
 TARGET := project_P1
 LOADER := Loader
-OUTPUT := output/riivolution/mkwcat-special-nsmbw-project
-TOOLS := tools/x86_64-windows
+OUTPUT := ./output/riivolution/mkwcat-special-nsmbw-project
+TOOLS := ./tools/macos
 
 
 # Compiler definitions
 # CLANG := $(TOOLS)/clang
-CLANG := D:\wii\repo\llvm-project\build\bin\clang
+# CLANG := D:\wii\repo\llvm-project\build\bin\clang
+CLANG := /Users/mkwcat/Documents/repo/llvm-project/build/bin/clang
 CC := $(CLANG)
 LD := $(DEVKITPPC)/bin/powerpc-eabi-ld
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
@@ -30,21 +31,24 @@ OFILES := $(addprefix $(BUILD)/, $(OFILES))
 DEPS := $(OFILES:.o=.d)
 
 OUTDIRS := $(sort $(dir $(OFILES)))
-DUMMY != mkdir -p $(OUTDIRS)
 
 LOADER_CPPFILES := loader/Loader.cpp
 LOADER_OFILES := $(LOADER_CPPFILES:.cpp=_cpp.o)
 LOADER_OFILES := $(addprefix $(BUILD)/, $(LOADER_OFILES))
 LOADER_DEPS	:= $(LOADER_OFILES:.o=.d)
 
-DUMMY != mkdir -p $(BUILD)/source $(BUILD)/loader $(OUTPUT) $(DVDDATA) 
-
-CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -Os -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wno-out-of-line-declaration -Wno-gcc-compat -Wno-invalid-offsetof \
+CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -Os -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wno-out-of-line-declaration -Wno-gcc-compat -Wno-invalid-offsetof -Wno-nested-anon-types -Wno-gnu-anonymous-struct \
 -fdeclspec -fno-exceptions -nodefaultlibs -ffreestanding -ffunction-sections -fdata-sections -fno-threadsafe-statics -fno-use-cxa-atexit \
 -Isource -Isource/msl/msl_c -Isource/msl/msl_cpp -Isource/wiimj2d -DLOADER_REL_LZ -fkeep-static-consts -femit-all-decls -include System.h
 
-default: $(OUTPUT)/$(ARCHIVE).arc $(OUTPUT)/$(LOADER).img
+.PHONY: all
+all: make_build $(OUTPUT)/$(ARCHIVE).arc $(OUTPUT)/$(LOADER).img
 
+.PHONY: make_build
+make_build:
+	@mkdir -p $(BUILD) $(BUILD)/source $(BUILD)/loader $(OUTDIRS) $(OUTPUT) $(DVDDATA)
+
+.PHONY: clean
 clean:
 	@echo Cleaning...
 	@rm -rf $(BUILD)
@@ -71,11 +75,11 @@ $(DVDDATA)/%: $(DVDDATA_SRC)/%
 
 $(BUILD)/%_c.o: %.c
 	@echo $<
-	@$(CC) -x c++ -MMD $(CFLAGS) -c -o $@ ./$<
+	@$(CC) -x c++ -MMD $(CFLAGS) -c -o ./$@ ./$<
 
 $(BUILD)/%_cpp.o: %.cpp
 	@echo $<
-	@$(CC) -x c++ -MMD $(CFLAGS) -c -o $@ ./$<
+	@$(CC) -x c++ -MMD $(CFLAGS) -c -o ./$@ ./$<
 
 $(BUILD)/$(TARGET)_ungc.elf: $(OFILES)
 	@echo Link: $(TARGET)_ungc.elf

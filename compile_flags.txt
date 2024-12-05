@@ -24,3 +24,5 @@ source/System.h
 -Wno-unknown-attributes
 -Wno-gcc-compat
 -Wno-invalid-offsetof
+-Wno-nested-anon-types
+-Wno-gnu-anonymous-struct

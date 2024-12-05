@@ -16,4 +16,14 @@ public:
     // -----------
 
     /* 0x8042A2A0 */ static dNext_c* m_instance;
+
+public:
+    // -----------
+    // Member Data
+    // -----------
+
+    FILL(0x00, 0x18);
+
+    /* 0x18 */ bool mExitReq;
+    /* 0x1C */ s32 mTimer;
 };

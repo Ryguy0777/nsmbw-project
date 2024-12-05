@@ -12,6 +12,15 @@ public:
 
 public:
     // -----------
+    // Member Data
+    // -----------
+
+    FILL(0x00, 0x0C);
+
+    /* 0x0C */ bool mPause;
+
+public:
+    // -----------
     // Static Data
     // -----------
 

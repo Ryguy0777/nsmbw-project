@@ -3,9 +3,9 @@
 
 #include "d_a_player.h"
 
+#include <dynamic/actor/player/d_a_yoshi.h>
 #include <dynamic/actor/static/d_a_player_demo_manager.h>
 #include <dynamic/actor/static/d_a_player_manager.h>
-#include <dynamic/actor/player/d_a_yoshi.h>
 #include <dynamic/d_fader.h>
 #include <dynamic/worldmap/d_s_stage.h>
 #include <framework/f_base.h>
@@ -83,7 +83,7 @@ void dAcPy_c::stopOtherDownDemo()
 }
 
 /**
- * Actually a virtual function
+ * VT+0x28C
  */
 [[address(0x801400B0)]]
 void dAcPy_c::executeDemoGoal_Run() ASM_METHOD(

@@ -32,11 +32,8 @@ public:
      */
     virtual int create() override;
 
-    /**
-     * 0x801400B0
-     * Actually a virtual function
-     */
-    void executeDemoGoal_Run();
+    /* VT+0x28C 0x801400B0 */
+    void executeDemoGoal_Run() override;
 
 public:
     // -----------

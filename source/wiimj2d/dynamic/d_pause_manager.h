@@ -7,6 +7,9 @@ public:
     // Member Functions
     // ----------------
 
+    /* 0x800D0C10 */
+    void setPauseEnable(bool enable);
+
     /* 0x800D1350 */
     void setPause();
 

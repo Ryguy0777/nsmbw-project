@@ -5,6 +5,8 @@
 
 #include <dynamic/actor/static/d_a_player_manager.h>
 #include <dynamic/d_info.h>
+#include <nw4r/ut/Color.h>
+#include <dynamic/d_lyttextbox.h>
 
 namespace dGameCom
 {
@@ -120,5 +122,38 @@ UNDEF_800b3704:;
 
 [[address(0x800B3B50)]]
 bool isGameStop(u32 flag);
+
+/* @unofficial */
+[[address(0x800B3B60)]]
+void setNumInTextBox(int* value, int* maxChars, LytTextBox_c* textBox, int itoaType);
+
+[[address(0x800B4780)]]
+void Player1upColor(LytTextBox_c* textBox, int player)
+{
+    static constinit const nw4r::ut::Color l_PLY_COLOR_0[] = {
+      "#FFFF32", // Mario
+      "#D2FF00", // Luigi
+      "#D2F0FF", // Blue Toad
+      "#FFFF64", // Yellow Toad
+      "#FFBEFF", // Toadette
+      "#FFFFFF", // Player 5
+      "#FFFFFF", // Player 6
+      "#FFFFFF", // Player 7
+    };
+
+    static constinit const nw4r::ut::Color l_PLY_COLOR_2[] = {
+      "#E60000", // Mario
+      "#197D0A", // Luigi
+      "#1E2DF0", // Blue Toad
+      "#FFBE00", // Yellow Toad
+      "#D676D6", // Toadette
+      "#FFFFFF", // Player 5
+      "#FFFFFF", // Player 6
+      "#FFFFFF", // Player 7
+    };
+
+    textBox->SetVtxColor(0, l_PLY_COLOR_0[player]);
+    textBox->SetVtxColor(2, l_PLY_COLOR_2[player]);
+}
 
 } // namespace dGameCom

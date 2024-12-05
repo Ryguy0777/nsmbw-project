@@ -132,6 +132,15 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dEnTorideKokoopa_c::calcAttackTarget
   {0x800AA348 + 2, 2},
 
+  // dGameCom::CreateBlueNumber
+  {0x800B34D0 + 2, 2, -1},
+  // dGameCom::CreateRedNumber
+  {0x800B3510 + 2, 2, -1},
+  // dGameCom::CreateSmallScore
+  {0x800B355C + 2, 2, -1},
+  // dGameCom::GoalScoreExecute
+  {0x800B35D0 + 2, 2, -1},
+
   // PauseManager_c::setPause
   {0x800D152C + 2, 2},
   {0x800D157C + 2, 2},

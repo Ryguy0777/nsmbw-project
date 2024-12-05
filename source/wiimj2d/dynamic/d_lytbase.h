@@ -22,6 +22,9 @@ public:
     /* VT+0x14 0x800C8A60 */
     virtual bool build(const char* lytName, d2d::ResAccMult_c* resAcc) override;
 
+    /* 0x800C8D00 */
+    bool ReadResource(const char* arcName, bool param2);
+
     /* 0x800C8E50 */
     void NPaneRegister(const char** paneNames, nw4r::lyt::Pane** nullPanes, int count);
 
@@ -33,6 +36,9 @@ public:
 
     /* 0x800C8FA0 */
     void TPaneRegister(const char** paneNames, LytTextBox_c** textBoxPanes, int count);
+
+    /* 0x800C9010 */
+    void TPaneNameRegister(const char** paneNames, const int* param2, int param3, int count);
 
     /* 0x800C90A0 */
     void AnimeResRegister(const char** animNames, int count);

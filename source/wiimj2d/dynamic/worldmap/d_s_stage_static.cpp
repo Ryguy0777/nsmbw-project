@@ -35,6 +35,9 @@ bool dScStage_c::m_isReplayGoal;
 /* 0x803744D0 */
 dScStage_c::ReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
+[[address(0x80101A70)]]
+dGameDisplay_c* dScStage_c::getGameDisplay();
+
 [[address(0x80101AA0)]]
 void dScStage_c::setLoopType() ASM_METHOD(
   // clang-format off

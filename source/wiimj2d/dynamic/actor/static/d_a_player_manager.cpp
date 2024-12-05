@@ -3,13 +3,19 @@
 
 #include "d_a_player_manager.h"
 
-#include <dynamic/actor/static/d_a_player_demo_manager.h>
 #include <dynamic/actor/player/d_a_player.h>
 #include <dynamic/actor/player/d_a_yoshi.h>
+#include <dynamic/actor/static/d_a_player_demo_manager.h>
 #include <dynamic/d_course_data.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_multi_manager.h>
+#include <dynamic/d_next.h>
+#include <dynamic/d_pause_manager.h>
+#include <dynamic/d_player_effect_mng.h>
+#include <dynamic/d_quake.h>
+#include <dynamic/d_stage_timer.h>
+#include <dynamic/layout/scene/d_gamedisplay.h>
 #include <dynamic/worldmap/d_s_stage.h>
 #include <framework/f_manager.h>
 #include <framework/f_sound_id.h>
@@ -50,7 +56,7 @@ s32 daPyMng_c::mCreateItem[CHARACTER_COUNT];
 
 /* 0x80355190 */
 // Index is player type
-s32 daPyMng_c::mRest[CHARACTER_COUNT] = {5, 5, 5, 5, 5, 5, 5, 5};
+int daPyMng_c::mRest[CHARACTER_COUNT] = {5, 5, 5, 5, 5, 5, 5, 5};
 
 /* 0x803551A0 */
 // Index is player type
@@ -82,7 +88,7 @@ u16 daPyMng_c::m_star_time[CHARACTER_COUNT];
 u16 daPyMng_c::m_star_count[CHARACTER_COUNT];
 
 [[address_data(0x80429FA0)]]
-s32 daPyMng_c::mScore;
+int daPyMng_c::mScore;
 
 [[address_data(0x80429FA4)]]
 int daPyMng_c::mKinopioMode;
@@ -335,6 +341,78 @@ void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
 }
 
 [[address(0x8005F5C0)]]
+void daPyMng_c::update()
+{
+    updateBGM();
+    if (dGameDisplay_c* display = dScStage_c::getGameDisplay()) {
+        display->updatePlayNum(mRest);
+        display->setCoinNum(getCoinAll());
+        display->setScore(mScore);
+        display->setCollect();
+    }
+
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        if (m_quakeTimer[i] != 0) {
+            m_quakeTimer[i]--;
+            if (m_quakeTimer[i] == 0) {
+                m_quakeEffectFlag[i] = 0;
+            }
+        }
+    }
+
+    if (dNext_c::m_instance->mExitReq) {
+        bool wait = false;
+
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            if (!isPlayerActive(i)) {
+                continue;
+            }
+
+            if (daPlBase_c* player = getCtrlPlayer(i);
+                player && !player->isStatus(100) && !player->isWaitFrameCountMax()) {
+                wait = true;
+            }
+        }
+
+        if (!wait) {
+            dNext_c::m_instance->mTimer = 0;
+        }
+    }
+
+    if (dQuake_c::m_instance->mFlags.off(0x38)) {
+        mQuakeTrigger = 0;
+    } else if (mQuakeTrigger == 0) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            daPlBase_c* player = getCtrlPlayer(i);
+            if (player == nullptr) {
+                continue;
+            }
+
+            if (dQuake_c::m_instance->mFlags.on(0x20)) {
+                player->onStatus(139);
+            } else if (dQuake_c::m_instance->mFlags.on(0x8) || m_quakeEffectFlag[i] == 0) {
+                player->onStatus(140);
+            }
+        }
+
+        mQuakeTrigger = 1;
+    } else {
+        mQuakeTrigger = 1;
+    }
+
+    PauseManager_c::m_instance->setPauseEnable(mPauseDisable == 0);
+
+    if (mStopTimerInfo != mStopTimerInfoOld) {
+        dStageTimer_c::m_instance->mPause = mStopTimerInfo != 0;
+        mStopTimerInfoOld = mStopTimerInfo;
+    }
+
+    daPyDemoMng_c::mspInstance->update();
+    dPyEffectMng_c::mspInstance->update();
+}
+
+#if 0
+[[address(0x8005F5C0)]]
 void daPyMng_c::update() ASM_METHOD(
   // clang-format off
 /* 8005F5C0 9421FFD0 */  stwu     r1, -48(r1);
@@ -519,6 +597,7 @@ UNDEF_8005f850:;
 /* 8005F874 4E800020 */  blr;
   // clang-format on
 );
+#endif
 
 [[address(0x8005F8C0)]]
 void daPyMng_c::setPlayer(int index, dAcPy_c* player);
@@ -728,6 +807,10 @@ void daPyMng_c::stopStarBGM();
 // TODO (not that important)
 [[address(0x80060860)]]
 void daPyMng_c::stopYoshiBGM();
+
+/* 0x800608E0 @unofficial */
+[[address(0x800608E0)]]
+void daPyMng_c::updateBGM();
 
 [[address(0x80060970)]]
 void daPyMng_c::executeLastPlayer()

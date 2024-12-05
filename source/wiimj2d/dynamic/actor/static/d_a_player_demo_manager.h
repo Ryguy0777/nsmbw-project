@@ -52,6 +52,9 @@ public:
     /* 0x8005B4A0 */
     void init();
 
+    /* 0x8005B550 */
+    void update();
+
     /* 0x8005B5C0 */
     void setDemoMode(Mode_e mode, int state);
 

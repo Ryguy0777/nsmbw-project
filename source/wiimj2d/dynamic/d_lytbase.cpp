@@ -14,6 +14,9 @@ LytBase_c::~LytBase_c();
 [[address(0x800C8A60)]]
 bool LytBase_c::build(const char* lytName, d2d::ResAccMult_c* resAcc);
 
+[[address(0x800C8D00)]]
+bool LytBase_c::ReadResource(const char* arcName, bool param2);
+
 [[address(0x800C8E50)]]
 void LytBase_c::NPaneRegister(const char** paneNames, nw4r::lyt::Pane** nullPanes, int count);
 
@@ -27,6 +30,9 @@ void LytBase_c::PPaneRegister(
 
 [[address(0x800C8FA0)]]
 void LytBase_c::TPaneRegister(const char** paneNames, LytTextBox_c** textBoxPanes, int count);
+
+[[address(0x800C9010)]]
+void LytBase_c::TPaneNameRegister(const char** paneNames, const int* param2, int param3, int count);
 
 [[address(0x800C90A0)]]
 void LytBase_c::AnimeResRegister(const char** animNames, int count);

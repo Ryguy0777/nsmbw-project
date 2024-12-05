@@ -38,6 +38,9 @@ void daPyDemoMng_c::init()
     }
 }
 
+[[address(0x8005B550)]]
+void daPyDemoMng_c::update();
+
 [[address(0x8005B5C0)]]
 void daPyDemoMng_c::setDemoMode(Mode_e mode, int state);
 

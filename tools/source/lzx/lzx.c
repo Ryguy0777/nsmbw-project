@@ -20,7 +20,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <io.h>
 
 /*----------------------------------------------------------------------------*/
 #define CMD_DECODE    0x00       // decode
@@ -76,10 +75,10 @@ int main(int argc, char **argv) {
   int arg;
 
   if (argc < 2) Usage();
-  if      (!strcmpi(argv[1], "-evb")) { cmd = CMD_CODE_11; vram = LZX_VRAM; }
-  else if (!strcmpi(argv[1], "-ewb")) { cmd = CMD_CODE_11; vram = LZX_WRAM; }
-  else if (!strcmpi(argv[1], "-evl")) { cmd = CMD_CODE_40; vram = LZX_VRAM; }
-  else if (!strcmpi(argv[1], "-ewl")) { cmd = CMD_CODE_40; vram = LZX_WRAM; }
+  if      (!strcmp(argv[1], "-evb")) { cmd = CMD_CODE_11; vram = LZX_VRAM; }
+  else if (!strcmp(argv[1], "-ewb")) { cmd = CMD_CODE_11; vram = LZX_WRAM; }
+  else if (!strcmp(argv[1], "-evl")) { cmd = CMD_CODE_40; vram = LZX_VRAM; }
+  else if (!strcmp(argv[1], "-ewl")) { cmd = CMD_CODE_40; vram = LZX_WRAM; }
   else                                  EXIT("Command not supported\n");
   if (argc < 3) EXIT("Filename not specified\n");
   if (argc < 4) EXIT("Out filename not specified\n");
@@ -131,7 +130,9 @@ char *Load(char *filename, int *length, int min, int max) {
   char *fb;
 
   if ((fp = fopen(filename, "rb")) == NULL) EXIT("\nFile open error\n");
-  fs = filelength(fileno(fp));
+  if (fseek(fp, 0, SEEK_END)) EXIT("\nFile seek error\n");
+  fs = ftell(fp);
+  if (fseek(fp, 0, SEEK_SET)) EXIT("\nFile seek error\n");
   if ((fs < min) || (fs > max)) EXIT("\nFile size error\n");
   fb = Memory(fs + 3, sizeof(char));
   if (fread(fb, 1, fs, fp) != fs) EXIT("\nFile read error\n");
@@ -248,7 +249,7 @@ void LZX_Decode(char *filename) {
         len = raw_end - raw;
       }
 
-      while (len--) *raw++ = *(raw - pos);
+      while (len--, raw++) *raw = *(raw - pos);
     }
   }
 

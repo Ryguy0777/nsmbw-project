@@ -5,6 +5,8 @@
 #include <dynamic/d_remocon_mng.h>
 #include <framework/f_base_profile.h>
 
+class dGameDisplay_c;
+
 class dScStage_c
 {
 public:
@@ -35,6 +37,9 @@ public:
     {
         return m_isCourseIn;
     }
+
+    /* 0x80101A70 */
+    static dGameDisplay_c* getGameDisplay();
 
     /* 0x80101AA0 */
     static void setLoopType();
@@ -86,7 +91,11 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x0000, 0x120C);
+    FILL(0x0000, 0x11D4);
+
+    /* 0x11D4 */ dGameDisplay_c* mpGameDisplay;
+
+    FILL(0x11D8, 0x120C);
 
     /* 0x120C */ WORLD_e mWorld;
     /* 0x120D */ STAGE_e mStage;
