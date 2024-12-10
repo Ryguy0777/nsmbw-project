@@ -3,7 +3,7 @@
 
 #include "d_a_en_bomhei.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 
 [[address(0x809C9DD0)]]
 void UNDEF_809C9DD0() ASM_METHOD(

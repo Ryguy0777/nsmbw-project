@@ -4,9 +4,9 @@
 #include "d_game_key_core.h"
 
 #include <cmath>
-#include <dynamic/actor/player/d_a_player.h>
-#include <dynamic/actor/static/d_a_player_manager.h>
-#include <dynamic/worldmap/d_s_stage.h>
+#include <dynamic/system/d_a_player.h>
+#include <dynamic/d_a_player_manager.h>
+#include <dynamic/bases/d_s_stage.h>
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
 

@@ -3,10 +3,10 @@
 
 #include "d_system.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_resource_manager.h>
-#include <dynamic/layout/scene/d_s_boot.h>
+#include <dynamic/system/d_s_boot.h>
 #include <egg/core/eggController.h>
 #include <machine/m_heap.h>
 #include <machine/m_pad.h>

@@ -5,7 +5,7 @@
 #include "Four.h"
 
 #include <cstring>
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <revolution/os.h>
 
 struct FourPatch {
@@ -73,6 +73,11 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dAttention_c::UNDEF_800693e0
   {0x800694C8 + 2, 2},
 
+  // dAudio::createNonPosSndObjPly
+  {0x80069EF4 + 2, 2},
+  // dAudio::deleteNonPosSndObjPly
+  {0x8006A068 + 2, 2},
+
   // dBalloonMng_c::execute
   {0x8006C2CC + 2, 2},
   {0x8006C36C + 2, 2},
@@ -88,6 +93,8 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80097974 + 2, 2},
   // dEn_c::PlayerCarryCheck
   {0x800979F8 + 2, 2},
+  // dEn_c::setNicePoint_Death
+  {0x80097E34 + 2, 2, -1},
 
   // dEnBossKoopaJrBase_c::setFireDamage
   {0x8009C0BC + 2, 2, -1},
@@ -112,6 +119,8 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dEn_c::initializeState_DieFall
   {0x800A16F8 + 2, 2},
   {0x800A17A4 + 2, 2, -1},
+  // dEn_c::initializeState_DieIceVanish
+  {0x800A1A48 + 2, 2, -1},
 
   // dEnTorideKokoopa_c::setFumiDamage
   {0x800A9204 + 2, 2, -1},
@@ -158,6 +167,10 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dQuake_c::UNDEF_800d8e20
   {0x800D8EA4 + 2, 2},
 
+  // UNDEF_800e2070 - Not sure what this is for or if it's ever used, player ID 5 will always score
+  // a 1-up for everyone in this function fsr
+  {0x800E2098 + 2, 2, +1},
+
   // dWaterWave_c::waveExecute
   {0x800EDDF8 + 2, 2},
 
@@ -199,6 +212,9 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
 
   // UNDEF_807c3700
   {0x807C3804 + 2, 2},
+
+  // daBombJrC_c::initializeState_DieFall
+  {0x807C606C + 2, 2, -1},
 
   // daBossKameckDemo_c::executeState_BattleStDemo
   {0x807C8180 + 2, 2},
@@ -349,6 +365,10 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80843fd0
   {0x80844124 + 2, 2},
 
+  // daLineKinokoBlock_c::UNDEF_808575c0
+  {0x80857614 + 2, 2},
+  {0x80857664 + 2, 2},
+
   // UNDEF_8085b020
   {0x8085B224 + 2, 2},
 
@@ -441,11 +461,20 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daWakiTobiPuku_c::executeState_NormalWaki
   {0x808BB420 + 2, 2},
 
-  // daWarpCannon_c::UNDEF_808bcc00
+  // daWarpCannon_c::UNDEF_808bcc00 - checks number of players in warp cannon
   {0x808BCC54 + 2, 2},
 
   // daWarpCannon_c::UNDEF_808bcc80
   {0x808BCDE8 + 2, 2},
+
+  // daEnBirikyu_c::initializeState_DieFall
+  {0x809BD1CC + 2, 2, -1},
+
+  // daEnFireSnake_c::initializeState_DieFall
+  {0x809FB744 + 2, 2, -1},
+
+  // daEnGakeNoko_c::initializeState_DieFumi
+  {0x80A035A8 + 2, 2, -1},
 
   // daEnGlpole_c::checkPlayerCollision
   {0x80A0B298 + 2, 2},
@@ -453,18 +482,83 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80A0AFE4 + 2, 2},
   {0x80A0B0D0 + 2, 2},
 
+  // daEnHanachan_c::initializeState_DieFall
+  {0x80A15204 + 2, 2, -1},
+
+  // TODO 80a16d40 daEnHimanBros_c::UNDEF_80a16d40
+  // TODO 80a16de0 daEnHimanBros_c::UNDEF_80a16de0
+
+  // TODO 80a1a4c0 daEnHnswich_c::UNDEF_80a1a4c0
+
+  // daEnIcicle_c::UNDEF_80a212e0
+  {0x80A21380 + 2, 2},
+
+  // daEnItem_c::UNDEF_80a28770
+  {0x80A28814 + 2, 2},
+
+  // daEnJellyFish_c::UNDEF_80a30810
+  {0x80A3096C + 2, 2},
+
+  // daEnJugemBody_c::UNDEF_80a36da0
+  {0x80A36E28 + 2, 2, -1},
+
   // UNDEF_80a39660
   {0x80A39728 + 2, 2, -1},
   // UNDEF_80a399b0
   {0x80A39A30 + 2, 2},
 
-  // UNDEF_80a658e0
+  // daEnKeronpa_c::initializeState_DieFall
+  {0x80A4792C + 2, 2, -1},
+
+  // daEnKiller::UNDEF_80a4a9d0
+  {0x80A4AA60 + 2, 2, -1},
+
+  // daEnLiftRemoconTrampoline_c::execute
+  {0x80A5CB84 + 2, 2},
+  // daEnLiftRemoconTrampoline_c::UNDEF_80a5cc80
+  {0x80A5CCD8 + 2, 2},
+
+  // daEnManholeChoropu_c::UNDEF_80a60c20
+  {0x80A60D1C + 2, 2},
+
+  // daEnMechaKoopa_c::doDelete
+  {0x80A64F14 + 2, 2},
+  // daEnMechaKoopa_c::hitCallback_Ice
   {0x80A65958 + 2, 2},
   {0x80A659D8 + 2, 2},
+  // daEnMechaKoopa_c::finalizeState_Carry
+  {0x80A65FD8 + 2, 2},
 
-  // daEnPata_c::UNDEF_80a84ca0
+  // daEnMistMan_c::initializeState_Vanish
+  {0x80A6CAE4 + 2, 2, -1},
+  // daEnMistMan_c::initializeState_IceBreak
+  {0x80A6CDA8 + 2, 2, -1},
+
+  // daEnOnewayGate_c::UNDEF_80a7c550
+  {0x80A7C728 + 2, 2},
+
+  // daEnPata_c::hitCallback_Ice
   {0x80A84D48 + 2, 2},
-  {0x80A84D90 + 2, 2},
+
+  // daEnPolter_c::UNDEF_80a86b70
+  {0x80A86CF4 + 2, 2},
+  // daEnPolter_c::UNDEF_80a86d20
+  {0x80A86E24 + 2, 2},
+
+  // daEnPuku_c::UNDEF_80a89840
+  {0x80A898D8 + 2, 2, -1},
+
+  // daEnSanbo_c::initializeState_CriticalDie
+  {0x80A9ECBC + 2, 2, -1},
+
+  // TODO: daEnRailPolyChild_c::UNDEF_80a8ee60
+
+  // TODO 80a95990, 80a95c00, 80a95c90
+  // daEnRemoconCannon_c::UNDEF_80a95d00
+  {0x80A95D40 + 2, 2},
+  // TODO: 80a96c10 daEnRemoconCannon_c::initializeState_Fire
+
+  // TODO: daEnReverse_c::UNDEF_80a97dc0
 
   // daEnSanboEl_c::initializeState_FreezeFall
   {0x80AA0EE8 + 2, 2, -1},
@@ -474,8 +568,85 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80aa33d0
   {0x80AA3404 + 2, 2, -1},
 
+  // daEnTeresa_c::UNDEF_80ab0020
+  {0x80AB0118 + 2, 2},
+
+  // daEnTeresa_c::UNDEF_80ab026c
+  {0x80AB026C + 2, 2},
+  {0x80AB0334 + 2, 2},
+
+  // daEnTogeMet_c::initializeState_DieFall
+  {0x80AB4F1C + 2, 2, -1},
+
+  // UNDEF_80abca40
+  {0x80ABCA8C + 2, 2},
+
+  // daEnWakiJugem_c::executeState_WakiMove
+  {0x80ABCCA4 + 2, 2},
+
+  // daEnWalkPakkun_c::initializeState_DieFall
+  {0x80ABE818 + 2, 2, -1},
+
+  // daEnWaterPakkun_c::initializeState_DieFall
+  {0x80AC6C4C + 2, 2, -1},
+
+  // daEnWhiteBlock_c::UNDEF_80ac8ac0
+  {0x80AC8B2C + 2, 2},
+
+  // TODO: 80ac8d70 daEnWhiteBlock_c::UNDEF_80ac8d70
+  // TODO: 80ac8f20 daEnWhiteBlock_c::UNDEF_80ac8f20
+  // TODO: 80ac9080 daEnWhiteBlock_c::UNDEF_80ac9080
+  // TODO: 80ac9160 daEnWhiteBlock_c::UNDEF_80ac9160
+
+  // TODO: 80acae60 daEnWrturn_c::UNDEF_80acae60
+  // TODO: 80acafb0 daEnWrturn_c::UNDEF_80acafb0
+  // TODO: 80acb120 daEnWrturn_c::executeState_Move
+
+  // daEnZoom_c::execute - Some 2-5 special zoom thing
+  {0x80ACD0F4 + 2, 2},
+
+  // daEnBossCastleIggy_c::UNDEF_80b1d450
+  // TODO: Direct access of player 1 here
+  {0x80B1D54C + 2, 2},
+
+  // daEnBossKameck_c::executeState_Vanish
+  {0x80B3AA8C + 2, 2},
+
+  // daEnBossKoopa_c::UNDEF_80b3f290
+  {0x80B3F2CC + 2, 2, -1},
+  // daEnBossKoopa_c::UNDEF_80b3f5c0
+  {0x80B3F894 + 2, 2},
+  // daEnBossKoopa_c::searchNearestPlayer
+  {0x80B405A4 + 2, 2},
+  // daEnBossKoopa_c::UNDEF_80b405f0
+  {0x80B40680 + 2, 2},
+
+  // daEnBossKoopaDemoKameck_c::initializeState_Magic
+  {0x80B47668 + 2, 2},
+  {0x80B476E8 + 2, 2},
+  // daEnBossKoopaDemoKameck_c::executeState_Magic
+  {0x80B477F4 + 2, 2},
+  {0x80B479A4 + 2, 2},
+  {0x80B47D20 + 2, 2},
+
+  // daEnBossKoopaDemoPeach_c::initializeState_Call
+  {0x80B49490 + 2, 2},
+  {0x80B494D0 + 2, 2},
+  // daEnBossKoopaDemoPeach_c::executeState_Thank
+  {0x80B49E88 + 2, 2},
+  // TODO: 80b49fd4
+  {0x80B4A1EC + 2, 2},
+
   // UNDEF_80b50580
   {0x80B50664 + 2, 2},
+
+  // Morton stunning players?
+  // TODO: 80b60180
+  // TODO: 0x80B60220
+
+  // Roy stunning players?
+  // TODO: 0x80B63C60
+  // TODO: 0x80B63D10
 
   // daLiftSpinRotation_c
   // TODO: 8084cdf0
@@ -489,7 +660,21 @@ void Four::Apply()
         u8 offset = patch.offset;
 
         ASSERT(size <= 4);
+        u32 oldValue = 4 + patch.offset;
         u32 newValue = PLAYER_COUNT + patch.offset;
+        if (std::memcmp(
+              reinterpret_cast<void*>(address), reinterpret_cast<u8*>(&oldValue) + (4 - size), size
+            ) != 0) {
+            u32 realOldValue = 0;
+            std::memcpy(
+              reinterpret_cast<u8*>(&realOldValue) + (4 - size), reinterpret_cast<void*>(address),
+              size
+            );
+            OS_REPORT(
+              "WARNING: Four patch at 0x%08X inconsistent with original value, expected %d.\n",
+              address, int(realOldValue) - 4
+            );
+        }
         std::memcpy(
           reinterpret_cast<void*>(address), reinterpret_cast<u8*>(&newValue) + (4 - size), size
         );

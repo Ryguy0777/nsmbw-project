@@ -3,7 +3,7 @@
 
 #include "d_actor.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 
 [[address_data(0x80429FD8)]]
@@ -11,6 +11,69 @@ u8 dActor_c::mExecStopReq;
 
 [[address_data(0x80429FDA)]]
 u8 dActor_c::mExecStop;
+
+/**
+ * VT+0x0C
+ * pre method for the create operation.
+ * @return A PACK_RESULT_e value.
+ */
+[[address(0x80064350)]]
+int dActor_c::preCreate();
+
+/**
+ * VT+0x10
+ * post method for the create operation.
+ */
+[[address(0x80064380)]]
+void dActor_c::postCreate(fBase_c::MAIN_STATE_e status);
+
+/**
+ * VT+0x18
+ * pre method for the delete operation.
+ * @return A PACK_RESULT_e value.
+ */
+[[address(0x80064390)]]
+int dActor_c::preDelete();
+
+/**
+ * VT+0x1C
+ * post method for the delete operation.
+ */
+[[address(0x800643E0)]]
+void dActor_c::postDelete(fBase_c::MAIN_STATE_e status);
+
+/**
+ * VT+0x24
+ * pre method for the execute operation.
+ * @return A PACK_RESULT_e value.
+ */
+[[address(0x800643F0)]]
+int dActor_c::preExecute();
+
+/**
+ * VT+0x28
+ * post method for the execute operation.
+ */
+[[address(0x80064490)]]
+void dActor_c::postExecute(fBase_c::MAIN_STATE_e status);
+
+/**
+ * VT+0x30
+ * pre method for the draw operation.
+ * @return A PACK_RESULT_e value.
+ */
+[[address(0x80064540)]]
+int dActor_c::preDraw();
+
+/**
+ * VT+0x34
+ * post method for the draw operation.
+ */
+[[address(0x800645E0)]]
+void dActor_c::postDraw(fBase_c::MAIN_STATE_e status);
+
+[[address(0x80065080)]]
+bool dActor_c::ActorDrawCullCheck();
 
 [[address(0x800651C0)]]
 void dActor_c::carryFukidashiCheck(int param1, mVec2_c param2) ASM_METHOD(
@@ -325,3 +388,72 @@ L_dActor_c_searchCarryFukidashiPlayer_SkipAFEAdjust:;
 /* 80065610 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x80065620)]]
+mVec3_c dActor_c::getLookatPos() const;
+
+[[address(0x80065650)]]
+void dActor_c::block_hit_init();
+
+[[address(0x80065660)]]
+bool dActor_c::allEnemyDeathEffSet();
+
+[[address(0x80065820)]]
+void dActor_c::setSpinLiftUpActor(dActor_c* actor);
+
+[[address(0x80065830)]]
+void dActor_c::setEatTongue(dActor_c* actor);
+
+[[address(0x80065850)]]
+void dActor_c::setEatTongueOff(dActor_c* actor);
+
+[[address(0x80065860)]]
+void dActor_c::setEatMouth(dActor_c* actor);
+
+[[address(0x80065870)]]
+bool dActor_c::setEatSpitOut(dActor_c* actor);
+
+[[address(0x80065880)]]
+bool dActor_c::setEatGlupDown(dActor_c* actor);
+
+[[address(0x80065950)]]
+void dActor_c::setAfterEatScale();
+
+[[address(0x80065970)]]
+void dActor_c::calcSpitOutPos(dActor_c* actor);
+
+[[address(0x80065A00)]]
+float dActor_c::calcEatScaleRate(dActor_c* yoshi);
+
+[[address(0x80065A40)]]
+void dActor_c::calcEatInScale(dActor_c* yoshi);
+
+[[address(0x80065AC0)]]
+void dActor_c::eatMove(dActor_c* actor);
+
+[[address(0x80065B40)]]
+void dActor_c::VT_0xB4();
+
+[[address(0x80065B50)]]
+void dActor_c::cancelFunsuiActUpper();
+
+[[address(0x80065B60)]]
+void dActor_c::cancelFunsuiActSide();
+
+[[address(0x80065B70)]]
+void dActor_c::cancelFunsuiActVanish();
+
+[[address(0x80065CC0)]]
+void dActor_c::waterSplashEffect(const mVec3_c& position, float scale);
+
+[[address(0x80065DC0)]]
+void dActor_c::yoganSplashEffect(const mVec3_c& position, float scale);
+
+[[address(0x80065EC0)]]
+void dActor_c::poisonSplashEffect(const mVec3_c& position, float scale);
+
+[[address(0x80066080)]]
+void dActor_c::removeCc();
+
+[[address(0x80066090)]]
+void dActor_c::reviveCc();

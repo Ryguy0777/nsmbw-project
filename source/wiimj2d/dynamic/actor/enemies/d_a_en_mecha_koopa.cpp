@@ -1,7 +1,7 @@
 // d_a_en_mecha_koopa.cpp
 // NSMBW: 0x80A64110 - 0x80A67470
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 
 [[address(0x80A65530)]]
 void UNDEF_80A65530() ASM_METHOD(

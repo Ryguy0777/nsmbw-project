@@ -1,7 +1,7 @@
 // d_a_en_jumpdai.cpp
 // NSMBW: 0x80A38A00 - 0x80A3AEF0
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 
 [[address(0x80A39660)]]

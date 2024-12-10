@@ -3,8 +3,8 @@
 
 #include "d_bg.h"
 
-#include <dynamic/actor/player/d_a_player.h>
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/system/d_a_player.h>
+#include <dynamic/d_a_player_manager.h>
 
 [[address(0x800785E0)]]
 bool dBg_c::UNDEF_800785E0()

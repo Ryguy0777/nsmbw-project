@@ -3,7 +3,7 @@
 
 #include "d_fukidashiInfo.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>
 #include <dynamic/d_pause_manager.h>

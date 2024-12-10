@@ -1,7 +1,7 @@
 // Rel.cpp
 
 #include "Four.h"
-#include <dynamic/layout/scene/d_s_boot.h>
+#include <dynamic/system/d_s_boot.h>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>

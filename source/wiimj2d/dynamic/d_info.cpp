@@ -6,7 +6,7 @@
 
 #include "d_info.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 
 //
 // .text

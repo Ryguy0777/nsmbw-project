@@ -3,7 +3,7 @@
 
 #include "d_a_en_goalpole.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 
 [[address(0x80A096E0)]]
 daEnGlpole_c* daEnGlpole_c_classInit()

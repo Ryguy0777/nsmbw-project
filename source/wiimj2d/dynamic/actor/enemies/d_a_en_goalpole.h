@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_enemy.h>
 
 class daEnGlpole_c : public dEn_c

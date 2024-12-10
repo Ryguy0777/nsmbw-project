@@ -3,7 +3,7 @@
 
 #include "d_game_common.h"
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_info.h>
 #include <nw4r/ut/Color.h>
 #include <dynamic/d_lyttextbox.h>

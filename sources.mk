@@ -1,140 +1,54 @@
+# Note: Uppercase letters are always sorted before lowercase
+
 # Root source files
 SOURCES += source/Rel.cpp
 SOURCES += source/Four.cpp
 
 #
-# wiimj2d/dynamic/gx
+# wiimj2d/dynamic
+# NSMBW .text: 0x80006790 - 0x800FFF80
 #
 
 # d_2d.cpp
 # NSMBW: 0x80006790 - 0x80007510
-SOURCES += source/wiimj2d/dynamic/gx/d_2d.cpp
+SOURCES += source/wiimj2d/dynamic/d_2d.cpp
 
-#
-# wiimj2d/dynamic/layout
-#
-
-# d_CharacterChangeIndicator.cpp
-# NSMBW d_bases.text: 0x8076D880 - 0x8076DEE0
-SOURCES += source/wiimj2d/dynamic/layout/d_CharacterChangeIndicator.cpp
-# d_CharacterChangeSelectArrow.cpp
-# NSMBW d_bases.text: 0x8076DEE0 - 0x8076F350
-SOURCES += source/wiimj2d/dynamic/layout/d_CharacterChangeSelectArrow.cpp
-# d_CharacterChangeSelectBase.cpp
-# NSMBW d_bases.text: 0x8076F350 - 0x80772A50
-SOURCES += source/wiimj2d/dynamic/layout/d_CharacterChangeSelectBase.cpp
-# d_CharacterChangeSelectContents.cpp
-# NSMBW d_bases.text: 0x80772A50 - 0x80773F30
-SOURCES += source/wiimj2d/dynamic/layout/d_CharacterChangeSelectContents.cpp
-
-# d_NumberOfPeopleChange.cpp
-# NSMBW d_bases.text: 0x8079F630 - 0x807A2CF0
-SOURCES += source/wiimj2d/dynamic/layout/d_NumberOfPeopleChange.cpp
-
-# d_SelectPlayer.cpp
-# NSMBW d_bases.text: 0x807ABE10 - 0x807AD5F0
-SOURCES += source/wiimj2d/dynamic/layout/d_SelectPlayer.cpp
-
-#
-# wiimj2d/dynamic/actor/static
-#
+# d_SmallScore.cpp
+# NSMBW: 0x80014F10 - 0x80015D60
+SOURCES += source/wiimj2d/dynamic/d_SmallScore.cpp
 
 # d_a_en_block_main.cpp
 # NSMBW: 0x800208B0 - 0x80023C60
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_block_main.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_en_block_main.cpp
 
 # d_a_en_dpakkun_base.cpp
 # NSMBW: 0x8002CB70 - 0x8002EF50
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_dpakkun_base.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_en_dpakkun_base.cpp
 # d_a_en_jimen_pakkun_base.cpp
 # NSMBW: 0x8002EF50 - 0x800311E0
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_jimen_pakkun_base.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_en_jimen_pakkun_base.cpp
 
 # d_a_en_shell.cpp
 # NSMBW: 0x80037EA0 - 0x8003C9F0
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_en_shell.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_en_shell.cpp
 
 # d_a_lift_remocon_main.cpp
 # NSMBW: 0x800439B0 - 0x80044460
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_lift_remocon_main.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_lift_remocon_main.cpp
 
 # d_a_player_base.cpp
 # NSMBW: 0x800460D0 - 0x8005B3A0
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_base.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_player_base.cpp
 # d_a_player_demo_manager.cpp
 # NSMBW: 0x8005B3A0 - 0x8005D7E0
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_demo_manager.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_player_demo_manager.cpp
 
 # d_a_player_key.cpp
 # NSMBW: 0x8005DFD0 - 0x8005E9A0
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_key.cpp
+SOURCES += source/wiimj2d/dynamic/d_a_player_key.cpp
 # d_a_player_manager.cpp
 # NSMBW: 0x8005E9A0 - 0x800613B0
-SOURCES += source/wiimj2d/dynamic/actor/static/d_a_player_manager.cpp
-
-#
-# wiimj2d/dynamic/actor/bases
-#
-
-# d_a_last_actor_stage.cpp
-# NSMBW: 0x80830690 - 0x80830C40
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_last_actor_stage.cpp
-
-# d_a_lift_ride_move.cpp
-# NSMBW: 0x80845940 - 0x808468E0
-SOURCES += source/wiimj2d/dynamic/actor/bases/d_a_lift_ride_move.cpp
-
-#
-# wiimj2d/dynamic/actor/objects
-#
-
-# d_a_obj_grass.cpp
-# NSMBW: 0x808760E0 - 0x80877510
-SOURCES += source/wiimj2d/dynamic/actor/objects/d_a_obj_grass.cpp
-
-#
-# wiimj2d/dynamic/actor/enemies
-#
-
-# d_a_en_big_block.cpp
-# NSMBW: 0x809B88C0 - 0x809B9DF0
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_big_block.cpp
-
-# d_a_en_big_hanachan.cpp
-# NSMBW: 0x809B1EC0 - 0x809B4200
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_big_hanachan.cpp
-
-# d_a_en_block.cpp
-# NSMBW: 0x809BED80 - 0x809C0770
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_block.cpp
-
-# d_a_en_bomhei.cpp
-# NSMBW: 0x809C8D30 - 0x809CDE70
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_bomhei.cpp
-
-# d_a_en_brick_block.cpp
-# NSMBW: 0x809D0090 - 0x809D0450
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_brick_block.cpp
-
-# d_a_en_goalpole.cpp
-# NSMBW: 0x80A096E0 - 0x80A0BE30
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_goalpole.cpp
-
-# d_a_en_item.cpp
-# NSMBW: 0x80A26A80 - 0x80A2D610
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_item.cpp
-
-# d_a_en_jumpdai.cpp
-# NSMBW: 0x80A38A00 - 0x80A3AEF0
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_jumpdai.cpp
-
-# d_a_en_mecha_koopa.cpp
-# NSMBW: 0x80A64110 - 0x80A67470
-SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_mecha_koopa.cpp
-
-#
-# wiimj2d/dynamic
-#
+SOURCES += source/wiimj2d/dynamic/d_a_player_manager.cpp
 
 # d_actor.cpp
 # NSMBW: 0x80064110 - 0x800660C0
@@ -155,7 +69,10 @@ SOURCES += source/wiimj2d/dynamic/d_actorcreate_mng.cpp
 # d_attention.cpp
 # NSMBW: 0x800690F0 - 0x80069500
 SOURCES += source/wiimj2d/dynamic/d_attention.cpp
-
+# d_audio.cpp
+# NSMBW .text: 0x80069500 - 0x8006C0B0
+# NSMBW .bss:  0x803561E8 - 0x80356208
+SOURCES += source/wiimj2d/dynamic/d_audio.cpp
 # d_balloon_mng.cpp
 # NSMBW: 0x8006C0B0 - 0x8006C420
 SOURCES += source/wiimj2d/dynamic/d_balloon_mng.cpp
@@ -349,100 +266,186 @@ SOURCES += source/wiimj2d/dynamic/d_wm_path.cpp
 SOURCES += source/wiimj2d/dynamic/d_wm_player_base.cpp
 
 #
-# wiimj2d/dynamic/worldmap
+# wiimj2d/dynamic/bases
 #
 
-# d_a_2d_player.cpp
+# d_CharacterChangeIndicator.cpp
+# NSMBW d_bases.text: 0x8076D880 - 0x8076DEE0
+SOURCES += source/wiimj2d/dynamic/bases/d_CharacterChangeIndicator.cpp
+# d_CharacterChangeSelectArrow.cpp
+# NSMBW d_bases.text: 0x8076DEE0 - 0x8076F350
+SOURCES += source/wiimj2d/dynamic/bases/d_CharacterChangeSelectArrow.cpp
+# d_CharacterChangeSelectBase.cpp
+# NSMBW d_bases.text: 0x8076F350 - 0x80772A50
+SOURCES += source/wiimj2d/dynamic/bases/d_CharacterChangeSelectBase.cpp
+# d_CharacterChangeSelectContents.cpp
+# NSMBW d_bases.text: 0x80772A50 - 0x80773F30
+SOURCES += source/wiimj2d/dynamic/bases/d_CharacterChangeSelectContents.cpp
+
+# d_NumberOfPeopleChange.cpp
+# NSMBW d_bases.text: 0x8079F630 - 0x807A2CF0
+SOURCES += source/wiimj2d/dynamic/bases/d_NumberOfPeopleChange.cpp
+
+# d_SelectPlayer.cpp
+# NSMBW d_bases.text: 0x807ABE10 - 0x807AD5F0
+SOURCES += source/wiimj2d/dynamic/bases/d_SelectPlayer.cpp
+
+# d_a_last_actor_stage.cpp
+# NSMBW d_bases.text: 0x80830690 - 0x80830C40
+SOURCES += source/wiimj2d/dynamic/bases/d_a_last_actor_stage.cpp
+
+# d_a_lift_ride_move.cpp
+# NSMBW d_bases.text: 0x80845940 - 0x808468E0
+SOURCES += source/wiimj2d/dynamic/bases/d_a_lift_ride_move.cpp
+
+# d_a_line_kinoko_block.cpp
+# NSMBW d_bases.text: 0x80857490 - 0x808581A0
+SOURCES += source/wiimj2d/dynamic/bases/d_a_line_kinoko_block.cpp
+
+# d_a_line_train.cpp
+# NSMBW d_bases.text: 0x80859440 - 0x8085BCB0
+SOURCES += source/wiimj2d/dynamic/bases/d_a_line_train.cpp
+
+# d_a_next_goto_block.cpp
+# NSMBW d_bases.text: 0x8086E670 - 0x8086EEA0
+SOURCES += source/wiimj2d/dynamic/bases/d_a_next_goto_block.cpp
+# d_a_nice_boat.cpp
+# NSMBW d_bases.text: 0x8086EEA0 - 0x808724E0
+SOURCES += source/wiimj2d/dynamic/bases/d_a_nice_boat.cpp
+
+# d_a_obj_grass.cpp
+# NSMBW d_bases.text: 0x808760E0 - 0x80877510
+SOURCES += source/wiimj2d/dynamic/bases/d_a_obj_grass.cpp
+
+# d_a_wm_2d_player.cpp
 # NSMBW d_bases.text: 0x808C5100 - 0x808C7D10
-SOURCES += source/wiimj2d/dynamic/worldmap/d_a_2d_player.cpp
+SOURCES += source/wiimj2d/dynamic/bases/d_a_wm_2d_player.cpp
 
 # d_a_wm_sub_player.cpp
 # NSMBW d_bases.text: 0x808E8AA0 - 0x808EF8D0
-SOURCES += source/wiimj2d/dynamic/worldmap/d_a_wm_sub_player.cpp
+SOURCES += source/wiimj2d/dynamic/bases/d_a_wm_sub_player.cpp
 
 # d_a_wm_player.cpp
 # NSMBW d_bases.text: 0x80902790 - 0x8090D220
-SOURCES += source/wiimj2d/dynamic/worldmap/d_a_wm_player.cpp
-
+SOURCES += source/wiimj2d/dynamic/bases/d_a_wm_player.cpp
 # d_a_wm_player_static.cpp
 # NSMBW .text: 0x80100A10 - 0x801016B0
 # NSMBW .sbss: 0x8042A47E - 0x8042A484
-SOURCES += source/wiimj2d/dynamic/worldmap/d_a_wm_player_static.cpp
-
-# d_s_stage_static.cpp
-# NSMBW: 0x80101A50 - 0x8010276C
-SOURCES += source/wiimj2d/dynamic/worldmap/d_s_stage_static.cpp
-
-# d_wm_effectManager.cpp
-# NSMBW: 0x80103020 - 0x801038D0
-SOURCES += source/wiimj2d/dynamic/worldmap/d_wm_effectManager.cpp
-
-#
-# wiimj2d/dynamic/scene
-#
+SOURCES += source/wiimj2d/dynamic/bases/d_a_wm_player_static.cpp
 
 # d_s_game_setup.cpp
 # NSMBW d_bases.text: 0x80917960 - 0x8091A2F0
-SOURCES += source/wiimj2d/dynamic/scene/d_s_game_setup.cpp
+SOURCES += source/wiimj2d/dynamic/bases/d_s_game_setup.cpp
 
 # d_s_world_9_demo.cpp
 # NSMBW d_bases.text: 0x8091CB70 - 0x8091EB60
-SOURCES += source/wiimj2d/dynamic/scene/d_s_world_9_demo.cpp
+SOURCES += source/wiimj2d/dynamic/bases/d_s_world_9_demo.cpp
 
 # d_s_crsin.cpp
 # NSMBW d_bases.text: 0x8091EC10 - 0x80921060
-SOURCES += source/wiimj2d/dynamic/scene/d_s_crsin.cpp
+SOURCES += source/wiimj2d/dynamic/bases/d_s_crsin.cpp
+
+# d_s_stage_static.cpp
+# NSMBW: 0x80101A50 - 0x80102770
+SOURCES += source/wiimj2d/dynamic/bases/d_s_stage_static.cpp
+# d_s_world_map_static.cpp
+# NSMBW: 0x80102770 - 0x80102DB0
+SOURCES += source/wiimj2d/dynamic/bases/d_s_world_map_static.cpp
+
+# d_wm_effectManager.cpp
+# NSMBW: 0x80103020 - 0x801038D0
+SOURCES += source/wiimj2d/dynamic/bases/d_wm_effectManager.cpp
 
 #
-# wiimj2d/dynamic/layout/system
+# wiimj2d/dynamic/system
 #
 
 # d_WarningManager.cpp
 # NSMBW: 0x8010D270 - 0x8010F080
-SOURCES += source/wiimj2d/dynamic/layout/system/d_WarningManager.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_WarningManager.cpp
 # d_WiiStrap.cpp
 # NSMBW: 0x8010F080 - 0x8010F530
-SOURCES += source/wiimj2d/dynamic/layout/system/d_WiiStrap.cpp
-
-#
-# wiimj2d/dynamic/actor/player
-#
+SOURCES += source/wiimj2d/dynamic/system/d_WiiStrap.cpp
 
 # d_a_fireball_player.cpp
 # NSMBW: 0x8011A5B0 - 0x8011B640
-SOURCES += source/wiimj2d/dynamic/actor/player/d_a_fireball_player.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_a_fireball_player.cpp
 
 # d_a_iceball.cpp
 # NSMBW: 0x801233F0 - 0x80124D40
-SOURCES += source/wiimj2d/dynamic/actor/player/d_a_iceball.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_a_iceball.cpp
 
 # d_a_mask.cpp
 # NSMBW: 0x80124EB0 - 0x80126650
-SOURCES += source/wiimj2d/dynamic/actor/player/d_a_mask.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_a_mask.cpp
 # d_a_player.cpp
 # NSMBW: 0x80126650 - 0x8014A480
-SOURCES += source/wiimj2d/dynamic/actor/player/d_a_player.cpp
-
-#
-# wiimj2d/layout/scene
-#
+SOURCES += source/wiimj2d/dynamic/system/d_a_player.cpp
 
 # d_bg_gm.cpp
 # NSMBW: 0x80154800 - 0x80156FE0
-SOURCES += source/wiimj2d/dynamic/layout/scene/d_bg_gm.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_bg_gm.cpp
 # d_fukidashiManager.cpp
 # NSMBW: 0x80156FE0 - 0x80157820
-SOURCES += source/wiimj2d/dynamic/layout/scene/d_fukidashiManager.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_fukidashiManager.cpp
 # d_gamedisplay.cpp
 # 0x80157820 - 0x8015A480
-SOURCES += source/wiimj2d/dynamic/layout/scene/d_gamedisplay.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_gamedisplay.cpp
 
 # d_s_boot.cpp
 # NSMBW: 0x8015C270 - 0x8015F270
-SOURCES += source/wiimj2d/dynamic/layout/scene/d_s_boot.cpp
+SOURCES += source/wiimj2d/dynamic/system/d_s_boot.cpp
+
+#
+# wiimj2d/dynamic/actor/enemies
+#
+
+# d_a_en_big_block.cpp
+# NSMBW: 0x809B88C0 - 0x809B9DF0
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_big_block.cpp
+
+# d_a_en_big_hanachan.cpp
+# NSMBW: 0x809B1EC0 - 0x809B4200
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_big_hanachan.cpp
+
+# d_a_en_block.cpp
+# NSMBW: 0x809BED80 - 0x809C0770
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_block.cpp
+
+# d_a_en_bomhei.cpp
+# NSMBW: 0x809C8D30 - 0x809CDE70
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_bomhei.cpp
+
+# d_a_en_brick_block.cpp
+# NSMBW: 0x809D0090 - 0x809D0450
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_brick_block.cpp
+
+# d_a_en_goalpole.cpp
+# NSMBW: 0x80A096E0 - 0x80A0BE30
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_goalpole.cpp
+
+# d_a_en_item.cpp
+# NSMBW: 0x80A26A80 - 0x80A2D610
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_item.cpp
+
+# d_a_en_jumpdai.cpp
+# NSMBW: 0x80A38A00 - 0x80A3AEF0
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_jumpdai.cpp
+
+# d_a_en_mecha_koopa.cpp
+# NSMBW: 0x80A64110 - 0x80A67470
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_mecha_koopa.cpp
+
+# d_a_en_red_ring.cpp
+# NSMBW: 0x80A926A0 - 0x80A93990
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_red_ring.cpp
+# d_a_en_redcoin.cpp
+# NSMBW: 0x80A93990 - 0x80A94D90
+SOURCES += source/wiimj2d/dynamic/actor/enemies/d_a_en_redcoin.cpp
 
 #
 # wiimj2d/state
+# NSMBW .text: 0x8015F270 - 0x8015FF80
 #
 
 # s_Print.cpp
@@ -456,7 +459,17 @@ SOURCES += source/wiimj2d/state/s_StateID.cpp
 SOURCES += source/wiimj2d/state/s_StateMethod.cpp
 
 #
+# wiimj2d
+# NSMBW .text: 0x8015FF80 - 0x80160C10
+#
+
+#
+# wiimj2d/common
+# NSMBW .text: 0x80160C10 - 0x80161880
+
+#
 # wiimj2d/framework
+# NSMBW .text: 0x80161880 - 0x80161C10
 #
 
 # f_base.cpp
@@ -507,6 +520,7 @@ SOURCES += source/wiimj2d/machine/m_vec.cpp
 
 #
 # wiimj2d/sound
+# NSMBW .text: 0x80194A10 - 0x8019F1F0
 #
 
 # SndAudioMgr.cpp
@@ -518,15 +532,31 @@ SOURCES += source/wiimj2d/sound/SndAudioMgr.cpp
 SOURCES += source/wiimj2d/sound/SndObjctPly.cpp
 
 #
+# revolution/ai
+# NSMBW .text: 0x8019F1F0 - 0x8019F7A0
+#
+
+#
 # revolution/arc
+# NSMBW .text: 0x8019F7A0 - 0x801A0190
 #
 
 # arc.c
-# NSMBW: 0x8019F7A0 - 0x801A0190
+# NSMBW .text: 0x8019F7A0 - 0x801A0190
 SOURCES += source/revolution/arc/arc.c
 
 #
+# revolution/ax
+# NSMBW .text: 0x801A0190 - 0x801A9C60
+#
+
+#
+# revolution/base
+# NSMBW .text: 0x801A9C60 - 0x801A9E80
+
+#
 # revolution/os
+# NSMBW .text: 0x801A9E80 - 0x801B8B70
 #
 
 # OSCache.c
@@ -554,6 +584,7 @@ SOURCES += source/revolution/os/OSTime.c
 
 #
 # revolution/si
+# NSMBW .text: 0x801BA940 - 0x801BBA70
 #
 
 # SIBios.c

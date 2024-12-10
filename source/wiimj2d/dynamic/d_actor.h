@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dynamic/actor/static/d_a_player_manager.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_base_actor.h>
 #include <machine/m_vec.h>
 
@@ -13,8 +13,7 @@ public:
     // Constants and Types
     // -------------------
 
-    enum class ACTOR_TYPE_e : u8
-    {
+    enum class ACTOR_TYPE_e : u8 {
         DEFAULT = 0,
         PLAYER = 1,
         YOSHI = 2,
@@ -25,6 +24,58 @@ public:
     // -----------------
     // Virtual Functions
     // -----------------
+
+    /**
+     * VT+0x0C 0x80064350
+     * pre method for the create operation.
+     * @return A PACK_RESULT_e value.
+     */
+    virtual int preCreate() override;
+
+    /**
+     * VT+0x10 0x80064380
+     * post method for the create operation.
+     */
+    virtual void postCreate(fBase_c::MAIN_STATE_e status) override;
+
+    /**
+     * VT+0x18 0x80064390
+     * pre method for the delete operation.
+     * @return A PACK_RESULT_e value.
+     */
+    virtual int preDelete() override;
+
+    /**
+     * VT+0x1C 0x800643E0
+     * post method for the delete operation.
+     */
+    virtual void postDelete(fBase_c::MAIN_STATE_e status) override;
+
+    /**
+     * VT+0x24 0x800643F0
+     * pre method for the execute operation.
+     * @return A PACK_RESULT_e value.
+     */
+    virtual int preExecute() override;
+
+    /**
+     * VT+0x28 0x80064490
+     * post method for the execute operation.
+     */
+    virtual void postExecute(fBase_c::MAIN_STATE_e status) override;
+
+    /**
+     * VT+0x30 0x80064540
+     * pre method for the draw operation.
+     * @return A PACK_RESULT_e value.
+     */
+    virtual int preDraw() override;
+
+    /**
+     * VT+0x34 0x800645E0
+     * post method for the draw operation.
+     */
+    virtual void postDraw(fBase_c::MAIN_STATE_e status) override;
 
     /* VT+0x60 0x80065080 */
     virtual bool ActorDrawCullCheck();
@@ -130,6 +181,26 @@ public:
     // ----------------
     // Member Functions
     // ----------------
+
+    [[nodiscard]]
+    daPlBase_c* castToPlayerBase()
+    {
+        if (mActorType == ACTOR_TYPE_e::PLAYER || mActorType == ACTOR_TYPE_e::YOSHI) {
+            return reinterpret_cast<daPlBase_c*>(this);
+        }
+
+        return nullptr;
+    }
+
+    [[nodiscard]]
+    dAcPy_c* castToPlayer()
+    {
+        if (mActorType == ACTOR_TYPE_e::PLAYER) {
+            return reinterpret_cast<dAcPy_c*>(this);
+        }
+
+        return nullptr;
+    }
 
     /* 0x800651C0 */
     void carryFukidashiCheck(int param1, mVec2_c param2);

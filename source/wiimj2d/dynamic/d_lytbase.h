@@ -1,7 +1,7 @@
 #pragma once
 
 #include <dynamic/d_lyttextbox.h>
-#include <dynamic/gx/d_2d.h>
+#include <dynamic/d_2d.h>
 #include <nw4r/lyt/Layout.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>

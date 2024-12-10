@@ -3,6 +3,13 @@
 
 #include "d_actor_state.h"
 
+[[address(0x80066FC0)]]
+dActorState_c::dActorState_c();
+
+/* VT+0x48 */
+[[address(0x800671B0)]]
+dActorState_c::~dActorState_c();
+
 /* VT+0xD4 */
 [[address(0x80067230)]]
 void dActorState_c::initializeState_Gegneric();

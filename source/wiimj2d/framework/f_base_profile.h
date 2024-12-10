@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dynamic/layout/scene/d_s_boot.h>
+#include <dynamic/system/d_s_boot.h>
 
 enum class fBaseProfile_e : u16 {
     BOOT = 0,
