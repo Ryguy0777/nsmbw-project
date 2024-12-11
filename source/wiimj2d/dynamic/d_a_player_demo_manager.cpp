@@ -3,10 +3,10 @@
 
 #include "d_a_player_demo_manager.h"
 
-#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_mj2d_game.h>
+#include <dynamic/d_player/d_a_player.h>
 #include <revolution/os.h>
 #include <revolution/os/OSError.h>
 
@@ -995,7 +995,7 @@ void daPyDemoMng_c::clearDemoNo(s8 param)
     for (int i = 0; i < PLAYER_COUNT; i++) {
         int demoNo = mCourseInList[convIdx60(i)];
         if (demoNo != -1 && demoNo != param) {
-            mCourseInList[demoWriteCount++] = demoNo;
+            mCourseInList[convIdx60(demoWriteCount++)] = demoNo;
         }
     }
 

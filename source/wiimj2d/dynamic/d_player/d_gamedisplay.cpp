@@ -11,7 +11,13 @@
 [[address(0x80157820)]]
 dGameDisplay_c* dGameDisplay_c_classInit()
 {
-    return new dGameDisplay_c();
+    dGameDisplay_c* gameDisplay = new dGameDisplay_c();
+    
+    for (int i = 0; i < std::size(gameDisplay->mPlayNum); i++) {
+        gameDisplay->mPlayNum[i] = -1;
+    }
+
+    return gameDisplay;
 }
 
 #define X (*reinterpret_cast<dGameDisplay_c*>(0x1))
