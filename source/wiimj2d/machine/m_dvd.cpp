@@ -1,5 +1,5 @@
 // m_dvd.cpp
-// NSMBW: 0x8016B090 - 0x8016C540
+// NSMBW .text: 0x8016B090 - 0x8016C540
 
 #include "m_dvd.h"
 

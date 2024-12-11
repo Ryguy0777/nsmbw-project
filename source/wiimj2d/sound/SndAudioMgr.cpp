@@ -1,5 +1,5 @@
 // SndAudioMgr.cpp
-// NSMBW: 0x80194A10 - 0x80197440
+// NSMBW .text: 0x80194A10 - 0x80197440
 
 #include "SndAudioMgr.h"
 

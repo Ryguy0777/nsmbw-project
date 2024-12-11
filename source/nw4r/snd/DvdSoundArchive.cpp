@@ -1,5 +1,5 @@
 // snd_DvdSoundArchive.cpp
-// NSMBW: 0x80269130 - 0x802697A0
+// NSMBW .text: 0x80269130 - 0x802697A0
 
 #include "DvdSoundArchive.h"
 

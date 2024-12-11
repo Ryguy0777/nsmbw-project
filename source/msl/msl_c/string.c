@@ -1,5 +1,5 @@
 // string.c
-// NSMBW: 0x802E1C28 - 0x802E4FC8
+// NSMBW .text: 0x802E1C28 - 0x802E4FC8
 
 #include "string.h"
 

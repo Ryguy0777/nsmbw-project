@@ -1,5 +1,5 @@
 // dvdfs.c
-// NSMBW: 0x801CA790 - 0x801CADA0
+// NSMBW .text: 0x801CA790 - 0x801CADA0
 
 #include <cstdio>
 #include <revolution/arc.h>

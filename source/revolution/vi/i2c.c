@@ -1,5 +1,5 @@
 // i2c.c
-// NSMBW: 0x801BE5C0 - 0x801BEEE0
+// NSMBW .text: 0x801BE5C0 - 0x801BEEE0
 
 EXTERN_SYMBOL(0x801BE5C0, "WaitMicroTime");
 

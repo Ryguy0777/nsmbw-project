@@ -1,5 +1,5 @@
 // SISamplingRate.c
-// NSMBW: 0x801BB980 - 0x801BBA70
+// NSMBW .text: 0x801BB980 - 0x801BBA70
 
 #include <revolution/si.h>
 

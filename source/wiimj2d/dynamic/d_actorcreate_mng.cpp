@@ -1,5 +1,5 @@
 // d_actorcreate_mng.cpp
-// NSMBW: 0x80068040 - 0x80069020
+// NSMBW .text: 0x80068040 - 0x80069020
 
 #include "d_actorcreate_mng.h"
 

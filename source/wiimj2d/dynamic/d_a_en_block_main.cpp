@@ -1,5 +1,5 @@
 // d_a_en_block_main.cpp
-// NSMBW: 0x800208B0 - 0x80023C60
+// NSMBW .text: 0x800208B0 - 0x80023C60
 
 [[address(0x80022810)]]
 void daEnBlockMain_c_FUN_80022810() ASM_METHOD(

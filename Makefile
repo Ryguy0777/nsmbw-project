@@ -65,7 +65,8 @@ $(DVDDATA)/Layout/gameScene/gameScene.arc/arc/blyt/gameScene_37.brlyt.json5 \
 $(DVDDATA)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopicoIcon_01.tpl \
 $(DVDDATA)/Object/Kinopico.arc/g3d/model.brres \
 $(DVDDATA)/Sound/BANK_SE_VOC_COURSE_KC.brbnk \
-$(DVDDATA)/Sound/GROUP_SE_VOC_COURSE_KC.brwar
+$(DVDDATA)/Sound/GROUP_SE_VOC_COURSE_KC.brwar \
+$(DVDDATA)/Stage/01-09.arc.LZ
 
 
 $(DVDDATA)/%: $(DVDDATA_SRC)/%

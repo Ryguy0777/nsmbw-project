@@ -1,5 +1,5 @@
 // SndObjctPly.cpp
-// NSMBW: 0x8019A0F0 - 0x8019B240
+// NSMBW .text: 0x8019A0F0 - 0x8019B240
 
 #include "SndObjctPly.h"
 #include "nw4r/snd/SoundHandle.h"

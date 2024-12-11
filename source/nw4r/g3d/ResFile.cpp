@@ -1,5 +1,5 @@
 // g3d_resfile.cpp
-// NSMBW: 0x80239F70 - 0x8023B2F0
+// NSMBW .text: 0x80239F70 - 0x8023B2F0
 
 #include "nw4r/g3d/g3d_resfile.h"
 

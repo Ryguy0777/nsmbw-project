@@ -5,8 +5,8 @@
 
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_info.h>
-#include <nw4r/ut/Color.h>
 #include <dynamic/d_lyttextbox.h>
+#include <nw4r/ut/Color.h>
 
 namespace dGameCom
 {
@@ -126,6 +126,16 @@ bool isGameStop(u32 flag);
 /* @unofficial */
 [[address(0x800B3B60)]]
 void setNumInTextBox(int* value, int* maxChars, LytTextBox_c* textBox, int itoaType);
+
+[[address(0x800B4760)]]
+bool PlayerEnterCheck(int player)
+{
+    if (player < 4) {
+        return dInfo_c::m_instance->mPlayerActiveMode[player] == 3;
+    } else {
+        return dInfo_c::m_instance->mExPlayerActiveMode[player - 4] == 3;
+    }
+}
 
 [[address(0x800B4780)]]
 void Player1upColor(LytTextBox_c* textBox, int player)

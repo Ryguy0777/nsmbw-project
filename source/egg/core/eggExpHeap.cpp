@@ -1,5 +1,5 @@
 // eggExpHeap.cpp
-// NSMBW: 0x802B93E0 - 0x802B98C0
+// NSMBW .text: 0x802B93E0 - 0x802B98C0
 
 #include "eggExpHeap.h"
 

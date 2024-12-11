@@ -1,5 +1,5 @@
 // d_player_model.cpp
-// NSMBW: 0x800D2EC0 - 0x800D5420
+// NSMBW .text: 0x800D2EC0 - 0x800D5420
 
 #include "d_player_model.h"
 

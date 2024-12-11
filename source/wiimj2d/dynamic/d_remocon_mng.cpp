@@ -1,5 +1,5 @@
 // d_remocon_mng.cpp
-// NSMBW: 0x800DBFD0 - 0x800DDA40
+// NSMBW .text: 0x800DBFD0 - 0x800DDA40
 
 #include "d_remocon_mng.h"
 

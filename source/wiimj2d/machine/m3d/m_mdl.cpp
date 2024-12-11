@@ -1,5 +1,5 @@
 // m_mdl.cpp
-// NSMBW: 0x801696A0 - 0x8016A150
+// NSMBW .text: 0x801696A0 - 0x8016A150
 
 #include "m_mdl.h"
 

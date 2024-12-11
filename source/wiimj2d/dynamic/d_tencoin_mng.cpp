@@ -1,5 +1,5 @@
 // d_tencoin_mng.cpp
-// NSMBW: 0x800E75D0 - 0x800E78D0
+// NSMBW .text: 0x800E75D0 - 0x800E78D0
 
 #include "d_tencoin_mng.h"
 

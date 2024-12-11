@@ -1,5 +1,5 @@
 // SIBios.c
-// NSMBW: 0x801BA940 - 0x801BB980
+// NSMBW .text: 0x801BA940 - 0x801BB980
 
 #include <revolution/os/OSInterrupt.h>
 #include <revolution/si.h>

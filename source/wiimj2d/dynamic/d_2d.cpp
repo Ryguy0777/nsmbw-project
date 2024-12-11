@@ -1,5 +1,5 @@
 // d_2d.cpp
-// NSMBW: 0x80006790 - 0x80007510
+// NSMBW .text: 0x80006790 - 0x80007510
 
 #include "d_2d.h"
 

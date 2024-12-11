@@ -1,5 +1,5 @@
 // f_manager.cpp
-// NSMBW: 0x80162E30 - 0x80163130
+// NSMBW .text: 0x80162E30 - 0x80163130
 
 #include "f_manager.h"
 

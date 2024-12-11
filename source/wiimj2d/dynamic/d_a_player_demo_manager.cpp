@@ -1,9 +1,9 @@
 // d_a_player_demo_manager.cpp
-// NSMBW: 0x8005B3A0 - 0x8005D7E0
+// NSMBW .text: 0x8005B3A0 - 0x8005D7E0
 
 #include "d_a_player_demo_manager.h"
 
-#include <dynamic/system/d_a_player.h>
+#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_mj2d_game.h>

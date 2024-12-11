@@ -1,5 +1,5 @@
 // printf.c
-// NSMBW: 0x802DF7A8 - 0x802E1BA0
+// NSMBW .text: 0x802DF7A8 - 0x802E1BA0
 
 #include "stdio.h"
 

@@ -1,5 +1,5 @@
 // ut_list.cpp
-// NSMBW: 0x80228F10 - 0x80229170
+// NSMBW .text: 0x80228F10 - 0x80229170
 
 #include "List.h"
 

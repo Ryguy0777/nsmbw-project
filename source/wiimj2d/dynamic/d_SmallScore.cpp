@@ -1,5 +1,5 @@
 // d_SmallScore.cpp
-// NSMBW: 0x80014F10 - 0x80015D60
+// NSMBW .text: 0x80014F10 - 0x80015D60
 
 #include "d_SmallScore.h"
 

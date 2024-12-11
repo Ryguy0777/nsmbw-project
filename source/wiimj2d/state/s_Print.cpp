@@ -1,5 +1,5 @@
 // s_Print.cpp
-// NSMBW: 0x8015F810 - 0x8015F900
+// NSMBW .text: 0x8015F810 - 0x8015F900
 
 #include <revolution/os/OSError.h>
 

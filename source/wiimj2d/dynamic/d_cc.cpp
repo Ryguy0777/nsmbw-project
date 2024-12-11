@@ -1,5 +1,5 @@
 // d_cc.cpp
-// NSMBW: 0x8008C200 - 0x8008DC80
+// NSMBW .text: 0x8008C200 - 0x8008DC80
 
 #include "d_cc.h"
 

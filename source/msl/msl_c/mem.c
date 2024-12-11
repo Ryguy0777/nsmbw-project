@@ -1,5 +1,5 @@
 // mem.c
-// NSMBW: 0x802DF264 - 0x802DF3D4
+// NSMBW .text: 0x802DF264 - 0x802DF3D4
 
 #include <string.h>
 

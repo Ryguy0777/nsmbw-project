@@ -1,5 +1,5 @@
 // d_a_player_key.cpp
-// NSMBW: 0x8005DFD0 - 0x8005E9A0
+// NSMBW .text: 0x8005DFD0 - 0x8005E9A0
 
 #include "d_a_player_key.h"
 

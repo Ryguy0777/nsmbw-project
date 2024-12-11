@@ -1,5 +1,5 @@
 // d_lytbase.cpp
-// NSMBW: 0x800C89A0 - 0x800C9B50
+// NSMBW .text: 0x800C89A0 - 0x800C9B50
 
 #include "d_lytbase.h"
 

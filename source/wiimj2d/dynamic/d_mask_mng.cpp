@@ -1,5 +1,5 @@
 // d_mask_mng.cpp
-// NSMBW: 0x800CD290 - 0x800CD800
+// NSMBW .text: 0x800CD290 - 0x800CD800
 
 #include <dynamic/d_a_player_manager.h>
 

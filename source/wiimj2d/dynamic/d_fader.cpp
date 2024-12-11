@@ -1,5 +1,5 @@
 // d_fader.cpp
-// NSMBW: 0x800B0A20 - 0x800B0EA0
+// NSMBW .text: 0x800B0A20 - 0x800B0EA0
 
 #include "d_fader.h"
 

@@ -1,5 +1,5 @@
 // OSLink.c
-// NSMBW: 0x801B1A50 - 0x801B24D0
+// NSMBW .text: 0x801B1A50 - 0x801B24D0
 
 #include "OSLink.h"
 

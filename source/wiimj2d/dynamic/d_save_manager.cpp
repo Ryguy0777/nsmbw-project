@@ -1,5 +1,5 @@
 // d_save_manager.cpp
-// NSMBW: 0x800E0270 - 0x800E1AA0
+// NSMBW .text: 0x800E0270 - 0x800E1AA0
 
 #include "d_save_manager.h"
 

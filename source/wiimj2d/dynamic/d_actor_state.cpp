@@ -1,5 +1,5 @@
 // d_actor_state.cpp
-// NSMBW: 0x80066FB0 - 0x80068040
+// NSMBW .text: 0x80066FB0 - 0x80068040
 
 #include "d_actor_state.h"
 

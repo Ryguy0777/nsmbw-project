@@ -1,5 +1,5 @@
 // eggHeap.cpp
-// NSMBW: 0x802B8C80 - 0x802B93E0
+// NSMBW .text: 0x802B8C80 - 0x802B93E0
 
 #include "eggHeap.h"
 #include <string.h>

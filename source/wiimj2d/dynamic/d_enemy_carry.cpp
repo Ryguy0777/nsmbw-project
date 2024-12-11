@@ -1,5 +1,5 @@
 // d_enemy_carry.cpp
-// NSMBW: 0x8009EAF0 - 0x8009F5F0
+// NSMBW .text: 0x8009EAF0 - 0x8009F5F0
 
 #include "d_enemy_carry.h"
 

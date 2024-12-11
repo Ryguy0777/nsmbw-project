@@ -1,5 +1,5 @@
 // WPAD.c
-// NSMBW: 0x801DDC90 - 0x801E55A0
+// NSMBW .text: 0x801DDC90 - 0x801E55A0
 
 #include <revolution/wpad.h>
 

@@ -1,5 +1,5 @@
 // d_enemy.cpp
-// NSMBW: 0x80094E80 - 0x800983C0
+// NSMBW .text: 0x80094E80 - 0x800983C0
 
 #include "d_enemy.h"
 

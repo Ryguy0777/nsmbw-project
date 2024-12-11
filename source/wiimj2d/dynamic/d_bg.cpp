@@ -1,9 +1,9 @@
 // d_bg.cpp
-// NSMBW: 0x80076FD0 - 0x8007E180
+// NSMBW .text: 0x80076FD0 - 0x8007E180
 
 #include "d_bg.h"
 
-#include <dynamic/system/d_a_player.h>
+#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_a_player_manager.h>
 
 [[address(0x800785E0)]]

@@ -1,5 +1,5 @@
 // snd_SoundArchive.cpp
-// NSMBW: 0x80275780 - 0x80275E80
+// NSMBW .text: 0x80275780 - 0x80275E80
 
 #include "SoundArchive.h"
 

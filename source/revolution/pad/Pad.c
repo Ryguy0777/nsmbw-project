@@ -1,5 +1,5 @@
 // Pad.c
-// NSMBW: 0x801DDB10 - 0x801DDB70
+// NSMBW .text: 0x801DDB10 - 0x801DDB70
 
 #include <cstdlib>
 #include <cstring>

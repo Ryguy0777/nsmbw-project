@@ -1,5 +1,5 @@
 // OSCache.c
-// NSMBW: 0x801AC560 - 0x801ACC10
+// NSMBW .text: 0x801AC560 - 0x801ACC10
 
 #include "OSCache.h"
 

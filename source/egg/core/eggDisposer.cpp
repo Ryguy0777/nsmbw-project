@@ -1,5 +1,5 @@
 // eggDisposer.cpp
-// NSMBW: 0x802BA410 - 0x802BA4F0
+// NSMBW .text: 0x802BA410 - 0x802BA4F0
 
 #include "eggDisposer.h"
 

@@ -1,5 +1,5 @@
 // d_switch_flag_mng.cpp
-// NSMBW: 0x800E3BD0 - 0x800E46E0
+// NSMBW .text: 0x800E3BD0 - 0x800E46E0
 
 #include "d_switch_flag_mng.h"
 

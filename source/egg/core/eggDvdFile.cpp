@@ -1,5 +1,5 @@
 // eggDvdFile.cpp
-// NSMBW: 0x802B7C00 - 0x802B8010
+// NSMBW .text: 0x802B7C00 - 0x802B8010
 
 #include "eggDvdFile.h"
 

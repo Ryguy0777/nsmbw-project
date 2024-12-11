@@ -1,5 +1,5 @@
 // d_block_mng.cpp
-// NSMBW: 0x80087F40 - 0x80088D90
+// NSMBW .text: 0x80087F40 - 0x80088D90
 
 // TODO 80087fac
 

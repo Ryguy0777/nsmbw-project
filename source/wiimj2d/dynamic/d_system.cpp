@@ -1,12 +1,12 @@
 // d_system.cpp
-// NSMBW: 0x800E46E0 - 0x800E5480
+// NSMBW .text: 0x800E46E0 - 0x800E5480
 
 #include "d_system.h"
 
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_resource_manager.h>
-#include <dynamic/system/d_s_boot.h>
+#include <dynamic/d_player/d_s_boot.h>
 #include <egg/core/eggController.h>
 #include <machine/m_heap.h>
 #include <machine/m_pad.h>

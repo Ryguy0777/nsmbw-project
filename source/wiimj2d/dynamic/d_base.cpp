@@ -1,5 +1,5 @@
 // d_base.cpp
-// NSMBW: 0x8006C420 - 0x8006C6D0
+// NSMBW .text: 0x8006C420 - 0x8006C6D0
 
 #include "d_base.h"
 

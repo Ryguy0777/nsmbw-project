@@ -1,11 +1,11 @@
 // d_a_player_base.cpp
-// NSMBW: 0x800460D0 - 0x8005B3A0
+// NSMBW .text: 0x800460D0 - 0x8005B3A0
 
 #include "d_a_player_base.h"
 
 #include <dynamic/d_a_player_manager.h>
-#include <dynamic/system/d_a_player.h>
-#include <dynamic/system/d_a_yoshi.h>
+#include <dynamic/d_player/d_a_player.h>
+#include <dynamic/d_player/d_a_yoshi.h>
 
 [[address(0x8004DB40)]]
 bool daPlBase_c::isDemoType(DemoType_e type);

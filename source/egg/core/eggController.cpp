@@ -1,5 +1,5 @@
 // eggController.cpp
-// NSMBW: 0x802BC9D0 - 0x802BE710
+// NSMBW .text: 0x802BC9D0 - 0x802BE710
 
 #include "eggController.h"
 

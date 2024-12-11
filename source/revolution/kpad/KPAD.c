@@ -1,5 +1,5 @@
 // KPAD.c
-// NSMBW: 0x801EAA80 - 0x801EEAE0
+// NSMBW .text: 0x801EAA80 - 0x801EEAE0
 
 #include <revolution/kpad.h>
 

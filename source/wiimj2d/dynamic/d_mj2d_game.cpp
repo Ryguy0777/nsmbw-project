@@ -1,5 +1,5 @@
 // d_mj2d_game.cpp
-// NSMBW: 0x800CDFB0 - 0x800CE660
+// NSMBW .text: 0x800CDFB0 - 0x800CE660
 
 #include "d_mj2d_game.h"
 

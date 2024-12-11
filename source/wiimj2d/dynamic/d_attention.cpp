@@ -1,5 +1,5 @@
 // d_attention.cpp
-// NSMBW: 0x800690F0 - 0x80069500
+// NSMBW .text: 0x800690F0 - 0x80069500
 
 #include "d_attention.h"
 

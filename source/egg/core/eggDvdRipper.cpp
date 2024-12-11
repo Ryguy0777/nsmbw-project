@@ -1,5 +1,5 @@
 // eggDvdRipper.cpp
-// NSMBW: 0x802B8010 - 0x802B8560
+// NSMBW .text: 0x802B8010 - 0x802B8560
 
 #include "eggDvdRipper.h"
 

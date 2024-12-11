@@ -1,5 +1,5 @@
 // d_multi_manager.cpp
-// NSMBW: 0x800CE8F0 - 0x800CED00
+// NSMBW .text: 0x800CE8F0 - 0x800CED00
 
 #include "d_multi_manager.h"
 

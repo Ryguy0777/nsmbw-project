@@ -1,5 +1,5 @@
 // d_stage_timer.cpp
-// NSMBW: 0x800E38E0 - 0x800E3BA0
+// NSMBW .text: 0x800E38E0 - 0x800E3BA0
 
 #include "d_stage_timer.h"
 

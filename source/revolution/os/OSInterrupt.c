@@ -1,5 +1,5 @@
 // OSInterrupt.c
-// NSMBW: 0x801B1280 - 0x801B1A50
+// NSMBW .text: 0x801B1280 - 0x801B1A50
 
 #include "OSInterrupt.h"
 

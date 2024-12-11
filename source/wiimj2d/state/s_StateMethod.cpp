@@ -1,5 +1,5 @@
 // s_StateMethod.cpp
-// NSMBW: 0x8015FAE0 - 0x8015FDD0
+// NSMBW .text: 0x8015FAE0 - 0x8015FDD0
 
 #include "s_StateMethod.h"
 

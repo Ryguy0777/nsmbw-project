@@ -1,5 +1,5 @@
 // arc.c
-// NSMBW: 0x8019F7A0 - 0x801A0190
+// NSMBW .text: 0x8019F7A0 - 0x801A0190
 
 #include <revolution/arc.h>
 

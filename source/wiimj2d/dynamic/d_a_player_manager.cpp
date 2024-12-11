@@ -1,10 +1,10 @@
 // d_a_player_manager.cpp
-// NSMBW: 0x8005E9A0 - 0x800613B0
+// NSMBW .text: 0x8005E9A0 - 0x800613B0
 
 #include "d_a_player_manager.h"
 
-#include <dynamic/system/d_a_player.h>
-#include <dynamic/system/d_a_yoshi.h>
+#include <dynamic/d_player/d_a_player.h>
+#include <dynamic/d_player/d_a_yoshi.h>
 #include <dynamic/d_a_player_demo_manager.h>
 #include <dynamic/d_course_data.h>
 #include <dynamic/d_game_common.h>
@@ -15,8 +15,8 @@
 #include <dynamic/d_player_effect_mng.h>
 #include <dynamic/d_quake.h>
 #include <dynamic/d_stage_timer.h>
-#include <dynamic/system/d_gamedisplay.h>
-#include <dynamic/bases/d_s_stage.h>
+#include <dynamic/d_player/d_gamedisplay.h>
+#include <dynamic/d_bases/d_s_stage.h>
 #include <framework/f_manager.h>
 #include <framework/f_sound_id.h>
 #include <machine/m_vec.h>

@@ -1,5 +1,5 @@
 // m_anmtexpat.cpp
-// NSMBW: 0x80166560 - 0x80167140
+// NSMBW .text: 0x80166560 - 0x80167140
 
 #include "m_anmtexpat.h"
 

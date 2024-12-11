@@ -1,5 +1,5 @@
 // snd_Util.cpp
-// NSMBW: 0x802836F0 - 0x80283BD0
+// NSMBW .text: 0x802836F0 - 0x80283BD0
 
 #include "Util.h"
 

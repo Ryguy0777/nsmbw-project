@@ -1,5 +1,5 @@
 // vi.c
-// NSMBW: 0x801BBB70 - 0x801BE5C0
+// NSMBW .text: 0x801BBB70 - 0x801BE5C0
 
 extern "C" {
 

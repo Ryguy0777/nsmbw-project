@@ -1,10 +1,10 @@
 // d_a_en_dpakkun_base.cpp
-// NSMBW: 0x8002CB70 - 0x8002EF50
+// NSMBW .text: 0x8002CB70 - 0x8002EF50
 
 #include "d_a_en_dpakkun_base.h"
 
 #include <dynamic/d_a_player_manager.h>
-#include <dynamic/system/d_a_player.h>
+#include <dynamic/d_player/d_a_player.h>
 
 
 [[address(0x8002D730)]]

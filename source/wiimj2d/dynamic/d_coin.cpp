@@ -1,5 +1,5 @@
 // d_coin.cpp
-// NSMBW: 0x8008DED0 - 0x8008DFF0
+// NSMBW .text: 0x8008DED0 - 0x8008DFF0
 
 #include "d_coin.h"
 

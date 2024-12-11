@@ -1,5 +1,5 @@
 // d_player_model_manager.cpp
-// NSMBW: 0x800D6DB0 - 0x800D7190
+// NSMBW .text: 0x800D6DB0 - 0x800D7190
 
 #include "d_player_model_manager.h"
 

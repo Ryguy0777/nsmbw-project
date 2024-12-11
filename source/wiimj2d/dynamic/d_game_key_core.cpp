@@ -1,12 +1,12 @@
 // d_game_key_core.cpp
-// NSMBW: 0x800B5B50 - 0x800B64A0
+// NSMBW .text: 0x800B5B50 - 0x800B64A0
 
 #include "d_game_key_core.h"
 
 #include <cmath>
-#include <dynamic/system/d_a_player.h>
+#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_a_player_manager.h>
-#include <dynamic/bases/d_s_stage.h>
+#include <dynamic/d_bases/d_s_stage.h>
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
 

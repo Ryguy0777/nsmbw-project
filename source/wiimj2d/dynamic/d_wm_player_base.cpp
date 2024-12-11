@@ -1,5 +1,5 @@
 // d_wm_player_base.cpp
-// NSMBW: 0x800FDC40 - 0x800FE140
+// NSMBW .text: 0x800FDC40 - 0x800FE140
 
 #include "d_wm_player_base.h"
 

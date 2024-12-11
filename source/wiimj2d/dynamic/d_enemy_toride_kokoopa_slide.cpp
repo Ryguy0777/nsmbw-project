@@ -1,5 +1,5 @@
 // d_enemy_toride_kokoopa_slide.cpp
-// NSMBW: 0x800B0800 - 0x800B0A20
+// NSMBW .text: 0x800B0800 - 0x800B0A20
 
 [[address(0x800B0840)]]
 void UNDEF_800B0840() ASM_METHOD(

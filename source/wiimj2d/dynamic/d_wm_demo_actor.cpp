@@ -1,5 +1,5 @@
 // d_wm_demo_actor.cpp
-// NSMBW: 0x800F60E0 - 0x800F7050
+// NSMBW .text: 0x800F60E0 - 0x800F7050
 
 #include "d_wm_demo_actor.h"
 

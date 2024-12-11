@@ -1,5 +1,5 @@
 // scanf.c
-// NSMBW: 0x802E1BA0 - 0x802E1C28
+// NSMBW .text: 0x802E1BA0 - 0x802E1C28
 
 extern "C" {
 

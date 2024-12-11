@@ -1,5 +1,5 @@
 // snd_SoundArchiveLoader.cpp
-// NSMBW: 0x80277190 - 0x802777F0
+// NSMBW .text: 0x80277190 - 0x802777F0
 
 #include "SoundArchiveLoader.h"
 #include <revolution/os.h>

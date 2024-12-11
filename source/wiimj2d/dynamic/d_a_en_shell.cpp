@@ -1,5 +1,5 @@
 // d_a_en_shell.cpp
-// NSMBW: 0x80037EA0 - 0x8003C9F0
+// NSMBW .text: 0x80037EA0 - 0x8003C9F0
 
 #include "d_a_en_shell.h"
 

@@ -1,5 +1,5 @@
 // d_wm_path.cpp
-// NSMBW: 0x800FDB60 - 0x800FDC40
+// NSMBW .text: 0x800FDB60 - 0x800FDC40
 
 #include "d_wm_path.h"
 

@@ -1,5 +1,5 @@
 // OSTime.c
-// NSMBW: 0x801B60C0 - 0x801B64F0
+// NSMBW .text: 0x801B60C0 - 0x801B64F0
 
 #include "OSTime.h"
 

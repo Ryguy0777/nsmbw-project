@@ -1,5 +1,5 @@
 // s_StateID.cpp
-// NSMBW: 0x8015F900 - 0x8015FAE0
+// NSMBW .text: 0x8015F900 - 0x8015FAE0
 
 #include "s_StateID.h"
 

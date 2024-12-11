@@ -1,5 +1,5 @@
 // m_pad.cpp
-// NSMBW: 0x8016F330 - 0x8016F880
+// NSMBW .text: 0x8016F330 - 0x8016F880
 
 #include "m_pad.h"
 

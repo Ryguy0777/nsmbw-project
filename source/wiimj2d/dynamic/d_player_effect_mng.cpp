@@ -1,5 +1,5 @@
 // d_player_effect_mng.cpp
-// NSMBW: 0x800D2D10 - 0x800D2EC0
+// NSMBW .text: 0x800D2D10 - 0x800D2EC0
 
 #include "d_player_effect_mng.h"
 

@@ -1,5 +1,5 @@
 // d_balloon_mng.cpp
-// NSMBW: 0x8006C0B0 - 0x8006C420
+// NSMBW .text: 0x8006C0B0 - 0x8006C420
 
 #include "d_balloon_mng.h"
 

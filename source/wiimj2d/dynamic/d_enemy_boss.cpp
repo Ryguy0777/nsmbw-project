@@ -1,5 +1,5 @@
 // d_enemy_boss.cpp
-// NSMBW: 0x800983C0 - 0x8009AD30
+// NSMBW .text: 0x800983C0 - 0x8009AD30
 
 [[address(0x80098B60)]]
 void dEnBoss_c_Normal_VsPlHitCheck(void* this_, void* cc1, void* cc2) ASM_METHOD(

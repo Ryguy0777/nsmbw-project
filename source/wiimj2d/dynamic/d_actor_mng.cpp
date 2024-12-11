@@ -1,5 +1,5 @@
 // d_actor_mng.cpp
-// NSMBW: 0x80066380 - 0x80066FB0
+// NSMBW .text: 0x80066380 - 0x80066FB0
 
 #include "d_actor_mng.h"
 

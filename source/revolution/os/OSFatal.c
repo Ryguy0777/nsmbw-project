@@ -1,5 +1,5 @@
 // OSFatal.c
-// NSMBW: 0x801AF2C0 - 0x801AFEF0
+// NSMBW .text: 0x801AF2C0 - 0x801AFEF0
 
 #include <revolution/os.h>
 

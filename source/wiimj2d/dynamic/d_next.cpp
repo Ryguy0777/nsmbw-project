@@ -1,5 +1,5 @@
 // d_next.cpp
-// NSMBW: 0x800CFCE0 - 0x800D03C0
+// NSMBW .text: 0x800CFCE0 - 0x800D03C0
 
 #include "d_next.h"
 

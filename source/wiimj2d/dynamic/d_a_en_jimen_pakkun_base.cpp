@@ -1,5 +1,5 @@
 // d_a_en_jimen_pakkun_base.cpp
-// NSMBW: 0x8002EF50 - 0x800311E0
+// NSMBW .text: 0x8002EF50 - 0x800311E0
 
 #include "d_a_en_jimen_pakkun_base.h"
 

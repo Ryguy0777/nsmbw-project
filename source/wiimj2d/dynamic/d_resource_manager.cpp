@@ -1,5 +1,5 @@
 // d_resource_manager.cpp
-// NSMBW: 0x800DF770 - 0x800DF950
+// NSMBW .text: 0x800DF770 - 0x800DF950
 // NSMBW .sbss: 0x8042A318 - 0x8042A31C
 
 #include "d_resource_manager.h"

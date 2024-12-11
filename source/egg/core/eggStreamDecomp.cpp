@@ -1,5 +1,5 @@
 // eggStreamDecomp.cpp
-// NSMBW: 0x802B8560 - 0x802B8BB0
+// NSMBW .text: 0x802B8560 - 0x802B8BB0
 
 #include <System.h>
 

@@ -1,5 +1,5 @@
 // d_base_actor.cpp
-// NSMBW: 0x8006C6D0 - 0x8006CF40
+// NSMBW .text: 0x8006C6D0 - 0x8006CF40
 
 #include "d_base_actor.h"
 
