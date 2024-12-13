@@ -56,7 +56,8 @@ public:
     }
 
     [[nodiscard]]
-    static bool isPlayerActive(int player) {
+    static bool isPlayerActive(int player)
+    {
         return mActPlayerInfo & (1 << player);
     }
 
@@ -115,8 +116,14 @@ public:
     /* 0x8005FB90 */
     static daPlBase_c* getCtrlPlayer(int index);
 
+    static PlayerType_e getModelPlayerType(dPyMdlMng_c::ModelType_e modelType);
+
+    static dPyMdlMng_c::ModelType_e getPlayerTypeModelType(PlayerType_e playerType);
+
     /* 0x8005FBE0 */
     static dPyMdlMng_c::ModelType_e getCourseInPlayerModelType(u8 index);
+
+    static int getPlayerColorType(PlayerType_e playerType);
 
     /* 0x8005FC70 */
     [[nodiscard]]

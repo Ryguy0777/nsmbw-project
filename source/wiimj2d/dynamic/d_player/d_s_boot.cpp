@@ -83,6 +83,9 @@ void dScBoot_c::executeState_ProcEnd()
         }
     }
 
+    daPyMng_c::mPlayerType[0] = daPyMng_c::PlayerType_e::TOADETTE;
+    daPyMng_c::mPlayerType[4] = daPyMng_c::PlayerType_e::MARIO;
+
     daPyMng_c::mPlayerEntry[4] = 1;
 
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
@@ -93,9 +96,9 @@ void dScBoot_c::executeState_ProcEnd()
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
       .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_9,
+      .stage1 = STAGE_e::STAGE_1,
       .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_9,
+      .stage2 = STAGE_e::STAGE_1,
     });
 }
 

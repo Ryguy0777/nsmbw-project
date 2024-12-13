@@ -2,21 +2,22 @@
 // NSMBW .text: 0x8005E9A0 - 0x800613B0
 
 #include "d_a_player_manager.h"
+#include "dynamic/d_player_model_manager.h"
 
-#include <dynamic/d_player/d_a_player.h>
-#include <dynamic/d_player/d_a_yoshi.h>
 #include <dynamic/d_a_player_demo_manager.h>
+#include <dynamic/d_bases/d_s_stage.h>
 #include <dynamic/d_course_data.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_multi_manager.h>
 #include <dynamic/d_next.h>
 #include <dynamic/d_pause_manager.h>
+#include <dynamic/d_player/d_a_player.h>
+#include <dynamic/d_player/d_a_yoshi.h>
+#include <dynamic/d_player/d_gamedisplay.h>
 #include <dynamic/d_player_effect_mng.h>
 #include <dynamic/d_quake.h>
 #include <dynamic/d_stage_timer.h>
-#include <dynamic/d_player/d_gamedisplay.h>
-#include <dynamic/d_bases/d_s_stage.h>
 #include <framework/f_manager.h>
 #include <framework/f_sound_id.h>
 #include <machine/m_vec.h>
@@ -680,22 +681,51 @@ int daPyMng_c::getYoshiNum()
 [[address(0x8005FB90)]]
 daPlBase_c* daPyMng_c::getCtrlPlayer(int index);
 
-[[address(0x8005FBE0)]]
-dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
+daPyMng_c::PlayerType_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
 {
-    int playerType = int(mPlayerType[index]);
+    int modelIndex = static_cast<int>(modelType);
 
-    if (mCreateItem[playerType] & 8) {
+    using PlayerTypeArray = PlayerType_e[];
+    return PlayerTypeArray{
+      PlayerType_e::MARIO,       PlayerType_e::LUIGI,     PlayerType_e::BLUE_TOAD,
+      PlayerType_e::YELLOW_TOAD, PlayerType_e::BLUE_TOAD, PlayerType_e::LUIGI,
+      PlayerType_e::TOADETTE,
+    }[modelIndex];
+}
+
+dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PlayerType_e playerType)
+{
+    int playerTypeInt = static_cast<int>(playerType);
+
+    if (mCreateItem[playerTypeInt] & 8) {
         return dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD;
     }
 
     using ModelTypeArray = dPyMdlMng_c::ModelType_e[];
+    // return ModelTypeArray{
+    //   dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+    //   dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
+    //   dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
+    //   dPyMdlMng_c::ModelType_e::MODEL_LUIGI,     dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
+    // }[playerTypeInt];
+
     return ModelTypeArray{
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-      dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_LUIGI,     dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
-    }[playerType];
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE, dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO
+    }[playerTypeInt];
+}
+
+[[address(0x8005FBE0)]]
+dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
+{
+    return getPlayerTypeModelType(mPlayerType[index]);
+}
+
+int daPyMng_c::getPlayerColorType(PlayerType_e playerType)
+{
+    return static_cast<int>(getModelPlayerType(getPlayerTypeModelType(playerType)));
 }
 
 [[address(0x8005FC70)]]

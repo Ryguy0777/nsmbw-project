@@ -512,8 +512,9 @@ UNDEF_801450c8:;
 /* 801450FC 907F0E44 */  stw      r3, 3652(r31);
 UNDEF_80145100:;
                          // Proper offset for character sounds
-/* 80145100 801F14D4 */  lwz      r0, 0x14D4(r31); // mPlayerType
-/* 80145148          */  stw      r0, 0xE98(r31); // mSndObjctPly.mPlayerSndIndex
+/* 80145100 801F14D4 */  lwz      r3, 0x14D4(r31); // mPlayerType
+                         bl       getPlayerColorType__9daPyMng_cFQ29daPyMng_c12PlayerType_e;
+/* 80145148          */  stw      r3, 0xE98(r31); // mSndObjctPly.mPlayerSndIndex
 
 /* 8014514C 7FE3FB78 */  mr       r3, r31;
 /* 80145150 4BF08451 */  bl       UNDEF_8004d5a0;

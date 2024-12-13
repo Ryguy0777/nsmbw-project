@@ -7,6 +7,7 @@
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_mj2d_game.h>
 #include <iterator>
+#include <nw4r/lyt/Material.h>
 
 [[address(0x80157820)]]
 dGameDisplay_c* dGameDisplay_c_classInit()
@@ -213,6 +214,11 @@ bool dGameDisplay_c::createLayout()
       1, 4
     );
 
+    for (int i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
+        mpaTexMap[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetMaterial()->GetTexturePtr(0);
+        maIconSize[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetSize();
+    }
+
     return true;
 }
 
@@ -240,6 +246,14 @@ void dGameDisplay_c::RestDispSetup()
         mpaPictures[PLAYER_PICTURE_INDEX[player]]->SetTranslate(position[count++]);
 
         m0x414 = PLAYER_PICTURE_INDEX[player];
+
+        int charaIndex =
+          daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+
+        mpaPictures[PLAYER_PICTURE_INDEX[player]]->GetMaterial()->SetTexture(
+          0, *mpaTexMap[charaIndex]
+        );
+        mpaPictures[PLAYER_PICTURE_INDEX[player]]->SetSize(maIconSize[charaIndex]);
     }
 }
 

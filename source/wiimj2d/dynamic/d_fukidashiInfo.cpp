@@ -159,8 +159,12 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
       },
     };
 
+    int index = static_cast<int>(
+      daPyMng_c::getPlayerTypeModelType(static_cast<daPyMng_c::PlayerType_e>(playerType))
+    );
+
     mPosOffset.x = 0.0;
-    mPosOffset.y = s_FUKIDASHI_Y_OFFSET[playerType][powerupType];
+    mPosOffset.y = s_FUKIDASHI_Y_OFFSET[index][powerupType];
     mPosOffset.z = 0.0;
 }
 
@@ -224,10 +228,12 @@ void dfukidashiInfo_c::ColorSet()
       "#FFB4B4",
     };
 
-    int playerIndex = static_cast<int>(daPyMng_c::mPlayerType[mPlayerID]);
+    daPyMng_c::PlayerType_e playerType = daPyMng_c::mPlayerType[mPlayerID];
     if (m0x220 == 8 && !PauseManager_c::m_OtasukeAfter) {
-        playerIndex = 0;
+        playerType = daPyMng_c::PlayerType_e::MARIO;
     }
+
+    int playerIndex = daPyMng_c::getPlayerColorType(playerType);
 
     nw4r::ut::Color color1 = l_PLAYER_COLOR_1[playerIndex];
     nw4r::ut::Color color2 = l_PLAYER_COLOR_2[playerIndex];

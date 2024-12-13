@@ -18,4 +18,6 @@ struct GXColorS10 {
 
 struct GXTexObj;
 
+struct GXTlutObj;
+
 } // extern "C"

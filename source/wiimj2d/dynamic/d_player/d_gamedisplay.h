@@ -6,8 +6,9 @@
 #include <dynamic/d_lyttextbox.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
-#include <state/s_StateMgr.h>
+#include <nw4r/lyt/TexMap.h>
 #include <revolution/gx/GXStruct.h>
+#include <state/s_StateMgr.h>
 
 class dGameDisplay_c : public dBase_c
 {
@@ -214,6 +215,9 @@ public:
 
         nw4r::lyt::Pane* mpaExPanes[EXTRA_PLAYER_COUNT];
     };
+
+    nw4r::lyt::TexMap* mpaTexMap[4 + EXTRA_PLAYER_COUNT];
+    nw4r::lyt::Size maIconSize[4 + EXTRA_PLAYER_COUNT];
 
 public:
     // -----------

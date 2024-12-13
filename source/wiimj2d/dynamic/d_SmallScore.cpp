@@ -3,6 +3,7 @@
 
 #include "d_SmallScore.h"
 
+#include <dynamic/d_a_player_manager.h>
 #include <nw4r/lyt/Material.h>
 #include <nw4r/ut/Color.h>
 
@@ -34,8 +35,10 @@ void dSmallScore_c::setPlayer1000Color(int player)
       "#FFFFFF", // Player 7
     };
 
-    mTxt1000->SetVtxColor(0, l_PLY_COLOR_0[player]);
-    mTxt1000->SetVtxColor(2, l_PLY_COLOR_2[player]);
+    int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+
+    mTxt1000->SetVtxColor(0, l_PLY_COLOR_0[index]);
+    mTxt1000->SetVtxColor(2, l_PLY_COLOR_2[index]);
 }
 
 [[address(0x800153B0)]]
@@ -52,5 +55,7 @@ void dSmallScore_c::setPlayer100Color(int player)
       "#FFFFFF", // Player 7
     };
 
-    mTxt100->GetMaterial()->SetTevColor(1, l_PLY_COLOR[player]);
+    int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+
+    mTxt100->GetMaterial()->SetTevColor(1, l_PLY_COLOR[index]);
 }

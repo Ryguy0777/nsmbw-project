@@ -162,8 +162,10 @@ void Player1upColor(LytTextBox_c* textBox, int player)
       "#FFFFFF", // Player 7
     };
 
-    textBox->SetVtxColor(0, l_PLY_COLOR_0[player]);
-    textBox->SetVtxColor(2, l_PLY_COLOR_2[player]);
+    int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+
+    textBox->SetVtxColor(0, l_PLY_COLOR_0[index]);
+    textBox->SetVtxColor(2, l_PLY_COLOR_2[index]);
 }
 
 } // namespace dGameCom
