@@ -1,6 +1,0 @@
--O3
--I.
--Wno-deprecated-declarations
--Wno-pointer-sign
--Wno-unsequenced
--ansi

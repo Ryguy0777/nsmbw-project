@@ -4,26 +4,32 @@ SUFFIXES += .d
 # Project directory
 BUILD := ./build
 ARCHIVE := NSMBWProjectData
-DVDDATA := $(BUILD)/$(ARCHIVE).arc.d
-DVDDATA_SRC := ./assets/dvddata
+ASSETS := $(BUILD)/$(ARCHIVE).arc.d
+ASSETS_SRC := ./assets
 TARGET := project_P1
 LOADER := Loader
 OUTPUT := ./output/riivolution/mkwcat-special-nsmbw-project
-TOOLS := ./tools/macos
+TOOLS := $(BUILD)/tools
 
 
 # Compiler definitions
 # CLANG := $(TOOLS)/clang
 # CLANG := D:\wii\repo\llvm-project\build\bin\clang
+HOST_CC := gcc
+HOST_CXX := g++
 CLANG := /Users/mkwcat/Documents/repo/llvm-project/build/bin/clang
 CC := $(CLANG)
 LD := $(DEVKITPPC)/bin/powerpc-eabi-ld
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 ELF2REL := $(TOOLS)/elf2rel
 LZX := $(TOOLS)/lzx
+GENSMAP := ./tools/generate_symbol_map.py
+WUJ5 := ./tools/wuj5/wuj5.py
 
 SOURCES :=
--include sources.mk
+-include ./source/sources.mk
+-include ./assets/assets.mk
+
 
 OFILES := $(SOURCES:.cpp=_cpp.o)
 OFILES := $(OFILES:.c=_c.o)
@@ -32,87 +38,103 @@ DEPS := $(OFILES:.o=.d)
 
 OUTDIRS := $(sort $(dir $(OFILES)))
 
-LOADER_CPPFILES := loader/Loader.cpp
+LOADER_CPPFILES := ./loader/Loader.cpp
 LOADER_OFILES := $(LOADER_CPPFILES:.cpp=_cpp.o)
 LOADER_OFILES := $(addprefix $(BUILD)/, $(LOADER_OFILES))
 LOADER_DEPS	:= $(LOADER_OFILES:.o=.d)
 
-CFLAGS := --target=powerpc-eabi-kuribo -fno-PIC -Os -fno-rtti -fno-short-enums -fshort-wchar -std=c++23 -Wno-out-of-line-declaration -Wno-gcc-compat -Wno-invalid-offsetof -Wno-nested-anon-types -Wno-gnu-anonymous-struct \
--fdeclspec -fno-exceptions -nodefaultlibs -ffreestanding -ffunction-sections -fdata-sections -fno-threadsafe-statics -fno-use-cxa-atexit \
--Isource -Isource/msl/msl_c -Isource/msl/msl_cpp -Isource/wiimj2d -DLOADER_REL_LZ -fkeep-static-consts -femit-all-decls -include System.h
+# Compiler options
+CXXOPTS := -std=c++23 -MMD --target=powerpc-eabi-kuribo -Os -nodefaultlibs -include System.h
+
+# Warnings
+# -Wno-out-of-line-declaration is required to suppress errors when defining out-of-line aliases
+CXXOPTS += -Wno-out-of-line-declaration -Wno-gcc-compat -Wno-invalid-offsetof -Wno-nested-anon-types -Wno-gnu-anonymous-struct
+
+# Flags
+CXXOPTS += -fno-PIC -fno-rtti -fno-short-enums -fshort-wchar -ffreestanding -ffunction-sections -fdata-sections \
+           -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit -fkeep-static-consts
+
+# Includes
+CXXOPTS += -I./source -I./source/msl/msl_c -I./source/msl/msl_cpp -I./source/wiimj2d
+
+# Preprocessor definitions
+CXXOPTS += -DLOADER_REL_LZ
+
+# Linker options
+LDOPTS := -T./source/module.ld --gc-sections -r -n
+
 
 .PHONY: all
-all: make_build $(OUTPUT)/$(ARCHIVE).arc $(OUTPUT)/$(LOADER).img
-
-.PHONY: make_build
-make_build:
-	@mkdir -p $(BUILD) $(BUILD)/source $(BUILD)/loader $(OUTDIRS) $(OUTPUT) $(DVDDATA)
+all: $(OUTPUT)/$(ARCHIVE).arc $(OUTPUT)/$(LOADER).img
 
 .PHONY: clean
 clean:
 	@echo Cleaning...
 	@rm -rf $(BUILD)
 
+
 -include $(DEPS)
 
 
-DVD_FILES := \
-$(DVDDATA)/rels/$(TARGET).rel.LZ \
-$(DVDDATA)/wiimj2d.SMAP \
-$(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/blyt/characterChangeSelectContents_05.brlyt.json5 \
-$(DVDDATA)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/timg/Im_plofileMario_00.tpl \
-$(DVDDATA)/Layout/gameScene/gameScene.arc/arc/blyt/gameScene_37.brlyt.json5 \
-$(DVDDATA)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopicoIcon_01.tpl \
-$(DVDDATA)/Object/Kinopico.arc/g3d/model.brres \
-$(DVDDATA)/Sound/BANK_SE_VOC_COURSE_KC.brbnk \
-$(DVDDATA)/Sound/GROUP_SE_VOC_COURSE_KC.brwar \
-$(DVDDATA)/Stage/01-09.arc.LZ
-
-
-$(DVDDATA)/%: $(DVDDATA_SRC)/%
-	@echo Copy: $<
-	@mkdir -p $(dir $@)
-	@cp $< $@
-
 $(BUILD)/%_c.o: %.c
 	@echo $<
-	@$(CC) -x c++ -MMD $(CFLAGS) -c -o ./$@ ./$<
+	@mkdir -p $(dir $@)
+	@$(CC) -x c++ -c ./$< $(CXXOPTS) -o ./$@
 
 $(BUILD)/%_cpp.o: %.cpp
 	@echo $<
-	@$(CC) -x c++ -MMD $(CFLAGS) -c -o ./$@ ./$<
-
-$(BUILD)/$(TARGET)_ungc.elf: $(OFILES)
-	@echo Link: $(TARGET)_ungc.elf
-	@$(LD) -Tmodule.ld -r $(OFILES) -o $@
+	@mkdir -p $(dir $@)
+	@$(CC) -x c++ -c ./$< $(CXXOPTS) -o ./$@
 
 $(BUILD)/$(TARGET).elf: $(OFILES)
-	@echo Link: $(TARGET).elf
-	@$(LD) -Tmodule.ld --gc-sections -r $(OFILES) -o $@
+	@echo Link: $(notdir $@)
+	@$(LD) $(LDOPTS) $(OFILES) -o $@
 
-$(BUILD)/$(TARGET).rel: $(BUILD)/$(TARGET).elf
-	@echo Rel: $(TARGET).rel
-	@$(ELF2REL) $(BUILD)/$(TARGET).elf $@
+$(BUILD)/$(TARGET).rel: $(BUILD)/$(TARGET).elf $(TOOLS)/elf2rel
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@
 
-$(DVDDATA)/rels/$(TARGET).rel.LZ: $(BUILD)/$(TARGET).rel
-	@echo Compress: $(TARGET).rel.LZ
-	@mkdir -p $(DVDDATA)/rels
+$(ASSETS)/rels/$(TARGET).rel.LZ: $(BUILD)/$(TARGET).rel $(TOOLS)/lzx
+	@echo Compress: $(notdir $@)
+	@mkdir -p $(dir $@)
 	@$(LZX) -ewb $< $@
 
-$(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
-	@echo Build: $(ARCHIVE).arc
-	@python $(TOOLS)/../python/wuj5/wuj5.py encode $(BUILD)/$(ARCHIVE).arc.d --root= --outputs=$@
+$(ASSETS)/%: $(ASSETS_SRC)/%
+	@echo $<
+	@mkdir -p $(dir $@)
+	@cp $< $@
 
-$(DVDDATA)/wiimj2d.SMAP: $(BUILD)/$(TARGET)_ungc.elf
-	@echo Make: wiimj2d.SMAP
-	@python $(TOOLS)/../python/generate_symbol_map.py $(BUILD)/$(TARGET)_ungc.elf $(DVDDATA)/wiimj2d.SMAP
+$(ASSETS)/%.brlyt: $(ASSETS_SRC)/%.brlyt.json5
+	@echo $<
+	@mkdir -p $(dir $@)
+	@python $(WUJ5) encode $< --outputs=$@
+
+$(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
+	@echo Build: $(notdir $@)
+	@mkdir -p $(dir $@)
+	@python $(WUJ5) encode $(ASSETS) --root= --outputs=$@
+
+$(ASSETS)/wiimj2d.SMAP: $(BUILD)/$(TARGET).elf
+	@echo Make: $(notdir $@)
+	@python $(GENSMAP) $< $@
 
 $(BUILD)/$(LOADER).elf: $(LOADER_OFILES)
-	@echo Link: $(LOADER).elf
-	@$(LD) -Tloader/Loader.ld --gc-sections -n -o $@ $<
+	@echo Link: $(notdir $@)
+	@$(LD) -T./loader/Loader.ld --gc-sections -n $(LOADER_OFILES) -o $@ 
 
 $(OUTPUT)/$(LOADER).img: $(BUILD)/$(LOADER).elf
-	@echo Output: $(LOADER).img
+	@echo Output: $(notdir $@)
+	@mkdir -p $(dir $@)
 	@$(OBJCOPY) $< $@ -O binary
 
+# Tool recipes
 
+$(ELF2REL): ./tools/elf2rel/elf2rel.cpp
+	@echo Build: $(notdir $@)
+	@mkdir -p $(dir $@)
+	@$(HOST_CXX) -std=c++17 -O2 -I $(dir $<) $< -o $@ 
+
+$(LZX): ./tools/lzx/lzx.c
+	@echo Build: $(notdir $@)
+	@mkdir -p $(dir $@)
+	@$(HOST_CC) -O3 -Wno-deprecated-declarations -Wno-pointer-sign $< -o $@
