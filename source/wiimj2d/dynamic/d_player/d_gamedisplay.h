@@ -218,6 +218,7 @@ public:
 
     nw4r::lyt::TexMap* mpaTexMap[4 + EXTRA_PLAYER_COUNT];
     nw4r::lyt::Size maIconSize[4 + EXTRA_PLAYER_COUNT];
+    nw4r::math::VEC2 maIconScale[4 + EXTRA_PLAYER_COUNT];
 
 public:
     // -----------
