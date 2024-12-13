@@ -12,7 +12,7 @@
 dGameDisplay_c* dGameDisplay_c_classInit()
 {
     dGameDisplay_c* gameDisplay = new dGameDisplay_c();
-    
+
     for (int i = 0; i < std::size(gameDisplay->mPlayNum); i++) {
         gameDisplay->mPlayNum[i] = -1;
     }
@@ -23,9 +23,14 @@ dGameDisplay_c* dGameDisplay_c_classInit()
 #define X (*reinterpret_cast<dGameDisplay_c*>(0x1))
 
 const long dGameDisplay_c::PLAYER_PANE_INDEX[] = {
-  std::distance(X.mpaPanes, &X.mpPane_MarioIcon),    std::distance(X.mpaPanes, &X.mpPane_LuigiIcon),
-  std::distance(X.mpaPanes, &X.mpPane_KinoBIcon),    std::distance(X.mpaPanes, &X.mpPane_KinoYIcon),
+  std::distance(X.mpaPanes, &X.mpPane_MarioIcon),
+  std::distance(X.mpaPanes, &X.mpPane_LuigiIcon),
+  std::distance(X.mpaPanes, &X.mpPane_KinoBIcon),
+  std::distance(X.mpaPanes, &X.mpPane_KinoYIcon),
   std::distance(X.mpaPanes, &X.mpPane_KinopicoIcon),
+  std::distance(X.mpaPanes, &X.mpPane_Player05Icon),
+  std::distance(X.mpaPanes, &X.mpPane_Player06Icon),
+  std::distance(X.mpaPanes, &X.mpPane_Player07Icon),
 };
 
 const long dGameDisplay_c::PLAYER_PICTURE_INDEX[] = {
@@ -34,6 +39,9 @@ const long dGameDisplay_c::PLAYER_PICTURE_INDEX[] = {
   std::distance(X.mpaPictures, &X.mpPicture_KinoBIcon),
   std::distance(X.mpaPictures, &X.mpPicture_KinoYIcon),
   std::distance(X.mpaPictures, &X.mpPicture_KinopicoIcon),
+  std::distance(X.mpaPictures, &X.mpPicture_Player05Icon),
+  std::distance(X.mpaPictures, &X.mpPicture_Player06Icon),
+  std::distance(X.mpaPictures, &X.mpPicture_Player07Icon),
 };
 
 const long dGameDisplay_c::PLAYER_TEXTBOX_INDEX[] = {
@@ -42,6 +50,9 @@ const long dGameDisplay_c::PLAYER_TEXTBOX_INDEX[] = {
   std::distance(X.mpaTextBoxes, &X.mpTextBox_Left02),
   std::distance(X.mpaTextBoxes, &X.mpTextBox_Left03),
   std::distance(X.mpaTextBoxes, &X.mpTextBox_Left04),
+  std::distance(X.mpaTextBoxes, &X.mpTextBox_Left05),
+  std::distance(X.mpaTextBoxes, &X.mpTextBox_Left06),
+  std::distance(X.mpaTextBoxes, &X.mpTextBox_Left07),
 };
 
 const long dGameDisplay_c::PLAYER_BOTH_TEXTBOX_INDEX[][2] = {
@@ -55,6 +66,12 @@ const long dGameDisplay_c::PLAYER_BOTH_TEXTBOX_INDEX[][2] = {
    std::distance(X.mpaTextBoxes, &X.mpTextBox_X04)},
   {std::distance(X.mpaTextBoxes, &X.mpTextBox_Left04),
    std::distance(X.mpaTextBoxes, &X.mpTextBox_X05)},
+  {std::distance(X.mpaTextBoxes, &X.mpTextBox_Left05),
+   std::distance(X.mpaTextBoxes, &X.mpTextBox_X06)},
+  {std::distance(X.mpaTextBoxes, &X.mpTextBox_Left06),
+   std::distance(X.mpaTextBoxes, &X.mpTextBox_X07)},
+  {std::distance(X.mpaTextBoxes, &X.mpTextBox_Left07),
+   std::distance(X.mpaTextBoxes, &X.mpTextBox_X08)},
 };
 
 #undef X
@@ -107,6 +124,9 @@ bool dGameDisplay_c::createLayout()
     mLayout.NPaneRegister(
       StringArray{
         "N_kinopico_00",
+        "N_player_05",
+        "N_player_06",
+        "N_player_07",
       },
       mpaExPanes, EXTRA_PLAYER_COUNT
     );
@@ -130,6 +150,9 @@ bool dGameDisplay_c::createLayout()
     mLayout.PPaneRegister(
       StringArray{
         "P_kinopico_00",
+        "P_player_05",
+        "P_player_06",
+        "P_player_07",
       },
       mpaExPictures, EXTRA_PLAYER_COUNT
     );
@@ -164,6 +187,12 @@ bool dGameDisplay_c::createLayout()
       StringArray{
         "T_left_04",
         "T_x_05",
+        "T_left_05",
+        "T_x_06",
+        "T_left_06",
+        "T_x_07",
+        "T_left_07",
+        "T_x_08",
       },
       mpaExTextBoxes, EXTRA_PLAYER_COUNT * 2
     );

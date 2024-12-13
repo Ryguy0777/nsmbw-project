@@ -162,7 +162,7 @@ public:
     FILL(0x538, 0x5A4);
     OFFSET_ASSERT(0x5A4);
 
-#define dGameDisplay_c_EXTRA_PLAYER_COUNT 1
+#define dGameDisplay_c_EXTRA_PLAYER_COUNT 4
     static constexpr u32 EXTRA_PLAYER_COUNT = dGameDisplay_c_EXTRA_PLAYER_COUNT;
 
 #define OFFSET_dGameDisplay_c_mPlayerRGBA0 0x5A4
@@ -181,6 +181,9 @@ public:
     union {
         struct {
             nw4r::lyt::Picture* mpPicture_KinopicoIcon;
+            nw4r::lyt::Picture* mpPicture_Player05Icon;
+            nw4r::lyt::Picture* mpPicture_Player06Icon;
+            nw4r::lyt::Picture* mpPicture_Player07Icon;
         };
 
         nw4r::lyt::Picture* mpaExPictures[EXTRA_PLAYER_COUNT];
@@ -190,6 +193,12 @@ public:
         struct {
             LytTextBox_c* mpTextBox_Left04;
             LytTextBox_c* mpTextBox_X05;
+            LytTextBox_c* mpTextBox_Left05;
+            LytTextBox_c* mpTextBox_X06;
+            LytTextBox_c* mpTextBox_Left06;
+            LytTextBox_c* mpTextBox_X07;
+            LytTextBox_c* mpTextBox_Left07;
+            LytTextBox_c* mpTextBox_X08;
         };
 
         LytTextBox_c* mpaExTextBoxes[EXTRA_PLAYER_COUNT * 2];
@@ -198,6 +207,9 @@ public:
     union {
         struct {
             nw4r::lyt::Pane* mpPane_KinopicoIcon;
+            nw4r::lyt::Pane* mpPane_Player05Icon;
+            nw4r::lyt::Pane* mpPane_Player06Icon;
+            nw4r::lyt::Pane* mpPane_Player07Icon;
         };
 
         nw4r::lyt::Pane* mpaExPanes[EXTRA_PLAYER_COUNT];
