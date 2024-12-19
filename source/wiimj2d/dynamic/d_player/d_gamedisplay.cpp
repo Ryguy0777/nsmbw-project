@@ -215,7 +215,7 @@ bool dGameDisplay_c::createLayout()
     );
 
     for (int i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
-        mpaTexMap[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetMaterial()->GetTexturePtr(0);
+        mpaTexMap[i] = *mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetMaterial()->GetTexturePtr(0);
         maIconSize[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetSize();
         maIconScale[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetScale();
     }
@@ -252,7 +252,7 @@ void dGameDisplay_c::RestDispSetup()
           daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
 
         mpaPictures[PLAYER_PICTURE_INDEX[player]]->GetMaterial()->SetTexture(
-          0, *mpaTexMap[charaIndex]
+          0, mpaTexMap[charaIndex]
         );
 
         nw4r::lyt::Size size = maIconSize[charaIndex];

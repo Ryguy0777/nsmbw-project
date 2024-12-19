@@ -9,5 +9,8 @@ public:
     /* 0x808EE0C0 */
     s32 getPlayerOrder();
 
+    /* 0x808EB7D0 */
+    void loadModel();
+
     /* 0x1CC */ dPyMdlMng_c* mModelManager;
 };

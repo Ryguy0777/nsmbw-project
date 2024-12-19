@@ -3,12 +3,12 @@
 
 #include "d_s_World9DeMo.h"
 
+#include <dynamic/d_bases/d_wm_effectManager.h>
 #include <dynamic/d_fader.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>
 #include <dynamic/d_save_manager.h>
 #include <dynamic/d_system.h>
-#include <dynamic/d_bases/d_wm_effectManager.h>
 #include <machine/m_pad.h>
 #include <revolution/vi.h>
 
@@ -25,8 +25,9 @@ int dScWorld9DeMo_c::create()
     dWmEffectManager_c::construct();
 
     dMj2dGame_c* saveGame = dSaveMng_c::m_instance->getSaveGame();
-    mIsWorld9AlreadyOpen =
-      saveGame->isWorldDataFlag(WORLD_e::WORLD_9, dMj2dGame_c::WORLD_COMPLETION_e::WORLD_UNLOCKED);
+    mIsWorld9AlreadyOpen = !!saveGame->isWorldDataFlag(
+      WORLD_e::WORLD_9, dMj2dGame_c::WORLD_COMPLETION_e::WORLD_UNLOCKED
+    );
 
     saveGame->onWorldDataFlag(WORLD_e::WORLD_9, dMj2dGame_c::WORLD_COMPLETION_e::WORLD_UNLOCKED);
 

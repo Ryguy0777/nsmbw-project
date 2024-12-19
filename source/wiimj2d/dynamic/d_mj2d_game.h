@@ -389,6 +389,7 @@ public:
     void setCollectCoin(WORLD_e world, STAGE_e level, u8 coins);
 
     /**
+     * 0x800CE280
      * Gets the obtainable Star Coin count for the given world.
      */
     int getTotalWorldCollectCoin(WORLD_e world);
@@ -427,12 +428,12 @@ public:
     int getDeathCount(WORLD_e world, STAGE_e level, bool isSwitchPressed) const;
 
     /**
-     * Sets @p player 's continue count.
+     * Sets a player 's continue count.
      */
     void setContinue(int player, s8 continues);
 
     /**
-     * Get a player's continue count.
+     * Gets a player's continue count.
      */
     s8 getContinue(int player) const;
 
@@ -447,37 +448,44 @@ public:
     }
 
     /**
-     * Checks if the completion flag(s) for the given world is set. See WORLD_COMPLETION_e.
+     * 0x800CE440
+     * Checks if the completion flag(s) for the given world is set.
      */
-    u8 isWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag) const;
+    WORLD_COMPLETION_e isWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag) const;
 
     /**
-     * Sets the specified flag(s) for the given world. See WORLD_COMPLETION_e.
+     * 0x800CE450
+     * Sets the specified flag(s) for the given world.
      */
     void onWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag);
 
     /**
-     * Unsets the specified flag(s) for the given world. See WORLD_COMPLETION_e.
+     * 0x800CE470
+     * Unsets the specified flag(s) for the given world.
      */
     void offWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag);
 
     /**
-     * Checks if the completion flag for the given world/level is set. See COURSE_COMPLETION_e.
+     * 0x800CE4B0
+     * Checks if the completion flag for the given world/level is set.
      */
     bool isCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e flag) const;
 
     /**
-     * Sets the completion flag(s) for the given world/level. See COURSE_COMPLETION_e.
+     * 0x800CE4E0
+     * Sets the completion flag(s) for the given world/level.
      */
     void onCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e flag);
 
     /**
-     * Unsets the completion flag(s) for the given world/level. See COURSE_COMPLETION_e.
+     * 0x800CE500
+     * Unsets the completion flag(s) for the given world/level.
      */
     void offCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e flag);
 
     /**
-     * Gets all the completion flags for the given world/level. See COURSE_COMPLETION_e.
+     * 0x800CE490
+     * Gets all the completion flags for the given world/level.
      */
     COURSE_COMPLETION_e getCourseDataFlag(WORLD_e world, STAGE_e level) const;
 
@@ -641,7 +649,7 @@ private:
     /**
      * The completion flags for each world. See WORLD_COMPLETION_e.
      */
-    /* 0x32 */ u8 mWorldCompletion[WORLD_COUNT];
+    /* 0x32 */ WORLD_COMPLETION_e mWorldCompletion[WORLD_COUNT];
 
     /**
      * The revival counter for each map enemy.
@@ -661,9 +669,9 @@ private:
     /* 0x68 */ u32 mScore;
 
     /**
-     * The completion flags for each level. See COURSE_COMPLETION_e.
+     * The completion flags for each course.
      */
-    /* 0x6C */ u32 mStageCompletion[WORLD_COUNT][STAGE_COUNT];
+    /* 0x6C */ COURSE_COMPLETION_e mCourseCompletion[WORLD_COUNT][STAGE_COUNT];
 
     /**
      * The hint movie bought status for each movie.
@@ -715,3 +723,78 @@ private:
 
     friend class dSaveMng_c;
 };
+
+template <typename T>
+    requires(sizeof(T) == 1)
+constexpr u8 ENUM_UNDERLYING()
+{
+    return 0;
+}
+
+template <typename T>
+    requires(sizeof(T) == 2)
+constexpr u16 ENUM_UNDERLYING()
+{
+    return 0;
+}
+
+template <typename T>
+    requires(sizeof(T) == 4)
+constexpr u32 ENUM_UNDERLYING()
+{
+    return 0;
+}
+
+template <typename T>
+    requires(sizeof(T) == 8)
+constexpr u64 ENUM_UNDERLYING()
+{
+    return 0;
+}
+
+#define ENUM_BITWISE_OPERATORS(_T)                                                                 \
+    constexpr _T operator~(_T a)                                                                   \
+    {                                                                                              \
+        return static_cast<_T>(~static_cast<decltype(ENUM_UNDERLYING<_T>())>(a));                  \
+    }                                                                                              \
+    constexpr _T operator&(_T a, _T b)                                                             \
+    {                                                                                              \
+        return static_cast<_T>(                                                                    \
+          static_cast<decltype(ENUM_UNDERLYING<_T>())>(a) &                                        \
+          static_cast<decltype(ENUM_UNDERLYING<_T>())>(b)                                          \
+        );                                                                                         \
+    }                                                                                              \
+    constexpr _T operator|(_T a, _T b)                                                             \
+    {                                                                                              \
+        return static_cast<_T>(                                                                    \
+          static_cast<decltype(ENUM_UNDERLYING<_T>())>(a) |                                        \
+          static_cast<decltype(ENUM_UNDERLYING<_T>())>(b)                                          \
+        );                                                                                         \
+    }                                                                                              \
+    constexpr _T operator^(_T a, _T b)                                                             \
+    {                                                                                              \
+        return static_cast<_T>(                                                                    \
+          static_cast<decltype(ENUM_UNDERLYING<_T>())>(a) ^                                        \
+          static_cast<decltype(ENUM_UNDERLYING<_T>())>(b)                                          \
+        );                                                                                         \
+    }                                                                                              \
+    constexpr _T& operator&=(_T& a, _T b)                                                          \
+    {                                                                                              \
+        return a = a & b;                                                                          \
+    }                                                                                              \
+    constexpr _T& operator|=(_T& a, _T b)                                                          \
+    {                                                                                              \
+        return a = a | b;                                                                          \
+    }                                                                                              \
+    constexpr _T& operator^=(_T& a, _T b)                                                          \
+    {                                                                                              \
+        return a = a ^ b;                                                                          \
+    }                                                                                              \
+    constexpr bool operator!(_T a)                                                                 \
+    {                                                                                              \
+        return !static_cast<decltype(ENUM_UNDERLYING<_T>())>(a);                                   \
+    }
+
+ENUM_BITWISE_OPERATORS(dMj2dGame_c::COURSE_COMPLETION_e);
+ENUM_BITWISE_OPERATORS(dMj2dGame_c::WORLD_COMPLETION_e);
+ENUM_BITWISE_OPERATORS(dMj2dGame_c::GAME_COMPLETION_e);

@@ -710,9 +710,9 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PlayerType_e playerTy
     // }[playerTypeInt];
 
     return ModelTypeArray{
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
       dPyMdlMng_c::ModelType_e::MODEL_TOADETTE, dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
       dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO
     }[playerTypeInt];
 }

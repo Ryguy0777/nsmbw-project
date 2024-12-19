@@ -298,6 +298,10 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_NumberOfPeopleChange.cpp
 # NSMBW d_bases.text: 0x807ABE10 - 0x807AD5F0
 SOURCES += source/wiimj2d/dynamic/d_bases/d_SelectPlayer.cpp
 
+# d_a_chukan_point.cpp
+# NSMBW d_bases.text: 0x807E2040 - 0x807E38A0
+SOURCES += source/wiimj2d/dynamic/d_bases/d_a_chukan_point.cpp
+
 # d_a_last_actor_stage.cpp
 # NSMBW d_bases.text: 0x80830690 - 0x80830C40
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_last_actor_stage.cpp

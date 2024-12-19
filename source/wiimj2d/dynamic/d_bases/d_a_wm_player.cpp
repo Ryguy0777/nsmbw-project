@@ -10,7 +10,6 @@
 #include <machine/m_pad.h>
 #include <revolution/os.h>
 
-
 EXTERN_DATA(
   0x809A0DB8, //
   u32 daWmPlayer_c::m_activeCharaFlag[4]
