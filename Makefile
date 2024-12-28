@@ -13,12 +13,11 @@ TOOLS := $(BUILD)/tools
 
 
 # Compiler definitions
-# CLANG := $(TOOLS)/clang
-# CLANG := D:\wii\repo\llvm-project\build\bin\clang
+CLANG_DEFAULT := ./tools/clang/clang
+# Fall back to clang on PATH if the default clang is not found
+CLANG := $(if $(wildcard $(CLANG_DEFAULT)), $(CLANG_DEFAULT),clang)
 HOST_CC := gcc
 HOST_CXX := g++
-CLANG := /Users/mkwcat/Documents/repo/llvm-project/build/bin/clang
-CC := $(CLANG)
 LD := $(DEVKITPPC)/bin/powerpc-eabi-ld
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 ELF2REL := $(TOOLS)/elf2rel
@@ -75,16 +74,26 @@ clean:
 
 -include $(DEPS)
 
+clang-exists := $(shell which $(CLANG))
+
+# test null build and check for error
+check-clang-ver := $(shell $(CLANG) -x c /dev/null --target=powerpc-eabi-kuribo -o /dev/null -c 2>&1)
+
+ifeq ($(strip $(clang-exists)),)
+$(error Clang not found. Please read README.md)
+else ifneq ($(findstring error,$(check-clang-ver)),)
+$(error Clang at $(clang-exists) is not compatible with the custom 'kuribo' version. Please read README.md)
+endif
 
 $(BUILD)/%_c.o: %.c
 	@echo $<
 	@mkdir -p $(dir $@)
-	@$(CC) -x c++ -c ./$< $(CXXOPTS) -o ./$@
+	@$(CLANG) -x c++ -c ./$< $(CXXOPTS) -o ./$@
 
 $(BUILD)/%_cpp.o: %.cpp
 	@echo $<
 	@mkdir -p $(dir $@)
-	@$(CC) -x c++ -c ./$< $(CXXOPTS) -o ./$@
+	@$(CLANG) -x c++ -c ./$< $(CXXOPTS) -o ./$@
 
 $(BUILD)/$(TARGET).elf: $(OFILES)
 	@echo Link: $(notdir $@)
