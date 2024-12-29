@@ -21,12 +21,25 @@ public:
     dGameDisplay_c();
 
 public:
+    // -----------------
+    // Virtual Functions
+    // -----------------
+
+    /**
+     * VT+0x20 0x801580D0
+     * do method for the execute operation.
+     */
+    virtual PACK_RESULT_e execute();
+
+public:
     // ----------------
     // Member Functions
     // ----------------
 
     /* 0x80158830 */
     bool createLayout();
+
+    void DecEffectTimers();
 
     /* 0x801586C0 */
     void RestDispSetup();

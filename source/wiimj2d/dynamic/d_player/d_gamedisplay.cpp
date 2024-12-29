@@ -80,6 +80,64 @@ const long dGameDisplay_c::PLAYER_BOTH_TEXTBOX_INDEX[][2] = {
 [[address(0x80157850)]]
 dGameDisplay_c::dGameDisplay_c();
 
+/**
+ * VT+0x20
+ * do method for the execute operation.
+ */
+[[address(0x801580D0)]]
+fBase_c::PACK_RESULT_e execute() ASM_METHOD(
+  // clang-format off
+/* 801580D0 9421FFF0 */  stwu     r1, -16(r1);
+/* 801580D4 7C0802A6 */  mflr     r0;
+/* 801580D8 90010014 */  stw      r0, 20(r1);
+/* 801580DC 93E1000C */  stw      r31, 12(r1);
+/* 801580E0 7C7F1B78 */  mr       r31, r3;
+/* 801580E4 8803044B */  lbz      r0, 1099(r3);
+/* 801580E8 2C000000 */  cmpwi    r0, 0;
+/* 801580EC 418200C4 */  beq-     UNDEF_801581b0;
+/* 801580F0 480008E1 */  bl       UNDEF_801589d0;
+/* 801580F4 819F0390 */  lwz      r12, 912(r31);
+/* 801580F8 387F0390 */  addi     r3, r31, 912;
+/* 801580FC 818C0010 */  lwz      r12, 16(r12);
+/* 80158100 7D8903A6 */  mtctr    r12;
+/* 80158104 4E800421 */  bctrl;
+/* 80158108 387F0070 */  addi     r3, r31, 112;
+/* 8015810C 4BF71625 */  bl       UNDEF_800c9730;
+/* 80158110 2C030000 */  cmpwi    r3, 0;
+/* 80158114 4082001C */  bne-     UNDEF_80158130;
+/* 80158118 881F0450 */  lbz      r0, 1104(r31);
+/* 8015811C 2C000000 */  cmpwi    r0, 0;
+/* 80158120 40820010 */  bne-     UNDEF_80158130;
+/* 80158124 881F0451 */  lbz      r0, 1105(r31);
+/* 80158128 2C000000 */  cmpwi    r0, 0;
+/* 8015812C 41820020 */  beq-     UNDEF_8015814c;
+UNDEF_80158130:;
+/* 80158130 387F0070 */  addi     r3, r31, 112;
+/* 80158134 4BF7151D */  bl       UNDEF_800c9650;
+/* 80158138 819F0078 */  lwz      r12, 120(r31);
+/* 8015813C 387F0070 */  addi     r3, r31, 112;
+/* 80158140 818C0010 */  lwz      r12, 16(r12);
+/* 80158144 7D8903A6 */  mtctr    r12;
+/* 80158148 4E800421 */  bctrl;
+UNDEF_8015814c:;
+/* 8015814C 7FE3FB78 */  mr       r3, r31;
+/* 80158150 48000901 */  bl       UNDEF_80158a50;
+/* 80158154 7FE3FB78 */  mr       r3, r31;
+/* 80158158 48000A79 */  bl       UNDEF_80158bd0;
+
+                         mr       r3, r31;
+                         bl       DecEffectTimers__14dGameDisplay_cFv;
+
+UNDEF_801581b0:;
+/* 801581B0 83E1000C */  lwz      r31, 12(r1);
+/* 801581B4 38600001 */  li       r3, 1;
+/* 801581B8 80010014 */  lwz      r0, 20(r1);
+/* 801581BC 7C0803A6 */  mtlr     r0;
+/* 801581C0 38210010 */  addi     r1, r1, 16;
+/* 801581C4 4E800020 */  blr;
+  // clang-format on
+);
+
 [[address(0x80158830)]]
 bool dGameDisplay_c::createLayout()
 {
@@ -221,6 +279,15 @@ bool dGameDisplay_c::createLayout()
     }
 
     return true;
+}
+
+void dGameDisplay_c::DecEffectTimers()
+{
+    for (int i = 0; i < std::size(mEffectTimer); i++) {
+        if (mEffectTimer[i] != 0) {
+            mEffectTimer[i]--;
+        }
+    }
 }
 
 [[address(0x801586C0)]]

@@ -16,7 +16,6 @@ dBaseActor_c::~dBaseActor_c();
 /**
  * VT+0x0C
  * pre method for the create operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C870)]]
 fBase_c::PACK_RESULT_e dBaseActor_c::preCreate();
@@ -31,7 +30,6 @@ void dBaseActor_c::postCreate(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x18
  * pre method for the delete operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C8B0)]]
 fBase_c::PACK_RESULT_e dBaseActor_c::preDelete();
@@ -46,7 +44,6 @@ void dBaseActor_c::postDelete(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x24
  * pre method for the execute operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C8F0)]]
 fBase_c::PACK_RESULT_e dBaseActor_c::preExecute();
@@ -61,7 +58,6 @@ void dBaseActor_c::postExecute(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x30
  * pre method for the draw operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C9F0)]]
 fBase_c::PACK_RESULT_e dBaseActor_c::preDraw();
