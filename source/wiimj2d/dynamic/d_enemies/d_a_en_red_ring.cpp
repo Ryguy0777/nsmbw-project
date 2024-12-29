@@ -109,8 +109,12 @@ UNDEF_80a927f4:;
   // clang-format on
 );
 
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
 [[address(0x80A92820)]]
-int daEnRedRing_c::create() ASM_METHOD(
+fBase_c::PACK_RESULT_e daEnRedRing_c::create() ASM_METHOD(
   // clang-format off
 /* 80A92820 9421FFE0 */  stwu     r1, -32(r1);
 /* 80A92824 7C0802A6 */  mflr     r0;

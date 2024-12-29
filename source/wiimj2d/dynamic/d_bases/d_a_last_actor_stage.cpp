@@ -3,13 +3,13 @@
 
 #include "d_a_last_actor_stage.h"
 
-#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_actor.h>
 #include <dynamic/d_actor_mng.h>
 #include <dynamic/d_actorcreate_mng.h>
 #include <dynamic/d_attention.h>
 #include <dynamic/d_balloon_mng.h>
+#include <dynamic/d_bases/d_s_stage.h>
 #include <dynamic/d_beans_kuribo_mng.h>
 #include <dynamic/d_bg_ctr.h>
 #include <dynamic/d_cc.h>
@@ -21,12 +21,12 @@
 #include <dynamic/d_game_key_core.h>
 #include <dynamic/d_next.h>
 #include <dynamic/d_pause_manager.h>
+#include <dynamic/d_player/d_WarningManager.h>
+#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_stage_timer.h>
 #include <dynamic/d_switch_flag_mng.h>
 #include <dynamic/d_tencoin_mng.h>
-#include <dynamic/d_player/d_WarningManager.h>
-#include <dynamic/d_bases/d_s_stage.h>
 #include <machine/m_fader.h>
 #include <revolution/vi.h>
 #include <sound/SndAudioMgr.h>
@@ -37,25 +37,35 @@ daLastActorStage_c* daLastActorStage_c_classInit()
     return new daLastActorStage_c();
 }
 
-/* VT+0x08 */
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
 [[address(0x808306E0)]]
-int daLastActorStage_c::create()
+fBase_c::PACK_RESULT_e daLastActorStage_c::create()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         mBtnPressed[i] = 0;
         mIsShaking[i] = false;
     }
 
-    return 1;
+    return PACK_RESULT_e::SUCCEEDED;
 }
 
-/* VT+0x14 */
+/**
+ * VT+0x14
+ * do method for the delete operation. This method was renamed due to conflict with the delete
+ * C++ keyword.
+ */
 [[address(0x80830710)]]
-int daLastActorStage_c::doDelete();
+fBase_c::PACK_RESULT_e daLastActorStage_c::doDelete();
 
-/* VT+0x20 */
+/**
+ * VT+0x20
+ * do method for the execute operation.
+ */
 [[address(0x80830720)]]
-int daLastActorStage_c::execute()
+fBase_c::PACK_RESULT_e daLastActorStage_c::execute()
 {
     if (!dGameCom::isGameStop(0xFFFFFFFF)) {
         if (mFader_c::isStatus(mFader_c::EStatus::HIDDEN)) {
@@ -153,9 +163,12 @@ int daLastActorStage_c::execute()
 
     PauseManager_c::m_instance->setPause();
 
-    return 1;
+    return PACK_RESULT_e::SUCCEEDED;
 }
 
-/* VT+0x2C */
+/**
+ * VT+0x2C
+ * do method for the draw operation.
+ */
 [[address(0x80830BB0)]]
-int daLastActorStage_c::draw();
+fBase_c::PACK_RESULT_e daLastActorStage_c::draw();

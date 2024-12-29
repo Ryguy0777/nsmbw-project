@@ -28,9 +28,8 @@ public:
     /**
      * VT+0x0C 0x80064350
      * pre method for the create operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preCreate() override;
+    virtual PACK_RESULT_e preCreate() override;
 
     /**
      * VT+0x10 0x80064380
@@ -41,9 +40,8 @@ public:
     /**
      * VT+0x18 0x80064390
      * pre method for the delete operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preDelete() override;
+    virtual PACK_RESULT_e preDelete() override;
 
     /**
      * VT+0x1C 0x800643E0
@@ -54,9 +52,8 @@ public:
     /**
      * VT+0x24 0x800643F0
      * pre method for the execute operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preExecute() override;
+    virtual PACK_RESULT_e preExecute() override;
 
     /**
      * VT+0x28 0x80064490
@@ -67,9 +64,8 @@ public:
     /**
      * VT+0x30 0x80064540
      * pre method for the draw operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preDraw() override;
+    virtual PACK_RESULT_e preDraw() override;
 
     /**
      * VT+0x34 0x800645E0

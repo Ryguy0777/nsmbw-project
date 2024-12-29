@@ -18,10 +18,8 @@ public:
     /**
      * VT+0x24 0x80095240
      * pre method for the execute operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preExecute() override;
+    virtual PACK_RESULT_e preExecute() override;
 
     /* VT+0x8C 0x80097D30 */
     virtual bool setEatSpitOut(dActor_c* actor) override;

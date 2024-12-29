@@ -28,10 +28,9 @@ dCourseSelectManager_c::dCourseSelectManager_c();
 /**
  * VT+0x24
  * pre method for the execute operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8092F3D0)]]
-int dCourseSelectManager_c::preExecute()
+fBase_c::PACK_RESULT_e dCourseSelectManager_c::preExecute()
 {
     if (dBase_c::preExecute() == PACK_RESULT_e::NOT_READY) {
         return PACK_RESULT_e::NOT_READY;

@@ -16,10 +16,9 @@ dBase_c::~dBase_c();
 /**
  * VT+0x0C
  * pre method for the create operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C540)]]
-int dBase_c::preCreate();
+fBase_c::PACK_RESULT_e dBase_c::preCreate();
 
 /**
  * VT+0x10
@@ -31,10 +30,9 @@ void dBase_c::postCreate(MAIN_STATE_e state);
 /**
  * VT+0x18
  * pre method for the delete operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C580)]]
-int dBase_c::preDelete();
+fBase_c::PACK_RESULT_e dBase_c::preDelete();
 
 /**
  * VT+0x1C
@@ -46,10 +44,9 @@ void dBase_c::postDelete(MAIN_STATE_e state);
 /**
  * VT+0x24
  * pre method for the execute operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C5C0)]]
-int dBase_c::preExecute();
+fBase_c::PACK_RESULT_e dBase_c::preExecute();
 
 /**
  * VT+0x28
@@ -61,10 +58,9 @@ void dBase_c::postExecute(MAIN_STATE_e state);
 /**
  * VT+0x30
  * pre method for the draw operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C610)]]
-int dBase_c::preDraw();
+fBase_c::PACK_RESULT_e dBase_c::preDraw();
 
 /**
  * VT+0x34

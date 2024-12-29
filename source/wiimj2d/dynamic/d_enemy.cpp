@@ -6,11 +6,9 @@
 /**
  * VT+0x24
  * pre method for the execute operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80095240)]]
-int dEn_c::preExecute() ASM_METHOD(
+fBase_c::PACK_RESULT_e dEn_c::preExecute() ASM_METHOD(
   // clang-format off
 /* 80095240 9421FFF0 */  stwu     r1, -16(r1);
 /* 80095244 7C0802A6 */  mflr     r0;

@@ -2,6 +2,7 @@
 // NSMBW d_bases.text: 0x80902790 - 0x8090D220
 
 #include "d_a_wm_player.h"
+#include "framework/f_base.h"
 
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_bases/d_a_wm_SubPlayer.h>
@@ -49,11 +50,9 @@ daWmPlayer_c::~daWmPlayer_c()
 /**
  * VT+0x08
  * do method for the create operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80902960)]]
-int daWmPlayer_c::create()
+fBase_c::PACK_RESULT_e daWmPlayer_c::create()
 {
     mAngle.y = 0;
 
@@ -76,36 +75,30 @@ int daWmPlayer_c::create()
     UNDEF_80902C50();
     UNDEF_80907590();
 
-    return 1;
+    return fBase_c::PACK_RESULT_e::SUCCEEDED;
 }
 
 /**
  * VT+0x20
  * do method for the execute operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x809029E0)]]
-int daWmPlayer_c::execute();
+fBase_c::PACK_RESULT_e daWmPlayer_c::execute();
 
 /**
  * VT+0x2C
  * do method for the draw operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80902AC0)]]
-int daWmPlayer_c::draw();
+fBase_c::PACK_RESULT_e daWmPlayer_c::draw();
 
 /**
  * VT+0x14
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80902B30)]]
-int daWmPlayer_c::doDelete();
+fBase_c::PACK_RESULT_e daWmPlayer_c::doDelete();
 
 [[address(0x80902BD0)]]
 void daWmPlayer_c::createSubPlayers()

@@ -34,35 +34,27 @@ public:
     /**
      * VT+0x08 0x80902960
      * do method for the create operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int create() override;
+    virtual PACK_RESULT_e create() override;
 
     /**
      * VT+0x14 0x80902B30
      * do method for the delete operation. This method was renamed due to conflict with the delete
      * C++ keyword.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int doDelete() override;
+    virtual PACK_RESULT_e doDelete() override;
 
     /**
      * VT+0x20 0x809029E0
      * do method for the execute operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int execute() override;
+    virtual PACK_RESULT_e execute() override;
 
     /**
      * VT+0x2C 0x80902AC0
      * do method for the draw operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int draw() override;
+    virtual PACK_RESULT_e draw() override;
 
     /* VT+0x60 0x80909940 */
     virtual void VT_0x60() override;

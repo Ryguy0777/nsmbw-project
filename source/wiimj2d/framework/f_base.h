@@ -36,7 +36,7 @@ public:
     /**
      * The possible lifecycle states.
      */
-    enum LIFECYCLE_e {
+    enum class LIFECYCLE_e {
         /**
          * The base's create operation has yet to conclude.
          */
@@ -54,7 +54,7 @@ public:
     /**
      * The possible group types.
      */
-    enum GROUP_TYPE_e {
+    enum class GROUP_TYPE_e {
         /**
          * The base is a dBase_c "generic process".
          */
@@ -72,7 +72,7 @@ public:
     /**
      * The possible operation results.
      */
-    enum MAIN_STATE_e {
+    enum class MAIN_STATE_e {
         /**
          * The operation was canceled early.
          */
@@ -94,7 +94,7 @@ public:
     /**
      * The possible operation step results.
      */
-    enum PACK_RESULT_e {
+    enum class PACK_RESULT_e {
         /**
          * The step could not completed at this time.
          */
@@ -112,7 +112,7 @@ public:
     /**
      * Controls if the execute and draw operations should be skipped.
      */
-    enum PROC_DISABLE_e {
+    enum class PROC_DISABLE_e {
         /**
          * Execution is disabled, and this is a root base.
          */
@@ -233,18 +233,14 @@ public:
     /**
      * VT+0x08 0x80161EC0
      * do method for the create operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int create();
+    virtual PACK_RESULT_e create();
 
     /**
      * VT+0x0C 0x80161ED0
      * pre method for the create operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preCreate();
+    virtual PACK_RESULT_e preCreate();
 
     /**
      * VT+0x10 0x80161EE0
@@ -256,18 +252,14 @@ public:
      * VT+0x14 0x80161F70
      * do method for the delete operation. This method was renamed due to conflict with the delete
      * C++ keyword.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int doDelete();
+    virtual PACK_RESULT_e doDelete();
 
     /**
      * VT+0x18 0x80162030
      * pre method for the delete operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preDelete();
+    virtual PACK_RESULT_e preDelete();
 
     /**
      * VT+0x1C 0x801620A0
@@ -278,18 +270,14 @@ public:
     /**
      * VT+0x20 0x80162210
      * do method for the execute operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int execute();
+    virtual PACK_RESULT_e execute();
 
     /**
      * VT+0x24 0x80162220
      * pre method for the execute operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preExecute();
+    virtual PACK_RESULT_e preExecute();
 
     /**
      * VT+0x28 0x80162250
@@ -300,18 +288,14 @@ public:
     /**
      * VT+0x2C 0x80162310
      * do method for the draw operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int draw();
+    virtual PACK_RESULT_e draw();
 
     /**
      * VT+0x30 0x80162320
      * pre method for the draw operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preDraw();
+    virtual PACK_RESULT_e preDraw();
 
     /**
      * VT+0x34 0x80162350

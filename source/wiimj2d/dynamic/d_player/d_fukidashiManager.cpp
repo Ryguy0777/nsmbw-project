@@ -89,9 +89,12 @@ UNDEF_801570ec:;
   // clang-format on
 );
 
-/* 0x80157110 */
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
 [[address(0x80157110)]]
-int dfukidashiManager_c::create() ASM_METHOD(
+fBase_c::PACK_RESULT_e dfukidashiManager_c::create() ASM_METHOD(
   // clang-format off
 /* 80157110 9421FFE0 */  stwu     r1, -32(r1);
 /* 80157114 7C0802A6 */  mflr     r0;
@@ -136,9 +139,12 @@ UNDEF_80157184:;
   // clang-format on
 );
 
-/* 0x801571A0 */
+/**
+ * VT+0x20
+ * do method for the execute operation.
+ */
 [[address(0x801571A0)]]
-int dfukidashiManager_c::execute() ASM_METHOD(
+fBase_c::PACK_RESULT_e dfukidashiManager_c::execute() ASM_METHOD(
   // clang-format off
 /* 801571A0 9421FFF0 */  stwu     r1, -16(r1);
 /* 801571A4 7C0802A6 */  mflr     r0;
@@ -173,9 +179,12 @@ UNDEF_801571f4:;
   // clang-format on
 );
 
-/* 0x80157210 */
+/**
+ * VT+0x2C
+ * do method for the draw operation.
+ */
 [[address(0x80157210)]]
-int dfukidashiManager_c::draw() ASM_METHOD(
+fBase_c::PACK_RESULT_e dfukidashiManager_c::draw() ASM_METHOD(
   // clang-format off
 /* 80157210 9421FFF0 */  stwu     r1, -16(r1);
 /* 80157214 7C0802A6 */  mflr     r0;
@@ -201,8 +210,13 @@ UNDEF_8015722c:;
   // clang-format on
 );
 
+/**
+ * VT+0x14
+ * do method for the delete operation. This method was renamed due to conflict with the delete
+ * C++ keyword.
+ */
 [[address(0x80157260)]]
-int dfukidashiManager_c::doDelete() ASM_METHOD(
+fBase_c::PACK_RESULT_e dfukidashiManager_c::doDelete() ASM_METHOD(
   // clang-format off
 /* 80157260 9421FFF0 */  stwu     r1, -16(r1);
 /* 80157264 7C0802A6 */  mflr     r0;

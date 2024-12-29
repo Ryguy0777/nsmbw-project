@@ -33,26 +33,20 @@ dWmDemoActor_c::~dWmDemoActor_c();
  * VT+0x14
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F6F10)]]
-int dWmDemoActor_c::doDelete();
+fBase_c::PACK_RESULT_e dWmDemoActor_c::doDelete();
 
 /**
  * VT+0x2C
  * do method for the draw operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F6F20)]]
-int dWmDemoActor_c::draw();
+fBase_c::PACK_RESULT_e dWmDemoActor_c::draw();
 
 /**
  * VT+0x08
  * do method for the create operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F6F30)]]
-int dWmDemoActor_c::create();
+fBase_c::PACK_RESULT_e dWmDemoActor_c::create();

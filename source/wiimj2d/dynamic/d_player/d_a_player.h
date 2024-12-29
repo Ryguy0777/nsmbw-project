@@ -27,10 +27,8 @@ public:
     /**
      * VT+0x08 0x80144EA0
      * do method for the create operation.
-     *
-     * @return A PACK_RESULT_e value.
      */
-    virtual int create() override;
+    virtual PACK_RESULT_e create() override;
 
     /* VT+0x28C 0x801400B0 */
     void executeDemoGoal_Run() override;

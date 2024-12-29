@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include <dynamic/d_base.h>
 #include <framework/f_list_nd.h>
 #include <machine/m_angle.h>
@@ -37,9 +36,8 @@ protected:
     /**
      * VT+0x0C 0x8006C870
      * pre method for the create operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preCreate() override;
+    virtual PACK_RESULT_e preCreate() override;
 
     /**
      * VT+0x10 0x8006C8A0
@@ -50,9 +48,8 @@ protected:
     /**
      * VT+0x18 0x8006C8B0
      * pre method for the delete operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preDelete() override;
+    virtual PACK_RESULT_e preDelete() override;
 
     /**
      * VT+0x1C 0x8006C8E0
@@ -63,9 +60,8 @@ protected:
     /**
      * VT+0x24 0x8006C8F0
      * pre method for the execute operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preExecute() override;
+    virtual PACK_RESULT_e preExecute() override;
 
     /**
      * VT+0x28 0x8006C980
@@ -76,9 +72,8 @@ protected:
     /**
      * VT+0x30 0x8006C9F0
      * pre method for the draw operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preDraw() override;
+    virtual PACK_RESULT_e preDraw() override;
 
     /**
      * VT+0x34 0x8006CA40

@@ -19,7 +19,7 @@ dBaseActor_c::~dBaseActor_c();
  * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C870)]]
-int dBaseActor_c::preCreate();
+fBase_c::PACK_RESULT_e dBaseActor_c::preCreate();
 
 /**
  * VT+0x10
@@ -34,7 +34,7 @@ void dBaseActor_c::postCreate(fBase_c::MAIN_STATE_e status);
  * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C8B0)]]
-int dBaseActor_c::preDelete();
+fBase_c::PACK_RESULT_e dBaseActor_c::preDelete();
 
 /**
  * VT+0x1C
@@ -49,7 +49,7 @@ void dBaseActor_c::postDelete(fBase_c::MAIN_STATE_e status);
  * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C8F0)]]
-int dBaseActor_c::preExecute();
+fBase_c::PACK_RESULT_e dBaseActor_c::preExecute();
 
 /**
  * VT+0x28
@@ -64,7 +64,7 @@ void dBaseActor_c::postExecute(fBase_c::MAIN_STATE_e status);
  * @return A PACK_RESULT_e value.
  */
 [[address(0x8006C9F0)]]
-int dBaseActor_c::preDraw();
+fBase_c::PACK_RESULT_e dBaseActor_c::preDraw();
 
 /**
  * VT+0x34

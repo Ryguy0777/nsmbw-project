@@ -14,8 +14,12 @@ daEnGlpole_c* daEnGlpole_c_classInit()
 [[address(0x80A09710)]]
 daEnGlpole_c::daEnGlpole_c();
 
-/* 0x80A09980 */
-int daEnGlpole_c::create() ASM_METHOD(
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
+[[address(0x80A09980)]]
+fBase_c::PACK_RESULT_e daEnGlpole_c::create() ASM_METHOD(
   // clang-format off
 /* 80A09980 9421FFE0 */  stwu     r1, -32(r1);
 /* 80A09984 7C0802A6 */  mflr     r0;

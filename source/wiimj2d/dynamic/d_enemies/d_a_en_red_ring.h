@@ -11,8 +11,11 @@ public:
     // Virtual Functions
     // -----------------
 
-    /* 0x80A92820 */
-    int create() override;
+    /**
+     * VT+0x08 0x80A92820
+     * do method for the create operation.
+     */
+    PACK_RESULT_e create() override;
 
     /* 0x80A93140 */
     void executeState_Wait();

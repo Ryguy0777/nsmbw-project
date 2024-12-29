@@ -16,10 +16,9 @@ dWmActor_c::~dWmActor_c();
 /**
  * VT+0x0C
  * pre method for the create operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F28E0)]]
-int dWmActor_c::preCreate();
+fBase_c::PACK_RESULT_e dWmActor_c::preCreate();
 
 /**
  * VT+0x10
@@ -31,10 +30,9 @@ void dWmActor_c::postCreate(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x18
  * pre method for the delete operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F2920)]]
-int dWmActor_c::preDelete();
+fBase_c::PACK_RESULT_e dWmActor_c::preDelete();
 
 /**
  * VT+0x1C
@@ -46,10 +44,9 @@ void dWmActor_c::postDelete(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x24
  * pre method for the execute operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F2960)]]
-int dWmActor_c::preExecute();
+fBase_c::PACK_RESULT_e dWmActor_c::preExecute();
 
 /**
  * VT+0x28
@@ -61,10 +58,9 @@ void dWmActor_c::postExecute(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x30
  * pre method for the draw operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800F2A20)]]
-int dWmActor_c::preDraw();
+fBase_c::PACK_RESULT_e dWmActor_c::preDraw();
 
 /**
  * VT+0x34
@@ -85,17 +81,16 @@ dBaseActor_c::ACTOR_KIND_e dWmActor_c::GetActorType();
  */
 [[address(0x800F2B00)]]
 dWmActor_c* dWmActor_c::construct(
-    u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation
-  );
+  u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation
+);
 
 /**
  * Creates a child world map actor with the given parent. See dBaseActor_c::construct.
  */
 [[address(0x800F2B10)]]
 dWmActor_c* dWmActor_c::construct(
-    u16 profName, dBase_c* base, unsigned long param, const mVec3_c* position,
-    const mAng3_c* rotation
-  );
+  u16 profName, dBase_c* base, unsigned long param, const mVec3_c* position, const mAng3_c* rotation
+);
 
 /**
  * Sets the soft light effect for map actors.

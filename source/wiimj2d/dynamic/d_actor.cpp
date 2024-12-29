@@ -15,10 +15,9 @@ u8 dActor_c::mExecStop;
 /**
  * VT+0x0C
  * pre method for the create operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80064350)]]
-int dActor_c::preCreate();
+fBase_c::PACK_RESULT_e dActor_c::preCreate();
 
 /**
  * VT+0x10
@@ -30,10 +29,9 @@ void dActor_c::postCreate(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x18
  * pre method for the delete operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80064390)]]
-int dActor_c::preDelete();
+fBase_c::PACK_RESULT_e dActor_c::preDelete();
 
 /**
  * VT+0x1C
@@ -45,10 +43,9 @@ void dActor_c::postDelete(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x24
  * pre method for the execute operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x800643F0)]]
-int dActor_c::preExecute();
+fBase_c::PACK_RESULT_e dActor_c::preExecute();
 
 /**
  * VT+0x28
@@ -60,10 +57,9 @@ void dActor_c::postExecute(fBase_c::MAIN_STATE_e status);
 /**
  * VT+0x30
  * pre method for the draw operation.
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80064540)]]
-int dActor_c::preDraw();
+fBase_c::PACK_RESULT_e dActor_c::preDraw();
 
 /**
  * VT+0x34

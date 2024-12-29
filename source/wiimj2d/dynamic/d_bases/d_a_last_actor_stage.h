@@ -19,17 +19,30 @@ public:
     // Virtual Functions
     // -----------------
 
-    /* VT+0x08 0x808306E0 */
-    int create() override;
+    /**
+     * VT+0x08 0x808306E0
+     * do method for the create operation.
+     */
+    PACK_RESULT_e create() override;
 
-    /* VT+0x14 0x80830710 */
-    int doDelete() override;
+    /**
+     * VT+0x14 0x80830710
+     * do method for the delete operation. This method was renamed due to conflict with the delete
+     * C++ keyword.
+     */
+    PACK_RESULT_e doDelete() override;
 
-    /* VT+0x20 0x80830720 */
-    int execute() override;
+    /**
+     * VT+0x20 0x80830720
+     * do method for the execute operation.
+     */
+    PACK_RESULT_e execute() override;
 
-    /* VT+0x2C 0x80830BB0 */
-    int draw() override;
+    /**
+     * VT+0x2C 0x80830BB0
+     * do method for the draw operation.
+     */
+    PACK_RESULT_e draw() override;
 
 public:
     // -----------

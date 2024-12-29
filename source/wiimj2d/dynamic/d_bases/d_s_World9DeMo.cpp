@@ -12,8 +12,12 @@
 #include <machine/m_pad.h>
 #include <revolution/vi.h>
 
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
 [[address(0x8091D350)]]
-int dScWorld9DeMo_c::create()
+fBase_c::PACK_RESULT_e dScWorld9DeMo_c::create()
 {
     dFader_c::setFader(dFader_c::fader_type_e::FADE);
 
@@ -40,7 +44,7 @@ int dScWorld9DeMo_c::create()
 
     VIEnableDimming(true);
 
-    return 1;
+    return PACK_RESULT_e::SUCCEEDED;
 }
 
 [[address(0x8091DEC0)]]

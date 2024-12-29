@@ -45,9 +45,8 @@ public:
     /**
      * VT+0x24 0x8092F3D0
      * pre method for the execute operation.
-     * @return A PACK_RESULT_e value.
      */
-    virtual int preExecute() override;
+    virtual PACK_RESULT_e preExecute() override;
 
 public:
     // ----------------

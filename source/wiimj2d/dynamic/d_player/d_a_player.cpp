@@ -348,11 +348,9 @@ UNDEF_80140420:;
 /**
  * VT+0x08
  * do method for the create operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80144EA0)]]
-int dAcPy_c::create() ASM_METHOD(
+fBase_c::PACK_RESULT_e dAcPy_c::create() ASM_METHOD(
   // clang-format off
 /* 80144EA0 9421FFF0 */  stwu     r1, -16(r1);
 /* 80144EA4 7C0802A6 */  mflr     r0;

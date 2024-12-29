@@ -22,17 +22,30 @@ public:
     // Virtual Functions
     // -----------------
 
-    /* 0x80157110 */
-    int create() override;
+    /**
+     * VT+0x08 0x80157110
+     * do method for the create operation.
+     */
+    PACK_RESULT_e create() override;
 
-    /* 0x801571A0 */
-    int execute() override;
+    /**
+     * VT+0x14 0x80157260
+     * do method for the delete operation. This method was renamed due to conflict with the delete
+     * C++ keyword.
+     */
+    PACK_RESULT_e doDelete() override;
 
-    /* 0x80157210 */
-    int draw() override;
+    /**
+     * VT+0x20 0x801571A0
+     * do method for the execute operation.
+     */
+    PACK_RESULT_e execute() override;
 
-    /* 0x80157260 */
-    int doDelete() override;
+    /**
+     * VT+0x2C 0x80157210
+     * do method for the draw operation.
+     */
+    PACK_RESULT_e draw() override;
 
 public:
     // ----------------

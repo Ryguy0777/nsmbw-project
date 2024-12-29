@@ -16,20 +16,16 @@ fBase_c::~fBase_c();
 /**
  * VT+0x08
  * do method for the create operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80161EC0)]]
-int fBase_c::create();
+fBase_c::PACK_RESULT_e fBase_c::create();
 
 /**
  * VT+0x0C
  * pre method for the create operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80161ED0)]]
-int fBase_c::preCreate();
+fBase_c::PACK_RESULT_e fBase_c::preCreate();
 
 /**
  * VT+0x10
@@ -42,20 +38,16 @@ void fBase_c::postCreate(MAIN_STATE_e state);
  * VT+0x14
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80161F70)]]
-int fBase_c::doDelete();
+fBase_c::PACK_RESULT_e fBase_c::doDelete();
 
 /**
  * VT+0x18
  * pre method for the delete operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80162030)]]
-int fBase_c::preDelete();
+fBase_c::PACK_RESULT_e fBase_c::preDelete();
 
 /**
  * VT+0x1C
@@ -67,20 +59,16 @@ void fBase_c::postDelete(MAIN_STATE_e state);
 /**
  * VT+0x20
  * do method for the execute operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80162210)]]
-int fBase_c::execute();
+fBase_c::PACK_RESULT_e fBase_c::execute();
 
 /**
  * VT+0x24
  * pre method for the execute operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80162220)]]
-int fBase_c::preExecute();
+fBase_c::PACK_RESULT_e fBase_c::preExecute();
 
 /**
  * VT+0x28
@@ -92,20 +80,16 @@ void fBase_c::postExecute(MAIN_STATE_e state);
 /**
  * VT+0x2C
  * do method for the draw operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80162310)]]
-int fBase_c::draw();
+fBase_c::PACK_RESULT_e fBase_c::draw();
 
 /**
  * VT+0x30
  * pre method for the draw operation.
- *
- * @return A PACK_RESULT_e value.
  */
 [[address(0x80162320)]]
-int fBase_c::preDraw();
+fBase_c::PACK_RESULT_e fBase_c::preDraw();
 
 /**
  * VT+0x34

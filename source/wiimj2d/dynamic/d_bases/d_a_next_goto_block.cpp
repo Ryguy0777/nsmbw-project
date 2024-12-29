@@ -9,19 +9,29 @@ daNextGotoBlock_c* daNextGotoBlock_c_classInit()
     return new daNextGotoBlock_c();
 }
 
-/* VT+0x08 */
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
 [[address(0x8086E6C0)]]
-int daNextGotoBlock_c::create();
+fBase_c::PACK_RESULT_e daNextGotoBlock_c::create();
 
-/* VT+0x20 */
+/**
+ * VT+0x14
+ * do method for the delete operation. This method was renamed due to conflict with the delete
+ * C++ keyword.
+ */
 [[address(0x8086E870)]]
-int daNextGotoBlock_c::execute();
+fBase_c::PACK_RESULT_e daNextGotoBlock_c::execute();
 
-/* VT+0x2C */
+/**
+ * VT+0x2C
+ * do method for the draw operation.
+ */
 [[address(0x8086E8C0)]]
-int daNextGotoBlock_c::draw()
+fBase_c::PACK_RESULT_e daNextGotoBlock_c::draw()
 {
-    return 1;
+    return PACK_RESULT_e::SUCCEEDED;
 }
 
 [[address(0x8086E8D0)]]
