@@ -461,6 +461,12 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daWakiTobiPuku_c::executeState_NormalWaki
   {0x808BB420 + 2, 2},
 
+  // daWarpCannon_c::CanPlrEnter
+  {0x808BCB2C + 2, 2},
+
+  // daWarpCannon_c::SetPlrEntered
+  {0x808BCBD0 + 2, 2},
+
   // daWarpCannon_c::UNDEF_808bcc00 - checks number of players in warp cannon
   {0x808BCC54 + 2, 2},
 
