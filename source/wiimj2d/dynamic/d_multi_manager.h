@@ -10,6 +10,9 @@ public:
     /* 0x800CE950 */
     void initStage();
 
+    /* 0x800CEAC0 */
+    void incCoin(int player);
+
 public:
     // -----------
     // Static Data

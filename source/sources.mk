@@ -102,6 +102,10 @@ SOURCES += source/wiimj2d/dynamic/d_bg.cpp
 # NSMBW .text: 0x8007F7A0 - 0x80081070
 SOURCES += source/wiimj2d/dynamic/d_bg_ctr.cpp
 
+# d_bg_parameter.cpp
+# NSMBW .text: 0x80081D20 - 0x800822E0
+SOURCES += source/wiimj2d/dynamic/d_bg_parameter.cpp
+
 # d_block_mng.cpp
 # NSMBW .text: 0x80087F40 - 0x80088D90
 SOURCES += source/wiimj2d/dynamic/d_block_mng.cpp
@@ -240,6 +244,9 @@ SOURCES += source/wiimj2d/dynamic/d_save_manager.cpp
 # NSMBW .text: 0x800E1AA0 - 0x800E2070
 # NSMBW .sdata: 0x80428A40 - 0x80428A50
 SOURCES += source/wiimj2d/dynamic/d_scene.cpp
+# d_score_manager.cpp
+# NSMBW .text: 0x800E2070 - 0x800E2640
+SOURCES += source/wiimj2d/dynamic/d_score_manager.cpp
 
 # d_stage_timer.cpp
 # NSMBW .text: 0x800E38E0 - 0x800E3BA0
@@ -576,9 +583,15 @@ SOURCES += source/wiimj2d/machine/m_vec.cpp
 # NSMBW .text: 0x80194A10 - 0x80197440
 SOURCES += source/wiimj2d/sound/SndAudioMgr.cpp
 
+# SndObjctCmnMap.cpp
+# NSMBW .text: 0x80198CF0 - 0x80199A20
+SOURCES += source/wiimj2d/sound/SndObjctCmnMap.cpp
+
 # SndObjctPly.cpp
 # NSMBW .text: 0x8019A0F0 - 0x8019B240
 SOURCES += source/wiimj2d/sound/SndObjctPly.cpp
+
+
 
 #
 # revolution/ai

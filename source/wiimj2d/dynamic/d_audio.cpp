@@ -10,8 +10,34 @@
 namespace dAudio
 {
 
+[[address_data(0x8042A03C)]]
+SndObjctCmnEmy_c* g_pSndObjEmy;
+
+[[address_data(0x8042A040)]]
+SndObjctCmnMap_c* g_pSndObjMap;
+
 /* 0x803561F8 */
 NonPosSndObjctPly_c* g_pNonPosSndObjctPly[PLAYER_COUNT];
+
+[[address(0x80069520)]] [[nodiscard]]
+bool isForbidRemoteSE();
+
+[[address(0x80069530)]]
+u32 getRemotePlayer(int player)
+{
+    if (isForbidRemoteSE()) {
+        return 0;
+    }
+
+    if (player >= 4) {
+        return 0;
+    }
+
+    return 0b10 << player;
+}
+
+[[address(0x8006A3F0)]]
+nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
 
 PATCH_REFERENCES(
   g_pNonPosSndObjctPly,

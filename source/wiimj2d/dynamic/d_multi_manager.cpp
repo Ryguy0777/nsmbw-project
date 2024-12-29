@@ -9,3 +9,7 @@ dMultiMng_c* dMultiMng_c::mspInstance;
 // TODO
 [[address(0x800CE950)]]
 void dMultiMng_c::initStage();
+
+// TODO
+[[address(0x800CEAC0)]]
+void dMultiMng_c::incCoin(int player);

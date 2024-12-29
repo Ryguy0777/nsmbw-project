@@ -148,6 +148,9 @@ public:
     /* 0x80060110 @unofficial */
     static int findPlayerWithType(PlayerType_e playerType);
 
+    /* 0x80060170 @unofficial */
+    static bool getIsItemKinopio(int* ownedPlayer);
+
     /* 0x80060200 */
     [[nodiscard]]
     static int getCoinAll();
