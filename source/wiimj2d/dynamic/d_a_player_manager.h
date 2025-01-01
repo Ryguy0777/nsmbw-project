@@ -32,8 +32,8 @@ public:
     };
 
     static constexpr PlayerType_e DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] = {
-      PlayerType_e::MARIO,     PlayerType_e::LUIGI,    PlayerType_e::YELLOW_TOAD,
-      PlayerType_e::BLUE_TOAD, PlayerType_e::TOADETTE, PlayerType_e::PLAYER_5,
+      PlayerType_e::TOADETTE,     PlayerType_e::LUIGI,    PlayerType_e::YELLOW_TOAD,
+      PlayerType_e::BLUE_TOAD, PlayerType_e::MARIO, PlayerType_e::PLAYER_5,
       PlayerType_e::PLAYER_6,  PlayerType_e::PLAYER_7
     };
 

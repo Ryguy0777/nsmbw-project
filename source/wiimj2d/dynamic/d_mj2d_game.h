@@ -110,6 +110,16 @@ enum class STAGE_e : u8 {
     STAGE_7 = 6,
     STAGE_8 = 7,
     STAGE_9 = 8,
+    STAGE_10 = 9,
+    STAGE_11 = 10,
+    STAGE_12 = 11,
+    STAGE_13 = 12,
+    STAGE_14 = 13,
+    STAGE_15 = 14,
+    STAGE_16 = 15,
+    STAGE_17 = 16,
+    STAGE_18 = 17,
+    STAGE_19 = 18,
     COIN_BATTLE = 19,
     GHOST_HOUSE = 20,
     TOWER = 21,
@@ -120,6 +130,9 @@ enum class STAGE_e : u8 {
     KINOKO_HOUSE_2 = 26,
     KINOKO_HOUSE_3 = 27,
     KINOKO_HOUSE_4 = 28,
+    KINOKO_HOUSE_5 = 29, // @unused
+    KINOKO_HOUSE_6 = 30, // @unused
+    KINOKO_HOUSE_7 = 31, // @unused
     ENEMY = 32,
     ENEMY_2 = 33,
     ENEMY_3 = 34,
@@ -163,6 +176,8 @@ enum class WORLD_e : u8 {
 };
 
 #define WORLD_COUNT 10
+
+#define COLLECTION_COIN_COUNT 3
 
 class dSaveMng_c;
 
@@ -383,10 +398,11 @@ public:
     bool isOtehonMenuOpenFlag(int movie) const;
 
     /**
+     * 0x800CE270
      * Sets the obtained Star Coin(s) for the given world/level. See COURSE_COMPLETION_e.
      * Other flags are discarded.
      */
-    void setCollectCoin(WORLD_e world, STAGE_e level, u8 coins);
+    void setCollectCoin(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e coins);
 
     /**
      * 0x800CE280
@@ -395,6 +411,7 @@ public:
     int getTotalWorldCollectCoin(WORLD_e world);
 
     /**
+     * 0x800CE300
      * Checks if the given Star Coin has been obtained in the given world/level.
      */
     u8 isCollectCoin(WORLD_e world, STAGE_e level, int coin) const;
@@ -410,6 +427,7 @@ public:
     START_KINOKO_KIND_e getStartKinokoKind(WORLD_e world) const;
 
     /**
+     * 0x800CE350
      * Sets the death count in a specific stage.
      * @param world The world.
      * @param level The level.

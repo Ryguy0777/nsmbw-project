@@ -517,18 +517,11 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PlayerType_e playerTy
     }
 
     using ModelTypeArray = dPyMdlMng_c::ModelType_e[];
-    // return ModelTypeArray{
-    //   dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-    //   dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
-    //   dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
-    //   dPyMdlMng_c::ModelType_e::MODEL_LUIGI,     dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
-    // }[playerTypeInt];
-
     return ModelTypeArray{
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE, dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,    dPyMdlMng_c::ModelType_e::MODEL_MARIO
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+      dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
+      dPyMdlMng_c::ModelType_e::MODEL_LUIGI,     dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
     }[playerTypeInt];
 }
 

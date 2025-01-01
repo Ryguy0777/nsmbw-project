@@ -5,8 +5,11 @@
 // NSMBW .sbss: 0x8042A25C - 0x8042A268
 
 #include "d_info.h"
+#include "dynamic/d_cyuukan.h"
+#include "dynamic/d_mj2d_game.h"
 
 #include <dynamic/d_a_player_manager.h>
+#include <dynamic/d_bases/d_s_stage.h>
 
 //
 // .text
@@ -52,7 +55,72 @@ void dInfo_c::startGame(const StartGameInfo_s& startGameInfo);
 
 EXTERN_SYMBOL(0x800BB8D0, "startStaffCredit__7dInfo_cFv");
 
-EXTERN_SYMBOL(0x800BB940, "initStage__7dInfo_cFv");
+[[address(0x800BB940)]]
+void dInfo_c::initStage()
+{
+    m_startInfo.mCyuukan.m0x04 = mCyuukan.m0x04;
+    m_startInfo.mCyuukan.mPlayerSetPos = mCyuukan.mPlayerSetPos;
+    m_startInfo.mCyuukan.m0x14 = mCyuukan.m0x14;
+    m_startInfo.mCyuukan.mWorld = mCyuukan.mWorld;
+    m_startInfo.mCyuukan.mStage = mCyuukan.mStage;
+    m_startInfo.mCyuukan.mCourse = mCyuukan.mCourse;
+    m_startInfo.mCyuukan.mGoto = mCyuukan.mGoto;
+    m_startInfo.mCyuukan.mIsKinopioInChukan = mCyuukan.mIsKinopioInChukan;
+    for (int i = 0; i < COLLECTION_COIN_COUNT; i++) {
+        m_startInfo.mCyuukan.mCollectionCoin[i] = mCyuukan.mCollectionCoin[i];
+    }
+    m_startInfo.mCyuukan.m0x2C[0] = mCyuukan.m0x2C[0];
+    m_startInfo.mCyuukan.m0x2C[1] = mCyuukan.m0x2C[1];
+    m_startInfo.mSwitchOn = mSwitchOn;
+
+    for (s32 i = 0; i < PLAYER_COUNT; i++) {
+        int player = static_cast<int>(daPyMng_c::mPlayerType[i]);
+        m_startInfo.mPlayerIndex[player] = i;
+        m_startInfo.mPlayerMode[player] =
+          static_cast<PLAYER_POWERUP_e>(daPyMng_c::mPlayerMode[player]);
+        m_startInfo.mIsEntry[player] = daPyMng_c::mPlayerEntry[i] != 0;
+        m_startInfo.mCoin[player] = daPyMng_c::mCoin[player];
+        m_startInfo.mRest[player] = daPyMng_c::mRest[player];
+        m_startInfo.mCreateItem[player] = daPyMng_c::mCreateItem[player];
+    }
+
+    m_startInfo.mScore = daPyMng_c::mScore;
+
+    if (m_startGameInfo.stage1 != STAGE_e::STAFFROLL) {
+        m0x060 = 0;
+    }
+    m0x064 = 0;
+    m0x068 = 0;
+    m0x06C = 0;
+
+    dScStage_c::m_goalType = 0;
+
+    mCyuukan.courseIN();
+
+    if ((m_startGameInfo.stage1 < STAGE_e::KINOKO_HOUSE ||
+         m_startGameInfo.stage1 > STAGE_e::KINOKO_HOUSE_4) &&
+        m_startGameInfo.stage1 != STAGE_e::PEACH_CASTLE) {
+        m0xAF4 = mCyuukan.m0x04;
+    } else {
+        m0xAF4 = -1;
+    }
+
+    if (m0xAF4 < 0) {
+        for (int i = 0; i < COLLECTION_COIN_COUNT; i++) {
+            dScStage_c::setCollectionCoin(i, dCyuukan_c::COLLECTION_COIN_STATUS_e::NOT_COLLECTED);
+        }
+    } else {
+        for (int i = 0; i < COLLECTION_COIN_COUNT; i++) {
+            dScStage_c::setCollectionCoin(i, mCyuukan.mCollectionCoin[i]);
+        }
+    }
+
+    extern u8 UNDEF_8042a458, UNDEF_8042a459;
+    extern u8 UNDEF_8042a460, UNDEF_8042a461;
+
+    UNDEF_8042a459 = UNDEF_8042a458;
+    UNDEF_8042a461 = UNDEF_8042a460;
+}
 
 EXTERN_SYMBOL(0x800BBBC0, "SetWorldMapEnemy__7dInfo_cFiiRCQ27dInfo_c7enemy_s");
 
@@ -80,7 +148,7 @@ EXTERN_SYMBOL(0x800BBD60, "__arraydtor$68604");
 // .data
 //
 
-[[address_data(0x80315E90)]]
+/* 0x80315E90 */
 dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
 
 EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
@@ -89,15 +157,14 @@ EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
 // .bss
 //
 
-EXTERN_SYMBOL(0x80359054, "m_startInfo__7dInfo_c");
+[[address_data(0x80359054)]]
+dStartInfo_c dInfo_c::m_startInfo;
 
 //
 // .sbss
 //
 
-EXTERN_DATA(
-  0x8042A25C, //
-  dInfo_c* dInfo_c::m_instance
-);
+[[address_data(0x8042A25C)]]
+dInfo_c* dInfo_c::m_instance;
 
 EXTERN_SYMBOL(0x8042A260, "mGameFlag__7dInfo_c");

@@ -6,6 +6,13 @@
 #include <framework/f_feature.h>
 
 /**
+ * Sets the obtained Star Coin(s) for the given world/level. See COURSE_COMPLETION_e.
+ * Other flags are discarded.
+ */
+[[address(0x800CE270)]]
+void dMj2dGame_c::setCollectCoin(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e coins);
+
+/**
  * Gets the obtainable Star Coin count for the given world.
  */
 [[address(0x800CE280)]]
@@ -26,6 +33,22 @@ int dMj2dGame_c::getTotalWorldCollectCoin(WORLD_e world)
 
     return coinCount;
 }
+
+/**
+ * Checks if the given Star Coin has been obtained in the given world/level.
+ */
+[[address(0x800CE300)]]
+u8 dMj2dGame_c::isCollectCoin(WORLD_e world, STAGE_e level, int coin) const;
+
+/**
+ * Sets the death count in a specific stage.
+ * @param world The world.
+ * @param level The level.
+ * @param isSwitchPressed If the worldmap switch was activated [only used for level 3-4].
+ * @param count The death count.
+ */
+[[address(0x800CE350)]]
+void dMj2dGame_c::setDeathCount(WORLD_e world, STAGE_e level, bool isSwitchPressed, u8 count);
 
 /**
  * Checks if the completion flag(s) for the given world is set.

@@ -68,7 +68,7 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 4; i++) {
         daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
         daPyMng_c::mPlayerEntry[i] = 1;
 
@@ -83,7 +83,7 @@ void dScBoot_c::executeState_ProcEnd()
         }
     }
 
-    daPyMng_c::mPlayerEntry[4] = 1;
+    // daPyMng_c::mPlayerEntry[4] = 1;
 
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,

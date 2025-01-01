@@ -8,10 +8,10 @@
 
 dPyMdlMng_c::ModelType_e l_SUBPLAYER_MODEL_LIST[] = {
     dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+    dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+    dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
+    dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD,
+    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,
     dPyMdlMng_c::ModelType_e::MODEL_MARIO,
     dPyMdlMng_c::ModelType_e::MODEL_MARIO,
     dPyMdlMng_c::ModelType_e::MODEL_MARIO,

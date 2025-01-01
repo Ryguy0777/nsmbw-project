@@ -2,12 +2,12 @@
 // NSMBW d_bases.text: 0x80902790 - 0x8090D220
 
 #include "d_a_wm_player.h"
-#include "framework/f_base.h"
 
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_bases/d_a_wm_SubPlayer.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>
+#include <iterator>
 #include <machine/m_pad.h>
 #include <revolution/os.h>
 
@@ -59,6 +59,8 @@ fBase_c::PACK_RESULT_e daWmPlayer_c::create()
     mPad::setCurrentChannel(mPad::CH_e::CHAN_0);
 
     UNDEF_80903930();
+
+    mModelManager.mModel = nullptr;
 
     // Create subplayer models
     createSubPlayers();
@@ -119,9 +121,10 @@ void daWmPlayer_c::createSubPlayers()
         static const daPyMng_c::PlayerType_e l_idTable[] = {
           daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
           daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
-          daPyMng_c::PlayerType_e::TOADETTE,
+          daPyMng_c::PlayerType_e::TOADETTE,    daPyMng_c::PlayerType_e::PLAYER_5,
+          daPyMng_c::PlayerType_e::PLAYER_6,    daPyMng_c::PlayerType_e::PLAYER_7,
         };
-        daPyMng_c::PlayerType_e character = l_idTable[i % 4];
+        daPyMng_c::PlayerType_e character = l_idTable[i % std::size(l_idTable)];
         if (character == daPyMng_c::mPlayerType[0]) {
             mModelManager.mModel = player->mModelManager->mModel;
         }

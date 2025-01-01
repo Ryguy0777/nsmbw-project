@@ -1,5 +1,6 @@
 #pragma once
 
+#include <dynamic/d_cyuukan.h>
 #include <dynamic/d_fader.h>
 #include <dynamic/d_mj2d_game.h>
 #include <dynamic/d_remocon_mng.h>
@@ -44,6 +45,9 @@ public:
     /* 0x80101AA0 */
     static void setLoopType();
 
+    /* 0x801020E0 @unofficial */
+    static void setCollectionCoin(int coin, dCyuukan_c::COLLECTION_COIN_STATUS_e status);
+
     /* 0x801022C0 */
     static bool isNowReplay();
 
@@ -52,12 +56,26 @@ public:
     goToSceneAfterLevel(int profile, int param2, int param3, dFader_c::fader_type_e faderType);
 
 public:
+    // ----------------
+    // Member Functions
+    // ----------------
+
+    /* 0x809251F0 */
+    void courseClear();
+
+    /* 0x809253E0 */
+    void restoreStartInfo();
+
+public:
     // -----------
     // Static Data
     // -----------
 
     /* 0x8042A4A8 */
     static dScStage_c* m_instance;
+
+    /* 0x8042A4DC */
+    static s32 m_goalType;
 
     /* 0x8042A4E0 */
     static u32 m_exeFrame;
@@ -77,11 +95,17 @@ public:
     /* 0x8042A4FF */
     static bool m_isStaffCredit;
 
+    /* 0x8042A500 */
+    static s32 m_miniGame;
+
     /* 0x8042A504 */
     static u8 m_replayMode;
 
     /* 0x8042A506 */
     static bool m_isReplayGoal;
+
+    /* 0x803744B0 */
+    static dCyuukan_c::COLLECTION_COIN_STATUS_e mCollectionCoin[COLLECTION_COIN_COUNT];
 
     /* 0x803744D0 */
     static ReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];

@@ -8,6 +8,9 @@
 [[address_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
 
+[[address_data(0x8042A4DC)]]
+s32 dScStage_c::m_goalType;
+
 [[address_data(0x8042A4E0)]]
 u32 dScStage_c::m_exeFrame;
 
@@ -26,11 +29,17 @@ bool dScStage_c::m_isOtehonReturn;
 [[address_data(0x8042A4FF)]]
 bool dScStage_c::m_isStaffCredit;
 
+[[address_data(0x8042A500)]]
+s32 dScStage_c::m_miniGame;
+
 [[address_data(0x8042A504)]]
 u8 dScStage_c::m_replayMode;
 
 [[address_data(0x8042A506)]]
 bool dScStage_c::m_isReplayGoal;
+
+[[address_data(0x803744B0)]]
+dCyuukan_c::COLLECTION_COIN_STATUS_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
 
 /* 0x803744D0 */
 dScStage_c::ReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
@@ -106,6 +115,9 @@ UNDEF_80101b94:;
 /* 80101BA0 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x801020E0)]]
+void dScStage_c::setCollectionCoin(int coin, dCyuukan_c::COLLECTION_COIN_STATUS_e status);
 
 [[address(0x801022C0)]]
 bool dScStage_c::isNowReplay();

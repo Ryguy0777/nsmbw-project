@@ -3,6 +3,7 @@
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_cyuukan.h>
 #include <dynamic/d_mj2d_game.h>
+#include <dynamic/d_start_info.h>
 
 class dInfo_c
 {
@@ -76,6 +77,9 @@ public:
     /* 0x800BB7D0 */
     void startGame(const StartGameInfo_s& startGameInfo);
 
+    /* 0x800BB940 */
+    void initStage();
+
 public:
     // -----------
     // Member Data
@@ -89,7 +93,19 @@ public:
     /* 0x040 */ s32 mLevel;
     /* 0x044 */ s32 mWmNode;
 
-    FILL(0x048, 0x384);
+    FILL(0x048, 0x060);
+
+    /* 0x060 */ s32 m0x060;
+    /* 0x064 */ s32 m0x064;
+    /* 0x068 */ s32 m0x068;
+    /* 0x06C */ u8 m0x06C;
+
+    FILL(0x06D, 0x380);
+
+    /**
+     * The status of the worldmap switch.
+     */
+    /* 0x380 */ bool mSwitchOn;
 
     /* 0x384 */ s32 mPlayerActiveMode[4];
 
@@ -100,7 +116,9 @@ public:
     FILL(0xAF8, 0xAFC);
 
     /* 0xAFC */ u8 m0xAFC;
+
     FILL(0xAFD, 0xAFE);
+
     /* 0xAFE */ u8 m0xAFE[4][22];
 
     /* 0xB56 */ u8 m0xB56[4];
@@ -127,6 +145,8 @@ public:
     // -----------
 
     /* 0x80315E98 */ static StartGameInfo_s m_startGameInfo;
+
+    /* 0x80359054 */ static dStartInfo_c m_startInfo;
 
     /* 0x8042A25C */ static dInfo_c* m_instance;
 };

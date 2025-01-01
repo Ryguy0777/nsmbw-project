@@ -121,6 +121,10 @@ SOURCES += source/wiimj2d/dynamic/d_coin.cpp
 # NSMBW .text: 0x8008DFF0 - 0x8008ECC0
 SOURCES += source/wiimj2d/dynamic/d_course_data.cpp
 
+# d_cyuukan.cpp
+# NSMBW .text: 0x8008ED70 - 0x8008F110
+SOURCES += source/wiimj2d/dynamic/d_cyuukan.cpp
+
 # d_effactor_mng.cpp
 # NSMBW .text: 0x8008FE30 - 0x80092C00
 SOURCES += source/wiimj2d/dynamic/d_effactor_mng.cpp
@@ -273,6 +277,10 @@ SOURCES += source/wiimj2d/dynamic/d_wm_actor.cpp
 # NSMBW .text: 0x800F60E0 - 0x800F7050
 SOURCES += source/wiimj2d/dynamic/d_wm_demo_actor.cpp
 
+# d_wm_lib.cpp
+# NSMBW .text: 0x800F9380 - 0x800FD6A0
+SOURCES += source/wiimj2d/dynamic/d_wm_lib.cpp
+
 # d_wm_path.cpp
 # NSMBW .text: 0x800FDB60 - 0x800FDC40
 SOURCES += source/wiimj2d/dynamic/d_wm_path.cpp
@@ -385,7 +393,21 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_s_World9DeMo.cpp
 # d_s_crsin.cpp
 # NSMBW d_bases.text: 0x8091EC10 - 0x80921060
 SOURCES += source/wiimj2d/dynamic/d_bases/d_s_crsin.cpp
-
+# d_s_game_over.cpp
+# NSMBW d_bases.text: 0x80921060 - 0x80922060
+SOURCES += source/wiimj2d/dynamic/d_bases/d_s_game_over.cpp
+# d_s_movie.cpp
+# NSMBW d_bases.text: 0x80922060 - 0x80923970
+SOURCES += source/wiimj2d/dynamic/d_bases/d_s_movie.cpp
+# d_s_restart_crsin.cpp
+# NSMBW d_bases.text: 0x80923970 - 0x80923B60
+SOURCES += source/wiimj2d/dynamic/d_bases/d_s_restart_crsin.cpp
+# d_s_select.cpp
+# NSMBW d_bases.text: 0x80923B60 - 0x80923C10
+SOURCES += source/wiimj2d/dynamic/d_bases/d_s_select.cpp
+# d_s_stage.cpp
+# NSMBW d_bases.text: 0x80923C10 - 0x80926740
+SOURCES += source/wiimj2d/dynamic/d_bases/d_s_stage.cpp
 # d_s_stage_static.cpp
 # NSMBW        .text: 0x80101A50 - 0x80102770
 SOURCES += source/wiimj2d/dynamic/d_bases/d_s_stage_static.cpp
