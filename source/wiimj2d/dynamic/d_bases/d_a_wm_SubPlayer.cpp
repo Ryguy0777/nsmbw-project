@@ -3,18 +3,14 @@
 
 #include "d_a_wm_SubPlayer.h"
 
-#include <dynamic/d_player_model_manager.h>
 #include <dynamic/d_bases/d_a_wm_player.h>
+#include <dynamic/d_player_model_manager.h>
 
 dPyMdlMng_c::ModelType_e l_SUBPLAYER_MODEL_LIST[] = {
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-    dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
-    dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD,
-    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
-    dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+  dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+  dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD, dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD,
+  dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+  dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_MARIO,
 };
 
 [[address(0x808EB7D0)]]
@@ -106,4 +102,26 @@ s32 daWmSubPlayer_c::getPlayerOrder()
     }
 
     return order;
+}
+
+[[address(0x808EE950)]]
+int daWmSubPlayer_c::getSubPlayerNum();
+
+[[address(0x808EEA00)]]
+s32 daWmSubPlayer_c::UNDEF_808EEA00(int playerOrder)
+{
+    int subPlayerNum = getSubPlayerNum();
+    if (subPlayerNum == 0) {
+        return 0;
+    }
+
+    static constexpr s32 UNK_TABLE[] = {0, 2, 5, 5, 5, 5, 5, 5};
+
+    return playerOrder + UNK_TABLE[subPlayerNum - 1];
+}
+
+[[address(0x808EF2B0)]]
+bool daWmSubPlayer_c::isPlayerType(daPyMng_c::PlayerType_e playerType)
+{
+    return daPyMng_c::DEFAULT_PLAYER_ORDER[getPlayerNo()] == playerType;
 }

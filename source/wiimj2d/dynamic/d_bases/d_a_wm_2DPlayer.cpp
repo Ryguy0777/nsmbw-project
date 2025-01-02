@@ -15,7 +15,8 @@ void da2DPlayer_c::loadPlayer()
     static constexpr dPyMdlMng_c::ModelType_e sPlayerModelType[] = {
       dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
       dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_MARIO,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_MARIO
     };
 
     mModelMng = new dPyMdlMng_c(sPlayerModelType[id]);

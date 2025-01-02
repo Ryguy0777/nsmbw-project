@@ -133,7 +133,6 @@ void daWmPlayer_c::createSubPlayers()
     prevPlayer->mNextPlayer = nullptr;
 }
 
-// TODO: Expand to more than four players
 [[address(0x80902CA0)]]
 void daWmPlayer_c::updateActivePlayers() ASM_METHOD(
   // clang-format off
@@ -145,7 +144,7 @@ void daWmPlayer_c::updateActivePlayers() ASM_METHOD(
 /* 80902CB4 3C808043 */  lis      r4, m_instance__7dInfo_c@ha;
 /* 80902CB8 7C7E1B78 */  mr       r30, r3;
 /* 80902CBC 83E4A25C */  lwz      r31, m_instance__7dInfo_c@l(r4);
-/* 80902CC0 4B7F9E11 */  bl       UNDEF_800fcad0;
+/* 80902CC0 4B7F9E11 */  bl       UNDEF_800fcad0; // IsSingleEntry__6dWmLibFv
 /* 80902CC4 3F008035 */  lis      r24, mPlayerEntry__9daPyMng_c@ha;
 /* 80902CC8 7C7B1B78 */  mr       r27, r3;
 /* 80902CCC 3B185150 */  addi     r24, r24, mPlayerEntry__9daPyMng_c@l;
@@ -159,7 +158,7 @@ UNDEF_80902cd8:;
 /* 80902CE8 48000149 */  bl       UNDEF_80902e30;
 /* 80902CEC 3B390001 */  addi     r25, r25, 1;
 /* 80902CF0 93980000 */  stw      r28, 0(r24);
-/* 80902CF4 2C190004 */  cmpwi    r25, 4;
+/* 80902CF4 2C190004 */  cmpwi    r25, PLAYER_COUNT;
 /* 80902CF8 3B180004 */  addi     r24, r24, 4;
 /* 80902CFC 4180FFDC */  blt+     UNDEF_80902cd8;
 /* 80902D00 3CA08035 */  lis      r5, mPlayerEntry__9daPyMng_c@ha;
@@ -203,7 +202,7 @@ UNDEF_80902d78:;
 /* 80902D84 3B180004 */  addi     r24, r24, 4;
 /* 80902D88 3B5A0004 */  addi     r26, r26, 4;
 /* 80902D8C 4180FFA4 */  blt+     UNDEF_80902d30;
-/* 80902D90 4B7F9D41 */  bl       UNDEF_800fcad0;
+/* 80902D90 4B7F9D41 */  bl       UNDEF_800fcad0; // IsSingleEntry__6dWmLibFv
 /* 80902D94 7C1B1840 */  cmplw    r27, r3;
 /* 80902D98 4182001C */  beq-     UNDEF_80902db4;
 /* 80902D9C 2C1B0000 */  cmpwi    r27, 0;
@@ -211,7 +210,7 @@ UNDEF_80902d78:;
 /* 80902DA4 4BFD57BD */  bl       UNDEF_808d8560;
 /* 80902DA8 4800000C */  b        UNDEF_80902db4;
 UNDEF_80902dac:;
-/* 80902DAC 4B7FA415 */  bl       UNDEF_800fd1c0;
+/* 80902DAC 4B7FA415 */  bl       UNDEF_800fd1c0; // RestoreKinopioHelpGameInfo__6dWmLibFv
 /* 80902DB0 4BFD5831 */  bl       UNDEF_808d85e0;
 UNDEF_80902db4:;
 /* 80902DB4 3CA08035 */  lis      r5, mPlayerType__9daPyMng_c@ha;
@@ -233,16 +232,13 @@ UNDEF_80902db4:;
 /* 80902DF4 5400103A */  slwi     r0, r0, 2;
 /* 80902DF8 809F0390 */  lwz      r4, 912(r31);
 /* 80902DFC 7C86012E */  stwx     r4, r6, r0;
-/* 80902E00 809E0184 */  lwz      r4, 388(r30);
-/* 80902E04 90640294 */  stw      r3, 660(r4);
-/* 80902E08 80840184 */  lwz      r4, 388(r4);
-/* 80902E0C 90640294 */  stw      r3, 660(r4);
-/* 80902E10 80840184 */  lwz      r4, 388(r4);
-/* 80902E14 90640294 */  stw      r3, 660(r4);
+/* 80902E00 809E0184 */  lwz      r4, 0x184(r30);
 
-                         // Copy one more time for our new subplayer
-                         lwz      r4, 0x184(r4);
-                         stw      r3, 0x294(r4);
+L_daWmPlayer_c_updateActivePlayers_Set0x184Loop:;
+/* 80902E04 90640294 */  stw      r3, 0x294(r4);
+/* 80902E08 80840184 */  lwz      r4, 0x184(r4);
+                         cmpwi    r4, 0;
+                         bne+     L_daWmPlayer_c_updateActivePlayers_Set0x184Loop;
 
                          // Copy player 1's status thing
                          lwz      r9, 0x384(r31);

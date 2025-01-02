@@ -20,7 +20,7 @@ class daWmPlayer_c : public dWmPlayerBase_c
     /* 0x060 VTABLE 0x809893F8 */
 
 public:
-    static constexpr u32 SUBPLAYER_COUNT = 4;
+    static constexpr u32 SUBPLAYER_COUNT = 8;
 
     /* 0x809027C0 */
     daWmPlayer_c();
