@@ -57,7 +57,7 @@ CXXOPTS += -fno-PIC -fno-rtti -fno-short-enums -fshort-wchar -ffreestanding -ffu
 CXXOPTS += -I./source -I./source/msl/msl_c -I./source/msl/msl_cpp -I./source/wiimj2d
 
 # Preprocessor definitions
-CXXOPTS += -DLOADER_REL_LZ
+CXXOPTS +=
 
 # Linker options
 LDOPTS := -T./source/module.ld --gc-sections -r -n

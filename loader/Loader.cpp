@@ -12,6 +12,7 @@
 #undef EXTERN_REPL
 #define EXTERN_REPL(...)
 
+#include <Port.h>
 #include <cstdio>
 #include <cstring>
 #include <egg/core/eggDvdFile.h>
@@ -33,31 +34,52 @@ static void LoaderAssertFail(const char* expr, s32 line);
 
 #define LOADER_ASSERT(_EXPR) (((_EXPR) ? (void) 0 : LoaderAssertFail(#_EXPR, __LINE__)))
 
-#define _ADDRESS_LOADER3(_ADDR, _COUNTER)                                                          \
-    __gnu__::__naked__]]  void _LoaderFunction##_COUNTER() asm("_LoaderFunction" #_COUNTER);       \
-    [[__gnu__::__naked__]] void _LoaderFunction##_COUNTER()                                        \
-    {                                                                                              \
-        __asm__("mflr %r12; bl PortCall;.long " #_ADDR                                             \
-                ";.ascii \"[insert ports for other regions]\";");                                  \
-    }                                                                                              \
-        [[__gnu__::__alias__("_LoaderFunction" #_COUNTER)
-
-#define _ADDRESS_LOADER2(_ADDR, _COUNTER) _ADDRESS_LOADER3(_ADDR, _COUNTER)
-#define _ADDRESS_LOADER(_ADDR, _COUNTER) _ADDRESS_LOADER2(_ADDR, _COUNTER)
-#define address_loader(_ADDR) _ADDRESS_LOADER(_ADDR, __COUNTER__)
-
 // Since the same Loader.bin file will be used for every region, ported addresses need to be
 // realized on the fly.
 
 // Regions in the order P1, P2, E1, E2, J1, J2, K, W, C
-u8 g_portIndex = 0xFF;
+
+#define PORT_CALL_BASE 0x800047E4
+
+#define _ADDRESS_LOADER3(_ADDR, _COUNTER, _PORT_CALL_BASE)                                         \
+    __gnu__::__naked__]]  void _LoaderFunction##_COUNTER() asm("_LoaderFunction" #_COUNTER);       \
+    [[__gnu__::__naked__]] void _LoaderFunction##_COUNTER()                                        \
+    {                                                                                              \
+        __asm__("li 12, ((. + 8) - " #_PORT_CALL_BASE ")@l;"                                       \
+                "b PortCall;"                                                                      \
+                ".long %0;"                                                                        \
+                ".long %1;"                                                                        \
+                ".long %2;"                                                                        \
+                ".long %3;"                                                                        \
+                ".long %4;"                                                                        \
+                ".long %5;"                                                                        \
+                ".long %6;"                                                                        \
+                ".long %7;"                                                                        \
+                ".long %8;"                                                                        \
+                :                                                                                  \
+                : "i"(_ADDR), "i"(Port::AddressMapperP2.MapAddress(_ADDR)),                        \
+                  "i"(Port::AddressMapperE1.MapAddress(_ADDR)),                                    \
+                  "i"(Port::AddressMapperE2.MapAddress(_ADDR)),                                    \
+                  "i"(Port::AddressMapperJ1.MapAddress(_ADDR)),                                    \
+                  "i"(Port::AddressMapperJ2.MapAddress(_ADDR)),                                    \
+                  "i"(Port::AddressMapperK.MapAddress(_ADDR)),                                     \
+                  "i"(Port::AddressMapperW.MapAddress(_ADDR)),                                     \
+                  "i"(Port::AddressMapperC.MapAddress(_ADDR)));                                    \
+    }                                                                                              \
+        [[__gnu__::__alias__("_LoaderFunction" #_COUNTER)
+
+#define _ADDRESS_LOADER2(_ADDR, _COUNTER, _PORT_CALL_BASE)                                         \
+    _ADDRESS_LOADER3(_ADDR, _COUNTER, _PORT_CALL_BASE)
+#define _ADDRESS_LOADER(_ADDR, _COUNTER, _PORT_CALL_BASE)                                          \
+    _ADDRESS_LOADER2(_ADDR, _COUNTER, _PORT_CALL_BASE)
+#define address_loader(_ADDR) _ADDRESS_LOADER(_ADDR, __COUNTER__, PORT_CALL_BASE)
+
+u32 g_portOffset = 0xFF;
 
 void PortCall() ASM_METHOD(
   // clang-format off
-    mflr    r11; // Addresses
-    mtlr    r12; // Restore return address
-    lis     r12, g_portIndex@ha;
-    lbz     r12, g_portIndex@l(r12);
+    lis     r11, g_portOffset@ha;
+    lwz     r11, g_portOffset@l(r11);
     lwzx    r12, r11, r12;
     mtctr   r12;
     bctr;
@@ -135,20 +157,24 @@ const char g_contentsArc[] = "NSMBWProjectData.arc";
 u32 g_dylinkHeapAddresses[] = {
   0x8042A664, // PAL v1 address
 
-  // "[insert ports for other regions]"
-  0x5B696E73,
-  0x65727420,
-  0x706F7274,
-  0x7320666F,
-  0x72206F74,
-  0x68657220,
-  0x72656769,
-  0x6F6E735D,
+// Ports for other regions
+// Disabled for clangd because I'm really annoyed about my Clang Language Server crashing
+#ifndef CLANGD
+  Port::AddressMapperP2.MapAddress(0x8042A664),
+  Port::AddressMapperE1.MapAddress(0x8042A664),
+  Port::AddressMapperE2.MapAddress(0x8042A664),
+  Port::AddressMapperJ1.MapAddress(0x8042A664),
+  Port::AddressMapperJ2.MapAddress(0x8042A664),
+  Port::AddressMapperK.MapAddress(0x8042A664),
+  Port::AddressMapperW.MapAddress(0x8042A664),
+  Port::AddressMapperC.MapAddress(0x8042A664),
+#endif
 };
 
 static EGG::Heap* GetPortByCode()
 {
     u8 c;
+    u8 i = 0;
 
     switch (*reinterpret_cast<u8*>(0x8000423A)) {
     default:
@@ -157,7 +183,8 @@ static EGG::Heap* GetPortByCode()
     case 0xFF:
         // PAL (P)
         g_modulePath[REGION_INDEX] = 'P';
-        g_portIndex = 0x0;
+        g_portOffset = PORT_CALL_BASE + 0x0;
+        i = 0;
 
         c = *reinterpret_cast<u8*>(0x800CF287);
         break;
@@ -165,7 +192,8 @@ static EGG::Heap* GetPortByCode()
     case 0xFC:
         // USA (E)
         g_modulePath[REGION_INDEX] = 'E';
-        g_portIndex = 0x8;
+        g_portOffset = PORT_CALL_BASE + 0x8;
+        i = 2;
 
         c = *reinterpret_cast<u8*>(0x800CF197);
         break;
@@ -173,7 +201,8 @@ static EGG::Heap* GetPortByCode()
     case 0xF9:
         // JPN (J)
         g_modulePath[REGION_INDEX] = 'J';
-        g_portIndex = 0x10;
+        g_portOffset = PORT_CALL_BASE + 0x10;
+        i = 4;
 
         c = *reinterpret_cast<u8*>(0x800CF117);
         break;
@@ -181,52 +210,56 @@ static EGG::Heap* GetPortByCode()
     case 0xC8:
         // KOR (K)
         g_modulePath[REGION_INDEX] = 'K';
-        g_portIndex = 0x18;
+        g_portOffset = PORT_CALL_BASE + 0x18;
         return *reinterpret_cast<EGG::Heap**>(g_dylinkHeapAddresses[5]);
 
     case 0xAC:
         // TWN (W)
         g_modulePath[REGION_INDEX] = 'W';
-        g_portIndex = 0x1C;
+        g_portOffset = PORT_CALL_BASE + 0x1C;
         return *reinterpret_cast<EGG::Heap**>(g_dylinkHeapAddresses[6]);
 
     case 0x55:
         // CHN (C)
         g_modulePath[REGION_INDEX] = 'C';
-        g_portIndex = 0x20;
+        g_portOffset = PORT_CALL_BASE + 0x20;
         return *reinterpret_cast<EGG::Heap**>(g_dylinkHeapAddresses[7]);
     }
 
     if (c == 0x30) {
         g_modulePath[REGION_INDEX + 1] = '1';
     } else if (c == 0x38) {
-        g_portIndex += 0x4;
+        g_portOffset += 0x4;
+        i += 1;
         g_modulePath[REGION_INDEX + 1] = '2';
     } else {
         return nullptr;
     }
 
-    return *reinterpret_cast<EGG::Heap**>(g_dylinkHeapAddresses[g_portIndex / 4]);
+    return *reinterpret_cast<EGG::Heap**>(g_dylinkHeapAddresses[i]);
 }
 
 u32 g_StreamDecompLZVTable[] = {
   0x8034FFA8, // PAL v1 address
 
-  // "[insert ports for other regions]"
-  0x5B696E73,
-  0x65727420,
-  0x706F7274,
-  0x7320666F,
-  0x72206F74,
-  0x68657220,
-  0x72656769,
-  0x6F6E735D,
+// Ports for other regions
+#ifndef CLANGD
+  Port::AddressMapperP2.MapAddress(0x8034FFA8),
+  Port::AddressMapperE1.MapAddress(0x8034FFA8),
+  Port::AddressMapperE2.MapAddress(0x8034FFA8),
+  Port::AddressMapperJ1.MapAddress(0x8034FFA8),
+  Port::AddressMapperJ2.MapAddress(0x8034FFA8),
+  Port::AddressMapperK.MapAddress(0x8034FFA8),
+  Port::AddressMapperW.MapAddress(0x8034FFA8),
+  Port::AddressMapperC.MapAddress(0x8034FFA8),
+#endif
 };
 
 EGG::StreamDecompLZ MakeStreamDecompLZ()
 {
     EGG::StreamDecompLZ lzStream;
-    *reinterpret_cast<u32*>(&lzStream) = g_StreamDecompLZVTable[g_portIndex / 4];
+    int portIndex = g_portOffset - PORT_CALL_BASE;
+    *reinterpret_cast<u32*>(&lzStream) = g_StreamDecompLZVTable[portIndex / 4];
     return lzStream;
 }
 

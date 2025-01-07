@@ -12,12 +12,12 @@ c++
 -fno-use-cxa-atexit
 -fkeep-static-consts
 -femit-all-decls
+-ffreestanding
 -Wpedantic
 -Isource
 -Isource/msl/msl_c
 -Isource/msl/msl_cpp
 -Isource/wiimj2d
--DLOADER_REL_LZ
 -include
 source/System.h
 -Wno-out-of-line-declaration
@@ -26,3 +26,7 @@ source/System.h
 -Wno-invalid-offsetof
 -Wno-nested-anon-types
 -Wno-gnu-anonymous-struct
+-Wno-c23-extensions
+-nostdinc
+-nostdinc++
+-DCLANGD

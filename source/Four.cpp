@@ -7,9 +7,32 @@
 #include <cstring>
 #include <dynamic/d_a_player_manager.h>
 #include <revolution/os.h>
+#include "Port.h"
 
 struct FourPatch {
-    u32 address;
+    consteval FourPatch(u32 address, u8 size, s8 offset = 0)
+        : addressP1(address)
+        , addressP2(Port::AddressMapperP2.MapAddress(address))
+        , addressE1(Port::AddressMapperE1.MapAddress(address))
+        , addressE2(Port::AddressMapperE2.MapAddress(address))
+        , addressJ1(Port::AddressMapperJ1.MapAddress(address))
+        , addressJ2(Port::AddressMapperJ2.MapAddress(address))
+        , addressK(Port::AddressMapperK.MapAddress(address))
+        , addressW(Port::AddressMapperW.MapAddress(address))
+        , addressC(Port::AddressMapperC.MapAddress(address))
+        , size(size)
+        , offset(offset)
+        {}
+
+    u32 addressP1;
+    u32 addressP2;
+    u32 addressE1;
+    u32 addressE2;
+    u32 addressJ1;
+    u32 addressJ2;
+    u32 addressK;
+    u32 addressW;
+    u32 addressC;
     u8 size;
     s8 offset;
 };
@@ -661,7 +684,7 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
 void Four::Apply()
 {
     for (const FourPatch& patch : FOUR_PATCH_LIST) {
-        u32 address = patch.address;
+        u32 address = patch.addressP1;
         u8 size = patch.size;
         u8 offset = patch.offset;
 
