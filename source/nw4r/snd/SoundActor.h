@@ -1,12 +1,11 @@
 #pragma once
 
 #include "BasicSound.h"
+#include "SoundArchivePlayer.h"
 #include "SoundStartable.h"
 
 namespace nw4r::snd
 {
-
-class SoundArchivePlayer;
 
 class SoundActor : public SoundStartable
 {
@@ -19,7 +18,8 @@ public:
     // Constructors
     // ------------
 
-    SoundActor();
+    /* 0x80275530 */
+    SoundActor(nw4r::snd::SoundArchivePlayer&);
 
     /* VT+0x08 0x802755F0 */
     virtual ~SoundActor();
@@ -39,7 +39,7 @@ public:
 
     /* VT+0x14 0x802756D0 */
     virtual StartResult
-    StartSound(SoundHandle* pHandle, u32 id, bool hold, const StartInfo* pStartInfo, void*);
+    SetupSound(SoundHandle* pHandle, u32 id, bool hold, const StartInfo* pStartInfo, void*);
 
     /* VT+0x18 0x802756F0 */
     virtual StartResult
@@ -50,10 +50,10 @@ public:
     // Member Functions
     // ----------------
 
-    [[address(0x802756A0)]]
+    /* 0x802756A0 */
     u32 GetPlayingSoundCount(int) const;
 
-    [[address(0x802756B0)]]
+    /* 0x802756B0 */
     void SetPlayableSoundCount(int, int);
 
 public:

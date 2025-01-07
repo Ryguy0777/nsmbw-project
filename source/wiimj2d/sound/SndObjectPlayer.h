@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NMSndObject.h"
+#include "SndObject.h"
 
 class SndObjctPly : public NMSndObject<4>
 {
@@ -116,6 +116,10 @@ public:
     {
     }
 
+    virtual ~SndObjctPly() override
+    {
+    }
+
 public:
     // -----------------
     // Virtual Functions
@@ -146,6 +150,9 @@ public:
     // ----------------
     // Member Functions
     // ----------------
+
+    /* 0x8019A810 */
+    nw4r::snd::SoundHandle* startFootSound(u32 soundId, f32 param2, u32 remoteMask);
 
     /* 0x8019AAB0 */
     nw4r::snd::SoundHandle* startVoiceSound(PLAYER_VOICE_e voice, u32 remoteMask);

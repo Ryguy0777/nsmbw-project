@@ -1,7 +1,13 @@
-// SndObjctCmnMap.cpp
+// SndObjectMap.cpp
 // NSMBW .text: 0x80198CF0 - 0x80199A20
 
-#include "SndObjctCmnMap.h"
+#include "SndObjectMap.h"
+
+/* VT+0x08 */
+[[address(0x80198CF0)]]
+SndObjctCmnMap::~SndObjctCmnMap()
+{
+}
 
 /* VT+0x20 */
 [[address(0x80198D70)]]

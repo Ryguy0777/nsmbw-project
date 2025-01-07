@@ -7,7 +7,7 @@
 #include <dynamic/d_bases/d_a_wm_SubPlayer.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>
-#include <iterator>
+#include <framework/f_base_profile.h>
 #include <machine/m_pad.h>
 #include <revolution/os.h>
 
@@ -109,8 +109,9 @@ void daWmPlayer_c::createSubPlayers()
     dWmPlayerBase_c* prevPlayer = this;
 
     for (u32 i = 0; i < SUBPLAYER_COUNT; i++) {
-        daWmSubPlayer_c* player =
-          (daWmSubPlayer_c*) dWmActor_c::construct(0x295, this, i, nullptr, nullptr);
+        daWmSubPlayer_c* player = reinterpret_cast<daWmSubPlayer_c*>(
+          dWmActor_c::construct(+fBaseProfile_e::WM_SUBPLAYER, this, i)
+        );
 
         prevPlayer->mNextPlayer = player;
         player->mPrevPlayer = prevPlayer;
@@ -118,13 +119,7 @@ void daWmPlayer_c::createSubPlayers()
         prevPlayer = player;
 
         // Set player 1's model if this is player 1's character
-        static const daPyMng_c::PlayerType_e l_idTable[] = {
-          daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
-          daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
-          daPyMng_c::PlayerType_e::TOADETTE,    daPyMng_c::PlayerType_e::PLAYER_5,
-          daPyMng_c::PlayerType_e::PLAYER_6,    daPyMng_c::PlayerType_e::PLAYER_7,
-        };
-        daPyMng_c::PlayerType_e character = l_idTable[i % std::size(l_idTable)];
+        daPyMng_c::PlayerType_e character = daPyMng_c::DEFAULT_PLAYER_ORDER[i % PLAYER_COUNT];
         if (character == daPyMng_c::mPlayerType[0]) {
             mModelManager.mModel = player->mModelManager->mModel;
         }

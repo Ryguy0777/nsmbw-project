@@ -27,6 +27,12 @@
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
 
+const daPyMng_c::PlayerType_e daPyMng_c::DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] = {
+  PlayerType_e::TOADETTE,  PlayerType_e::LUIGI,   PlayerType_e::YELLOW_TOAD,
+  PlayerType_e::BLUE_TOAD, PlayerType_e::MARIO,   PlayerType_e::PLAYER_5,
+  PlayerType_e::PLAYER_6,  PlayerType_e::PLAYER_7
+};
+
 /* 0x80355110 */
 fBaseID_e daPyMng_c::m_playerID[PLAYER_COUNT];
 

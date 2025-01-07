@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NMSndObjectBase.h"
+#include "SndObjectBase.h"
 #include <nw4r/math/vec.h>
 #include <nw4r/snd/SoundHandle.h>
 
@@ -41,6 +41,11 @@ public:
           , m0x04(-1)
           , m0x0C(1.0)
           , m0x10(64)
+        {
+        }
+
+        /* [0x80069A00 with TParam = 12] */
+        ~SoundHandlePrm()
         {
         }
 

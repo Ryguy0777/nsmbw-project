@@ -84,16 +84,18 @@ public:
      * 0x800F2B00
      * Creates a world map actor without a parent. See dBaseActor_c::construct.
      */
-    static dWmActor_c*
-    construct(u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation);
+    static dWmActor_c* construct(
+      u16 profName, unsigned long param = 0, const mVec3_c* position = nullptr,
+      const mAng3_c* rotation = nullptr
+    );
 
     /**
      * 0x800F2B10
      * Creates a child world map actor with the given parent. See dBaseActor_c::construct.
      */
     static dWmActor_c* construct(
-      u16 profName, dBase_c* base, unsigned long param, const mVec3_c* position,
-      const mAng3_c* rotation
+      u16 profName, dBase_c* base, unsigned long param = 0, const mVec3_c* position = nullptr,
+      const mAng3_c* rotation = nullptr
     );
 
     /**

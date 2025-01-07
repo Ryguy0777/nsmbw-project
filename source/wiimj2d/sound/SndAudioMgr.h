@@ -1,5 +1,7 @@
 #pragma once
 
+#include <nw4r/snd/SoundArchivePlayer.h>
+
 class SndAudioMgr
 {
 public:
@@ -9,6 +11,15 @@ public:
 
     /* 0x80196FD0 */
     void setIsReplay(bool value);
+
+public:
+    // -----------
+    // Member Data
+    // -----------
+
+    FILL(0x000, 0x5BC);
+
+    /* 0x5BC */ nw4r::snd::SoundArchivePlayer* mpSoundArchivePlayer;
 
 public:
     // -----------

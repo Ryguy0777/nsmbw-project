@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NMSndObjectBase.h"
+#include "SndObjectBase.h"
 #include <iterator>
 #include <nw4r/math/vec.h>
 #include <nw4r/snd/SoundActor.h>

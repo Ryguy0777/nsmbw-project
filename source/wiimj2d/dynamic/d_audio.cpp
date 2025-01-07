@@ -55,4 +55,10 @@ PATCH_REFERENCES(
   }
 )
 
+/* VT+0x08 - Moved here */
+[[address(0x80104160)]]
+SndObjctCSPly_c::~SndObjctCSPly_c()
+{
+}
+
 } // namespace dAudio

@@ -1,9 +1,22 @@
 #pragma once
 
-#include "NMSndObjectCmn.h"
+#include "SndObjectCmn.h"
 
 class SndObjctCmnMap : public NMSndObjectCmn<12>
 {
+public:
+    // ------------
+    // Constructors
+    // ------------
+
+    SndObjctCmnMap(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
+      : NMSndObjectCmn<12>(soundArchivePlayer)
+    {
+    }
+
+    /* VT+0x08 0x80198CF0 */
+    virtual ~SndObjctCmnMap() override;
+
 public:
     // -----------------
     // Virtual Functions

@@ -1,10 +1,10 @@
 // SndObjctPly.cpp
 // NSMBW .text: 0x8019A0F0 - 0x8019B240
 
-#include "SndObjctPly.h"
-#include "nw4r/snd/SoundHandle.h"
+#include "SndObjectPlayer.h"
 
 #include <framework/f_sound_id.h>
+#include <nw4r/snd/SoundHandle.h>
 
 static constexpr u16 PLAYER_VOICE_SOUND_ID_LIST[SndObjctPly::PLAYER_SOUND_INDEX_COUNT]
                                                [SndObjctPly::PLAYER_VOICE_COUNT] = //
@@ -379,6 +379,35 @@ static constexpr u16 PLAYER_VOICE_SOUND_ID_LIST[SndObjctPly::PLAYER_SOUND_INDEX_
       SE_MG_IH_KO2_ACTIVE_RC,
     },
 };
+
+/* VT+0x24 */
+[[address(0x8019A0F0)]]
+nw4r::snd::SoundHandle* SndObjctPly::startSound(u32 soundId, u32 remoteMask);
+
+/* VT+0x28 */
+[[address(0x8019A1E0)]]
+nw4r::snd::SoundHandle* SndObjctPly::holdSound(u32 soundId, u32 remoteMask);
+
+/* VT+0x30 */
+[[address(0x8019A330)]]
+nw4r::snd::SoundHandle* SndObjctPly::startSound(u32 soundId, short seqParam, u32 remoteMask);
+
+/* VT+0x34 */
+[[address(0x8019A450)]]
+nw4r::snd::SoundHandle* SndObjctPly::holdSound(u32 soundId, short seqParam, u32 remoteMask);
+
+/* VT+0x38 */
+[[address(0x8019A5D0)]]
+nw4r::snd::SoundHandle*
+SndObjctPly::startSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
+
+/* VT+0x3C */
+[[address(0x8019A6C0)]]
+nw4r::snd::SoundHandle*
+SndObjctPly::holdSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
+
+[[address(0x8019A810)]]
+nw4r::snd::SoundHandle* SndObjctPly::startFootSound(u32 soundId, f32 param2, u32 remoteMask);
 
 [[address(0x8019AAB0)]]
 nw4r::snd::SoundHandle* SndObjctPly::startVoiceSound(PLAYER_VOICE_e voice, u32 remoteMask)

@@ -426,6 +426,9 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_wm_WorldSelectGuide.cpp
 # d_wm_effectManager.cpp
 # NSMBW        .text: 0x80103020 - 0x801038D0
 SOURCES += source/wiimj2d/dynamic/d_bases/d_wm_effectManager.cpp
+# d_wm_seManager.cpp
+# NSMBW        .text: 0x80103F50 - 0x801060E0
+SOURCES += source/wiimj2d/dynamic/d_bases/d_wm_seManager.cpp
 # d_world_camera.cpp
 # NSMBW d_bases.text: 0x8092B8B0 - 0x8092F020
 SOURCES += source/wiimj2d/dynamic/d_bases/d_world_camera.cpp
@@ -604,16 +607,19 @@ SOURCES += source/wiimj2d/machine/m_vec.cpp
 # SndAudioMgr.cpp
 # NSMBW .text: 0x80194A10 - 0x80197440
 SOURCES += source/wiimj2d/sound/SndAudioMgr.cpp
-
-# SndObjctCmnMap.cpp
+# SndObjectBase.cpp
+# NSMBW: 0x80197440 - 0x80197790
+SOURCES += source/wiimj2d/sound/SndObjectBase.cpp
+# SndObjectEnemy.cpp
+# NSMBW .text: 0x80197790 - 0x80198CF0
+SOURCES += source/wiimj2d/sound/SndObjectEnemy.cpp
+# SndObjectMap.cpp
 # NSMBW .text: 0x80198CF0 - 0x80199A20
-SOURCES += source/wiimj2d/sound/SndObjctCmnMap.cpp
+SOURCES += source/wiimj2d/sound/SndObjectMap.cpp
 
-# SndObjctPly.cpp
+# SndObjectPlayer.cpp
 # NSMBW .text: 0x8019A0F0 - 0x8019B240
-SOURCES += source/wiimj2d/sound/SndObjctPly.cpp
-
-
+SOURCES += source/wiimj2d/sound/SndObjectPlayer.cpp
 
 #
 # revolution/ai
@@ -740,6 +746,9 @@ SOURCES += source/nw4r/g3d/ResFile.cpp
 # NSMBW .text: 0x80269130 - 0x802697A0
 SOURCES += source/nw4r/snd/DvdSoundArchive.cpp
 
+# snd_SoundActor.cpp
+# NSMBW: 0x80275530 - 0x80275780
+SOURCES += source/nw4r/snd/SoundActor.cpp
 # snd_SoundArchive.cpp
 # NSMBW .text: 0x80275780 - 0x80275E80
 SOURCES += source/nw4r/snd/SoundArchive.cpp
