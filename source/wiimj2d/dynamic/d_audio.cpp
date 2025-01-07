@@ -5,7 +5,7 @@
 #include "d_audio.h"
 
 #include <dynamic/d_a_player_manager.h>
-#include <revolution/os/OSLink.h>
+#include <PatchRel.h>
 
 namespace dAudio
 {

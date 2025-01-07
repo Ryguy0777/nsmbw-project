@@ -3,7 +3,7 @@
 
 #include "d_s_stage.h"
 
-#include <revolution/os/OSLink.h>
+#include <PatchRel.h>
 
 [[address_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;

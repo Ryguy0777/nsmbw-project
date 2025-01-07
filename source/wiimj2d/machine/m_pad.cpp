@@ -4,7 +4,7 @@
 #include "m_pad.h"
 
 #include <egg/core/eggController.h>
-#include <revolution/os/OSLink.h>
+#include <PatchRel.h>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
 

@@ -85,8 +85,6 @@ void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
     ms_RootHeapMem1->mFlags.resetBit(0);
     ms_RootHeapMem2->mFlags.resetBit(0);
 
-    dScBoot_c::initCodeRegion();
-
     __DVDEXInit(arcEntryNum, arcHandle);
 }
 

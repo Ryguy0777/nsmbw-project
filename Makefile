@@ -6,7 +6,7 @@ BUILD := ./build
 ARCHIVE := NSMBWProjectData
 ASSETS := $(BUILD)/$(ARCHIVE).arc.d
 ASSETS_SRC := ./assets
-TARGET := project_P1
+TARGET := project
 LOADER := Loader
 OUTPUT := ./output/riivolution/mkwcat-special-nsmbw-project
 TOOLS := $(BUILD)/tools
@@ -99,11 +99,36 @@ $(BUILD)/$(TARGET).elf: $(OFILES)
 	@echo Link: $(notdir $@)
 	@$(LD) $(LDOPTS) $(OFILES) -o $@
 
-$(BUILD)/$(TARGET).rel: $(BUILD)/$(TARGET).elf $(TOOLS)/elf2rel
+$(BUILD)/$(TARGET)_P1.rel: $(BUILD)/$(TARGET).elf $(TOOLS)/elf2rel
 	@echo Output: $(notdir $@)
 	@$(ELF2REL) $< $@
 
-$(ASSETS)/rels/$(TARGET).rel.LZ: $(BUILD)/$(TARGET).rel $(TOOLS)/lzx
+$(BUILD)/$(TARGET)_P2.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ P2
+$(BUILD)/$(TARGET)_E1.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ E1
+$(BUILD)/$(TARGET)_E2.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ E2
+$(BUILD)/$(TARGET)_J1.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ J1
+$(BUILD)/$(TARGET)_J2.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ J2
+$(BUILD)/$(TARGET)_K1.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ K
+$(BUILD)/$(TARGET)_W1.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ W
+$(BUILD)/$(TARGET)_C1.rel: $(BUILD)/$(TARGET).elf $(ELF2REL)
+	@echo Output: $(notdir $@)
+	@$(ELF2REL) $< $@ C
+
+$(ASSETS)/rels/%.rel.LZ: $(BUILD)/%.rel $(LZX)
 	@echo Compress: $(notdir $@)
 	@mkdir -p $(dir $@)
 	@$(LZX) -ewb $< $@
@@ -141,7 +166,7 @@ $(OUTPUT)/$(LOADER).img: $(BUILD)/$(LOADER).elf
 $(ELF2REL): ./tools/elf2rel/elf2rel.cpp
 	@echo Build: $(notdir $@)
 	@mkdir -p $(dir $@)
-	@$(HOST_CXX) -std=c++17 -O2 -I $(dir $<) $< -o $@ 
+	@$(HOST_CXX) -std=c++23 -O2 -I $(dir $<) $< -o $@ 
 
 $(LZX): ./tools/lzx/lzx.c
 	@echo Build: $(notdir $@)

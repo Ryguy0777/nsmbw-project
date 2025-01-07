@@ -4,25 +4,27 @@
 
 #include "Four.h"
 
+#include "Port.h"
 #include <cstring>
 #include <dynamic/d_a_player_manager.h>
+#include <dynamic/d_player/d_s_boot.h>
 #include <revolution/os.h>
-#include "Port.h"
 
 struct FourPatch {
     consteval FourPatch(u32 address, u8 size, s8 offset = 0)
-        : addressP1(address)
-        , addressP2(Port::AddressMapperP2.MapAddress(address))
-        , addressE1(Port::AddressMapperE1.MapAddress(address))
-        , addressE2(Port::AddressMapperE2.MapAddress(address))
-        , addressJ1(Port::AddressMapperJ1.MapAddress(address))
-        , addressJ2(Port::AddressMapperJ2.MapAddress(address))
-        , addressK(Port::AddressMapperK.MapAddress(address))
-        , addressW(Port::AddressMapperW.MapAddress(address))
-        , addressC(Port::AddressMapperC.MapAddress(address))
-        , size(size)
-        , offset(offset)
-        {}
+      : addressP1(address)
+      , addressP2(Port::AddressMapperP2.MapAddress(address))
+      , addressE1(Port::AddressMapperE1.MapAddress(address))
+      , addressE2(Port::AddressMapperE2.MapAddress(address))
+      , addressJ1(Port::AddressMapperJ1.MapAddress(address))
+      , addressJ2(Port::AddressMapperJ2.MapAddress(address))
+      , addressK(Port::AddressMapperK.MapAddress(address))
+      , addressW(Port::AddressMapperW.MapAddress(address))
+      , addressC(Port::AddressMapperC.MapAddress(address))
+      , size(size)
+      , offset(offset)
+    {
+    }
 
     u32 addressP1;
     u32 addressP2;
@@ -38,6 +40,7 @@ struct FourPatch {
 };
 
 constinit FourPatch FOUR_PATCH_LIST[] = {
+#ifndef CLANGD
   // daBullet_c::hitCallback
   {0x8001DE5C + 2, 2},
 
@@ -669,22 +672,56 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80b50580
   {0x80B50664 + 2, 2},
 
-  // Morton stunning players?
-  // TODO: 80b60180
-  // TODO: 0x80B60220
+// Morton stunning players?
+// TODO: 80b60180
+// TODO: 0x80B60220
 
-  // Roy stunning players?
-  // TODO: 0x80B63C60
-  // TODO: 0x80B63D10
+// Roy stunning players?
+// TODO: 0x80B63C60
+// TODO: 0x80B63D10
 
-  // daLiftSpinRotation_c
-  // TODO: 8084cdf0
+// daLiftSpinRotation_c
+// TODO: 8084cdf0
+#endif
 };
 
 void Four::Apply()
 {
     for (const FourPatch& patch : FOUR_PATCH_LIST) {
-        u32 address = patch.addressP1;
+        u32 address;
+        switch (dScBoot_c::m_codeRegion) {
+        case dScBoot_c::CODE_REGION_e::P1:
+            address = patch.addressP1;
+            break;
+        case dScBoot_c::CODE_REGION_e::P2:
+            address = patch.addressP2;
+            break;
+        case dScBoot_c::CODE_REGION_e::E1:
+            address = patch.addressE1;
+            break;
+        case dScBoot_c::CODE_REGION_e::E2:
+            address = patch.addressE2;
+            break;
+        case dScBoot_c::CODE_REGION_e::J1:
+            address = patch.addressJ1;
+            break;
+        case dScBoot_c::CODE_REGION_e::J2:
+            address = patch.addressJ2;
+            break;
+        case dScBoot_c::CODE_REGION_e::K:
+            address = patch.addressK;
+            break;
+        case dScBoot_c::CODE_REGION_e::W:
+            address = patch.addressW;
+            break;
+        case dScBoot_c::CODE_REGION_e::C:
+            address = patch.addressC;
+            break;
+
+        default:
+            OSPanic(__FILE__, __LINE__, "Invalid code region %d", dScBoot_c::m_codeRegion);
+        }
+
         u8 size = patch.size;
         u8 offset = patch.offset;
 

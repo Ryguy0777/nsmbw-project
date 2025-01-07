@@ -26,6 +26,7 @@
 #include <machine/m_vec.h>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
+#include <PatchRel.h>
 
 const daPyMng_c::PlayerType_e daPyMng_c::DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] = {
   PlayerType_e::TOADETTE,  PlayerType_e::LUIGI,   PlayerType_e::YELLOW_TOAD,

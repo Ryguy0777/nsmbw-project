@@ -1,6 +1,19 @@
+# Build directories
 build
+
+# Local scripts
 private
+*.bat
+*.sh
+
+# Python
 __pycache__
+
+# OS generated files
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Clang installation
 tools/clang/clang
 tools/clang/clang.exe

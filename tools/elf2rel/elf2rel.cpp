@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright 2019 Linus S. (aka PistonMiner)
-// Modified 2024 by mkwcat
+// Modified 2024-2025 by mkwcat
 
 #include <cstdint>
 #include <deque>
@@ -10,6 +10,8 @@
 #include <map>
 #include <tuple>
 #include <vector>
+
+#include "../../source/Port.h"
 
 enum RelRelocationType {
     R_PPC_NONE = 0,
@@ -128,6 +130,36 @@ int main(int argc, char** argv)
         relFilename = elfFilename.substr(0, elfFilename.find_last_of('.')) + ".rel";
     }
 
+    Port::Region region = Port::Region::P1;
+
+    if (argc > 3) {
+        std::string regionStr = std::string(argv[3]);
+        if (regionStr == "P1") {
+            region = Port::Region::P1;
+        } else if (regionStr == "P2") {
+            region = Port::Region::P2;
+        } else if (regionStr == "E1") {
+            region = Port::Region::E1;
+        } else if (regionStr == "E2") {
+            region = Port::Region::E2;
+        } else if (regionStr == "J1") {
+            region = Port::Region::J1;
+        } else if (regionStr == "J2") {
+            region = Port::Region::J2;
+        } else if (regionStr == "K") {
+            region = Port::Region::K;
+        } else if (regionStr == "W") {
+            region = Port::Region::W;
+        } else if (regionStr == "C") {
+            region = Port::Region::C;
+        } else {
+            printf("Unknown region '%s'\n", regionStr.c_str());
+            return 1;
+        }
+    }
+
+    const Port::AddressMapper& addressMapper = Port::GetAddressMapper(region);
+
     // Load input file
     ELFIO::elfio inputElf;
     if (!inputElf.load(elfFilename)) {
@@ -193,13 +225,12 @@ int main(int argc, char** argv)
 
     for (const auto& section : inputElf.sections) {
         // Should keep?
-        if (
-          std::find_if(
-            cRelSectionMask.begin(), cRelSectionMask.end(),
-            [&](const std::string& val) {
+        if (std::find_if(
+              cRelSectionMask.begin(), cRelSectionMask.end(),
+              [&](const std::string& val) {
             return val == section->get_name() || section->get_name().find(val + ".") == 0;
-            }
-          ) != cRelSectionMask.end()) {
+        }
+            ) != cRelSectionMask.end()) {
             writeSectionInfo(outputBuffer, 0, 0);
             elfToRelSection[elfSectIndex] = relSectIndex;
             relToElfSection[relSectIndex] = elfSectIndex;
@@ -222,13 +253,12 @@ int main(int argc, char** argv)
     int maxBssAlign = 2;
     for (const auto& section : inputElf.sections) {
         // Should keep?
-        if (
-          std::find_if(
-            cRelSectionMask.begin(), cRelSectionMask.end(),
-            [&](const std::string& val) {
+        if (std::find_if(
+              cRelSectionMask.begin(), cRelSectionMask.end(),
+              [&](const std::string& val) {
             return val == section->get_name() || section->get_name().find(val + ".") == 0;
-            }
-          ) != cRelSectionMask.end()) {
+        }
+            ) != cRelSectionMask.end()) {
             // BSS?
             if (section->get_type() == SHT_NOBITS) {
                 // Update max alignment
@@ -349,8 +379,7 @@ int main(int argc, char** argv)
                         rel.targetSection = static_cast<uint8_t>(elfToRelSection[sectionIndex]);
                         rel.addend = static_cast<uint32_t>(addend + symbolValue);
 
-                        if (writtenSections.find(targetSection) ==
-                              writtenSections.end() &&
+                        if (writtenSections.find(targetSection) == writtenSections.end() &&
                             targetSection->get_type() != SHT_NOBITS) {
                             printf(
                               "Relocation from section '%s' offset %llx "
@@ -392,6 +421,15 @@ int main(int argc, char** argv)
         }
     }
 
+    // Port relocations
+    if (region != Port::Region::P1) {
+        for (auto& rel : allRelocations) {
+            if (rel.moduleID == 0) {
+                rel.addend = addressMapper.MapAddress(rel.addend);
+            }
+        }
+    }
+
     // Sort relocations
     std::sort(
       allRelocations.begin(), allRelocations.end(),
@@ -400,7 +438,8 @@ int main(int argc, char** argv)
                std::tuple<uint32_t, uint32_t, uint32_t>(
                  right.moduleID, right.section, right.offset
                );
-      });
+    }
+    );
 
     // Count modules
     int importCount = 0;
@@ -436,7 +475,8 @@ int main(int argc, char** argv)
         allRelocations.pop_front();
 
         // Resolve early if possible
-        if (nextRel.moduleID == moduleID && (nextRel.type == R_PPC_REL24 || nextRel.type == R_PPC_REL32)) {
+        if (nextRel.moduleID == moduleID &&
+            (nextRel.type == R_PPC_REL24 || nextRel.type == R_PPC_REL32)) {
             int offset = writtenSections.at(inputElf.sections[relToElfSection[nextRel.section]]) +
                          nextRel.offset;
             int delta =

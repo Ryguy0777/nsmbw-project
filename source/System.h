@@ -114,29 +114,6 @@ struct _MRel_extern_array_entry {
     void (*dest)();
 };
 
-struct _MRel_PatchRel {
-    u32 addr;
-    u8 type;
-};
-
-template <u32 N>
-struct _MRel_patch_references_array_entry {
-    const void* addr;
-    u32 count = N;
-    _MRel_PatchRel references[N];
-};
-
-#define _PATCH_REFERENCES3(_COUNTER, _DEST, ...)                                                   \
-    [[__gnu__::__section__("patch_references_array"                                                \
-    )]] [[__gnu__::__used__]] static constinit _MRel_patch_references_array_entry                  \
-      _MRel_patch_references_array_entry_##_COUNTER = {.addr = &_DEST, .references = __VA_ARGS__};
-
-#define _PATCH_REFERENCES2(_COUNTER, _DEST, ...) _PATCH_REFERENCES3(_COUNTER, _DEST, __VA_ARGS__)
-
-#define _PATCH_REFERENCES1(_COUNTER, _DEST, ...) _PATCH_REFERENCES2(_COUNTER, _DEST, __VA_ARGS__)
-
-#define PATCH_REFERENCES(_DEST, ...) _PATCH_REFERENCES1(__COUNTER__, _DEST, __VA_ARGS__)
-
 #define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE)                                                      \
     [[__gnu__::__section__(".external." #_ADDR)]] _PROTOTYPE
 

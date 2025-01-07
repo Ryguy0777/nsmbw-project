@@ -2,7 +2,7 @@
 // NSMBW .text: 0x801233F0 - 0x80124D40
 
 #include <dynamic/d_a_player_manager.h>
-#include <revolution/os/OSLink.h>
+#include <PatchRel.h>
 
 /* 0x80375DA8 */
 [[gnu::section(".sdata")]]

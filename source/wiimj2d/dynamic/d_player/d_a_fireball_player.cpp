@@ -2,7 +2,7 @@
 // NSMBW .text: 0x8011A5B0 - 0x8011B640
 
 #include <dynamic/d_a_player_manager.h>
-#include <revolution/os/OSLink.h>
+#include <PatchRel.h>
 
 /* 0x80375840 */
 int daFireBall_Player_c_m_limit1[PLAYER_COUNT];

@@ -1,5 +1,13 @@
 DVD_FILES := \
-$(ASSETS)/rels/$(TARGET).rel.LZ \
+$(ASSETS)/rels/$(TARGET)_P1.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_P2.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_E1.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_E2.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_J1.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_J2.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_K1.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_W1.rel.LZ \
+$(ASSETS)/rels/$(TARGET)_C1.rel.LZ \
 $(ASSETS)/wiimj2d.SMAP \
 $(ASSETS)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/blyt/characterChangeSelectContents_05.brlyt \
 $(ASSETS)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/timg/Im_plofileMario_00.tpl \

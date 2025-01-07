@@ -3,6 +3,7 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdint>
 
 namespace Port
 {
@@ -35,9 +36,9 @@ class AddressMapper
 {
 private:
     struct AddressRange {
-        u32 low;
-        u32 high;
-        s32 offset;
+        std::uint32_t low;
+        std::uint32_t high;
+        std::int32_t offset;
     };
 
     Region m_region = Region::Error;
@@ -147,9 +148,9 @@ private:
         return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
     }
 
-    static constexpr u32 ParseUint(std::size_t& index)
+    static constexpr std::uint32_t ParseUint(std::size_t& index)
     {
-        u32 value = 0;
+        std::uint32_t value = 0;
         for (; IsHexDigit(AddressMapFile[index]); index++) {
             value <<= 4;
             if (AddressMapFile[index] >= 'a') {
@@ -229,7 +230,7 @@ private:
     }
 
 public:
-    constexpr u32 MapAddress(u32 srcAddr) const
+    constexpr std::uint32_t MapAddress(std::uint32_t srcAddr) const
     {
         if (m_extend != Region::Error && m_extend != Region::P1) {
             srcAddr = GetAddressMapper(m_extend).MapAddress(srcAddr);
@@ -290,6 +291,7 @@ static constexpr const AddressMapper& GetAddressMapper(Region region)
 }
 
 // Some tests
+static_assert(GetAddressMapper(Region::P2).MapAddress(0x8005EA6A) == 0x8005EA6A);
 static_assert(GetAddressMapper(Region::E1).MapAddress(0x8010F234) == 0x8010F100);
 static_assert(GetAddressMapper(Region::E1).MapAddress(0x800CF6F8) == 0x800CF608);
 static_assert(GetAddressMapper(Region::E2).MapAddress(0x800CF6F8) == 0x800CF610);
