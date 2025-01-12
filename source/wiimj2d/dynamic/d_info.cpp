@@ -148,7 +148,7 @@ EXTERN_SYMBOL(0x800BBD60, "__arraydtor$68604");
 // .data
 //
 
-/* 0x80315E90 */
+[[address_data(0x80315E90)]]
 dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
 
 EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
@@ -157,7 +157,7 @@ EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
 // .bss
 //
 
-[[address_data(0x80359054)]]
+/* 0x80359054 */
 dStartInfo_c dInfo_c::m_startInfo;
 
 //
