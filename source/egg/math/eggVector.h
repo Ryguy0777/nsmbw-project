@@ -20,7 +20,7 @@ struct Vector3f : public nw4r::math::VEC3 {
     {
     }
 
-    Vector3f(KPADVec3D vec)
+    Vector3f(Vec vec)
       : VEC3(vec.x, vec.y, vec.z)
     {
     }
@@ -162,7 +162,7 @@ struct Vector2f : public nw4r::math::VEC2 {
     {
     }
 
-    Vector2f(KPADVec2D vec)
+    Vector2f(Vec2 vec)
       : VEC2(vec.x, vec.y)
     {
     }

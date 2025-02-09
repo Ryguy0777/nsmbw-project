@@ -153,7 +153,7 @@ UNDEF_80902cd8:;
 /* 80902CE8 48000149 */  bl       UNDEF_80902e30;
 /* 80902CEC 3B390001 */  addi     r25, r25, 1;
 /* 80902CF0 93980000 */  stw      r28, 0(r24);
-/* 80902CF4 2C190004 */  cmpwi    r25, PLAYER_COUNT;
+/* 80902CF4 2C190004 */  cmpwi    r25, 4; // Only 4 supported here for meow
 /* 80902CF8 3B180004 */  addi     r24, r24, 4;
 /* 80902CFC 4180FFDC */  blt+     UNDEF_80902cd8;
 /* 80902D00 3CA08035 */  lis      r5, mPlayerEntry__9daPyMng_c@ha;

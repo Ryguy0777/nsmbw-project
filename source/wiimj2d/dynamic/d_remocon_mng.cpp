@@ -79,7 +79,7 @@ void dRemoconMng_c::dConnect_c::executeState_Shutdown()
 {
     int chanIndex = static_cast<int>(mChannel);
 
-    WPADDeviceType devType = mPad::g_core[chanIndex]->maStatus->extensionType;
+    WPADDeviceType devType = mPad::g_core[chanIndex]->maStatus->dev_type;
 
     if (static_cast<EGG::eCoreDevType>(devType) != mPad::g_padMg->mDevTypes(chanIndex)) {
         return;

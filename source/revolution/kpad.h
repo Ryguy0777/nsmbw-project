@@ -4,46 +4,78 @@
 
 extern "C" {
 
-struct KPADVec2D {
+struct Vec2 {
     float x;
     float y;
 };
 
-struct KPADVec3D {
+struct Vec {
     float x;
     float y;
     float z;
+};
+
+struct KPADEXStatus {
+    SIZE_ASSERT(0x50);
+
+    union {
+        struct {
+            SIZE_ASSERT(0x1C);
+
+            /* 0x00 */ Vec2 stick;
+            /* 0x08 */ Vec acc;
+            /* 0x14 */ f32 acc_value;
+            /* 0x08 */ f32 acc_speed;
+        } fs;
+
+        struct {
+            SIZE_ASSERT(0x24);
+
+            /* 0x00 */ u32 hold;
+            /* 0x04 */ u32 trig;
+            /* 0x08 */ u32 release;
+            /* 0x0C */ Vec2 lstick;
+            /* 0x14 */ Vec2 rstick;
+            /* 0x1C */ f32 ltrigger;
+            /* 0x20 */ f32 rtrigger;
+        } cl;
+
+        struct {
+            SIZE_ASSERT(0x50);
+
+            /* 0x00 */ f64 tgc_weight;
+            /* 0x08 */ f64 weight[4];
+            /* 0x28 */ f64 weight_ave[4];
+            /* 0x48 */ s32 weight_err;
+            /* 0x4C */ s32 tgc_weight_err;
+        } bl;
+    };
 };
 
 struct KPADStatus {
     SIZE_ASSERT(0xB0);
 
     /* 0x00 */ u32 hold;
-    /* 0x04 */ u32 trigger;
+    /* 0x04 */ u32 trig;
     /* 0x08 */ u32 release;
-
-    /* 0x0C */ KPADVec3D acc;
-    /* 0x18 */ float accMagnitude;
-    /* 0x1C */ float accVariation;
-
-    /* 0x20 */ KPADVec2D dpdPos;
-
-    FILL(0x28, 0x34);
-
-    /* 0x34 */ KPADVec2D angle;
-
-    FILL(0x3C, 0x54);
-
-    /* 0x54 */ KPADVec2D accVertical;
-
-    /* 0x5C */ WPADDeviceType extensionType;
-    /* 0x5D */ s8 error;
-    /* 0x5E */ s8 dpdPosValid;
-    /* 0x5F */ u8 format;
-
-    /* 0x60 */ KPADVec2D fsStick;
-
-    FILL(0x68, 0xB0);
+    /* 0x0C */ Vec acc;
+    /* 0x18 */ float acc_value;
+    /* 0x1C */ float acc_speed;
+    /* 0x20 */ Vec2 pos;
+    /* 0x28 */ Vec2 vec;
+    /* 0x30 */ f32 speed;
+    /* 0x34 */ Vec2 horizon;
+    /* 0x3C */ Vec2 hori_vec;
+    /* 0x44 */ f32 hori_speed;
+    /* 0x48 */ f32 dist;
+    /* 0x4C */ f32 dist_vec;
+    /* 0x50 */ f32 dist_speed;
+    /* 0x54 */ Vec2 acc_vertical;
+    /* 0x5C */ WPADDeviceType dev_type;
+    /* 0x5D */ s8 wpad_err;
+    /* 0x5E */ s8 dpd_valid_fg;
+    /* 0x5F */ u8 data_format;
+    /* 0x60 */ KPADEXStatus ex_status;
 };
 
 /* 0x801ED4F0 */

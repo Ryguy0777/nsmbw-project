@@ -68,7 +68,7 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 8; i++) {
         daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
         daPyMng_c::mPlayerEntry[i] = 1;
 

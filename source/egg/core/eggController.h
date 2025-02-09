@@ -41,12 +41,12 @@ public:
 
     f32 getFSStickX() const
     {
-        return fsStick.x;
+        return ex_status.fs.stick.x;
     }
 
     f32 getFSStickY() const
     {
-        return fsStick.y;
+        return ex_status.fs.stick.y;
     }
 
     bool down(u32 mask) const
@@ -61,7 +61,7 @@ public:
 
     bool downTrigger(u32 mask) const
     {
-        return (mask & trigger);
+        return (mask & trig);
     }
 
     bool upTrigger(u32 mask) const
@@ -81,7 +81,7 @@ public:
 
     WPADDeviceType getDevType() const
     {
-        return extensionType;
+        return dev_type;
     }
 
     bool isCore() const
@@ -101,15 +101,15 @@ public:
 
     s8 getDpdValidFlag() const
     {
-        return dpdPosValid;
+        return dpd_valid_fg;
     };
 
     Vector2f getAccelVertical()
     {
-        return Vector2f(accVertical.x, accVertical.y);
+        return Vector2f(acc_vertical.x, acc_vertical.y);
     }
 
-    const KPADVec3D& getAccel() const
+    const Vec& getAccel() const
     {
         return acc;
     }

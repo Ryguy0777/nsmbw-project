@@ -100,13 +100,13 @@ void beginPad()
 
             g_IsConnected[i] = false;
         } else {
-            f32 xDiff = core->maStatus[0].accVertical.x - g_PadAdditionalData[i][0];
-            f32 yDiff = core->maStatus[0].accVertical.y - g_PadAdditionalData[i][1];
+            f32 xDiff = core->maStatus[0].acc_vertical.x - g_PadAdditionalData[i][0];
+            f32 yDiff = core->maStatus[0].acc_vertical.y - g_PadAdditionalData[i][1];
             f32 xDiff2 = xDiff - g_PadAdditionalData[i][2];
             f32 yDiff2 = yDiff - g_PadAdditionalData[i][3];
 
-            g_PadAdditionalData[i][0] = core->maStatus[0].accVertical.x;
-            g_PadAdditionalData[i][1] = core->maStatus[0].accVertical.y;
+            g_PadAdditionalData[i][0] = core->maStatus[0].acc_vertical.x;
+            g_PadAdditionalData[i][1] = core->maStatus[0].acc_vertical.y;
             g_PadAdditionalData[i][2] = xDiff;
             g_PadAdditionalData[i][3] = yDiff;
             g_PadAdditionalData[i][4] = xDiff2;

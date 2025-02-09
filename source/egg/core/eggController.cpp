@@ -127,10 +127,10 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
         maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
     }
 
-    maStatus->trigger = maStatus->hold & ~lastButton;
+    maStatus->trig = maStatus->hold & ~lastButton;
     maStatus->release = lastButton & ~maStatus->hold;
-    maStatus->error = 0;
-    maStatus->extensionType = static_cast<WPADDeviceType>(eCoreDevType::GCN);
+    maStatus->wpad_err = 0;
+    maStatus->dev_type = static_cast<WPADDeviceType>(eCoreDevType::GCN);
 
     // For in-game but not for use in menus
     if (padStatus->button & PADButton::PAD_BUTTON_Y) {
@@ -145,7 +145,7 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
     tilt -= analogB / 255;
 
     maStatus->acc.z = tilt;
-    maStatus->accVertical.y = -tilt;
+    maStatus->acc_vertical.y = -tilt;
 }
 
 [[address(0x802BD0D0)]]
@@ -199,10 +199,10 @@ void CoreController::beginFrame(PADStatus* padStatus)
         mTriggered = mHeld & ~prev_held;
         mReleased = prev_held & ~mHeld;
         pStatus->hold &= ~0xF0000;
-        pStatus->trigger &= ~0xF0000;
+        pStatus->trig &= ~0xF0000;
         pStatus->release &= ~0xF0000;
         pStatus->hold |= (mHeld & 0xF0000);
-        pStatus->trigger |= (mTriggered & 0xF0000);
+        pStatus->trig |= (mTriggered & 0xF0000);
         pStatus->release |= (mReleased & 0xF0000);
     }
 
