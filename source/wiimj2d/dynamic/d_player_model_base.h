@@ -9,15 +9,30 @@ class dPyMdlBase_c
     SIZE_ASSERT(0x20C);
 
     /* 0x000 VTABLE 0x80318CB8 */
+
 public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* 0x800D5420 */
+    dPyMdlBase_c(u8 index);
+
+    /* VT+0x08 0x800D55D0 */
+    virtual ~dPyMdlBase_c();
+
+public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
     enum class TexAnmType_e {
     };
 
-    /* 0x800D5420 */
-    dPyMdlBase_c();
-
-    /* VT+0x08 0x800D55D0*/
-    virtual ~dPyMdlBase_c();
+public:
+    // -----------------
+    // Virtual Functions
+    // -----------------
 
     /* VT+0x0C 0x800D6DA0 */
     virtual int getFaceJointIdx() const;
@@ -70,7 +85,7 @@ public:
     /* VT+0x5C 0x800D5EC0 */
     virtual void setAnm(int, float, float, float);
     /* VT+0x60 0x800D6920 */
-    virtual void VT_0x60();
+    virtual s32 VT_0x60(s32 param1, s32 param2, s32 param3);
     /* VT+0x64 0x800D62F0 */
     virtual void setBodyAnm(int, float, float, float);
     /* VT+0x68 0x800D63E0 */
@@ -115,6 +130,10 @@ public:
     }
 
 public:
+    // -----------
+    // Member Data
+    // -----------
+
     /* 0x004 */ mAllocator_c mAllocator;
 
     FILL(0x020, 0x151);

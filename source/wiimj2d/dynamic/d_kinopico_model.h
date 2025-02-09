@@ -21,9 +21,10 @@ public:
 
     void createPlayerModel() override;
 
-    //
+public:
+    // -----------
     // Member Data
-    //
+    // -----------
 
     m3d::anmTexPat_c mPropelBodySwitchAnim;
     m3d::anmTexPat_c mPenguinBodySwitchAnim;

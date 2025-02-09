@@ -24,9 +24,11 @@ void dPyMdlMng_c::construct(u8 index)
         mModel = new (mHeap::g_gameHeaps[0], 4) dMarioMdl_c(index);
         break;
 
-    case ModelType_e::MODEL_BLUE_TOAD:
-    case ModelType_e::MODEL_YELLOW_TOAD:
-    case ModelType_e::MODEL_RED_TOAD:
+    case ModelType_e::MODEL_TOAD_BLUE:
+    case ModelType_e::MODEL_TOAD_YELLOW:
+    case ModelType_e::MODEL_TOAD_RED:
+    case ModelType_e::MODEL_TOAD_BLACK:
+    case ModelType_e::MODEL_TOAD_ORANGE:
         mModel = new (mHeap::g_gameHeaps[0], 4) dKinopioMdl_c(index);
         break;
 
@@ -35,6 +37,7 @@ void dPyMdlMng_c::construct(u8 index)
         break;
 
     case ModelType_e::MODEL_TOADETTE:
+    case ModelType_e::MODEL_TOADETTE_PURPLE:
         mModel = new (mHeap::g_gameHeaps[0], 4) dKinopicoMdl_c(index);
         break;
 

@@ -3,6 +3,7 @@
 
 #include "d_a_player_manager.h"
 
+#include <PatchRel.h>
 #include <dynamic/d_a_player_demo_manager.h>
 #include <dynamic/d_audio.h>
 #include <dynamic/d_bases/d_s_stage.h>
@@ -26,12 +27,11 @@
 #include <machine/m_vec.h>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
-#include <PatchRel.h>
 
 const daPyMng_c::PlayerType_e daPyMng_c::DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] = {
-  PlayerType_e::TOADETTE,  PlayerType_e::LUIGI,   PlayerType_e::YELLOW_TOAD,
-  PlayerType_e::BLUE_TOAD, PlayerType_e::MARIO,   PlayerType_e::PLAYER_5,
-  PlayerType_e::PLAYER_6,  PlayerType_e::PLAYER_7
+  PlayerType_e::MARIO,       PlayerType_e::LUIGI,     PlayerType_e::YELLOW_TOAD,
+  PlayerType_e::BLUE_TOAD,   PlayerType_e::TOADETTE,  PlayerType_e::PURPLE_TOADETTE,
+  PlayerType_e::ORANGE_TOAD, PlayerType_e::BLACK_TOAD
 };
 
 /* 0x80355110 */
@@ -271,15 +271,15 @@ void daPyMng_c::createCourseInit()
             isAmbush = dCd_c::getFileP(stage->mCourse)->mpCourseInfo->mIsAmbush;
         }
 
-        int spawnOrder[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+        int createOrder[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
         if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
             // Randomize the spawn order
             for (int i = 0; i < PLAYER_COUNT; i++) {
                 int randomIndex = dGameCom::rndInt(PLAYER_COUNT);
-                int temp = spawnOrder[i];
-                spawnOrder[i] = spawnOrder[randomIndex];
-                spawnOrder[randomIndex] = temp;
+                int temp = createOrder[i];
+                createOrder[i] = createOrder[randomIndex];
+                createOrder[randomIndex] = temp;
             }
         }
 
@@ -292,7 +292,8 @@ void daPyMng_c::createCourseInit()
 
         f32 playerSetDist = 24.0f;
 
-        if (PLAYER_COUNT > 4) {
+        if (PLAYER_COUNT > 4 &&
+            dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
             playerSetDist -= 2.0 * (PLAYER_COUNT - 4);
         }
 
@@ -303,13 +304,13 @@ void daPyMng_c::createCourseInit()
         }
 
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            if (spawnOrder[i] == -1) {
+            if (createOrder[i] == -1) {
                 continue;
             }
 
-            bool result = createPlayer(spawnOrder[i], playerSetPos, entType, isAmbush);
+            bool result = createPlayer(createOrder[i], playerSetPos, entType, isAmbush);
 
-            if (result && !isCreateBalloon(spawnOrder[i])) {
+            if (result && !isCreateBalloon(createOrder[i])) {
                 if (isAmbush) {
                     playerSetPos.x += playerSetDist;
                 } else {
@@ -509,9 +510,10 @@ daPyMng_c::PlayerType_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e m
 
     using PlayerTypeArray = PlayerType_e[];
     return PlayerTypeArray{
-      PlayerType_e::MARIO,       PlayerType_e::LUIGI,     PlayerType_e::BLUE_TOAD,
-      PlayerType_e::YELLOW_TOAD, PlayerType_e::BLUE_TOAD, PlayerType_e::LUIGI,
-      PlayerType_e::TOADETTE,
+      PlayerType_e::MARIO,       PlayerType_e::LUIGI,           PlayerType_e::BLUE_TOAD,
+      PlayerType_e::YELLOW_TOAD, PlayerType_e::BLUE_TOAD,       PlayerType_e::LUIGI,
+      PlayerType_e::TOADETTE,    PlayerType_e::PURPLE_TOADETTE, PlayerType_e::BLACK_TOAD,
+      PlayerType_e::ORANGE_TOAD,
     }[modelIndex];
 }
 
@@ -520,15 +522,15 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PlayerType_e playerTy
     int playerTypeInt = static_cast<int>(playerType);
 
     if (mCreateItem[playerTypeInt] & 8) {
-        return dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD;
+        return dPyMdlMng_c::ModelType_e::MODEL_TOAD_RED;
     }
 
     using ModelTypeArray = dPyMdlMng_c::ModelType_e[];
     return ModelTypeArray{
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-      dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD, dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_LUIGI,     dPyMdlMng_c::ModelType_e::MODEL_RED_TOAD,
+      dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
+      dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE,   dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW,
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
+      dPyMdlMng_c::ModelType_e::MODEL_TOAD_ORANGE, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLACK,
     }[playerTypeInt];
 }
 

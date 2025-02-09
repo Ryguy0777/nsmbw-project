@@ -6,7 +6,9 @@
 #include <machine/m_mtx.h>
 #include <machine/m_vec.h>
 
-class dPyMdlBase_HIO_c {};
+class dPyMdlBase_HIO_c
+{
+};
 
 class dPyMdlMng_c
 {
@@ -15,18 +17,30 @@ class dPyMdlMng_c
     /* 0x0 VTABLE 0x80318D98 */
 
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
     enum class ModelType_e {
         MODEL_NONE = -1,
         MODEL_MARIO = 0,
         MODEL_LUIGI = 1,
-        MODEL_BLUE_TOAD = 2,
-        MODEL_YELLOW_TOAD = 3,
-        MODEL_RED_TOAD = 4,
+        MODEL_TOAD_BLUE = 2,
+        MODEL_TOAD_YELLOW = 3,
+        MODEL_TOAD_RED = 4,
         MODEL_YOSHI = 5,
 
         // Added
         MODEL_TOADETTE = 6,
+        MODEL_TOADETTE_PURPLE = 7,
+        MODEL_TOAD_BLACK = 8,
+        MODEL_TOAD_ORANGE = 9,
     };
+
+public:
+    // ------------
+    // Constructors
+    // ------------
 
     /* 0x800D6DB0 */
     dPyMdlMng_c(ModelType_e modelType);
@@ -36,6 +50,11 @@ public:
      * Destroys the player model manager.
      */
     virtual ~dPyMdlMng_c();
+
+public:
+    // ----------------
+    // Member Functions
+    // ----------------
 
     /* 0x800D6E00 */
     void construct(u8 index);
@@ -58,8 +77,18 @@ public:
     /* 0x800D7110 */
     void draw();
 
+public:
+    // -----------
+    // Member Data
+    // -----------
+
     /* 0x4 */ dPyMdlBase_c* mModel;
     /* 0x8 */ u32 mDrawReady;
+
+public:
+    // -----------
+    // Static Data
+    // -----------
 
     /* 0x803710A0 */ static dPyMdlBase_HIO_c m_hio;
 };

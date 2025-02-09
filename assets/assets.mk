@@ -14,6 +14,8 @@ $(ASSETS)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/tim
 $(ASSETS)/Layout/gameScene/gameScene.arc/arc/blyt/gameScene_37.brlyt \
 $(ASSETS)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopicoIcon_01.tpl \
 $(ASSETS)/Object/Kinopico.arc/g3d/model.brres \
+$(ASSETS)/Object/KinopicoPurple.arc/g3d/model.brres \
+$(ASSETS)/Object/KinopioBlackOrange.arc/g3d/model.brres \
 $(ASSETS)/Sound/BANK_SE_VOC_COURSE_KC.brbnk \
 $(ASSETS)/Sound/GROUP_SE_VOC_COURSE_KC.brwar \
 $(ASSETS)/Stage/01-09.arc.LZ

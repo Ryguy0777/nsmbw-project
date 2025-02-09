@@ -2,13 +2,15 @@
 // NSMBW: ---
 
 #include "d_kinopico_model.h"
-#include "dynamic/d_player_model.h"
-#include "machine/m3d/m_anmtexpat.h"
-#include "machine/m3d/m_mdl.h"
-#include "nw4r/g3d/g3d_resmdl.h"
+
+#include <dynamic/d_player_model.h>
+#include <dynamic/d_player_model_manager.h>
+#include <machine/m3d/m_anmtexpat.h>
+#include <machine/m3d/m_mdl.h>
+#include <nw4r/g3d/g3d_resmdl.h>
 
 dKinopicoMdl_c::dKinopicoMdl_c(u8 index)
-  : dPlayerMdl_c()
+  : dPlayerMdl_c(index)
 {
     static ModelData l_modelData = {
       "Kinopico",
@@ -21,7 +23,27 @@ dKinopicoMdl_c::dKinopicoMdl_c(u8 index)
       18.0,
     };
 
-    mpModelData = &l_modelData;
+    static ModelData l_modelDataPurple = {
+      "KinopicoPurple",
+      "K_rcha",
+      {"CB_model", "SCB_model", "PLCB_model", "PCB_model"},
+      {"CH_model", "SCH_model", "PLCH_model", "PCH_model"},
+      18.0,
+      13.0,
+      18.0,
+      18.0,
+    };
+
+    switch (static_cast<dPyMdlMng_c::ModelType_e>(index)) {
+    case dPyMdlMng_c::ModelType_e::MODEL_TOADETTE:
+    default:
+        mpModelData = &l_modelData;
+        break;
+
+    case dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE:
+        mpModelData = &l_modelDataPurple;
+        break;
+    };
 
     mFaceJointIdx = 15;
 }

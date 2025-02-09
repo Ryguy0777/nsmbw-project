@@ -4,10 +4,10 @@
 #include "d_s_crsin.h"
 
 #include <dynamic/d_a_player_manager.h>
+#include <dynamic/d_bases/d_s_stage.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_resource_manager.h>
-#include <dynamic/d_bases/d_s_stage.h>
 
 [[address(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()
@@ -17,6 +17,8 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "Luigi",
       "Kinopio",
       "Kinopico", // Added
+      "KinopicoPurple", // Added
+      "KinopioBlackOrange", // Added
       "Yoshi",
       "P_rcha",
       "L_rcha",
@@ -70,13 +72,13 @@ void dScCrsin_c::executeState_resWaitProc2()
 
     if (dInfo_c::m_instance->m_startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
         // Setup players for title screen
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
             daPyMng_c::mPlayerEntry[i] = 1;
 
             int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
-            daPyMng_c::mPlayerMode[i] = 1;
-            daPyMng_c::mCreateItem[i] = 0;
+            daPyMng_c::mPlayerMode[playerType] = 1;
+            daPyMng_c::mCreateItem[playerType] = 0;
         }
     } else if (dScStage_c::m_isStaffCredit) {
         // Setup players for credits

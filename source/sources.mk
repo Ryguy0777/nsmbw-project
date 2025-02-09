@@ -184,6 +184,9 @@ SOURCES += source/wiimj2d/dynamic/d_info.cpp
 # d_kinopico_model.cpp
 # NSMBW: ---
 SOURCES += source/wiimj2d/dynamic/d_kinopico_model.cpp
+# d_kinopio_model.cpp
+# NSMBW .text: 0x800BCBD0 - 0x800BD7F0
+SOURCES += source/wiimj2d/dynamic/d_kinopio_model.cpp
 
 # d_lytbase.cpp
 # NSMBW .text: 0x800C89A0 - 0x800C9B50

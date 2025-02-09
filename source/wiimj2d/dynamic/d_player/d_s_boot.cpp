@@ -64,6 +64,7 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     changeState(StateID_ControllerInformationFadeIn);
 }
 
+#if 0
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
@@ -98,6 +99,7 @@ void dScBoot_c::executeState_ProcEnd()
       .stage2 = STAGE_e::STAGE_9,
     });
 }
+#endif
 
 void dScBoot_c::initCodeRegion()
 {

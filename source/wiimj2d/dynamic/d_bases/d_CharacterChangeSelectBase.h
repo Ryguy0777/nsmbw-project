@@ -16,8 +16,9 @@ public:
 #define CHARACTER_LIST_COUNT 5
     static constexpr dPyMdlMng_c::ModelType_e CHARACTER_FROM_BASE[] = {
       dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-      dPyMdlMng_c::ModelType_e::MODEL_YELLOW_TOAD, dPyMdlMng_c::ModelType_e::MODEL_BLUE_TOAD,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,
+      dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE,
+      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
+      dPyMdlMng_c::ModelType_e::MODEL_TOAD_ORANGE, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLACK,
     };
 
     enum class Icon_e {

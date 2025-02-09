@@ -290,7 +290,7 @@ bool LoaderMain()
     s32 arcEntryNum = DVDConvertPathToEntrynum(g_contentsArc);
     LOADER_ASSERT(arcEntryNum != -1);
 
-    // Open MKWBattleModData.arc
+    // Open NSMBWProjectData.arc
     bool dvdOpenOk = dvdFile->open(arcEntryNum);
     LOADER_ASSERT(dvdOpenOk);
 

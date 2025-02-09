@@ -24,9 +24,9 @@ public:
         BLUE_TOAD = 2,
         YELLOW_TOAD = 3,
         TOADETTE = 4,
-        PLAYER_5 = 5,
-        PLAYER_6 = 6,
-        PLAYER_7 = 7,
+        PURPLE_TOADETTE = 5,
+        ORANGE_TOAD = 6,
+        BLACK_TOAD = 7,
 
         COUNT = 8,
     };

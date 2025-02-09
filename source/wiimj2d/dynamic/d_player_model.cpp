@@ -3,9 +3,8 @@
 
 #include "d_player_model.h"
 
-/* */
 [[address(0x800D2EC0)]]
-dPlayerMdl_c::dPlayerMdl_c();
+dPlayerMdl_c::dPlayerMdl_c(u8 index);
 
 /* VT+0x08 */
 [[address(0x800D31D0)]]
@@ -56,7 +55,7 @@ void dPlayerMdl_c::VT_0x7C();
 
 /* VT+0x60 */
 [[address(0x800D3FE0)]]
-void dPlayerMdl_c::VT_0x60();
+s32 dPlayerMdl_c::VT_0x60(s32 param1, s32 param2, s32 param3);
 
 /* VT+0x58 */
 [[address(0x800D4150)]]
