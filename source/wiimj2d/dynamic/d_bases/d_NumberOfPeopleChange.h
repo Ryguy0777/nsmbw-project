@@ -13,6 +13,14 @@ class da2DPlayer_c;
 class dNumberOfPeopleChange_c : public dBase_c
 {
 public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* 0x8079F660 */
+    dNumberOfPeopleChange_c();
+
+public:
     // ----------------
     // Member Functions
     // ----------------
@@ -25,6 +33,12 @@ public:
 
     /* 0x807A07C0 */
     void disableInactiveControllers();
+
+    /* 0x807A09B0 */
+    int getBaseForPlayerCount(int playerCount, int player);
+
+    /* 0x807A09D0 */
+    void calcBasesForPlayerCount();
 
     /* 0x807A0D20 */
     bool checkCancel();
@@ -62,24 +76,6 @@ public:
             return mControllerActive[playerIndex];
         } else {
             return mExControllerActive[playerIndex - 4];
-        }
-    }
-
-    void set0x6A0(u32 playerIndex, u32 value)
-    {
-        if (playerIndex < 4) {
-            m0x6A0[playerIndex] = value;
-        } else {
-            mEx0x6A0[playerIndex - 4] = value;
-        }
-    }
-
-    u32 get0x6A0(u32 playerIndex)
-    {
-        if (playerIndex < 4) {
-            return m0x6A0[playerIndex];
-        } else {
-            return mEx0x6A0[playerIndex - 4];
         }
     }
 
@@ -159,22 +155,26 @@ public:
     FILL(0x680, 0x690);
 
     /* 0x690 */ u32 mControllerActive[4];
-    /* 0x6A0 */ u32 m0x6A0[4];
+    /* 0x6A0 */ int m0x6A0;
+    /* 0x6A4 */ u32 maPlrBaseIndex[4];
+    /* 0x6B4 */ u32 maPlrBaseIndex2[4];
+    /* 0x6C4 */ int mPlayerCount;
 
-    FILL(0x6B0, 0x6E0);
+    FILL(0x6C8, 0x6E0);
 
     /* 0x6E0 */ u32 m0x6E0[4];
     /* 0x6F0 */ u32 m0x6F0[4];
 
     FILL(0x700, 0x710);
-
     OFFSET_ASSERT(0x710);
 
-#define OFFSET_dNumberOfPeopleChange_c_mpaExPlayers 0x710
-    /* 0x710 */ da2DPlayer_c* mpaExPlayers[PLAYER_COUNT - 4];
+#define OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount 0x710
+    /* 0x710 */ int mRealPlayerCount;
 
-    /* 0x720 */ u32 mExControllerActive[PLAYER_COUNT - 4];
-    /* 0x730 */ u32 mEx0x6A0[PLAYER_COUNT - 4];
-    /* 0x740 */ u32 mEx0x6E0[PLAYER_COUNT - 4];
-    /* 0x750 */ u32 mEx0x6F0[PLAYER_COUNT - 4];
+#define OFFSET_dNumberOfPeopleChange_c_mpaExPlayers 0x714
+    /* 0x714 */ da2DPlayer_c* mpaExPlayers[PLAYER_COUNT - 4];
+
+    /* 0x724 */ u32 mExControllerActive[PLAYER_COUNT - 4];
+    /* 0x734 */ u32 mEx0x6E0[PLAYER_COUNT - 4];
+    /* 0x744 */ u32 mEx0x6F0[PLAYER_COUNT - 4];
 };

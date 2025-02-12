@@ -10,6 +10,17 @@
 #include <framework/f_base_profile.h>
 #include <machine/m_pad.h>
 
+[[address(0x8079F630)]]
+dNumberOfPeopleChange_c* dNumberOfPeopleChange_c_classInit()
+{
+    dNumberOfPeopleChange_c* base = new dNumberOfPeopleChange_c();
+    base->mRealPlayerCount = 4;
+    return base;
+}
+
+[[address(0x8079F660)]]
+dNumberOfPeopleChange_c::dNumberOfPeopleChange_c();
+
 [[address(0x807A0060)]]
 void dNumberOfPeopleChange_c::UNDEF_807A0060() ASM_METHOD(
   // clang-format off
@@ -510,7 +521,7 @@ UNDEF_807a0784:;
   // clang-format on
 );
 
-[[address(0x807A07C00)]]
+[[address(0x807A07C0)]]
 void dNumberOfPeopleChange_c::disableInactiveControllers()
 {
     dRemoconMng_c* remoconMng = dRemoconMng_c::m_instance;
@@ -526,11 +537,30 @@ void dNumberOfPeopleChange_c::disableInactiveControllers()
     }
 
     for (int i = 4; i < dRemoconMng_c::CONNECT_COUNT; i++) {
-        // Hardcode this one for meow
-        // TODO FIXME
-        if (i == 4) {
+        // Use mRealPlayerCount for meow
+        if (i < mRealPlayerCount) {
             info->mExPlayerActiveMode[i - 4] = 0x3;
         }
+    }
+}
+
+[[address(0x807A09B0)]]
+int dNumberOfPeopleChange_c::getBaseForPlayerCount(int playerCount, int player);
+
+[[address(0x807A09D0)]]
+void dNumberOfPeopleChange_c::calcBasesForPlayerCount()
+{
+    int playerCount = mPlayerCount;
+
+    // Cap the player count to 4 currently
+    // TODO
+    if (playerCount > 4) {
+        playerCount = 4;
+    }
+
+    for (int i = 0; i < 4; i++) {
+        maPlrBaseIndex[i] = getBaseForPlayerCount(playerCount - 1, i);
+        maPlrBaseIndex2[i] = maPlrBaseIndex[i];
     }
 }
 
@@ -942,7 +972,7 @@ UNDEF_807a13c0:;
 UNDEF_807a141c:;
 /* 807A141C 3B7B0001 */  addi     r27, r27, 1;
 /* 807A1420 3B9C0004 */  addi     r28, r28, 4;
-/* 807A1424 2C1B0004 */  cmpwi    r27, REMOCON_CONNECT_COUNT;
+/* 807A1424          */  cmpwi    r27, 4; // TODO
 /* 807A1428 4180FF98 */  blt+     UNDEF_807a13c0;
 UNDEF_807a142c:;
 /* 807A142C 807A06A0 */  lwz      r3, 1696(r26);
@@ -1224,3 +1254,6 @@ UNDEF_807a17f8:;
 /* 807A1808 4E800020 */  blr;
   // clang-format on
 );
+
+// Notes:
+// 807a09d0 chooses which bases are used

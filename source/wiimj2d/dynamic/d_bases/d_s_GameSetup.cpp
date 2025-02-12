@@ -183,9 +183,15 @@ void dScGameSetup_c::executeState_StartMember() ASM_METHOD(
 /* 80918B60 9805067E */  stb      r0, 1662(r5);
 /* 80918B64 80C300D0 */  lwz      r6, 208(r3);
 /* 80918B68 80A300B8 */  lwz      r5, 184(r3);
-/* 80918B6C 80C6026C */  lwz      r6, 620(r6);
+/* 80918B6C 80C6026C */  lwz      r6, 0x26C(r6);
 /* 80918B70 38060001 */  addi     r0, r6, 1;
-/* 80918B74 900506C4 */  stw      r0, 1732(r5);
+                         stw      r0, OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount(r5);
+                         // TODO Cap player count here at 4 currently
+                         cmpwi    r0, 4;
+                         ble+     L_dScGameSetup_c_executeState_StartMember_LessThan4;
+                         li       r0, 4;
+L_dScGameSetup_c_executeState_StartMember_LessThan4:;
+/* 80918B74 900506C4 */  stw      r0, 0x6C4(r5);
 /* 80918B78 85830074 */  lwzu     r12, 116(r3);
 /* 80918B7C 818C0018 */  lwz      r12, 24(r12);
 /* 80918B80 7D8903A6 */  mtctr    r12;
