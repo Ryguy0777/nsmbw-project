@@ -18,3 +18,41 @@ void* loadToMainRAM(
 );
 
 } // namespace mDvd
+
+class mDvd_command_c
+{
+public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* VT+0x8 0x */
+    virtual ~mDvd_command_c();
+
+public:
+    // ----------------
+    // Member Functions
+    // ----------------
+
+    /* 0x8016B630 */
+    void waitDone() const;
+
+public:
+    // -----------
+    // Member Data
+    // -----------
+};
+
+class mDvd_toMainRam_c : public mDvd_command_c
+{
+public:
+    // ----------------
+    // Static Functions
+    // ----------------
+
+    /* 0x8016C0B0 */
+    static mDvd_toMainRam_c* create(const char* path, u8 param2, EGG::Heap* heap);
+
+    /* 0x8016C0B0 - repl */
+    static mDvd_toMainRam_c* createNoWait(const char* path, u8 param2, EGG::Heap* heap);
+};

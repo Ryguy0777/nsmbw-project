@@ -444,6 +444,10 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_world_camera_static.cpp
 # wiimj2d/dynamic/d_player
 #
 
+# d_SelectCursor.cpp
+# NSMBW .text: 0x8010C130 - 0x8010CAE0
+SOURCES += source/wiimj2d/dynamic/d_player/d_SelectCursor.cpp
+
 # d_WarningManager.cpp
 # NSMBW .text: 0x8010D270 - 0x8010F080
 SOURCES += source/wiimj2d/dynamic/d_player/d_WarningManager.cpp

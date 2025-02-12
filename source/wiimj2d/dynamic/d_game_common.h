@@ -1,5 +1,10 @@
 #pragma once
 
+namespace nw4r::lyt
+{
+class Picture;
+} // namespace nw4r::lyt
+
 class LytTextBox_c;
 
 namespace dGameCom
@@ -25,6 +30,9 @@ bool isGameStop(u32 flag);
 
 /* 0x800B3B60 @unofficial */
 void setNumInTextBox(int* value, int* maxChars, LytTextBox_c* textBox, int itoaType);
+
+/* 0x800B44D0 @unofficial */
+void UpdateSelectCursor(nw4r::lyt::Picture* pane, s32 param2, s32 param3);
 
 /* 0x800B4760 */
 bool PlayerEnterCheck(int player);

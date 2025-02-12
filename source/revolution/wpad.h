@@ -149,6 +149,16 @@ enum WPADButton : u16 {
 };
 
 /**
+ * Wii Remote (sideways) button bitfield.
+ */
+enum WPADButtonSideways : u16 {
+    WPAD_SIDE_BUTTON_DOWN = WPAD_BUTTON_LEFT,
+    WPAD_SIDE_BUTTON_UP = WPAD_BUTTON_RIGHT,
+    WPAD_SIDE_BUTTON_LEFT = WPAD_BUTTON_UP,
+    WPAD_SIDE_BUTTON_RIGHT = WPAD_BUTTON_DOWN,
+};
+
+/**
  * Classic Controller button bitfield.
  */
 enum WPADClassicButton : u16 {

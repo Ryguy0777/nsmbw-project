@@ -38,10 +38,19 @@ void LytBase_c::TPaneNameRegister(const char** paneNames, const int* param2, int
 void LytBase_c::AnimeResRegister(const char** animNames, int count);
 
 [[address(0x800C91E0)]]
-void LytBase_c::GroupRegister(const char** groupNames, const int* param_2, int count);
+void LytBase_c::GroupRegister(const char** groupNames, const int* param2, int count);
+
+[[address(0x800C94C0)]]
+void LytBase_c::ReverseAnimeStartSetup(int group, bool param2);
+
+[[address(0x800C93E0)]]
+void LytBase_c::AnimeStartSetup(int group, bool param2);
 
 [[address(0x800C9580)]]
 void LytBase_c::AnimeEndSetup(int param1);
 
 [[address(0x800C95F0)]]
 void LytBase_c::AllAnimeEndSetup();
+
+[[address(0x800C9700)]]
+bool LytBase_c::isAnime(int group);

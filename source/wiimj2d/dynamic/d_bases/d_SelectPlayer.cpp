@@ -3,124 +3,357 @@
 
 #include "d_SelectPlayer.h"
 
+#include <dynamic/d_game_common.h>
+#include <dynamic/d_game_key.h>
+#include <dynamic/d_game_key_core.h>
+#include <dynamic/d_info.h>
+#include <dynamic/d_player/d_SelectCursor.h>
+#include <framework/f_sound_id.h>
+#include <machine/m_pad.h>
+#include <revolution/wpad.h>
+#include <sound/SndAudioMgr.h>
+
+enum ANIM_ID_e {
+    ANIM_ID_inWindow = 0,
+    ANIM_ID_inInfoWindow = 1,
+    ANIM_ID_onPlayerButton = 2,
+    ANIM_ID_hitPlayerButton = 3,
+    ANIM_ID_offPlayerButton = 4,
+    ANIM_ID_outUnderGuide = 5,
+    ANIM_ID_outWindow = 6,
+    ANIM_ID_outWindowBack = 7,
+};
+
+enum GROUP_e {
+    A00_Window_a_in = 0,
+    B00_info_a_inInfo = 1,
+    C00_Button1_a_on,
+    C01_Button2_a_on,
+    C02_Button3_a_on,
+    C03_Button4_a_on,
+    C04_Button5_a_on,
+    C05_Button6_a_on,
+    C06_Button7_a_on,
+    C07_Button8_a_on,
+    D00_Multi2_a_on,
+    D01_Multi3_a_on,
+    D02_Multi4_a_on,
+    C00_Button1_a_hit,
+    C01_Button2_a_hit,
+    C02_Button3_a_hit,
+    C03_Button4_a_hit,
+    C04_Button5_a_hit,
+    C05_Button6_a_hit,
+    C06_Button7_a_hit,
+    C07_Button8_a_hit,
+    D00_Multi2_a_hit,
+    D01_Multi3_a_hit,
+    D02_Multi4_a_hit,
+    C00_Button1_a_off,
+    C01_Button2_a_off,
+    C02_Button3_a_off,
+    C03_Button4_a_off,
+    C04_Button5_a_off,
+    C05_Button6_a_off,
+    C06_Button7_a_off,
+    C07_Button8_a_off,
+    D00_Multi2_a_off,
+    D01_Multi3_a_off,
+    D02_Multi4_a_off,
+    B01_underGuide_a_out, // Originally 23
+    A00_Window_a_out,
+    A00_Window_a_outBack,
+
+    GROUP_COUNT,
+};
+
+[[address(0x807ABE10)]]
+dSelectPlayer_c* dSelectPlayer_c_classInit()
+{
+    return new dSelectPlayer_c();
+}
+
+[[address(0x807ABE40)]]
+dSelectPlayer_c::dSelectPlayer_c();
+
+[[address(0x807AC170)]]
+fBase_c::PACK_RESULT_e dSelectPlayer_c::createLayout()
+{
+    if (mLayoutLoaded) {
+        return PACK_RESULT_e::SUCCEEDED;
+    }
+
+    using StringArray = const char*[];
+    using IntArray = const int[];
+
+    mLayout.ReadResource("fileSelectPlayer/fileSelectPlayer.arc", false);
+    mLayout.build("fileSelectPlayer_23.brlyt", nullptr);
+
+    mLayout.AnimeResRegister(
+      StringArray{
+        "fileSelectPlayer_23_inWindow.brlan",
+        "fileSelectPlayer_23_inInfoWindow.brlan",
+        "fileSelectPlayer_23_onPlayerButton.brlan",
+        "fileSelectPlayer_23_hitPlayerButton.brlan",
+        "fileSelectPlayer_23_offPlayerButton.brlan",
+        "fileSelectPlayer_23_outUnderGuide.brlan",
+        "fileSelectPlayer_23_outWindow.brlan",
+        "fileSelectPlayer_23_outWindowBack.brlan",
+      },
+      8
+    );
+
+    mLayout.GroupRegister(
+      StringArray{
+        "A00_Window",  "B00_info",    "C00_Button1", "C01_Button2", "C02_Button3", "C03_Button4",
+        "C04_Button5", "C05_Button6", "C06_Button7", "C07_Button8", "D00_Multi2",  "D01_Multi3",
+        "D02_Multi4",  "C00_Button1", "C01_Button2", "C02_Button3", "C03_Button4", "C04_Button5",
+        "C05_Button6", "C06_Button7", "C07_Button8", "D00_Multi2",  "D01_Multi3",  "D02_Multi4",
+        "C00_Button1", "C01_Button2", "C02_Button3", "C03_Button4", "C04_Button5", "C05_Button6",
+        "C06_Button7", "C07_Button8", "D00_Multi2",  "D01_Multi3",  "D02_Multi4",  "B01_underGuide",
+        "A00_Window",  "A00_Window",
+      },
+      IntArray{ANIM_ID_inWindow,        ANIM_ID_inInfoWindow,    ANIM_ID_onPlayerButton,
+               ANIM_ID_onPlayerButton,  ANIM_ID_onPlayerButton,  ANIM_ID_onPlayerButton,
+               ANIM_ID_onPlayerButton,  ANIM_ID_onPlayerButton,  ANIM_ID_onPlayerButton,
+               ANIM_ID_onPlayerButton,  ANIM_ID_onPlayerButton,  ANIM_ID_onPlayerButton,
+               ANIM_ID_onPlayerButton,  ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton,
+               ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton,
+               ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton,
+               ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton, ANIM_ID_hitPlayerButton,
+               ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton,
+               ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton,
+               ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton,
+               ANIM_ID_offPlayerButton, ANIM_ID_offPlayerButton, ANIM_ID_outUnderGuide,
+               ANIM_ID_outWindow,       ANIM_ID_outWindowBack},
+      GROUP_COUNT
+    );
+
+    mLayout.PPaneRegister(
+      StringArray{
+        "P_1_00",
+        "P_2_01",
+        "P_3_01",
+        "P_4_01",
+        "P_5_01",
+        "P_6_01",
+        "P_7_01",
+        "P_8_01",
+        "P_2_02",
+        "P_3_02",
+        "P_4_02",
+      },
+      mpaButtons, 8 + 3
+    );
+
+    mLayout.NPaneRegister(
+      StringArray{
+        "N_playerNum_00",
+        "N_playerMulti_00",
+      },
+      mpaRootPanes, 2
+    );
+
+    mLayout.TPaneNameRegister(
+      StringArray{
+        "T_1_00",
+        "T_1_01",
+        "T_2_00",
+        "T_2_01",
+        "T_3_00",
+        "T_3_01",
+        "T_4_00",
+        "T_4_01",
+        "T_info_01",
+        "T_info_00",
+      },
+      IntArray{
+        0x02,
+        0x02,
+        0x03,
+        0x03,
+        0x04,
+        0x04,
+        0x05,
+        0x05,
+        0x00,
+        0x00,
+      },
+      0x6B, 10
+    );
+
+    mLayout.TPaneNameRegister(
+      StringArray{
+        "T_2_02",
+        "T_2_03",
+        "T_3_02",
+        "T_3_03",
+        "T_4_02",
+        "T_4_03",
+        "T_title_00",
+      },
+      IntArray{
+        0x00,
+        0x00,
+        0x01,
+        0x01,
+        0x02,
+        0x02,
+        0x1E,
+      },
+      0x6C, 7
+    );
+
+    mLayout.TPaneNameRegister(
+      StringArray{
+        "T_back",
+      },
+      IntArray{
+        0x1D,
+      },
+      0x2, 1
+    );
+
+    mLayout.mPriority = 8;
+
+    return PACK_RESULT_e::SUCCEEDED;
+}
+
+[[address(0x807AC4A0)]]
+void dSelectPlayer_c::initializeState_OnStageAnimeEndWait()
+{
+    mLayout.AllAnimeEndSetup();
+
+    for (int i = A00_Window_a_in; i < C00_Button1_a_hit; i++) {
+        mLayout.ReverseAnimeStartSetup(i, false);
+    }
+
+    mLayout.AnimeStartSetup(A00_Window_a_in, false);
+}
+
+[[address(0x807AC610)]]
+void dSelectPlayer_c::initializeState_ButtonChangeAnimeEndWait()
+{
+    mButtonAnimeOff = mButtonAnimeOn;
+    if (mButtonAnimeOn >= 0) {
+        mButtonAnimeOff = mButtonAnimeOn + (C00_Button1_a_off - C00_Button1_a_on);
+        mLayout.AnimeStartSetup(mButtonAnimeOff, false);
+
+        SndAudioMgr::sInstance->startSystemSe(SE_SYS_CURSOR, 1);
+    }
+
+    if (dInfo_c::mGameFlag & 0x10 && mCurrentButton < 4) {
+        mButtonAnimeOn = (mCurrentButton - 1) + D00_Multi2_a_on;
+    } else {
+        mButtonAnimeOn = mCurrentButton + C00_Button1_a_on;
+    }
+
+    mLayout.AnimeStartSetup(mButtonAnimeOn, false);
+}
+
+[[address(0x807AC780)]]
+void dSelectPlayer_c::initializeState_StartMemberSelect()
+{
+    dGameCom::UpdateSelectCursor(mpaButtons[mCurrentButton], 0, 0);
+}
+
 [[address(0x807AC7A0)]]
-void dSelectPlayer_c::executeState_StartMemberSelect() ASM_METHOD(
-  // clang-format off
-/* 807AC7A0 9421FFF0 */  stwu     r1, -16(r1);
-/* 807AC7A4 7C0802A6 */  mflr     r0;
-/* 807AC7A8 3C808043 */  lis      r4, UNDEF_8042a230@ha;
-/* 807AC7AC 90010014 */  stw      r0, 20(r1);
-/* 807AC7B0 93E1000C */  stw      r31, 12(r1);
-/* 807AC7B4 3FE08099 */  lis      r31, UNDEF_80995390@ha;
-/* 807AC7B8 3BFF5390 */  addi     r31, r31, UNDEF_80995390@l;
-/* 807AC7BC 93C10008 */  stw      r30, 8(r1);
-/* 807AC7C0 7C7E1B78 */  mr       r30, r3;
-/* 807AC7C4 80C3026C */  lwz      r6, 620(r3);
-/* 807AC7C8 80A4A230 */  lwz      r5, UNDEF_8042a230@l(r4);
-/* 807AC7CC 2C860000 */  cmpwi    cr1, r6, 0;
-/* 807AC7D0 4186006C */  beq-     cr1, UNDEF_807ac83c;
-/* 807AC7D4 3C808043 */  lis      r4, UNDEF_8042a744@ha;
-/* 807AC7D8 8004A744 */  lwz      r0, UNDEF_8042a744@l(r4);
-/* 807AC7DC 5400103A */  slwi     r0, r0, 2;
-/* 807AC7E0 7C850214 */  add      r4, r5, r0;
-/* 807AC7E4 80840004 */  lwz      r4, 4(r4);
-/* 807AC7E8 8084001C */  lwz      r4, 28(r4);
-/* 807AC7EC 548007BD */  rlwinm.  r0, r4, 0, 30, 30;
-/* 807AC7F0 41820014 */  beq-     UNDEF_807ac804;
-/* 807AC7F4 41860008 */  beq-     cr1, UNDEF_807ac7fc;
-/* 807AC7F8 90C3027C */  stw      r6, 636(r3);
-UNDEF_807ac7fc:;
-/* 807AC7FC 38C00000 */  li       r6, 0;
-/* 807AC800 48000060 */  b        UNDEF_807ac860;
-UNDEF_807ac804:;
-/* 807AC804 54800739 */  rlwinm.  r0, r4, 0, 28, 28;
-/* 807AC808 41820018 */  beq-     UNDEF_807ac820;
-/* 807AC80C 38C6FFFF */  subi     r6, r6, 1;
-/* 807AC810 2C060001 */  cmpwi    r6, 1;
-/* 807AC814 4080004C */  bge-     UNDEF_807ac860;
-/* 807AC818 38C00001 */  li       r6, 1;
-/* 807AC81C 48000044 */  b        UNDEF_807ac860;
-UNDEF_807ac820:;
-/* 807AC820 5480077B */  rlwinm.  r0, r4, 0, 29, 29;
-/* 807AC824 4182003C */  beq-     UNDEF_807ac860;
-/* 807AC828 38C60001 */  addi     r6, r6, 1;
-/* 807AC82C 2C060003 */  cmpwi    r6, 3;
-/* 807AC830 40810030 */  ble-     UNDEF_807ac860;
-/* 807AC834 38C00003 */  li       r6, 3;
-/* 807AC838 48000028 */  b        UNDEF_807ac860;
-UNDEF_807ac83c:;
-/* 807AC83C 3C808043 */  lis      r4, UNDEF_8042a744@ha;
-/* 807AC840 8004A744 */  lwz      r0, UNDEF_8042a744@l(r4);
-/* 807AC844 5400103A */  slwi     r0, r0, 2;
-/* 807AC848 7C850214 */  add      r4, r5, r0;
-/* 807AC84C 80840004 */  lwz      r4, 4(r4);
-/* 807AC850 8004001C */  lwz      r0, 28(r4);
-/* 807AC854 540007FF */  clrlwi.  r0, r0, 31;
-/* 807AC858 41820008 */  beq-     UNDEF_807ac860;
-/* 807AC85C 80C3027C */  lwz      r6, 636(r3);
-UNDEF_807ac860:;
-/* 807AC860 8003026C */  lwz      r0, 620(r3);
-/* 807AC864 7C060000 */  cmpw     r6, r0;
-/* 807AC868 41820020 */  beq-     UNDEF_807ac888;
-/* 807AC86C 90C3026C */  stw      r6, 620(r3);
-/* 807AC870 389F00D0 */  addi     r4, r31, 208;
-/* 807AC874 85830070 */  lwzu     r12, 112(r3);
-/* 807AC878 818C0018 */  lwz      r12, 24(r12);
-/* 807AC87C 7D8903A6 */  mtctr    r12;
-/* 807AC880 4E800421 */  bctrl;
-/* 807AC884 480000B0 */  b        UNDEF_807ac934;
-UNDEF_807ac888:;
-/* 807AC888 3C608043 */  lis      r3, UNDEF_8042a748@ha;
-/* 807AC88C 38800900 */  li       r4, 2304;
-/* 807AC890 8063A748 */  lwz      r3, UNDEF_8042a748@l(r3);
-/* 807AC894 81830000 */  lwz      r12, 0(r3);
-/* 807AC898 818C0020 */  lwz      r12, 32(r12);
-/* 807AC89C 7D8903A6 */  mtctr    r12;
-/* 807AC8A0 4E800421 */  bctrl;
-/* 807AC8A4 2C030000 */  cmpwi    r3, 0;
-/* 807AC8A8 41820048 */  beq-     UNDEF_807ac8f0;
-/* 807AC8AC 38000001 */  li       r0, 1;
-/* 807AC8B0 901E0270 */  stw      r0, 624(r30);
-/* 807AC8B4 387E0070 */  addi     r3, r30, 112;
-/* 807AC8B8 389F0190 */  addi     r4, r31, 400;
-/* 807AC8BC 819E0070 */  lwz      r12, 112(r30);
-/* 807AC8C0 818C0018 */  lwz      r12, 24(r12);
-/* 807AC8C4 7D8903A6 */  mtctr    r12;
-/* 807AC8C8 4E800421 */  bctrl;
-                         // Remove Mario's "here we go" sound
-// /* 807AC8CC 801E026C */  lwz      r0, 620(r30);
-// /* 807AC8D0 2C000000 */  cmpwi    r0, 0;
-// /* 807AC8D4 40820060 */  bne-     UNDEF_807ac934;
-// /* 807AC8D8 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-// /* 807AC8DC 38800323 */  li       r4, 803;
-// /* 807AC8E0 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-// /* 807AC8E4 38A00001 */  li       r5, 1;
-// /* 807AC8E8 4B9E8BD9 */  bl       UNDEF_801954c0;
-/* 807AC8EC 48000048 */  b        UNDEF_807ac934;
-UNDEF_807ac8f0:;
-/* 807AC8F0 38600000 */  li       r3, 0;
-/* 807AC8F4 4B908AFD */  bl       UNDEF_800b53f0;
-/* 807AC8F8 2C030000 */  cmpwi    r3, 0;
-/* 807AC8FC 41820038 */  beq-     UNDEF_807ac934;
-/* 807AC900 3800FFFF */  li       r0, -1;
-/* 807AC904 901E0270 */  stw      r0, 624(r30);
-/* 807AC908 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 807AC90C 3880007A */  li       r4, 122;
-/* 807AC910 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 807AC914 38A00001 */  li       r5, 1;
-/* 807AC918 4B9E8BA9 */  bl       UNDEF_801954c0;
-/* 807AC91C 819E0070 */  lwz      r12, 112(r30);
-/* 807AC920 387E0070 */  addi     r3, r30, 112;
-/* 807AC924 389F01D0 */  addi     r4, r31, 464;
-/* 807AC928 818C0018 */  lwz      r12, 24(r12);
-/* 807AC92C 7D8903A6 */  mtctr    r12;
-/* 807AC930 4E800421 */  bctrl;
-UNDEF_807ac934:;
-/* 807AC934 80010014 */  lwz      r0, 20(r1);
-/* 807AC938 83E1000C */  lwz      r31, 12(r1);
-/* 807AC93C 83C10008 */  lwz      r30, 8(r1);
-/* 807AC940 7C0803A6 */  mtlr     r0;
-/* 807AC944 38210010 */  addi     r1, r1, 16;
-/* 807AC948 4E800020 */  blr;
-  // clang-format on
-);
+void dSelectPlayer_c::executeState_StartMemberSelect()
+{
+    dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[static_cast<int>(mPad::g_currentCoreID)];
+
+    int leftBound = 0;
+    int rightBound = 3;
+
+    if (mCurrentButton >= 4) {
+        leftBound = 4;
+        rightBound = 7;
+    }
+
+    int nextButton = mCurrentButton;
+
+    if (core->mTriggered & WPADButtonSideways::WPAD_SIDE_BUTTON_LEFT) {
+        nextButton--;
+        if (nextButton < leftBound) {
+            nextButton = leftBound;
+        }
+    } else if (core->mTriggered & WPADButtonSideways::WPAD_SIDE_BUTTON_RIGHT) {
+        nextButton++;
+        if (nextButton > rightBound) {
+            nextButton = rightBound;
+        }
+    } else if (nextButton < 4 && core->mTriggered & WPADButtonSideways::WPAD_SIDE_BUTTON_DOWN) {
+        nextButton += 4;
+    } else if (nextButton >= 4 && core->mTriggered & WPADButtonSideways::WPAD_SIDE_BUTTON_UP) {
+        nextButton -= 4;
+    }
+
+    if (nextButton != mCurrentButton) {
+        mCurrentButton = nextButton;
+        mStateMgr.changeState(StateID_ButtonChangeAnimeEndWait);
+        return;
+    }
+
+    if (mPad::g_currentCore->down(WPAD_BUTTON_A | WPAD_BUTTON_2)) {
+        mActDirection = 1;
+        mStateMgr.changeState(StateID_StartMemberButtonAnime);
+        return;
+    }
+
+    if (dGameCom::chkCancelButton(0)) {
+        mActDirection = -1;
+        SndAudioMgr::sInstance->startSystemSe(SE_SYS_BACK, 1);
+        mStateMgr.changeState(StateID_ExitAnimeEndWait);
+        return;
+    }
+}
+
+[[address(0x807AC960)]]
+void dSelectPlayer_c::initializeState_MultiStartMemberSelect()
+{
+    nw4r::lyt::Picture* pane;
+    if (mCurrentButton > 4) {
+        pane = mpaButtons[mCurrentButton];
+    } else {
+        pane = mpaButtons[mCurrentButton + 8];
+    }
+
+    dGameCom::UpdateSelectCursor(pane, 0, 0);
+}
+
+// TODO
+[[address(0x807AC980)]]
+void dSelectPlayer_c::executeState_MultiStartMemberSelect();
+
+[[address(0x807ACAD0)]]
+void dSelectPlayer_c::initializeState_StartMemberButtonAnime()
+{
+    SndAudioMgr::sInstance->startSystemSe(SE_SYS_DECIDE, 1);
+    dSelectCursor_c::m_instance->Cancel(0);
+
+    if (dInfo_c::mGameFlag & 0x10 && mCurrentButton < 4) {
+        mLayout.AnimeStartSetup(mCurrentButton + D00_Multi2_a_hit, false);
+    } else {
+        mLayout.AnimeStartSetup(mCurrentButton + C00_Button1_a_hit, false);
+    }
+}
+
+[[address(0x807ACBD0)]]
+void dSelectPlayer_c::initializeState_ExitAnimeEndWait()
+{
+    mLayout.AnimeStartSetup(B01_underGuide_a_out, false);
+    if (mActDirection == 1) {
+        mLayout.AnimeStartSetup(A00_Window_a_out, false);
+    } else {
+        mLayout.AnimeStartSetup(A00_Window_a_outBack, false);
+    }
+}
+
+[[address(0x807ACC40)]]
+void dSelectPlayer_c::executeState_ExitAnimeEndWait()
+{
+    if (!mLayout.isAnime(B01_underGuide_a_out) && !mLayout.isAnime(A00_Window_a_out) &&
+        !mLayout.isAnime(A00_Window_a_outBack)) {
+        mStateMgr.changeState(StateID_StartWait);
+    }
+}

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <dynamic/d_lyttextbox.h>
 #include <dynamic/d_2d.h>
+#include <dynamic/d_lyttextbox.h>
 #include <nw4r/lyt/Layout.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
@@ -44,13 +44,22 @@ public:
     void AnimeResRegister(const char** animNames, int count);
 
     /* 0x800C91E0 */
-    void GroupRegister(const char** groupNames, const int* param_2, int count);
+    void GroupRegister(const char** groupNames, const int* param2, int count);
+
+    /* 0x800C93E0 */
+    void AnimeStartSetup(int group, bool param2);
+
+    /* 0x800C94C0 */
+    void ReverseAnimeStartSetup(int group, bool param2);
 
     /* 0x800C9580 */
     void AnimeEndSetup(int param1);
 
     /* 0x800C95F0 */
     void AllAnimeEndSetup();
+
+    /* 0x800C9700 */
+    bool isAnime(int group);
 
     FILL(0x0AC, 0x198);
 };

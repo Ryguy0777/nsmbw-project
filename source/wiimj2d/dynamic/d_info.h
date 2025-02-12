@@ -149,4 +149,6 @@ public:
     /* 0x80359054 */ static dStartInfo_c m_startInfo;
 
     /* 0x8042A25C */ static dInfo_c* m_instance;
+
+    /* 0x8042A260 */ static u32 mGameFlag;
 };

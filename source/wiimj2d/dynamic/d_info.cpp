@@ -167,4 +167,5 @@ dStartInfo_c dInfo_c::m_startInfo;
 [[address_data(0x8042A25C)]]
 dInfo_c* dInfo_c::m_instance;
 
-EXTERN_SYMBOL(0x8042A260, "mGameFlag__7dInfo_c");
+[[address_data(0x8042A260)]]
+u32 dInfo_c::mGameFlag;

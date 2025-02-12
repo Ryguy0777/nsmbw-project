@@ -9,6 +9,9 @@ public:
     // Member Functions
     // ----------------
 
+    /* 0x801954C0 */
+    void startSystemSe(unsigned int sound, u32 param2);
+
     /* 0x80196FD0 */
     void setIsReplay(bool value);
 

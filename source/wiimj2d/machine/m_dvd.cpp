@@ -2,6 +2,7 @@
 // NSMBW .text: 0x8016B090 - 0x8016C540
 
 #include "m_dvd.h"
+#include "System.h"
 
 #include <algorithm>
 #include <cstring>
@@ -602,3 +603,21 @@ void* loadToMainRAM(
 }
 
 } // namespace mDvd
+
+[[address(0x8016B630)]]
+void mDvd_command_c::waitDone() const;
+
+EXTERN_REPL(
+  0x8016C0B0, //
+  mDvd_toMainRam_c* mDvd_toMainRam_c::createNoWait(const char* path, u8 param2, EGG::Heap* heap)
+);
+
+[[address(0x8016C0B0)]]
+mDvd_toMainRam_c* mDvd_toMainRam_c::create(const char* path, u8 param2, EGG::Heap* heap)
+{
+    mDvd_toMainRam_c* cmd = createNoWait(path, param2, heap);
+    if (cmd != nullptr) {
+        cmd->waitDone();
+    }
+    return cmd;
+}

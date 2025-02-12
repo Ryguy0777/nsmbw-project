@@ -132,7 +132,7 @@ struct _MRel_extern_array_entry {
     }                                                                                              \
     PRAGMA("clang diagnostic pop")                                                                 \
     extern unsigned int _MRel_ext2_##_ADDR __asm__("ext_" #_ADDR);                                 \
-    [[__gnu__::__section__("extern_array")]]                                                       \
+    [[__gnu__::__section__("extern_array")]] [[__gnu__::__used__]]                                 \
     constinit _MRel_extern_array_entry _MRel_extern_array_entry_##_ADDR = {                        \
       &_MRel_ext2_##_ADDR, &_MRel_extern_func_##_ADDR                                              \
     };

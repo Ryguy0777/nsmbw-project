@@ -143,6 +143,11 @@ $(ASSETS)/%.brlyt: $(ASSETS_SRC)/%.brlyt.json5
 	@mkdir -p $(dir $@)
 	@python $(WUJ5) encode $< --outputs=$@
 
+$(ASSETS)/%.brlan: $(ASSETS_SRC)/%.brlan.json5
+	@echo $<
+	@mkdir -p $(dir $@)
+	@python $(WUJ5) encode $< --outputs=$@
+
 $(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
 	@echo Build: $(notdir $@)
 	@mkdir -p $(dir $@)

@@ -30,6 +30,9 @@ extern EGG::CoreController* g_core[PAD_CHAN_COUNT];
 /* 0x8042A740 */
 extern EGG::CoreControllerMgr* g_padMg;
 
+/* 0x8042A744 */
+extern CH_e g_currentCoreID;
+
 /* 0x8042A748 */
 extern EGG::CoreController* g_currentCore;
 
