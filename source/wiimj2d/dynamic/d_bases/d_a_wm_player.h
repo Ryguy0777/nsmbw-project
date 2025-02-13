@@ -88,7 +88,7 @@ public:
      * 0x80100B60
      * @unofficial
      */
-    const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
+    static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
 
     /* 0x80902C50 */
     void UNDEF_80902C50();
