@@ -5,6 +5,29 @@
 
 #include <dynamic/d_bases/d_a_wm_player.h>
 #include <dynamic/d_player_model_manager.h>
+#include <machine/m_heap.h>
+
+/**
+ * Copy of create.
+ */
+EXTERN_REPL(
+  0x808EB220, //
+  fBase_c::PACK_RESULT_e daWmSubPlayer_c::createSubPlayer()
+);
+
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
+[[address(0x808EB220)]]
+fBase_c::PACK_RESULT_e daWmSubPlayer_c::create()
+{
+    createSubPlayer();
+
+    mNodeTrail.alloc(16, mHeap::g_gameHeaps[0]);
+
+    return PACK_RESULT_e::SUCCEEDED;
+}
 
 [[address(0x808EB7D0)]]
 void daWmSubPlayer_c::loadModel() ASM_METHOD(
@@ -123,3 +146,29 @@ bool daWmSubPlayer_c::isPlayerType(daPyMng_c::PlayerType_e playerType)
 {
     return daPyMng_c::DEFAULT_PLAYER_ORDER[getPlayerNo()] == playerType;
 }
+
+[[address(0x808EF680)]]
+daWmSubPlayer_c::NodeTrail_c::Node_s* daWmSubPlayer_c::NodeTrail_c::pushNext()
+{
+    if (mUsedCount >= mAllocCount) {
+        if (mUsedCount > mAllocCount) {
+            return nullptr;
+        }
+
+        // Automatically pop the oldest node
+        popFirst();
+    }
+
+    return &mpNodes[(mFirstNode + mUsedCount++) % mAllocCount];
+}
+
+[[address(0x808EF6D0)]]
+daWmSubPlayer_c::NodeTrail_c::Node_s* daWmSubPlayer_c::NodeTrail_c::popFirst();
+
+/* VT+0x0C */
+[[address(0x808EF730)]]
+void daWmSubPlayer_c::NodeTrailBase_c::alloc(int count);
+
+/* VT+0x10 */
+[[address(0x808EF780)]]
+void daWmSubPlayer_c::NodeTrailBase_c::alloc(int count, EGG::Heap* heap);
