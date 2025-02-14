@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_player_model_manager.h>
 #include <dynamic/d_wm_player_base.h>
@@ -109,17 +110,35 @@ public:
     /* 0x808EB7D0 */
     void loadModel();
 
+    /* 0x808EDC40 */
+    void setWalkSpeed(f32 speed);
+
     /* 0x808EE0C0 */
     s32 getPlayerOrder();
+
+    /* 0x808EE110 */
+    f32 getDistanceToAheadPlayer();
+
+    /* 0x808EE200 */
+    dWmPlayerBase_c* getAheadPlayer();
+
+    /* 0x808EE620 */
+    void calcWalkSpeed();
 
     /* 0x808EE960 */
     f32 getPlayerOrderDistance();
 
     /* 0x808EE9B0 */
-s16 getPlayerOrderAngle();
+    s16 getPlayerOrderAngle();
 
     /* 0x808EEA00 */
     s32 getPlayerOrderTableIndex(int playerOrder);
+
+    /* 0x808EEF00 */
+    bool isWrongDirection(PATH_DIR_e dir1, PATH_DIR_e dir2);
+
+    /* 0x808EEF70 */
+    bool isSubPlayerStopPoint();
 
     /* 0x808EF2B0 */
     bool isPlayerType(daPyMng_c::PlayerType_e playerType);
@@ -139,7 +158,11 @@ public:
 
     /* 0x1CC */ dPyMdlMng_c* mModelManager;
 
-    FILL(0x1D0, 0x208);
+    FILL(0x1D0, 0x200);
+
+    /* 0x200 */ PATH_DIR_e mMoveDir;
+
+    FILL(0x204, 0x208);
 
     /* 0x208 */ int mSubPlayerNo;
 
@@ -147,4 +170,10 @@ public:
 
     /* 0x214 */ NodeTrail_c mNodeTrail;
     /* 0x228 */ NodeTrailBase_c::Node_s maNodes[8];
+
+    FILL(0x268, 0x2A8);
+
+    /* 0x2A8 */ s32 m0x2A8;
+
+    OFFSET_ASSERT(0x2AC);
 };

@@ -2,12 +2,13 @@
 // NSMBW d_bases.text: 0x808E8AA0 - 0x808EF8D0
 
 #include "d_a_wm_SubPlayer.h"
-#include "machine/m_angle.h"
+#include "dynamic/d_wm_player_base.h"
 
 #include <Port.h>
 #include <dynamic/d_bases/d_a_wm_player.h>
 #include <dynamic/d_player/d_s_boot.h>
 #include <dynamic/d_player_model_manager.h>
+#include <machine/m_angle.h>
 #include <machine/m_heap.h>
 
 /**
@@ -113,6 +114,9 @@ UNDEF_808eb884:;
   // clang-format on
 );
 
+[[address(0x808EDC40)]]
+void daWmSubPlayer_c::setWalkSpeed(f32 speed);
+
 [[address(0x808EE0C0)]]
 s32 daWmSubPlayer_c::getPlayerOrder()
 {
@@ -129,6 +133,46 @@ s32 daWmSubPlayer_c::getPlayerOrder()
     }
 
     return order;
+}
+
+[[address(0x808EE110)]]
+f32 daWmSubPlayer_c::getDistanceToAheadPlayer();
+
+[[address(0x808EE200)]]
+dWmPlayerBase_c* daWmSubPlayer_c::getAheadPlayer();
+
+[[address(0x808EE620)]]
+void daWmSubPlayer_c::calcWalkSpeed()
+{
+    f32 distance = getDistanceToAheadPlayer();
+    f32 prevSpeedF = mSpeedF;
+
+    if (isWrongDirection(mMoveDir, daWmPlayer_c::ms_instance->getMovementDirection())) {
+        return;
+    }
+
+    if (isSubPlayerStopPoint()) {
+        const float l_SPEED_FACTOR_ARR[] = {
+          1.00, 0.75, 0.50, 0.25, 0.18, 0.145, 0.11, 0.09,
+        };
+
+        setWalkSpeed(l_SPEED_FACTOR_ARR[getPlayerOrder()]);
+    } else if (mMoveDir != PATH_DIR_e::UP && mMoveDir != PATH_DIR_e::DOWN) {
+        if (distance < getPlayerOrderDistance()) {
+            setWalkSpeed(0.1);
+            m0x2A8 = 2;
+        } else if (distance < 70.0) {
+            setWalkSpeed(0.75);
+            m0x2A8 = 2;
+        } else if (distance > 84.0) {
+            setWalkSpeed(1.2);
+            m0x2A8 = 1;
+        } else {
+            setWalkSpeed(1.0);
+        }
+    }
+
+    mSpeedF = prevSpeedF * 0.9 + mSpeedF * 0.1;
 }
 
 [[address(0x808EE950)]]
@@ -261,6 +305,12 @@ s32 daWmSubPlayer_c::getPlayerOrderTableIndex(int playerOrder)
 
     return l_INDEX_TABLE[subPlayerNum - 1] + playerOrder;
 }
+
+[[address(0x808EEF00)]]
+bool daWmSubPlayer_c::isWrongDirection(PATH_DIR_e dir1, PATH_DIR_e dir2);
+
+[[address(0x808EEF70)]]
+bool daWmSubPlayer_c::isSubPlayerStopPoint();
 
 [[address(0x808EF2B0)]]
 bool daWmSubPlayer_c::isPlayerType(daPyMng_c::PlayerType_e playerType)

@@ -114,6 +114,9 @@ public:
     /* 0x80907590 */
     void UNDEF_80907590();
 
+    /* 0x80907A60 */
+    PATH_DIR_e getMovementDirection();
+
     /* 0x809093D0 */
     void initActiveCharaFlags();
 

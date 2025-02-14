@@ -278,6 +278,9 @@ public:
     /* 0x801046B0 */
     void execute();
 
+    /* 0x80104DD0 */
+    void UNDEF_80104dd0();
+
     /* 0x801050E0 @unofficial */
     void
     playPlyVoice(WmPlyVoice_e voice, dPyMdlMng_c::ModelType_e player, PLAYER_POWERUP_e playerMode);

@@ -250,6 +250,9 @@ L_daWmPlayer_c_updateActivePlayers_Set0x184Loop:;
   // clang-format on
 );
 
+[[address(0x80907A60)]]
+daWmPlayer_c::PATH_DIR_e daWmPlayer_c::getMovementDirection();
+
 /* VT+0x60 0x80909940 */
 [[address(0x80909940)]]
 void daWmPlayer_c::VT_0x60();

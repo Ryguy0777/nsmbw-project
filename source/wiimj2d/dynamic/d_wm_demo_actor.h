@@ -9,9 +9,29 @@ class dWmDemoActor_c : public dWmActor_c
     /* 0x060 VTABLE 0x8031C170 */
 
 public:
+    // ------------
+    // Constructors
+    // ------------
+
     /* 0x800F60E0 */
     dWmDemoActor_c();
 
+public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    /* @unofficial */
+    enum class PATH_DIR_e {
+        UP = 0,
+        DOWN = 1,
+        Z_POSITIVE = 2,
+        Z_NEGATIVE = 3,
+        RIGHT = 4,
+        LEFT = 5,
+    };
+
+public:
     /**
      * VT+0x48 0x800F6F40
      * Destroys the base.
