@@ -316,6 +316,10 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_NumberOfPeopleChange.cpp
 # NSMBW d_bases.text: 0x807ABE10 - 0x807AD5F0
 SOURCES += source/wiimj2d/dynamic/d_bases/d_SelectPlayer.cpp
 
+# d_StockItem.cpp
+# NSMBW d_bases.text: 0x807AF370 - 0x807B2030
+SOURCES += source/wiimj2d/dynamic/d_bases/d_StockItem.cpp
+
 # d_a_chukan_point.cpp
 # NSMBW d_bases.text: 0x807E2040 - 0x807E38A0
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_chukan_point.cpp

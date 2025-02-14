@@ -144,6 +144,9 @@ public:
     /* 0x80100B60 @unofficial */
     static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
 
+    /* 0x80101220 */
+    static void startStarSound();
+
 public:
     // -----------
     // Member Data

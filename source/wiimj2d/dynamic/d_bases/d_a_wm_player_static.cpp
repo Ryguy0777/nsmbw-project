@@ -4,10 +4,8 @@
 
 #include "d_a_wm_player.h"
 
-EXTERN_DATA(
-  0x8042A480, //
-  daWmPlayer_c* daWmPlayer_c::ms_instance
-);
+[[address_data(0x8042A480)]]
+daWmPlayer_c* daWmPlayer_c::ms_instance;
 
 [[address(0x80100B60)]]
 const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
@@ -39,3 +37,6 @@ const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
 
     return nullptr;
 }
+
+[[address(0x80101220)]]
+void daWmPlayer_c::startStarSound();

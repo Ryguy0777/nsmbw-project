@@ -40,8 +40,11 @@ bool dScWMap_c::createActorsPhase(dScWMap_c* self)
         if (i < 4 && numPyChg != nullptr) {
             numPyChg->setPlayer(i, crsSelMng->mpa2DPlayer[i]);
         }
-        if (i < 4 && stockItem != nullptr) {
+        if (stockItem != nullptr) {
             stockItem->mpa2DPlayer[i] = crsSelMng->mpa2DPlayer[i];
+            if (i < 4) {
+                stockItem->mpa2DPlayer_Removed[i] = crsSelMng->mpa2DPlayer[i];
+            }
         }
     }
 
