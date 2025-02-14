@@ -25,7 +25,7 @@ public:
         {
         }
 
-        /* VT+0x8 0x808EB060 */
+        /* VT+0x08 0x808EB060 */
         virtual ~NodeTrailBase_c();
 
         struct Node_s {
@@ -34,7 +34,7 @@ public:
             /* 0x4 */ int m0x4;
         };
 
-        /* VT+0xC 0x808EF730 */
+        /* VT+0x0C 0x808EF730 */
         virtual void alloc(int count);
 
         /* VT+0x10 0x808EF780 */
@@ -112,8 +112,14 @@ public:
     /* 0x808EE0C0 */
     s32 getPlayerOrder();
 
+    /* 0x808EE960 */
+    f32 getPlayerOrderDistance();
+
+    /* 0x808EE9B0 */
+s16 getPlayerOrderAngle();
+
     /* 0x808EEA00 */
-    s32 UNDEF_808EEA00(int playerOrder);
+    s32 getPlayerOrderTableIndex(int playerOrder);
 
     /* 0x808EF2B0 */
     bool isPlayerType(daPyMng_c::PlayerType_e playerType);

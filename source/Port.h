@@ -10,15 +10,15 @@ namespace Port
 
 enum class Region {
     Error,
-    P1,
-    P2,
-    E1,
-    E2,
-    J1,
-    J2,
-    K,
-    W,
-    C,
+    P1, // PAL revision 1
+    P2, // PAL revision 2
+    E1, // USA revision 1
+    E2, // USA revision 2
+    J1, // JPN revision 1
+    J2, // JPN revision 2
+    K, // KOR
+    W, // TWN
+    C, // CHN (Nvidia Shield TV release)
 };
 
 constexpr char AddressMapFile[] = {
@@ -34,6 +34,7 @@ static constexpr const AddressMapper& GetAddressMapper(Region region);
 
 class AddressMapper
 {
+#ifndef CLANGD
 private:
     struct AddressRange {
         std::uint32_t low;
@@ -230,6 +231,7 @@ private:
     }
 
 public:
+
     constexpr std::uint32_t MapAddress(std::uint32_t srcAddr) const
     {
         if (m_extend != Region::Error && m_extend != Region::P1) {
@@ -255,6 +257,17 @@ public:
 
         return 0;
     }
+#else
+public:
+    constexpr AddressMapper(Region region)
+    {
+    }
+
+    constexpr std::uint32_t MapAddress(std::uint32_t srcAddr) const
+    {
+        return srcAddr;
+    }
+#endif
 };
 
 constexpr AddressMapper AddressMapperP2(Region::P2);
@@ -290,12 +303,51 @@ static constexpr const AddressMapper& GetAddressMapper(Region region)
     }
 }
 
+template <u32 P1Addr>
+static constexpr u32 AutoPort(Region region)
+{
+    static constexpr u32 P2Addr = GetAddressMapper(Region::P2).MapAddress(P1Addr);
+    static constexpr u32 E1Addr = GetAddressMapper(Region::E1).MapAddress(P1Addr);
+    static constexpr u32 E2Addr = GetAddressMapper(Region::E2).MapAddress(P1Addr);
+    static constexpr u32 J1Addr = GetAddressMapper(Region::J1).MapAddress(P1Addr);
+    static constexpr u32 J2Addr = GetAddressMapper(Region::J2).MapAddress(P1Addr);
+    static constexpr u32 KAddr = GetAddressMapper(Region::K).MapAddress(P1Addr);
+    static constexpr u32 WAddr = GetAddressMapper(Region::W).MapAddress(P1Addr);
+    static constexpr u32 CAddr = GetAddressMapper(Region::C).MapAddress(P1Addr);
+
+    switch (region) {
+    case Region::P1:
+        return P1Addr;
+    case Region::P2:
+        return P2Addr;
+    case Region::E1:
+        return E1Addr;
+    case Region::E2:
+        return E2Addr;
+    case Region::J1:
+        return J1Addr;
+    case Region::J2:
+        return J2Addr;
+    case Region::K:
+        return KAddr;
+    case Region::W:
+        return WAddr;
+    case Region::C:
+        return CAddr;
+
+    default:
+        return 0;
+    }
+}
+
 // Some tests
+#ifndef CLANGD
 static_assert(GetAddressMapper(Region::P2).MapAddress(0x8005EA6A) == 0x8005EA6A);
 static_assert(GetAddressMapper(Region::E1).MapAddress(0x8010F234) == 0x8010F100);
 static_assert(GetAddressMapper(Region::E1).MapAddress(0x800CF6F8) == 0x800CF608);
 static_assert(GetAddressMapper(Region::E2).MapAddress(0x800CF6F8) == 0x800CF610);
 static_assert(GetAddressMapper(Region::J1).MapAddress(0x80779C1C) == 0x80779AEC);
 static_assert(GetAddressMapper(Region::W).MapAddress(0x800B34D0) == 0x800B3650);
+#endif
 
 } // namespace Port

@@ -2,8 +2,11 @@
 // NSMBW d_bases.text: 0x808E8AA0 - 0x808EF8D0
 
 #include "d_a_wm_SubPlayer.h"
+#include "machine/m_angle.h"
 
+#include <Port.h>
 #include <dynamic/d_bases/d_a_wm_player.h>
+#include <dynamic/d_player/d_s_boot.h>
 #include <dynamic/d_player_model_manager.h>
 #include <machine/m_heap.h>
 
@@ -25,6 +28,9 @@ fBase_c::PACK_RESULT_e daWmSubPlayer_c::create()
     createSubPlayer();
 
     mNodeTrail.alloc(16, mHeap::g_gameHeaps[0]);
+
+    // Temporary(?) hack that makes the node reached check more generous
+    *reinterpret_cast<float*>(Port::AutoPort<0x8093CE28>(dScBoot_c::m_codeRegion)) = 0.05f;
 
     return PACK_RESULT_e::SUCCEEDED;
 }
@@ -128,17 +134,132 @@ s32 daWmSubPlayer_c::getPlayerOrder()
 [[address(0x808EE950)]]
 int daWmSubPlayer_c::getSubPlayerNum();
 
+[[address(0x808EE960)]]
+f32 daWmSubPlayer_c::getPlayerOrderDistance()
+{
+    using FloatArray = f32[];
+
+    return FloatArray{
+      // 2 players
+      0.0,
+      45.0,
+
+      // 3 players
+      0.0,
+      40.0,
+      40.0,
+
+      // 4 players
+      0.0,
+      40.0,
+      40.0,
+      50.0,
+
+      // 5 players
+      0.0,
+      40.0,
+      50.0,
+      50.0,
+      40.0,
+
+      // 6 players
+      0.0,
+      40.0,
+      45.0,
+      50.0,
+      45.0,
+      40.0,
+
+      // 7 players
+      0.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+
+      // 8 players
+      0.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+    }[getPlayerOrderTableIndex(getPlayerOrder())];
+}
+
+[[address(0x808EE9B0)]]
+s16 daWmSubPlayer_c::getPlayerOrderAngle()
+{
+    using AngleArray = s16[];
+
+    return AngleArray{
+      // 2 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(180.0),
+
+      // 3 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(137.33),
+      mAng::fromDegree(-137.33),
+
+      // 4 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(126.343),
+      mAng::fromDegree(-126.343),
+      mAng::fromDegree(180.0),
+
+      // 5 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(48.0),
+      mAng::fromDegree(-48.0),
+      mAng::fromDegree(114.0),
+      mAng::fromDegree(-114.0),
+
+      // 6 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(60.0),
+      mAng::fromDegree(-120.0),
+      mAng::fromDegree(120.0),
+      mAng::fromDegree(-60.0),
+      mAng::fromDegree(180.0),
+
+      // 7 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(-67.5),
+      mAng::fromDegree(67.5),
+      mAng::fromDegree(-112.5),
+      mAng::fromDegree(112.5),
+      mAng::fromDegree(-157.5),
+      mAng::fromDegree(157.5),
+
+      // 8 players
+      mAng::fromDegree(0.0),
+      mAng::fromDegree(45.0),
+      mAng::fromDegree(-45.0),
+      mAng::fromDegree(90.0),
+      mAng::fromDegree(-90.0),
+      mAng::fromDegree(135.0),
+      mAng::fromDegree(-135.0),
+      mAng::fromDegree(180.0),
+
+    }[getPlayerOrderTableIndex(getPlayerOrder())];
+}
+
 [[address(0x808EEA00)]]
-s32 daWmSubPlayer_c::UNDEF_808EEA00(int playerOrder)
+s32 daWmSubPlayer_c::getPlayerOrderTableIndex(int playerOrder)
 {
     int subPlayerNum = getSubPlayerNum();
     if (subPlayerNum == 0) {
         return 0;
     }
 
-    static constexpr s32 UNK_TABLE[] = {0, 2, 5, 5, 5, 5, 5, 5};
+    static constexpr s32 l_INDEX_TABLE[] = {0, 2, 5, 9, 14, 20, 27};
 
-    return playerOrder + UNK_TABLE[subPlayerNum - 1];
+    return l_INDEX_TABLE[subPlayerNum - 1] + playerOrder;
 }
 
 [[address(0x808EF2B0)]]

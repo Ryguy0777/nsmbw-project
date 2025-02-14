@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Port.h>
 #include <dynamic/d_scene.h>
 #include <state/s_FStateFct.h>
 #include <state/s_State.h>
@@ -26,17 +27,7 @@ public:
     // Constants and Types
     // -------------------
 
-    enum class CODE_REGION_e {
-        P1, // PAL revision 1
-        P2, // PAL revision 2
-        E1, // USA revision 1
-        E2, // USA revision 2
-        J1, // JPN revision 1
-        J2, // JPN revision 2
-        K, // KOR
-        W, // TWN
-        C, // CHN (Nvidia Shield TV release)
-    };
+    using CODE_REGION_e = Port::Region;
 
 public:
     // ---------

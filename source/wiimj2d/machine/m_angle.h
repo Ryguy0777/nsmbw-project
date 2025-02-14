@@ -24,7 +24,7 @@ struct mAng {
     /**
      * Constructs a vector from a short value.
      */
-    mAng(s16 x)
+    constexpr mAng(s16 x)
     {
         mAngle = x;
     }
@@ -109,6 +109,20 @@ struct mAng {
     bool operator!=(const mAng& v) const
     {
         return mAngle != v.mAngle;
+    }
+
+    /**
+     * Convert float (degrees) to short angle.
+     */
+    static constexpr s16 fromDegree(float degree)
+    {
+        if (degree > 180) {
+            degree -= 360;
+        } else if (degree < -180) {
+            degree += 360;
+        }
+
+        return s16(degree * 182.04444);
     }
 
     /**
