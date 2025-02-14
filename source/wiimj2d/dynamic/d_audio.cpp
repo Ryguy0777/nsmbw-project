@@ -4,8 +4,8 @@
 
 #include "d_audio.h"
 
-#include <dynamic/d_a_player_manager.h>
 #include <PatchRel.h>
+#include <dynamic/d_a_player_manager.h>
 
 namespace dAudio
 {
@@ -54,6 +54,12 @@ PATCH_REFERENCES(
     {0x800D73BA, R_PPC_ADDR16_LO},
   }
 )
+
+[[address(0x8006A7D0)]]
+void pauseMove(int player);
+
+[[address(0x8006A7F0)]]
+void pauseOffMove(int player);
 
 /* VT+0x08 - Moved here */
 [[address(0x80104160)]]

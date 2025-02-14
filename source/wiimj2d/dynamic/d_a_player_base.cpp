@@ -19,6 +19,9 @@ bool daPlBase_c::isPlayerGameStop();
 [[address(0x8004E050)]]
 void daPlBase_c::stopOther();
 
+[[address(0x8004E100)]]
+void daPlBase_c::playOther();
+
 [[address(0x800510F0)]]
 void daPlBase_c::stopGoalOther()
 {
@@ -81,5 +84,11 @@ bool daPlBase_c::isBossDemoLand();
 [[address(0x80056C70)]]
 void daPlBase_c::onStatus(int flag);
 
+[[address(0x80056CB0)]]
+void daPlBase_c::offStatus(int flag);
+
 [[address(0x80056CF0)]]
 bool daPlBase_c::isStatus(int flag);
+
+[[address(0x800583A0)]]
+void daPlBase_c::calcHeadAttentionAngle();

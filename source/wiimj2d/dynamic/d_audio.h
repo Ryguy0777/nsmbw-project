@@ -82,4 +82,10 @@ u32 getRemotePlayer(int player);
 /* 0x8006A3F0 */
 nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
 
+/* 0x8006A7D0 */
+void pauseMove(int player);
+
+/* 0x8006A7F0 */
+void pauseOffMove(int player);
+
 } // namespace dAudio

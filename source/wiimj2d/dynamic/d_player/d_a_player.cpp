@@ -2,13 +2,22 @@
 // NSMBW .text: 0x80126650 - 0x8014A480
 
 #include "d_a_player.h"
+#include "dynamic/d_mj2d_game.h"
+#include "framework/f_feature.h"
 
-#include <dynamic/d_player/d_a_yoshi.h>
-#include <dynamic/d_bases/d_s_stage.h>
 #include <dynamic/d_a_player_demo_manager.h>
 #include <dynamic/d_a_player_manager.h>
+#include <dynamic/d_audio.h>
+#include <dynamic/d_bases/d_s_stage.h>
 #include <dynamic/d_fader.h>
+#include <dynamic/d_player/d_a_yoshi.h>
 #include <framework/f_base.h>
+
+[[address(0x801275B0)]]
+float dAcPy_c::getJumpSpeed();
+
+[[address(0x8012E6E0)]]
+bool dAcPy_c::releaseCarryActor();
 
 [[address(0x80138FA0)]]
 bool dAcPy_c::setBalloonInDamage();
@@ -55,6 +64,10 @@ void dAcPy_c::checkRest()
 [[address(0x8013DA30)]]
 void dAcPy_c::stopOtherDownDemo()
 {
+    if (fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+        return;
+    }
+
     if (isItemKinopio()) {
         return;
     }
@@ -80,6 +93,28 @@ void dAcPy_c::stopOtherDownDemo()
     }
 
     dActor_c::mExecStopReq |= 0xD;
+}
+
+[[address(0x8013DB30)]]
+void dAcPy_c::playOtherDownDemo()
+{
+    if (fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+        return;
+    }
+
+    if (isItemKinopio()) {
+        return;
+    }
+
+    if (daPyDemoMng_c::mspInstance->mOwnedPlayer != -1) {
+        return;
+    }
+
+    if (m0x1554 != 0) {
+        return;
+    }
+
+    playOther();
 }
 
 /**
@@ -344,6 +379,51 @@ UNDEF_80140420:;
 /* 80140434 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x80141020)]]
+void dAcPy_c::initChangeInit()
+{
+    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+        if (isStatus(101)) {
+            playGoalOther();
+        } else {
+            playOther();
+        }
+
+        dAudio::pauseOffMove(mPlayerNo);
+    }
+}
+
+[[address(0x80141080)]]
+bool dAcPy_c::executeChangeInit()
+{
+    if (mPlayerMode == mNextPowerup) {
+        return false;
+    }
+
+    setPowerup(mNextPowerup);
+
+    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+        stopOther();
+        dAudio::pauseMove(mPlayerNo);
+    }
+
+    setChange(1);
+
+    if (mPlayerMode == PLAYER_POWERUP_e::MINI_MUSHROOM) {
+        f32 jumpSpeed = getJumpSpeed();
+        if (jumpSpeed < mSpeed.y) {
+            mSpeed.y = jumpSpeed;
+        }
+
+        releaseCarryActor();
+    }
+
+    return isPlayerGameStop();
+}
+
+[[address(0x801415A0)]]
+void dAcPy_c::setChange(int param);
 
 /**
  * VT+0x08

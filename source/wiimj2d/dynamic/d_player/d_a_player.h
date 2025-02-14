@@ -6,9 +6,15 @@
 class dAcPy_c : public daPlBase_c
 {
 public:
-    // ---------
-    // Functions
-    // ---------
+    // ----------------
+    // Member Functions
+    // ----------------
+
+    /* 0x801275B0 */
+    float getJumpSpeed();
+
+    /* 0x8012E6E0 */
+    bool releaseCarryActor();
 
     /* 0x80138FA0 */
     bool setBalloonInDamage();
@@ -18,6 +24,18 @@ public:
 
     /* 0x8013DA30 */
     void stopOtherDownDemo();
+
+    /* 0x8013DB30 */
+    void playOtherDownDemo();
+
+    /* 0x80141020 */
+    void initChangeInit();
+
+    /* 0x80141080 */
+    bool executeChangeInit();
+
+    /* 0x80141080 */
+    void setChange(int param);
 
 public:
     // -----------------
@@ -40,7 +58,11 @@ public:
 
     /* 0x14D4 */ daPyMng_c::PlayerType_e mPlayerType;
 
-    FILL(0x14D8, 0x153C);
+    FILL(0x14D8, 0x14E0);
+
+    /* 0x14E0 */ PLAYER_POWERUP_e mNextPowerup;
+
+    FILL(0x14E4, 0x153C);
 
     /* 0x153C */ u8 mScrollType;
 

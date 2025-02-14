@@ -470,6 +470,9 @@ SOURCES += source/wiimj2d/dynamic/d_player/d_a_mask.cpp
 # NSMBW .text: 0x80126650 - 0x8014A480
 SOURCES += source/wiimj2d/dynamic/d_player/d_a_player.cpp
 
+# d_a_yoshi.cpp
+# NSMBW .text: 0x8014B400 - 0x80154800
+SOURCES += source/wiimj2d/dynamic/d_player/d_a_yoshi.cpp
 # d_bg_gm.cpp
 # NSMBW .text: 0x80154800 - 0x80156FE0
 SOURCES += source/wiimj2d/dynamic/d_player/d_bg_gm.cpp

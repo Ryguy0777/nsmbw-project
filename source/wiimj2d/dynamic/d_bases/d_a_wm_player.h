@@ -20,7 +20,16 @@ class daWmPlayer_c : public dWmPlayerBase_c
     /* 0x060 VTABLE 0x809893F8 */
 
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
     static constexpr u32 SUBPLAYER_COUNT = 8;
+
+public:
+    // ------------
+    // Constructors
+    // ------------
 
     /* 0x809027C0 */
     daWmPlayer_c();
@@ -30,6 +39,11 @@ public:
      * Destroys the base.
      */
     virtual ~daWmPlayer_c() override;
+
+public:
+    // -----------------
+    // Virtual Functions
+    // -----------------
 
     /**
      * VT+0x08 0x80902960
@@ -84,11 +98,10 @@ public:
      */
     virtual void VT_0x80() override;
 
-    /**
-     * 0x80100B60
-     * @unofficial
-     */
-    static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
+public:
+    // ----------------
+    // Member Functions
+    // ----------------
 
     /* 0x80902C50 */
     void UNDEF_80902C50();
@@ -122,6 +135,19 @@ public:
 
     /* 0x8090CE10 */
     bool startGame(WORLD_e world, STAGE_e stage, u8 entrance);
+
+public:
+    // ----------------
+    // Static Functions
+    // ----------------
+
+    /* 0x80100B60 @unofficial */
+    static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
+
+public:
+    // -----------
+    // Member Data
+    // -----------
 
     /* 0x1CC */ dPyMdlMng_c mModelManager;
 

@@ -509,9 +509,10 @@ public:
     virtual bool isWaitFrameCountMax();
 
 public:
-    // ---------
-    // Functions
-    // ---------
+    // ----------------
+    // Member Functions
+    // ----------------
+    
 
     /* 0x8004DB40 */
     bool isDemoType(DemoType_e type);
@@ -524,6 +525,9 @@ public:
 
     /* 0x8004E050 */
     void stopOther();
+
+    /* 0x8004E100 */
+    void playOther();
 
     /* 0x800510F0 */
     void stopGoalOther();
@@ -545,9 +549,15 @@ public:
     /* 0x80056C70 */
     void onStatus(int flag);
 
+    /* 0x80056CB0 */
+    void offStatus(int flag);
+
     /* 0x80056CF0 */
     [[nodiscard]]
     bool isStatus(int flag);
+
+    /* 0x800583A0 */
+    void calcHeadAttentionAngle();
 
 public:
     // -----------
