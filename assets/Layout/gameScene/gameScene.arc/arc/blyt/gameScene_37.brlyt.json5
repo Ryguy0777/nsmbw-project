@@ -43,6 +43,15 @@
                 {
                     "name": "im_kinopicoIcon_01.tpl",
                 },
+                {
+                    "name": "im_kinopicoIcon_Purple_01.tpl",
+                },
+                {
+                    "name": "im_kinopioIcon_Orange_01.tpl",
+                },
+                {
+                    "name": "im_kinopioIcon_Black_01.tpl",
+                },
             ],
         },
         {
@@ -1644,7 +1653,7 @@
                     "attributes": {
                         "texture maps": [
                             {
-                                "texture index": 10,
+                                "texture index": 11,
                                 "s": 0,
                                 "t": 0,
                             },
@@ -1764,7 +1773,7 @@
                     "attributes": {
                         "texture maps": [
                             {
-                                "texture index": 10,
+                                "texture index": 12,
                                 "s": 0,
                                 "t": 0,
                             },
@@ -1884,7 +1893,7 @@
                     "attributes": {
                         "texture maps": [
                             {
-                                "texture index": 10,
+                                "texture index": 13,
                                 "s": 0,
                                 "t": 0,
                             },

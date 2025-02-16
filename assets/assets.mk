@@ -17,6 +17,9 @@ $(ASSETS)/Layout/fileSelectPlayer/fileSelectPlayer.arc/arc/anim/fileSelectPlayer
 $(ASSETS)/Layout/fileSelectPlayer/fileSelectPlayer.arc/arc/anim/fileSelectPlayer_23_hitPlayerButton.brlan \
 $(ASSETS)/Layout/gameScene/gameScene.arc/arc/blyt/gameScene_37.brlyt \
 $(ASSETS)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopicoIcon_01.tpl \
+$(ASSETS)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopicoIcon_Purple_01.tpl \
+$(ASSETS)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopioIcon_Black_01.tpl \
+$(ASSETS)/Layout/gameScene/gameScene.arc/arc/timg/im_kinopioIcon_Orange_01.tpl \
 $(ASSETS)/Object/Kinopico.arc/g3d/model.brres \
 $(ASSETS)/Object/KinopicoPurple.arc/g3d/model.brres \
 $(ASSETS)/Object/KinopioBlackOrange.arc/g3d/model.brres \
