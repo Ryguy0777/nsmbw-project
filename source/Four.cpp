@@ -313,9 +313,17 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_807db950
   {0x807DB9A0 + 2, 2},
 
+  // 0x807DBB20: daCastleKokoopaDemo1st_c::executeState_BattleStDemo
+  {0x807DBBF8 + 2, 2},
+  {0x807DBCBC + 2, 2},
+  // 0x807DBF70: daCastleKokoopaDemo1st_c::executeState_BattleEdDemo
+  {0x807DC1F0 + 2, 2},
+  {0x807DC3D8 + 2, 2},
+  {0x807DC4B8 + 2, 2},
+  {0x807DC510 + 2, 2},
+  {0x807DC560 + 2, 2},
+
   // TODO:
-  // - 0x807dbb20, daCastleKokoopaDemo1st_c::executeState_BattleStDemo
-  // - 0x807dbf70, daCastleKokoopaDemo1st_c::executeState_BattleEdDemo
   // - 0x807dd090, daCastleKokoopaDemo2nd_c::UNDEF_807dd090
   // - 0x807dd430, daCastleKokoopaDemo2nd_c::UNDEF_807dd430
   // - 0x807dd6b0, daCastleKokoopaDemo2nd_c::UNDEF_807dd6b0

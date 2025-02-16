@@ -578,11 +578,11 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x0394, 0x0E40);
+    FILL(0x0392, 0x0EA4);
 
-    /* 0x0E40 */ dAcPyKey_c mKey;
+    /* 0x0EA4 */ dAcPyKey_c mKey;
 
-    FILL(0xFA4, 0x1090);
+    FILL(0x1008, 0x1090);
 
     /* 0x1090 */ PLAYER_POWERUP_e mPlayerMode;
 
