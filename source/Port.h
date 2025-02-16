@@ -303,17 +303,17 @@ static constexpr const AddressMapper& GetAddressMapper(Region region)
     }
 }
 
-template <u32 P1Addr>
-static constexpr u32 AutoPort(Region region)
+template <uint32_t P1Addr>
+static constexpr uint32_t AutoPort(Region region)
 {
-    static constexpr u32 P2Addr = GetAddressMapper(Region::P2).MapAddress(P1Addr);
-    static constexpr u32 E1Addr = GetAddressMapper(Region::E1).MapAddress(P1Addr);
-    static constexpr u32 E2Addr = GetAddressMapper(Region::E2).MapAddress(P1Addr);
-    static constexpr u32 J1Addr = GetAddressMapper(Region::J1).MapAddress(P1Addr);
-    static constexpr u32 J2Addr = GetAddressMapper(Region::J2).MapAddress(P1Addr);
-    static constexpr u32 KAddr = GetAddressMapper(Region::K).MapAddress(P1Addr);
-    static constexpr u32 WAddr = GetAddressMapper(Region::W).MapAddress(P1Addr);
-    static constexpr u32 CAddr = GetAddressMapper(Region::C).MapAddress(P1Addr);
+    static constexpr uint32_t P2Addr = GetAddressMapper(Region::P2).MapAddress(P1Addr);
+    static constexpr uint32_t E1Addr = GetAddressMapper(Region::E1).MapAddress(P1Addr);
+    static constexpr uint32_t E2Addr = GetAddressMapper(Region::E2).MapAddress(P1Addr);
+    static constexpr uint32_t J1Addr = GetAddressMapper(Region::J1).MapAddress(P1Addr);
+    static constexpr uint32_t J2Addr = GetAddressMapper(Region::J2).MapAddress(P1Addr);
+    static constexpr uint32_t KAddr = GetAddressMapper(Region::K).MapAddress(P1Addr);
+    static constexpr uint32_t WAddr = GetAddressMapper(Region::W).MapAddress(P1Addr);
+    static constexpr uint32_t CAddr = GetAddressMapper(Region::C).MapAddress(P1Addr);
 
     switch (region) {
     case Region::P1:
