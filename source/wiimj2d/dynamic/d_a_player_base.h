@@ -3,6 +3,8 @@
 #include <dynamic/d_actor.h>
 #include <dynamic/d_mj2d_game.h>
 #include <state/s_State.h>
+#include <dynamic/d_a_player_key.h>
+
 
 class daPlBase_c : public dActor_c
 {
@@ -512,7 +514,6 @@ public:
     // ----------------
     // Member Functions
     // ----------------
-    
 
     /* 0x8004DB40 */
     bool isDemoType(DemoType_e type);
@@ -541,6 +542,19 @@ public:
     /* 0x80051EF0 */
     void endControlDemo(int param);
 
+    /* 0x80051F30 */
+    void setControlDemoDir(u8 direction);
+
+    /* 0x80052030 */
+    [[nodiscard]]
+    bool isControlDemoWait();
+
+    /* 0x80052080 */
+    void setControlDemoWalk(const f32& pos, const f32& speed);
+
+    /* 0x80052170 */
+    void setControlDemoAnm(int anim);
+
     void UNDEF_80052290(s32 param);
 
     /* 0x80052470 */
@@ -564,7 +578,11 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x394, 0x1090);
+    FILL(0x0394, 0x0E40);
+
+    /* 0x0E40 */ dAcPyKey_c mKey;
+
+    FILL(0xFA4, 0x1090);
 
     /* 0x1090 */ PLAYER_POWERUP_e mPlayerMode;
 

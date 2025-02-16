@@ -320,6 +320,13 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_SelectPlayer.cpp
 # NSMBW d_bases.text: 0x807AF370 - 0x807B2030
 SOURCES += source/wiimj2d/dynamic/d_bases/d_StockItem.cpp
 
+# d_a_castle_kokoopa_demo_1st.cpp
+# NSMBW d_bases.text: 0x807DAC10 - 0x807DCD80
+SOURCES += source/wiimj2d/dynamic/d_bases/d_a_castle_kokoopa_demo_1st.cpp
+# d_a_castle_kokoopa_demo_2nd.cpp
+# NSMBW d_bases.text: 0x807DCD80 - 0x807DDCC0
+SOURCES += source/wiimj2d/dynamic/d_bases/d_a_castle_kokoopa_demo_2nd.cpp
+
 # d_a_chukan_point.cpp
 # NSMBW d_bases.text: 0x807E2040 - 0x807E38A0
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_chukan_point.cpp

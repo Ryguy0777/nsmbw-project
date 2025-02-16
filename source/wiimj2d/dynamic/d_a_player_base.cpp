@@ -78,6 +78,18 @@ bool daPlBase_c::startControlDemo();
 [[address(0x80051EF0)]]
 void daPlBase_c::endControlDemo(int param);
 
+[[address(0x80051F30)]]
+void daPlBase_c::setControlDemoDir(u8 direction);
+
+[[address(0x80052030)]]
+bool daPlBase_c::isControlDemoWait();
+
+[[address(0x80052080)]]
+void daPlBase_c::setControlDemoWalk(const f32& pos, const f32& speed);
+
+[[address(0x80052170)]]
+void daPlBase_c::setControlDemoAnm(int anim);
+
 [[address(0x80052470)]]
 bool daPlBase_c::isBossDemoLand();
 

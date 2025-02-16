@@ -211,3 +211,9 @@ UNDEF_8005e904:;
 /* 8005E908 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x8005E910)]]
+void dAcPyKey_c::onDemoButton(int button);
+
+[[address(0x8005E930)]]
+void dAcPyKey_c::offDemoButton(int button);

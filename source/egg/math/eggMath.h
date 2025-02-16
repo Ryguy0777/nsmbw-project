@@ -44,6 +44,20 @@ public:
         return (T) 0;
     }
 
+    // Assumed to be here (emitted globally at 0x807C9890)
+    static T lerp(T t, const T& low, const T& high)
+    {
+        if (t < 0) {
+            return low;
+        }
+
+        if (t > 1) {
+            return high;
+        }
+
+        return low + t * (high - low);
+    }
+
     static T sqrt(T);
     static T sin(T);
     static T cos(T);
@@ -56,18 +70,5 @@ public:
     static T gcd(T, T);
     static T lcm(T, T);
 };
-
-// There is
-// Math<f32>::zero
-// Math<f32>::pi_half
-// Math<f32>::neg(f32)
-// Math<f32>::abs(f32)
-
-// f32 impls
-// /* 8049ab60 */ Math<f32>::sqrt(f32);
-// /* 8049abb0 */ Math<f32>::sin(f32);
-// /* 8049abe0 */ Math<f32>::cos(f32);
-// /* 8049ac10 */ Math<f32>::acos(f32);
-// /* 8049ac40 */ Math<f32>::atan2(f32, f32);
 
 } // namespace EGG
