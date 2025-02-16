@@ -7,7 +7,7 @@
 #include <framework/f_feature.h>
 
 /* VT+0x0DC */
-[[address(0x0x80150E10)]]
+[[address(0x80150E10)]]
 void daYoshi_c::executeLastAll()
 {
     if (!isStatus(1)) {
