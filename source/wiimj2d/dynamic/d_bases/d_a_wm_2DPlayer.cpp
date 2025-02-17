@@ -12,14 +12,8 @@ void da2DPlayer_c::loadPlayer()
     s32 powerup = daPyMng_c::mPlayerMode[id];
     mPowerup = static_cast<PLAYER_POWERUP_e>(powerup);
 
-    static constexpr dPyMdlMng_c::ModelType_e sPlayerModelType[] = {
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,     dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-      dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE, dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,  dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
-      dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLACK, dPyMdlMng_c::ModelType_e::MODEL_TOAD_ORANGE,
-    };
-
-    mModelMng = new dPyMdlMng_c(sPlayerModelType[id]);
+    mModelMng =
+      new dPyMdlMng_c(daPyMng_c::getPlayerTypeModelType(static_cast<daPyMng_c::PlayerType_e>(id)));
     mModelMng->loadModel(id, powerup, 2);
 
     mModelMng->mModel->setAnm(0, 1.2, 10.0, 0.0);
