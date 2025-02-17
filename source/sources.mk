@@ -362,6 +362,10 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_a_obj_grass.cpp
 # NSMBW d_bases.text: 0x808C5100 - 0x808C7D10
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_wm_2DPlayer.cpp
 
+# d_a_wm_Item.cpp
+# NSMBW d_bases.text: 0x808D4890 - 0x808D50B0
+SOURCES += source/wiimj2d/dynamic/d_bases/d_a_wm_Item.cpp
+
 # d_a_wm_KoopaShip.cpp
 # NSMBW d_bases.text: 0x808DBCB0 - 0x808DE620
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_wm_KoopaShip.cpp
@@ -641,6 +645,10 @@ SOURCES += source/wiimj2d/sound/SndObjectMap.cpp
 # SndObjectPlayer.cpp
 # NSMBW .text: 0x8019A0F0 - 0x8019B240
 SOURCES += source/wiimj2d/sound/SndObjectPlayer.cpp
+
+# SndSceneMgr.cpp
+# NSMBW .text: 0x8019B500 - 0x8019DE90
+SOURCES += source/wiimj2d/sound/SndSceneMgr.cpp
 
 #
 # revolution/ai

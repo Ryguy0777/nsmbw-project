@@ -49,8 +49,8 @@ bool dScWMap_c::createActorsPhase(dScWMap_c* self)
     }
 
     if (stockItem != nullptr) {
-        for (int i = 0; i < std::size(stockItem->mpItem); i++) {
-            stockItem->mpItem[i] = reinterpret_cast<daWmItem_c*>(
+        for (int i = 0; i < std::size(stockItem->mpaItem); i++) {
+            stockItem->mpaItem[i] = reinterpret_cast<daWmItem_c*>(
               dBaseActor_c::construct(+fBaseProfile_e::WM_ITEM, self, i, nullptr, nullptr)
             );
         }
