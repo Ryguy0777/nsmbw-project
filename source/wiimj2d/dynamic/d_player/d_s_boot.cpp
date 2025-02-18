@@ -85,6 +85,8 @@ void dScBoot_c::executeState_ProcEnd()
         }
     }
 
+    daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
+
     // daPyMng_c::mPlayerEntry[4] = 1;
 
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{

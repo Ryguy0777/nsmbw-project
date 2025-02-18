@@ -17,14 +17,17 @@ u8 daLiftRemoconMain_c::UpdateControlPlayerNo(u8* rideCheck)
     if (mpControlPlayerTimer == nullptr) {
         mpControlPlayerTimer = new s8[PLAYER_COUNT];
         ASSERT(mpControlPlayerTimer != nullptr);
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            mpControlPlayerTimer[i] = 0;
+        }
     }
 
     u32 playerMask = 0;
 
     for (dRc_c* chain = mRideRoll.mpChain; chain != nullptr; chain = chain->mpNext) {
         dActor_c* actor = chain->mpOwner;
-        if (actor == nullptr || actor->mActorType != dActor_c::ACTOR_TYPE_e::PLAYER &&
-                                  actor->mActorType != dActor_c::ACTOR_TYPE_e::YOSHI) {
+        if (actor == nullptr || (actor->mActorType != dActor_c::ACTOR_TYPE_e::PLAYER &&
+                                 actor->mActorType != dActor_c::ACTOR_TYPE_e::YOSHI)) {
             continue;
         }
 
