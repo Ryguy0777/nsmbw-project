@@ -2,19 +2,20 @@
 // NSMBW .text: 0x8015C270 - 0x8015F270
 
 #include "d_s_boot.h"
+#include "revolution/os/OSError.h"
 
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_bases/d_ControllerInformation.h>
 #include <dynamic/d_bases/d_s_stage.h>
 #include <dynamic/d_bases/d_s_world_map.h>
-#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_fader.h>
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_info.h>
 #include <dynamic/d_mj2d_game.h>
+#include <dynamic/d_player/d_WiiStrap.h>
 #include <dynamic/d_resource_manager.h>
 #include <dynamic/d_scene.h>
 #include <dynamic/d_system.h>
-#include <dynamic/d_player/d_WiiStrap.h>
 #include <egg/core/eggHeap.h>
 #include <machine/m_fader.h>
 #include <machine/m_heap.h>
@@ -64,16 +65,16 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     changeState(StateID_ControllerInformationFadeIn);
 }
 
-#if 1
+#if 0
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
-    for (int i = 0; i < 8; i++) {
-        daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
+    for (int i = 0; i < 1; i++) {
+        daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::PURPLE_TOADETTE;
         daPyMng_c::mPlayerEntry[i] = 1;
 
-        int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
+        int playerType = int(daPyMng_c::mPlayerType[i]);
         daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::PROPELLER_SHROOM);
         daPyMng_c::mCreateItem[i] = 0;
 
@@ -90,13 +91,13 @@ void dScBoot_c::executeState_ProcEnd()
       .demoTime = 0,
       .demoType = 0,
       .gotoID = 0,
-      .courseID = 0,
+      .courseID = 1,
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
       .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_9,
+      .stage1 = STAGE_e::STAGE_2,
       .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_9,
+      .stage2 = STAGE_e::STAGE_2,
     });
 }
 #endif

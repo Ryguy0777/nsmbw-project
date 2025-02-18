@@ -20,6 +20,7 @@ void OSReport(const char* format, ...);
 void OSVReport(const char* format, va_list args);
 
 /* 0x801AD620 */
+[[noreturn]]
 void OSPanic(const char* file, int line, const char* format, ...);
 
 /* 0x801AD750 */

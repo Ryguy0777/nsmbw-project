@@ -673,6 +673,10 @@ SOURCES += source/revolution/arc/arc.c
 # revolution/base
 # NSMBW .text: 0x801A9C60 - 0x801A9E80
 
+# PPCArch.c
+# NSMBW .text: 0x801A9C60 - 0x801A9E80
+SOURCES += source/revolution/base/PPCArch.c
+
 #
 # revolution/os
 # NSMBW .text: 0x801A9E80 - 0x801B8B70

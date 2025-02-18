@@ -5,8 +5,6 @@
 
 extern "C" {
 
-#define NULL ((void*) 0)
-
 #define FILENAME_MAX 256
 
 typedef struct _FILE FILE;
@@ -17,12 +15,8 @@ typedef unsigned long fpos_t;
 
 typedef void* __ref_con;
 typedef void (*__idle_proc)(void);
-typedef int (*__pos_proc)(
-  __file_handle file, fpos_t* position, int mode, __ref_con ref_con
-);
-typedef int (*__io_proc)(
-  __file_handle file, unsigned char* buff, size_t* count, __ref_con ref_con
-);
+typedef int (*__pos_proc)(__file_handle file, fpos_t* position, int mode, __ref_con ref_con);
+typedef int (*__io_proc)(__file_handle file, unsigned char* buff, size_t* count, __ref_con ref_con);
 typedef int (*__close_proc)(__file_handle file);
 
 typedef struct {
@@ -75,9 +69,7 @@ struct _FILE {
 int vprintf(const char* restrict format, va_list ap);
 
 /* 0x802E18CC */
-int vsnprintf(
-  char* restrict s, size_t n, const char* restrict format, va_list ap
-);
+int vsnprintf(char* restrict s, size_t n, const char* restrict format, va_list ap);
 
 /* 0x802E1954 */
 int vsprintf(char* restrict s, const char* restrict format, va_list ap);

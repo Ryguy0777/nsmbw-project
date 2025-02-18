@@ -9,10 +9,8 @@ extern "C" {
 
 // OVERRIDDEN: OSVReport
 
-[[address(0x801AD620)]]
-void OSPanic(const char* file, int line, const char* format, ...);
+// OVERRIDDEN: OSPanic
 
-/* 0x801AD750 */
 [[address(0x801AD750)]]
 void OSSetErrorHandler(void (*handler)(const char* file, int line, const char* msg));
 
