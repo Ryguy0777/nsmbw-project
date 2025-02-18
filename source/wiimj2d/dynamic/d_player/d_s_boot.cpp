@@ -65,13 +65,13 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     changeState(StateID_ControllerInformationFadeIn);
 }
 
-#if 0
+#if 1
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
     for (int i = 0; i < 1; i++) {
-        daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::PURPLE_TOADETTE;
+        daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::BLACK_TOAD;
         daPyMng_c::mPlayerEntry[i] = 1;
 
         int playerType = int(daPyMng_c::mPlayerType[i]);

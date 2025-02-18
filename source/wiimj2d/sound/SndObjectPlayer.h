@@ -97,6 +97,9 @@ public:
         KO = 2,
         KO2 = 3,
         KC = 4,
+        KC2 = 5,
+        KO3 = 6,
+        KO4 = 7,
 
         COUNT,
     };

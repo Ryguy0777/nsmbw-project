@@ -3,6 +3,7 @@
 
 #include "SndObjectPlayer.h"
 
+#include <dynamic/d_game_common.h>
 #include <framework/f_sound_id.h>
 #include <nw4r/snd/SoundHandle.h>
 
@@ -416,8 +417,18 @@ nw4r::snd::SoundHandle* SndObjctPly::startVoiceSound(PLAYER_VOICE_e voice, u32 r
         return nullptr;
     }
 
+    PLAYER_SOUND_INDEX_e playerSndIndex = mPlayerSndIndex;
+
+    if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KC2) {
+        playerSndIndex = PLAYER_SOUND_INDEX_e::KC;
+    } else if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO3 ||
+               mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO4) {
+        playerSndIndex =
+          dGameCom::rndInt(2) == 0 ? PLAYER_SOUND_INDEX_e::KO : PLAYER_SOUND_INDEX_e::KO2;
+    }
+
     u32 sound =
-      PLAYER_VOICE_SOUND_ID_LIST[static_cast<int>(mPlayerSndIndex)][static_cast<int>(voice)];
+      PLAYER_VOICE_SOUND_ID_LIST[static_cast<int>(playerSndIndex)][static_cast<int>(voice)];
 
     if (GetPlayingSoundCount(1) >= 1 || VT_0x1C(sound, 1) != 0) {
         return nullptr;
@@ -427,6 +438,16 @@ nw4r::snd::SoundHandle* SndObjctPly::startVoiceSound(PLAYER_VOICE_e voice, u32 r
 
     // Mini mushroom pitch up
     f32 pitch = mSoundPlyMode == 3 ? 1.5f : 1.0f;
+
+    // Pitch changes for additional characters
+    if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KC2) {
+        pitch *= 0.85f;
+    } else if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO3) {
+        pitch *= 1.15f;
+    } else if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO4) {
+        pitch *= 0.85f;
+    }
+
     if (handle != nullptr && handle->mpSound != nullptr) {
         handle->mpSound->SetPitch(pitch);
     }
@@ -441,13 +462,33 @@ nw4r::snd::SoundHandle* SndObjctPly::holdVoiceSound(PLAYER_VOICE_e voice, u32 re
         return nullptr;
     }
 
+    PLAYER_SOUND_INDEX_e playerSndIndex = mPlayerSndIndex;
+
+    if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KC2) {
+        playerSndIndex = PLAYER_SOUND_INDEX_e::KC;
+    } else if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO3 ||
+               mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO4) {
+        playerSndIndex =
+          dGameCom::rndInt(2) == 0 ? PLAYER_SOUND_INDEX_e::KO : PLAYER_SOUND_INDEX_e::KO2;
+    }
+
     u32 sound =
-      PLAYER_VOICE_SOUND_ID_LIST[static_cast<int>(mPlayerSndIndex)][static_cast<int>(voice)];
+      PLAYER_VOICE_SOUND_ID_LIST[static_cast<int>(playerSndIndex)][static_cast<int>(voice)];
 
     nw4r::snd::SoundHandle* handle = holdSound(sound, remoteMask);
 
     // Mini mushroom pitch up
     f32 pitch = mSoundPlyMode == 3 ? 1.5f : 1.0f;
+
+    // Pitch changes for additional characters
+    if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KC2) {
+        pitch *= 0.85f;
+    } else if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO3) {
+        pitch *= 1.15f;
+    } else if (mPlayerSndIndex == PLAYER_SOUND_INDEX_e::KO4) {
+        pitch *= 0.85f;
+    }
+
     if (handle != nullptr && handle->mpSound != nullptr) {
         handle->mpSound->SetPitch(pitch);
     }
