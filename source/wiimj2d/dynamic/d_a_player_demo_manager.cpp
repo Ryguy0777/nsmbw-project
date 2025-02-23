@@ -59,10 +59,10 @@ void daPyDemoMng_c::calcNotGoalPlayer() ASM_METHOD(
 /* 8005B6C0 3400FFFF */  subic.   r0, r0, 1;
 /* 8005B6C4 9003003C */  stw      r0, 60(r3);
 /* 8005B6C8 40820098 */  bne-     UNDEF_8005b760;
-/* 8005B6CC 880DA658 */  lbz      r0, -22952(r13);
+/* 8005B6CC 880DA658 */  lbz      r0, UNDEF_80429fd8@sda21;
 /* 8005B6D0 3BE00000 */  li       r31, 0;
 /* 8005B6D4 54000636 */  rlwinm   r0, r0, 0, 24, 27;
-/* 8005B6D8 980DA658 */  stb      r0, -22952(r13);
+/* 8005B6D8 980DA658 */  stb      r0, UNDEF_80429fd8@sda21;
 UNDEF_8005b6dc:;
 /* 8005B6DC 7FE3FB78 */  mr       r3, r31;
 /* 8005B6E0 480044B1 */  bl       UNDEF_8005fb90;
@@ -211,7 +211,7 @@ L_ClearStackPlayerArray2_LoopStart:;
 
 UNDEF_8005b8f8:;
 /* 8005B8F8 57C0063E */  clrlwi   r0, r30, 24;
-/* 8005B8FC 886DA608 */  lbz      r3, -23032(r13);
+/* 8005B8FC 886DA608 */  lbz      r3, UNDEF_80429f88@sda21;
 /* 8005B900 7F200030 */  slw      r0, r25, r0;
 /* 8005B904 7C600039 */  and.     r0, r3, r0;
 /* 8005B908 4182007C */  beq-     UNDEF_8005b984;
@@ -473,7 +473,7 @@ UNDEF_8005bc7c:;
 /* 8005BC8C 4180FF90 */  blt+     UNDEF_8005bc1c;
 UNDEF_8005bc90:;
 /* 8005BC90 480A66A1 */  bl       UNDEF_80102330; // ReplayEnd__10dScStage_cFv
-/* 8005BC94 806DA5F4 */  lwz      r3, -23052(r13);
+/* 8005BC94 806DA5F4 */  lwz      r3, UNDEF_80429f74@sda21;
 /* 8005BC98 4BFFFB79 */  bl       UNDEF_8005b810; // stopBgmGoalDemo__13daPyDemoMng_cFv
 /* 8005BC9C 38600001 */  li       r3, 1;
 /* 8005BCA0 3880000A */  li       r4, 10;
@@ -566,12 +566,12 @@ UNDEF_8005be5c:;
 /* 8005BE6C 88030040 */  lbz      r0, 64(r3);
 /* 8005BE70 2C000000 */  cmpwi    r0, 0;
 /* 8005BE74 41820014 */  beq-     UNDEF_8005be88;
-/* 8005BE78 806DAE08 */  lwz      r3, -20984(r13);
+/* 8005BE78 806DAE08 */  lwz      r3, UNDEF_8042a788@sda21;
 /* 8005BE7C 38800001 */  li       r4, 1;
 /* 8005BE80 481404A1 */  bl       UNDEF_8019c320;
 /* 8005BE84 48000010 */  b        UNDEF_8005be94;
 UNDEF_8005be88:;
-/* 8005BE88 806DAE08 */  lwz      r3, -20984(r13);
+/* 8005BE88 806DAE08 */  lwz      r3, UNDEF_8042a788@sda21;
 /* 8005BE8C 38800000 */  li       r4, 0;
 /* 8005BE90 48140491 */  bl       UNDEF_8019c320;
 UNDEF_8005be94:;

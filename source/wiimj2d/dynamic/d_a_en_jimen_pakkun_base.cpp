@@ -71,7 +71,7 @@ UNDEF_8002f9c8:;
 /* 8002FA00 818C0258 */  lwz      r12, 600(r12);
 /* 8002FA04 7D8903A6 */  mtctr    r12;
 /* 8002FA08 4E800421 */  bctrl;
-/* 8002FA0C 83EDA6BC */  lwz      r31, -22852(r13);
+/* 8002FA0C 83EDA6BC */  lwz      r31, UNDEF_8042a03c@sda21;
 /* 8002FA10 38610008 */  addi     r3, r1, 8;
 /* 8002FA14 389D00AC */  addi     r4, r29, 172;
 /* 8002FA18 4803AA99 */  bl       UNDEF_8006a4b0;

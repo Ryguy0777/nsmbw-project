@@ -29,6 +29,8 @@ enum RelRelocationType {
 
     R_PPC_REL32 = 26,
 
+    R_PPC_TOC = 47,
+
     R_DOLPHIN_NOP = 201,
     R_DOLPHIN_SECTION,
     R_DOLPHIN_END,
@@ -466,6 +468,9 @@ int main(int argc, char** argv)
     // Write out relocations
     int relocationOffset = outputBuffer.size();
 
+    uint32_t r2Addr = Port::GetR2Address(region);
+    uint32_t r13Addr = Port::GetR13Address(region);
+
     std::vector<uint8_t> importInfoBuffer;
     int currentModuleID = -1;
     int currentSectionIndex = -1;
@@ -499,6 +504,47 @@ int main(int argc, char** argv)
               instructionBuffer.begin(), instructionBuffer.end(), outputBuffer.begin() + offset
             );
 
+            continue;
+        }
+
+        if (nextRel.type == R_PPC_TOC) {
+            // We use this relocation type to mimick SDA21
+
+            if (nextRel.moduleID != 0) {
+                printf("R_PPC_TOC does not link to constant address\n");
+                continue;
+            }
+
+            int offset = writtenSections.at(inputElf.sections[relToElfSection[nextRel.section]]) +
+                         nextRel.offset - 2;
+            int target = nextRel.addend;
+
+            int reg = 0;
+            int16_t sdaOffset = 0;
+            if (target >= r13Addr - 0x8000 || target < r13Addr + 0x8000) {
+                reg = 13;
+                sdaOffset = target - r13Addr;
+            } else if (target >= r2Addr - 0x8000 || target < r2Addr + 0x8000) {
+                reg = 2;
+                sdaOffset = target - r2Addr;
+            } else {
+                printf("SDA21 target out of range\n");
+                continue;
+            }
+
+            std::vector<uint8_t> instructionBuffer(
+              outputBuffer.begin() + offset, outputBuffer.begin() + offset + 4
+            );
+            uint32_t patchedData;
+            load(instructionBuffer, patchedData);
+
+            patchedData |= (reg << 16);
+            patchedData |= (sdaOffset & 0xFFFF);
+
+            save(instructionBuffer, patchedData);
+            std::copy(
+              instructionBuffer.begin(), instructionBuffer.end(), outputBuffer.begin() + offset
+            );
             continue;
         }
 

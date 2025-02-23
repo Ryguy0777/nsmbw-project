@@ -231,7 +231,6 @@ private:
     }
 
 public:
-
     constexpr std::uint32_t MapAddress(std::uint32_t srcAddr) const
     {
         if (m_extend != Region::Error && m_extend != Region::P1) {
@@ -334,6 +333,64 @@ static constexpr uint32_t AutoPort(Region region)
         return WAddr;
     case Region::C:
         return CAddr;
+
+    default:
+        return 0;
+    }
+}
+
+static constexpr uint32_t GetR2Address(Region region)
+{
+    switch (region) {
+    case Region::P1:
+    case Region::P2:
+        return 0x80433360;
+
+    case Region::E1:
+    case Region::E2:
+        return 0x80433080;
+
+    case Region::J1:
+    case Region::J2:
+        return 0x80432DA0;
+
+    case Region::K:
+        return 0x8043FD20;
+
+    case Region::W:
+        return 0x8043E120;
+
+    case Region::C:
+        return 0x80438900;
+
+    default:
+        return 0;
+    }
+}
+
+static constexpr uint32_t GetR13Address(Region region)
+{
+    switch (region) {
+    case Region::P1:
+    case Region::P2:
+        return 0x8042F980;
+
+    case Region::E1:
+    case Region::E2:
+        return 0x8042F680;
+
+    case Region::J1:
+    case Region::J2:
+        return 0x8042F400;
+
+    case Region::K:
+        return 0x8043C380;
+
+    case Region::W:
+        return 0x8043A780;
+
+    case Region::C:
+        return 0x80434F00;
 
     default:
         return 0;

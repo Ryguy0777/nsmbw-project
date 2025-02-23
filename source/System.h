@@ -19,7 +19,6 @@ typedef double f64;
 #define r1 % r1
 #define sp % r1
 #define r2 % r2
-#define toc % r2
 #define r3 % r3
 #define r4 % r4
 #define r5 % r5
@@ -49,6 +48,9 @@ typedef double f64;
 #define r29 % r29
 #define r30 % r30
 #define r31 % r31
+
+// Clang doesn't support SDA21 relocations so we're passing it to elf2rel using some other variant
+#define sda21 toc(0)
 
 #define f0 0
 #define f1 1

@@ -49,7 +49,7 @@ UNDEF_8002d7d0:;
 /* 8002D7E8 38C00000 */  li       r6, 0;
 /* 8002D7EC 7D8903A6 */  mtctr    r12;
 /* 8002D7F0 4E800421 */  bctrl;
-/* 8002D7F4 83EDA6BC */  lwz      r31, -22852(r13);
+/* 8002D7F4 83EDA6BC */  lwz      r31, UNDEF_8042a03c@sda21;
 /* 8002D7F8 38610008 */  addi     r3, r1, 8;
 /* 8002D7FC 389D00AC */  addi     r4, r29, 172;
 /* 8002D800 4803CCB1 */  bl       UNDEF_8006a4b0;

@@ -37,7 +37,7 @@ dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
 /* 80157050 38A516E0 */  addi     r5, r5, UNDEF_800b16e0@l;
 /* 80157054          */  li       r7, PLAYER_COUNT;
 /* 80157058 48185C39 */  bl       UNDEF_802dcc90;
-/* 8015705C 93EDAC80 */  stw      r31, -21376(r13);
+/* 8015705C 93EDAC80 */  stw      r31, UNDEF_8042a600@sda21;
 /* 80157060 7FE3FB78 */  mr       r3, r31;
 /* 80157064 83E1000C */  lwz      r31, 12(r1);
 /* 80157068 80010014 */  lwz      r0, 20(r1);
@@ -62,7 +62,7 @@ dfukidashiManager_c::~dfukidashiManager_c() ASM_METHOD(
 /* 801570A0 4182004C */  beq-     UNDEF_801570ec;
 /* 801570A4 38000000 */  li       r0, 0;
 /* 801570A8 3C80800B */  lis      r4, UNDEF_800b16e0@ha; // __dt__16dfukidashiInfo_cFv
-/* 801570AC 900DAC80 */  stw      r0, -21376(r13);
+/* 801570AC 900DAC80 */  stw      r0, UNDEF_8042a600@sda21;
 /* 801570B0 388416E0 */  addi     r4, r4, UNDEF_800b16e0@l; // __dt__16dfukidashiInfo_cFv
 /* 801570B4 38A0023C */  li       r5, 0x23C;
 /* 801570B8          */  li       r6, PLAYER_COUNT;

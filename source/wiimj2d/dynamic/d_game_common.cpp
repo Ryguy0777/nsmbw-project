@@ -42,13 +42,13 @@ bool chkCancelButton(int player);
 [[address(0x800B3600)]]
 void FUN_800B3600() ASM_METHOD(
   // clang-format off
-/* 800B3600 800DAB64 */  lwz      r0, -21660(r13);
+/* 800B3600 800DAB64 */  lwz      r0, UNDEF_8042a4e4@sda21;
 /* 800B3604 7C691B78 */  mr       r9, r3;
 /* 800B3608 7C852378 */  mr       r5, r4;
 /* 800B360C 2C000000 */  cmpwi    r0, 0;
 /* 800B3610 4C820020 */  bnelr-;
 /* 800B3614 3CC0802F */  lis      r6, UNDEF_802f0df8@ha;
-/* 800B3618 80EDAC80 */  lwz      r7, -21376(r13);
+/* 800B3618 80EDAC80 */  lwz      r7, UNDEF_8042a600@sda21;
 /* 800B361C 38C60DF8 */  addi     r6, r6, UNDEF_802f0df8@l;
 /* 800B3620 7C0620AE */  lbzx     r0, r6, r4;
 /* 800B3624 2C000000 */  cmpwi    r0, 0;

@@ -268,7 +268,7 @@ void dfukidashiInfo_c::executeState_Move() ASM_METHOD(
 /* 800B2240 93C10008 */  stw      r30, 8(r1);
 /* 800B2244 7C7E1B78 */  mr       r30, r3;
 /* 800B2248 80830224 */  lwz      r4, 548(r3);
-/* 800B224C 83EDA8DC */  lwz      r31, -22308(r13); // m_instance__7dInfo_c
+/* 800B224C 83EDA8DC */  lwz      r31, UNDEF_8042a25c@sda21; // m_instance__7dInfo_c
 /* 800B2250 2C040000 */  cmpwi    r4, 0;
 /* 800B2254 41820010 */  beq-     UNDEF_800b2264;
 /* 800B2258 80030234 */  lwz      r0, 564(r3);

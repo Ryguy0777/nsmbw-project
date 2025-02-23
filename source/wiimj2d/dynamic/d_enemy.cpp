@@ -46,7 +46,7 @@ UNDEF_80095268:;
 /* 800952C0 4E800421 */  bctrl;
 /* 800952C4 2C030000 */  cmpwi    r3, 0;
 /* 800952C8 418200A8 */  beq-     UNDEF_80095370;
-/* 800952CC 806DA968 */  lwz      r3, -22168(r13);
+/* 800952CC 806DA968 */  lwz      r3, UNDEF_8042a2e8@sda21;
 /* 800952D0 80630030 */  lwz      r3, 48(r3);
 /* 800952D4 546007BD */  rlwinm.  r0, r3, 0, 30, 30;
 /* 800952D8 4182003C */  beq-     UNDEF_80095314;
@@ -362,7 +362,7 @@ void dEn_c::slipBound(dActor_c*) ASM_METHOD(
 /* 80097BBC 7C000026 */  mfcr     r0;
 /* 80097BC0 819F0060 */  lwz      r12, 96(r31);
 /* 80097BC4 54001FFE */  extrwi   r0, r0, 1, 2;
-/* 80097BC8 38C29198 */  subi     r6, r2, 28264;
+/* 80097BC8 38C29198 */  la       r6, UNDEF_8042c4f8@sda21;
 /* 80097BCC 7C000034 */  cntlzw   r0, r0;
 /* 80097BD0 818C03FC */  lwz      r12, 1020(r12);
 /* 80097BD4 5400EDBA */  rlwinm   r0, r0, 29, 22, 29;

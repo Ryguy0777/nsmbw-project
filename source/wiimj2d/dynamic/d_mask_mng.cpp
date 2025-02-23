@@ -15,7 +15,7 @@ void CreatePlayerMask() ASM_METHOD(
 /* 800CD29C DBE10020 */  stfd     f31, 32(r1);
 /* 800CD2A0 F3E10028 */  .long    0xF3E10028; // psq_st   f31, 40(r1), 0, 0;
 /* 800CD2A4 93E1001C */  stw      r31, 28(r1);
-/* 800CD2A8 806DA730 */  lwz      r3, -22736(r13);
+/* 800CD2A8 806DA730 */  lwz      r3, UNDEF_8042a0b0@sda21;
 /* 800CD2AC 3C830009 */  addis    r4, r3, 9;
 /* 800CD2B0 C3E4FE6C */  lfs      f31, -404(r4);
 /* 800CD2B4 4BFAB6ED */  bl       UNDEF_800789a0;

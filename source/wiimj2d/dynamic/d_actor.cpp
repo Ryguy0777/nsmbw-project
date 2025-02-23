@@ -111,7 +111,7 @@ void dActor_c::carryFukidashiCheck(int param1, mVec2_c param2) ASM_METHOD(
 /* 80065248 41810028 */  bgt-     UNDEF_80065270;
                          cmpwi    r0, 4;
 /* 8006524C 1C000016 */  mulli    r0, r0, 22;
-/* 80065250 806DA8DC */  lwz      r3, -22308(r13);
+/* 80065250 806DA8DC */  lwz      r3, UNDEF_8042a25c@sda21;
 /* 80065254 7C030214 */  add      r0, r3, r0;
 /* 80065258 7C60E214 */  add      r3, r0, r28;
 
@@ -152,7 +152,7 @@ UNDEF_80065270:;
 /* 800652D0 EC640028 */  fsubs    f3, f4, f0;
 /* 800652D4 D3C10054 */  stfs     f30, 84(r1);
 /* 800652D8 EC04002A */  fadds    f0, f4, f0;
-/* 800652DC 808DAC80 */  lwz      r4, -21376(r13);
+/* 800652DC 808DAC80 */  lwz      r4, UNDEF_8042a600@sda21;
 /* 800652E0 EC9F2828 */  fsubs    f4, f31, f5;
 /* 800652E4 D3C10048 */  stfs     f30, 72(r1);
 /* 800652E8 EC631028 */  fsubs    f3, f3, f2;
@@ -331,11 +331,11 @@ dAcPy_c* dActor_c::searchCarryFukidashiPlayer(int param1) ASM_METHOD(
 /* 8006555C 3BE00001 */  li       r31, 1;
 UNDEF_80065560:;
 /* 80065560 5780063E */  clrlwi   r0, r28, 24;
-/* 80065564 886DA608 */  lbz      r3, -23032(r13);
+/* 80065564 886DA608 */  lbz      r3, UNDEF_80429f88@sda21;
 /* 80065568 7FE00030 */  slw      r0, r31, r0;
 /* 8006556C 7C600039 */  and.     r0, r3, r0;
 /* 80065570 41820070 */  beq-     UNDEF_800655e0;
-/* 80065574 806DA8DC */  lwz      r3, -22308(r13);
+/* 80065574 806DA8DC */  lwz      r3, UNDEF_8042a25c@sda21;
 /* 80065578 7C1EDA14 */  add      r0, r30, r27;
 /* 8006557C 7C630214 */  add      r3, r3, r0;
 /* 80065580 88030AFE */  lbz      r0, 2814(r3);
