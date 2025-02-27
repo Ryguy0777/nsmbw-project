@@ -66,7 +66,7 @@ void dGameKeyCore_c::setShakeY()
 
         if (mShakeTimer3 != 0) {
             mShakeTimer3--;
-            mShake = true;
+            mShake = false;
             return;
         }
 
