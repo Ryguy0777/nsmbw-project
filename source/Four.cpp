@@ -40,7 +40,6 @@ struct FourPatch {
 };
 
 constinit FourPatch FOUR_PATCH_LIST[] = {
-#ifndef CLANGD
   // daBullet_c::hitCallback
   {0x8001DE5C + 2, 2},
 
@@ -399,6 +398,8 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80843fd0
   {0x80844124 + 2, 2},
 
+  // TODO daLiftSpinRotation_c::UNDEF_8084cdf0
+
   // daLineKinokoBlock_c::UNDEF_808575c0
   {0x80857614 + 2, 2},
   {0x80857664 + 2, 2},
@@ -645,10 +646,6 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daEnZoom_c::execute - Some 2-5 special zoom thing
   {0x80ACD0F4 + 2, 2},
 
-  // daEnBossCastleIggy_c::UNDEF_80b1d450
-  // TODO: Direct access of player 1 here
-  {0x80B1D54C + 2, 2},
-
   // daEnBossKameck_c::executeState_Vanish
   {0x80B3AA8C + 2, 2},
 
@@ -680,17 +677,13 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80b50580
   {0x80B50664 + 2, 2},
 
-// Morton stunning players?
-// TODO: 80b60180
-// TODO: 0x80B60220
+  // Morton stunning players?
+  // TODO: 80b60180
+  // TODO: 0x80B60220
 
-// Roy stunning players?
-// TODO: 0x80B63C60
-// TODO: 0x80B63D10
-
-// daLiftSpinRotation_c
-// TODO: 8084cdf0
-#endif
+  // Roy stunning players?
+  // TODO: 0x80B63C60
+  // TODO: 0x80B63D10
 };
 
 void Four::Apply()

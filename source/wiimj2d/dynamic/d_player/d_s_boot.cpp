@@ -71,7 +71,7 @@ void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
     for (int i = 0; i < 1; i++) {
-        daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::BLACK_TOAD;
+        // daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::BLACK_TOAD;
         daPyMng_c::mPlayerEntry[i] = 1;
 
         int playerType = int(daPyMng_c::mPlayerType[i]);
@@ -85,21 +85,21 @@ void dScBoot_c::executeState_ProcEnd()
         }
     }
 
-    daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
+    // daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
 
     // daPyMng_c::mPlayerEntry[4] = 1;
 
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,
       .demoType = 0,
-      .gotoID = 0,
+      .gotoID = 1,
       .courseID = 1,
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
-      .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_2,
-      .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_2,
+      .world1 = WORLD_e::WORLD_5,
+      .stage1 = STAGE_e::CASTLE,
+      .world2 = WORLD_e::WORLD_5,
+      .stage2 = STAGE_e::CASTLE,
     });
 }
 #endif

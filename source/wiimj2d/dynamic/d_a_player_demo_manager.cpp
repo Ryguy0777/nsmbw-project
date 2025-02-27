@@ -892,7 +892,7 @@ bool daPyDemoMng_c::startControlDemoLandPlayer()
         }
     }
 
-    return ret == 0;
+    return ret != 0;
 }
 
 [[address(0x8005CDD0)]]
