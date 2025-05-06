@@ -2,6 +2,7 @@
 // NSMBW .text: 0x8005E9A0 - 0x800613B0
 
 #include "d_a_player_manager.h"
+#include "framework/f_feature.h"
 
 #include <PatchRel.h>
 #include <dynamic/d_a_player_demo_manager.h>
@@ -361,12 +362,28 @@ void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
     mKinopioMode = kinopioMode;
 }
 
+static int mDeathCount[PLAYER_COUNT] = {};
+
 [[address(0x8005F5C0)]]
 void daPyMng_c::update()
 {
+    // Hack for incrementing death count
+    if (fFeature::INFINITE_LIVES) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
+            if (mRest[i] == 4) {
+                mDeathCount[i]++;
+            }
+            mRest[i] = 5;
+        }
+    }
+
     updateBGM();
     if (dGameDisplay_c* display = dScStage_c::getGameDisplay()) {
-        display->updatePlayNum(mRest);
+        if (fFeature::INFINITE_LIVES) {
+            display->updatePlayNum(mDeathCount);
+        } else {
+            display->updatePlayNum(mRest);
+        }
         display->setCoinNum(getCoinAll());
         display->setScore(mScore);
         display->setCollect();
@@ -695,7 +712,7 @@ void daPyMng_c::incRestAll(bool playEffect)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mPlayerEntry[i] != 0) {
-            addRest(i, 1, playEffect);
+            addRest(i, fFeature::INFINITE_LIVES ? 0 : 1, playEffect);
         }
     }
 }

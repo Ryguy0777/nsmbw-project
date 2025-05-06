@@ -65,7 +65,7 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     changeState(StateID_ControllerInformationFadeIn);
 }
 
-#if 1
+#if 0
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
@@ -92,13 +92,13 @@ void dScBoot_c::executeState_ProcEnd()
     dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
       .demoTime = 0,
       .demoType = 0,
-      .gotoID = 1,
-      .courseID = 1,
+      .gotoID = 0,
+      .courseID = 0,
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
-      .world1 = WORLD_e::WORLD_5,
+      .world1 = WORLD_e::WORLD_1,
       .stage1 = STAGE_e::CASTLE,
-      .world2 = WORLD_e::WORLD_5,
+      .world2 = WORLD_e::WORLD_1,
       .stage2 = STAGE_e::CASTLE,
     });
 }

@@ -2,6 +2,7 @@
 // NSMBW .text: 0x80157820 - 0x8015A480
 
 #include "d_gamedisplay.h"
+#include "framework/f_feature.h"
 
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_game_common.h>
@@ -722,15 +723,20 @@ void dGameDisplay_c::updatePlayNum(int* playNum)
             mEffectTimer[i] = Effect1Up(PLAYER_PANE_INDEX[i]) ? 15 : 0;
         }
 
-        if (newPlayNum == 0 && !mPlayerGray[i]) {
+        if (!fFeature::INFINITE_LIVES && newPlayNum == 0 && !mPlayerGray[i]) {
             GrayColorSet(i);
             mPlayerGray[i] = 1;
-        } else if (newPlayNum != 0 && mPlayerGray[i]) {
+        } else if ((newPlayNum != 0 || fFeature::INFINITE_LIVES) && mPlayerGray[i]) {
             ReturnGrayColorSet(i);
             mPlayerGray[i] = 0;
         }
 
-        static int maxChars = 2;
+        int maxChars = 2;
+        if (fFeature::INFINITE_LIVES) {
+            if (newPlayNum > 99) {
+                maxChars = 4;
+            }
+        }
         dGameCom::setNumInTextBox(&newPlayNum, &maxChars, mpaTextBoxes[PLAYER_TEXTBOX_INDEX[i]], 0);
     }
 }
