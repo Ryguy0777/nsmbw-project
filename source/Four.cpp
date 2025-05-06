@@ -448,8 +448,9 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daPowBlock_c::UNDEF_80891a70
   {0x80891A9C + 2, 2},
 
-  // UNDEF_80898190
-  {0x808981E8 + 2, 2},
+  // TODO: UNDEF_80898190
+  // Related to the mini-mario only layer-switching pipes in 1-3
+  // {0x808981E8 + 2, 2},
 
   // TODO daShipGear_c::UNDEF_808a2180
 

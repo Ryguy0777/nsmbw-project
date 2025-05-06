@@ -70,11 +70,10 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 8; i++) {
         // daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::BLACK_TOAD;
         daPyMng_c::mPlayerEntry[i] = 1;
 
-        int playerType = int(daPyMng_c::mPlayerType[i]);
         daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::PROPELLER_SHROOM);
         daPyMng_c::mCreateItem[i] = 0;
 
@@ -97,9 +96,9 @@ void dScBoot_c::executeState_ProcEnd()
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
       .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::CASTLE,
+      .stage1 = STAGE_e::STAGE_3,
       .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::CASTLE,
+      .stage2 = STAGE_e::STAGE_3,
     });
 }
 #endif
