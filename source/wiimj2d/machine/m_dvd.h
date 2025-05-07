@@ -17,6 +17,8 @@ void* loadToMainRAM(
   s32 offset, u32* outAmountRead, u32* outFileSize, u32 decompressorType
 );
 
+bool getFileSize(const char* path, u32* outFileSize);
+
 } // namespace mDvd
 
 class mDvd_command_c

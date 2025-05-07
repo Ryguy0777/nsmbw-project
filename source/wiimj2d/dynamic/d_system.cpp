@@ -4,14 +4,15 @@
 #include "d_system.h"
 
 #include <dynamic/d_a_player_manager.h>
+#include <dynamic/d_player/d_s_boot.h>
 #include <dynamic/d_remocon_mng.h>
 #include <dynamic/d_resource_manager.h>
-#include <dynamic/d_player/d_s_boot.h>
 #include <egg/core/eggController.h>
 #include <machine/m_heap.h>
 #include <machine/m_pad.h>
 #include <revolution/dvd.h>
 #include <revolution/pad.h>
+#include <sound/SndAudioMgr.h>
 
 [[address_data(0x8042A370)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem1;
@@ -100,7 +101,7 @@ void dSys_c::initCModule()
 
     daPyMng_c::initGame();
 
-    dResMng_c::m_instance->loadKinopicoSound();
+    SndAudioMgr::sInstance->loadKinopicoSound();
 
     ms_RootHeapMem1->mFlags.setBit(0);
     ms_RootHeapMem2->mFlags.setBit(0);

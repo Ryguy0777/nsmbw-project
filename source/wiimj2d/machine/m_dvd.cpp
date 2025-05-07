@@ -621,3 +621,15 @@ mDvd_toMainRam_c* mDvd_toMainRam_c::create(const char* path, u8 param2, EGG::Hea
     }
     return cmd;
 }
+
+bool mDvd::getFileSize(const char* path, u32* outFileSize)
+{
+    EGG::DvdFile file;
+    if (!file.open(path)) {
+        return false;
+    }
+
+    *outFileSize = file.mFileInfo.length;
+    file.close();
+    return true;
+}

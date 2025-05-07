@@ -12,8 +12,6 @@ public:
     /* 0x800DF8C0 */
     void setRes(const char* dir, const char** files, int count, EGG::Heap* heap);
 
-    void loadKinopicoSound();
-
 public:
     // -----------
     // Static Data
