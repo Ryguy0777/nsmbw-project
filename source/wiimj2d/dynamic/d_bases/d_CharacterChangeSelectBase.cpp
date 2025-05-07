@@ -8,6 +8,13 @@
 #include <dynamic/d_remocon_mng.h>
 #include <revolution/os.h>
 
+daPyMng_c::PlayerType_e g_CHARACTER_FROM_BASE[] = {
+  daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
+  daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
+  daPyMng_c::PlayerType_e::TOADETTE,    daPyMng_c::PlayerType_e::PURPLE_TOADETTE,
+  daPyMng_c::PlayerType_e::ORANGE_TOAD, daPyMng_c::PlayerType_e::BLACK_TOAD,
+};
+
 [[address(0x8076FAE0)]]
 bool dCharacterChangeSelectBase_c::updateRemocon() ASM_METHOD(
   // clang-format off
@@ -123,13 +130,13 @@ UNDEF_8076fc5c:;
   // clang-format on
 );
 
-dPyMdlMng_c::ModelType_e get_CHARACTER_FROM_BASE(u32 baseIndex)
+daPyMng_c::PlayerType_e  get_CHARACTER_FROM_BASE(u32 baseIndex)
 {
     return dCharacterChangeSelectBase_c::CHARACTER_FROM_BASE[4 - baseIndex];
 }
 
 [[address(0x8076FC80)]]
-bool dCharacterChangeSelectBase_c::isCharacterLocked(dPyMdlMng_c::ModelType_e character);
+bool dCharacterChangeSelectBase_c::isCharacterLocked(daPyMng_c::PlayerType_e  character);
 
 [[address(0x8076FD70)]]
 void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 swapIndex, u32 baseIndex)
@@ -199,6 +206,89 @@ void dCharacterChangeSelectBase_c::UNDEF_8076FEE0() ASM_METHOD(
 /* 8076FF78 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x807702A0)]]
+void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait() ASM_METHOD(
+  // clang-format off
+/* 807702A0 9421FFE0 */  stwu     r1, -32(r1);
+/* 807702A4 7C0802A6 */  mflr     r0;
+/* 807702A8 90010024 */  stw      r0, 36(r1);
+/* 807702AC 93E1001C */  stw      r31, 28(r1);
+/* 807702B0 7C7F1B78 */  mr       r31, r3;
+/* 807702B4 93C10018 */  stw      r30, 24(r1);
+/* 807702B8 3FC08099 */  lis      r30, UNDEF_80990948@ha;
+/* 807702BC 3BDE0948 */  addi     r30, r30, UNDEF_80990948@l;
+/* 807702C0 88030299 */  lbz      r0, 665(r3);
+/* 807702C4 2C000000 */  cmpwi    r0, 0;
+/* 807702C8 41820108 */  beq-     UNDEF_807703d0;
+/* 807702CC 3C808043 */  lis      r4, m_nowScene__8dScene_c@ha;
+/* 807702D0 A0A48A42 */  lhz      r5, m_nowScene__8dScene_c@l(r4);
+/* 807702D4 28050003 */  cmplwi   r5, 3;
+/* 807702D8 408200B8 */  bne-     UNDEF_80770390;
+/* 807702DC 800302D8 */  lwz      r0, 728(r3);
+/* 807702E0 80830280 */  lwz      r4, 640(r3);
+/* 807702E4 5400103A */  slwi     r0, r0, 2;
+/* 807702E8 7C04002E */  lwzx     r0, r4, r0;
+/* 807702EC 2C000003 */  cmpwi    r0, 3;
+/* 807702F0 408200A0 */  bne-     UNDEF_80770390;
+/* 807702F4 4BFFFB6D */  bl       UNDEF_8076fe60;
+/* 807702F8 7FE3FB78 */  mr       r3, r31;
+/* 807702FC 4BFFFB45 */  bl       UNDEF_8076fe40;
+/* 80770300 80BF02DC */  lwz      r5, 732(r31);
+/* 80770304 387F0228 */  addi     r3, r31, 552;
+/* 80770308 801F02D4 */  lwz      r0, 724(r31);
+/* 8077030C 389E03D0 */  addi     r4, r30, 976;
+/* 80770310 1CA5000C */  mulli    r5, r5, 12;
+/* 80770314 C07F02F0 */  lfs      f3, 752(r31);
+/* 80770318 5400103A */  slwi     r0, r0, 2;
+/* 8077031C 7CDF2A14 */  add      r6, r31, r5;
+/* 80770320          */  lwz      r5, 0x80(r31);
+/* 80770324 C00602AC */  lfs      f0, 684(r6);
+/* 80770328 C02602A8 */  lfs      f1, 680(r6);
+/* 8077032C C04602A4 */  lfs      f2, 676(r6);
+/* 80770330          */  lwzx     r5, r5, r0; 
+/* 80770334 D0410008 */  stfs     f2, 8(r1);
+/* 80770338 D065025C */  stfs     f3, 604(r5);
+/* 80770340 D021000C */  stfs     f1, 12(r1);
+/* 8077034C D0010010 */  stfs     f0, 16(r1);
+/* 80770354 D045022C */  stfs     f2, 556(r5);
+/* 80770358 D0250230 */  stfs     f1, 560(r5);
+/* 8077035C D0050234 */  stfs     f0, 564(r5);
+/* 80770370 D04500AC */  stfs     f2, 172(r5);
+/* 80770374 D02500B0 */  stfs     f1, 176(r5);
+/* 80770378 D00500B4 */  stfs     f0, 180(r5);
+/* 8077037C 819F0228 */  lwz      r12, 552(r31);
+/* 80770380 818C0018 */  lwz      r12, 24(r12);
+/* 80770384 7D8903A6 */  mtctr    r12;
+/* 80770388 4E800421 */  bctrl;
+/* 8077038C 48000044 */  b        UNDEF_807703d0;
+UNDEF_80770390:;
+/* 80770390 28050003 */  cmplwi   r5, 3;
+/* 80770394 41820028 */  beq-     UNDEF_807703bc;
+/* 80770398 800302D8 */  lwz      r0, 728(r3);
+/* 8077039C 2C000000 */  cmpwi    r0, 0;
+/* 807703A0 4180001C */  blt-     UNDEF_807703bc;
+/* 807703A4 85830228 */  lwzu     r12, 552(r3);
+/* 807703A8 389E0210 */  addi     r4, r30, 528;
+/* 807703AC 818C0018 */  lwz      r12, 24(r12);
+/* 807703B0 7D8903A6 */  mtctr    r12;
+/* 807703B4 4E800421 */  bctrl;
+/* 807703B8 48000018 */  b        UNDEF_807703d0;
+UNDEF_807703bc:;
+/* 807703BC 85830228 */  lwzu     r12, 552(r3);
+/* 807703C0 389E00D0 */  addi     r4, r30, 208;
+/* 807703C4 818C0018 */  lwz      r12, 24(r12);
+/* 807703C8 7D8903A6 */  mtctr    r12;
+/* 807703CC 4E800421 */  bctrl;
+UNDEF_807703d0:;
+/* 807703D0 80010024 */  lwz      r0, 36(r1);
+/* 807703D4 83E1001C */  lwz      r31, 28(r1);
+/* 807703D8 83C10018 */  lwz      r30, 24(r1);
+/* 807703DC 7C0803A6 */  mtlr     r0;
+/* 807703E0 38210020 */  addi     r1, r1, 32;
+/* 807703E4 4E800020 */  blr;
+  // clang-format on
+)
 
 [[address(0x807708E0)]]
 void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
@@ -322,8 +412,8 @@ UNDEF_80770acc:;
 /* 80770AE0 41820044 */  beq-     UNDEF_80770b24;
 /* 80770AE4 807E02E0 */  lwz      r3, 736(r30);
 
-                         // Changed from 1 to 0 to allow selecting Toadette
-/* 80770AE8          */  cmpwi    r3, 0;
+                         // Changed from 1 to -3 to allow selecting four extra characters
+/* 80770AE8          */  cmpwi    r3, 5 - CHARACTER_LIST_COUNT;
 
 /* 80770AEC 40810038 */  ble-     UNDEF_80770b24;
 /* 80770AF0 38800004 */  li       r4, 4;
@@ -349,7 +439,77 @@ UNDEF_80770b24:;
 /* 80770B34 7C0803A6 */  mtlr     r0;
 /* 80770B38 38210020 */  addi     r1, r1, 32;
 /* 80770B3C 4E800020 */  blr;
+  // clang-format on
+);
 
+[[address(0x80770EE0)]]
+void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageWait() ASM_METHOD(
+  // clang-format off
+/* 80770EE0 9421FFD0 */  stwu     r1, -48(r1);
+/* 80770EE4 7C0802A6 */  mflr     r0;
+/* 80770EE8 3C808093 */  lis      r4, UNDEF_80933d48@ha;
+/* 80770EEC 3CE08093 */  lis      r7, UNDEF_80933d40@ha;
+/* 80770EF0 90010034 */  stw      r0, 52(r1);
+/* 80770EF4 3C004330 */  lis      r0, 17200;
+/* 80770EF8 C8443D48 */  lfd      f2, UNDEF_80933d48@l(r4);
+/* 80770EFC 93E1002C */  stw      r31, 44(r1);
+/* 80770F00 7C7F1B78 */  mr       r31, r3;
+/* 80770F04 C0273D40 */  lfs      f1, UNDEF_80933d40@l(r7);
+/* 80770F08 93C10028 */  stw      r30, 40(r1);
+/* 80770F0C 3BC00001 */  li       r30, 1;
+/* 80770F10 80C302DC */  lwz      r6, 732(r3);
+/* 80770F14 80A302D4 */  lwz      r5, 724(r3);
+/* 80770F18 1D06000C */  mulli    r8, r6, 12;
+/* 80770F1C 3CC08093 */  lis      r6, UNDEF_809352b0@ha;
+/* 80770F20 54A5103A */  slwi     r5, r5, 2;
+/* 80770F24 90010020 */  stw      r0, 32(r1);
+/* 80770F28 7D234214 */  add      r9, r3, r8;
+                         lwz      r12, 0x80(r3);
+/* 80770F30 C06902AC */  lfs      f3, 684(r9);
+/* 80770F34 3D008043 */  lis      r8, UNDEF_8042a760@ha;
+/* 80770F38 C08902A8 */  lfs      f4, 680(r9);
+/* 80770F40          */  lwzx     r10, r12, r5;
+/* 80770F3C 38A00000 */  li       r5, 0;
+/* 80770F44 38800004 */  li       r4, 4;
+/* 80770F48 C00902A4 */  lfs      f0, 676(r9);
+/* 80770F4C D00A022C */  stfs     f0, 556(r10);
+/* 80770F50 C00652B0 */  lfs      f0, UNDEF_809352b0@l(r6);
+/* 80770F54 D08A0230 */  stfs     f4, 560(r10);
+/* 80770F58 EC010032 */  fmuls    f0, f1, f0;
+/* 80770F5C D06A0234 */  stfs     f3, 564(r10);
+/* 80770F60 80C8A760 */  lwz      r6, UNDEF_8042a760@l(r8);
+/* 80770F64 C0A30104 */  lfs      f5, 260(r3);
+/* 80770F68 80C60000 */  lwz      r6, 0(r6);
+/* 80770F6C 800302D4 */  lwz      r0, 724(r3);
+/* 80770F70 A0C60004 */  lhz      r6, 4(r6);
+/* 80770F74 90C10024 */  stw      r6, 36(r1);
+/* 80770F78 5400103A */  slwi     r0, r0, 2;
+/* 80770F7C          */  lwz      r6, 0x80(r3);
+/* 80770F80 C0C30108 */  lfs      f6, 264(r3);
+/* 80770F84 C8210020 */  lfd      f1, 32(r1);
+/* 80770F88          */  lwzx     r6, r6, r0;
+/* 80770F8C EC211028 */  fsubs    f1, f1, f2;
+/* 80770F90 D0810014 */  stfs     f4, 20(r1);
+/* 80770F94 D0610018 */  stfs     f3, 24(r1);
+/* 80770F98 EC212824 */  fdivs    f1, f1, f5;
+/* 80770F9C D0A10008 */  stfs     f5, 8(r1);
+/* 80770FA0 D0C1000C */  stfs     f6, 12(r1);
+/* 80770FA4 EC01002A */  fadds    f0, f1, f0;
+/* 80770FA8 D00600AC */  stfs     f0, 172(r6);
+/* 80770FAC D08600B0 */  stfs     f4, 176(r6);
+/* 80770FB0 D06600B4 */  stfs     f3, 180(r6);
+/* 80770FB8 D0010010 */  stfs     f0, 16(r1);
+/* 80770FC8 9BC60267 */  stb      r30, 615(r6);
+/* 80770FD8 38630090 */  addi     r3, r3, 144;
+/* 80770FE0 9BC60261 */  stb      r30, 609(r6);
+/* 80770FE4 4B9583FD */  bl       UNDEF_800c93e0;
+/* 80770FE8 9BDF0296 */  stb      r30, 662(r31);
+/* 80770FEC 83E1002C */  lwz      r31, 44(r1);
+/* 80770FF0 83C10028 */  lwz      r30, 40(r1);
+/* 80770FF4 80010034 */  lwz      r0, 52(r1);
+/* 80770FF8 7C0803A6 */  mtlr     r0;
+/* 80770FFC 38210030 */  addi     r1, r1, 48;
+/* 80771000 4E800020 */  blr;
   // clang-format on
 );
 
@@ -367,8 +527,8 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait() ASM_METHO
                          
                          // Mario voice
                          slwi     r0, r0, 2;
-                         add      r3, r3, r0;
-                         lwz      r3, 128(r3);
+                         lwz      r3, 0x80(r3);
+                         lwzx     r3, r3, r0;
                          lwz      r0, 568(r3);
                          cmpwi    r0, 3;
                          bne-     L_initializeState_PlayerOnStageWait_MarioSoundNotMini;
@@ -390,8 +550,8 @@ L_initializeState_PlayerOnStageWait_LuigiSound:;
 /* 807710A8 2C000001 */  cmpwi    r0, 1;
 /* 807710AC 4082004C */  bne-     L_initializeState_PlayerOnStageWait_BlueToadSound;
 /* 807710B0 5400103A */  slwi     r0, r0, 2;
-/* 807710B4 7C630214 */  add      r3, r3, r0;
-/* 807710B8 80630080 */  lwz      r3, 128(r3);
+/* 807710B4          */  lwz      r3, 0x80(r3);
+/* 807710B8          */  lwzx     r3, r3, r0;
 /* 807710BC 80030238 */  lwz      r0, 568(r3);
 /* 807710C0 2C000003 */  cmpwi    r0, 3;
 /* 807710C4 4082001C */  bne-     UNDEF_807710e0;
@@ -413,8 +573,8 @@ L_initializeState_PlayerOnStageWait_BlueToadSound:;
 /* 807710F8 2C000002 */  cmpwi    r0, 2;
 /* 807710FC 4082004C */  bne-     L_initializeState_PlayerOnStageWait_YellowToadSound;
 /* 80771100 5400103A */  slwi     r0, r0, 2;
-/* 80771104 7C630214 */  add      r3, r3, r0;
-/* 80771108 80630080 */  lwz      r3, 128(r3);
+/* 80771104          */  lwz      r3, 0x80(r3);
+/* 80771108          */  lwzx     r3, r3, r0;
 /* 8077110C 80030238 */  lwz      r0, 568(r3);
 /* 80771110 2C000003 */  cmpwi    r0, 3;
 /* 80771114 4082001C */  bne-     UNDEF_80771130;
@@ -434,8 +594,8 @@ UNDEF_80771130:;
 
 L_initializeState_PlayerOnStageWait_YellowToadSound:;
 /* 80771148 5400103A */  slwi     r0, r0, 2;
-/* 8077114C 7C630214 */  add      r3, r3, r0;
-/* 80771150 80630080 */  lwz      r3, 128(r3);
+/* 8077114C          */  lwz      r3, 0x80(r3);
+/* 80771150          */  lwzx     r3, r3, r0;
 /* 80771154 80030238 */  lwz      r0, 568(r3);
 /* 80771158 2C000003 */  cmpwi    r0, 3;
 /* 8077115C 4082001C */  bne-     UNDEF_80771178;
@@ -459,8 +619,8 @@ UNDEF_8077118c:;
 /* 8077119C 5404103A */  slwi     r4, r0, 2;
 /* 807711A0 54A0103A */  slwi     r0, r5, 2;
 /* 807711A4 7CA3212E */  stwx     r5, r3, r4;
-/* 807711A8 7C7F0214 */  add      r3, r31, r0;
-/* 807711AC 80A30080 */  lwz      r5, 128(r3);
+/* 807711A8          */  lwz      r3, 0x80(r31);
+/* 807711AC          */  lwzx     r5, r3, r0;
 /* 807711B0 88050262 */  lbz      r0, 610(r5);
 /* 807711B4 2C000000 */  cmpwi    r0, 0;
 /* 807711B8 40820034 */  bne-     UNDEF_807711ec;
@@ -481,8 +641,8 @@ UNDEF_807711ec:;
 /* 807711F0 38000001 */  li       r0, 1;
 /* 807711F4 C01F02F0 */  lfs      f0, 752(r31);
 /* 807711F8 5463103A */  slwi     r3, r3, 2;
-/* 807711FC 7C7F1A14 */  add      r3, r31, r3;
-/* 80771200 80630080 */  lwz      r3, 128(r3);
+/* 807711FC          */  lwz      r4, 0x80(r31);
+/* 80771200          */  lwzx     r3, r4, r3;
 /* 80771204 D003025C */  stfs     f0, 604(r3);
 /* 80771208 981F0296 */  stb      r0, 662(r31);
 /* 8077120C 83E1000C */  lwz      r31, 12(r1);
@@ -490,5 +650,226 @@ UNDEF_807711ec:;
 /* 80771214 7C0803A6 */  mtlr     r0;
 /* 80771218 38210010 */  addi     r1, r1, 16;
 /* 8077121C 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x80771220)]]
+void dCharacterChangeSelectBase_c::executeState_PlayerOnStageWait() ASM_METHOD(
+  // clang-format off
+/* 80771220 800302D4 */  lwz      r0, 724(r3);
+/* 80771224 5400103A */  slwi     r0, r0, 2;
+/* 80771228          */  lwz      r4, 0x80(r3);
+/* 8077122C 80840080 */  lwzx     r4, r4, r0;
+/* 80771230 88040263 */  lbz      r0, 611(r4);
+/* 80771234 2C000000 */  cmpwi    r0, 0;
+/* 80771238 4C820020 */  bnelr-;
+/* 8077123C 88040262 */  lbz      r0, 610(r4);
+/* 80771240 2C000000 */  cmpwi    r0, 0;
+/* 80771244 41820008 */  beq-     UNDEF_8077124c;
+/* 80771248 4E800020 */  blr;
+UNDEF_8077124c:;
+/* 8077124C 85830228 */  lwzu     r12, 552(r3);
+/* 80771250 3C808099 */  lis      r4, UNDEF_80990d18@ha;
+/* 80771254 38840D18 */  addi     r4, r4, UNDEF_80990d18@l;
+/* 80771258 818C0018 */  lwz      r12, 24(r12);
+/* 8077125C 7D8903A6 */  mtctr    r12;
+/* 80771260 4E800420 */  bctr;
+  // clang-format on
+);
+
+[[address(0x80771270)]]
+void dCharacterChangeSelectBase_c::finalizeState_PlayerOnStageWait() ASM_METHOD(
+  // clang-format off
+/* 80771270 808302D4 */  lwz      r4, 724(r3);
+/* 80771274 38A00000 */  li       r5, 0;
+/* 80771278 38000001 */  li       r0, 1;
+/* 8077127C 5484103A */  slwi     r4, r4, 2;
+/* 80771280          */  lwz      r6, 0x80(r3);
+/* 80771284          */  lwzx     r4, r6, r4;
+/* 80771288 98A40267 */  stb      r5, 615(r4);
+/* 8077128C C00302EC */  lfs      f0, 748(r3);
+/* 80771290 8083007C */  lwz      r4, 124(r3);
+/* 80771294 9004024C */  stw      r0, 588(r4);
+/* 80771298 D0040234 */  stfs     f0, 564(r4);
+/* 8077129C 98A30296 */  stb      r5, 662(r3);
+/* 807712A0 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x807712B0)]]
+void dCharacterChangeSelectBase_c::initializeState_PlayerDisp() ASM_METHOD(
+  // clang-format off
+/* 807712B0 808302D4 */  lwz      r4, 724(r3);
+/* 807712B4 38000001 */  li       r0, 1;
+/* 807712B8 80A302D8 */  lwz      r5, 728(r3);
+/* 807712BC 5484103A */  slwi     r4, r4, 2;
+/* 807712C0          */  lwz      r6, 0x80(r3);
+/* 807712C4          */  lwzx     r4, r6, r4;
+/* 807712C8 90A40248 */  stw      r5, 584(r4);
+/* 807712CC 9803029A */  stb      r0, 666(r3);
+/* 807712D0 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x807712E0)]]
+void dCharacterChangeSelectBase_c::executeState_PlayerDisp() ASM_METHOD(
+  // clang-format off
+/* 807712E0 9421FFF0 */  stwu     r1, -16(r1);
+/* 807712E4 7C0802A6 */  mflr     r0;
+/* 807712E8 90010014 */  stw      r0, 20(r1);
+/* 807712EC 93E1000C */  stw      r31, 12(r1);
+/* 807712F0 7C7F1B78 */  mr       r31, r3;
+/* 807712F4 4BFFE7ED */  bl       UNDEF_8076fae0;
+/* 807712F8 2C030000 */  cmpwi    r3, 0;
+/* 807712FC 41820050 */  beq-     UNDEF_8077134c;
+/* 80771300 801F02D4 */  lwz      r0, 724(r31);
+/* 80771304 38C00001 */  li       r6, 1;
+/* 80771308 3C808099 */  lis      r4, UNDEF_80990dd8@ha;
+/* 8077130C 98DF0299 */  stb      r6, 665(r31);
+/* 80771310 5403103A */  slwi     r3, r0, 2;
+/* 80771314 3800FFFF */  li       r0, -1;
+/* 80771318          */  lwz      r5, 0x80(r31);
+/* 8077131C 38840DD8 */  addi     r4, r4, UNDEF_80990dd8@l;
+/* 80771320          */  lwzx     r5, r5, r3;
+/* 80771324 387F0228 */  addi     r3, r31, 552;
+/* 80771328 98C50269 */  stb      r6, 617(r5);
+/* 8077132C 80BF0074 */  lwz      r5, 116(r31);
+/* 80771330 98C5029F */  stb      r6, 671(r5);
+/* 80771334 901F02D8 */  stw      r0, 728(r31);
+/* 80771338 819F0228 */  lwz      r12, 552(r31);
+/* 8077133C 818C0018 */  lwz      r12, 24(r12);
+/* 80771340 7D8903A6 */  mtctr    r12;
+/* 80771344 4E800421 */  bctrl;
+/* 80771348 4800006C */  b        UNDEF_807713b4;
+UNDEF_8077134c:;
+/* 8077134C 807F02D8 */  lwz      r3, 728(r31);
+/* 80771350 4B9440A1 */  bl       UNDEF_800b53f0;
+/* 80771354 2C030000 */  cmpwi    r3, 0;
+/* 80771358 4182005C */  beq-     UNDEF_807713b4;
+/* 8077135C 3C608043 */  lis      r3, UNDEF_8042a768@ha;
+/* 80771360 3880007A */  li       r4, 122;
+/* 80771364 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
+/* 80771368 38A00001 */  li       r5, 1;
+/* 8077136C 4BA24155 */  bl       UNDEF_801954c0;
+/* 80771370 809F0288 */  lwz      r4, 648(r31);
+/* 80771374 80640000 */  lwz      r3, 0(r4);
+/* 80771378 3803FFFF */  subi     r0, r3, 1;
+/* 8077137C 90040000 */  stw      r0, 0(r4);
+/* 80771380 807F0288 */  lwz      r3, 648(r31);
+/* 80771384 80030000 */  lwz      r0, 0(r3);
+/* 80771388 2C000000 */  cmpwi    r0, 0;
+/* 8077138C 4080000C */  bge-     UNDEF_80771398;
+/* 80771390 38000000 */  li       r0, 0;
+/* 80771394 90030000 */  stw      r0, 0(r3);
+UNDEF_80771398:;
+/* 80771398 819F0228 */  lwz      r12, 552(r31);
+/* 8077139C 3C808099 */  lis      r4, UNDEF_80990d58@ha;
+/* 807713A0 387F0228 */  addi     r3, r31, 552;
+/* 807713A4 818C0018 */  lwz      r12, 24(r12);
+/* 807713A8 38840D58 */  addi     r4, r4, UNDEF_80990d58@l;
+/* 807713AC 7D8903A6 */  mtctr    r12;
+/* 807713B0 4E800421 */  bctrl;
+UNDEF_807713b4:;
+/* 807713B4 80010014 */  lwz      r0, 20(r1);
+/* 807713B8 83E1000C */  lwz      r31, 12(r1);
+/* 807713BC 7C0803A6 */  mtlr     r0;
+/* 807713C0 38210010 */  addi     r1, r1, 16;
+/* 807713C4 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x807713E0)]]
+void dCharacterChangeSelectBase_c::initializeState_PlayerExitWait() ASM_METHOD(
+  // clang-format off
+/* 807713E0 800302D4 */  lwz      r0, 724(r3);
+/* 807713E4 3C808093 */  lis      r4, UNDEF_809352b0@ha;
+/* 807713E8 C00452B0 */  lfs      f0, UNDEF_809352b0@l(r4);
+/* 807713EC 5400103A */  slwi     r0, r0, 2;
+/* 807713F0          */  lwz      r4, 0x80(r3);
+/* 807713F4          */  lwzx     r4, r4, r0;
+/* 807713F8 D004022C */  stfs     f0, 556(r4);
+/* 80771408 80C40080 */  lwz      r6, 128(r4);
+/* 8077140C 88060262 */  lbz      r0, 610(r6);
+/* 80771410 2C000000 */  cmpwi    r0, 0;
+/* 80771414 40820034 */  bne-     UNDEF_80771448;
+/* 80771418 88060263 */  lbz      r0, 611(r6);
+/* 8077141C 2C000000 */  cmpwi    r0, 0;
+/* 80771420 40820028 */  bne-     UNDEF_80771448;
+/* 80771424 38A00001 */  li       r5, 1;
+/* 80771428 98A60263 */  stb      r5, 611(r6);
+/* 8077142C 38000003 */  li       r0, 3;
+/* 80771430 3C808093 */  lis      r4, UNDEF_80933d50@ha;
+/* 80771434 9006023C */  stw      r0, 572(r6);
+/* 80771438 C0043D50 */  lfs      f0, UNDEF_80933d50@l(r4);
+/* 8077143C 90A60240 */  stw      r5, 576(r6);
+/* 80771440 D0060250 */  stfs     f0, 592(r6);
+/* 80771444 98A60265 */  stb      r5, 613(r6);
+UNDEF_80771448:;
+/* 80771448 800302D4 */  lwz      r0, 724(r3);
+/* 8077144C 38A00001 */  li       r5, 1;
+/* 80771450 5400103A */  slwi     r0, r0, 2;
+/* 80771454          */  lwz      r4, 0x80(r3);
+/* 80771458          */  lwzx     r4, r4, r0;
+/* 8077145C 98A40267 */  stb      r5, 615(r4);
+/* 80771460 80830074 */  lwz      r4, 116(r3);
+/* 80771464 98A30296 */  stb      r5, 662(r3);
+/* 80771468 98A4029F */  stb      r5, 671(r4);
+/* 8077146C 4E800020 */  blr;
+  // clang-format on
+);
+
+[[address(0x80771470)]]
+void dCharacterChangeSelectBase_c::executeState_PlayerExitWait() ASM_METHOD(
+  // clang-format off
+/* 80771470 800302D4 */  lwz      r0, 724(r3);
+/* 80771474 5400103A */  slwi     r0, r0, 2;
+/* 80771478          */  lwz      r4, 0x80(r3);
+/* 8077147C          */  lwzx     r4, r4, r0;
+/* 80771480 88040263 */  lbz      r0, 611(r4);
+/* 80771484 2C000000 */  cmpwi    r0, 0;
+/* 80771488 4C820020 */  bnelr-;
+/* 8077148C 88040262 */  lbz      r0, 610(r4);
+/* 80771490 2C000000 */  cmpwi    r0, 0;
+/* 80771494 41820008 */  beq-     UNDEF_8077149c;
+/* 80771498 4E800020 */  blr;
+UNDEF_8077149c:;
+/* 8077149C 85830228 */  lwzu     r12, 552(r3);
+/* 807714A0 3C808099 */  lis      r4, UNDEF_80990d98@ha;
+/* 807714A4 38840D98 */  addi     r4, r4, UNDEF_80990d98@l;
+/* 807714A8 818C0018 */  lwz      r12, 24(r12);
+/* 807714AC 7D8903A6 */  mtctr    r12;
+/* 807714B0 4E800420 */  bctr;
+  // clang-format on
+);
+
+[[address(0x807714C0)]]
+void dCharacterChangeSelectBase_c::finalizeState_PlayerExitWait() ASM_METHOD(
+  // clang-format off
+/* 807714C0 800302D8 */  lwz      r0, 728(r3);
+/* 807714C4 3CA08093 */  lis      r5, g_CHARACTER_FROM_BASE@ha;
+/* 807714C8 80C30280 */  lwz      r6, 640(r3);
+/* 807714CC 3C808035 */  lis      r4, mPlayerType__9daPyMng_c@ha;
+/* 807714D0 5400103A */  slwi     r0, r0, 2;
+/* 807714D4 38E00001 */  li       r7, 1;
+/* 807714D8 7CE6012E */  stwx     r7, r6, r0;
+/* 807714DC 38A53CC0 */  addi     r5, r5, g_CHARACTER_FROM_BASE@l;
+/* 807714E0 38845160 */  addi     r4, r4, mPlayerType__9daPyMng_c@l;
+/* 807714E4 38000000 */  li       r0, 0;
+/* 807714E8 80C302D4 */  lwz      r6, 724(r3);
+/* 807714EC 54C6103A */  slwi     r6, r6, 2;
+/* 807714F0          */  lwz      r8, 0x80(r3);
+/* 807714F4          */  lwzx     r6, r8, r6;
+/* 807714F8 98E60267 */  stb      r7, 615(r6);
+/* 807714FC 80E30264 */  lwz      r7, 612(r3);
+/* 80771500 88C700BB */  lbz      r6, 187(r7);
+/* 80771504 54C6063C */  rlwinm   r6, r6, 0, 24, 30;
+/* 80771508 60C60001 */  ori      r6, r6, 1;
+/* 8077150C 98C700BB */  stb      r6, 187(r7);
+/* 80771510 80C302D8 */  lwz      r6, 728(r3);
+/* 80771514 54C6103A */  slwi     r6, r6, 2;
+/* 80771518 7CA5302E */  lwzx     r5, r5, r6;
+/* 8077151C 7CA4312E */  stwx     r5, r4, r6;
+/* 80771520 98030296 */  stb      r0, 662(r3);
+/* 80771524 4E800020 */  blr;
   // clang-format on
 );

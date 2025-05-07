@@ -9,7 +9,6 @@
 #include <dynamic/d_bases/d_NumberOfPeopleChange.h>
 #include <framework/f_base_profile.h>
 
-
 [[address(0x80917EB0)]]
 bool dScGameSetup_c::add2dPlayer()
 {
@@ -25,10 +24,9 @@ bool dScGameSetup_c::add2dPlayer()
 
     if (id < 4) {
         mpa2DPlayer[id] = player;
-        mpNumPyChg->mpaPlayers[id] = player;
-    } else {
-        mpNumPyChg->mpaExPlayers[id - 4] = player;
+        // mpNumPyChg->mpaPlayers_Removed[id] = player;
     }
+    mpNumPyChg->mpaPlayers[id] = player;
 
     mPlayerCreateIdx++;
     if (mPlayerCreateIdx < CHARACTER_LIST_COUNT) {
@@ -192,6 +190,7 @@ void dScGameSetup_c::executeState_StartMember() ASM_METHOD(
                          li       r0, 4;
 L_dScGameSetup_c_executeState_StartMember_LessThan4:;
 /* 80918B74 900506C4 */  stw      r0, 0x6C4(r5);
+
 /* 80918B78 85830074 */  lwzu     r12, 116(r3);
 /* 80918B7C 818C0018 */  lwz      r12, 24(r12);
 /* 80918B80 7D8903A6 */  mtctr    r12;

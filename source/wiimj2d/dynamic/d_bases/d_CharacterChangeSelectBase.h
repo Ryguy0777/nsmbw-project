@@ -1,10 +1,12 @@
 #pragma once
 
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_base.h>
 #include <dynamic/d_player_model_manager.h>
 #include <state/s_State.h>
 
 class dCharacterChangeSelectContents_c;
+class da2DPlayer_c;
 
 class dCharacterChangeSelectBase_c : public dBase_c
 {
@@ -13,12 +15,12 @@ public:
     // Constants and Types
     // -------------------
 
-#define CHARACTER_LIST_COUNT 5
-    static constexpr dPyMdlMng_c::ModelType_e CHARACTER_FROM_BASE[] = {
-      dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
-      dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE,
-      dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
-      dPyMdlMng_c::ModelType_e::MODEL_TOAD_ORANGE, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLACK,
+#define CHARACTER_LIST_COUNT 8
+    static constexpr daPyMng_c::PlayerType_e CHARACTER_FROM_BASE[] = {
+      daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
+      daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
+      daPyMng_c::PlayerType_e::TOADETTE,    daPyMng_c::PlayerType_e::PURPLE_TOADETTE,
+      daPyMng_c::PlayerType_e::ORANGE_TOAD, daPyMng_c::PlayerType_e::BLACK_TOAD,
     };
 
     enum class Icon_e {
@@ -35,16 +37,25 @@ public:
         ICON_MARIO_LOCKED = 8,
         ICON_TOADETTE = 9,
         ICON_TOADETTE_LOCKED = 10,
+        ICON_PURPLE_TOADETTE = 11,
+        ICON_PURPLE_TOADETTE_LOCKED = 12,
+        ICON_ORANGE_TOAD = 13,
+        ICON_ORANGE_TOAD_LOCKED = 14,
+        ICON_BLACK_TOAD = 15,
+        ICON_BLACK_TOAD_LOCKED = 16,
     };
 
     static constexpr Icon_e ICON_FROM_BASE[] = {
-      Icon_e::ICON_MARIO,     Icon_e::ICON_LUIGI,    Icon_e::ICON_YELLOW_TOAD,
-      Icon_e::ICON_BLUE_TOAD, Icon_e::ICON_TOADETTE,
+      Icon_e::ICON_MARIO,       Icon_e::ICON_LUIGI,      Icon_e::ICON_YELLOW_TOAD,
+      Icon_e::ICON_BLUE_TOAD,   Icon_e::ICON_TOADETTE,   Icon_e::ICON_PURPLE_TOADETTE,
+      Icon_e::ICON_ORANGE_TOAD, Icon_e::ICON_BLACK_TOAD,
     };
 
     static constexpr Icon_e ICON_LOCKED_FROM_BASE[] = {
-      Icon_e::ICON_MARIO_LOCKED,     Icon_e::ICON_LUIGI_LOCKED,    Icon_e::ICON_YELLOW_TOAD_LOCKED,
-      Icon_e::ICON_BLUE_TOAD_LOCKED, Icon_e::ICON_TOADETTE_LOCKED,
+      Icon_e::ICON_MARIO_LOCKED,       Icon_e::ICON_LUIGI_LOCKED,
+      Icon_e::ICON_YELLOW_TOAD_LOCKED, Icon_e::ICON_BLUE_TOAD_LOCKED,
+      Icon_e::ICON_TOADETTE_LOCKED,    Icon_e::ICON_PURPLE_TOADETTE_LOCKED,
+      Icon_e::ICON_ORANGE_TOAD_LOCKED, Icon_e::ICON_BLACK_TOAD_LOCKED,
     };
 
 public:
@@ -56,7 +67,7 @@ public:
     bool updateRemocon();
 
     /* 0x8076FC80 */
-    bool isCharacterLocked(dPyMdlMng_c::ModelType_e character);
+    bool isCharacterLocked(daPyMng_c::PlayerType_e character);
 
     /* 0x8076FD70 */
     void UNDEF_8076FD70(u32 swapIndex, u32 baseIndex);
@@ -79,8 +90,14 @@ public:
     FILL(0x078, 0x07C);
 
     /* 0x07C */ u32* m0x07C;
+    /* 0x080 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
+    /* 0x080 */ da2DPlayer_c** mpa2DPlayer;
 
-    FILL(0x080, 0x29A);
+    FILL(0x084, 0x298);
+
+    /* 0x298 */ u8 m0x298;
+
+    FILL(0x299, 0x29A);
 
     /* 0x29A */ bool mDecided;
     /* 0x29B */ u8 m0x29B;
@@ -88,7 +105,7 @@ public:
 
     FILL(0x29D, 0x2D4);
 
-    /* 0x2D4 */ dPyMdlMng_c::ModelType_e mDecidedCharacter;
+    /* 0x2D4 */ daPyMng_c::PlayerType_e mDecidedCharacter;
     /* 0x2D8 */ u32 mSelectedCharacter;
     /* 0x2DC */ u32 m0x2DC;
     /* 0x2E0 */ u32 mSelectedBaseIndex;

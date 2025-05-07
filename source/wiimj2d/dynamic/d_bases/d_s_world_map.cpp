@@ -37,7 +37,7 @@ bool dScWMap_c::createActorsPhase(dScWMap_c* self)
           dBaseActor_c::construct(+fBaseProfile_e::WM_2D_PLAYER, self, i, nullptr, nullptr)
         );
 
-        if (i < 4 && numPyChg != nullptr) {
+        if (numPyChg != nullptr) {
             numPyChg->setPlayer(i, crsSelMng->mpa2DPlayer[i]);
         }
         if (stockItem != nullptr) {

@@ -6,13 +6,18 @@
 #include <dynamic/d_bases/d_CharacterChangeSelectArrow.h>
 #include <dynamic/d_bases/d_CharacterChangeSelectBase.h>
 #include <dynamic/d_bases/d_CharacterChangeSelectContents.h>
+#include <state/s_FStateFct.h>
 #include <state/s_State.h>
+#include <state/s_StateMethodUsr_FI.h>
+#include <state/s_StateMgr.h>
 
 class da2DPlayer_c;
 
 class dNumberOfPeopleChange_c : public dBase_c
 {
 public:
+#define NUM_PY_CHANGE_PLAYER_COUNT 8
+
     // ------------
     // Constructors
     // ------------
@@ -40,25 +45,23 @@ public:
     /* 0x807A09D0 */
     void calcBasesForPlayerCount();
 
+    /* 0x807A0BF0 */
+    void setupPlayerTypes();
+
     /* 0x807A0D20 */
     bool checkCancel();
 
     void setPlayer(u32 playerIndex, da2DPlayer_c* player)
     {
         if (playerIndex < 4) {
-            mpaPlayers[playerIndex] = player;
-        } else {
-            mpaExPlayers[playerIndex - 4] = player;
+            mpaPlayers_Removed[playerIndex] = player;
         }
+        mpaPlayers[playerIndex] = player;
     }
 
     da2DPlayer_c* getPlayer(u32 playerIndex)
     {
-        if (playerIndex < 4) {
-            return mpaPlayers[playerIndex];
-        } else {
-            return mpaExPlayers[playerIndex - 4];
-        }
+        return mpaPlayers[playerIndex];
     }
 
     void setControllerActive(u32 playerIndex, u32 active)
@@ -79,21 +82,21 @@ public:
         }
     }
 
-    void set0x6E0(u32 playerIndex, u32 value)
+    void setDecidedPlrType(u32 playerIndex, daPyMng_c::PlayerType_e value)
     {
         if (playerIndex < 4) {
-            m0x6E0[playerIndex] = value;
+            maDecidedPlayerType[playerIndex] = value;
         } else {
-            mEx0x6E0[playerIndex - 4] = value;
+            maExDecidedPlayerType[playerIndex - 4] = value;
         }
     }
 
-    u32 get0x6E0(u32 playerIndex)
+    daPyMng_c::PlayerType_e getDecidedPlrType(u32 playerIndex)
     {
         if (playerIndex < 4) {
-            return m0x6E0[playerIndex];
+            return maDecidedPlayerType[playerIndex];
         } else {
-            return mEx0x6E0[playerIndex - 4];
+            return maExDecidedPlayerType[playerIndex - 4];
         }
     }
 
@@ -144,25 +147,41 @@ public:
     /* 0x94 */ dCharacterChangeSelectArrow_c* mpaCcSelArrow[4];
     /* 0xA4 */ dCharacterChangeIndicator_c* mpaCcIndicator[4];
 
-    FILL(0xB4, 0x64C);
+    FILL(0xB4, 0x404);
 
-    /* 0x64C */ da2DPlayer_c* mpaPlayers[4];
+    /* 0x404 */ LytBase_c m0x404;
+
+    /* 0x59C */ sStateMgr_c<
+      dNumberOfPeopleChange_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
+      mStateMgr;
+
+    FILL(0x5D8, 0x64C);
+
+    /* 0x64C */ da2DPlayer_c* mpaPlayers_Removed[4];
 
     FILL(0x65C, 0x67F);
 
     /* 0x67F */ u8 m0x67F;
+    /* 0x680 */ u8 m0x680;
 
-    FILL(0x680, 0x690);
+    FILL(0x681, 0x687);
+
+    /* 0x687 */ u8 m0x687;
+    /* 0x688 */ u8 m0x688;
+
+    FILL(0x689, 0x690);
 
     /* 0x690 */ u32 mControllerActive[4];
     /* 0x6A0 */ int m0x6A0;
     /* 0x6A4 */ u32 maPlrBaseIndex[4];
     /* 0x6B4 */ u32 maPlrBaseIndex2[4];
     /* 0x6C4 */ int mPlayerCount;
+    /* 0x6C8 */ int mSelectedButton;
+    /* 0x6CC */ int mLastSelectedButton;
 
-    FILL(0x6C8, 0x6E0);
+    FILL(0x6D0, 0x6E0);
 
-    /* 0x6E0 */ u32 m0x6E0[4];
+    /* 0x6E0 */ daPyMng_c::PlayerType_e maDecidedPlayerType[4];
     /* 0x6F0 */ u32 m0x6F0[4];
 
     FILL(0x700, 0x710);
@@ -171,10 +190,11 @@ public:
 #define OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount 0x710
     /* 0x710 */ int mRealPlayerCount;
 
-#define OFFSET_dNumberOfPeopleChange_c_mpaExPlayers 0x714
-    /* 0x714 */ da2DPlayer_c* mpaExPlayers[PLAYER_COUNT - 4];
+#define OFFSET_dNumberOfPeopleChange_c_mpaPlayers OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount + 4
+    /* 0x714 */ da2DPlayer_c* mpaPlayers[PLAYER_COUNT];
 
+#define OFFSET_dNumberOfPeopleChange_c_mExControllerActive OFFSET_dNumberOfPeopleChange_c_mpaPlayers + 4 * PLAYER_COUNT
     /* 0x724 */ u32 mExControllerActive[PLAYER_COUNT - 4];
-    /* 0x734 */ u32 mEx0x6E0[PLAYER_COUNT - 4];
+    /* 0x734 */ daPyMng_c::PlayerType_e maExDecidedPlayerType[PLAYER_COUNT - 4];
     /* 0x744 */ u32 mEx0x6F0[PLAYER_COUNT - 4];
 };
