@@ -11,10 +11,8 @@
 #include <machine/m_pad.h>
 #include <revolution/os.h>
 
-EXTERN_DATA(
-  0x809A0DB8, //
-  u32 daWmPlayer_c::m_activeCharaFlag[4]
-);
+/* 0x809A0DB8 */
+u32 daWmPlayer_c::m_activeCharaFlag[SUBPLAYER_COUNT];
 
 [[address(0x809027C0)]]
 daWmPlayer_c::daWmPlayer_c()
@@ -216,11 +214,11 @@ UNDEF_80902dac:;
 /* 80902DB0 4BFD5831 */  bl       UNDEF_808d85e0;
 UNDEF_80902db4:;
 /* 80902DB4 3CA08035 */  lis      r5, mPlayerType__9daPyMng_c@ha;
-/* 80902DB8 3CC0809A */  lis      r6, UNDEF_809a0db8@ha;
+/* 80902DB8 3CC0809A */  lis      r6, m_activeCharaFlag__12daWmPlayer_c@ha;
 /* 80902DBC 38A55160 */  addi     r5, r5, mPlayerType__9daPyMng_c@l;
 /* 80902DC0 3C608032 */  lis      r3, UNDEF_8031d6b4@ha;
 /* 80902DC4 80850004 */  lwz      r4, 4(r5);
-/* 80902DC8 38C60DB8 */  addi     r6, r6, UNDEF_809a0db8@l;
+/* 80902DC8 38C60DB8 */  addi     r6, r6, m_activeCharaFlag__12daWmPlayer_c@l;
 /* 80902DCC 80FF0388 */  lwz      r7, 904(r31);
 /* 80902DD0 3863D6B4 */  addi     r3, r3, UNDEF_8031d6b4@l;
 /* 80902DD4 5484103A */  slwi     r4, r4, 2;
@@ -269,9 +267,9 @@ void daWmPlayer_c::initActiveCharaFlags()
 {
     dInfo_c* info = dInfo_c::m_instance;
 
-    for (u32 i = 0; i < 4; i++) {
-        m_activeCharaFlag[s32(daPyMng_c::mPlayerType[i]) % 4] =
-          info->mPlayerActiveMode[i] == 3 ? 3 : 0;
+    for (u32 i = 0; i < SUBPLAYER_COUNT; i++) {
+        s32 flag = i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4];
+        m_activeCharaFlag[s32(daPyMng_c::mPlayerType[i]) % SUBPLAYER_COUNT] = flag == 3 ? 3 : 0;
     }
 }
 

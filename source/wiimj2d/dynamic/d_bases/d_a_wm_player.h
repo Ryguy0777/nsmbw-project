@@ -189,5 +189,5 @@ public:
 
     /* 0x8042A480 */ static daWmPlayer_c* ms_instance;
 
-    /* 0x809A0DB8 */ static u32 m_activeCharaFlag[4];
+    /* 0x809A0DB8 */ static u32 m_activeCharaFlag[SUBPLAYER_COUNT];
 };
