@@ -52,7 +52,7 @@ void beginPad();
 void endPad();
 
 /* 0x8016F5A0 @unofficial */
-u8 getBatteryLevel(CH_e chan);
+int getBatteryLevel(CH_e chan);
 
 /* 0x8016F570 */
 void setCurrentChannel(CH_e chan);

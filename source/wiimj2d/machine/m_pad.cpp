@@ -3,8 +3,8 @@
 
 #include "m_pad.h"
 
-#include <egg/core/eggController.h>
 #include <PatchRel.h>
+#include <egg/core/eggController.h>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
 
@@ -152,7 +152,13 @@ void endPad();
 void setCurrentChannel(CH_e chan);
 
 [[address(0x8016F5A0)]]
-u8 getBatteryLevel(CH_e chan);
+int getBatteryLevel(CH_e chan)
+{
+    if (chan <= CH_e::CHAN_3 && s_WPADInfoAvailable[static_cast<int>(chan)]) {
+        return s_WPADInfo[static_cast<int>(chan)].battery;
+    }
+    return 4;
+}
 
 [[address(0x8016F640)]]
 void clearWPADInfo(CH_e chan)
