@@ -31,7 +31,7 @@ EXTERN_REPL(
   SoundType SoundArchiveFileReader::GetSoundTypeInternal(u32 id) const
 );
 
-[[address(80276020)]]
+[[address(0x80276020)]]
 SoundType SoundArchiveFileReader::GetSoundType(u32 id) const
 {
     return GetSoundTypeInternal(GetBaseToadetteSoundId(id));

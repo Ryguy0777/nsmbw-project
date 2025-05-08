@@ -23,8 +23,11 @@ void SndAudioMgr::loadKinopicoSound()
     u32 bnkSize = 0, waveSize = 0;
     mDvd::getFileSize("/Sound/BANK_SE_VOC_COURSE_KC.brbnk", &bnkSize);
     mDvd::getFileSize("/Sound/GROUP_SE_VOC_COURSE_KC.brwar", &waveSize);
+    ASSERT(bnkSize != 0 && waveSize != 0);
     void* bnkData = mHeapMgr.mHeap.Alloc(bnkSize);
+    ASSERT(bnkData != nullptr);
     void* waveData = mHeapMgr.mHeap.Alloc(waveSize);
+    ASSERT(waveData != nullptr);
 
     // Load bank data
     bnkData = mDvd::loadToMainRAM(
