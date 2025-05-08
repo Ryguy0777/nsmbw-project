@@ -786,9 +786,8 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerExitWait() ASM_METHOD(
 /* 807713E8 C00452B0 */  lfs      f0, UNDEF_809352b0@l(r4);
 /* 807713EC 5400103A */  slwi     r0, r0, 2;
 /* 807713F0          */  lwz      r4, 0x80(r3);
-/* 807713F4          */  lwzx     r4, r4, r0;
-/* 807713F8 D004022C */  stfs     f0, 556(r4);
-/* 80771408 80C40080 */  lwz      r6, 128(r4);
+/* 807713F4          */  lwzx     r6, r4, r0;
+/* 807713F8 D004022C */  stfs     f0, 556(r6);
 /* 8077140C 88060262 */  lbz      r0, 610(r6);
 /* 80771410 2C000000 */  cmpwi    r0, 0;
 /* 80771414 40820034 */  bne-     UNDEF_80771448;
