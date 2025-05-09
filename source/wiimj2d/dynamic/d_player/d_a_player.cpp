@@ -64,15 +64,15 @@ void dAcPy_c::checkRest()
 [[address(0x8013DA30)]]
 void dAcPy_c::stopOtherDownDemo()
 {
-    if (fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
-        return;
-    }
-
     if (isItemKinopio()) {
         return;
     }
 
     if (m0x1554 == 0) {
+        if (fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+            return;
+        }
+
         stopOther();
         return;
     }
@@ -383,7 +383,7 @@ UNDEF_80140420:;
 [[address(0x80141020)]]
 void dAcPy_c::initChangeInit()
 {
-    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE || daPyMng_c::isOnePlayer()) {
         if (isStatus(101)) {
             playGoalOther();
         } else {
@@ -403,7 +403,7 @@ bool dAcPy_c::executeChangeInit()
 
     setPowerup(mNextPowerup);
 
-    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE || daPyMng_c::isOnePlayer()) {
         stopOther();
         dAudio::pauseMove(mPlayerNo);
     }

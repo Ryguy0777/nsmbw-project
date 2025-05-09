@@ -18,7 +18,7 @@ void daYoshi_c::executeLastAll()
     calcHeadAttentionAngle();
     mModelMng.calc2();
 
-    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE || daPyMng_c::isOnePlayer()) {
         if (isStatus(198)) {
             offStatus(198);
             stopOther();
