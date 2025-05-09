@@ -37,6 +37,9 @@ public:
     /* 0x80141080 */
     void setChange(int param);
 
+    /* 0x80144C60 */
+    void setSceneChangeInfo();
+
 public:
     // -----------------
     // Virtual Functions

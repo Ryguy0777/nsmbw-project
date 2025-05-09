@@ -35,6 +35,16 @@ const daPyMng_c::PlayerType_e daPyMng_c::DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] =
   PlayerType_e::ORANGE_TOAD, PlayerType_e::BLACK_TOAD
 };
 
+[[address_data(0x80429F80)]]
+int daPyMng_c::mNum;
+
+[[address_data(0x80429F84)]]
+s32 daPyMng_c::mCtrlPlrNo;
+
+static_assert(PLAYER_COUNT <= 8, "Bitfield only supports 8 players");
+[[address_data(0x80429F88)]]
+u8 daPyMng_c::mActPlayerInfo;
+
 /* 0x80355110 */
 fBaseID_e daPyMng_c::m_playerID[PLAYER_COUNT];
 
@@ -43,6 +53,9 @@ fBaseID_e daPyMng_c::m_yoshiID[PLAYER_COUNT];
 
 /* 0x80355130 */
 s32 daPyMng_c::mCourseInList[PLAYER_COUNT];
+
+/* 0x80429F8C */
+u8 daPyMng_c::m_yoshiColor[PLAYER_COUNT];
 
 /* 0x80355140 */
 s32 daPyMng_c::m_yoshiFruit[PLAYER_COUNT];
@@ -82,16 +95,6 @@ s32 daPyMng_c::m_quakeEffectFlag[CHARACTER_COUNT];
 
 /* 0x803551E0 */
 static daPyDemoMng_c mDemoManager;
-
-[[address_data(0x80429F80)]]
-int daPyMng_c::mNum;
-
-[[address_data(0x80429F84)]]
-s32 daPyMng_c::mCtrlPlrNo;
-
-static_assert(PLAYER_COUNT <= 8, "Bitfield only supports 8 players");
-[[address_data(0x80429F88)]]
-u8 daPyMng_c::mActPlayerInfo;
 
 /* 0x80429F90 */
 u16 daPyMng_c::m_star_time[CHARACTER_COUNT];
@@ -560,6 +563,25 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
 int daPyMng_c::getPlayerColorType(PlayerType_e playerType)
 {
     return static_cast<int>(getModelPlayerType(getPlayerTypeModelType(playerType)));
+}
+
+[[address(0x8005FC20)]]
+void daPyMng_c::storeYoshiInfo(int index, daPyMng_c::YoshiColor_e color, int fruit)
+{
+    m_yoshiColor[index] = static_cast<u8>(color);
+    m_yoshiFruit[index] = fruit;
+}
+
+[[address(0x8005FC40)]]
+daPyMng_c::YoshiColor_e daPyMng_c::getYoshiColor(int index)
+{
+    return static_cast<YoshiColor_e>(m_yoshiColor[index]);
+}
+
+[[address(0x8005FC50)]]
+int daPyMng_c::getYoshiFruit(int index)
+{
+    return m_yoshiFruit[index];
 }
 
 [[address(0x8005FC70)]]

@@ -41,6 +41,11 @@ public:
 
 #define MAX_SCORE 999999999
 
+    enum class YoshiColor_e {
+        GREEN = 0,
+        // TODO: others
+    };
+
     // ----------------
     // Static Functions
     // ----------------
@@ -120,6 +125,15 @@ public:
     static dPyMdlMng_c::ModelType_e getCourseInPlayerModelType(u8 index);
 
     static int getPlayerColorType(PlayerType_e playerType);
+
+    /* 0x8005FC20 */
+    static void storeYoshiInfo(int index, YoshiColor_e color, int fruit);
+
+    /* 0x8005FC40 */
+    static YoshiColor_e getYoshiColor(int index);
+
+    /* 0x8005FC50 */
+    static int getYoshiFruit(int index);
 
     /* 0x8005FC70 */
     [[nodiscard]]
@@ -254,6 +268,9 @@ public:
 
     /* 0x80429F88 */
     static u8 mActPlayerInfo;
+
+    /* 0x80429F8C */
+    static u8 m_yoshiColor[PLAYER_COUNT];
 
     /* 0x80429F90 */
     static u16 m_star_time[CHARACTER_COUNT];
