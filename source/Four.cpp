@@ -404,7 +404,11 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80857614 + 2, 2},
   {0x80857664 + 2, 2},
 
-  // UNDEF_8085b020
+  // daLineTrain_c::checkAllPlayerRide
+  {0x8085A838 + 2, 2},
+  {0x8085A8A4 + 2, 2},
+
+  // daLineTrain_c::execute
   {0x8085B224 + 2, 2},
 
   // TODO 0x80866560 adds lives to each player at the end of the 1-up house minigame
@@ -620,7 +624,7 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // daEnTogeMet_c::initializeState_DieFall
   {0x80AB4F1C + 2, 2, -1},
 
-  // UNDEF_80abca40
+  // daEnWakiJugem_c::UNDEF_80abca40
   {0x80ABCA8C + 2, 2},
 
   // daEnWakiJugem_c::executeState_WakiMove

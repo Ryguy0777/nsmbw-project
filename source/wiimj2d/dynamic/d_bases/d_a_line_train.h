@@ -17,7 +17,8 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x0394, 0x1393);
+    FILL(0x0392, 0x1393);
+    OFFSET_ASSERT(0x1393);
 
     static_assert(PLAYER_COUNT <= 8, "Adapt this mask to support more players");
     /* 0x1393 */ u8 mPlayerMask;
