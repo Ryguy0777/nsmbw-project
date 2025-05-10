@@ -453,7 +453,7 @@ void WPADGetAccGravityUnit(WPADChannel chan, WPADAccGravityUnitType type, WPADAc
 void WPADDisconnect(WPADChannel chan);
 
 /* 0x801E1080 */
-WPADResult WPADProbe(WPADChannel chan, WPADDeviceType* devTypeOut);
+WPADResult WPADProbe(WPADChannel chan, u32* devTypeOut);
 
 WPADSamplingCallback* WPADSetSamplingCallback(WPADChannel chan, WPADSamplingCallback* cb);
 WPADConnectCallback* WPADSetConnectCallback(WPADChannel chan, WPADConnectCallback* cb);

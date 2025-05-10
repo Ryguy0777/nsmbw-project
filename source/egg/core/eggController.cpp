@@ -169,10 +169,10 @@ void CoreController::beginFrame(PADStatus* padStatus)
             mReadStatusIdx = 1;
         }
 
-        WPADDeviceType dev_type;
+        u32 dev_type;
         switch (WPADProbe(mChannel, &dev_type)) {
         case WPADResult::WPAD_ERR_OK: {
-            if (dev_type == WPADDeviceType::WPAD_DEV_NONE) {
+            if (static_cast<WPADDeviceType>(dev_type) == WPADDeviceType::WPAD_DEV_NONE) {
                 mFlag.resetBit(0);
             } else {
                 mFlag.setBit(0);
@@ -320,12 +320,12 @@ void CoreControllerMgr::endFrame()
             continue;
         }
 
-        WPADDeviceType devType;
+        u32 devType;
         WPADResult result = WPADProbe(chan, &devType);
 
         WPADDeviceType resDevType;
         if (result == WPADResult::WPAD_ERR_OK) {
-            resDevType = devType;
+            resDevType = static_cast<WPADDeviceType>(devType);
         } else if (result == WPADResult::WPAD_ERR_NO_CONTROLLER) {
             resDevType = WPADDeviceType::WPAD_DEV_NONE;
         } else {

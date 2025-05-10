@@ -12,7 +12,7 @@ BOOL WPADSetAcceptConnection(BOOL accept);
 void WPADDisconnect(WPADChannel chan);
 
 [[address(0x801E1080)]]
-WPADResult WPADProbe(WPADChannel chan, WPADDeviceType* devTypeOut);
+WPADResult WPADProbe(WPADChannel chan, u32* devTypeOut);
 
 [[address(0x801E1620)]]
 void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);
