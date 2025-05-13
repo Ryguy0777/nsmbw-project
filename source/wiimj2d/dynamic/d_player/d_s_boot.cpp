@@ -23,8 +23,6 @@
 [[address(0x8042A620)]]
 dScBoot_c* dScBoot_c::m_instance;
 
-dScBoot_c::CODE_REGION_e dScBoot_c::m_codeRegion;
-
 int dScBoot_c::recreate()
 {
     // why did i make dScBoot_c recreate dInfo_c
@@ -70,8 +68,8 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
-    for (int i = 0; i < 8; i++) {
-        // daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::BLACK_TOAD;
+    for (int i = 0; i < 1; i++) {
+        daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::TOADETTE;
         daPyMng_c::mPlayerEntry[i] = 1;
 
         daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::PROPELLER_SHROOM);
@@ -84,7 +82,7 @@ void dScBoot_c::executeState_ProcEnd()
         }
     }
 
-    // daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
+    daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
 
     // daPyMng_c::mPlayerEntry[4] = 1;
 
@@ -102,54 +100,3 @@ void dScBoot_c::executeState_ProcEnd()
     });
 }
 #endif
-
-void dScBoot_c::initCodeRegion()
-{
-    u8 c;
-    switch (*reinterpret_cast<u8*>(0x8000423A)) {
-    case 0xFF:
-        // PAL (P)
-        c = *reinterpret_cast<u8*>(0x800CF287);
-        if (c == 0x30) {
-            m_codeRegion = CODE_REGION_e::P1;
-        } else /* if (c == 0x38) */ {
-            m_codeRegion = CODE_REGION_e::P2;
-        }
-        break;
-
-    case 0xFC:
-        // USA (E)
-        c = *reinterpret_cast<u8*>(0x800CF197);
-        if (c == 0x30) {
-            m_codeRegion = CODE_REGION_e::E1;
-        } else /* if (c == 0x38) */ {
-            m_codeRegion = CODE_REGION_e::E2;
-        }
-        break;
-
-    case 0xF9:
-        // JPN (J)
-        c = *reinterpret_cast<u8*>(0x800CF117);
-        if (c == 0x30) {
-            m_codeRegion = CODE_REGION_e::J1;
-        } else /* if (c == 0x38) */ {
-            m_codeRegion = CODE_REGION_e::J2;
-        }
-        break;
-
-    case 0xC8:
-        // KOR (K)
-        m_codeRegion = CODE_REGION_e::K;
-        return;
-
-    case 0xAC:
-        // TWN (W)
-        m_codeRegion = CODE_REGION_e::W;
-        return;
-
-    case 0x55:
-        // CHN (C)
-        m_codeRegion = CODE_REGION_e::C;
-        return;
-    }
-}

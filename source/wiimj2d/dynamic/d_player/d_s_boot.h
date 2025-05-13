@@ -23,13 +23,6 @@ public:
     dScBoot_c();
 
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
-
-    using CODE_REGION_e = Port::Region;
-
-public:
     // ---------
     // Functions
     // ---------
@@ -42,14 +35,6 @@ public:
     // -----------
 
     /* 0x8042A620 */ static dScBoot_c* m_instance;
-
-    static CODE_REGION_e m_codeRegion;
-
-public:
-    // ----------------
-    // Static Functions
-    // ----------------
-    static void initCodeRegion();
 
 public:
     // -----------

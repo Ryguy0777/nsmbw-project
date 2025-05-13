@@ -10,6 +10,7 @@ class sStateMethod_c
 {
 public:
     /**
+     * 0x8015FAE0
      * Constructs a new sStateMethod_c instance.
      * @param checker The state checker to use.
      * @param factory The state factory to use.
@@ -20,25 +21,25 @@ public:
     );
 
     /**
-     * VT+0x08
+     * VT+0x08 0x8015FB30
      * Destroys the sStateMethod_c instance.
      */
     virtual ~sStateMethod_c();
 
     /**
-     * VT+0x0C
+     * VT+0x0C 0x8015FB70
      * Initializes the current state.
      */
     virtual void initializeStateMethod();
 
     /**
-     * VT+0x10
+     * VT+0x10 0x8015FC20
      * Executes the current state.
      */
     virtual void executeStateMethod();
 
     /**
-     * VT+0x14
+     * VT+0x14 0x8015FCC0
      * Prepares the current state for termination.
      */
     virtual void finalizeStateMethod();

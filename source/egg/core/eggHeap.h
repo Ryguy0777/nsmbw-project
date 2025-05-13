@@ -2,6 +2,7 @@
 
 #include <egg/core/eggAllocator.h>
 #include <egg/core/eggDisposer.h>
+#include <new>
 #include <revolution/mem.h>
 
 namespace EGG
@@ -90,7 +91,8 @@ public:
 void* operator new(u32 size);
 
 /* 0x802B9360 */
-void* operator new(u32 size, void* block);
+// Moved to <new>
+// void* operator new(u32 size, void* block);
 
 /* 0x802B9370 */
 void* operator new(u32 size, int align);

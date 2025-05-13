@@ -1,0 +1,22 @@
+#pragma once
+
+#include "type_traits"
+
+namespace std
+{
+
+template <class T>
+constexpr std::remove_reference_t<T>&& move(T&& t) noexcept
+{
+    return static_cast<std::remove_reference_t<T>&&>(t);
+}
+
+template <class T>
+constexpr void swap(T& a, T& b) noexcept
+{
+    T temp = std::move(a);
+    a = std::move(b);
+    b = std::move(temp);
+}
+
+} // namespace std

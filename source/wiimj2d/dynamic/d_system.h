@@ -1,11 +1,19 @@
 #pragma once
 
+#include <Port.h>
 #include <egg/core/eggExpHeap.h>
 #include <nw4r/ut/Color.h>
 #include <revolution/arc.h>
 
 class dSys_c
 {
+public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    using CODE_REGION_e = Port::Region;
+
 public:
     // ----------------
     // Static Functions
@@ -20,6 +28,8 @@ public:
     static void preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle);
     static void initCModule();
 
+    static void initCodeRegion();
+
 public:
     // -----------
     // Static Data
@@ -30,4 +40,6 @@ public:
 
     /* 0x8042A374 */
     static EGG::ExpHeap* ms_RootHeapMem2;
+
+    static CODE_REGION_e m_codeRegion;
 };

@@ -9,6 +9,23 @@
 namespace nw4r::lyt
 {
 
+namespace res
+{
+struct Material {
+    SIZE_ASSERT(0x40);
+
+    /* 0x00 */ char materialName[0x14];
+    /* 0x14 */ nw4r::ut::ColorS10 foreColor; // RGBA
+    /* 0x1C */ nw4r::ut::ColorS10 backColor; // RGBA
+    /* 0x24 */ nw4r::ut::ColorS10 colorReg3; // RGBA
+    /* 0x2C */ nw4r::ut::Color tevColor1; // RGBA
+    /* 0x30 */ nw4r::ut::Color tevColor2; // RGBA
+    /* 0x34 */ nw4r::ut::Color tevColor3; // RGBA
+    /* 0x38 */ nw4r::ut::Color tevColor4; // RGBA
+    /* 0x3C */ u32 flags;
+};
+} // namespace res
+
 class TexMap;
 class TexSRT;
 class TexCoordGen;

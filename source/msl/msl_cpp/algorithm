@@ -1,5 +1,7 @@
 #pragma once
 
+#include "utility"
+
 namespace std
 {
 
@@ -15,30 +17,21 @@ constexpr const T& max(const T& l, const T& r)
     return (l < r) ? r : l;
 }
 
-template <class T>
-void swap(T& a, T& b)
-{
-    T t = a;
-    a = b;
-    b = t;
-}
-
 template <class Iterator, class Compare>
-void sort(Iterator begin, Iterator end, Compare comp)
+constexpr void sort(Iterator begin, Iterator end, Compare comp)
 {
     auto partition = [](Iterator begin, Iterator end, Compare comp) {
         auto pivot = *end;
-        auto sortedIndex = begin - 1;
+        auto sortedIndex = begin;
 
         for (auto i = begin; i < end; ++i) {
             if (comp(*i, pivot)) {
-                ++sortedIndex;
-                swap(*sortedIndex, *i);
+                swap(*sortedIndex++, *i);
             }
         }
 
-        swap(*(sortedIndex + 1), *end);
-        return sortedIndex + 1;
+        swap(*sortedIndex, *end);
+        return sortedIndex;
     };
 
     if (begin >= end) {
@@ -52,7 +45,7 @@ void sort(Iterator begin, Iterator end, Compare comp)
 }
 
 template <class Iterator>
-void sort(Iterator begin, Iterator end)
+constexpr void sort(Iterator begin, Iterator end)
 {
     sort(begin, end, [](auto l, auto r) { return l < r; });
 }

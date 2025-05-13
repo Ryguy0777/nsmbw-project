@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <framework/f_base_id.h>
+#include <framework/f_base_profile.h>
 
 class fBase_c
 {
@@ -354,4 +355,31 @@ public:
      * Requests deletion of the base. Calling this function multiple times has no effect.
      */
     void deleteRequest();
+
+    /**
+     * Upcast the base to the specified type. Verifies the object's profile with the specified
+     * type's profile, and returns nullptr if the profile doesn't match.
+     */
+    template <class T>
+    constexpr T* DynamicCast()
+    {
+        fBaseProfile_e myProfName = static_cast<fBaseProfile_e>(mProfName);
+
+        for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
+            if (expected >= fBaseProfile_e::WM_CS_SEQ_MNG) {
+                // This profile is region dependant
+                myProfName = to_fBaseProfile_e(mProfName);
+                break;
+            }
+        }
+
+        for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
+            if (myProfName == expected) {
+                return static_cast<T*>(this);
+            }
+        }
+
+        // Wrong type
+        return nullptr;
+    }
 };

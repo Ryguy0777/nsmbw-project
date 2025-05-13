@@ -36,7 +36,7 @@ static void** checkStackAddr(void* stackPtr)
 static void printRegionInfo()
 {
     const char* regionStr;
-    switch (dScBoot_c::m_codeRegion) {
+    switch (dSys_c::m_codeRegion) {
     default:
         regionStr = "Unknown";
         break;

@@ -1,0 +1,15 @@
+#pragma once
+
+#include <cstddef>
+
+// Placement new
+
+constexpr inline void* operator new([[maybe_unused]] std::size_t size, void* ptr) noexcept
+{
+    return ptr;
+}
+
+constexpr inline void* operator new[]([[maybe_unused]] std::size_t size, void* ptr) noexcept
+{
+    return ptr;
+}

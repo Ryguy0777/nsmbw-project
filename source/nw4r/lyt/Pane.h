@@ -11,6 +11,27 @@
 namespace nw4r::lyt
 {
 
+namespace res
+{
+
+struct Pane {
+    static constexpr char SIGNATURE[4] = {'p', 'a', 'n', '1'};
+
+    /* 0x00 */ DataBlockHeader blockHeader;
+    /* 0x08 */ u8 flag;
+    /* 0x09 */ u8 basePosition;
+    /* 0x0A */ u8 alpha;
+    /* 0x0B */ u8 padding = 0;
+    /* 0x0C */ char name[PANE_NAME_SIZE];
+    /* 0x1C */ char userData[PANE_USERDATA_SIZE];
+    /* 0x24 */ math::VEC3 translate;
+    /* 0x30 */ math::VEC3 rotate;
+    /* 0x3C */ math::VEC2 scale;
+    /* 0x44 */ Size size;
+};
+
+} // namespace res
+
 namespace detail
 {
 

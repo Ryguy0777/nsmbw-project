@@ -54,8 +54,9 @@ Heap* Heap::_becomeCurrentHeapWithoutLock();
 [[address(0x802B9350)]]
 void* operator new(u32 size);
 
-[[address(0x802B9360)]]
-void* operator new(u32 size, void* block);
+/* 0x802B9360 */
+// Moved to <new>
+// void* operator new(u32 size, void* block);
 
 [[address(0x802B9370)]]
 void* operator new(u32 size, int align);

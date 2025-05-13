@@ -693,39 +693,41 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
 
 void Four::Apply()
 {
+    auto codeRegion = dSys_c::m_codeRegion;
+
     for (const FourPatch& patch : FOUR_PATCH_LIST) {
         u32 address;
-        switch (dScBoot_c::m_codeRegion) {
-        case dScBoot_c::CODE_REGION_e::P1:
+        switch (codeRegion) {
+        case dSys_c::CODE_REGION_e::P1:
             address = patch.addressP1;
             break;
-        case dScBoot_c::CODE_REGION_e::P2:
+        case dSys_c::CODE_REGION_e::P2:
             address = patch.addressP2;
             break;
-        case dScBoot_c::CODE_REGION_e::E1:
+        case dSys_c::CODE_REGION_e::E1:
             address = patch.addressE1;
             break;
-        case dScBoot_c::CODE_REGION_e::E2:
+        case dSys_c::CODE_REGION_e::E2:
             address = patch.addressE2;
             break;
-        case dScBoot_c::CODE_REGION_e::J1:
+        case dSys_c::CODE_REGION_e::J1:
             address = patch.addressJ1;
             break;
-        case dScBoot_c::CODE_REGION_e::J2:
+        case dSys_c::CODE_REGION_e::J2:
             address = patch.addressJ2;
             break;
-        case dScBoot_c::CODE_REGION_e::K:
+        case dSys_c::CODE_REGION_e::K:
             address = patch.addressK;
             break;
-        case dScBoot_c::CODE_REGION_e::W:
+        case dSys_c::CODE_REGION_e::W:
             address = patch.addressW;
             break;
-        case dScBoot_c::CODE_REGION_e::C:
+        case dSys_c::CODE_REGION_e::C:
             address = patch.addressC;
             break;
 
         default:
-            OSPanic(__FILE__, __LINE__, "Invalid code region %d", dScBoot_c::m_codeRegion);
+            OSPanic(__FILE__, __LINE__, "Invalid code region %d", codeRegion);
         }
 
         u8 size = patch.size;

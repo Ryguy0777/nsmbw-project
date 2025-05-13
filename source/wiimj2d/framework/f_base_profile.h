@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dynamic/d_player/d_s_boot.h>
+#include <dynamic/d_system.h>
 
 enum class fBaseProfile_e : u16 {
     BOOT = 0,
@@ -774,15 +774,30 @@ enum class fBaseProfile_e : u16 {
     // Apply the region-dependant changes to the value
     u16 v = static_cast<u16>(value);
 
-    if (value >= fBaseProfile_e::TIME_UP &&
-        dScBoot_c::m_codeRegion >= dScBoot_c::CODE_REGION_e::K) {
+    if (value >= fBaseProfile_e::TIME_UP && dSys_c::m_codeRegion >= dSys_c::CODE_REGION_e::K) {
         v += 2;
     }
 
     if (value >= fBaseProfile_e::WM_CS_SEQ_MNG &&
-        dScBoot_c::m_codeRegion >= dScBoot_c::CODE_REGION_e::C) {
+        dSys_c::m_codeRegion >= dSys_c::CODE_REGION_e::C) {
         v += 2;
     }
 
     return v;
+}
+
+[[gnu::const]] static constexpr fBaseProfile_e to_fBaseProfile_e(u16 value)
+{
+    // Convert a region-dependant value to the non-regional enum value
+    if (value >= static_cast<u16>(fBaseProfile_e::YES_NO_WINDOW) &&
+        dSys_c::m_codeRegion >= dSys_c::CODE_REGION_e::K) {
+        value -= 2;
+    }
+
+    if (value >= static_cast<u16>(fBaseProfile_e::WM_MAP) &&
+        dSys_c::m_codeRegion >= dSys_c::CODE_REGION_e::C) {
+        value -= 2;
+    }
+
+    return static_cast<fBaseProfile_e>(value);
 }

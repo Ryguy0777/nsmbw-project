@@ -3,6 +3,7 @@
 
 #include "d_a_player.h"
 #include "dynamic/d_mj2d_game.h"
+#include "dynamic/d_quake.h"
 #include "framework/f_feature.h"
 
 #include <dynamic/d_a_player_demo_manager.h>
@@ -763,4 +764,50 @@ UNDEF_80145100:;
 /* 80145178 38210010 */  addi     r1, r1, 16;
 /* 8014517C 4E800020 */  blr;
   // clang-format on
-)
+);
+
+/* VT+0x3F4  */
+[[address(0x80146230)]]
+bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
+{
+    if (mPlayerMode != mNextPowerup || isChange()) {
+        return false;
+    }
+
+    if (isNoDamage()) {
+        return false;
+    }
+
+    if (!setDamage2(source, type)) {
+        return false;
+    }
+
+    dQuake_c::m_instance->shockMotor(mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
+
+    if (fFeature::DEATH_MESSAGES) {
+        addDeathMessage(source, type, isStatus(Status_e::DEAD));
+    }
+
+    return true;
+}
+
+/* VT+0x3F8 */
+[[address(0x80146310)]]
+bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
+{
+    if (isDemo() || mPlayerMode != mNextPowerup || isChange()) {
+        return false;
+    }
+
+    if (!setDamage2(source, type)) {
+        return false;
+    }
+
+    dQuake_c::m_instance->shockMotor(mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
+
+    if (fFeature::DEATH_MESSAGES) {
+        addDeathMessage(source, type, isStatus(Status_e::DEAD));
+    }
+
+    return true;
+}

@@ -3,6 +3,6 @@
 namespace nw4r::lyt
 {
 
-class ResourceAccessor;
+class ResourceAccessor {};
 
 }

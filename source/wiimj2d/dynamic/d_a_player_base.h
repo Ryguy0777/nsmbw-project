@@ -1,10 +1,12 @@
 #pragma once
 
+#include <dynamic/d_a_player_key.h>
+#include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_actor.h>
 #include <dynamic/d_mj2d_game.h>
+#include <framework/f_base_profile.h>
+#include <machine/m_mtx.h>
 #include <state/s_State.h>
-#include <dynamic/d_a_player_key.h>
-
 
 class daPlBase_c : public dActor_c
 {
@@ -16,6 +18,11 @@ public:
     // -------------------
     // Constants and Types
     // -------------------
+
+    /* @unofficial */
+    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
+      fBaseProfile_e::PLAYER, fBaseProfile_e::YOSHI
+    };
 
     enum class DamageType_e {
         NORMAL = 0,
@@ -50,6 +57,15 @@ public:
     };
 
     enum class DokanDir_e {
+    };
+
+    enum class StarSet_e {
+    };
+
+    /* @unofficial */
+    enum class Status_e {
+        // Dead or in a bubble
+        DEAD = 0x4,
     };
 
 public:
@@ -510,6 +526,174 @@ public:
     /* VT+0x370 0x800588C0 */
     virtual bool isWaitFrameCountMax();
 
+    /* VT+0x374 0x8004AB80 */
+    virtual void checkWalkNextAction();
+
+    /* VT+0x378 0x800475E0 */
+    virtual void VT_0x378();
+
+    /* VT+0x37C 0x800475F0 */
+    virtual void VT_0x37C();
+
+    /* VT+0x380 0x80047600 */
+    virtual void VT_0x380();
+
+    /* VT+0x384 0x80047610 */
+    virtual void walkAction_Wait();
+
+    /* VT+0x388 0x80047620 */
+    virtual void VT_0x388();
+
+    /* VT+0x38C 0x80047630 */
+    virtual void walkAction_Move();
+
+    /* VT+0x390 0x80047DB0 */
+    virtual void checkCrouch();
+
+    /* VT+0x394 0x80047DC0 */
+    virtual void setCancelCrouch();
+
+    /* VT+0x398 0x8004B220 */
+    virtual void setSlipAction();
+
+    /* VT+0x39C 0x80048630 */
+    virtual void slipActionMove(int);
+
+    /* VT+0x3A0 0x80047C10 */
+    virtual void setFallAction();
+
+    /* VT+0x3A4 0x80048F30 */
+    virtual void setHipAttack_AttackStart();
+
+    /* VT+0x3A8 0x8004A3E0 */
+    virtual void releaseFunsuiAction();
+
+    /* VT+0x3AC 0x8004A7A0 */
+    virtual f32 getCloudOffsetY();
+
+    /* VT+0x3B0 0x800588B0 */
+    virtual void setRideJrCrown(const dActor_c*);
+
+    /* VT+0x3B4 0x800588A0 */
+    virtual bool isRideJrCrownOwn();
+
+    /* VT+0x3B8 0x80058890 */
+    virtual void setRideJrCrownMtx(const mMtx_c* mtx);
+
+    /* VT+0x3BC 0x80058880 */
+    virtual void setRideJrCrownAnm(int anm);
+
+    /* VT+0x3C0 0x80049D60 */
+    virtual int getHeadTopPosP();
+
+    /* VT+0x3C4 0x80049040 */
+    virtual void* getGravityData();
+
+    /* VT+0x3C8 0x80048B90 */
+    virtual bool isCarry() const;
+
+    /* VT+0x3CC 0x80053DE0 */
+    virtual bool isLiftUp();
+
+    /* VT+0x3D0 0x80056C20 */
+    virtual void VT_0x3D0();
+
+    /* VT+0x3D4 0x80022170 */
+    virtual bool isStar() const;
+
+    /* VT+0x3D8 0x80058190 */
+    virtual void setStar(StarSet_e, int);
+
+    /* VT+0x3DC 0x80051360 */
+    virtual void endStar();
+
+    /* VT+0x3E0 0x80058870 */
+    virtual void setVirusStar(daPlBase_c*);
+
+    /* VT+0x3E4 0x800581D0 */
+    virtual void clearStarCount();
+
+    /* VT+0x3E8 0x8002D970 */
+    virtual int getStarCount() const;
+
+    /* VT+0x3EC 0x800581E0 */
+    virtual s8 calcStarCount(int max);
+
+    /* VT+0x3F0 0x80057B30 */
+    virtual bool isNoDamage();
+
+    /* VT+0x3F4 0x80057B40 */
+    virtual bool setDamage(dActor_c* source, DamageType_e type);
+
+    /* VT+0x3F8 0x80057B50 */
+    virtual bool setForcedDamage(dActor_c* source, DamageType_e type);
+
+    /* VT+0x3FC 0x80057B70 */
+    virtual void VT_0x3FC();
+
+    /* VT+0x400 0x80057B80 */
+    virtual void VT_0x400();
+
+    /* VT+0x404 0x80057B90 */
+    virtual void setWaitJump(f32);
+
+    /* VT+0x408 0x80048C30 */
+    virtual void setHipAttackOnEnemy(mVec3_c*);
+
+    /* VT+0x40C 0x80051350 */
+    virtual void clearJumpActionInfo(int);
+
+    /* VT+0x410 0x80057C30 */
+    virtual bool setSwimSpeed(f32, f32);
+
+    /* VT+0x414 0x8004C990 */
+    virtual void setLandSE();
+
+    /* VT+0x418 0x80058860 */
+    virtual void set1UpKinokoEffect();
+
+    /* VT+0x41C 0x80058850 */
+    virtual void setFlagGetEffect();
+
+    /* VT+0x420 0x80058C70 */
+    virtual void setHipAttackEffect();
+
+    /* VT+0x424 0x800576A0 */
+    virtual void setZPosition();
+
+    /* VT+0x428 0x80057760 */
+    virtual void setZPosition(f32);
+
+    /* VT+0x42C 0x800577D0 */
+    virtual void setZPositionDirect(f32);
+
+    /* VT+0x430 0x80057810 */
+    virtual void offZPosSetNone();
+
+    /* VT+0x434 0x80058050 */
+    virtual void VT_0x434();
+
+    /* VT+0x438 0x800580B0 */
+    virtual void VT_0x438();
+
+    /* VT+0x43C 0x80058280 */
+    virtual void VT_0x43C();
+
+    /* VT+0x440 0x800582A0 */
+    virtual void startPatternRumble(const char*);
+
+    /* VT+0x444 0x80047480 */
+    virtual s16 getMukiAngle(u8);
+
+    /* VT+0x448 0x80047490 */
+    virtual bool turnAngle();
+
+    /* VT+0x44C 0x8004C470 */
+    virtual void maxFallSpeedSet();
+
+    /* VT+0x450 0x80057B60 */
+    virtual bool setDamage2(dActor_c* source, DamageType_e type);
+
 public:
     // ----------------
     // Member Functions
@@ -570,8 +754,26 @@ public:
     [[nodiscard]]
     bool isStatus(int flag);
 
+    inline void onStatus(Status_e flag)
+    {
+        onStatus(static_cast<int>(flag));
+    }
+
+    inline void offStatus(Status_e flag)
+    {
+        offStatus(static_cast<int>(flag));
+    }
+
+    [[nodiscard]]
+    inline bool isStatus(Status_e flag)
+    {
+        return isStatus(static_cast<int>(flag));
+    }
+
     /* 0x800583A0 */
     void calcHeadAttentionAngle();
+
+    void addDeathMessage(dActor_c* source, DamageType_e type, bool death);
 
 public:
     // -----------

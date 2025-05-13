@@ -61,5 +61,12 @@ public:
     /* 0x800C9700 */
     bool isAnime(int group);
 
-    FILL(0x0AC, 0x198);
+public:
+    // -----------
+    // Member Data
+    // -----------
+
+    /* 0x0AC */ d2d::ResAccMultLoader_c mResAccLoader;
+
+    FILL(0x180, 0x198);
 };

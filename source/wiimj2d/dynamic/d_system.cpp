@@ -20,6 +20,8 @@ EGG::ExpHeap* dSys_c::ms_RootHeapMem1;
 [[address_data(0x8042A374)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem2;
 
+dSys_c::CODE_REGION_e dSys_c::m_codeRegion;
+
 EXTERN_SYMBOL(0x800E46E0, "#CAE882A9");
 
 EXTERN_SYMBOL(0x800E4750, "beginRender__6dSys_cFv");
@@ -79,6 +81,57 @@ EXTERN_SYMBOL(0x800E5310, "fixHeapsSub__7dSystemFPQ23EGG7ExpHeapi");
 EXTERN_SYMBOL(0x800E53E0, "fixHeaps__7dSystemFv");
 
 } // namespace dSystem
+
+void dSys_c::initCodeRegion()
+{
+    u8 c;
+    switch (*reinterpret_cast<u8*>(0x8000423A)) {
+    case 0xFF:
+        // PAL (P)
+        c = *reinterpret_cast<u8*>(0x800CF287);
+        if (c == 0x30) {
+            m_codeRegion = CODE_REGION_e::P1;
+        } else /* if (c == 0x38) */ {
+            m_codeRegion = CODE_REGION_e::P2;
+        }
+        break;
+
+    case 0xFC:
+        // USA (E)
+        c = *reinterpret_cast<u8*>(0x800CF197);
+        if (c == 0x30) {
+            m_codeRegion = CODE_REGION_e::E1;
+        } else /* if (c == 0x38) */ {
+            m_codeRegion = CODE_REGION_e::E2;
+        }
+        break;
+
+    case 0xF9:
+        // JPN (J)
+        c = *reinterpret_cast<u8*>(0x800CF117);
+        if (c == 0x30) {
+            m_codeRegion = CODE_REGION_e::J1;
+        } else /* if (c == 0x38) */ {
+            m_codeRegion = CODE_REGION_e::J2;
+        }
+        break;
+
+    case 0xC8:
+        // KOR (K)
+        m_codeRegion = CODE_REGION_e::K;
+        return;
+
+    case 0xAC:
+        // TWN (W)
+        m_codeRegion = CODE_REGION_e::W;
+        return;
+
+    case 0x55:
+        // CHN (C)
+        m_codeRegion = CODE_REGION_e::C;
+        return;
+    }
+}
 
 void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
 {

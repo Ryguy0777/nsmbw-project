@@ -67,6 +67,9 @@ SOURCES += source/wiimj2d/dynamic/d_actor_groupid_mng.cpp
 # d_actor_mng.cpp
 # NSMBW .text: 0x80066380 - 0x80066FB0
 SOURCES += source/wiimj2d/dynamic/d_actor_mng.cpp
+# d_actor_name.cpp
+# NSMBW: ---
+SOURCES += source/wiimj2d/dynamic/d_actor_name.cpp
 # d_actor_state.cpp
 # NSMBW .text: 0x80066FB0 - 0x80068040
 SOURCES += source/wiimj2d/dynamic/d_actor_state.cpp
@@ -491,11 +494,14 @@ SOURCES += source/wiimj2d/dynamic/d_player/d_a_yoshi.cpp
 # d_bg_gm.cpp
 # NSMBW .text: 0x80154800 - 0x80156FE0
 SOURCES += source/wiimj2d/dynamic/d_player/d_bg_gm.cpp
+# d_death_message_mgr.cpp
+# NSMBW .text: ---
+SOURCES += source/wiimj2d/dynamic/d_player/d_death_message_mgr.cpp
 # d_fukidashiManager.cpp
 # NSMBW .text: 0x80156FE0 - 0x80157820
 SOURCES += source/wiimj2d/dynamic/d_player/d_fukidashiManager.cpp
 # d_gamedisplay.cpp
-# 0x80157820 - 0x8015A480
+# NSMBW .text: 0x80157820 - 0x8015A480
 SOURCES += source/wiimj2d/dynamic/d_player/d_gamedisplay.cpp
 
 # d_s_boot.cpp
@@ -563,6 +569,9 @@ SOURCES += source/wiimj2d/state/s_StateID.cpp
 # s_StateMethod.cpp
 # NSMBW .text: 0x8015FAE0 - 0x8015FDD0
 SOURCES += source/wiimj2d/state/s_StateMethod.cpp
+# s_StateMethodUsr_FI.cpp
+# NSMBW .text: 0x8015FDD0 - 0x8015FF80
+SOURCES += source/wiimj2d/state/s_StateMethodUsr_FI.cpp
 
 #
 # wiimj2d
@@ -826,6 +835,22 @@ SOURCES += source/egg/core/eggDisposer.cpp
 SOURCES += source/egg/core/eggController.cpp
 
 #
+# egg/gfx
+#
+
+# eggScreen.cpp
+# NSMBW .text: 0x802D0D90 - 0x802D2060
+SOURCES += source/egg/gfx/eggScreen.cpp
+
+#
+# egg/util
+#
+
+# eggEffect.cpp
+# NSMBW .text: 0x802D7D90 - 0x802D8BC0
+SOURCES += source/egg/util/eggEffect.cpp
+
+#
 # runtime
 #
 
@@ -838,6 +863,9 @@ SOURCES += source/runtime/__mem.c
 # msl/msl_c
 #
 
+# mbstring.c
+# NSMBW .text: 0x802DF06C - 0x802DF264
+SOURCES += source/msl/msl_c/mbstring.c
 # mem.c
 # NSMBW .text: 0x802DF264 - 0x802DF3D4
 SOURCES += source/msl/msl_c/mem.c

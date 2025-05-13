@@ -31,7 +31,7 @@ fBase_c::PACK_RESULT_e daWmSubPlayer_c::create()
     mNodeTrail.alloc(16, mHeap::g_gameHeaps[0]);
 
     // Temporary(?) hack that makes the node reached check more generous
-    *reinterpret_cast<float*>(Port::AutoPort<0x8093CE28>(dScBoot_c::m_codeRegion)) = 0.05f;
+    *reinterpret_cast<float*>(Port::AutoPort<0x8093CE28>(dSys_c::m_codeRegion)) = 0.05f;
 
     return PACK_RESULT_e::SUCCEEDED;
 }

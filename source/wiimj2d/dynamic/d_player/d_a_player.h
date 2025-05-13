@@ -6,6 +6,15 @@
 class dAcPy_c : public daPlBase_c
 {
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
+      fBaseProfile_e::PLAYER,
+    };
+
+public:
     // ----------------
     // Member Functions
     // ----------------
@@ -49,10 +58,16 @@ public:
      * VT+0x08 0x80144EA0
      * do method for the create operation.
      */
-    virtual PACK_RESULT_e create() override;
+    PACK_RESULT_e create() override;
 
     /* VT+0x28C 0x801400B0 */
     void executeDemoGoal_Run() override;
+
+    /* VT+0x3F4 0x80146230 */
+    virtual bool setDamage(dActor_c* source, DamageType_e type) override;
+
+    /* VT+0x3F8 0x80146310 */
+    virtual bool setForcedDamage(dActor_c* source, DamageType_e type) override;
 
 public:
     // -----------

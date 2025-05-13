@@ -1,3 +1,11 @@
 #pragma once
 
+#include "cstddef"
 #include <msl/msl_c/stdlib.h>
+
+namespace std
+{
+
+using ::mbstowcs;
+
+} // namespace std

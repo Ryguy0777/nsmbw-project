@@ -48,19 +48,19 @@ inline T GetBits(T bits, int pos, int len)
 struct Size {
     SIZE_ASSERT(0x8);
 
-    Size()
+    constexpr Size()
       : width()
       , height()
     {
     }
 
-    Size(f32 w, f32 h)
+    constexpr Size(f32 w, f32 h)
       : width(w)
       , height(h)
     {
     }
 
-    Size(const Size& r)
+    constexpr Size(const Size& r)
     {
         width = r.width;
         height = r.height;

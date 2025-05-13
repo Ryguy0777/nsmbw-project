@@ -16,146 +16,90 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
     float s_FUKIDASHI_Y_OFFSET[PLAYER_COUNT][POWERUP_COUNT] = {
       // Mario
       {
-        // Small
-        20.0,
-        // Mushroom
-        32.0,
-        // Fire Flower
-        32.0,
-        // Mini Mushroom
-        12.0,
-        // Propeller Shroom
-        38.0,
-        // Penguin Suit
-        33.0,
-        // Ice Flower
-        32.0,
+        20.0, // Small
+        32.0, // Mushroom
+        32.0, // Fire Flower
+        12.0, // Mini Mushroom
+        38.0, // Propeller Shroom
+        33.0, // Penguin Suit
+        32.0, // Ice Flower
       },
 
       // Luigi
       {
-        // Small
-        20.0,
-        // Mushroom
-        34.0,
-        // Fire Flower
-        34.0,
-        // Mini Mushroom
-        12.0,
-        // Propeller Shroom
-        39.0,
-        // Penguin Suit
-        35.0,
-        // Ice Flower
-        34.0,
+        20.0, // Small
+        34.0, // Mushroom
+        34.0, // Fire Flower
+        12.0, // Mini Mushroom
+        39.0, // Propeller Shroom
+        35.0, // Penguin Suit
+        34.0, // Ice Flower
       },
 
       // Blue Toad
       {
-        // Small
-        20.0,
-        // Mushroom
-        29.0,
-        // Fire Flower
-        29.0,
-        // Mini Mushroom
-        11.0,
-        // Propeller Shroom
-        34.0,
-        // Penguin Suit
-        29.0,
-        // Ice Flower
-        29.0,
+        20.0, // Small
+        29.0, // Mushroom
+        29.0, // Fire Flower
+        11.0, // Mini Mushroom
+        34.0, // Propeller Shroom
+        29.0, // Penguin Suit
+        29.0, // Ice Flower
       },
 
       // Yellow Toad
       {
-        // Small
-        20.0,
-        // Mushroom
-        29.0,
-        // Fire Flower
-        29.0,
-        // Mini Mushroom
-        11.0,
-        // Propeller Shroom
-        34.0,
-        // Penguin Suit
-        29.0,
-        // Ice Flower
-        29.0,
+        20.0, // Small
+        29.0, // Mushroom
+        29.0, // Fire Flower
+        11.0, // Mini Mushroom
+        34.0, // Propeller Shroom
+        29.0, // Penguin Suit
+        29.0, // Ice Flower
       },
 
       // Toadette
       {
-        // Small
-        20.0,
-        // Mushroom
-        29.0,
-        // Fire Flower
-        29.0,
-        // Mini Mushroom
-        11.0,
-        // Propeller Shroom
-        34.0,
-        // Penguin Suit
-        29.0,
-        // Ice Flower
-        29.0,
+        20.0, // Small
+        29.0, // Mushroom
+        29.0, // Fire Flower
+        11.0, // Mini Mushroom
+        34.0, // Propeller Shroom
+        29.0, // Penguin Suit
+        29.0, // Ice Flower
       },
 
-      // Player 5
+      // Purple Toadette
       {
-        // Small
-        20.0,
-        // Mushroom
-        32.0,
-        // Fire Flower
-        32.0,
-        // Mini Mushroom
-        12.0,
-        // Propeller Shroom
-        38.0,
-        // Penguin Suit
-        33.0,
-        // Ice Flower
-        32.0,
+        20.0, // Small
+        29.0, // Mushroom
+        29.0, // Fire Flower
+        11.0, // Mini Mushroom
+        34.0, // Propeller Shroom
+        29.0, // Penguin Suit
+        29.0, // Ice Flower
       },
 
-      // Player 6
+      // Orange Toad
       {
-        // Small
-        20.0,
-        // Mushroom
-        32.0,
-        // Fire Flower
-        32.0,
-        // Mini Mushroom
-        12.0,
-        // Propeller Shroom
-        38.0,
-        // Penguin Suit
-        33.0,
-        // Ice Flower
-        32.0,
+        20.0, // Small
+        29.0, // Mushroom
+        29.0, // Fire Flower
+        11.0, // Mini Mushroom
+        34.0, // Propeller Shroom
+        29.0, // Penguin Suit
+        29.0, // Ice Flower
       },
 
-      // Player 7
+      // Black Toad
       {
-        // Small
-        20.0,
-        // Mushroom
-        32.0,
-        // Fire Flower
-        32.0,
-        // Mini Mushroom
-        12.0,
-        // Propeller Shroom
-        38.0,
-        // Penguin Suit
-        33.0,
-        // Ice Flower
-        32.0,
+        20.0, // Small
+        29.0, // Mushroom
+        29.0, // Fire Flower
+        11.0, // Mini Mushroom
+        34.0, // Propeller Shroom
+        29.0, // Penguin Suit
+        29.0, // Ice Flower
       },
     };
 
@@ -172,60 +116,36 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
 void dfukidashiInfo_c::ColorSet()
 {
     static constinit nw4r::ut::Color l_PLAYER_COLOR_1[PLAYER_COUNT] = {
-      // Mario
-      "#FAE6E6",
-      // Luigi,
-      "#F0FFF0",
-      // Blue Toad
-      "#F0FAFA",
-      // Yellow Toad
-      "#FAFAE6",
-      // Toadette
-      "#FAE1EC",
-      // Player 5
-      "#FAE6E6",
-      // Player 6
-      "#FAE6E6",
-      // Player 7
-      "#FAE6E6",
+      "#FAE6E6", // Mario
+      "#F0FFF0", // Luigi,
+      "#F0FAFA", // Blue Toad
+      "#FAFAE6", // Yellow Toad
+      "#FAE1EC", // Toadette
+      "#E3D5EB", // Purple Toadette
+      "#F6E7D9", // Orange Toad
+      "#86798B", // Black Toad
     };
 
     static constinit nw4r::ut::Color l_PLAYER_COLOR_2[PLAYER_COUNT] = {
-      // Mario
-      "#F06E6E",
-      // Luigi,
-      "#64C864",
-      // Blue Toad
-      "#648CDC",
-      // Yellow Toad
-      "#FFDC50",
-      // Toadette
-      "#FF8DB7",
-      // Player 5
-      "#F06E6E",
-      // Player 6
-      "#F06E6E",
-      // Player 7
-      "#F06E6E",
+      "#F06E6E", // Mario
+      "#64C864", // Luigi
+      "#648CDC", // Blue Toad
+      "#FFDC50", // Yellow Toad
+      "#FF8DB7", // Toadette
+      "#DA89FA", // Purple Toadette
+      "#EA7F4F", // Orange Toad
+      "#2D2A2E", // Black Toad
     };
 
     static constinit nw4r::ut::Color l_PLAYER_COLOR_3[PLAYER_COUNT] = {
-      // Mario
-      "#FFB4B4",
-      // Luigi,
-      "#64FF64",
-      // Blue Toad
-      "#8CFAFF",
-      // Yellow Toad
-      "#FFF06E",
-      // Toadette
-      "#FFB2D6",
-      // Player 5
-      "#FFB4B4",
-      // Player 6
-      "#FFB4B4",
-      // Player 7
-      "#FFB4B4",
+      "#FFB4B4", // Mario
+      "#64FF64", // Luigi
+      "#8CFAFF", // Blue Toad
+      "#FFF06E", // Yellow Toad
+      "#FFB2D6", // Toadette
+      "#E6C2FB", // Purple Toadette
+      "#F3C489", // Orange Toad
+      "#5C5560", // Black Toad
     };
 
     daPyMng_c::PlayerType_e playerType = daPyMng_c::mPlayerType[mPlayerID];
@@ -243,7 +163,7 @@ void dfukidashiInfo_c::ColorSet()
         for (int i = 0; i < 2; i++) {
             picture->SetVtxColor(i, color1);
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 2; i < 4; i++) {
             picture->SetVtxColor(i, color2);
         }
     };

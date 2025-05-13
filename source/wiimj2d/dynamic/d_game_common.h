@@ -1,5 +1,7 @@
 #pragma once
 
+#include <revolution/sc.h>
+
 namespace nw4r::lyt
 {
 class Picture;
@@ -39,5 +41,8 @@ bool PlayerEnterCheck(int player);
 
 /* 0x800B4780 */
 void Player1upColor(LytTextBox_c* textBox, int player);
+
+/* 0x800B5500 */
+SCAspectRatio GetAspectRatio();
 
 } // namespace dGameCom

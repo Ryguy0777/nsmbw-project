@@ -23,19 +23,19 @@ public:
     virtual int initializeStateLocalMethod() override;
 
     /**
-     * VT+0x34
+     * VT+0x34 0x8015FE80
      * Performs the actual state execution.
      */
     virtual void executeStateLocalMethod() override;
 
     /**
-     * VT+0x38
+     * VT+0x38 0x8015FED0
      * Performs the actual state termination.
      */
     virtual void finalizeStateLocalMethod() override;
 
     /**
-     * VT+0x3C
+     * VT+0x3C 0x8015FF30
      * Performs the actual state transition.
      * @param newStateID The new state ID to transition to.
      */

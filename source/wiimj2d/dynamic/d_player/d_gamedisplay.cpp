@@ -2,24 +2,23 @@
 // NSMBW .text: 0x80157820 - 0x8015A480
 
 #include "d_gamedisplay.h"
-#include "framework/f_feature.h"
 
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_game_common.h>
+#include <dynamic/d_lytbase.h>
 #include <dynamic/d_mj2d_game.h>
+#include <framework/f_feature.h>
 #include <iterator>
+#include <machine/m_ef.h>
 #include <nw4r/lyt/Material.h>
+
+[[address_data(0x8042A608)]]
+dGameDisplay_c* dGameDisplay_c::m_instance;
 
 [[address(0x80157820)]]
 dGameDisplay_c* dGameDisplay_c_classInit()
 {
-    dGameDisplay_c* gameDisplay = new dGameDisplay_c();
-
-    for (int i = 0; i < std::size(gameDisplay->mPlayNum); i++) {
-        gameDisplay->mPlayNum[i] = -1;
-    }
-
-    return gameDisplay;
+    return new dGameDisplay_c();
 }
 
 #define X (*reinterpret_cast<dGameDisplay_c*>(0x1))
@@ -79,14 +78,52 @@ const long dGameDisplay_c::PLAYER_BOTH_TEXTBOX_INDEX[][2] = {
 #undef X
 
 [[address(0x80157850)]]
-dGameDisplay_c::dGameDisplay_c();
+dGameDisplay_c::dGameDisplay_c()
+  : mStateMgr(*this, StateID_ProcMainGame)
+  , mLayoutLoaded(false)
+  , m0x452(1)
+{
+    for (int i = 0; i < std::size(mPlayNum); i++) {
+        mPlayNum[i] = -1;
+    }
+
+    m_instance = this;
+}
+
+/* VT+0x08 */
+[[address(0x80157AA0)]]
+dGameDisplay_c::~dGameDisplay_c()
+{
+    // TODO: Fix kuribo clang so that it actually calls the destructor of member variables. Also it
+    // destroys the base class (dBase_c::~dBase_c()) before emitting the following code, instead of
+    // after. Also it doesn't check if 'this' is nullptr, but maybe that's just a standard-breaking
+    // optimization :3
+    mLayout.~LytBase_c();
+    mEffect.~levelEffect_c();
+    mDeathMsgMgr.~dDeathMsgMgr_c();
+}
+
+/**
+ * VT+0x08
+ * do method for the create operation.
+ */
+[[address(0x80157B70)]]
+fBase_c::PACK_RESULT_e dGameDisplay_c::create();
+
+/**
+ * VT+0x14
+ * do method for the delete operation. This method was renamed due to conflict with the delete
+ * C++ keyword.
+ */
+[[address(0x80158230)]]
+fBase_c::PACK_RESULT_e dGameDisplay_c::doDelete();
 
 /**
  * VT+0x20
  * do method for the execute operation.
  */
 [[address(0x801580D0)]]
-fBase_c::PACK_RESULT_e execute() ASM_METHOD(
+fBase_c::PACK_RESULT_e dGameDisplay_c::execute() ASM_METHOD(
   // clang-format off
 /* 801580D0 9421FFF0 */  stwu     r1, -16(r1);
 /* 801580D4 7C0802A6 */  mflr     r0;
@@ -139,6 +176,21 @@ UNDEF_801581b0:;
   // clang-format on
 );
 
+/**
+ * VT+0x2C
+ * do method for the draw operation.
+ */
+[[address(0x801581E0)]]
+fBase_c::PACK_RESULT_e dGameDisplay_c::draw()
+{
+    if (m0x452 && mLayoutLoaded) {
+        mDeathMsgMgr.entry();
+        mLayout.entry();
+    }
+
+    return PACK_RESULT_e::SUCCEEDED;
+}
+
 [[address(0x80158830)]]
 bool dGameDisplay_c::createLayout()
 {
@@ -147,6 +199,7 @@ bool dGameDisplay_c::createLayout()
     }
 
     mLayout.build("gameScene_37.brlyt", nullptr);
+    mDeathMsgMgr.build(mLayout.getResAccessor(), mLayout.getDrawInfo());
 
     using StringArray = const char*[];
     using IntArray = const int[];

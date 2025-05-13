@@ -6,5 +6,6 @@ namespace std
 {
 
 using ::size_t;
+using ::ptrdiff_t;
 
 } // namespace std

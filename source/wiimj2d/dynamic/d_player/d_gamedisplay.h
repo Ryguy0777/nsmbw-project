@@ -4,13 +4,16 @@
 #include <dynamic/d_base.h>
 #include <dynamic/d_lytbase.h>
 #include <dynamic/d_lyttextbox.h>
+#include <dynamic/d_player/d_death_message_mgr.h>
+#include <machine/m_ef.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
 #include <nw4r/lyt/TexMap.h>
 #include <revolution/gx/GXStruct.h>
+#include <state/s_State.h>
 #include <state/s_StateMgr.h>
 
-class dGameDisplay_c : public dBase_c
+class dGameDisplay_c final : public dBase_c
 {
 public:
     // ------------
@@ -20,16 +23,38 @@ public:
     /* 0x80157850 */
     dGameDisplay_c();
 
+    /* VT+0x08 0x80157AA0 */
+    virtual ~dGameDisplay_c();
+
 public:
     // -----------------
     // Virtual Functions
     // -----------------
 
     /**
+     * VT+0x08 0x80157B70
+     * do method for the create operation.
+     */
+    PACK_RESULT_e create() override;
+
+    /**
+     * VT+0x14 0x80158230
+     * do method for the delete operation. This method was renamed due to conflict with the delete
+     * C++ keyword.
+     */
+    PACK_RESULT_e doDelete() override;
+
+    /**
      * VT+0x20 0x801580D0
      * do method for the execute operation.
      */
-    virtual PACK_RESULT_e execute();
+    PACK_RESULT_e execute() override;
+
+    /**
+     * VT+0x2C 0x801581E0
+     * do method for the draw operation.
+     */
+    PACK_RESULT_e draw() override;
 
 public:
     // ----------------
@@ -70,14 +95,18 @@ public:
     /* 0x80159DF0 */
     void setScore(int score);
 
+    void newDeathMessage(const wchar_t* message, daPyMng_c::PlayerType_e player)
+    {
+        mDeathMsgMgr.newMessage(message, player);
+    }
+
 public:
     // -----------
     // Member Data
     // -----------
 
     /* 0x070 */ LytBase_c mLayout;
-
-    FILL(0x208, 0x330);
+    /* 0x208 */ mEf::levelEffect_c mEffect;
 
     // Moved
     /* 0x330 */ s16 mPlayerRGBA0_Removed[4][4];
@@ -103,7 +132,15 @@ public:
     // Changed from int to s8
     /* 0x424 */ s8 mEffectTimer[16];
 
-    FILL(0x434, 0x490);
+    FILL(0x434, 0x44B);
+
+    /* 0x44B */ bool mLayoutLoaded;
+
+    FILL(0x44C, 0x452);
+
+    /* 0x452 */ u8 m0x452;
+
+    FILL(0x453, 0x490);
 
     /* 0x490 */ nw4r::lyt::Pane* mpRootPane;
 
@@ -233,13 +270,31 @@ public:
     nw4r::lyt::Size maIconSize[4 + EXTRA_PLAYER_COUNT];
     nw4r::math::VEC2 maIconScale[4 + EXTRA_PLAYER_COUNT];
 
+    dDeathMsgMgr_c mDeathMsgMgr;
+
 public:
     // -----------
     // Static Data
     // -----------
 
+    /* 0x8042A608 */
+    static dGameDisplay_c* m_instance;
+
     static const long PLAYER_PANE_INDEX[];
     static const long PLAYER_PICTURE_INDEX[];
     static const long PLAYER_TEXTBOX_INDEX[];
     static const long PLAYER_BOTH_TEXTBOX_INDEX[][2];
+
+public:
+    // ---------
+    // State IDs
+    // ---------
+
+    sState_Extern(0x80377378, dGameDisplay_c, ProcMainGame);
+
+    sState_Extern(0x803773B8, dGameDisplay_c, ProcMainPause);
+
+    sState_Extern(0x803773F8, dGameDisplay_c, ProcGoalSettleUp);
+
+    sState_Extern(0x80377438, dGameDisplay_c, ProcGoalEnd);
 };

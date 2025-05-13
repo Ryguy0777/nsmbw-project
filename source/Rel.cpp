@@ -139,7 +139,8 @@ void PatchRelocations(OSModuleImportInfo* importTable, OSModuleImportInfo* impor
 
 extern "C" void _prolog(s32 param1, void* param2)
 {
-    dScBoot_c::initCodeRegion();
+    dSys_c::initCodeRegion();
+    auto codeRegion = dSys_c::m_codeRegion;
 
     int interrupt = OSDisableInterrupts();
 
@@ -148,37 +149,37 @@ extern "C" void _prolog(s32 param1, void* param2)
         for (u32 i = 0; i < repl->count; i++) {
             u32 offset = reinterpret_cast<u32>(repl->addr);
             u32 ptr;
-            switch (dScBoot_c::m_codeRegion) {
-            case dScBoot_c::CODE_REGION_e::P1:
+            switch (codeRegion) {
+            case dSys_c::CODE_REGION_e::P1:
                 ptr = repl->references[i].addrP1;
                 break;
-            case dScBoot_c::CODE_REGION_e::P2:
+            case dSys_c::CODE_REGION_e::P2:
                 ptr = repl->references[i].addrP2;
                 break;
-            case dScBoot_c::CODE_REGION_e::E1:
+            case dSys_c::CODE_REGION_e::E1:
                 ptr = repl->references[i].addrE1;
                 break;
-            case dScBoot_c::CODE_REGION_e::E2:
+            case dSys_c::CODE_REGION_e::E2:
                 ptr = repl->references[i].addrE2;
                 break;
-            case dScBoot_c::CODE_REGION_e::J1:
+            case dSys_c::CODE_REGION_e::J1:
                 ptr = repl->references[i].addrJ1;
                 break;
-            case dScBoot_c::CODE_REGION_e::J2:
+            case dSys_c::CODE_REGION_e::J2:
                 ptr = repl->references[i].addrJ2;
                 break;
-            case dScBoot_c::CODE_REGION_e::K:
+            case dSys_c::CODE_REGION_e::K:
                 ptr = repl->references[i].addrK;
                 break;
-            case dScBoot_c::CODE_REGION_e::W:
+            case dSys_c::CODE_REGION_e::W:
                 ptr = repl->references[i].addrW;
                 break;
-            case dScBoot_c::CODE_REGION_e::C:
+            case dSys_c::CODE_REGION_e::C:
                 ptr = repl->references[i].addrC;
                 break;
 
             default:
-                OSPanic(__FILE__, __LINE__, "Invalid code region %d", dScBoot_c::m_codeRegion);
+                OSPanic(__FILE__, __LINE__, "Invalid code region %d", dSys_c::m_codeRegion);
             }
             if (repl->references[i].type == R_PPC_ADDR16_LO) {
                 offset &= 0xFFFF;

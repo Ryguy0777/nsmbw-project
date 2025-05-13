@@ -150,9 +150,9 @@ void Player1upColor(LytTextBox_c* textBox, int player)
       "#D2F0FF", // Blue Toad
       "#FFFF64", // Yellow Toad
       "#FFBEFF", // Toadette
-      "#FFFFFF", // Player 5
-      "#FFFFFF", // Player 6
-      "#FFFFFF", // Player 7
+      "#E7C9FF", // Purple Toadette
+      "#FFD85A", // Orange Toad
+      "#6B6B6B", // Black Toad
     };
 
     static constinit const nw4r::ut::Color l_PLY_COLOR_2[] = {
@@ -161,9 +161,9 @@ void Player1upColor(LytTextBox_c* textBox, int player)
       "#1E2DF0", // Blue Toad
       "#FFBE00", // Yellow Toad
       "#D676D6", // Toadette
-      "#FFFFFF", // Player 5
-      "#FFFFFF", // Player 6
-      "#FFFFFF", // Player 7
+      "#A472F8", // Purple Toadette
+      "#FF8200", // Orange Toad
+      "#464646", // Black Toad
     };
 
     int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
@@ -171,5 +171,8 @@ void Player1upColor(LytTextBox_c* textBox, int player)
     textBox->SetVtxColor(0, l_PLY_COLOR_0[index]);
     textBox->SetVtxColor(2, l_PLY_COLOR_2[index]);
 }
+
+[[address(0x800B5500)]]
+SCAspectRatio GetAspectRatio();
 
 } // namespace dGameCom

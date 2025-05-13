@@ -8,7 +8,10 @@ namespace m2d
 
 class ResAccIf_c
 {
+    SIZE_ASSERT(0xC);
+
     /* 0x0 VTABLE */
+
 public:
     /* VT+0x8 */
     virtual ~ResAccIf_c() = 0;
@@ -30,10 +33,10 @@ private:
     /* 0x8 */ void* mpResource;
 };
 
-static_assert(sizeof(ResAccIf_c) == 0xC);
-
 class Base_c
 {
+    SIZE_ASSERT(0xD);
+
 public:
     Base_c(u8 priority)
       : mPriority(priority)
@@ -45,17 +48,15 @@ public:
     /* 0x8 VTABLE */
 
     /* VT+0x8 */
-    virtual ~Base_c() = 0;
+    virtual ~Base_c() = default;
 
     /* VT+0xC */
     virtual void draw() = 0;
 
-    /* 0x80163990 */
+    [[address(0x80163990)]]
     void entry();
 
     /* 0xC */ u8 mPriority;
 };
-
-static_assert(sizeof(Base_c) == 0x10);
 
 } // namespace m2d
