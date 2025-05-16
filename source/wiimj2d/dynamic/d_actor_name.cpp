@@ -328,7 +328,7 @@ const char* getActorFormattedName(dBase_c* actor)
 
     if (auto player = actor->DynamicCast<dAcPy_c>()) {
         if (player->isItemKinopio()) {
-            return "Toad";
+            return "Road";
         }
 
         auto colorType = daPyMng_c::getPlayerColorType(player->mPlayerType);

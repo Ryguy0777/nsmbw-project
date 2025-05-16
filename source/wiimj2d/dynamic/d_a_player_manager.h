@@ -146,8 +146,14 @@ public:
     /* 0x8005FDB0 */
     static bool addNum(int num);
 
+    /* 0x8005FE30 */
+    static bool decNum(int num);
+
     /* 0x8005FEB0 */
-    static void addNum();
+    static int addNum();
+
+    /* 0x8005FED0 */
+    static int decNum();
 
     /* 0x8005FEF0 */
     static int getNumInGame();
@@ -267,7 +273,8 @@ public:
     static s32 mCtrlPlrNo;
 
     /* 0x80429F88 */
-    static u8 mActPlayerInfo;
+    static u8 mOldActPlayerInfo;
+    static u64 mActPlayerInfo;
 
     /* 0x80429F8C */
     static u8 m_yoshiColor[PLAYER_COUNT];

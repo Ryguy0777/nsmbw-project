@@ -129,15 +129,13 @@ public:
 #define OFFSET_dInfo_c_mExPlayerActiveMode 0xB5C
     /* 0xB5C */ s32 mExPlayerActiveMode[PLAYER_COUNT - 4];
 
-#define OFFSET_dInfo_c_mEx0xAFE 0xB6C
-#define ADJUST_dInfo_c_mEx0xAFE 0xB6C - 0xAFE - 4 * 22
-    /* 0xB6C */ u8 mEx0xAFE[PLAYER_COUNT - 4][22];
+#define OFFSET_dInfo_c_mEx0xAFE (OFFSET_dInfo_c_mExPlayerActiveMode + (PLAYER_COUNT - 4) * 4)
+#define ADJUST_dInfo_c_mEx0xAFE (OFFSET_dInfo_c_mEx0xAFE - 0xAFE - 4 * 22)
+    /* 0xB6C? */ u8 mEx0xAFE[PLAYER_COUNT - 4][22];
 
-#define OFFSET_dInfo_c_mEx0xB56 0xBC4
-#define ADJUST_dInfo_c_mEx0xB56 0xBC4 - 0xB56 - 4
-    /* 0xBC4 */ u8 mEx0xB56[PLAYER_COUNT - 4];
-
-    OFFSET_ASSERT(0xBC8);
+#define OFFSET_dInfo_c_mEx0xB56 (OFFSET_dInfo_c_mEx0xAFE + (PLAYER_COUNT - 4) * 22)
+#define ADJUST_dInfo_c_mEx0xB56 (OFFSET_dInfo_c_mEx0xB56 - 0xB56 - 4)
+    /* 0xBC4? */ u8 mEx0xB56[PLAYER_COUNT - 4];
 
 public:
     // -----------

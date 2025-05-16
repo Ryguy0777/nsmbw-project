@@ -35,13 +35,24 @@ public:
 
     FILL(0x524, 0x688);
 
-    static_assert(PLAYER_COUNT <= 8, "Adapt this to support more players pleeease");
-#define OFFSET_daEnRedRing_c_mPlayerDelta 0x688
+#if PLAYER_COUNT == 8
+#  define OFFSET_daEnRedRing_c_mPlayerDelta 0x688
     /* 0x688 */ mVec2_c mPlayerDelta[8];
+#else
+    FILL(0x688, 0x6C8);
+#endif
 
     FILL(0x6C8, 0x800);
     OFFSET_ASSERT(0x800);
 
-#define OFFSET_daEnRedRing_c_mPrevPlayerDelta 0x800
+#if PLAYER_COUNT == 8
+#  define OFFSET_daEnRedRing_c_mPrevPlayerDelta 0x800
     /* 0x800 */ mVec2_c mPrevPlayerDelta[8];
+#else
+#  define OFFSET_daEnRedRing_c_mPlayerDelta 0x800
+    /* 0x800 */ mVec2_c mPlayerDelta[PLAYER_COUNT];
+#  define OFFSET_daEnRedRing_c_mPrevPlayerDelta                                                    \
+      (OFFSET_daEnRedRing_c_mPlayerDelta + 0x8 * PLAYER_COUNT)
+    /* 0x800 */ mVec2_c mPrevPlayerDelta[PLAYER_COUNT];
+#endif
 };

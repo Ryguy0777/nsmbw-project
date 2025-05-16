@@ -2,7 +2,6 @@
 // NSMBW .text: 0x8005E9A0 - 0x800613B0
 
 #include "d_a_player_manager.h"
-#include "framework/f_feature.h"
 
 #include <PatchRel.h>
 #include <dynamic/d_a_player_demo_manager.h>
@@ -23,9 +22,12 @@
 #include <dynamic/d_quake.h>
 #include <dynamic/d_score_manager.h>
 #include <dynamic/d_stage_timer.h>
+#include <framework/f_base_profile.h>
+#include <framework/f_feature.h>
 #include <framework/f_manager.h>
 #include <framework/f_sound_id.h>
 #include <machine/m_vec.h>
+#include <numeric>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
 
@@ -41,9 +43,10 @@ int daPyMng_c::mNum;
 [[address_data(0x80429F84)]]
 s32 daPyMng_c::mCtrlPlrNo;
 
-static_assert(PLAYER_COUNT <= 8, "Bitfield only supports 8 players");
 [[address_data(0x80429F88)]]
-u8 daPyMng_c::mActPlayerInfo;
+u8 daPyMng_c::mOldActPlayerInfo;
+
+u64 daPyMng_c::mActPlayerInfo;
 
 /* 0x80355110 */
 fBaseID_e daPyMng_c::m_playerID[PLAYER_COUNT];
@@ -146,6 +149,7 @@ int daPyMng_c::mKinopioCarryCount;
 void daPyMng_c::initGame()
 {
     mActPlayerInfo |= 1;
+    mOldActPlayerInfo |= 1;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         mPlayerType[i] = DEFAULT_PLAYER_ORDER[i];
@@ -169,6 +173,7 @@ void daPyMng_c::initStage()
 
     mNum = 0;
     mActPlayerInfo = 0;
+    mOldActPlayerInfo = 0;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         setPlayer(i, nullptr);
@@ -235,7 +240,18 @@ mVec3_c daPyMng_c::getPlayerSetPos(u8 course, u8 gotoID);
 u8 daPyMng_c::getPlayerCreateAction();
 
 [[address(0x8005EEE0)]]
-bool daPyMng_c::createPlayer(int player, mVec3_c position, s32 gotoKind, bool faceLeft);
+bool daPyMng_c::createPlayer(int player, mVec3_c position, s32 gotoKind, bool faceLeft)
+{
+    if (!(mActPlayerInfo & (1 << player))) {
+        return false;
+    }
+
+    dActor_c::construct(
+      +fBaseProfile_e::PLAYER, u32(faceLeft) << 24 | u32(gotoKind & 0xFF) << 16 | u32(player & 63),
+      &position, nullptr
+    );
+    return true;
+}
 
 [[address(0x8005EF50)]]
 void daPyMng_c::createCourseInit()
@@ -275,7 +291,8 @@ void daPyMng_c::createCourseInit()
             isAmbush = dCd_c::getFileP(stage->mCourse)->mpCourseInfo->mIsAmbush;
         }
 
-        int createOrder[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+        int createOrder[PLAYER_COUNT];
+        std::iota(createOrder, createOrder + PLAYER_COUNT, 0);
 
         if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
             // Randomize the spawn order
@@ -324,10 +341,6 @@ void daPyMng_c::createCourseInit()
         }
     } else {
         // Setup spawn for staff credits
-        static_assert(
-          PLAYER_COUNT <= 8, "Please update the staff credit positions for more than 8 players"
-        );
-
         playerSetPos.x += 512 - 320;
 
         static const f32 l_STAFF_CREDIT_POS[8][2] = {
@@ -346,11 +359,11 @@ void daPyMng_c::createCourseInit()
         for (int i = 0; i < PLAYER_COUNT; i++) {
             if (mPlayerEntry[i] != 0) {
                 mVec3_c pos = {
-                  playerSetPos.x + l_STAFF_CREDIT_POS[i][0],
-                  playerSetPos.y + l_STAFF_CREDIT_POS[i][1],
+                  playerSetPos.x + l_STAFF_CREDIT_POS[i % 8][0],
+                  playerSetPos.y + l_STAFF_CREDIT_POS[i % 8][1],
                   playerSetPos.z,
                 };
-                createPlayer(i, pos, 0, l_STAFF_CREDIT_POS[i][0] > 0);
+                createPlayer(i, pos, 0, l_STAFF_CREDIT_POS[i % 8][0] > 0);
             }
         }
     }
@@ -360,6 +373,7 @@ void daPyMng_c::createCourseInit()
 void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
 {
     mActPlayerInfo |= 1 << index;
+    mOldActPlayerInfo |= 1 << index;
     mPlayerEntry[index] = 1;
     mCreateItem[int(mPlayerType[index])] = 8;
     mKinopioMode = kinopioMode;
@@ -539,7 +553,7 @@ daPyMng_c::PlayerType_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e m
 
 dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PlayerType_e playerType)
 {
-    int playerTypeInt = static_cast<int>(playerType);
+    int playerTypeInt = static_cast<int>(playerType) % 8;
 
     if (mCreateItem[playerTypeInt] & 8) {
         return dPyMdlMng_c::ModelType_e::MODEL_TOAD_RED;
@@ -619,14 +633,53 @@ u8 daPyMng_c::getScrollNum()
 }
 
 [[address(0x8005FDB0)]]
-bool daPyMng_c::addNum(int num);
+bool daPyMng_c::addNum(int num)
+{
+    if (mActPlayerInfo & (1 << num)) {
+        return false;
+    }
+
+    mActPlayerInfo |= 1 << num;
+    mOldActPlayerInfo |= 1 << num;
+    if (auto player = getPlayer(num); !player || !player->isItemKinopio()) {
+        addNum();
+    }
+    return true;
+}
+
+[[address(0x8005FE30)]]
+bool daPyMng_c::decNum(int num)
+{
+    if (!(mActPlayerInfo & (1 << num))) {
+        return false;
+    }
+
+    mActPlayerInfo &= ~(1 << num);
+    mOldActPlayerInfo &= ~(1 << num);
+    if (auto player = getPlayer(num); !player || !player->isItemKinopio()) {
+        decNum();
+    }
+    decideCtrlPlrNo();
+
+    return true;
+}
 
 [[address(0x8005FEB0)]]
-void daPyMng_c::addNum()
+int daPyMng_c::addNum()
 {
-    if (mNum < PLAYER_COUNT) {
-        mNum++;
+    if (mNum >= PLAYER_COUNT) {
+        return mNum;
     }
+    return mNum++;
+}
+
+[[address(0x8005FED0)]]
+int daPyMng_c::decNum()
+{
+    if (mNum <= 0) {
+        return mNum;
+    }
+    return mNum--;
 }
 
 [[address(0x8005FEF0)]]

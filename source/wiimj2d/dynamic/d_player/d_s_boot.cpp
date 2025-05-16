@@ -63,13 +63,13 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     changeState(StateID_ControllerInformationFadeIn);
 }
 
-#if 0
+#if 1
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
     // Setup players for title screen test
-    for (int i = 0; i < 1; i++) {
-        daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::TOADETTE;
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        // daPyMng_c::mPlayerType[i] = daPyMng_c::PlayerType_e::TOADETTE;
         daPyMng_c::mPlayerEntry[i] = 1;
 
         daPyMng_c::mPlayerMode[i] = int(PLAYER_POWERUP_e::PROPELLER_SHROOM);
@@ -82,7 +82,7 @@ void dScBoot_c::executeState_ProcEnd()
         }
     }
 
-    daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
+    // daPyMng_c::mPlayerType[5] = daPyMng_c::PlayerType_e::MARIO;
 
     // daPyMng_c::mPlayerEntry[4] = 1;
 

@@ -1,0 +1,52 @@
+#pragma once
+
+#include <concepts>
+
+namespace std
+{
+
+template <std::unsigned_integral T>
+constexpr T rotl(T x, int s) noexcept
+{
+    static_assert(
+      sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8,
+      "Unsupported type for rotl"
+    );
+
+    if constexpr (sizeof(T) == 1) {
+        return __builtin_rotateleft8(x, s);
+    } else if constexpr (sizeof(T) == 2) {
+        return __builtin_rotateleft16(x, s);
+    } else if constexpr (sizeof(T) == 4) {
+        return __builtin_rotateleft32(x, s);
+    } else if constexpr (sizeof(T) == 8) {
+        return __builtin_rotateleft64(x, s);
+    }
+}
+
+template <std::unsigned_integral T>
+constexpr T rotr(T x, int s) noexcept
+{
+    static_assert(
+      sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8,
+      "Unsupported type for rotr"
+    );
+
+    if constexpr (sizeof(T) == 1) {
+        return __builtin_rotateright8(x, s);
+    } else if constexpr (sizeof(T) == 2) {
+        return __builtin_rotateright16(x, s);
+    } else if constexpr (sizeof(T) == 4) {
+        return __builtin_rotateright32(x, s);
+    } else if constexpr (sizeof(T) == 8) {
+        return __builtin_rotateright64(x, s);
+    }
+}
+
+template <std::unsigned_integral T>
+constexpr int popcount(T x) noexcept
+{
+    return __builtin_popcountg(x);
+}
+
+} // namespace std

@@ -71,3 +71,23 @@ public:
 
     FILL(0x4C, 0x60);
 };
+
+class dRide2Point_c : public dRide_ctr_c
+{
+    SIZE_ASSERT(0x5C);
+
+public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* 0x800DB540 */
+    dRide2Point_c();
+
+public:
+    // -----------
+    // Member Data
+    // -----------
+
+    FILL(0x4C, 0x5C);
+};

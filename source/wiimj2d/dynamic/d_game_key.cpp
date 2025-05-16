@@ -31,13 +31,13 @@ dGameKey_c* dGameKey_c::createInstance(EGG::Heap* heap)
 [[address(0x800B5980)]]
 dGameKey_c::dGameKey_c()
 {
-    static constexpr mPad::CH_e s_channels[CORE_COUNT] = {
+    static constexpr mPad::CH_e s_channels[8] = {
       mPad::CH_e::CHAN_0,    mPad::CH_e::CHAN_1,    mPad::CH_e::CHAN_2,    mPad::CH_e::CHAN_3,
       mPad::CH_e::CHAN_GC_0, mPad::CH_e::CHAN_GC_1, mPad::CH_e::CHAN_GC_2, mPad::CH_e::CHAN_GC_3,
     };
 
     for (int i = 0; i < CORE_COUNT; i++) {
-        mpCores[i] = new dGameKeyCore_c(s_channels[i]);
+        mpCores[i] = new dGameKeyCore_c(s_channels[i % 8]);
     }
 
     s_isInit = true;

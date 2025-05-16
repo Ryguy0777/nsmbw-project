@@ -3,8 +3,8 @@
 
 #include "d_bg.h"
 
-#include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_a_player_manager.h>
+#include <dynamic/d_player/d_a_player.h>
 
 [[address(0x800785E0)]]
 bool dBg_c::UNDEF_800785E0()
@@ -708,17 +708,19 @@ UNDEF_8007c6dc:;
   // clang-format on
 );
 
-static_assert(
-  PLAYER_COUNT <= 8, "The stack needs to be updated below to support more than 8 players"
-);
-
+#define D_STACK_SIZE (0x28 + 0x8 + PLAYER_COUNT * 4)
 [[address(0x8007CA90)]]
 void UNDEF_8007ca90() ASM_METHOD(
+  // Stack layout:
+  // 0x00-0x08: Previous frame / caller return address
+  // 0x08-0x28: u32[8] player specific data
+  // 0x28-0x50: Saved registers (r22)+
+
   // clang-format off
-/* 8007CA90          */  stwu     r1, -0x50(r1);
+/* 8007CA90          */  stwu     r1, -D_STACK_SIZE(r1);
 /* 8007CA94 7C0802A6 */  mflr     r0;
-/* 8007CA98          */  stw      r0, 0x54(r1);
-/* 8007CA9C          */  addi     r11, r1, 0x50;
+/* 8007CA98          */  stw      r0, D_STACK_SIZE + 4(r1);
+/* 8007CA9C          */  addi     r11, r1, D_STACK_SIZE;
 /* 8007CAA0 482605B1 */  bl       UNDEF_802dd050;
 /* 8007CAA4 7C781B78 */  mr       r24, r3;
 /* 8007CAA8 7C992378 */  mr       r25, r4;
@@ -913,11 +915,12 @@ UNDEF_8007cd38:;
 /* 8007CD50 801C14D4 */  lwz      r0, 5332(r28);
 /* 8007CD54 9019002C */  stw      r0, 44(r25);
 UNDEF_8007cd58:;
-/* 8007CD58          */  addi     r11, r1, 0x50;
+/* 8007CD58          */  addi     r11, r1, D_STACK_SIZE;
 /* 8007CD5C 48260341 */  bl       UNDEF_802dd09c;
-/* 8007CD60          */  lwz      r0, 0x54(r1);
+/* 8007CD60          */  lwz      r0, D_STACK_SIZE + 4(r1);
 /* 8007CD64 7C0803A6 */  mtlr     r0;
-/* 8007CD68          */  addi     r1, r1, 0x50;
+/* 8007CD68          */  addi     r1, r1, D_STACK_SIZE;
 /* 8007CD6C 4E800020 */  blr;
   // clang-format on
 );
+#undef D_STACK_SIZE

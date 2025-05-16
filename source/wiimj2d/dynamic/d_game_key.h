@@ -1,5 +1,6 @@
 #pragma once
 
+#include <dynamic/d_a_player_manager.h>
 #include <egg/core/eggHeap.h>
 
 class dGameKeyCore_c;
@@ -13,7 +14,7 @@ public:
     // Constants and Types
     // -------------------
 
-    static constexpr int CORE_COUNT = 8;
+    static constexpr int CORE_COUNT = PLAYER_COUNT;
 
 public:
     // ------------
