@@ -7,6 +7,10 @@ class dAcPy_c;
 class dBgGm_c
 {
 public:
+    // ----------------
+    // Member Functions
+    // ----------------
+
     /* 0x80154F90 @unofficial */
     bool inW2CastleMazeBounds(float param1, float param2);
 
@@ -24,4 +28,17 @@ public:
 
     /* 0x80156D70 @unofficial */
     bool isManualZoomActive(void* param1);
+
+    bool isAutoscroll() const
+    {
+        return mIsAutoscroll;
+    }
+
+public:
+    // -----------
+    // Member Data
+    // -----------
+
+    FILL(0x00000, 0x900C6);
+    /* 0x900C6 */ bool mIsAutoscroll;
 };

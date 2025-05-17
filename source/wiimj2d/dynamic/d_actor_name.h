@@ -1,10 +1,10 @@
 #pragma once
 
-class dBase_c;
+class fBase_c;
 
 namespace dActorName
 {
 
-const char* getActorFormattedName(dBase_c* actor);
+const char* getActorFormattedName(fBase_c* actor);
 
 } // namespace dActorName

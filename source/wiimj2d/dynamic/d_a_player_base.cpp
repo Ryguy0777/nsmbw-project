@@ -2,7 +2,6 @@
 // NSMBW .text: 0x800460D0 - 0x8005B3A0
 
 #include "d_a_player_base.h"
-#include "dynamic/d_player/d_gamedisplay.h"
 
 #include <cstdio>
 #include <dynamic/d_a_player_manager.h>
@@ -10,7 +9,9 @@
 #include <dynamic/d_game_common.h>
 #include <dynamic/d_player/d_a_player.h>
 #include <dynamic/d_player/d_a_yoshi.h>
+#include <dynamic/d_player/d_gamedisplay.h>
 #include <framework/f_base_profile.h>
+#include <framework/f_manager.h>
 #include <iterator>
 
 [[address(0x8004DB40)]]
@@ -18,6 +19,9 @@ bool daPlBase_c::isDemoType(DemoType_e type);
 
 [[address(0x8004DD00)]]
 bool daPlBase_c::isDemo();
+
+[[address(0x8004DDE0)]]
+bool daPlBase_c::isDemoAll();
 
 [[address(0x8004E040)]]
 bool daPlBase_c::isPlayerGameStop();
@@ -27,6 +31,12 @@ void daPlBase_c::stopOther();
 
 [[address(0x8004E100)]]
 void daPlBase_c::playOther();
+
+[[address(0x8004E290)]]
+void daPlBase_c::changeDemoState(const sStateIDIf_c& state, int param);
+
+[[address(0x80050D80)]]
+bool daPlBase_c::isDispOutCheckOn();
 
 [[address(0x800510F0)]]
 void daPlBase_c::stopGoalOther()
@@ -111,8 +121,6 @@ bool daPlBase_c::isStatus(int flag);
 [[address(0x800583A0)]]
 void daPlBase_c::calcHeadAttentionAngle();
 
-using MsgArray = const char*[];
-
 // Static array works here as we have a limited number of players
 static fBaseID_e s_lastHitEnemy[PLAYER_COUNT] = {};
 
@@ -120,8 +128,10 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
 {
     // TODO: Use BMG for messages
 
-    bool repeat = source ? source->mUniqueID == s_lastHitEnemy[mPlayerNo] : false;
+    fBaseID_e lastHit = s_lastHitEnemy[mPlayerNo];
     s_lastHitEnemy[mPlayerNo] = source ? source->mUniqueID : fBaseID_e::NULL;
+
+    bool repeat = source ? source->mUniqueID == lastHit : false;
 
     const char* selfName = dActorName::getActorFormattedName(this);
     if (selfName == nullptr) {
@@ -130,6 +140,12 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
 
     const char* enemyName = dActorName::getActorFormattedName(source);
     fBaseProfile_e enemy = source ? fBaseProfile_e(source->mProfName) : fBaseProfile_e::LASTACTOR;
+
+    fBase_c* lastEnemy = fManager_c::searchBaseByID(lastHit);
+    const char* lastEnemyName = nullptr;
+    if (lastEnemy != nullptr) {
+        lastEnemyName = dActorName::getActorFormattedName(lastEnemy);
+    }
 
     const char* messages[128] = {};
     int messageCount = 0;
@@ -337,6 +353,59 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
         addMsg("%s couldn't escape the fog");
         addMsg("%s got lost in the fog");
         break;
+
+    case DamageType_e::FALL_DOWN:
+        if (enemyName == nullptr) {
+            if (lastEnemyName) {
+                enemyName = lastEnemyName;
+                addMsg("%s couldn't live in the same world as %s");
+                addMsg("%s was knocked off a cliff by %s");
+                addMsg("%s stumbled over %s and fell off");
+            } else {
+                addMsg("%s fell off");
+                addMsg("%s fell through the floor");
+                addMsg("%s fell off (on purpose)");
+            }
+
+            addMsg("%s fell out of the world");
+            addMsg("%s forgot how to jump");
+            addMsg("%s thought there was ground there");
+            addMsg("%s didn't want to play anymore");
+            addMsg("%s lost the game");
+            addMsg("%s you're not supposed to go down there");
+            addMsg("%s what's it like down there");
+            addMsg("%s left the confines of the world");
+        } else {
+            addMsg("%s fell off and dragged %s with them");
+            addMsg("%s sacrificed themselves to take out %s");
+            addMsg("%s thought the world better without %s");
+            addMsg("~%s was dragged into the void by %s");
+            addMsg("~%s was betrayed by %s");
+        }
+        break;
+
+    case DamageType_e::SCROLL_OUT:
+        if (enemyName == nullptr) {
+            addMsg("%s met the wrath of the edge of the screen");
+            addMsg("%s mysteriously vanished");
+            addMsg("%s died because the screen scrolled too much");
+            addMsg("The screen just went too far for %s");
+            addMsg("%s left the confines of the screen");
+            addMsg("%s died");
+            addMsg("%s was left behind");
+            addMsg("%s died because people need to slow down");
+            addMsg("%s died because people need to slow down");
+            addMsg("%s died because PEOPLE NEED TO SLOW DOWN!!!!");
+        } else {
+            addMsg("%s and %s couldn't handle the screen's edge");
+            addMsg("%s and %s met the edge of the screen");
+            addMsg("%s showed %s to the edge of the screen");
+            addMsg("%s and %s were left behind");
+            addMsg("%s and %s mysteriously vanished");
+            addMsg("%s and %s died");
+            addMsg("%s and %s died because people need to slow down");
+        }
+        break;
     }
 
     const char* message = nullptr;
@@ -354,11 +423,26 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
         enemyName = "an unknown force";
     }
 
+    daPlBase_c* player = this;
+    if (message[0] == '~') {
+        // Swap order of names
+        const char* temp = selfName;
+        selfName = enemyName;
+        enemyName = temp;
+        if (source) {
+            if (auto player2 = source->DynamicCast<daPlBase_c>()) {
+                player = player2;
+            }
+        }
+    }
+
     char formattedMessage[128];
     std::snprintf(formattedMessage, sizeof(formattedMessage), message, selfName, enemyName);
 
     wchar_t wideMessage[128];
     std::mbstowcs(wideMessage, formattedMessage, std::size(wideMessage));
 
-    dGameDisplay_c::m_instance->newDeathMessage(wideMessage, daPyMng_c::mPlayerType[*getPlrNo()]);
+    dGameDisplay_c::m_instance->newDeathMessage(
+      wideMessage, daPyMng_c::mPlayerType[*player->getPlrNo()]
+    );
 }

@@ -320,7 +320,7 @@ constexpr PackedActorNames<s_packedSize> s_packedNames = [] {
     return ProcessPackActorNames<s_packedSize>(s_names, offset);
 }();
 
-const char* getActorFormattedName(dBase_c* actor)
+const char* getActorFormattedName(fBase_c* actor)
 {
     if (actor == nullptr) {
         return nullptr;
@@ -378,7 +378,8 @@ const char* getActorFormattedName(dBase_c* actor)
         i += 3 + len;
     }
 
-    return actor->mpNameString != nullptr ? actor->mpNameString : "an unknown force";
+    dBase_c* base = actor->DynamicCast<dBase_c>();
+    return base && base->mpNameString ? base->mpNameString : "an unknown force";
 }
 
 } // namespace dActorName

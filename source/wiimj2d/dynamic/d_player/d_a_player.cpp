@@ -2,26 +2,100 @@
 // NSMBW .text: 0x80126650 - 0x8014A480
 
 #include "d_a_player.h"
-#include "dynamic/d_mj2d_game.h"
-#include "dynamic/d_quake.h"
-#include "framework/f_feature.h"
 
 #include <dynamic/d_a_player_demo_manager.h>
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_audio.h>
 #include <dynamic/d_bases/d_s_stage.h>
+#include <dynamic/d_bg.h>
 #include <dynamic/d_fader.h>
+#include <dynamic/d_mj2d_game.h>
 #include <dynamic/d_player/d_a_yoshi.h>
+#include <dynamic/d_player/d_bg_gm.h>
+#include <dynamic/d_quake.h>
 #include <framework/f_base.h>
+#include <framework/f_feature.h>
 
 [[address(0x801275B0)]]
 float dAcPy_c::getJumpSpeed();
+
+[[address(0x8012DD20)]]
+dAcPy_c* dAcPy_c::getCarryPlayer();
 
 [[address(0x8012E6E0)]]
 bool dAcPy_c::releaseCarryActor();
 
 [[address(0x80138FA0)]]
 bool dAcPy_c::setBalloonInDamage();
+
+[[address(0x80139330)]]
+bool dAcPy_c::setBalloonInDispOutYoshi(int param)
+{
+    return setBalloonInDispOut2(param, 1, false);
+}
+
+/* VT+0x11C */
+[[address(0x80139340)]]
+bool dAcPy_c::setBalloonInDispOut(int param)
+{
+    return setBalloonInDispOut2(param, 0, false);
+}
+
+[[address(0x80139350)]]
+bool dAcPy_c::setBalloonInDispOut2(int type, bool yoshi, bool noDeathMsg)
+{
+    if (!isDispOutCheckOn()) {
+        return false;
+    }
+
+    if (type == 2 || type == 0) {
+        if ((isDemoAll() && !isStatus(90)) || isStatus(184)) {
+            return false;
+        }
+    } else {
+        if (isItemKinopio() && !dBg_c::m_bg_p->isAutoscroll()) {
+            return false;
+        }
+    }
+
+    auto carryPlr = getCarryPlayer();
+    if (carryPlr) {
+        if (!carryPlr->setBalloonInDispOut2(type, false, true)) {
+            carryPlr = nullptr;
+        }
+    }
+
+    if (yoshi) {
+        onStatus(184);
+    }
+
+    if (isStatus(185)) {
+        setFallDownDemoNoMsg();
+    } else {
+        setPressBgDamage(11, 0);
+    }
+
+    DamageType_e damageType = DamageType_e::FALL_DOWN;
+
+    if (type == 2 || type == 0) {
+        playVoice(SndObjctPly::PLAYER_VOICE_e::SCROLL_OUT, 0);
+        dQuake_c::m_instance->shockMotor(
+          mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false
+        );
+
+        damageType = DamageType_e::SCROLL_OUT;
+    }
+
+    if (fFeature::DEATH_MESSAGES) {
+        if (carryPlr) {
+            carryPlr->addDeathMessage(this, damageType, true);
+        } else {
+            addDeathMessage(nullptr, damageType, true);
+        }
+    }
+
+    return true;
+}
 
 [[address(0x8013D7B0)]]
 void dAcPy_c::checkRest()
@@ -116,6 +190,35 @@ void dAcPy_c::playOtherDownDemo()
     }
 
     playOther();
+}
+
+/* VT+0x278 */
+[[address(0x8013DF10)]]
+void dAcPy_c::setFallDownDemo()
+{
+    if (!isDispOutCheckOn()) {
+        return;
+    }
+
+    if (fFeature::DEATH_MESSAGES) {
+        addDeathMessage(nullptr, DamageType_e::FALL_DOWN, true);
+    }
+
+    setFallDownDemoNoMsg();
+}
+
+void dAcPy_c::setFallDownDemoNoMsg()
+{
+    if (!isDispOutCheckOn()) {
+        return;
+    }
+
+    mAccelY = 0.0f;
+    mSpeedF = 0.0f;
+    m0x10C4 = {};
+    m0x10D0 = 0.0f;
+    mSpeed.y = 0.0f;
+    changeDemoState(StateID_DemoFallDown, 0);
 }
 
 /**

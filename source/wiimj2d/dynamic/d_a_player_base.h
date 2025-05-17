@@ -6,6 +6,7 @@
 #include <dynamic/d_mj2d_game.h>
 #include <framework/f_base_profile.h>
 #include <machine/m_mtx.h>
+#include <sound/SndObjectPlayer.h>
 #include <state/s_State.h>
 
 class daPlBase_c : public dActor_c
@@ -44,6 +45,11 @@ public:
         FREEZE2 = 16,
         BOUNCE = 17, // Makes the player do a squishy animation
         POISON_FOG = 18,
+
+        // Added for death messages
+
+        FALL_DOWN = 20,
+        SCROLL_OUT,
     };
 
     enum class DemoType_e {
@@ -131,7 +137,7 @@ public:
     virtual bool setPressBgDamage(int param1, int param2);
 
     /* VT+0x11C 0x80056360 */
-    virtual int setBalloonInDispOut(int param);
+    virtual bool setBalloonInDispOut(int param);
 
     /* VT+0x120 0x8004DCF0 */
     virtual bool isChange();
@@ -670,8 +676,8 @@ public:
     /* VT+0x430 0x80057810 */
     virtual void offZPosSetNone();
 
-    /* VT+0x434 0x80058050 */
-    virtual void VT_0x434();
+    /* VT+0x434 0x80058050 @unofficial */
+    virtual void playVoice(SndObjctPly::PLAYER_VOICE_e voice, int param2);
 
     /* VT+0x438 0x800580B0 */
     virtual void VT_0x438();
@@ -705,6 +711,9 @@ public:
     /* 0x8004DD00 */
     bool isDemo();
 
+    /* 0x8004DDE0 */
+    bool isDemoAll();
+
     /* 0x8004E040 */
     bool isPlayerGameStop();
 
@@ -713,6 +722,12 @@ public:
 
     /* 0x8004E100 */
     void playOther();
+
+    /* 0x8004E290 */
+    void changeDemoState(const sStateIDIf_c& state, int param);
+
+    /* 0x80050D80 */
+    bool isDispOutCheckOn();
 
     /* 0x800510F0 */
     void stopGoalOther();
@@ -788,8 +803,10 @@ public:
 
     /* 0x1090 */ PLAYER_POWERUP_e mPlayerMode;
 
-    FILL(0x1094, 0x10D4);
+    FILL(0x1094, 0x10C4);
 
+    /* 0x10C4 */ mVec3_c m0x10C4;
+    /* 0x10D0 */ f32 m0x10D0;
     /* 0x10D4 */ u32 m0x10D4;
 
     FILL(0x10D8, 0x14D4);

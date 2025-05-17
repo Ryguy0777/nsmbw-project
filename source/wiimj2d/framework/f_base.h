@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include <framework/f_base_id.h>
 #include <framework/f_base_profile.h>
+#include <type_traits>
+
+class dBase_c;
 
 class fBase_c
 {
@@ -363,19 +366,24 @@ public:
     template <class T>
     constexpr T* DynamicCast()
     {
-        fBaseProfile_e myProfName = static_cast<fBaseProfile_e>(mProfName);
+        if constexpr (std::is_same_v<T, dBase_c>) {
+            // Everything is a dBase_c
+            return static_cast<T*>(this);
+        } else {
+            fBaseProfile_e myProfName = static_cast<fBaseProfile_e>(mProfName);
 
-        for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
-            if (expected >= fBaseProfile_e::WM_CS_SEQ_MNG) {
-                // This profile is region dependant
-                myProfName = to_fBaseProfile_e(mProfName);
-                break;
+            for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
+                if (expected >= fBaseProfile_e::WM_CS_SEQ_MNG) {
+                    // This profile is region dependant
+                    myProfName = to_fBaseProfile_e(mProfName);
+                    break;
+                }
             }
-        }
 
-        for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
-            if (myProfName == expected) {
-                return static_cast<T*>(this);
+            for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
+                if (myProfName == expected) {
+                    return static_cast<T*>(this);
+                }
             }
         }
 

@@ -6,6 +6,9 @@
 #include <dynamic/d_a_player_manager.h>
 #include <dynamic/d_player/d_a_player.h>
 
+[[address_data(0x80355100)]]
+dBgGm_c* dBg_c::m_bg_p;
+
 [[address(0x800785E0)]]
 bool dBg_c::UNDEF_800785E0()
 {
