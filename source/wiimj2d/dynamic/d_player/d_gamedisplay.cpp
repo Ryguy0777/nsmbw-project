@@ -11,6 +11,7 @@
 #include <iterator>
 #include <machine/m_ef.h>
 #include <nw4r/lyt/Material.h>
+#include <revolution/os.h>
 
 [[address_data(0x8042A608)]]
 dGameDisplay_c* dGameDisplay_c::m_instance;
@@ -83,6 +84,8 @@ dGameDisplay_c::dGameDisplay_c()
   , mLayoutLoaded(false)
   , m0x452(1)
 {
+    OSReport("CONSTRUCT dGameDisplay_c\n");
+
     for (int i = 0; i < std::size(mPlayNum); i++) {
         mPlayNum[i] = -1;
     }
@@ -94,13 +97,16 @@ dGameDisplay_c::dGameDisplay_c()
 [[address(0x80157AA0)]]
 dGameDisplay_c::~dGameDisplay_c()
 {
+    OSReport("DESTRUCT dGameDisplay_c\n");
+
     // TODO: Fix kuribo clang so that it actually calls the destructor of member variables. Also it
     // destroys the base class (dBase_c::~dBase_c()) before emitting the following code, instead of
     // after. Also it doesn't check if 'this' is nullptr, but maybe that's just a standard-breaking
     // optimization :3
-    mLayout.~LytBase_c();
+    dGameDisplay_c::m_instance = nullptr;
     mEffect.~levelEffect_c();
     mDeathMsgMgr.~dDeathMsgMgr_c();
+    mLayout.~LytBase_c();
 }
 
 /**

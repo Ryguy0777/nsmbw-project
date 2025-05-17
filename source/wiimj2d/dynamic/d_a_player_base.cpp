@@ -113,9 +113,15 @@ void daPlBase_c::calcHeadAttentionAngle();
 
 using MsgArray = const char*[];
 
+// Static array works here as we have a limited number of players
+static fBaseID_e s_lastHitEnemy[PLAYER_COUNT] = {};
+
 void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death)
 {
     // TODO: Use BMG for messages
+
+    bool repeat = source ? source->mUniqueID == s_lastHitEnemy[mPlayerNo] : false;
+    s_lastHitEnemy[mPlayerNo] = source ? source->mUniqueID : fBaseID_e::NULL;
 
     const char* selfName = dActorName::getActorFormattedName(this);
     if (selfName == nullptr) {
@@ -138,33 +144,52 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     default:
         switch (enemy) {
         default:
+            if (repeat) {
+                addMsg("%s gave %s another chance");
+                addMsg("%s didn't learn their lesson about %s");
+                if (!death) {
+                    break;
+                }
+            }
+
             if (death) {
                 addMsg("%s was finished by %s");
                 addMsg("%s was slain by %s");
                 addMsg("%s reached an impassable %s");
                 addMsg("%s couldn't handle %s");
+                addMsg("%s lost a fight with %s");
+                addMsg("%s lost it to %s");
+                addMsg("%s was no match for %s");
+                addMsg("%s seriously died to %s?");
+                addMsg("%s met the wrath of %s");
+                addMsg("%s didn't get the memo about %s");
             } else {
                 addMsg("%s came into contact with %s");
+                addMsg("%s occupied the same space as %s");
+                addMsg("%s and %s touched hitboxes");
+                addMsg("%s was hurt badly by %s");
+                addMsg("%s forgot %s was harmful");
+                addMsg("%s! Stay away from %s!");
+                addMsg("%s wasn't warned about %s...");
+                addMsg("%s was scratched by %s");
+                addMsg("%s tried to hug %s");
+                addMsg("%s touched %s the wrong way");
             }
-
-            addMsg("%s lost it to %s");
-            addMsg("%s tried to give %s a hug");
-            addMsg("%s lost a fight with %s");
-            addMsg("%s existed in the same space as %s");
             break;
 
         case fBaseProfile_e::LASTACTOR:
             // Enemy name = "an unknown force"
             if (death) {
                 addMsg("%s lost the game");
+                addMsg("%s lost a fight with the game");
                 addMsg("%s lost it to %s");
-                addMsg("Someone killed %s");
+                addMsg("Someone killed %s!!!");
                 addMsg("%s died");
             } else {
+                addMsg("%s came into contact with %s");
                 addMsg("%s was hurt badly");
             }
 
-            addMsg("%s came into contact with %s");
             break;
 
         case fBaseProfile_e::EN_BIGPILE_UNDER:
@@ -181,6 +206,7 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             } else {
                 addMsg("%s was penetrated by %s");
                 addMsg("%s was pummeled by %s");
+                addMsg("%s was destroyed by %s");
             }
             break;
 
@@ -238,6 +264,7 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             addMsg("%s lost a fight with a rock");
             break;
         }
+        break;
 
     case DamageType_e::ELEC_SHOCK:
         if (enemyName == nullptr) {

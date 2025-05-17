@@ -361,6 +361,10 @@ SOURCES += source/wiimj2d/dynamic/d_bases/d_a_nice_boat.cpp
 # NSMBW d_bases.text: 0x808760E0 - 0x80877510
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_obj_grass.cpp
 
+# d_a_reverse_block.cpp
+# NSMBW d_bases.text: 0x80897F60 - 0x808984D0
+SOURCES += source/wiimj2d/dynamic/d_bases/d_a_reverse_block.cpp
+
 # d_a_wm_2DPlayer.cpp
 # NSMBW d_bases.text: 0x808C5100 - 0x808C7D10
 SOURCES += source/wiimj2d/dynamic/d_bases/d_a_wm_2DPlayer.cpp

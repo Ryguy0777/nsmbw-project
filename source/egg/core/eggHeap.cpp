@@ -2,7 +2,7 @@
 // NSMBW .text: 0x802B8C80 - 0x802B93E0
 
 #include "eggHeap.h"
-#include <string.h>
+#include <revolution/os.h>
 
 namespace EGG
 {
@@ -52,26 +52,56 @@ Heap* Heap::_becomeCurrentHeapWithoutLock();
 } // namespace EGG
 
 [[address(0x802B9350)]]
-void* operator new(u32 size);
+void* operator new(u32 size)
+{
+    void* block = EGG::Heap::alloc(size, 4, nullptr);
+    ASSERT(block);
+    return block;
+}
 
 /* 0x802B9360 */
 // Moved to <new>
 // void* operator new(u32 size, void* block);
 
 [[address(0x802B9370)]]
-void* operator new(u32 size, int align);
+void* operator new(u32 size, int align)
+{
+    void* block = EGG::Heap::alloc(size, align, nullptr);
+    ASSERT(block);
+    return block;
+}
 
 [[address(0x802B9380)]]
-void* operator new(u32 size, EGG::Heap* heap, int align);
+void* operator new(u32 size, EGG::Heap* heap, int align)
+{
+    void* block = EGG::Heap::alloc(size, align, heap);
+    ASSERT(block);
+    return block;
+}
 
 [[address(0x802B9390)]]
-void* operator new[](u32 size);
+void* operator new[](u32 size)
+{
+    void* block = EGG::Heap::alloc(size, 4, nullptr);
+    ASSERT(block);
+    return block;
+}
 
 [[address(0x802B93A0)]]
-void* operator new[](u32 size, int align);
+void* operator new[](u32 size, int align)
+{
+    void* block = EGG::Heap::alloc(size, align, nullptr);
+    ASSERT(block);
+    return block;
+}
 
 [[address(0x802B93B0)]]
-void* operator new[](u32 size, EGG::Heap* heap, int align);
+void* operator new[](u32 size, EGG::Heap* heap, int align)
+{
+    void* block = EGG::Heap::alloc(size, align, heap);
+    ASSERT(block);
+    return block;
+}
 
 [[address(0x802B93C0)]]
 void operator delete(void* block);
