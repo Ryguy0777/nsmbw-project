@@ -511,7 +511,9 @@ SOURCES += source/wiimj2d/d_player/d_a_mask.cpp
 # d_a_player.cpp
 # NSMBW          .text:  0x80126650 - 0x8014A830
 SOURCES += source/wiimj2d/d_player/d_a_player.cpp
-
+# d_a_player_ice.cpp
+# NSMBW          .text:  0x8014A830 - 0x8014B400
+SOURCES += source/wiimj2d/d_player/d_a_player_ice.cpp
 # d_a_yoshi.cpp
 # NSMBW          .text:  0x8014B400 - 0x80154800
 SOURCES += source/wiimj2d/d_player/d_a_yoshi.cpp
@@ -527,9 +529,11 @@ SOURCES += source/wiimj2d/d_player/d_fukidashiManager.cpp
 # d_gamedisplay.cpp
 # NSMBW          .text:  0x80157820 - 0x8015A480
 SOURCES += source/wiimj2d/d_player/d_gamedisplay.cpp
-
+# d_pausewindow.cpp
+# NSMBW          .text:  0x8015A480 - 0x8015BA70
+SOURCES += source/wiimj2d/d_player/d_pausewindow.cpp
 # d_s_boot.cpp
-# NSMBW          .text:  0x8015C270 - 0x8015F270
+# NSMBW          .text:  0x8015BA70 - 0x8015F270
 SOURCES += source/wiimj2d/d_player/d_s_boot.cpp
 
 #
