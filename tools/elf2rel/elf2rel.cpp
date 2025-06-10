@@ -11,7 +11,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../../source/Port.h"
+#include "../../source/AddressMapper.h"
 
 enum RelRelocationType {
     R_PPC_NONE = 0,
@@ -132,35 +132,35 @@ int main(int argc, char** argv)
         relFilename = elfFilename.substr(0, elfFilename.find_last_of('.')) + ".rel";
     }
 
-    Port::Region region = Port::Region::P1;
+    Region region = Region::P1;
 
     if (argc > 3) {
         std::string regionStr = std::string(argv[3]);
         if (regionStr == "P1") {
-            region = Port::Region::P1;
+            region = Region::P1;
         } else if (regionStr == "P2") {
-            region = Port::Region::P2;
+            region = Region::P2;
         } else if (regionStr == "E1") {
-            region = Port::Region::E1;
+            region = Region::E1;
         } else if (regionStr == "E2") {
-            region = Port::Region::E2;
+            region = Region::E2;
         } else if (regionStr == "J1") {
-            region = Port::Region::J1;
+            region = Region::J1;
         } else if (regionStr == "J2") {
-            region = Port::Region::J2;
+            region = Region::J2;
         } else if (regionStr == "K") {
-            region = Port::Region::K;
+            region = Region::K;
         } else if (regionStr == "W") {
-            region = Port::Region::W;
+            region = Region::W;
         } else if (regionStr == "C") {
-            region = Port::Region::C;
+            region = Region::C;
         } else {
             printf("Unknown region '%s'\n", regionStr.c_str());
             return 1;
         }
     }
 
-    const Port::AddressMapper& addressMapper = Port::GetAddressMapper(region);
+    const AddressMapper& addressMapper = GetAddressMapper(region);
 
     // Load input file
     ELFIO::elfio inputElf;
@@ -424,7 +424,7 @@ int main(int argc, char** argv)
     }
 
     // Port relocations
-    if (region != Port::Region::P1) {
+    if (region != Region::P1) {
         for (auto& rel : allRelocations) {
             if (rel.moduleID == 0) {
                 rel.addend = addressMapper.MapAddress(rel.addend);
@@ -468,8 +468,8 @@ int main(int argc, char** argv)
     // Write out relocations
     int relocationOffset = outputBuffer.size();
 
-    uint32_t r2Addr = Port::GetR2Address(region);
-    uint32_t r13Addr = Port::GetR13Address(region);
+    uint32_t r2Addr = GetR2Address(region);
+    uint32_t r13Addr = GetR13Address(region);
 
     std::vector<uint8_t> importInfoBuffer;
     int currentModuleID = -1;

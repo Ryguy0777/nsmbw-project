@@ -2,7 +2,6 @@
 // NSMBW .text: 0x8016B090 - 0x8016C540
 
 #include "m_dvd.h"
-#include "System.h"
 
 #include <algorithm>
 #include <cstring>

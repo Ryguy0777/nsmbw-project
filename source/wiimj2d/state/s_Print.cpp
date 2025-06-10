@@ -1,10 +1,10 @@
 // s_Print.cpp
 // NSMBW .text: 0x8015F810 - 0x8015F900
 
-#include <Port.h>
+#include <Region.h>
 #include <cstdarg>
 #include <cstdio>
-#include <dynamic/d_player/d_s_boot.h>
+#include <d_player/d_s_boot.h>
 #include <revolution/base/PPCArch.h>
 #include <revolution/os/OSError.h>
 #include <revolution/os/OSInterrupt.h>
@@ -41,36 +41,36 @@ static void printRegionInfo()
         regionStr = "Unknown";
         break;
 
-    case Port::Region::P1:
+    case Region::P1:
         regionStr = "PAL Rev 1";
         break;
-    case Port::Region::P2:
+    case Region::P2:
         regionStr = "PAL Rev 2";
         break;
 
-    case Port::Region::E1:
+    case Region::E1:
         regionStr = "USA Rev 1";
         break;
-    case Port::Region::E2:
+    case Region::E2:
         regionStr = "USA Rev 2";
         break;
 
-    case Port::Region::J1:
+    case Region::J1:
         regionStr = "JPN Rev 1";
         break;
-    case Port::Region::J2:
+    case Region::J2:
         regionStr = "JPN Rev 2";
         break;
 
-    case Port::Region::K:
+    case Region::K:
         regionStr = "KOR";
         break;
 
-    case Port::Region::W:
+    case Region::W:
         regionStr = "TWN";
         break;
 
-    case Port::Region::C:
+    case Region::C:
         regionStr = "CHN";
         break;
     }

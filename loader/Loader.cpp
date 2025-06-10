@@ -12,7 +12,7 @@
 #undef EXTERN_REPL
 #define EXTERN_REPL(...)
 
-#include <Port.h>
+#include <AddressMapper.h>
 #include <cstdio>
 #include <cstring>
 #include <egg/core/eggDvdFile.h>
@@ -57,14 +57,11 @@ static void LoaderAssertFail(const char* expr, s32 line);
                 ".long %7;"                                                                        \
                 ".long %8;"                                                                        \
                 :                                                                                  \
-                : "i"(_ADDR), "i"(Port::AddressMapperP2.MapAddress(_ADDR)),                        \
-                  "i"(Port::AddressMapperE1.MapAddress(_ADDR)),                                    \
-                  "i"(Port::AddressMapperE2.MapAddress(_ADDR)),                                    \
-                  "i"(Port::AddressMapperJ1.MapAddress(_ADDR)),                                    \
-                  "i"(Port::AddressMapperJ2.MapAddress(_ADDR)),                                    \
-                  "i"(Port::AddressMapperK.MapAddress(_ADDR)),                                     \
-                  "i"(Port::AddressMapperW.MapAddress(_ADDR)),                                     \
-                  "i"(Port::AddressMapperC.MapAddress(_ADDR)));                                    \
+                : "i"(_ADDR), "i"(AddressMapperP2.MapAddress(_ADDR)),                              \
+                  "i"(AddressMapperE1.MapAddress(_ADDR)), "i"(AddressMapperE2.MapAddress(_ADDR)),  \
+                  "i"(AddressMapperJ1.MapAddress(_ADDR)), "i"(AddressMapperJ2.MapAddress(_ADDR)),  \
+                  "i"(AddressMapperK.MapAddress(_ADDR)), "i"(AddressMapperW.MapAddress(_ADDR)),    \
+                  "i"(AddressMapperC.MapAddress(_ADDR)));                                          \
     }                                                                                              \
         [[__gnu__::__alias__("_LoaderFunction" #_COUNTER)
 
@@ -160,14 +157,14 @@ u32 g_dylinkHeapAddresses[] = {
 // Ports for other regions
 // Disabled for clangd because I'm really annoyed about my Clang Language Server crashing
 #ifndef CLANGD
-  Port::AddressMapperP2.MapAddress(0x8042A664),
-  Port::AddressMapperE1.MapAddress(0x8042A664),
-  Port::AddressMapperE2.MapAddress(0x8042A664),
-  Port::AddressMapperJ1.MapAddress(0x8042A664),
-  Port::AddressMapperJ2.MapAddress(0x8042A664),
-  Port::AddressMapperK.MapAddress(0x8042A664),
-  Port::AddressMapperW.MapAddress(0x8042A664),
-  Port::AddressMapperC.MapAddress(0x8042A664),
+  AddressMapperP2.MapAddress(0x8042A664),
+  AddressMapperE1.MapAddress(0x8042A664),
+  AddressMapperE2.MapAddress(0x8042A664),
+  AddressMapperJ1.MapAddress(0x8042A664),
+  AddressMapperJ2.MapAddress(0x8042A664),
+  AddressMapperK.MapAddress(0x8042A664),
+  AddressMapperW.MapAddress(0x8042A664),
+  AddressMapperC.MapAddress(0x8042A664),
 #endif
 };
 
@@ -244,14 +241,14 @@ u32 g_StreamDecompLZVTable[] = {
 
 // Ports for other regions
 #ifndef CLANGD
-  Port::AddressMapperP2.MapAddress(0x8034FFA8),
-  Port::AddressMapperE1.MapAddress(0x8034FFA8),
-  Port::AddressMapperE2.MapAddress(0x8034FFA8),
-  Port::AddressMapperJ1.MapAddress(0x8034FFA8),
-  Port::AddressMapperJ2.MapAddress(0x8034FFA8),
-  Port::AddressMapperK.MapAddress(0x8034FFA8),
-  Port::AddressMapperW.MapAddress(0x8034FFA8),
-  Port::AddressMapperC.MapAddress(0x8034FFA8),
+  AddressMapperP2.MapAddress(0x8034FFA8),
+  AddressMapperE1.MapAddress(0x8034FFA8),
+  AddressMapperE2.MapAddress(0x8034FFA8),
+  AddressMapperJ1.MapAddress(0x8034FFA8),
+  AddressMapperJ2.MapAddress(0x8034FFA8),
+  AddressMapperK.MapAddress(0x8034FFA8),
+  AddressMapperW.MapAddress(0x8034FFA8),
+  AddressMapperC.MapAddress(0x8034FFA8),
 #endif
 };
 

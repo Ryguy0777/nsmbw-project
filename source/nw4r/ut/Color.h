@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include <revolution/gx/GXStruct.h>
 
 namespace nw4r::ut

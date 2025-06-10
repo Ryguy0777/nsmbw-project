@@ -3,7 +3,7 @@
 
 #include "SndObjectPlayer.h"
 
-#include <dynamic/d_game_common.h>
+#include <d_system/d_game_common.h>
 #include <framework/f_sound_id.h>
 #include <nw4r/snd/SoundHandle.h>
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SoundArchive.h"
-#include "System.h"
 #include "Util.h"
 #include <algorithm>
 

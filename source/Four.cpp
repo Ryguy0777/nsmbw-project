@@ -4,23 +4,23 @@
 
 #include "Four.h"
 
-#include "Port.h"
+#include "AddressMapper.h"
 #include <cstring>
-#include <dynamic/d_a_player_manager.h>
-#include <dynamic/d_player/d_s_boot.h>
+#include <d_player/d_s_boot.h>
+#include <d_system/d_a_player_manager.h>
 #include <revolution/os.h>
 
 struct FourPatch {
     consteval FourPatch(u32 address, u8 size, s8 offset = 0)
       : addressP1(address)
-      , addressP2(Port::AddressMapperP2.MapAddress(address))
-      , addressE1(Port::AddressMapperE1.MapAddress(address))
-      , addressE2(Port::AddressMapperE2.MapAddress(address))
-      , addressJ1(Port::AddressMapperJ1.MapAddress(address))
-      , addressJ2(Port::AddressMapperJ2.MapAddress(address))
-      , addressK(Port::AddressMapperK.MapAddress(address))
-      , addressW(Port::AddressMapperW.MapAddress(address))
-      , addressC(Port::AddressMapperC.MapAddress(address))
+      , addressP2(AddressMapperP2.MapAddress(address))
+      , addressE1(AddressMapperE1.MapAddress(address))
+      , addressE2(AddressMapperE2.MapAddress(address))
+      , addressJ1(AddressMapperJ1.MapAddress(address))
+      , addressJ2(AddressMapperJ2.MapAddress(address))
+      , addressK(AddressMapperK.MapAddress(address))
+      , addressW(AddressMapperW.MapAddress(address))
+      , addressC(AddressMapperC.MapAddress(address))
       , size(size)
       , offset(offset)
     {
@@ -694,31 +694,31 @@ void Four::Apply()
     for (const FourPatch& patch : FOUR_PATCH_LIST) {
         u32 address;
         switch (codeRegion) {
-        case dSys_c::CODE_REGION_e::P1:
+        case Region::P1:
             address = patch.addressP1;
             break;
-        case dSys_c::CODE_REGION_e::P2:
+        case Region::P2:
             address = patch.addressP2;
             break;
-        case dSys_c::CODE_REGION_e::E1:
+        case Region::E1:
             address = patch.addressE1;
             break;
-        case dSys_c::CODE_REGION_e::E2:
+        case Region::E2:
             address = patch.addressE2;
             break;
-        case dSys_c::CODE_REGION_e::J1:
+        case Region::J1:
             address = patch.addressJ1;
             break;
-        case dSys_c::CODE_REGION_e::J2:
+        case Region::J2:
             address = patch.addressJ2;
             break;
-        case dSys_c::CODE_REGION_e::K:
+        case Region::K:
             address = patch.addressK;
             break;
-        case dSys_c::CODE_REGION_e::W:
+        case Region::W:
             address = patch.addressW;
             break;
-        case dSys_c::CODE_REGION_e::C:
+        case Region::C:
             address = patch.addressC;
             break;
 

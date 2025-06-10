@@ -2,7 +2,7 @@
 
 #include "Four.h"
 #include "PatchRel.h"
-#include <dynamic/d_player/d_s_boot.h>
+#include <d_player/d_s_boot.h>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>

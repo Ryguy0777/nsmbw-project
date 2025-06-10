@@ -1,7 +1,6 @@
 #ifndef M3D_M_CALC_RATIO_H
 #define M3D_M_CALC_RATIO_H
 
-#include "System.h"
 #include <egg/core/eggFrmHeap.h>
 #include <machine/m_allocator.h>
 

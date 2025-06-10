@@ -16,4 +16,8 @@ static constexpr bool DEATH_MESSAGES = true;
 // Enable fall damage
 static constexpr bool FALL_DAMAGE = true;
 
+static constexpr bool DISABLE_OPENING_MOVIE = true;
+
+static constexpr bool ALWAYS_CAN_EXIT_COURSE = true;
+
 } // namespace fFeature

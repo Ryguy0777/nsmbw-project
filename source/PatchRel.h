@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Port.h"
+#include "AddressMapper.h"
 #include <revolution/os/OSLink.h>
 
 struct _MRel_PatchRel {
@@ -8,14 +8,14 @@ struct _MRel_PatchRel {
     u8 type;
 
 #ifndef CLANGD
-    u32 addrP2 = Port::AddressMapperP2.MapAddress(addrP1);
-    u32 addrE1 = Port::AddressMapperE1.MapAddress(addrP1);
-    u32 addrE2 = Port::AddressMapperE2.MapAddress(addrP1);
-    u32 addrJ1 = Port::AddressMapperJ1.MapAddress(addrP1);
-    u32 addrJ2 = Port::AddressMapperJ2.MapAddress(addrP1);
-    u32 addrK = Port::AddressMapperK.MapAddress(addrP1);
-    u32 addrW = Port::AddressMapperW.MapAddress(addrP1);
-    u32 addrC = Port::AddressMapperC.MapAddress(addrP1);
+    u32 addrP2 = AddressMapperP2.MapAddress(addrP1);
+    u32 addrE1 = AddressMapperE1.MapAddress(addrP1);
+    u32 addrE2 = AddressMapperE2.MapAddress(addrP1);
+    u32 addrJ1 = AddressMapperJ1.MapAddress(addrP1);
+    u32 addrJ2 = AddressMapperJ2.MapAddress(addrP1);
+    u32 addrK = AddressMapperK.MapAddress(addrP1);
+    u32 addrW = AddressMapperW.MapAddress(addrP1);
+    u32 addrC = AddressMapperC.MapAddress(addrP1);
 #else
     u32 addrP2 = 0;
     u32 addrE1 = 0;
