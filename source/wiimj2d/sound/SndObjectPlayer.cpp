@@ -3,8 +3,8 @@
 
 #include "SndObjectPlayer.h"
 
-#include <d_system/d_game_common.h>
-#include <framework/f_sound_id.h>
+#include "d_system/d_game_common.h"
+#include "framework/f_sound_id.h"
 #include <nw4r/snd/SoundHandle.h>
 
 static constexpr u16 PLAYER_VOICE_SOUND_ID_LIST[SndObjctPly::PLAYER_SOUND_INDEX_COUNT]

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <d_system/d_lyttextbox.h>
+#include "d_system/d_lyttextbox.h"
 
 class dSmallScore_c
 {

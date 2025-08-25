@@ -3,13 +3,13 @@
 
 #include "d_StockItem.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_bases/d_StockItemShadow.h>
-#include <d_bases/d_a_wm_2DPlayer.h>
-#include <d_bases/d_a_wm_Item.h>
-#include <framework/f_sound_id.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_bases/d_StockItemShadow.h"
+#include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_bases/d_a_wm_Item.h"
+#include "framework/f_sound_id.h"
 #include <iterator>
-#include <sound/SndSceneMgr.h>
+#include "sound/SndSceneMgr.h"
 
 [[address(0x807AF370)]]
 dStockItem_c* dStockItem_c_classInit()

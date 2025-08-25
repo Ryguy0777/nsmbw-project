@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_player_model.h>
-#include <machine/m_3d_anmtexpat.h>
+#include "d_system/d_player_model.h"
+#include "machine/m_3d_anmtexpat.h"
 
 class dKinopioMdl_c final : public dPlayerMdl_c
 {

@@ -4,12 +4,12 @@
 #include "d_a_wm_SubPlayer.h"
 
 #include <AddressMapper.h>
-#include <d_bases/d_a_wm_player.h>
-#include <d_player/d_s_boot.h>
-#include <d_system/d_player_model_manager.h>
-#include <d_system/d_wm_player_base.h>
-#include <machine/m_angle.h>
-#include <machine/m_heap.h>
+#include "d_bases/d_a_wm_player.h"
+#include "d_player/d_s_boot.h"
+#include "d_system/d_player_model_manager.h"
+#include "d_system/d_wm_player_base.h"
+#include "machine/m_angle.h"
+#include "machine/m_heap.h"
 
 /**
  * Copy of create.

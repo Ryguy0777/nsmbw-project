@@ -1,9 +1,9 @@
 #pragma once
 
-#include <d_system/d_actor.h>
-#include <state/s_FStateMgr.h>
-#include <state/s_FStateStateMgr.h>
-#include <state/s_StateMethodUsr_FI.h>
+#include "d_system/d_actor.h"
+#include "state/s_FStateMgr.h"
+#include "state/s_FStateStateMgr.h"
+#include "state/s_StateMethodUsr_FI.h"
 
 class dActorState_c : public dActor_c
 {

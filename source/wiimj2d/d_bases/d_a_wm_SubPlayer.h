@@ -1,8 +1,8 @@
 #pragma once
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_player_model_manager.h>
-#include <d_system/d_wm_player_base.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_player_model_manager.h"
+#include "d_system/d_wm_player_base.h"
 
 class daWmSubPlayer_c : public dWmPlayerBase_c
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <d_system/d_lytbase.h>
-#include <machine/m_vec.h>
+#include "d_system/d_lytbase.h"
+#include "machine/m_vec.h"
 #include <nw4r/lyt/Picture.h>
-#include <state/s_State.h>
+#include "state/s_State.h"
 
 class DummyInherit {
 public:

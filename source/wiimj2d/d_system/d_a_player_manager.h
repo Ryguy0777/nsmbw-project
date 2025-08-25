@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_player_model_manager.h>
-#include <framework/f_base_id.h>
+#include "d_system/d_player_model_manager.h"
+#include "framework/f_base_id.h"
 
 class dAcPy_c;
 class daYoshi_c;

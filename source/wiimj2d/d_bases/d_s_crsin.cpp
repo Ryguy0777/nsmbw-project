@@ -3,11 +3,11 @@
 
 #include "d_s_crsin.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_bases/d_s_stage.h>
-#include <d_system/d_info.h>
-#include <d_system/d_remocon_mng.h>
-#include <d_system/d_resource_manager.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_bases/d_s_stage.h"
+#include "d_system/d_info.h"
+#include "d_system/d_remocon_mng.h"
+#include "d_system/d_resource_manager.h"
 
 [[address(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()

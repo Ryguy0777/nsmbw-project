@@ -1,7 +1,7 @@
 #pragma once
 
-#include <egg/core/eggAllocator.h>
-#include <egg/core/eggDisposer.h>
+#include "egg/core/eggAllocator.h"
+#include "egg/core/eggDisposer.h"
 #include <new>
 #include <revolution/mem.h>
 

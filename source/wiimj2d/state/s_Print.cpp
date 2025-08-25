@@ -4,7 +4,7 @@
 #include <Region.h>
 #include <cstdarg>
 #include <cstdio>
-#include <d_player/d_s_boot.h>
+#include "d_player/d_s_boot.h"
 #include <revolution/base/PPCArch.h>
 #include <revolution/os/OSError.h>
 #include <revolution/os/OSInterrupt.h>

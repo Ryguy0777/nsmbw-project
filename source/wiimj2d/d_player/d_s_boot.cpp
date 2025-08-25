@@ -3,21 +3,21 @@
 
 #include "d_s_boot.h"
 
-#include <d_bases/d_ControllerInformation.h>
-#include <d_bases/d_s_stage.h>
-#include <d_bases/d_s_world_map.h>
-#include <d_player/d_WiiStrap.h>
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_fader.h>
-#include <d_system/d_game_common.h>
-#include <d_system/d_info.h>
-#include <d_system/d_mj2d_game.h>
-#include <d_system/d_resource_manager.h>
-#include <d_system/d_scene.h>
-#include <d_system/d_system.h>
+#include "d_bases/d_ControllerInformation.h"
+#include "d_bases/d_s_stage.h"
+#include "d_bases/d_s_world_map.h"
+#include "d_player/d_WiiStrap.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_fader.h"
+#include "d_system/d_game_common.h"
+#include "d_system/d_info.h"
+#include "d_system/d_mj2d_game.h"
+#include "d_system/d_resource_manager.h"
+#include "d_system/d_scene.h"
+#include "d_system/d_system.h"
 #include <egg/core/eggHeap.h>
-#include <machine/m_fader.h>
-#include <machine/m_heap.h>
+#include "machine/m_fader.h"
+#include "machine/m_heap.h"
 
 [[address(0x8042A620)]]
 dScBoot_c* dScBoot_c::m_instance;

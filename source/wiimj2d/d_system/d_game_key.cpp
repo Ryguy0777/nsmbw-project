@@ -4,8 +4,8 @@
 #include "d_game_key.h"
 #include "machine/m_pad.h"
 
-#include <d_system/d_game_key_core.h>
-#include <machine/m_heap.h>
+#include "d_system/d_game_key_core.h"
+#include "machine/m_heap.h"
 
 static bool s_isInit = false;
 

@@ -1,8 +1,6 @@
 // eggStreamDecomp.cpp
 // NSMBW .text: 0x802B8560 - 0x802B8BB0
 
-#include <System.h>
-
 #include "eggStreamDecomp.h"
 
 namespace EGG

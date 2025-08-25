@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_actor_state.h>
-#include <d_system/d_rc.h>
+#include "d_system/d_actor_state.h"
+#include "d_system/d_rc.h"
 
 class daLiftRemoconMain_c : public dActorState_c
 {

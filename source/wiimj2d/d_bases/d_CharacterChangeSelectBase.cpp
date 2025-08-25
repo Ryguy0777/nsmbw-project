@@ -3,9 +3,9 @@
 
 #include "d_CharacterChangeSelectBase.h"
 
-#include <d_bases/d_CharacterChangeSelectContents.h>
-#include <d_system/d_player_model_manager.h>
-#include <d_system/d_remocon_mng.h>
+#include "d_bases/d_CharacterChangeSelectContents.h"
+#include "d_system/d_player_model_manager.h"
+#include "d_system/d_remocon_mng.h"
 #include <revolution/os.h>
 
 daPyMng_c::PlayerType_e g_CHARACTER_FROM_BASE[] = {

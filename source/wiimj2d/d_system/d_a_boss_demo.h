@@ -1,6 +1,6 @@
 #pragma once
 
-#include <d_system/d_actor_state.h>
+#include "d_system/d_actor_state.h"
 
 class daBossDemo_c : public dActorState_c
 {

@@ -3,13 +3,13 @@
 
 #include "d_s_stage.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_cyuukan.h>
-#include <d_system/d_info.h>
-#include <d_system/d_mj2d_game.h>
-#include <d_system/d_save_manager.h>
-#include <d_system/d_start_info.h>
-#include <d_system/d_wm_lib.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_cyuukan.h"
+#include "d_system/d_info.h"
+#include "d_system/d_mj2d_game.h"
+#include "d_system/d_save_manager.h"
+#include "d_system/d_start_info.h"
+#include "d_system/d_wm_lib.h"
 
 [[address(0x809251F0)]]
 void dScStage_c::courseClear()

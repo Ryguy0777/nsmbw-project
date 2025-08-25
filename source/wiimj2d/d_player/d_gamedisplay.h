@@ -1,17 +1,17 @@
 #pragma once
 
-#include <d_system/d_actor_state.h>
-#include <d_system/d_base.h>
-#include <d_system/d_lytbase.h>
-#include <d_system/d_lyttextbox.h>
-#include <d_player/d_death_message_mgr.h>
-#include <machine/m_ef.h>
+#include "d_system/d_actor_state.h"
+#include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
+#include "d_system/d_lyttextbox.h"
+#include "d_player/d_death_message_mgr.h"
+#include "machine/m_ef.h"
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
 #include <nw4r/lyt/TexMap.h>
 #include <revolution/gx/GXStruct.h>
-#include <state/s_State.h>
-#include <state/s_StateMgr.h>
+#include "state/s_State.h"
+#include "state/s_StateMgr.h"
 
 class dGameDisplay_c final : public dBase_c
 {

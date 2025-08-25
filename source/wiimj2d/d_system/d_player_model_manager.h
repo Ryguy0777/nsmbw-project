@@ -1,9 +1,9 @@
 #pragma once
 
-#include <d_system/d_player_model_base.h>
-#include <machine/m_angle.h>
-#include <machine/m_mtx.h>
-#include <machine/m_vec.h>
+#include "d_system/d_player_model_base.h"
+#include "machine/m_angle.h"
+#include "machine/m_mtx.h"
+#include "machine/m_vec.h"
 
 class dPyMdlBase_HIO_c
 {

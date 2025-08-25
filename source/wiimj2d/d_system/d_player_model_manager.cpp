@@ -7,7 +7,7 @@
 #include "d_kinopio_model.h"
 #include "d_mario_model.h"
 #include "d_yoshi_model.h"
-#include <machine/m_heap.h>
+#include "machine/m_heap.h"
 
 [[address_data(0x803710A0)]]
 dPyMdlBase_HIO_c dPyMdlMng_c::m_hio;

@@ -4,17 +4,17 @@
 #include "d_NumberOfPeopleChange.h"
 
 #include "d_CharacterChangeIndicator.h"
+#include "d_bases/d_a_wm_2DPlayer.h"
 #include "d_system/d_a_player_manager.h"
-#include <d_bases/d_a_wm_2DPlayer.h>
-#include <d_system/d_game_common.h>
-#include <d_system/d_game_key_core.h>
-#include <d_system/d_info.h>
-#include <d_system/d_remocon_mng.h>
-#include <d_system/d_scene.h>
-#include <framework/f_base_profile.h>
-#include <framework/f_sound_id.h>
-#include <machine/m_pad.h>
-#include <sound/SndAudioMgr.h>
+#include "d_system/d_game_common.h"
+#include "d_system/d_game_key_core.h"
+#include "d_system/d_info.h"
+#include "d_system/d_remocon_mng.h"
+#include "d_system/d_scene.h"
+#include "framework/f_base_profile.h"
+#include "framework/f_sound_id.h"
+#include "machine/m_pad.h"
+#include "sound/SndAudioMgr.h"
 
 [[address(0x8079F630)]]
 dNumberOfPeopleChange_c* dNumberOfPeopleChange_c_classInit()

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <egg/math/eggMath.h>
+#include "egg/math/eggMath.h"
 #include <nw4r/math/vec.h>
 #include <revolution/kpad.h>
 

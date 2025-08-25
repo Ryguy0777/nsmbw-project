@@ -6,7 +6,7 @@
 
 #include <algorithm>
 #include <cwchar>
-#include <d_system/d_game_common.h>
+#include "d_system/d_game_common.h"
 #include <egg/gfx/eggScreen.h>
 #include <iterator>
 #include <nw4r/lyt/Material.h>

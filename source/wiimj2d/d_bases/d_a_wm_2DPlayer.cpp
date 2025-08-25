@@ -3,7 +3,7 @@
 
 #include "d_a_wm_2DPlayer.h"
 
-#include <d_system/d_a_player_manager.h>
+#include "d_system/d_a_player_manager.h"
 
 [[address(0x808C5990)]]
 void da2DPlayer_c::loadPlayer()

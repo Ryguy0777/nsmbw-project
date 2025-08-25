@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_base.h>
-#include <state/s_State.h>
+#include "d_system/d_base.h"
+#include "state/s_State.h"
 
 class da2DPlayer_c;
 class dNumberOfPeopleChange_c;

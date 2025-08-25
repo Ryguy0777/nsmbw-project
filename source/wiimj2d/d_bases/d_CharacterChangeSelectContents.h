@@ -1,10 +1,10 @@
 #pragma once
 
 #include "d_CharacterChangeSelectBase.h"
-#include <d_system/d_base.h>
-#include <d_system/d_lytbase.h>
+#include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
 #include <nw4r/lyt/Pane.h>
-#include <state/s_State.h>
+#include "state/s_State.h"
 
 class dCharacterChangeSelectContents_c : public dBase_c
 {

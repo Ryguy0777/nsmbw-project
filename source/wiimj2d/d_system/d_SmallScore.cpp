@@ -3,7 +3,7 @@
 
 #include "d_SmallScore.h"
 
-#include <d_system/d_a_player_manager.h>
+#include "d_system/d_a_player_manager.h"
 #include <nw4r/lyt/Material.h>
 #include <nw4r/ut/Color.h>
 

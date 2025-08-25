@@ -1,11 +1,11 @@
 #pragma once
 
-#include <d_system/d_base.h>
-#include <d_system/d_lytbase.h>
-#include <state/s_FStateFct.h>
-#include <state/s_StateInterfaces.h>
-#include <state/s_StateMethodUsr_FI.h>
-#include <state/s_StateMgr.h>
+#include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
+#include "state/s_FStateFct.h"
+#include "state/s_StateInterfaces.h"
+#include "state/s_StateMethodUsr_FI.h"
+#include "state/s_StateMgr.h"
 
 class dCourseSelectMenu_c : public dBase_c
 {

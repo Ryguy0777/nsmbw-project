@@ -4,14 +4,14 @@
 #include "d_a_player_base.h"
 
 #include <cstdio>
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_actor_name.h>
-#include <d_system/d_game_common.h>
-#include <d_player/d_a_player.h>
-#include <d_player/d_a_yoshi.h>
-#include <d_player/d_gamedisplay.h>
-#include <framework/f_base_profile.h>
-#include <framework/f_manager.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_actor_name.h"
+#include "d_system/d_game_common.h"
+#include "d_player/d_a_player.h"
+#include "d_player/d_a_yoshi.h"
+#include "d_player/d_gamedisplay.h"
+#include "framework/f_base_profile.h"
+#include "framework/f_manager.h"
 #include <iterator>
 
 [[address(0x8004DB40)]]

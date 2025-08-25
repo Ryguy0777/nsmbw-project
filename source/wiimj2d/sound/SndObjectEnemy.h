@@ -2,7 +2,7 @@
 
 #include "SndObject.h"
 #include "sound/SndObjectCmn.h"
-#include <machine/m_vec.h>
+#include "machine/m_vec.h"
 
 class SndObjctEmy : public NMSndObject<4>
 {

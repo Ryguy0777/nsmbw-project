@@ -8,11 +8,11 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_base_actor.h>
-#include <d_bases/d_CharacterChangeSelectBase.h>
-#include <d_bases/d_NumberOfPeopleChange.h>
-#include <framework/f_base_profile.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_base_actor.h"
+#include "d_bases/d_CharacterChangeSelectBase.h"
+#include "d_bases/d_NumberOfPeopleChange.h"
+#include "framework/f_base_profile.h"
 
 [[address(0x80917EB0)]]
 bool dScGameSetup_c::add2dPlayer()

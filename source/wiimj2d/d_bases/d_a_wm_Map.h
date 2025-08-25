@@ -1,6 +1,6 @@
 #pragma once
 
-#include <d_system/d_wm_demo_actor.h>
+#include "d_system/d_wm_demo_actor.h"
 
 class daWmMap_c : public dWmDemoActor_c
 {

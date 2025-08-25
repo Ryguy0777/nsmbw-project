@@ -1,6 +1,6 @@
 #pragma once
 
-#include <machine/m_angle.h>
+#include "machine/m_angle.h"
 
 /**
  * A two-dimensional floating point vector.

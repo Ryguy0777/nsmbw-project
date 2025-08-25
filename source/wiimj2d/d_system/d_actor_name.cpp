@@ -6,9 +6,9 @@
 
 #include <algorithm>
 #include <array>
-#include <d_system/d_base.h>
-#include <d_player/d_a_player.h>
-#include <framework/f_base_profile.h>
+#include "d_system/d_base.h"
+#include "d_player/d_a_player.h"
+#include "framework/f_base_profile.h"
 #include <iterator>
 #include <numeric>
 

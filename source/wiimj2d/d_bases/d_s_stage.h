@@ -1,10 +1,10 @@
 #pragma once
 
-#include <d_system/d_cyuukan.h>
-#include <d_system/d_fader.h>
-#include <d_system/d_mj2d_game.h>
-#include <d_system/d_remocon_mng.h>
-#include <framework/f_base_profile.h>
+#include "d_system/d_cyuukan.h"
+#include "d_system/d_fader.h"
+#include "d_system/d_mj2d_game.h"
+#include "d_system/d_remocon_mng.h"
+#include "framework/f_base_profile.h"
 
 class dGameDisplay_c;
 

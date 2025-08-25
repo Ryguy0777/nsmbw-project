@@ -3,10 +3,10 @@
 
 #include "d_a_player_demo_manager.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_game_common.h>
-#include <d_system/d_mj2d_game.h>
-#include <d_player/d_a_player.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_game_common.h"
+#include "d_system/d_mj2d_game.h"
+#include "d_player/d_a_player.h"
 #include <revolution/os.h>
 #include <revolution/os/OSError.h>
 

@@ -4,7 +4,7 @@
 #include "SndAudioMgr.h"
 
 #include <egg/core/eggDvdRipper.h>
-#include <machine/m_dvd.h>
+#include "machine/m_dvd.h"
 #include <nw4r/snd/DvdSoundArchive.h>
 #include <revolution/os.h>
 

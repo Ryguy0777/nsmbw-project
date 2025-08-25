@@ -4,11 +4,11 @@
 #include "d_a_castle_kokoopa_demo_1st.h"
 
 #include <algorithm>
-#include <d_system/d_a_player_demo_manager.h>
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_block_mng.h>
-#include <d_system/d_enemy_manager.h>
-#include <d_player/d_a_player.h>
+#include "d_system/d_a_player_demo_manager.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_block_mng.h"
+#include "d_system/d_enemy_manager.h"
+#include "d_player/d_a_player.h"
 #include <egg/math/eggMath.h>
 
 [[address(0x807DAC10)]]

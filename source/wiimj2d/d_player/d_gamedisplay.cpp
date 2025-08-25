@@ -3,13 +3,13 @@
 
 #include "d_gamedisplay.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_game_common.h>
-#include <d_system/d_lytbase.h>
-#include <d_system/d_mj2d_game.h>
-#include <framework/f_feature.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_game_common.h"
+#include "d_system/d_lytbase.h"
+#include "d_system/d_mj2d_game.h"
+#include "framework/f_feature.h"
 #include <iterator>
-#include <machine/m_ef.h>
+#include "machine/m_ef.h"
 #include <nw4r/lyt/Material.h>
 #include <revolution/os.h>
 

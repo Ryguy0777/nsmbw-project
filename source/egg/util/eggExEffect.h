@@ -1,6 +1,6 @@
 #pragma once
 
-#include <egg/math/eggVector.h>
+#include "egg/math/eggVector.h"
 #include <nw4r/ut/Color.h>
 
 namespace EGG

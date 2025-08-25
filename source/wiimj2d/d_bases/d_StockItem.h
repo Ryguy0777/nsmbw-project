@@ -1,12 +1,12 @@
 #pragma once
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_base.h>
-#include <d_system/d_lytbase.h>
-#include <state/s_FStateFct.h>
-#include <state/s_State.h>
-#include <state/s_StateMethodUsr_FI.h>
-#include <state/s_StateMgr.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
+#include "state/s_FStateFct.h"
+#include "state/s_State.h"
+#include "state/s_StateMethodUsr_FI.h"
+#include "state/s_StateMgr.h"
 
 class da2DPlayer_c;
 class daWmItem_c;

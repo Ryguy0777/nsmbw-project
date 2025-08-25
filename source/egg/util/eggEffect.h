@@ -1,9 +1,9 @@
 #pragma once
 
+#include "egg/math/eggMatrix.h"
+#include "egg/math/eggVector.h"
+#include "egg/prim/eggBitFlag.h"
 #include "eggExEffect.h"
-#include <egg/math/eggMatrix.h>
-#include <egg/math/eggVector.h>
-#include <egg/prim/eggBitFlag.h>
 #include <nw4r/ef/Handle.h>
 
 namespace EGG

@@ -3,7 +3,7 @@
 
 #include "d_kinopio_model.h"
 
-#include <d_system/d_player_model_manager.h>
+#include "d_system/d_player_model_manager.h"
 
 [[address(0x800BCBD0)]]
 dKinopioMdl_c::dKinopioMdl_c(u8 index)

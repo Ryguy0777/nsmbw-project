@@ -1,12 +1,12 @@
 #pragma once
 
-#include <d_system/d_game_key.h>
+#include "d_system/d_game_key.h"
 #include <egg/core/eggHeap.h>
-#include <machine/m_pad.h>
-#include <state/s_FStateFct.h>
-#include <state/s_State.h>
-#include <state/s_StateMethodUsr_FI.h>
-#include <state/s_StateMgr.h>
+#include "machine/m_pad.h"
+#include "state/s_FStateFct.h"
+#include "state/s_State.h"
+#include "state/s_StateMethodUsr_FI.h"
+#include "state/s_StateMgr.h"
 
 #define REMOCON_CONNECT_COUNT 8
 

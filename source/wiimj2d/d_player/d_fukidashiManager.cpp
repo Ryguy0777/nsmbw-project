@@ -3,8 +3,8 @@
 
 #include "d_fukidashiManager.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_info.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_info.h"
 
 [[address_data(0x8042A600)]]
 dfukidashiManager_c* dfukidashiManager_c::m_instance;

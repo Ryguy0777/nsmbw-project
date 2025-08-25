@@ -1,8 +1,8 @@
 #pragma once
 
-#include <machine/m_3d_mdl.h>
-#include <machine/m_allocator.h>
-#include <machine/m_mtx.h>
+#include "machine/m_3d_mdl.h"
+#include "machine/m_allocator.h"
+#include "machine/m_mtx.h"
 
 class dPyMdlBase_c
 {

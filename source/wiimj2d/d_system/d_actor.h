@@ -1,8 +1,8 @@
 #pragma once
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_base_actor.h>
-#include <machine/m_vec.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_base_actor.h"
+#include "machine/m_vec.h"
 
 class dActor_c : public dBaseActor_c
 {

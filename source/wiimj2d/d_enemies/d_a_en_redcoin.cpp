@@ -3,7 +3,7 @@
 
 #include "d_a_en_redcoin.h"
 
-#include <d_player/d_a_player.h>
+#include "d_player/d_a_player.h"
 
 u32 daEnRedcoin_c_sizeof()
 {

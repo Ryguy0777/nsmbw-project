@@ -6,8 +6,8 @@
 
 #include "AddressMapper.h"
 #include <cstring>
-#include <d_player/d_s_boot.h>
-#include <d_system/d_a_player_manager.h>
+#include "d_player/d_s_boot.h"
+#include "d_system/d_a_player_manager.h"
 #include <revolution/os.h>
 
 struct FourPatch {

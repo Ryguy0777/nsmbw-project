@@ -1,7 +1,7 @@
 #pragma once
 
-#include <machine/m_pad.h>
-#include <machine/m_vec.h>
+#include "machine/m_pad.h"
+#include "machine/m_vec.h"
 
 class dGameKeyCore_c
 {

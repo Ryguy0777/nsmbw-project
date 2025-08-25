@@ -1,6 +1,6 @@
 #pragma once
 
-#include <machine/m_vec.h>
+#include "machine/m_vec.h"
 
 class dActor_c;
 

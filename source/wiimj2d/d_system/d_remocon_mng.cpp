@@ -4,8 +4,8 @@
 #include "d_remocon_mng.h"
 
 #include <egg/core/eggController.h>
-#include <machine/m_heap.h>
-#include <machine/m_pad.h>
+#include "machine/m_heap.h"
+#include "machine/m_pad.h"
 #include <revolution/os.h>
 #include <revolution/wpad.h>
 

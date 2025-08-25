@@ -4,13 +4,13 @@
 #include "d_CourseSelectManager.h"
 #include "d_system/d_a_player_manager.h"
 
-#include <d_bases/d_CourseSelectMenu.h>
-#include <d_bases/d_EasyPairing.h>
-#include <d_bases/d_NumberOfPeopleChange.h>
-#include <d_bases/d_StockItem.h>
-#include <d_bases/d_a_wm_2DPlayer.h>
-#include <d_bases/d_a_wm_player.h>
-#include <d_system/d_game_common.h>
+#include "d_bases/d_CourseSelectMenu.h"
+#include "d_bases/d_EasyPairing.h"
+#include "d_bases/d_NumberOfPeopleChange.h"
+#include "d_bases/d_StockItem.h"
+#include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_bases/d_a_wm_player.h"
+#include "d_system/d_game_common.h"
 #include <iterator>
 
 [[address_data(0x809A2370)]]

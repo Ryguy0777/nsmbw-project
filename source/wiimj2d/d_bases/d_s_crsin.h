@@ -1,10 +1,10 @@
 #pragma once
 
-#include <d_system/d_scene.h>
-#include <state/s_FStateFct.h>
-#include <state/s_State.h>
-#include <state/s_StateMethodUsr_FI.h>
-#include <state/s_StateMgr.h>
+#include "d_system/d_scene.h"
+#include "state/s_FStateFct.h"
+#include "state/s_State.h"
+#include "state/s_StateMethodUsr_FI.h"
+#include "state/s_StateMgr.h"
 
 class dScCrsin_c : public dScene_c,
                    public sStateMgr_c<dScCrsin_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>

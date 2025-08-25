@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_base_actor.h>
-#include <machine/m_sphere.h>
+#include "d_system/d_base_actor.h"
+#include "machine/m_sphere.h"
 
 namespace m3d
 {

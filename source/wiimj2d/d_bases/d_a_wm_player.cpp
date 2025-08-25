@@ -3,12 +3,12 @@
 
 #include "d_a_wm_player.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_bases/d_a_wm_SubPlayer.h>
-#include <d_system/d_info.h>
-#include <d_system/d_mj2d_game.h>
-#include <framework/f_base_profile.h>
-#include <machine/m_pad.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_bases/d_a_wm_SubPlayer.h"
+#include "d_system/d_info.h"
+#include "d_system/d_mj2d_game.h"
+#include "framework/f_base_profile.h"
+#include "machine/m_pad.h"
 #include <revolution/os.h>
 
 /* 0x809A0DB8 */

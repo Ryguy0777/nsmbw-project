@@ -1,7 +1,7 @@
 #pragma once
 
+#include "egg/prim/eggBitFlag.h"
 #include "eggHeap.h"
-#include <egg/prim/eggBitFlag.h>
 
 namespace EGG
 {

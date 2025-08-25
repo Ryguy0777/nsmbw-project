@@ -1,13 +1,13 @@
 #pragma once
 
-#include <d_system/d_a_player_key.h>
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_actor.h>
-#include <d_system/d_mj2d_game.h>
-#include <framework/f_base_profile.h>
-#include <machine/m_mtx.h>
-#include <sound/SndObjectPlayer.h>
-#include <state/s_State.h>
+#include "d_system/d_a_player_key.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_actor.h"
+#include "d_system/d_mj2d_game.h"
+#include "framework/f_base_profile.h"
+#include "machine/m_mtx.h"
+#include "sound/SndObjectPlayer.h"
+#include "state/s_State.h"
 
 class daPlBase_c : public dActor_c
 {

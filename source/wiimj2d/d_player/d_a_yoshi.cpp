@@ -3,8 +3,8 @@
 
 #include "d_a_yoshi.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <framework/f_feature.h>
+#include "d_system/d_a_player_manager.h"
+#include "framework/f_feature.h"
 
 /* VT+0x0DC */
 [[address(0x80150E10)]]

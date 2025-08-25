@@ -1,8 +1,8 @@
 #pragma once
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_base.h>
-#include <d_system/d_fukidashiInfo.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_base.h"
+#include "d_system/d_fukidashiInfo.h"
 
 class dfukidashiManager_c : public dBase_c
 {

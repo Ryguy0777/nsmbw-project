@@ -1,8 +1,8 @@
 #pragma once
 
-#include <d_system/d_enemy.h>
+#include "d_system/d_enemy.h"
 
-#include <state/s_State.h>
+#include "state/s_State.h"
 
 class daEnBomhei_c : public dEn_c
 {

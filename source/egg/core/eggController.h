@@ -1,10 +1,10 @@
 #pragma once
 
-#include <egg/core/eggDisposer.h>
-#include <egg/math/eggMatrix.h>
-#include <egg/math/eggVector.h>
-#include <egg/prim/eggBitFlag.h>
-#include <egg/prim/eggBuffer.h>
+#include "egg/core/eggDisposer.h"
+#include "egg/math/eggMatrix.h"
+#include "egg/math/eggVector.h"
+#include "egg/prim/eggBitFlag.h"
+#include "egg/prim/eggBuffer.h"
 #include <revolution/kpad.h>
 #include <revolution/wpad.h>
 

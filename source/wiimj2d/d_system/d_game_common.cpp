@@ -8,9 +8,9 @@
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_info.h>
-#include <d_system/d_lyttextbox.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_info.h"
+#include "d_system/d_lyttextbox.h"
 #include <nw4r/ut/Color.h>
 
 namespace dGameCom

@@ -3,16 +3,16 @@
 
 #include "d_system.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_player/d_s_boot.h>
-#include <d_system/d_remocon_mng.h>
-#include <d_system/d_resource_manager.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_player/d_s_boot.h"
+#include "d_system/d_remocon_mng.h"
+#include "d_system/d_resource_manager.h"
 #include <egg/core/eggController.h>
-#include <machine/m_heap.h>
-#include <machine/m_pad.h>
+#include "machine/m_heap.h"
+#include "machine/m_pad.h"
 #include <revolution/dvd.h>
 #include <revolution/pad.h>
-#include <sound/SndAudioMgr.h>
+#include "sound/SndAudioMgr.h"
 
 [[address_data(0x8042A370)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem1;

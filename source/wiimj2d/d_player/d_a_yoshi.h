@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_a_player_base.h>
-#include <d_system/d_player_model_manager.h>
+#include "d_system/d_a_player_base.h"
+#include "d_system/d_player_model_manager.h"
 
 class daYoshi_c : public daPlBase_c
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_cyuukan.h>
-#include <d_system/d_mj2d_game.h>
-#include <d_system/d_start_info.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_cyuukan.h"
+#include "d_system/d_mj2d_game.h"
+#include "d_system/d_start_info.h"
 
 class dInfo_c
 {

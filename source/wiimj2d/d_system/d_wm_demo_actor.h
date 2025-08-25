@@ -1,6 +1,6 @@
 #pragma once
 
-#include <d_system/d_wm_actor.h>
+#include "d_system/d_wm_actor.h"
 
 class dWmDemoActor_c : public dWmActor_c
 {

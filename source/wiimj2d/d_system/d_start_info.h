@@ -1,7 +1,7 @@
 #pragma once
 
-#include <d_system/d_cyuukan.h>
-#include <d_system/d_a_player_manager.h>
+#include "d_system/d_cyuukan.h"
+#include "d_system/d_a_player_manager.h"
 
 class dStartInfo_c
 {

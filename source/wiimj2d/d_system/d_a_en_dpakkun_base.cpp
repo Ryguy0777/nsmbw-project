@@ -3,8 +3,8 @@
 
 #include "d_a_en_dpakkun_base.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_player/d_a_player.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_player/d_a_player.h"
 
 
 [[address(0x8002D730)]]

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <d_system/d_base.h>
+#include "d_system/d_base.h"
 #include <nw4r/lyt/Pane.h>
 
 class dCharacterChangeIndicator_c : public dBase_c

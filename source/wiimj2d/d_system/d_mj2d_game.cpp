@@ -3,7 +3,7 @@
 
 #include "d_mj2d_game.h"
 
-#include <framework/f_feature.h>
+#include "framework/f_feature.h"
 
 /**
  * Sets the obtained Star Coin(s) for the given world/level. See COURSE_COMPLETION_e.

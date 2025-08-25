@@ -1,10 +1,10 @@
 #pragma once
 
-#include <d_system/d_base.h>
-#include <framework/f_list_nd.h>
-#include <machine/m_angle.h>
-#include <machine/m_mtx.h>
-#include <machine/m_vec.h>
+#include "d_system/d_base.h"
+#include "framework/f_list_nd.h"
+#include "machine/m_angle.h"
+#include "machine/m_mtx.h"
+#include "machine/m_vec.h"
 
 /**
  * The minimum required implementation for an actor base.

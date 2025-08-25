@@ -3,14 +3,14 @@
 
 #include "d_s_world_map.h"
 
-#include <d_system/d_CourseSelectManager.h>
-#include <d_bases/d_NumberOfPeopleChange.h>
-#include <d_bases/d_StockItem.h>
-#include <d_bases/d_a_wm_KoopaShip.h>
-#include <d_bases/d_a_wm_Map.h>
-#include <d_bases/d_wm_WorldSelect.h>
-#include <d_system/d_wm_actor.h>
-#include <framework/f_base_profile.h>
+#include "d_bases/d_NumberOfPeopleChange.h"
+#include "d_bases/d_StockItem.h"
+#include "d_bases/d_a_wm_KoopaShip.h"
+#include "d_bases/d_a_wm_Map.h"
+#include "d_bases/d_wm_WorldSelect.h"
+#include "d_system/d_CourseSelectManager.h"
+#include "d_system/d_wm_actor.h"
+#include "framework/f_base_profile.h"
 #include <iterator>
 
 [[address(0x809271C0)]]

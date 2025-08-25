@@ -1,13 +1,13 @@
 #pragma once
 
 #include "nw4r/lyt/Picture.h"
-#include <d_system/d_base.h>
-#include <d_system/d_lytbase.h>
-#include <state/s_FStateFct.h>
-#include <state/s_State.h>
-#include <state/s_StateInterfaces.h>
-#include <state/s_StateMethodUsr_FI.h>
-#include <state/s_StateMgr.h>
+#include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
+#include "state/s_FStateFct.h"
+#include "state/s_State.h"
+#include "state/s_StateInterfaces.h"
+#include "state/s_StateMethodUsr_FI.h"
+#include "state/s_StateMgr.h"
 
 class dSelectPlayer_c : public dBase_c
 {

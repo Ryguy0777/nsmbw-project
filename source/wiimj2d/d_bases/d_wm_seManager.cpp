@@ -3,15 +3,15 @@
 
 #include "d_wm_seManager.h"
 
-#include <d_system/d_a_player_manager.h>
-#include <d_system/d_audio.h>
-#include <d_system/d_mj2d_game.h>
-#include <framework/f_sound_id.h>
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_audio.h"
+#include "d_system/d_mj2d_game.h"
+#include "framework/f_sound_id.h"
 #include <iterator>
-#include <sound/SndAudioMgr.h>
-#include <sound/SndObjectEnemy.h>
-#include <sound/SndObjectMap.h>
-#include <sound/SndObjectPlayer.h>
+#include "sound/SndAudioMgr.h"
+#include "sound/SndObjectEnemy.h"
+#include "sound/SndObjectMap.h"
+#include "sound/SndObjectPlayer.h"
 
 [[address_data(0x8042A55C)]]
 dWmSeManager_c* dWmSeManager_c::m_pInstance;
