@@ -582,12 +582,6 @@ void dNumberOfPeopleChange_c::setupPlayerTypes()
         }
     }
 
-    // Hardcode player 5 to black toad (REMOVE LATER)
-    if (!typeActive[int(daPyMng_c::PlayerType_e::BLACK_TOAD)]) {
-        daPyMng_c::mPlayerType[4] = daPyMng_c::PlayerType_e::BLACK_TOAD;
-        typeActive[int(daPyMng_c::PlayerType_e::BLACK_TOAD)] = true;
-    }
-
     // All indices need to have a unique player type, regardless of whether that player type is even
     // used
     for (int c = 0, i = 0; c < PLAYER_COUNT; c++) {
@@ -595,8 +589,8 @@ void dNumberOfPeopleChange_c::setupPlayerTypes()
             continue;
         }
 
-        // Find the next unused player index (REMOVE CHECK FOR 5)
-        while ((i < 4 && getControllerActive(i) == 3) || i == 4) {
+        // Find the next unused player index
+        while (i < 4 && getControllerActive(i) == 3) {
             i++;
         }
 
