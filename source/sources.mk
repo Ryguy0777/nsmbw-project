@@ -592,6 +592,10 @@ SOURCES += source/wiimj2d/d_enemies/d_a_en_red_ring.cpp
 # NSMBW d_enemies.text:  0x80A93990 - 0x80A94D90
 SOURCES += source/wiimj2d/d_enemies/d_a_en_redcoin.cpp
 
+# d_a_en_water_stream.cpp
+# NSMBW d_enemies.text:  0x80AC7800 - 0x80AC8270
+SOURCES += source/wiimj2d/d_enemies/d_a_en_water_stream.cpp
+
 #
 # wiimj2d/state
 # NSMBW          .text:  0x8015F270 - 0x8015FF80

@@ -3,13 +3,13 @@
 
 #include "d_a_wm_SubPlayer.h"
 
-#include <AddressMapper.h>
 #include "d_bases/d_a_wm_player.h"
 #include "d_player/d_s_boot.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_wm_player_base.h"
 #include "machine/m_angle.h"
 #include "machine/m_heap.h"
+#include <AddressMapper.h>
 
 /**
  * Copy of create.
@@ -202,8 +202,8 @@ f32 daWmSubPlayer_c::getPlayerOrderDistance()
       // 5 players
       0.0,
       40.0,
-      50.0,
-      50.0,
+      40.0,
+      40.0,
       40.0,
 
       // 6 players
@@ -258,10 +258,10 @@ s16 daWmSubPlayer_c::getPlayerOrderAngle()
 
       // 5 players
       mAng::fromDegree(0.0),
-      mAng::fromDegree(48.0),
-      mAng::fromDegree(-48.0),
-      mAng::fromDegree(114.0),
-      mAng::fromDegree(-114.0),
+      mAng::fromDegree(-140.0),
+      mAng::fromDegree(140.0),
+      mAng::fromDegree(74.0),
+      mAng::fromDegree(-74.0),
 
       // 6 players
       mAng::fromDegree(0.0),
