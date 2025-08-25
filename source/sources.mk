@@ -588,6 +588,15 @@ SOURCES += source/wiimj2d/d_enemies/d_a_en_redcoin.cpp
 # NSMBW          .text:  0x8015F270 - 0x8015FF80
 #
 
+# s_Crc.cpp
+# NSMBW          .text:  0x8015F270 - 0x8015F280
+SOURCES += source/wiimj2d/state/s_Crc.cpp
+# s_Lib.cpp
+# NSMBW          .text:  0x8015F280 - 0x8015F740
+SOURCES += source/wiimj2d/state/s_Lib.cpp
+# s_Phase.cpp
+# NSMBW          .text:  0x8015F740 - 0x8015F810
+SOURCES += source/wiimj2d/state/s_Phase.cpp
 # s_Print.cpp
 # NSMBW          .text:  0x8015F810 - 0x8015F900
 SOURCES += source/wiimj2d/state/s_Print.cpp
@@ -606,38 +615,107 @@ SOURCES += source/wiimj2d/state/s_StateMethodUsr_FI.cpp
 # NSMBW          .text:  0x8015FF80 - 0x80160C10
 #
 
+# Counter.cpp
+# NSMBW          .text:  0x8015FF80 - 0x8015FF90
+SOURCES += source/wiimj2d/Counter.cpp
+# DynamicLink.cpp
+# NSMBW          .text:  0x8015FF90 - 0x80160C10
+SOURCES += source/wiimj2d/DynamicLink.cpp
+
 #
-# wiimj2d/common
-# NSMBW          .text:  0x80160C10 - 0x80161880
+# wiimj2d/component
+# NSMBW          .text:  0x80160C10 - 0x80161A60
+#
+
+# c_lib.cpp
+# NSMBW          .text:  0x80160C10 - 0x80161050
+SOURCES += source/wiimj2d/component/c_lib.cpp
+# c_list.cpp
+# NSMBW          .text:  0x80161050 - 0x801611A0
+SOURCES += source/wiimj2d/component/c_list.cpp
+# c_math.cpp
+# NSMBW          .text:  0x801611A0 - 0x801615A0
+SOURCES += source/wiimj2d/component/c_math.cpp
+# c_random.cpp
+# NSMBW          .text:  0x801615A0 - 0x80161670
+SOURCES += source/wiimj2d/component/c_random.cpp
+# c_tree.cpp
+# NSMBW          .text:  0x80161670 - 0x80161880
+SOURCES += source/wiimj2d/component/c_tree.cpp
 
 #
 # wiimj2d/framework
-# NSMBW          .text:  0x80161880 - 0x80161C10
+# NSMBW          .text:  0x80161880 - 0x801632B0
 #
 
+# f_ba_helper.cpp
+# NSMBW          .text:  0x80161880 - 0x80161A60
+SOURCES += source/wiimj2d/framework/f_ba_helper.cpp
 # f_base.cpp
-# NSMBW          .text:  0x80161C10 - 0x80162C80
+# NSMBW          .text:  0x80161A60 - 0x80162C80
 SOURCES += source/wiimj2d/framework/f_base.cpp
-
+# f_list.cpp
+# NSMBW          .text:  0x80162C80 - 0x80162E30
+SOURCES += source/wiimj2d/framework/f_list.cpp
 # f_manager.cpp
-# NSMBW          .text:  0x80162E30 - 0x80163130
+# NSMBW          .text:  0x80162E30 - 0x80163140
 SOURCES += source/wiimj2d/framework/f_manager.cpp
-
-#
-# wiimj2d/machine/m3d
-#
-
-# m_anmtexpat.cpp
-# NSMBW          .text:  0x80166560 - 0x80167140
-SOURCES += source/wiimj2d/machine/m3d/m_anmtexpat.cpp
-
-# m_mdl.cpp
-# NSMBW          .text:  0x801696A0 - 0x8016A150
-SOURCES += source/wiimj2d/machine/m3d/m_mdl.cpp
+# f_tree.cpp
+# NSMBW          .text:  0x80163140 - 0x801632B0
+SOURCES += source/wiimj2d/framework/f_tree.cpp
 
 #
 # wiimj2d/machine
+# NSMBW          .text:  0x801632B0 - 0x80171500
 #
+
+# m_2d.cpp
+# NSMBW          .text:  0x801632B0 - 0x80164630
+SOURCES += source/wiimj2d/machine/m_2d.cpp
+# m_3d.cpp
+# NSMBW          .text:  0x80164630 - 0x80165210
+SOURCES += source/wiimj2d/machine/m_3d.cpp
+# m_3d_anmchr.cpp
+# NSMBW          .text:  0x80165210 - 0x80165660
+SOURCES += source/wiimj2d/machine/m_3d_anmchr.cpp
+# m_3d_anmchrblend.cpp
+# NSMBW          .text:  0x80165660 - 0x80165960
+SOURCES += source/wiimj2d/machine/m_3d_anmchrblend.cpp
+# m_3d_anmmatclr.cpp
+# NSMBW          .text:  0x80165960 - 0x80166560
+SOURCES += source/wiimj2d/machine/m_3d_anmmatclr.cpp
+# m_3d_anmtexpat.cpp
+# NSMBW          .text:  0x80166560 - 0x80167140
+SOURCES += source/wiimj2d/machine/m_3d_anmtexpat.cpp
+# m_3d_anmtexsrt.cpp
+# NSMBW          .text:  0x80167140 - 0x80167D80
+SOURCES += source/wiimj2d/machine/m_3d_anmtexsrt.cpp
+# m_3d_anmvis.cpp
+# NSMBW          .text:  0x80167D80 - 0x80168000
+SOURCES += source/wiimj2d/machine/m_3d_anmvis.cpp
+# m_3d_banm.cpp
+# NSMBW          .text:  0x80168000 - 0x80168240
+SOURCES += source/wiimj2d/machine/m_3d_banm.cpp
+# m_3d_bmdl.cpp
+# NSMBW          .text:  0x80168240 - 0x80168C80
+SOURCES += source/wiimj2d/machine/m_3d_bmdl.cpp
+# m_3d_calcratio.cpp
+# NSMBW          .text:  0x80168C80 - 0x80168E50
+SOURCES += source/wiimj2d/machine/m_3d_calcratio.cpp
+# m_3d_fanm.cpp
+# NSMBW          .text:  0x80168E50 - 0x80169360
+SOURCES += source/wiimj2d/machine/m_3d_fanm.cpp
+# UNKNOWN
+# NSMBW          .text:  0x80169360 - 0x801696A0
+# m_3d_mdl.cpp
+# NSMBW          .text:  0x801696A0 - 0x8016A150
+SOURCES += source/wiimj2d/machine/m_3d_mdl.cpp
+# m_3d_scnleaf.cpp
+# NSMBW          .text:  0x8016A150 - 0x8016A430
+SOURCES += source/wiimj2d/machine/m_3d_scnleaf.cpp
+# m_3d_smdl.cpp
+# NSMBW          .text:  0x8016A430 - 0x8016A5A0
+SOURCES += source/wiimj2d/machine/m_3d_smdl.cpp
 
 # m_dvd.cpp
 # NSMBW          .text:  0x8016B090 - 0x8016C540

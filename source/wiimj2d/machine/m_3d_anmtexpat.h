@@ -1,7 +1,7 @@
 #pragma once
 
-#include "m_bmdl.h"
-#include "m_fanm.h"
+#include "m_3d_bmdl.h"
+#include "m_3d_fanm.h"
 #include <nw4r/g3d/g3d_anmtexpat.h>
 
 namespace m3d

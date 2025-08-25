@@ -18,6 +18,8 @@ void PSMTXCopy(const Mtx* src, Mtx* dst);
 void PSMTXTrans(Mtx* mtx, float x, float y, float z);
 void PSMTXScale(Mtx* mtx, float x, float y, float z);
 
+void C_MTXFrustum(Mtx44*, float, float, float, float, float, float);
+void C_MTXPerspective(Mtx44*, float, float, float, float);
 void C_MTXOrtho(Mtx44*, float, float, float, float, float, float);
 
 /**

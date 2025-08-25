@@ -1,7 +1,7 @@
 #pragma once
 
-#include "m_banm.h"
-#include "m_scnleaf.h"
+#include <machine/m_3d_banm.h>
+#include <machine/m_3d_scnleaf.h>
 #include <machine/m_math.h>
 #include <nw4r/g3d/g3d_resmat.h>
 #include <nw4r/g3d/g3d_scnmdlsmpl.h>
@@ -26,7 +26,7 @@ public:
 
     /* VT+0x0C */ virtual int getType() const override;
     /* VT+0x10 */ virtual void remove() override;
-    
+
     /* VT+0x18 */ virtual void setAnm(banm_c& anm);
     /* VT+0x1C */ virtual void play();
 

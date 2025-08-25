@@ -3,8 +3,8 @@
 
 #include "g3d_rescommon.h"
 #include <nw4r/math/types.h>
-#include "nw4r/ut/ut_Color.h"
-#include <rvl/GX.h>
+#include "nw4r/ut/Color.h"
+#include <revolution/gx/GXEnum.h>
 
 
 namespace nw4r {

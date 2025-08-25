@@ -1,8 +1,8 @@
 #ifndef M3D_M_ANMVIS_H
 #define M3D_M_ANMVIS_H
 
-#include <machine/m3d/m_bmdl.h>
-#include <machine/m3d/m_fanm.h>
+#include <machine/m_3d_bmdl.h>
+#include <machine/m_3d_fanm.h>
 
 namespace m3d {
 

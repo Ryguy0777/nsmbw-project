@@ -1,5 +1,5 @@
 // f_base.cpp
-// NSMBW .text: 0x80161C10 - 0x80162C80
+// NSMBW .text: 0x80161A60 - 0x80162C80
 
 #include "f_base.h"
 

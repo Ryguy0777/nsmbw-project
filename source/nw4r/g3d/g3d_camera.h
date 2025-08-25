@@ -3,13 +3,14 @@
 
 #include "g3d_rescommon.h"
 #include <nw4r/math/types.h>
-#include <rvl/MTX.h>
+#include <revolution/mtx.h>
 
-
-namespace nw4r {
-namespace g3d {
+namespace nw4r
+{
+namespace g3d
+{
 struct CameraData {
-    math::MTX34 mCamMtx;  // at 0x0
+    math::MTX34 mCamMtx; // at 0x0
     math::MTX44 mProjMtx; // at 0x30
     u32 mFlags;
     math::VEC3 mPos; // at 0x74
@@ -56,45 +57,56 @@ struct Camera {
 
     ResCommon<CameraData> mCamData;
 
-    inline Camera(void *vptr) : mCamData(vptr) {}
-    inline void UpdateProjectionMtx() const {
-        CameraData &rCamData = mCamData.ref();
+    inline Camera(void* vptr)
+      : mCamData(vptr)
+    {
+    }
+
+    inline void UpdateProjectionMtx() const
+    {
+        CameraData& rCamData = mCamData.ref();
 
         if (rCamData.mFlags & 0x40) {
-            C_MTXOrtho(rCamData.mProjMtx, rCamData.FLOAT_0xBC, rCamData.FLOAT_0xC0, rCamData.FLOAT_0xC4,
-                    rCamData.FLOAT_0xC8, rCamData.FLOAT_0xB4, rCamData.FLOAT_0xB8);
+            C_MTXOrtho(
+              &rCamData.mProjMtx, rCamData.FLOAT_0xBC, rCamData.FLOAT_0xC0, rCamData.FLOAT_0xC4,
+              rCamData.FLOAT_0xC8, rCamData.FLOAT_0xB4, rCamData.FLOAT_0xB8
+            );
         } else {
             if (rCamData.mFlags & 0x10) {
-                C_MTXFrustum(rCamData.mProjMtx, rCamData.FLOAT_0xBC, rCamData.FLOAT_0xC0, rCamData.FLOAT_0xC4,
-                        rCamData.FLOAT_0xC8, rCamData.FLOAT_0xB4, rCamData.FLOAT_0xB8);
+                C_MTXFrustum(
+                  &rCamData.mProjMtx, rCamData.FLOAT_0xBC, rCamData.FLOAT_0xC0, rCamData.FLOAT_0xC4,
+                  rCamData.FLOAT_0xC8, rCamData.FLOAT_0xB4, rCamData.FLOAT_0xB8
+                );
             } else {
-                C_MTXPerspective(rCamData.mProjMtx, rCamData.FLOAT_0xAC, rCamData.FLOAT_0xB0, rCamData.FLOAT_0xB4,
-                        rCamData.FLOAT_0xB8);
+                C_MTXPerspective(
+                  &rCamData.mProjMtx, rCamData.FLOAT_0xAC, rCamData.FLOAT_0xB0, rCamData.FLOAT_0xB4,
+                  rCamData.FLOAT_0xB8
+                );
             }
         }
 
         rCamData.mFlags |= 0x80;
     }
 
-    Camera(CameraData *);
+    Camera(CameraData*);
     void Init();
     void Init(u16, u16, u16, u16, u16, u16);
     void SetPosition(f32, f32, f32);
-    void SetPosition(const math::VEC3 &);
-    void SetPosture(const PostureInfo &);
-    void SetCameraMtxDirectly(const math::MTX34 &);
+    void SetPosition(const math::VEC3&);
+    void SetPosture(const PostureInfo&);
+    void SetCameraMtxDirectly(const math::MTX34&);
     void SetPerspective(f32, f32, f32, f32);
     void SetOrtho(f32, f32, f32, f32, f32, f32);
-    void SetProjectionMtxDirectly(const math::MTX44 *);
+    void SetProjectionMtxDirectly(const math::MTX44*);
     void SetScissor(u32, u32, u32, u32);
     void SetScissorBoxOffset(s32, s32);
     void SetViewport(f32, f32, f32, f32);
     void SetViewportZRange(f32, f32);
-    void GetViewport(f32 *, f32 *, f32 *, f32 *, f32 *, f32 *) const;
-    void GetCameraMtx(math::MTX34 *) const;
-    void GetProjectionMtx(math::MTX44 *) const;
-    void GetProjectionTexMtx(math::MTX34 *) const;
-    void GetEnvironmentTexMtx(math::MTX34 *) const;
+    void GetViewport(f32*, f32*, f32*, f32*, f32*, f32*) const;
+    void GetCameraMtx(math::MTX34*) const;
+    void GetProjectionMtx(math::MTX44*) const;
+    void GetProjectionTexMtx(math::MTX34*) const;
+    void GetEnvironmentTexMtx(math::MTX34*) const;
     void GXSetViewport() const;
     void GXSetProjection() const;
     void GXSetScissor() const;

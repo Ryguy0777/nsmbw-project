@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/c_bitmask.h>
+#include <component/c_bitmask.h>
 #include <d_system/d_actor.h>
 #include <d_system/d_rc.h>
 

@@ -1,7 +1,7 @@
 // m_anmtexpat.cpp
 // NSMBW .text: 0x80166560 - 0x80167140
 
-#include "m_anmtexpat.h"
+#include "m_3d_anmtexpat.h"
 
 namespace m3d
 {
