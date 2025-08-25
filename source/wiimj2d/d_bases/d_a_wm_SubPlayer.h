@@ -170,7 +170,11 @@ public:
     /* 0x214 */ NodeTrail_c mNodeTrail;
     /* 0x228 */ NodeTrailBase_c::Node_s maNodes[8];
 
-    FILL(0x268, 0x2A8);
+    FILL(0x268, 0x294);
+
+    /* 0x294 */ float* mp0x294;
+
+    FILL(0x298, 0x2A8);
 
     /* 0x2A8 */ s32 m0x2A8;
 

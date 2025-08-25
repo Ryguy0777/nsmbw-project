@@ -1,13 +1,18 @@
 #pragma once
 
-#include "d_system/d_base.h"
+#include "System.h"
+#include "d_system/d_scene.h"
+#include "state/s_FStateFct.h"
 #include "state/s_State.h"
+#include "state/s_StateInterfaces.h"
+#include "state/s_StateMethodUsr_FI.h"
+#include "state/s_StateMgr.h"
 
 class da2DPlayer_c;
 class dNumberOfPeopleChange_c;
 class dSelectPlayer_c;
 
-class dScGameSetup_c : public dBase_c
+class dScGameSetup_c : public dScene_c
 {
 public:
     // ----------------
@@ -22,7 +27,10 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x070, 0x0B8);
+    /* 0x074 */
+    sStateMgr_c<dScGameSetup_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
+
+    FILL(0x0B0, 0x0B8);
 
     /* 0x0B8 */ dNumberOfPeopleChange_c* mpNumPyChg;
 
@@ -34,6 +42,10 @@ public:
     FILL(0x0D4, 0x0F8);
 
     /* 0x0F8 */ u32 mPlayerCreateIdx;
+
+    FILL(0x0FC, 0x108);
+
+    /* 0x108 */ bool mInPlayerSelect;
 
 public:
     // ---------

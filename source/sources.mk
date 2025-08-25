@@ -372,6 +372,15 @@ SOURCES += source/wiimj2d/d_bases/d_a_wm_2DPlayer.cpp
 # d_a_wm_Item.cpp
 # NSMBW   d_bases.text:  0x808D4890 - 0x808D50B0
 SOURCES += source/wiimj2d/d_bases/d_a_wm_Item.cpp
+# d_a_wm_Killer.cpp
+# NSMBW   d_bases.text:  0x808D50B0 - 0x808D5E50
+SOURCES += source/wiimj2d/d_bases/d_a_wm_Killer.cpp
+# d_a_wm_KillerBullet.cpp
+# NSMBW   d_bases.text:  0x808D5E50 - 0x808D78C0
+SOURCES += source/wiimj2d/d_bases/d_a_wm_KillerBullet.cpp
+# d_a_wm_KinoBalloon.cpp
+# NSMBW   d_bases.text:  0x808D78C0 - 0x808D8860
+SOURCES += source/wiimj2d/d_bases/d_a_wm_KinoBalloon.cpp
 
 # d_a_wm_KoopaShip.cpp
 # NSMBW   d_bases.text:  0x808DBCB0 - 0x808DE620

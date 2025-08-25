@@ -159,8 +159,9 @@ public:
 
     /* 0x64C */ da2DPlayer_c* mpaPlayers_Removed[4];
 
-    FILL(0x65C, 0x67F);
+    FILL(0x65C, 0x67E);
 
+    /* 0x67E */ bool m0x67E;
     /* 0x67F */ u8 m0x67F;
     /* 0x680 */ u8 m0x680;
 

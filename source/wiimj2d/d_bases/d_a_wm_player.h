@@ -74,12 +74,12 @@ public:
     virtual void VT_0x60() override;
 
     /**
-     * VT+0x70 8090BE30
+     * VT+0x70 0x8090BE30
      */
     virtual void VT_0x70() override;
 
     /**
-     * VT+0x74 8090C160
+     * VT+0x74 0x8090C160
      */
     virtual void VT_0x74() override;
 
@@ -106,11 +106,14 @@ public:
     /* 0x80902C50 */
     void UNDEF_80902C50();
 
+    /* 0x80902BD0 */
+    void createSubPlayers();
+
     /* 0x80902CA0 */
     void updateActivePlayers();
 
-    /* 0x80902BD0 */
-    void createSubPlayers();
+    /* 0x80902E30 */
+    void setPlayerActive(u32 id, bool param2, bool param3);
 
     /* 0x80903380 */
     void UNDEF_80903380();

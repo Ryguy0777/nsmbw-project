@@ -6,7 +6,16 @@
 namespace dWmLib
 {
 
+[[address_data(0x8031D6B4)]]
+float sc_0x8031D6B4;
+
 [[address(0x800FBAF0)]]
 void procCourseClear(bool isSecretExit, bool isSuperGuide, WORLD_e world, STAGE_e stage);
+
+[[address(0x800FCAD0)]]
+bool IsSingleEntry();
+
+[[address(0x800FD1C0)]]
+void RestoreKinopioHelpGameInfo();
 
 } // namespace dWmLib

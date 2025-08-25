@@ -71,6 +71,15 @@ public:
     // Functions
     // ---------
 
+    u32 getPlayerActiveMode(u32 index)
+    {
+        if (index < 4) {
+            return mPlayerActiveMode[index];
+        } else {
+            return mExPlayerActiveMode[index - 4];
+        }
+    }
+
     /* 0x800BB180 */
     void PlayerStateInit();
 

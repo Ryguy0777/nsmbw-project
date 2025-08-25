@@ -3,15 +3,15 @@
 
 #include "d_SelectPlayer.h"
 
+#include "d_player/d_SelectCursor.h"
 #include "d_system/d_game_common.h"
 #include "d_system/d_game_key.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
-#include "d_player/d_SelectCursor.h"
 #include "framework/f_sound_id.h"
 #include "machine/m_pad.h"
-#include <revolution/wpad.h>
 #include "sound/SndAudioMgr.h"
+#include <revolution/wpad.h>
 
 enum ANIM_ID_e {
     ANIM_ID_inWindow = 0,
