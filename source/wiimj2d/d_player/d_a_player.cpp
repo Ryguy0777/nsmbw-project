@@ -86,7 +86,7 @@ bool dAcPy_c::setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg)
         damageType = DamageType_e::SCROLL_OUT;
     }
 
-    if (fFeature::DEATH_MESSAGES) {
+    if (fFeature::DEATH_MESSAGES != fFeature::DEATH_MESSAGES_MODE_e::DISABLED && !noDeathMsg) {
         if (carryPlr) {
             carryPlr->addDeathMessage(this, damageType, true);
         } else {
@@ -200,7 +200,7 @@ void dAcPy_c::setFallDownDemo()
         return;
     }
 
-    if (fFeature::DEATH_MESSAGES) {
+    if (fFeature::DEATH_MESSAGES != fFeature::DEATH_MESSAGES_MODE_e::DISABLED) {
         addDeathMessage(nullptr, DamageType_e::FALL_DOWN, true);
     }
 
@@ -887,7 +887,7 @@ bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
 
     dQuake_c::m_instance->shockMotor(mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
 
-    if (fFeature::DEATH_MESSAGES) {
+    if (fFeature::DEATH_MESSAGES != fFeature::DEATH_MESSAGES_MODE_e::DISABLED) {
         addDeathMessage(source, type, isStatus(Status_e::DEAD));
     }
 
@@ -908,7 +908,7 @@ bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
 
     dQuake_c::m_instance->shockMotor(mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
 
-    if (fFeature::DEATH_MESSAGES) {
+    if (fFeature::DEATH_MESSAGES != fFeature::DEATH_MESSAGES_MODE_e::DISABLED) {
         addDeathMessage(source, type, isStatus(Status_e::DEAD));
     }
 

@@ -3,12 +3,12 @@ SUFFIXES += .d
 
 # Project directory
 BUILD := ./build
-ARCHIVE := NSMBWProjectData
+ARCHIVE := mkwcat-nsmbw
 ASSETS := $(BUILD)/$(ARCHIVE).arc.d
 ASSETS_SRC := ./assets
 TARGET := project
 LOADER := Loader
-OUTPUT := ./output/riivolution/mkwcat-special-nsmbw-project
+OUTPUT := ./riivolution
 TOOLS := $(BUILD)/tools
 
 
@@ -64,7 +64,7 @@ LDOPTS := -T./source/module.ld --gc-sections -r -n
 
 
 .PHONY: all
-all: $(OUTPUT)/$(ARCHIVE).arc $(OUTPUT)/$(LOADER).img
+all: $(OUTPUT)/$(ARCHIVE).arc $(OUTPUT)/mkwcat-nsmbw.xml
 
 .PHONY: clean
 clean:
@@ -161,10 +161,15 @@ $(BUILD)/$(LOADER).elf: $(LOADER_OFILES)
 	@echo Link: $(notdir $@)
 	@$(LD) -T./loader/Loader.ld --gc-sections -n $(LOADER_OFILES) -o $@ 
 
-$(OUTPUT)/$(LOADER).img: $(BUILD)/$(LOADER).elf
+$(BUILD)/$(LOADER).img: $(BUILD)/$(LOADER).elf
 	@echo Output: $(notdir $@)
 	@mkdir -p $(dir $@)
 	@$(OBJCOPY) $< $@ -O binary
+
+$(OUTPUT)/mkwcat-nsmbw.xml: $(BUILD)/$(LOADER).img
+	@echo Build: $(notdir $@)
+	@mkdir -p $(dir $@)
+	@python ./tools/insert-xml.py ./mkwcat-nsmbw.xml.template $< $@
 
 # Tool recipes
 

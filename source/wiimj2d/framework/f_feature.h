@@ -3,21 +3,25 @@
 namespace fFeature
 {
 
-static constexpr bool UNLOCKED_ALL_WORLDS = false;
-static constexpr bool COMPLETED_ALL_LEVELS = false;
-static constexpr bool DISABLE_POWERUP_CHANGE_PAUSE = true;
+extern bool UNLOCKED_ALL_WORLDS;
+extern bool COMPLETED_ALL_LEVELS;
+extern bool DISABLE_POWERUP_CHANGE_PAUSE;
 
 // Replace life counter with a death counter
-static constexpr bool INFINITE_LIVES = false;
+extern bool INFINITE_LIVES;
 
 // Enable death messages in the bottom left of the screen
-static constexpr bool DEATH_MESSAGES = true;
+extern enum class DEATH_MESSAGES_MODE_e : u8 {
+    DISABLED = 0,
+    DEATH_AND_DAMAGE = 1,
+    DEATH_ONLY = 2,
+} DEATH_MESSAGES;
 
-// Enable fall damage
-static constexpr bool FALL_DAMAGE = true;
+// Enable fall damage mod
+extern bool FALL_DAMAGE;
 
-static constexpr bool DISABLE_OPENING_MOVIE = true;
+extern bool DISABLE_OPENING_MOVIE;
 
-static constexpr bool ALWAYS_CAN_EXIT_COURSE = true;
+extern bool ALWAYS_CAN_EXIT_COURSE;
 
 } // namespace fFeature

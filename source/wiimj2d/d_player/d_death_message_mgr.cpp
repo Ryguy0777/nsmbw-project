@@ -2,11 +2,11 @@
 // NSMBW: ---
 
 #include "d_death_message_mgr.h"
-#include "egg/gfx/eggFrustum.h"
 
+#include "d_system/d_game_common.h"
 #include <algorithm>
 #include <cwchar>
-#include "d_system/d_game_common.h"
+#include <egg/gfx/eggFrustum.h>
 #include <egg/gfx/eggScreen.h>
 #include <iterator>
 #include <nw4r/lyt/Material.h>
@@ -57,18 +57,17 @@ static constinit struct MaterialList1 {
       .materialNum = 1,
     },
   .offset1 = offsetof(MaterialList1, material),
-  .material =
-    {
-      .materialName = "Mat_DeathMsg",
-      .foreColor = "#00000000",
-      .backColor = "#FFFFFFFF",
-      .colorReg3 = "#00000000",
-      .tevColor1 = "#00000000",
-      .tevColor2 = "#00000000",
-      .tevColor3 = "#00000000",
-      .tevColor4 = "#00000000",
-      .flags = 0,
-    },
+  .material = {
+    .materialName = "Mat_DeathMsg",
+    .foreColor = "#00000000",
+    .backColor = "#FFFFFFFF",
+    .colorReg3 = "#00000000",
+    .tevColor1 = "#00000000",
+    .tevColor2 = "#00000000",
+    .tevColor3 = "#00000000",
+    .tevColor4 = "#00000000",
+    .flags = 0,
+  },
 };
 
 static constinit struct TextBox1 {

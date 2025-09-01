@@ -1,5 +1,6 @@
 #pragma once
 
+#include "System.h"
 #include "d_system/d_a_player_base.h"
 #include "d_system/d_player_model_manager.h"
 
@@ -27,4 +28,10 @@ public:
     // -----------
 
     /* 0x14D4 */ dPyMdlMng_c mModelMng;
+
+    FILL(0x14E0, 0x1524);
+
+    /* 0x1524 */ int mEatStage;
+
+    OFFSET_ASSERT(0x1528);
 };

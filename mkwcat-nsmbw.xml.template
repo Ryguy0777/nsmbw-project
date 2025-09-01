@@ -1,0 +1,97 @@
+<wiidisc version="1" shiftfiles="false" log="true">
+	<id game="SMN" developer="01" disc="0">
+		<region type="P"/>
+		<region type="E"/>
+		<region type="J"/>
+		<region type="K"/>
+		<region type="W"/>
+		<region type="C"/>
+	</id>
+	<options>
+		<section name="mkwcat">
+			<option name="Core (Required)" default="1">
+				<choice id="core" name="Enabled">
+					<patch id="loader"/>
+				</choice>
+			</option>
+			<option name="All worlds available" starling:requires="core">
+				<choice name="Enabled">
+					<patch id="UNLOCKED_ALL_WORLDS"/>
+				</choice>
+			</option>
+			<option name="All courses available" starling:requires="core">
+				<choice name="Enabled">
+					<patch id="COMPLETED_ALL_LEVELS"/>
+				</choice>
+			</option>
+			<option name="Death counter (unlimited lives)" starling:requires="core">
+				<choice name="Enabled">
+					<patch id="INFINITE_LIVES"/>
+				</choice>
+			</option>
+			<option name="No pause on powerup state change" starling:requires="core">
+				<choice name="Enabled">
+					<patch id="DISABLE_POWERUP_CHANGE_PAUSE"/>
+				</choice>
+			</option>
+			<option name="Display death messages" starling:requires="core">
+				<choice name="On damage and death">
+					<patch id="DEATH_MESSAGES_DEATH_AND_DAMAGE"/>
+				</choice>
+				<choice name="Only on death">
+					<patch id="DEATH_MESSAGES_DEATH_ONLY"/>
+				</choice>
+			</option>
+			<option name="Always allow exiting course" starling:requires="core">
+				<choice name="Enabled">
+					<patch id="ALWAYS_CAN_EXIT_COURSE"/>
+				</choice>
+			</option>
+		</section>
+	</options>
+	<patch id="UNLOCKED_ALL_WORLDS">
+		<memory offset="0x80006784" value="01"/>
+	</patch>
+	<patch id="COMPLETED_ALL_LEVELS">
+		<memory offset="0x80006785" value="01"/>
+	</patch>
+	<patch id="DISABLE_POWERUP_CHANGE_PAUSE">
+		<memory offset="0x80006786" value="01"/>
+	</patch>
+	<patch id="INFINITE_LIVES">
+		<memory offset="0x80006787" value="01"/>
+	</patch>
+	<patch id="DEATH_MESSAGES_DEATH_AND_DAMAGE">
+		<memory offset="0x80006788" value="01"/>
+	</patch>
+	<patch id="DEATH_MESSAGES_DEATH_ONLY">
+		<memory offset="0x80006788" value="02"/>
+	</patch>
+	<patch id="FALL_DAMAGE">
+		<memory offset="0x80006789" value="01"/>
+	</patch>
+	<patch id="DISABLE_OPENING_MOVIE">
+		<memory offset="0x8000678A" value="01"/>
+	</patch>
+	<patch id="ALWAYS_CAN_EXIT_COURSE">
+		<memory offset="0x8000678B" value="01"/>
+	</patch>
+	<patch id="loader">
+		<!-- EU -->
+		<memory offset='0x80328478' value='800047E4' original='8015BC60'/>
+		<!-- US -->
+		<memory offset='0x80328130' value='800047E4' original='8015BB20'/>
+		<!-- JP -->
+		<memory offset='0x80327E98' value='800047E4' original='8015B930'/>
+		<!-- KR -->
+		<memory offset='0x80334E60' value='800047E4' original='8015C060'/>
+		<!-- TW -->
+		<memory offset='0x80333218' value='800047E4' original='8015C060'/>
+
+		<!-- Data -->
+		<file disc="/mkwcat.arc" external="mkwcat-nsmbw.arc" create="true"/>
+
+		<!-- Loader -->
+		<memory offset="0x800047E4" value="${INSERT_LOADER_DATA}"/>
+	</patch>
+</wiidisc>

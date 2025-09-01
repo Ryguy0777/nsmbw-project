@@ -149,7 +149,7 @@ constexpr u32 MODULE_MAX_SIZE = 0x40000;
 constexpr u32 REGION_INDEX = sizeof("rels/project_") - 1;
 char g_modulePath[] = "rels/project_?1.rel.LZ";
 
-const char g_contentsArc[] = "NSMBWProjectData.arc";
+const char g_contentsArc[] = "mkwcat.arc";
 
 u32 g_dylinkHeapAddresses[] = {
   0x8042A664, // PAL v1 address

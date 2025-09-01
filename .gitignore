@@ -17,3 +17,6 @@ desktop.ini
 # Clang installation
 tools/clang/clang
 tools/clang/clang.exe
+
+# Riivolution config files
+riivolution/config

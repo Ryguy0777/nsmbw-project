@@ -190,7 +190,9 @@ UNDEF_801581b0:;
 fBase_c::PACK_RESULT_e dGameDisplay_c::draw()
 {
     if (m0x452 && mLayoutLoaded) {
-        mDeathMsgMgr.entry();
+        if (fFeature::DEATH_MESSAGES != fFeature::DEATH_MESSAGES_MODE_e::DISABLED) {
+            mDeathMsgMgr.entry();
+        }
         mLayout.entry();
     }
 

@@ -3,15 +3,16 @@
 
 #include "d_a_player_base.h"
 
-#include <cstdio>
-#include "d_system/d_a_player_manager.h"
-#include "d_system/d_actor_name.h"
-#include "d_system/d_game_common.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 #include "d_player/d_gamedisplay.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_actor_name.h"
+#include "d_system/d_game_common.h"
 #include "framework/f_base_profile.h"
+#include "framework/f_feature.h"
 #include "framework/f_manager.h"
+#include <cstdio>
 #include <iterator>
 
 [[address(0x8004DB40)]]
@@ -127,6 +128,12 @@ static fBaseID_e s_lastHitEnemy[PLAYER_COUNT] = {};
 void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death)
 {
     // TODO: Use BMG for messages
+    if (fFeature::DEATH_MESSAGES == fFeature::DEATH_MESSAGES_MODE_e::DISABLED) {
+        return;
+    }
+    if (fFeature::DEATH_MESSAGES == fFeature::DEATH_MESSAGES_MODE_e::DEATH_ONLY && !death) {
+        return;
+    }
 
     fBaseID_e lastHit = s_lastHitEnemy[mPlayerNo];
     s_lastHitEnemy[mPlayerNo] = source ? source->mUniqueID : fBaseID_e::NULL;
@@ -150,9 +157,9 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     const char* messages[128] = {};
     int messageCount = 0;
 
-    auto addMsg = [&](const char* const msg) {
+    auto msg = [&](const char* const m) {
         if (messageCount < 128) {
-            messages[messageCount++] = msg;
+            messages[messageCount++] = m;
         }
     };
 
@@ -161,49 +168,49 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
         switch (enemy) {
         default:
             if (repeat) {
-                addMsg("%s gave %s another chance");
-                addMsg("%s didn't learn their lesson about %s");
+                msg("%s gave %s another chance");
+                msg("%s didn't learn their lesson about %s");
                 if (!death) {
                     break;
                 }
             }
 
             if (death) {
-                addMsg("%s was finished by %s");
-                addMsg("%s was slain by %s");
-                addMsg("%s reached an impassable %s");
-                addMsg("%s couldn't handle %s");
-                addMsg("%s lost a fight with %s");
-                addMsg("%s lost it to %s");
-                addMsg("%s was no match for %s");
-                addMsg("%s seriously died to %s?");
-                addMsg("%s met the wrath of %s");
-                addMsg("%s didn't get the memo about %s");
+                msg("%s was finished by %s");
+                msg("%s was slain by %s");
+                msg("%s reached an impassable %s");
+                msg("%s couldn't handle %s");
+                msg("%s lost a fight with %s");
+                msg("%s lost it to %s");
+                msg("%s was no match for %s");
+                msg("%s seriously died to %s?");
+                msg("%s met the wrath of %s");
+                msg("%s didn't get the memo about %s");
             } else {
-                addMsg("%s came into contact with %s");
-                addMsg("%s occupied the same space as %s");
-                addMsg("%s and %s touched hitboxes");
-                addMsg("%s was hurt badly by %s");
-                addMsg("%s forgot %s was harmful");
-                addMsg("%s! Stay away from %s!");
-                addMsg("%s wasn't warned about %s...");
-                addMsg("%s was scratched by %s");
-                addMsg("%s tried to hug %s");
-                addMsg("%s touched %s the wrong way");
+                msg("%s came into contact with %s");
+                msg("%s occupied the same space as %s");
+                msg("%s and %s touched hitboxes");
+                msg("%s was hurt badly by %s");
+                msg("%s forgot %s was harmful");
+                msg("%s! Stay away from %s!");
+                msg("%s wasn't warned about %s...");
+                msg("%s was scratched by %s");
+                msg("%s tried to hug %s");
+                msg("%s touched %s the wrong way");
             }
             break;
 
         case fBaseProfile_e::LASTACTOR:
             // Enemy name = "an unknown force"
             if (death) {
-                addMsg("%s lost the game");
-                addMsg("%s lost a fight with the game");
-                addMsg("%s lost it to %s");
-                addMsg("Someone killed %s!!!");
-                addMsg("%s died");
+                msg("%s lost the game");
+                msg("%s lost a fight with the game");
+                msg("%s lost it to %s");
+                msg("Someone killed %s!!!");
+                msg("%s died");
             } else {
-                addMsg("%s came into contact with %s");
-                addMsg("%s was hurt badly");
+                msg("%s came into contact with %s");
+                msg("%s was hurt badly");
             }
 
             break;
@@ -218,11 +225,11 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
         case fBaseProfile_e::EN_GOKUBUTO_BIGPILE_UPPER:
             // "was skewered by Skewer"
             if (death) {
-                addMsg("%s was skewered by %s");
+                msg("%s was skewered by %s");
             } else {
-                addMsg("%s was penetrated by %s");
-                addMsg("%s was pummeled by %s");
-                addMsg("%s was destroyed by %s");
+                msg("%s was penetrated by %s");
+                msg("%s was pummeled by %s");
+                msg("%s was destroyed by %s");
             }
             break;
 
@@ -231,53 +238,53 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
         case fBaseProfile_e::EN_MAGNUM_KILLER:
         case fBaseProfile_e::EN_SEARCH_MAGNUM_KILLER:
             if (death) {
-                addMsg("%s was shot by %s");
+                msg("%s was shot by %s");
             } else {
-                addMsg("%s was struck by %s");
+                msg("%s was struck by %s");
             }
             break;
 
         case fBaseProfile_e::EN_KING_KILLER:
             if (death) {
-                addMsg("%s was blasted by %s");
+                msg("%s was blasted by %s");
             } else {
-                addMsg("%s was pummeled by %s");
+                msg("%s was pummeled by %s");
             }
             break;
 
         case fBaseProfile_e::EN_ICICLE:
         case fBaseProfile_e::EN_BIG_ICICLE:
             if (death) {
-                addMsg("%s was skewered by %s");
+                msg("%s was skewered by %s");
             } else {
-                addMsg("%s was impaled by %s");
+                msg("%s was impaled by %s");
             }
             break;
 
         case fBaseProfile_e::EN_DOSUN:
         case fBaseProfile_e::EN_BIGDOSUN:
             if (death) {
-                addMsg("%s was smashed by %s");
-                addMsg("%s was thwomped by %s");
+                msg("%s was smashed by %s");
+                msg("%s was thwomped by %s");
             } else {
-                addMsg("%s was pounded by %s");
-                addMsg("%s was thumped by %s");
+                msg("%s was pounded by %s");
+                msg("%s was thumped by %s");
             }
             break;
 
         case fBaseProfile_e::EN_KANITAMA:
             if (death) {
-                addMsg("%s was finished by a rock");
-                addMsg("%s was slain by a rock");
+                msg("%s was finished by a rock");
+                msg("%s was slain by a rock");
 
                 // Three times for greater weight
-                addMsg("%s was killed with a rock");
-                addMsg("%s was killed with a rock");
-                addMsg("%s was killed with a rock");
+                msg("%s was killed with a rock");
+                msg("%s was killed with a rock");
+                msg("%s was killed with a rock");
             } else {
-                addMsg("%s came into contact with a rock");
+                msg("%s came into contact with a rock");
             }
-            addMsg("%s lost a fight with a rock");
+            msg("%s lost a fight with a rock");
             break;
         }
         break;
@@ -285,50 +292,50 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     case DamageType_e::ELEC_SHOCK:
         if (enemyName == nullptr) {
             if (death) {
-                addMsg("%s was electrocuted");
+                msg("%s was electrocuted");
             } else {
-                addMsg("%s was shocked");
+                msg("%s was shocked");
             }
         } else {
             if (death) {
-                addMsg("%s was electrocuted by %s");
+                msg("%s was electrocuted by %s");
             } else {
-                addMsg("%s was shocked by %s");
+                msg("%s was shocked by %s");
             }
         }
         break;
 
     case DamageType_e::LAVA:
-        addMsg("%s tried to swim in lava");
-        addMsg("%s fell into lava");
+        msg("%s tried to swim in lava");
+        msg("%s fell into lava");
         break;
 
     case DamageType_e::POISON_WATER:
-        addMsg("%s drank the weird lanky water");
-        addMsg("%s fell into the poisonous jungle juice");
-        addMsg("%s fell into the radioactive water");
+        msg("%s drank the weird lanky water");
+        msg("%s fell into the poisonous jungle juice");
+        msg("%s fell into the radioactive water");
         break;
 
     case DamageType_e::CRUSH:
         if (enemyName == nullptr) {
             if (death) {
-                addMsg("%s was squished to death");
+                msg("%s was squished to death");
             }
-            addMsg("%s was crushed by a heavy object");
-            addMsg("%s was squished too much");
+            msg("%s was crushed by a heavy object");
+            msg("%s was squished too much");
         } else {
-            addMsg("%s was squashed by %s");
+            msg("%s was squashed by %s");
         }
         break;
 
     case DamageType_e::EAT_DIE:
     case DamageType_e::EAT_DIE2:
         if (enemyName == nullptr) {
-            addMsg("%s was devoured");
-            addMsg("%s was devoured by a hungry creature");
-            addMsg("%s was devoured by a monster");
+            msg("%s was devoured");
+            msg("%s was devoured by a hungry creature");
+            msg("%s was devoured by a monster");
         } else {
-            addMsg("%s was devoured by %s");
+            msg("%s was devoured by %s");
         }
         break;
 
@@ -336,74 +343,74 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     case DamageType_e::FREEZE2:
         if (enemyName == nullptr) {
             if (death) {
-                addMsg("%s froze to death");
+                msg("%s froze to death");
             } else {
-                addMsg("%s was frozen solid");
+                msg("%s was frozen solid");
             }
         } else {
             if (death) {
-                addMsg("%s froze to death by %s");
+                msg("%s froze to death by %s");
             } else {
-                addMsg("%s was frozen solid by %s");
+                msg("%s was frozen solid by %s");
             }
         }
         break;
 
     case DamageType_e::POISON_FOG:
-        addMsg("%s couldn't escape the fog");
-        addMsg("%s got lost in the fog");
+        msg("%s couldn't escape the fog");
+        msg("%s got lost in the fog");
         break;
 
     case DamageType_e::FALL_DOWN:
         if (enemyName == nullptr) {
             if (lastEnemyName) {
                 enemyName = lastEnemyName;
-                addMsg("%s couldn't live in the same world as %s");
-                addMsg("%s was knocked off a cliff by %s");
-                addMsg("%s stumbled over %s and fell off");
+                msg("%s couldn't live in the same world as %s");
+                msg("%s was knocked off a cliff by %s");
+                msg("%s stumbled over %s and fell off");
             } else {
-                addMsg("%s fell off");
-                addMsg("%s fell through the floor");
-                addMsg("%s fell off (on purpose)");
+                msg("%s fell off");
+                msg("%s fell through the floor");
+                msg("%s fell off (on purpose)");
             }
 
-            addMsg("%s fell out of the world");
-            addMsg("%s forgot how to jump");
-            addMsg("%s thought there was ground there");
-            addMsg("%s didn't want to play anymore");
-            addMsg("%s lost the game");
-            addMsg("%s you're not supposed to go down there");
-            addMsg("%s what's it like down there");
-            addMsg("%s left the confines of the world");
+            msg("%s fell out of the world");
+            msg("%s forgot how to jump");
+            msg("%s thought there was ground there");
+            msg("%s didn't want to play anymore");
+            msg("%s lost the game");
+            msg("%s you're not supposed to go down there");
+            msg("%s what's it like down there");
+            msg("%s left the confines of the world");
         } else {
-            addMsg("%s fell off and dragged %s with them");
-            addMsg("%s sacrificed themselves to take out %s");
-            addMsg("%s thought the world better without %s");
-            addMsg("~%s was dragged into the void by %s");
-            addMsg("~%s was betrayed by %s");
+            msg("%s fell off and dragged %s with them");
+            msg("%s sacrificed themselves to take out %s");
+            msg("%s thought the world better without %s");
+            msg("~%s was dragged into the void by %s");
+            msg("~%s was betrayed by %s");
         }
         break;
 
     case DamageType_e::SCROLL_OUT:
         if (enemyName == nullptr) {
-            addMsg("%s met the wrath of the edge of the screen");
-            addMsg("%s mysteriously vanished");
-            addMsg("%s died because the screen scrolled too much");
-            addMsg("The screen just went too far for %s");
-            addMsg("%s left the confines of the screen");
-            addMsg("%s died");
-            addMsg("%s was left behind");
-            addMsg("%s died because people need to slow down");
-            addMsg("%s died because people need to slow down");
-            addMsg("%s died because PEOPLE NEED TO SLOW DOWN!!!!");
+            msg("%s met the wrath of the edge of the screen");
+            msg("%s mysteriously vanished");
+            msg("%s died because the screen scrolled too much");
+            msg("The screen just went too far for %s");
+            msg("%s left the confines of the screen");
+            msg("%s died");
+            msg("%s was left behind");
+            msg("%s died because people need to slow down");
+            msg("%s died because people need to slow down");
+            msg("%s died because PEOPLE NEED TO SLOW DOWN!!!!");
         } else {
-            addMsg("%s and %s couldn't handle the screen's edge");
-            addMsg("%s and %s met the edge of the screen");
-            addMsg("%s showed %s to the edge of the screen");
-            addMsg("%s and %s were left behind");
-            addMsg("%s and %s mysteriously vanished");
-            addMsg("%s and %s died");
-            addMsg("%s and %s died because people need to slow down");
+            msg("%s and %s couldn't handle the screen's edge");
+            msg("%s and %s met the edge of the screen");
+            msg("%s showed %s to the edge of the screen");
+            msg("%s and %s were left behind");
+            msg("%s and %s mysteriously vanished");
+            msg("%s and %s died");
+            msg("%s and %s died because people need to slow down");
         }
         break;
     }

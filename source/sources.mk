@@ -667,6 +667,9 @@ SOURCES += source/wiimj2d/framework/f_ba_helper.cpp
 # f_base.cpp
 # NSMBW          .text:  0x80161A60 - 0x80162C80
 SOURCES += source/wiimj2d/framework/f_base.cpp
+# f_feature.cpp
+# NSMBW: ----
+SOURCES += source/wiimj2d/framework/f_feature.cpp
 # f_list.cpp
 # NSMBW          .text:  0x80162C80 - 0x80162E30
 SOURCES += source/wiimj2d/framework/f_list.cpp
