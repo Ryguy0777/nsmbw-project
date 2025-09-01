@@ -20,7 +20,6 @@ public:
     // Constants and Types
     // -------------------
 
-    /* @unofficial */
     static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
       fBaseProfile_e::PLAYER, fBaseProfile_e::YOSHI
     };

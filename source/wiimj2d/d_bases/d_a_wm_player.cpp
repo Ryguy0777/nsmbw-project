@@ -76,7 +76,7 @@ fBase_c::PACK_RESULT_e daWmPlayer_c::create()
 
     // Some shadow related thing maybe?
     UNDEF_80906FE0(0, -1);
-    UNDEF_800F6820("character_SV", "g3d/model.brres", "character_SV", 1);
+    CreateShadowModel("character_SV", "g3d/model.brres", "character_SV", 1);
     mVisible = true;
 
     UNDEF_80903380();

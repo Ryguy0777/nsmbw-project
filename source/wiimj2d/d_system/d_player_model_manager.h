@@ -36,6 +36,10 @@ public:
         MODEL_TOAD_ORANGE = 9,
     };
 
+    enum class SceneType_c {
+        SCENE_TYPE_2 = 2,
+    };
+
 public:
     // ------------
     // Constructors
@@ -58,8 +62,8 @@ public:
     /* 0x800D6E00 */
     void construct(u8 index);
 
-    /* 0x800D6EE0 @unofficial */
-    void loadModel(s32 param_1, u8 param_2, s32 param_3);
+    /* 0x800D6EE0 */
+    void create(u8 index, u8 playerMode, SceneType_c sceneType);
 
     /* 0x800D6F80 */
     void play();

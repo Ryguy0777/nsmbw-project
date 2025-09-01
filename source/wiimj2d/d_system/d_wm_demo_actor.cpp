@@ -14,6 +14,11 @@ void dWmDemoActor_c::VT_0x60();
 [[address(0x800F61E0)]]
 void dWmDemoActor_c::setCutEnd();
 
+[[address(0x800F6820)]]
+void dWmDemoActor_c::CreateShadowModel(
+  const char* param1, const char* param2, const char* param3, bool param4
+);
+
 /* VT+0x6C */
 [[address(0x800F6EE0)]]
 void dWmDemoActor_c::clearCutEnd();

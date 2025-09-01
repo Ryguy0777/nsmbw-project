@@ -3,10 +3,12 @@
 
 #include "d_a_player_manager.h"
 
-#include <PatchRel.h>
+#include "d_bases/d_s_stage.h"
+#include "d_player/d_a_player.h"
+#include "d_player/d_a_yoshi.h"
+#include "d_player/d_gamedisplay.h"
 #include "d_system/d_a_player_demo_manager.h"
 #include "d_system/d_audio.h"
-#include "d_bases/d_s_stage.h"
 #include "d_system/d_bg_parameter.h"
 #include "d_system/d_course_data.h"
 #include "d_system/d_game_common.h"
@@ -14,9 +16,6 @@
 #include "d_system/d_multi_manager.h"
 #include "d_system/d_next.h"
 #include "d_system/d_pause_manager.h"
-#include "d_player/d_a_player.h"
-#include "d_player/d_a_yoshi.h"
-#include "d_player/d_gamedisplay.h"
 #include "d_system/d_player_effect_mng.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_quake.h"
@@ -27,6 +26,7 @@
 #include "framework/f_manager.h"
 #include "framework/f_sound_id.h"
 #include "machine/m_vec.h"
+#include <PatchRel.h>
 #include <numeric>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
@@ -394,7 +394,7 @@ void daPyMng_c::update()
         }
     }
 
-    updateBGM();
+    checkLastAlivePlayer();
     if (dGameDisplay_c* display = dScStage_c::getGameDisplay()) {
         if (fFeature::INFINITE_LIVES) {
             display->updatePlayNum(mDeathCount);
@@ -718,7 +718,7 @@ int daPyMng_c::findPlayerWithType(PlayerType_e playerType)
 }
 
 [[address(0x80060170)]]
-bool daPyMng_c::getIsItemKinopio(int* ownedPlayer);
+bool daPyMng_c::changeItemKinopioPlrNo(int* ownedPlayer);
 
 [[address(0x80060200)]]
 int daPyMng_c::getCoinAll()
@@ -733,7 +733,7 @@ int daPyMng_c::getCoinAll()
 [[address(0x80060250)]]
 void daPyMng_c::incCoin(int player)
 {
-    getIsItemKinopio(&player);
+    changeItemKinopioPlrNo(&player);
     dMultiMng_c::mspInstance->incCoin(player);
 
     if (getCoinAll() < MAX_COINS) {
@@ -804,9 +804,9 @@ void daPyMng_c::stopStarBGM();
 [[address(0x80060860)]]
 void daPyMng_c::stopYoshiBGM();
 
-/* 0x800608E0 @unofficial */
+/* 0x800608E0 */
 [[address(0x800608E0)]]
-void daPyMng_c::updateBGM();
+void daPyMng_c::checkLastAlivePlayer();
 
 [[address(0x80060970)]]
 void daPyMng_c::executeLastPlayer()
@@ -1125,24 +1125,22 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  daPyMng_c::mCourseInList,
-  {
-    {0x8005D656, R_PPC_ADDR16_HA},
-    {0x8005D65E, R_PPC_ADDR16_LO},
-    {0x8005D662, R_PPC_ADDR16_LO},
-    {0x800601E2, R_PPC_ADDR16_HA},
-    {0x800601EA, R_PPC_ADDR16_LO},
-  }
+  daPyMng_c::mCourseInList, {
+                              {0x8005D656, R_PPC_ADDR16_HA},
+                              {0x8005D65E, R_PPC_ADDR16_LO},
+                              {0x8005D662, R_PPC_ADDR16_LO},
+                              {0x800601E2, R_PPC_ADDR16_HA},
+                              {0x800601EA, R_PPC_ADDR16_LO},
+                            }
 );
 
 PATCH_REFERENCES(
-  daPyMng_c::m_yoshiFruit,
-  {
-    {0x8005FC22, R_PPC_ADDR16_HA},
-    {0x8005FC32, R_PPC_ADDR16_LO},
-    {0x8005FC52, R_PPC_ADDR16_HA},
-    {0x8005FC5A, R_PPC_ADDR16_LO},
-  }
+  daPyMng_c::m_yoshiFruit, {
+                             {0x8005FC22, R_PPC_ADDR16_HA},
+                             {0x8005FC32, R_PPC_ADDR16_LO},
+                             {0x8005FC52, R_PPC_ADDR16_HA},
+                             {0x8005FC5A, R_PPC_ADDR16_LO},
+                           }
 );
 
 PATCH_REFERENCES(
@@ -1304,23 +1302,22 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  daPyMng_c::mCoin,
-  {
-    {0x80060206, R_PPC_ADDR16_HA},
-    {0x80060216, R_PPC_ADDR16_LO},
-    {0x800BB982, R_PPC_ADDR16_HA},
-    {0x800BB9B6, R_PPC_ADDR16_LO},
-    {0x800E17C6, R_PPC_ADDR16_HA},
-    {0x800E17DA, R_PPC_ADDR16_LO},
-    {0x800E197A, R_PPC_ADDR16_HA},
-    {0x800E1992, R_PPC_ADDR16_LO},
-    {0x8078904E, R_PPC_ADDR16_HA},
-    {0x8078906A, R_PPC_ADDR16_LO},
-    {0x8091F79E, R_PPC_ADDR16_HA},
-    {0x8091F7BA, R_PPC_ADDR16_LO},
-    {0x8092541A, R_PPC_ADDR16_HA},
-    {0x8092544A, R_PPC_ADDR16_LO},
-    {0x80A2B70E, R_PPC_ADDR16_HA},
-    {0x80A2B722, R_PPC_ADDR16_LO},
-  }
+  daPyMng_c::mCoin, {
+                      {0x80060206, R_PPC_ADDR16_HA},
+                      {0x80060216, R_PPC_ADDR16_LO},
+                      {0x800BB982, R_PPC_ADDR16_HA},
+                      {0x800BB9B6, R_PPC_ADDR16_LO},
+                      {0x800E17C6, R_PPC_ADDR16_HA},
+                      {0x800E17DA, R_PPC_ADDR16_LO},
+                      {0x800E197A, R_PPC_ADDR16_HA},
+                      {0x800E1992, R_PPC_ADDR16_LO},
+                      {0x8078904E, R_PPC_ADDR16_HA},
+                      {0x8078906A, R_PPC_ADDR16_LO},
+                      {0x8091F79E, R_PPC_ADDR16_HA},
+                      {0x8091F7BA, R_PPC_ADDR16_LO},
+                      {0x8092541A, R_PPC_ADDR16_HA},
+                      {0x8092544A, R_PPC_ADDR16_LO},
+                      {0x80A2B70E, R_PPC_ADDR16_HA},
+                      {0x80A2B722, R_PPC_ADDR16_LO},
+                    }
 );

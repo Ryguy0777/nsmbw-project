@@ -48,7 +48,7 @@ void dPyMdlMng_c::construct(u8 index)
 }
 
 [[address(0x800D6EE0)]]
-void dPyMdlMng_c::loadModel(s32 param_1, u8 param_2, s32 param_3);
+void dPyMdlMng_c::create(u8 param1, u8 param2, SceneType_c sceneType);
 
 [[address(0x800D6EF0)]]
 dPyMdlMng_c::~dPyMdlMng_c();

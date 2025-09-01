@@ -3,15 +3,15 @@
 
 #include "d_a_player.h"
 
+#include "d_bases/d_s_stage.h"
+#include "d_player/d_a_yoshi.h"
+#include "d_player/d_bg_gm.h"
 #include "d_system/d_a_player_demo_manager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_audio.h"
-#include "d_bases/d_s_stage.h"
 #include "d_system/d_bg.h"
 #include "d_system/d_fader.h"
 #include "d_system/d_mj2d_game.h"
-#include "d_player/d_a_yoshi.h"
-#include "d_player/d_bg_gm.h"
 #include "d_system/d_quake.h"
 #include "framework/f_base.h"
 #include "framework/f_feature.h"
@@ -29,20 +29,20 @@ bool dAcPy_c::releaseCarryActor();
 bool dAcPy_c::setBalloonInDamage();
 
 [[address(0x80139330)]]
-bool dAcPy_c::setBalloonInDispOutYoshi(int param)
+bool dAcPy_c::setBalloonInDispOutByYoshi(int param)
 {
-    return setBalloonInDispOut2(param, 1, false);
+    return setBalloonInDispOutBase(param, 1, false);
 }
 
 /* VT+0x11C */
 [[address(0x80139340)]]
 bool dAcPy_c::setBalloonInDispOut(int param)
 {
-    return setBalloonInDispOut2(param, 0, false);
+    return setBalloonInDispOutBase(param, 0, false);
 }
 
 [[address(0x80139350)]]
-bool dAcPy_c::setBalloonInDispOut2(int type, bool yoshi, bool noDeathMsg)
+bool dAcPy_c::setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg)
 {
     if (!isDispOutCheckOn()) {
         return false;
@@ -60,7 +60,7 @@ bool dAcPy_c::setBalloonInDispOut2(int type, bool yoshi, bool noDeathMsg)
 
     auto carryPlr = getCarryPlayer();
     if (carryPlr) {
-        if (!carryPlr->setBalloonInDispOut2(type, false, true)) {
+        if (!carryPlr->setBalloonInDispOutBase(type, false, true)) {
             carryPlr = nullptr;
         }
     }

@@ -102,7 +102,7 @@ UNDEF_808eb884:;
 /* 808EB8A0 7C862378 */  mr       r6, r4;
 /* 808EB8A4 38A55B38 */  addi     r5, r5, UNDEF_80985b38@l;
 /* 808EB8A8 38E00001 */  li       r7, 1;
-/* 808EB8AC 4B80AF75 */  bl       UNDEF_800f6820;
+/* 808EB8AC 4B80AF75 */  bl       CreateShadowModel__14dWmDemoActor_cFPCcPCcPCcb;
 /* 808EB8B0 80010024 */  lwz      r0, 36(r1);
 /* 808EB8B4 83E1001C */  lwz      r31, 28(r1);
 /* 808EB8B8 83C10018 */  lwz      r30, 24(r1);

@@ -128,13 +128,11 @@ UNDEF_800b3704:;
 [[address(0x800B3B50)]]
 bool isGameStop(u32 flag);
 
-/* @unofficial */
 [[address(0x800B3B60)]]
-void setNumInTextBox(int* value, int* maxChars, LytTextBox_c* textBox, int itoaType);
+void LayoutDispNumber(const int& value, const int& maxChars, LytTextBox_c* textBox, bool itoaType);
 
-/* @unofficial */
 [[address(0x800B44D0)]]
-void UpdateSelectCursor(nw4r::lyt::Picture* pane, s32 param2, s32 param3);
+void SelectCursorSetup(nw4r::lyt::Picture* pane, int param2, bool param3);
 
 [[address(0x800B4760)]]
 bool PlayerEnterCheck(int player)

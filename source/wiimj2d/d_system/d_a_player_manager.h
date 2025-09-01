@@ -164,8 +164,8 @@ public:
     /* 0x80060110 @unofficial */
     static int findPlayerWithType(PlayerType_e playerType);
 
-    /* 0x80060170 @unofficial */
-    static bool getIsItemKinopio(int* ownedPlayer);
+    /* 0x80060170 */
+    static bool changeItemKinopioPlrNo(int* ownedPlayer);
 
     /* 0x80060200 */
     [[nodiscard]]
@@ -189,8 +189,8 @@ public:
     /* 0x80060860 */
     static void stopYoshiBGM();
 
-    /* 0x800608E0 @unofficial */
-    static void updateBGM();
+    /* 0x800608E0 */
+    static void checkLastAlivePlayer();
 
     /* 0x80060970 */
     static void executeLastPlayer();

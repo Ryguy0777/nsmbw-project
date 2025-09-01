@@ -152,7 +152,7 @@ void endPad();
 void setCurrentChannel(CH_e chan);
 
 [[address(0x8016F5A0)]]
-int getBatteryLevel(CH_e chan)
+int getBatteryLevel_ch(CH_e chan)
 {
     if (chan <= CH_e::CHAN_3 && s_WPADInfoAvailable[static_cast<int>(chan)]) {
         return s_WPADInfo[static_cast<int>(chan)].battery;
@@ -231,39 +231,36 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  g_PadAdditionalData,
-  {
-    {0x800B5E12, R_PPC_ADDR16_HA},
-    {0x800B5E26, R_PPC_ADDR16_LO},
-    {0x8016F3A2, R_PPC_ADDR16_HA},
-    {0x8016F3AE, R_PPC_ADDR16_LO},
-    {0x8016F7BA, R_PPC_ADDR16_HA},
-    {0x8016F7CE, R_PPC_ADDR16_LO},
-    {0x8016F862, R_PPC_ADDR16_HA},
-    {0x8016F86A, R_PPC_ADDR16_LO},
-  }
+  g_PadAdditionalData, {
+                         {0x800B5E12, R_PPC_ADDR16_HA},
+                         {0x800B5E26, R_PPC_ADDR16_LO},
+                         {0x8016F3A2, R_PPC_ADDR16_HA},
+                         {0x8016F3AE, R_PPC_ADDR16_LO},
+                         {0x8016F7BA, R_PPC_ADDR16_HA},
+                         {0x8016F7CE, R_PPC_ADDR16_LO},
+                         {0x8016F862, R_PPC_ADDR16_HA},
+                         {0x8016F86A, R_PPC_ADDR16_LO},
+                       }
 );
 
 PATCH_REFERENCES(
-  s_WPADInfo,
-  {
-    {0x8016F5B6, R_PPC_ADDR16_HA},
-    {0x8016F5BA, R_PPC_ADDR16_LO},
-    {0x8016F5D6, R_PPC_ADDR16_HA},
-    {0x8016F5E2, R_PPC_ADDR16_LO},
-    {0x8016F646, R_PPC_ADDR16_HA},
-    {0x8016F64E, R_PPC_ADDR16_LO},
-  }
+  s_WPADInfo, {
+                {0x8016F5B6, R_PPC_ADDR16_HA},
+                {0x8016F5BA, R_PPC_ADDR16_LO},
+                {0x8016F5D6, R_PPC_ADDR16_HA},
+                {0x8016F5E2, R_PPC_ADDR16_LO},
+                {0x8016F646, R_PPC_ADDR16_HA},
+                {0x8016F64E, R_PPC_ADDR16_LO},
+              }
 );
 
 PATCH_REFERENCES(
-  s_WPADInfo,
-  {
-    {0x8016F6F6, R_PPC_ADDR16_HA},
-    {0x8016F6FA, R_PPC_ADDR16_LO},
-    {0x8016F71A, R_PPC_ADDR16_HA},
-    {0x8016F72A, R_PPC_ADDR16_LO},
-  }
+  s_WPADInfo, {
+                {0x8016F6F6, R_PPC_ADDR16_HA},
+                {0x8016F6FA, R_PPC_ADDR16_LO},
+                {0x8016F71A, R_PPC_ADDR16_HA},
+                {0x8016F72A, R_PPC_ADDR16_LO},
+              }
 );
 
 } // namespace mPad

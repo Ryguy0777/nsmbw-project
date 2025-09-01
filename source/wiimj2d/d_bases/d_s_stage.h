@@ -8,6 +8,13 @@
 
 class dGameDisplay_c;
 
+// TODO
+struct dReplayPlay_c {
+    FILL(0x00, 0x64);
+
+    /* 0x64 */ u8 mFrameFlags;
+};
+
 class dScStage_c
 {
 public:
@@ -19,13 +26,6 @@ public:
     enum class GAME_MODE_e {
         UNKNOWN_0 = 0,
         UNKNOWN_2 = 2,
-    };
-
-    // @unofficial TODO
-    struct ReplayPlay_c {
-        FILL(0x00, 0x64);
-
-        /* 0x64 */ u8 mFrameFlags;
     };
 
 public:
@@ -108,7 +108,7 @@ public:
     static dCyuukan_c::COLLECTION_COIN_STATUS_e mCollectionCoin[COLLECTION_COIN_COUNT];
 
     /* 0x803744D0 */
-    static ReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];
+    static dReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 public:
     // -----------

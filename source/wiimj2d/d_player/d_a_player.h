@@ -32,11 +32,11 @@ public:
     /* 0x80138FA0 */
     bool setBalloonInDamage();
 
-    /* 0x80139330 @unofficial */
-    bool setBalloonInDispOutYoshi(int type);
+    /* 0x80139330 */
+    bool setBalloonInDispOutByYoshi(int type);
 
-    /* 0x80139350 @unofficial */
-    bool setBalloonInDispOut2(int type, bool yoshi, bool noDeathMsg);
+    /* 0x80139350 */
+    bool setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg);
 
     /* 0x8013D7B0 */
     void checkRest();

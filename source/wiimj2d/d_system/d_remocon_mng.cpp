@@ -3,9 +3,9 @@
 
 #include "d_remocon_mng.h"
 
-#include <egg/core/eggController.h>
 #include "machine/m_heap.h"
 #include "machine/m_pad.h"
+#include <egg/core/eggController.h>
 #include <revolution/os.h>
 #include <revolution/wpad.h>
 
@@ -109,7 +109,7 @@ void dRemoconMng_c::dConnect_c::initializeState_Setup()
 
     OS_REPORT("SETUP CONTROLLER %d\n", static_cast<int>(mChannel));
 
-    mBattery = mPad::getBatteryLevel(mChannel);
+    mBattery = mPad::getBatteryLevel_ch(mChannel);
 
     if (mChannel < mPad::CH_e::CHAN_GC_0) {
         // Some Wii Remote speaker thing
@@ -150,7 +150,7 @@ void dRemoconMng_c::dConnect_c::executeState_Setup()
 
     mExtension.execute();
 
-    mBattery = mPad::getBatteryLevel(mChannel);
+    mBattery = mPad::getBatteryLevel_ch(mChannel);
 }
 
 [[address(0x800DCA60)]]

@@ -254,7 +254,7 @@ void dSelectPlayer_c::initializeState_ButtonChangeAnimeEndWait()
 [[address(0x807AC780)]]
 void dSelectPlayer_c::initializeState_StartMemberSelect()
 {
-    dGameCom::UpdateSelectCursor(mpaButtons[mCurrentButton], 0, 0);
+    dGameCom::SelectCursorSetup(mpaButtons[mCurrentButton], 0, 0);
 }
 
 [[address(0x807AC7A0)]]
@@ -318,7 +318,7 @@ void dSelectPlayer_c::initializeState_MultiStartMemberSelect()
         pane = mpaButtons[mCurrentButton + 8];
     }
 
-    dGameCom::UpdateSelectCursor(pane, 0, 0);
+    dGameCom::SelectCursorSetup(pane, 0, 0);
 }
 
 // TODO

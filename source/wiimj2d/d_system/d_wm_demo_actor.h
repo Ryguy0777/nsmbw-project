@@ -75,8 +75,8 @@ public:
     /* VT+0x6C 0x800F6EE0, 0x808C82E0 */
     virtual void clearCutEnd();
 
-    /* 800F6820 */
-    void UNDEF_800F6820(const char* param_1, const char* param_2, const char* param_3, s32 param_4);
+    /* 0x800F6820 */
+    void CreateShadowModel(const char* param1, const char* param2, const char* param3, bool param4);
 
     FILL(0x138, 0x174);
 };

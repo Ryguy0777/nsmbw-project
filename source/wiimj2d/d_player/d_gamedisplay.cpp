@@ -8,8 +8,8 @@
 #include "d_system/d_lytbase.h"
 #include "d_system/d_mj2d_game.h"
 #include "framework/f_feature.h"
-#include <iterator>
 #include "machine/m_ef.h"
+#include <iterator>
 #include <nw4r/lyt/Material.h>
 #include <revolution/os.h>
 
@@ -796,7 +796,7 @@ void dGameDisplay_c::updatePlayNum(int* playNum)
                 maxChars = 4;
             }
         }
-        dGameCom::setNumInTextBox(&newPlayNum, &maxChars, mpaTextBoxes[PLAYER_TEXTBOX_INDEX[i]], 0);
+        dGameCom::LayoutDispNumber(newPlayNum, maxChars, mpaTextBoxes[PLAYER_TEXTBOX_INDEX[i]], 0);
     }
 }
 

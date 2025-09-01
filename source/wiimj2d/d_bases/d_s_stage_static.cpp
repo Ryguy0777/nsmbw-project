@@ -42,7 +42,7 @@ bool dScStage_c::m_isReplayGoal;
 dCyuukan_c::COLLECTION_COIN_STATUS_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
 
 /* 0x803744D0 */
-dScStage_c::ReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
+dReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 [[address(0x80101A70)]]
 dGameDisplay_c* dScStage_c::getGameDisplay();

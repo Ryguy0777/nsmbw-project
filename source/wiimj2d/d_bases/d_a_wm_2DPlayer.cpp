@@ -14,7 +14,7 @@ void da2DPlayer_c::loadPlayer()
 
     mModelMng =
       new dPyMdlMng_c(daPyMng_c::getPlayerTypeModelType(static_cast<daPyMng_c::PlayerType_e>(id)));
-    mModelMng->loadModel(id, powerup, 2);
+    mModelMng->create(id, powerup, dPyMdlMng_c::SceneType_c::SCENE_TYPE_2);
 
     mModelMng->mModel->setAnm(0, 1.2, 10.0, 0.0);
 }
