@@ -468,9 +468,10 @@ UNDEF_80773658:;
 [[address(0x80773840)]]
 void dCharacterChangeSelectContents_c::finalizeState_OnStageWait()
 {
-    for (int i = 0; i < 4; i++) {
-        mLives[i] = daPyMng_c::mRest[i];
-    }
+    mLives[0] = daPyMng_c::mRest[0];
+    mLives[1] = daPyMng_c::mRest[1];
+    mLives[2] = daPyMng_c::mRest[3];
+    mLives[3] = daPyMng_c::mRest[2];
 
     m0x28C = dCharacterChangeSelectBase_c::Icon_e::ICON_NONE;
     m0x294 = dCharacterChangeSelectBase_c::Icon_e::ICON_NONE;

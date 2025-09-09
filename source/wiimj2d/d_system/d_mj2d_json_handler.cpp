@@ -714,7 +714,7 @@ bool dMj2dJsonHandler_c::Key(const char* str, std::size_t length, bool copy)
             mpValue = &game.mPlayerCoin[index];
             break;
         case strHash("lives"):
-            mpValue = &game.mPlayerLife[static_cast<int>(dMj2dGame_c::scDefaultPlayerTypes[index])];
+            mpValue = &game.mPlayerLife[index];
             break;
         case strHash("equip"):
             mValueCount = 8;
@@ -1197,8 +1197,8 @@ bool dMj2dJsonHandler_c::writeJSON(std::FILE* f)
               }[i]
             );
 
-            W("lives", "%d", game.mPlayerLife[i]);
             int index = static_cast<int>(game.scDefaultPlayerTypes[i]);
+            W("lives", "%d", game.mPlayerLife[index]);
             W("coins", "%d", game.mPlayerCoin[index]);
             W("continues", "%d", game.mPlayerContinue[index]);
             W("equip", "[%s]",

@@ -144,11 +144,10 @@ void dSaveMng_c::prepareSave()
     game->setScore(daPyMng_c::mScore);
     for (int i = 0; i < PLAYER_COUNT; i++) {
         game->setPlrID(i, daPyMng_c::mPlayerType[i]);
-        u32 index = static_cast<u32>(daPyMng_c::mPlayerType[i]);
-        game->setPlrMode(index, daPyMng_c::mPlayerMode[index]);
-        game->setRest(index, daPyMng_c::mRest[index]);
-        game->setCreateItem(index, daPyMng_c::mCreateItem[index]);
-        game->setCoin(index, daPyMng_c::mCoin[index]);
+        game->setPlrMode(i, daPyMng_c::mPlayerMode[i]);
+        game->setRest(i, daPyMng_c::mRest[i]);
+        game->setCreateItem(i, daPyMng_c::mCreateItem[i]);
+        game->setCoin(i, daPyMng_c::mCoin[i]);
     }
 
     for (int w = 0; w < WORLD_COUNT; w++) {
