@@ -108,21 +108,12 @@ void PatchRelocations(OSModuleImportInfo* importTable, OSModuleImportInfo* impor
                 if (rel->type == R_PPC_ADDR16_LO) {
                     offset &= 0xFFFF;
                     oldOffset &= 0xFFFF;
-                    OS_REPORT(
-                      "Patched R_PPC_ADDR16_LO at %08X (%04X -> %04X)\n", ptr, oldOffset, offset
-                    );
                 } else if (rel->type == R_PPC_ADDR16_HI) {
                     offset >>= 16;
                     oldOffset >>= 16;
-                    OS_REPORT(
-                      "Patched R_PPC_ADDR16_HI at %08X (%04X -> %04X)\n", ptr, oldOffset, offset
-                    );
                 } else if (rel->type == R_PPC_ADDR16_HA) {
                     offset = (offset + 0x8000) >> 16;
                     oldOffset = (oldOffset + 0x8000) >> 16;
-                    OS_REPORT(
-                      "Patched R_PPC_ADDR16_HA at %08X (%04X -> %04X)\n", ptr, oldOffset, offset
-                    );
                 }
 
                 if (ptr & 2) {
@@ -183,13 +174,10 @@ extern "C" void _prolog(s32 param1, void* param2)
             }
             if (repl->references[i].type == R_PPC_ADDR16_LO) {
                 offset &= 0xFFFF;
-                OS_REPORT("Patched R_PPC_ADDR16_LO at %08X (-> %04X)\n", ptr, offset);
             } else if (repl->references[i].type == R_PPC_ADDR16_HI) {
                 offset >>= 16;
-                OS_REPORT("Patched R_PPC_ADDR16_HI at %08X (-> %04X)\n", ptr, offset);
             } else if (repl->references[i].type == R_PPC_ADDR16_HA) {
                 offset = (offset + 0x8000) >> 16;
-                OS_REPORT("Patched R_PPC_ADDR16_HA at %08X (-> %04X)\n", ptr, offset);
             } else {
                 OSPanic(__FILE__, __LINE__, "Unsupported relocation type %d");
             }
