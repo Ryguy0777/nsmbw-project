@@ -35,7 +35,7 @@ void dSmallScore_c::setPlayer1000Color(int player)
       "#FFFFFF", // Player 7
     };
 
-    int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+    int index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
 
     mTxt1000->SetVtxColor(0, l_PLY_COLOR_0[index]);
     mTxt1000->SetVtxColor(2, l_PLY_COLOR_2[index]);
@@ -55,7 +55,7 @@ void dSmallScore_c::setPlayer100Color(int player)
       "#FFFFFF", // Player 7
     };
 
-    int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+    int index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
 
     mTxt100->GetMaterial()->SetTevColor(1, l_PLY_COLOR[index]);
 }

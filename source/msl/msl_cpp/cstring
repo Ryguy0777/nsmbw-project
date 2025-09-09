@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cstddef"
 #include "msl/msl_c/string.h"
 
 namespace std

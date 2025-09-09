@@ -514,7 +514,7 @@ bool dAcPy_c::executeChangeInit()
 
     setChange(1);
 
-    if (mPlayerMode == PLAYER_POWERUP_e::MINI_MUSHROOM) {
+    if (mPlayerMode == PLAYER_MODE_e::MINI_MUSHROOM) {
         f32 jumpSpeed = getJumpSpeed();
         if (jumpSpeed < mSpeed.y) {
             mSpeed.y = jumpSpeed;
@@ -850,7 +850,7 @@ UNDEF_801450c8:;
 UNDEF_80145100:;
                          // Proper offset for character sounds
 /* 80145100 801F14D4 */  lwz      r3, 0x14D4(r31); // mPlayerType
-                         bl       getPlayerColorType__9daPyMng_cFQ29daPyMng_c12PlayerType_e;
+                         bl       getPlayerColorType__9daPyMng_cF13PLAYER_TYPE_e;
 /* 80145148          */  stw      r3, 0xE98(r31); // mSndObjctPly.mPlayerSndIndex
 
 /* 8014514C 7FE3FB78 */  mr       r3, r31;

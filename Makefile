@@ -166,7 +166,7 @@ $(BUILD)/$(LOADER).img: $(BUILD)/$(LOADER).elf
 	@mkdir -p $(dir $@)
 	@$(OBJCOPY) $< $@ -O binary
 
-$(OUTPUT)/mkwcat-nsmbw.xml: $(BUILD)/$(LOADER).img
+$(OUTPUT)/mkwcat-nsmbw.xml: $(BUILD)/$(LOADER).img mkwcat-nsmbw.xml.template
 	@echo Build: $(notdir $@)
 	@mkdir -p $(dir $@)
 	@python ./tools/insert-xml.py ./mkwcat-nsmbw.xml.template $< $@

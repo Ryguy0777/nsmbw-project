@@ -378,7 +378,7 @@ void dGameDisplay_c::RestDispSetup()
         m0x414 = PLAYER_PICTURE_INDEX[player];
 
         int charaIndex =
-          daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+          daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
 
         mpaPictures[PLAYER_PICTURE_INDEX[player]]->GetMaterial()->SetTexture(
           0, mpaTexMap[charaIndex]

@@ -3,9 +3,10 @@
 
 #include "d_s_crsin.h"
 
-#include "d_system/d_a_player_manager.h"
 #include "d_bases/d_s_stage.h"
+#include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_resource_manager.h"
 
@@ -73,12 +74,12 @@ void dScCrsin_c::executeState_resWaitProc2()
     if (dInfo_c::m_instance->m_startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
         // Setup players for title screen
         for (int i = 0; i < 8; i++) {
-            daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
+            daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
             daPyMng_c::mPlayerEntry[i] = 1;
 
-            int playerType = int(daPyMng_c::DEFAULT_PLAYER_ORDER[i]);
-            daPyMng_c::mPlayerMode[playerType] = 1;
-            daPyMng_c::mCreateItem[playerType] = 0;
+            int playerType = int(dMj2dGame_c::scDefaultPlayerTypes[i]);
+            daPyMng_c::mPlayerMode[playerType] = PLAYER_MODE_e::MUSHROOM;
+            daPyMng_c::mCreateItem[playerType] = PLAYER_CREATE_ITEM_e::NONE;
         }
     } else if (dScStage_c::m_isStaffCredit) {
         // Setup players for credits
@@ -89,12 +90,12 @@ void dScCrsin_c::executeState_resWaitProc2()
 
             int playerType = int(daPyMng_c::mPlayerType[i]);
 
-            daPyMng_c::mPlayerMode[playerType] = 1;
+            daPyMng_c::mPlayerMode[playerType] = PLAYER_MODE_e::MUSHROOM;
             if (daPyMng_c::mRest[playerType] < 5) {
                 daPyMng_c::mRest[playerType] = 5;
             }
 
-            daPyMng_c::mCreateItem[playerType] = 0;
+            daPyMng_c::mCreateItem[playerType] = PLAYER_CREATE_ITEM_e::NONE;
         }
     }
 

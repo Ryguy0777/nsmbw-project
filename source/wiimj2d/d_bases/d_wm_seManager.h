@@ -283,11 +283,11 @@ public:
 
     /* 0x801050E0 @unofficial */
     void
-    playPlyVoice(WmPlyVoice_e voice, dPyMdlMng_c::ModelType_e player, PLAYER_POWERUP_e playerMode);
+    playPlyVoice(WmPlyVoice_e voice, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode);
 
     /* 0x80105170 @unofficial */
     void playPlySound(
-      WmSound_e sound, dPyMdlMng_c::ModelType_e player, PLAYER_POWERUP_e playerMode, f32 param4
+      WmSound_e sound, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode, f32 param4
     );
 
     /* 0x801057D0 @unofficial */
@@ -300,7 +300,7 @@ public:
     SndObjctPly::PLAYER_VOICE_e getPlyVoiceId(WmPlyVoice_e voice) const;
 
     /* 0x80105CA0 @unofficial */
-    s32 getSoundPlyMode(PLAYER_POWERUP_e playerMode) const;
+    s32 getSoundPlyMode(PLAYER_MODE_e playerMode) const;
 
     /* 0x80105D20 @unofficial */
     u32 getBossSoundId(WmSound_e sound) const;

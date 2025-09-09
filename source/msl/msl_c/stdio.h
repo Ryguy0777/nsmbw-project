@@ -1,69 +1,121 @@
 #pragma once
 
-#include <stdarg.h>
-#include <stddef.h>
+#include "stdarg.h"
+#include "stddef.h"
 
 extern "C" {
 
-#define FILENAME_MAX 256
-
-typedef struct _FILE FILE;
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
 
 typedef unsigned long __file_handle;
-
 typedef unsigned long fpos_t;
 
-typedef void* __ref_con;
-typedef void (*__idle_proc)(void);
-typedef int (*__pos_proc)(__file_handle file, fpos_t* position, int mode, __ref_con ref_con);
-typedef int (*__io_proc)(__file_handle file, unsigned char* buff, size_t* count, __ref_con ref_con);
-typedef int (*__close_proc)(__file_handle file);
+#define set_error(file)                                                                            \
+    do {                                                                                           \
+        (file)->file_state.error = 1;                                                              \
+        (file)->buffer_length = 0;                                                                 \
+    } while (0)
 
-typedef struct {
+enum __file_kinds {
+    __closed_file,
+    __disk_file,
+    __console_file,
+    __unavailable_file,
+};
+
+enum __file_orientation {
+    /* 0x0 */ UNORIENTED,
+    /* 0x1 */ CHAR_ORIENTED,
+    /* 0x2 */ WIDE_ORIENTED,
+};
+
+typedef struct _file_modes {
     unsigned int open_mode : 2;
     unsigned int io_mode : 3;
     unsigned int buffer_mode : 2;
     unsigned int file_kind : 3;
-
+    unsigned int file_orientation : 2;
     unsigned int binary_io : 1;
-} __file_modes;
+} file_modes;
 
-typedef struct {
+enum __io_modes {
+    __read = 1,
+    __write = 2,
+    __read_write = 3,
+    __append = 4,
+};
+
+enum __io_states {
+    __neutral,
+    __writing,
+    __reading,
+    __rereading,
+};
+
+enum __io_results {
+    __no_io_error,
+    __io_error,
+    __io_EOF,
+};
+
+typedef struct _file_states {
     unsigned int io_state : 3;
     unsigned int free_buffer : 1;
     unsigned char eof;
     unsigned char error;
-} __file_state;
+} file_states;
 
-struct _FILE {
-    __file_handle handle;
-    __file_modes mode;
-    __file_state state;
+typedef void (*__idle_proc)(void);
+typedef int (*__pos_proc)(__file_handle file, fpos_t* position, int mode, __idle_proc idle_proc);
+typedef int (*__io_proc)(
+  __file_handle file, unsigned char* buff, size_t* count, __idle_proc idle_proc
+);
+typedef int (*__close_proc)(__file_handle file);
 
-    unsigned char char_buffer;
-    unsigned char char_buffer_overflow;
-    unsigned char ungetc_buffer[2];
+typedef struct _FILE {
+    SIZE_ASSERT(0x50);
 
-    unsigned long position;
-    unsigned char* buffer;
-    unsigned long buffer_size;
-    unsigned char* buffer_ptr;
-    unsigned long buffer_len;
-    unsigned long buffer_alignment;
-    unsigned long saved_buffer_len;
-    unsigned long buffer_pos;
-    __pos_proc position_proc;
-    __io_proc read_proc;
-    __io_proc write_proc;
-    __close_proc close_proc;
-    __ref_con ref_con;
-};
+    /* 0x00 */ __file_handle handle;
+    /* 0x04 */ file_modes file_mode;
+    /* 0x08 */ file_states file_state;
+    /* 0x0C */ unsigned char is_dynamically_allocated;
+    /* 0x0D */ char char_buffer;
+    /* 0x0E */ char char_buffer_overflow;
+    /* 0x0F */ char ungetc_buffer[2];
+    /* 0x12 */ wchar_t ungetc_wide_buffer[2];
+    /* 0x18 */ unsigned long position;
+    /* 0x1C */ unsigned char* buffer;
+    /* 0x20 */ unsigned long buffer_size;
+    /* 0x24 */ unsigned char* buffer_ptr;
+    /* 0x28 */ unsigned long buffer_length;
+    /* 0x2C */ unsigned long buffer_alignment;
+    /* 0x30 */ unsigned long save_buffer_length;
+    /* 0x34 */ unsigned long buffer_position;
+    /* 0x38 */ __pos_proc position_fn;
+    /* 0x3C */ __io_proc read_fn;
+    /* 0x40 */ __io_proc write_fn;
+    /* 0x44 */ __close_proc close_fn;
+    /* 0x48 */ __idle_proc idle_fn;
+    /* 0x4C */ struct _FILE* next_file;
+} FILE;
 
-#define EOF (-1)
+typedef struct _files {
+    FILE _stdin;
+    FILE _stdout;
+    FILE _stderr;
+    FILE empty;
+} files;
 
-#define SEEK_CUR 1
-#define SEEK_END 2
-#define SEEK_SET 0
+#define _IONBF 0
+#define _IOLBF 1
+#define _IOFBF 2
+
+/* 0x802DECC8 */
+int fflush(FILE* file);
+
+int fprintf(FILE* restrict file, const char* restrict format, ...);
 
 /* 0x802E1850 */
 int vprintf(const char* restrict format, va_list ap);

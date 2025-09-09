@@ -63,8 +63,8 @@ void daEnRedcoin_c::selectItems()
 
         using IntArray = int[];
         switch (player->mPlayerMode) {
-        case PLAYER_POWERUP_e::NONE:
-        case PLAYER_POWERUP_e::MUSHROOM:
+        case PLAYER_MODE_e::NONE:
+        case PLAYER_MODE_e::MUSHROOM:
             mPlyItem[i] = IntArray{9, 21, 17, 14}[mItemType % 4];
             break;
 

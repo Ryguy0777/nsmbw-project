@@ -47,9 +47,9 @@ void daWmSubPlayer_c::loadModel() ASM_METHOD(
 /* 808EB7F4 93A10014 */  stw      r29, 20(r1);
 /* 808EB7F8 93810010 */  stw      r28, 16(r1);
 
-/* 808EB7D8 3CA08035 */  lis      r5, DEFAULT_PLAYER_ORDER__9daPyMng_c@ha;
+/* 808EB7D8 3CA08035 */  lis      r5, scDefaultPlayerTypes__11dMj2dGame_c@ha;
 /* 808EB7DC 3C808035 */  lis      r4, mPlayerMode__9daPyMng_c@ha;
-/* 808EB7E4 38A55160 */  addi     r5, r5, DEFAULT_PLAYER_ORDER__9daPyMng_c@l;
+/* 808EB7E4 38A55160 */  addi     r5, r5, scDefaultPlayerTypes__11dMj2dGame_c@l;
 /* 808EB7FC 7C7C1B78 */  mr       r28, r3;
 
 /* 808EB800 80030004 */  lwz      r0, 0x4(r3);
@@ -63,7 +63,7 @@ void daWmSubPlayer_c::loadModel() ASM_METHOD(
 /* 808EB824 41820014 */  beq-     UNDEF_808eb838;
 
                          mr       r3, r30;
-                         bl       getPlayerTypeModelType__9daPyMng_cFQ29daPyMng_c12PlayerType_e;
+                         bl       getPlayerTypeModelType__9daPyMng_cF13PLAYER_TYPE_e;
                          mr       r4, r3;
                          mr       r3, r29;
 /* 808EB834 4B7EB57D */  bl       __ct__11dPyMdlMng_cFQ211dPyMdlMng_c11ModelType_e;
@@ -313,9 +313,9 @@ bool daWmSubPlayer_c::isWrongDirection(PATH_DIR_e dir1, PATH_DIR_e dir2);
 bool daWmSubPlayer_c::isSubPlayerStopPoint();
 
 [[address(0x808EF2B0)]]
-bool daWmSubPlayer_c::isPlayerType(daPyMng_c::PlayerType_e playerType)
+bool daWmSubPlayer_c::isPlayerType(PLAYER_TYPE_e playerType)
 {
-    return daPyMng_c::DEFAULT_PLAYER_ORDER[getPlayerNo()] == playerType;
+    return dMj2dGame_c::scDefaultPlayerTypes[getPlayerNo()] == playerType;
 }
 
 [[address(0x808EF680)]]

@@ -140,7 +140,7 @@ public:
     bool isSubPlayerStopPoint();
 
     /* 0x808EF2B0 */
-    bool isPlayerType(daPyMng_c::PlayerType_e playerType);
+    bool isPlayerType(PLAYER_TYPE_e playerType);
 
 public:
     // ----------------

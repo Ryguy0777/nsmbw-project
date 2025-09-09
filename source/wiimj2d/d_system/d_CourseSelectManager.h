@@ -54,7 +54,7 @@ public:
     // ----------------
 
     /* 0x809311E0 */
-    PLAYER_POWERUP_e getPlayerPowerup(int playerIndex);
+    PLAYER_MODE_e getPlayerPowerup(int playerIndex);
 
 public:
     // -----------
@@ -82,7 +82,7 @@ public:
 
     FILL(0x53C, 0x560);
 
-    /* 0x560 */ PLAYER_POWERUP_e maPlayerPowerup_Removed[4];
+    /* 0x560 */ PLAYER_MODE_e maPlayerPowerup_Removed[4];
 
     OFFSET_ASSERT(0x570);
 
@@ -91,7 +91,7 @@ public:
 
 #define OFFSET_dCourseSelectManager_c_maPlayerPowerup                                              \
     (OFFSET_dCourseSelectManager_c_mpa2DPlayer + 0x4 * PLAYER_COUNT)
-    PLAYER_POWERUP_e maPlayerPowerup[PLAYER_COUNT];
+    PLAYER_MODE_e maPlayerPowerup[PLAYER_COUNT];
 
 public:
     // -----------

@@ -12,6 +12,18 @@ constexpr std::remove_reference_t<T>&& move(T&& t) noexcept
 }
 
 template <class T>
+constexpr T&& forward(std::remove_reference_t<T>& t) noexcept
+{
+    return static_cast<T&&>(t);
+}
+
+template <class T>
+constexpr T&& forward(std::remove_reference_t<T>&& t) noexcept
+{
+    return static_cast<T&&>(t);
+}
+
+template <class T>
 constexpr void swap(T& a, T& b) noexcept
 {
     T temp = std::move(a);

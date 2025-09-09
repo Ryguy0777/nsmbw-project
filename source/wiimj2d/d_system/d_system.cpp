@@ -3,16 +3,18 @@
 
 #include "d_system.h"
 
-#include "d_system/d_a_player_manager.h"
 #include "d_player/d_s_boot.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_nand_thread.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_resource_manager.h"
-#include <egg/core/eggController.h>
+#include "d_system/d_save_manager.h"
 #include "machine/m_heap.h"
 #include "machine/m_pad.h"
+#include "sound/SndAudioMgr.h"
+#include <egg/core/eggController.h>
 #include <revolution/dvd.h>
 #include <revolution/pad.h>
-#include "sound/SndAudioMgr.h"
 
 [[address_data(0x8042A370)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem1;
@@ -149,6 +151,9 @@ void dSys_c::initCModule()
     mPad::create();
 
     dRemoconMng_c::recreate(mHeap::g_gameHeaps[0]);
+
+    dNandThread_c::reinitialize();
+    dSaveMng_c::m_instance->refresh();
 
     dScBoot_c::m_instance->recreate();
 

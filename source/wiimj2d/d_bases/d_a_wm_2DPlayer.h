@@ -26,7 +26,7 @@ public:
 
     FILL(0x12C, 0x238);
 
-    /* 0x238 */ PLAYER_POWERUP_e mPowerup;
+    /* 0x238 */ PLAYER_MODE_e mPowerup;
 
     FILL(0x23C, 0x260);
 

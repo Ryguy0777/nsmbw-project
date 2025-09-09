@@ -7,5 +7,6 @@ namespace std
 {
 
 using ::mbstowcs;
+using ::atoi;
 
 } // namespace std

@@ -13,7 +13,7 @@
 [[address(0x800B1A50)]]
 void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
 {
-    float s_FUKIDASHI_Y_OFFSET[PLAYER_COUNT][POWERUP_COUNT] = {
+    float s_FUKIDASHI_Y_OFFSET[PLAYER_COUNT][PLAYER_MODE_COUNT] = {
       // Mario
       {
         20.0, // Small
@@ -104,7 +104,7 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
     };
 
     int index = static_cast<int>(
-      daPyMng_c::getPlayerTypeModelType(static_cast<daPyMng_c::PlayerType_e>(playerType))
+      daPyMng_c::getPlayerTypeModelType(static_cast<PLAYER_TYPE_e>(playerType))
     );
 
     mPosOffset.x = 0.0;
@@ -148,9 +148,9 @@ void dfukidashiInfo_c::ColorSet()
       "#5C5560", // Black Toad
     };
 
-    daPyMng_c::PlayerType_e playerType = daPyMng_c::mPlayerType[mPlayerID];
+    PLAYER_TYPE_e playerType = daPyMng_c::mPlayerType[mPlayerID];
     if (m0x220 == 8 && !PauseManager_c::m_OtasukeAfter) {
-        playerType = daPyMng_c::PlayerType_e::MARIO;
+        playerType = PLAYER_TYPE_e::MARIO;
     }
 
     int playerIndex = daPyMng_c::getPlayerColorType(playerType);

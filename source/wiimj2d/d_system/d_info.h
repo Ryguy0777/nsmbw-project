@@ -23,6 +23,9 @@ public:
         HINT_MOVIE = 4,
     };
 
+    enum class IbaraMode_e {
+    };
+
     struct StartGameInfo_s {
         SIZE_ASSERT(0x10);
 
@@ -51,6 +54,15 @@ public:
         /* 0x0D */ STAGE_e stage1;
         /* 0x0E */ WORLD_e world2;
         /* 0x0F */ STAGE_e stage2;
+    };
+
+    struct enemy_s {
+        SIZE_ASSERT(0x10);
+
+        /* 0x00 */ int mSceneNo;
+        /* 0x04 */ int mPosIndex;
+        /* 0x08 */ int mWalkDir;
+        /* 0x0C */ u8 mRevivalCnt;
     };
 
     static constexpr u32 ORIGINAL_SIZE = 0xB5C;
@@ -83,11 +95,38 @@ public:
     /* 0x800BB180 */
     void PlayerStateInit();
 
+    /* 0x800BB330 */
+    void addStockItem(int item);
+
+    /* 0x800BB380 */
+    void subStockItem(int item);
+
+    /* 0x800BB3D0 */
+    u8 getStockItem(int item) const;
+
     /* 0x800BB7D0 */
     void startGame(const StartGameInfo_s& startGameInfo);
 
     /* 0x800BB940 */
     void initStage();
+
+    /* 0x800BBBC0 */
+    void SetWorldMapEnemy(int world, int index, const enemy_s& enemy);
+
+    /* 0x800BBC00 */
+    const dInfo_c::enemy_s& GetWorldMapEnemy(int world, int index);
+
+    /* 0x800BBCA0 */
+    void SetIbaraNow(int i, IbaraMode_e mode);
+
+    /* 0x800BBCB0 */
+    void SetIbaraOld(int i, IbaraMode_e mode);
+
+    /* 0x800BBCC0 */
+    IbaraMode_e GetIbaraNow(int i);
+
+    /* 0x800BBCD0 */
+    IbaraMode_e GetIbaraOld(int i);
 
 public:
     // -----------
@@ -99,10 +138,11 @@ public:
     /* 0x008 */ dCyuukan_c mCyuukan;
 
     /* 0x03C */ s32 mWorld;
-    /* 0x040 */ s32 mLevel;
+    /* 0x040 */ s32 mWmSceneNo;
     /* 0x044 */ s32 mWmNode;
+    /* 0x048 */ s32 m0x048;
 
-    FILL(0x048, 0x060);
+    FILL(0x04C, 0x060);
 
     /* 0x060 */ s32 m0x060;
     /* 0x064 */ s32 m0x064;
@@ -117,8 +157,12 @@ public:
     /* 0x380 */ bool mSwitchOn;
 
     /* 0x384 */ s32 mPlayerActiveMode[4];
+    /* 0x394 */ u8 m0x394;
+    /* 0x395 */ STAGE_e mKinopioCourseNo[WORLD_COUNT];
+    /* 0x39F */ STAGE_e mStage0x39F[WORLD_COUNT];
+    /* 0x3A9 */ bool mKinopioCourseInvalid[WORLD_COUNT];
 
-    FILL(0x394, 0xAF4);
+    FILL(0x3B3, 0xAF4);
 
     /* 0xAF4 */ s32 m0xAF4;
 

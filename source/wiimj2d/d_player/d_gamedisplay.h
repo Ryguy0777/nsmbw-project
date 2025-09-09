@@ -95,7 +95,7 @@ public:
     /* 0x80159DF0 */
     void setScore(int score);
 
-    void newDeathMessage(const wchar_t* message, daPyMng_c::PlayerType_e player)
+    void newDeathMessage(const wchar_t* message, PLAYER_TYPE_e player)
     {
         mDeathMsgMgr.newMessage(message, player);
     }

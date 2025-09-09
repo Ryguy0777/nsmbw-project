@@ -162,7 +162,7 @@ static constinit nw4r::ut::Color s_playerColors[PLAYER_COUNT] = {
   "#7F6F7F", // Black Toad
 };
 
-void dDeathMsgMgr_c::newMessage(const wchar_t* message, daPyMng_c::PlayerType_e player)
+void dDeathMsgMgr_c::newMessage(const wchar_t* message, PLAYER_TYPE_e player)
 {
     if (mCount >= MAX_MESSAGES) {
         deleteFront();

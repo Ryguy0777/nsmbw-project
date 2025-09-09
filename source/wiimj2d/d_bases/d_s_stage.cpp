@@ -104,8 +104,8 @@ void dScStage_c::restoreStartInfo()
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         int index = startInfo.mPlayerIndex[i];
-        daPyMng_c::mPlayerType[index] = static_cast<daPyMng_c::PlayerType_e>(i);
-        daPyMng_c::mPlayerMode[i] = static_cast<s32>(startInfo.mPlayerMode[i]);
+        daPyMng_c::mPlayerType[index] = static_cast<PLAYER_TYPE_e>(i);
+        daPyMng_c::mPlayerMode[i] = startInfo.mPlayerMode[i];
         daPyMng_c::mPlayerEntry[index] = startInfo.mIsEntry[i];
         daPyMng_c::mCoin[i] = startInfo.mCoin[i];
         daPyMng_c::mRest[i] = startInfo.mRest[i];

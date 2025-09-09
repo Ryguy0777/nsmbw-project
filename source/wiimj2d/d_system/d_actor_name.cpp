@@ -332,27 +332,27 @@ const char* getActorFormattedName(fBase_c* actor)
         }
 
         auto colorType = daPyMng_c::getPlayerColorType(player->mPlayerType);
-        auto playerType = static_cast<daPyMng_c::PlayerType_e>(colorType);
+        auto playerType = static_cast<PLAYER_TYPE_e>(colorType);
 
         switch (playerType) {
         default:
             return "Player";
 
-        case daPyMng_c::PlayerType_e::MARIO:
+        case PLAYER_TYPE_e::MARIO:
             return "Mario";
-        case daPyMng_c::PlayerType_e::LUIGI:
+        case PLAYER_TYPE_e::LUIGI:
             return "Luigi";
-        case daPyMng_c::PlayerType_e::YELLOW_TOAD:
+        case PLAYER_TYPE_e::YELLOW_TOAD:
             return "Yoad";
-        case daPyMng_c::PlayerType_e::BLUE_TOAD:
+        case PLAYER_TYPE_e::BLUE_TOAD:
             return "Bload";
-        case daPyMng_c::PlayerType_e::TOADETTE:
+        case PLAYER_TYPE_e::TOADETTE:
             return "Toadette";
-        case daPyMng_c::PlayerType_e::PURPLE_TOADETTE:
+        case PLAYER_TYPE_e::PURPLE_TOADETTE:
             return "Poadette";
-        case daPyMng_c::PlayerType_e::ORANGE_TOAD:
+        case PLAYER_TYPE_e::ORANGE_TOAD:
             return "Oroad";
-        case daPyMng_c::PlayerType_e::BLACK_TOAD:
+        case PLAYER_TYPE_e::BLACK_TOAD:
             return "Blaod";
         }
     }

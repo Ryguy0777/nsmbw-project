@@ -17,4 +17,6 @@ using ::uint16_t;
 using ::int8_t;
 using ::uint8_t;
 
+using ::uintptr_t;
+
 } // namespace std

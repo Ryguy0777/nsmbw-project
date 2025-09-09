@@ -87,7 +87,7 @@ bool SoundArchiveFileReader::ReadBankInfo(u32 id, SoundArchive::BankInfo* pInfo)
             pLabel = "Unknown";
         }
 
-        OS_REPORT("SoundArchiveFileReader::ReadBankInfo: %s (%d)\n", pLabel, id);
+        // OS_REPORT("SoundArchiveFileReader::ReadBankInfo: %s (%d)\n", pLabel, id);
     }
 
     pInfo->fileId = pSrc->fileId;
@@ -110,7 +110,7 @@ bool SoundArchiveFileReader::ReadGroupInfo(u32 id, SoundArchive::GroupInfo* pInf
             pLabel = "Unknown";
         }
 
-        OS_REPORT("SoundArchiveFileReader::ReadGroupInfo: %s (%d)\n", pLabel, id);
+        // OS_REPORT("SoundArchiveFileReader::ReadGroupInfo: %s (%d)\n", pLabel, id);
     }
 
     const SoundArchiveFile::GroupItemTable* pTable =

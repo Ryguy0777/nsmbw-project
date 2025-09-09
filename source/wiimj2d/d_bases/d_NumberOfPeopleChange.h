@@ -82,7 +82,7 @@ public:
         }
     }
 
-    void setDecidedPlrType(u32 playerIndex, daPyMng_c::PlayerType_e value)
+    void setDecidedPlrType(u32 playerIndex, PLAYER_TYPE_e value)
     {
         if (playerIndex < 4) {
             maDecidedPlayerType[playerIndex] = value;
@@ -91,7 +91,7 @@ public:
         }
     }
 
-    daPyMng_c::PlayerType_e getDecidedPlrType(u32 playerIndex)
+    PLAYER_TYPE_e getDecidedPlrType(u32 playerIndex)
     {
         if (playerIndex < 4) {
             return maDecidedPlayerType[playerIndex];
@@ -182,7 +182,7 @@ public:
 
     FILL(0x6D0, 0x6E0);
 
-    /* 0x6E0 */ daPyMng_c::PlayerType_e maDecidedPlayerType[4];
+    /* 0x6E0 */ PLAYER_TYPE_e maDecidedPlayerType[4];
     /* 0x6F0 */ u32 m0x6F0[4];
 
     FILL(0x700, 0x710);
@@ -196,6 +196,6 @@ public:
 
 #define OFFSET_dNumberOfPeopleChange_c_mExControllerActive OFFSET_dNumberOfPeopleChange_c_mpaPlayers + 4 * PLAYER_COUNT
     /* 0x724 */ u32 mExControllerActive[PLAYER_COUNT - 4];
-    /* 0x734 */ daPyMng_c::PlayerType_e maExDecidedPlayerType[PLAYER_COUNT - 4];
+    /* 0x734 */ PLAYER_TYPE_e maExDecidedPlayerType[PLAYER_COUNT - 4];
     /* 0x744 */ u32 mEx0x6F0[PLAYER_COUNT - 4];
 };

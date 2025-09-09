@@ -2,6 +2,8 @@
 
 extern "C" {
 
+#define NAN (0.0/0.0)
+
 /**
  * Returns the absolute value of x.
  */

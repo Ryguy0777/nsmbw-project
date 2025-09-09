@@ -2,6 +2,7 @@
 // NSMBW .text: 0x802B8C80 - 0x802B93E0
 
 #include "eggHeap.h"
+#include <new>
 #include <revolution/os.h>
 
 namespace EGG
@@ -103,6 +104,20 @@ void* operator new[](u32 size, EGG::Heap* heap, int align)
     return block;
 }
 
+void* operator new(u32 size, std::align_val_t align)
+{
+    void* block = EGG::Heap::alloc(size, static_cast<int>(align), nullptr);
+    ASSERT(block);
+    return block;
+}
+
+void* operator new[](u32 size, std::align_val_t align)
+{
+    void* block = EGG::Heap::alloc(size, static_cast<int>(align), nullptr);
+    ASSERT(block);
+    return block;
+}
+
 [[address(0x802B93C0)]]
 void operator delete(void* block);
 
@@ -112,4 +127,19 @@ void operator delete[](void* block);
 void operator delete(void* block, u32 size)
 {
     operator delete(block);
+}
+
+void operator delete[](void* block, u32 size)
+{
+    EGG::Heap::free(block, nullptr);
+}
+
+void operator delete(void* block, u32 size, std::align_val_t align)
+{
+    EGG::Heap::free(block, nullptr);
+}
+
+void operator delete[](void* block, u32 size, std::align_val_t align)
+{
+    EGG::Heap::free(block, nullptr);
 }

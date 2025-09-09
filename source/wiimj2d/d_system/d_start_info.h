@@ -1,7 +1,7 @@
 #pragma once
 
 #include "d_system/d_cyuukan.h"
-#include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
 
 class dStartInfo_c
 {
@@ -33,9 +33,9 @@ public:
 
     /* 0x44 */ u32 mScore;
     /* 0x48 */ u32 mPlayerIndex[PLAYER_COUNT];
-    /* 0x58 */ PLAYER_POWERUP_e mPlayerMode[PLAYER_COUNT];
+    /* 0x58 */ PLAYER_MODE_e mPlayerMode[PLAYER_COUNT];
     /* 0x68 */ bool mIsEntry[PLAYER_COUNT];
     /* 0x6C */ int mCoin[PLAYER_COUNT];
     /* 0x7C */ int mRest[PLAYER_COUNT];
-    /* 0x8C */ int mCreateItem[PLAYER_COUNT];
+    /* 0x8C */ PLAYER_CREATE_ITEM_e mCreateItem[PLAYER_COUNT];
 };

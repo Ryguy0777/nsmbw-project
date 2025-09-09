@@ -594,7 +594,7 @@ void dNumberOfPeopleChange_c::setupPlayerTypes()
             i++;
         }
 
-        daPyMng_c::mPlayerType[i++] = daPyMng_c::PlayerType_e(c);
+        daPyMng_c::mPlayerType[i++] = PLAYER_TYPE_e(c);
     }
 }
 

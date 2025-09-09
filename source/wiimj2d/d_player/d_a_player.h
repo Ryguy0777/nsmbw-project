@@ -92,11 +92,11 @@ public:
     // Member Data
     // -----------
 
-    /* 0x14D4 */ daPyMng_c::PlayerType_e mPlayerType;
+    /* 0x14D4 */ PLAYER_TYPE_e mPlayerType;
 
     FILL(0x14D8, 0x14E0);
 
-    /* 0x14E0 */ PLAYER_POWERUP_e mNextPowerup;
+    /* 0x14E0 */ PLAYER_MODE_e mNextPowerup;
 
     FILL(0x14E4, 0x153C);
 

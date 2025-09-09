@@ -267,12 +267,12 @@ void dCourseSelectManager_c::finalizeState_EasyPairingWait()
 }
 
 [[address(0x809311E0)]]
-PLAYER_POWERUP_e dCourseSelectManager_c::getPlayerPowerup(int playerIndex)
+PLAYER_MODE_e dCourseSelectManager_c::getPlayerPowerup(int playerIndex)
 {
     int plrType = static_cast<int>(daPyMng_c::mPlayerType[playerIndex]);
 
     if (plrType >= std::size(mpa2DPlayer) || mpa2DPlayer[plrType] == nullptr) {
-        return PLAYER_POWERUP_e::NONE;
+        return PLAYER_MODE_e::NONE;
     }
 
     return mpa2DPlayer[plrType]->mPowerup;

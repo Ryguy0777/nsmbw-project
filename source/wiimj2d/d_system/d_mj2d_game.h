@@ -1,5 +1,7 @@
 #pragma once
 
+#include <component/c_bitmask.h>
+
 /**
  * The maximum amount of ambush enemies per world map.
  */
@@ -43,21 +45,26 @@
 /**
  * The identifiers for each character.
  */
-enum class PLAYER_CHARACTER_e {
+enum class PLAYER_TYPE_e {
     MARIO = 0,
     LUIGI = 1,
     BLUE_TOAD = 2,
     YELLOW_TOAD = 3,
     TOADETTE = 4,
-    COUNT = 5,
+    PURPLE_TOADETTE = 5,
+    ORANGE_TOAD = 6,
+    BLACK_TOAD = 7,
+    COUNT,
 };
 
+#define CHARACTER_COUNT 8
+#define PLAYER_COUNT 8 // Same as CHARACTER_COUNT
 #define ORIGINAL_PLAYER_COUNT 4
 
 /**
  * Various flags applied to the player on occasion.
  */
-enum PLAYER_CREATE_ITEM_e {
+enum class PLAYER_CREATE_ITEM_e {
     NONE = 0,
 
     /**
@@ -84,7 +91,7 @@ enum PLAYER_CREATE_ITEM_e {
 /**
  * The identifiers for each powerup.
  */
-enum class PLAYER_POWERUP_e {
+enum class PLAYER_MODE_e {
     NONE = 0,
     MUSHROOM = 1,
     FIRE_FLOWER = 2,
@@ -95,7 +102,24 @@ enum class PLAYER_POWERUP_e {
     COUNT = 7,
 };
 
-#define POWERUP_COUNT 7
+#define PLAYER_MODE_COUNT 7
+
+/**
+ * Stock item identifiers.
+ * TODO: These meanings are just guesses
+ */
+enum class STOCK_ITEM_e : u8 {
+    MUSHROOM = 0,
+    FIRE_FLOWER = 1,
+    PROPELLER_SHROOM = 2,
+    ICE_FLOWER = 3,
+    PENGUIN_SUIT = 4,
+    MINI_MUSHROOM = 5,
+    STAR = 6,
+    COUNT = 7,
+};
+
+#define STOCK_ITEM_COUNT 7
 
 /**
  * The numbers corresponding to each level type.
@@ -179,18 +203,46 @@ enum class WORLD_e : u8 {
 
 #define COLLECTION_COIN_COUNT 3
 
+#define MAX_LIVES 99
+
+#define MAX_SCORE 999999999
+
+#define SAVE_REVISION_MAJOR 14
+#define SAVE_REVISION_MINOR 0
+
+enum PATH_DIRECTION_e : s8 {
+    NORMAL,
+    REVERSE,
+    INITIAL,
+};
+
 class dSaveMng_c;
+class dMj2dJsonHandler_c;
+class dScWMap_c;
 
 /**
  * Save slot data holder.
  * The data stored here is temporary, as it is discarded unless the game is saved.
  * Size must be 32-byte aligned.
  */
-class dMj2dGame_c
+class alignas(32) dMj2dGame_c
 {
-    SIZE_ASSERT(0x980);
+    /* ORIGINAL SIZE: 0x980 */
+
+    friend class dSaveMng_c;
+    friend class dMj2dJsonHandler_c;
+    friend class dScWMap_c;
 
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    struct Revision_s {
+        u8 mMajor;
+        u8 mMinor;
+    };
+
     /**
      * The completion status of each level.
      */
@@ -296,8 +348,10 @@ public:
         YELLOW_R = 4,
         RED_R = 5,
         GREEN_R = 6,
+        COUNT,
     };
 
+public:
     /**
      * Constructs the holder.
      */
@@ -311,29 +365,30 @@ public:
     }
 
     /**
+     * 0x800CDFC0
      * Initializes the slot data.
      */
     void initialize();
 
     /**
-     * Sets a player's character. See PLAYER_CHARACTER_e.
+     * Sets a player's character. See PLAYER_TYPE_e.
      */
-    void setPlrID(int player, PLAYER_CHARACTER_e character);
+    void setPlrID(int player, PLAYER_TYPE_e character);
 
     /**
-     * Gets a player's character. See PLAYER_CHARACTER_e.
+     * Gets a player's character. See PLAYER_TYPE_e.
      */
-    PLAYER_CHARACTER_e getPlrID(int player) const;
+    PLAYER_TYPE_e getPlrID(int player) const;
 
     /**
-     * Sets a player's powerup. See PLAYER_POWERUP_e.
+     * Sets a player's powerup. See PLAYER_MODE_e.
      */
-    void setPlrMode(int player, PLAYER_POWERUP_e powerup);
+    void setPlrMode(int player, PLAYER_MODE_e powerup);
 
     /**
-     * Gets a player's powerup. See PLAYER_POWERUP_e.
+     * Gets a player's powerup. See PLAYER_MODE_e.
      */
-    PLAYER_POWERUP_e getPlrMode(int player) const;
+    PLAYER_MODE_e getPlrMode(int player) const;
 
     /**
      * Sets a player's life count.
@@ -385,7 +440,7 @@ public:
     /**
      * Gets the staff credit high score.
      */
-    int getStaffCreditHighScore() const;
+    int getStaffCreditHighScore();
 
     /**
      * Sets the given hint movie as bought.
@@ -535,7 +590,7 @@ public:
     /**
      * Gets the path node for the given map enemy.
      */
-    u8 getCSEnemyPosIndex(WORLD_e world, int enemy) const;
+    s8 getCSEnemyPosIndex(WORLD_e world, int enemy) const;
 
     /**
      * Sets the path direction for the given map enemy.
@@ -543,12 +598,12 @@ public:
      * @todo Turn the value list into an enum and move it to the appropriate section once
      * decompiled.
      */
-    void setCSEnemyWalkDir(WORLD_e world, int enemy, u8 direction);
+    void setCSEnemyWalkDir(WORLD_e world, int enemy, PATH_DIRECTION_e direction);
 
     /**
      * Gets the path direction for the given map enemy.
      */
-    u8 getCSEnemyWalkDir(WORLD_e world, int enemy) const;
+    PATH_DIRECTION_e getCSEnemyWalkDir(WORLD_e world, int enemy) const;
 
     /**
      * Sets the Toad rescue level for the given world.
@@ -558,7 +613,7 @@ public:
     /**
      * Gets the Toad rescue level for the given world.
      */
-    u8 getKinopioCourseNo(WORLD_e world) const;
+    STAGE_e getKinopioCourseNo(WORLD_e world) const;
 
     /**
      * Sets the worldmap vine reshuffle counter.
@@ -572,10 +627,24 @@ public:
 
     bool isEmpty() const
     {
-        return mGameCompletion & u8(GAME_COMPLETION_e::SAVE_EMPTY);
+        return u8(mGameCompletion) & u8(GAME_COMPLETION_e::SAVE_EMPTY);
+    }
+
+    void setEmpty()
+    {
+        mGameCompletion = GAME_COMPLETION_e::SAVE_EMPTY;
     }
 
 private:
+    enum PLAYER_TYPE_u8_e : u8 {
+    };
+
+    enum PLAYER_MODE_u8_e : u8 {
+    };
+
+    enum PLAYER_CREATE_ITEM_u8_e : u8 {
+    };
+
     /**
      * Checks that the save data version matches the current one and clears the slot if not.
      */
@@ -591,15 +660,17 @@ private:
      */
     int getSwitchDeathCount() const;
 
+    // Note: Commented offsets reflect the original layout, and are not updated with changes.
+
     /**
      * The save data version and subversion.
      */
-    /* 0x00 */ u8 mRevision[2];
+    /* 0x00 */ Revision_s mRevision;
 
     /**
      * The overall completion of the save slot. See GAME_COMPLETION_e.
      */
-    /* 0x02 */ u8 mGameCompletion;
+    /* 0x02 */ GAME_COMPLETION_e mGameCompletion;
 
     /**
      * The world the player is currently in.
@@ -625,49 +696,49 @@ private:
     /**
      * The status of the worldmap switch.
      */
-    /* 0x07 */ u8 mSwitchOn;
+    /* 0x07 */ bool mSwitchOn;
 
-    /* 0x08 */ u8 mUnknown8; // @unused
+    /* 0x08 */ // u8 mUnknown8; // @unused
 
     /**
      * The inventory amount for each item.
      */
-    /* 0x09 */ u8 mStockItemCount[POWERUP_COUNT];
+    /* 0x09 */ u8 mStockItemCount[STOCK_ITEM_COUNT];
 
     /**
      * The starting Toad House type for each world. See START_KINOKO_KIND_e.
      */
-    /* 0x10 */ u8 mStartKinokoType[WORLD_COUNT];
+    /* 0x10 */ START_KINOKO_KIND_e mStartKinokoType[WORLD_COUNT];
 
     /**
      * The continue count for each player.
      */
-    /* 0x1A */ u8 mPlayerContinue[ORIGINAL_PLAYER_COUNT];
+    /* 0x1A */ u8 mPlayerContinue[PLAYER_COUNT];
 
     /**
      * The coin count for each player.
      */
-    /* 0x1E */ s8 mPlayerCoin[ORIGINAL_PLAYER_COUNT];
+    /* 0x1E */ s8 mPlayerCoin[PLAYER_COUNT];
 
     /**
      * The life count for each player.
      */
-    /* 0x22 */ u8 mPlayerLife[ORIGINAL_PLAYER_COUNT];
+    /* 0x22 */ u8 mPlayerLife[PLAYER_COUNT];
 
     /**
      * The Star Power flag for each player. See PLAYER_CREATE_ITEM_e.
      */
-    /* 0x26 */ u8 mPlayerCreateItem[ORIGINAL_PLAYER_COUNT];
+    /* 0x26 */ PLAYER_CREATE_ITEM_u8_e mPlayerCreateItem[PLAYER_COUNT];
 
     /**
-     * The character for each player. See PLAYER_CHARACTER_e.
+     * The character for each player. See PLAYER_TYPE_e.
      */
-    /* 0x2A */ u8 mPlayerCharacter[ORIGINAL_PLAYER_COUNT];
+    /* 0x2A */ PLAYER_TYPE_u8_e mPlayerCharacter[PLAYER_COUNT];
 
     /**
-     * The powerup for each player. See PLAYER_POWERUP_e.
+     * The powerup for each player. See PLAYER_MODE_e.
      */
-    /* 0x2E */ u8 mPlayerPowerup[ORIGINAL_PLAYER_COUNT];
+    /* 0x2E */ PLAYER_MODE_u8_e mPlayerPowerup[PLAYER_COUNT];
 
     /**
      * The completion flags for each world. See WORLD_COMPLETION_e.
@@ -679,7 +750,7 @@ private:
      */
     /* 0x3C */ u8 mEnemyRevivalCount[WORLD_COUNT][AMBUSH_ENEMY_COUNT];
 
-    /* 0x64 */ u16 mUnknown64; // @unused
+    /* 0x64 */ // u16 mUnknown64; // @unused
 
     /**
      * The staff credits high score.
@@ -699,12 +770,13 @@ private:
     /**
      * The hint movie bought status for each movie.
      */
-    /* 0x6FC */ bool mOtehonMenuOpen[HINT_MOVIE_COUNT];
+    cBitmask_c<HINT_MOVIE_COUNT> mOtehonMenuOpen;
+    /* 0x6FC */ // bool mOtehonMenuOpen[HINT_MOVIE_COUNT];
 
     /**
      * The Toad Rescue level for each world.
      */
-    /* 0x742 */ u8 mKinopioCourseNo[WORLD_COUNT];
+    /* 0x742 */ STAGE_e mKinopioCourseNo[WORLD_COUNT];
 
     /**
      * The subworld number for each map enemy.
@@ -714,12 +786,12 @@ private:
     /**
      * The path node for each map enemy.
      */
-    /* 0x774 */ u8 mEnemyPosIndex[WORLD_COUNT][AMBUSH_ENEMY_COUNT];
+    /* 0x774 */ s8 mEnemyPosIndex[WORLD_COUNT][AMBUSH_ENEMY_COUNT];
 
     /**
      * The movement direction for each map enemy.
      */
-    /* 0x79C */ u8 mEnemyWalkDir[WORLD_COUNT][AMBUSH_ENEMY_COUNT];
+    /* 0x79C */ PATH_DIRECTION_e mEnemyWalkDir[WORLD_COUNT][AMBUSH_ENEMY_COUNT];
 
     /**
      * The death count for each level. The value is cumulative, and not reset after clearing the
@@ -732,17 +804,19 @@ private:
      */
     /* 0x968 */ u8 mDeathCountSwitch;
 
-    /* 0x969 */ u8 m0x969[0x13]; // Aligns the data to 32
+    /* 0x969 */ // u8 m0x969[0x13]; // Aligns the data to 32
 
     /**
      * The CRC32 checksum of the above data.
      */
-    /* 0x97C */ u32 mChecksum;
+    /* 0x97C */ // u32 mChecksum;
 
+public:
     /**
+     * 0x802F1450
      * The default character for each player. @unofficial
      */
-    static const u32 sDefaultCharacters[4];
+    static const PLAYER_TYPE_e scDefaultPlayerTypes[CHARACTER_COUNT];
 
     friend class dSaveMng_c;
 };
@@ -818,6 +892,7 @@ constexpr u64 ENUM_UNDERLYING()
         return !static_cast<decltype(ENUM_UNDERLYING<_T>())>(a);                                   \
     }
 
+ENUM_BITWISE_OPERATORS(PLAYER_CREATE_ITEM_e);
 ENUM_BITWISE_OPERATORS(dMj2dGame_c::COURSE_COMPLETION_e);
 ENUM_BITWISE_OPERATORS(dMj2dGame_c::WORLD_COMPLETION_e);
 ENUM_BITWISE_OPERATORS(dMj2dGame_c::GAME_COMPLETION_e);

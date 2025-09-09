@@ -16,6 +16,17 @@ public:
     /* 0x80102B50 */
     static u32 CreateBootParam();
 
+    /* 0x80102B90 */
+    static void initLoadGame();
+
     /* 0x809271C0 */
     static bool createActorsPhase(dScWMap_c* self);
+
+public:
+    // -----------
+    // Static Data
+    // -----------
+
+    /* 0x8042A538 */
+    static bool m_GameOver;
 };

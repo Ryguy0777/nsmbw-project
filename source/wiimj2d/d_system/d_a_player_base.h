@@ -94,7 +94,7 @@ public:
     }
 
     /* VT+0x0E4 0x80056BC0 @unofficial */
-    virtual void setPowerup(PLAYER_POWERUP_e powerup);
+    virtual void setPowerup(PLAYER_MODE_e powerup);
 
     /* VT+0x0E8 0x80056D40 */
     virtual s32 getTailType(s8 param);
@@ -800,7 +800,7 @@ public:
 
     FILL(0x1008, 0x1090);
 
-    /* 0x1090 */ PLAYER_POWERUP_e mPlayerMode;
+    /* 0x1090 */ PLAYER_MODE_e mPlayerMode;
 
     FILL(0x1094, 0x10C4);
 

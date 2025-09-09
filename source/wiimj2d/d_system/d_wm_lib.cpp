@@ -15,6 +15,9 @@ void procCourseClear(bool isSecretExit, bool isSuperGuide, WORLD_e world, STAGE_
 [[address(0x800FCAD0)]]
 bool IsSingleEntry();
 
+[[address(0x800FCEC0)]]
+void ClearKinopioChukan();
+
 [[address(0x800FD1C0)]]
 void RestoreKinopioHelpGameInfo();
 

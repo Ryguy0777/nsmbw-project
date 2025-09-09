@@ -126,7 +126,7 @@ void daWmPlayer_c::createSubPlayers()
         prevPlayer = player;
 
         // Set player 1's model if this is player 1's character
-        daPyMng_c::PlayerType_e character = daPyMng_c::DEFAULT_PLAYER_ORDER[i % PLAYER_COUNT];
+        PLAYER_TYPE_e character = dMj2dGame_c::scDefaultPlayerTypes[i % PLAYER_COUNT];
         if (character == daPyMng_c::mPlayerType[0]) {
             mModelManager.mModel = player->mModelManager->mModel;
         }

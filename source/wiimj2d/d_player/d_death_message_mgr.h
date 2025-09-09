@@ -28,7 +28,7 @@ public:
     // Member Functions
     // ----------------
 
-    void newMessage(const wchar_t* message, daPyMng_c::PlayerType_e player);
+    void newMessage(const wchar_t* message, PLAYER_TYPE_e player);
     void deleteFront();
 
     void build(nw4r::lyt::ResourceAccessor* resAcc, nw4r::lyt::DrawInfo* drawInfo);

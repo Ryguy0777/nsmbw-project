@@ -3,10 +3,10 @@
 
 #include "d_a_player_demo_manager.h"
 
+#include "d_player/d_a_player.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
 #include "d_system/d_mj2d_game.h"
-#include "d_player/d_a_player.h"
 #include <revolution/os.h>
 #include <revolution/os/OSError.h>
 
@@ -1027,8 +1027,10 @@ void daPyDemoMng_c::genCourseInList()
             continue;
         }
 
-        if (daPyMng_c::mCreateItem[static_cast<int>(daPyMng_c::mPlayerType[i])] &
-            PLAYER_CREATE_ITEM_e::BUBBLE) {
+        if (!!(
+              daPyMng_c::mCreateItem[static_cast<int>(daPyMng_c::mPlayerType[i])] &
+              PLAYER_CREATE_ITEM_e::BUBBLE
+            )) {
             continue;
         }
 
@@ -1050,7 +1052,6 @@ void daPyDemoMng_c::genCourseInList()
 
     // Copy to player manager and clear course out list
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        OS_REPORT("mCourseInList[%d] = %d\n", i, mCourseInList[convIdx60(i)]);
         daPyMng_c::mCourseInList[i] = mCourseInList[convIdx60(i)];
         mCourseOutList[convIdx70(i)] = -1;
     }

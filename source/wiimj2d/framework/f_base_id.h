@@ -7,7 +7,7 @@ enum class fBaseID_e {
     /**
      * Represents the null base.
      */
-    NULL = 0,
+    NONE = 0,
 
     /**
      * The starting identifier value.

@@ -8,11 +8,11 @@
 #include "d_system/d_remocon_mng.h"
 #include <revolution/os.h>
 
-daPyMng_c::PlayerType_e g_CHARACTER_FROM_BASE[] = {
-  daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
-  daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
-  daPyMng_c::PlayerType_e::TOADETTE,    daPyMng_c::PlayerType_e::PURPLE_TOADETTE,
-  daPyMng_c::PlayerType_e::ORANGE_TOAD, daPyMng_c::PlayerType_e::BLACK_TOAD,
+PLAYER_TYPE_e g_CHARACTER_FROM_BASE[] = {
+  PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,
+  PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,
+  PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE,
+  PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
 };
 
 [[address(0x8076FAE0)]]
@@ -130,13 +130,13 @@ UNDEF_8076fc5c:;
   // clang-format on
 );
 
-daPyMng_c::PlayerType_e  get_CHARACTER_FROM_BASE(u32 baseIndex)
+PLAYER_TYPE_e  get_CHARACTER_FROM_BASE(u32 baseIndex)
 {
     return dCharacterChangeSelectBase_c::CHARACTER_FROM_BASE[4 - baseIndex];
 }
 
 [[address(0x8076FC80)]]
-bool dCharacterChangeSelectBase_c::isCharacterLocked(daPyMng_c::PlayerType_e  character);
+bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e  character);
 
 [[address(0x8076FD70)]]
 void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 swapIndex, u32 baseIndex)

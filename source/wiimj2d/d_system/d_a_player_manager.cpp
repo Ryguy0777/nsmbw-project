@@ -13,6 +13,7 @@
 #include "d_system/d_course_data.h"
 #include "d_system/d_game_common.h"
 #include "d_system/d_info.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_multi_manager.h"
 #include "d_system/d_next.h"
 #include "d_system/d_pause_manager.h"
@@ -30,12 +31,6 @@
 #include <numeric>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
-
-const daPyMng_c::PlayerType_e daPyMng_c::DEFAULT_PLAYER_ORDER[CHARACTER_COUNT] = {
-  PlayerType_e::MARIO,       PlayerType_e::LUIGI,     PlayerType_e::YELLOW_TOAD,
-  PlayerType_e::BLUE_TOAD,   PlayerType_e::TOADETTE,  PlayerType_e::PURPLE_TOADETTE,
-  PlayerType_e::ORANGE_TOAD, PlayerType_e::BLACK_TOAD
-};
 
 [[address_data(0x80429F80)]]
 int daPyMng_c::mNum;
@@ -68,19 +63,20 @@ s32 daPyMng_c::mPlayerEntry[PLAYER_COUNT];
 
 /* 0x80355160 */
 // Index is player ID
-daPyMng_c::PlayerType_e daPyMng_c::mPlayerType[PLAYER_COUNT] = {
-  DEFAULT_PLAYER_ORDER[0], DEFAULT_PLAYER_ORDER[1], DEFAULT_PLAYER_ORDER[2],
-  DEFAULT_PLAYER_ORDER[3], DEFAULT_PLAYER_ORDER[4], DEFAULT_PLAYER_ORDER[5],
-  DEFAULT_PLAYER_ORDER[6], DEFAULT_PLAYER_ORDER[7]
+PLAYER_TYPE_e daPyMng_c::mPlayerType[PLAYER_COUNT] = {
+  dMj2dGame_c::scDefaultPlayerTypes[0], dMj2dGame_c::scDefaultPlayerTypes[1],
+  dMj2dGame_c::scDefaultPlayerTypes[2], dMj2dGame_c::scDefaultPlayerTypes[3],
+  dMj2dGame_c::scDefaultPlayerTypes[4], dMj2dGame_c::scDefaultPlayerTypes[5],
+  dMj2dGame_c::scDefaultPlayerTypes[6], dMj2dGame_c::scDefaultPlayerTypes[7]
 };
 
 /* 0x80355170 */
 // Index is player type
-s32 daPyMng_c::mPlayerMode[CHARACTER_COUNT];
+PLAYER_MODE_e daPyMng_c::mPlayerMode[CHARACTER_COUNT];
 
 /* 0x80355180 */
 // Index is player type
-s32 daPyMng_c::mCreateItem[CHARACTER_COUNT];
+PLAYER_CREATE_ITEM_e daPyMng_c::mCreateItem[CHARACTER_COUNT];
 
 /* 0x80355190 */
 // Index is player type
@@ -152,12 +148,12 @@ void daPyMng_c::initGame()
     mOldActPlayerInfo |= 1;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        mPlayerType[i] = DEFAULT_PLAYER_ORDER[i];
+        mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
         mPlayerEntry[i] = 0;
 
-        int playerIndex = int(DEFAULT_PLAYER_ORDER[i]);
-        mPlayerMode[playerIndex] = 0;
-        mCreateItem[playerIndex] = 0;
+        int playerIndex = int(dMj2dGame_c::scDefaultPlayerTypes[i]);
+        mPlayerMode[playerIndex] = PLAYER_MODE_e::NONE;
+        mCreateItem[playerIndex] = PLAYER_CREATE_ITEM_e::NONE;
     }
 
     setDefaultParam();
@@ -226,8 +222,8 @@ void daPyMng_c::setDefaultParam()
         int playerIndex = int(mPlayerType[i]);
         mRest[playerIndex] = 5;
         mCoin[playerIndex] = 0;
-        m_playerID[i] = fBaseID_e::NULL;
-        m_yoshiID[i] = fBaseID_e::NULL;
+        m_playerID[i] = fBaseID_e::NONE;
+        m_yoshiID[i] = fBaseID_e::NONE;
     }
 
     mScore = 0;
@@ -375,7 +371,7 @@ void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
     mActPlayerInfo |= 1 << index;
     mOldActPlayerInfo |= 1 << index;
     mPlayerEntry[index] = 1;
-    mCreateItem[int(mPlayerType[index])] = 8;
+    mCreateItem[int(mPlayerType[index])] = PLAYER_CREATE_ITEM_e::RESCUE_TOAD;
     mKinopioMode = kinopioMode;
 }
 
@@ -491,7 +487,7 @@ bool daPyMng_c::setYoshi(daPlBase_c* yoshi)
     }
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        if (m_yoshiID[i] == fBaseID_e::NULL) {
+        if (m_yoshiID[i] == fBaseID_e::NONE) {
             m_yoshiID[i] = yoshi->mUniqueID;
             return true;
         }
@@ -504,7 +500,7 @@ void daPyMng_c::releaseYoshi(daPlBase_c* yoshi)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (m_yoshiID[i] == yoshi->mUniqueID) {
-            m_yoshiID[i] = fBaseID_e::NULL;
+            m_yoshiID[i] = fBaseID_e::NONE;
             return;
         }
     }
@@ -538,24 +534,24 @@ int daPyMng_c::getYoshiNum()
 [[address(0x8005FB90)]]
 daPlBase_c* daPyMng_c::getCtrlPlayer(int index);
 
-daPyMng_c::PlayerType_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
+PLAYER_TYPE_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
 {
     int modelIndex = static_cast<int>(modelType);
 
-    using PlayerTypeArray = PlayerType_e[];
+    using PlayerTypeArray = PLAYER_TYPE_e[];
     return PlayerTypeArray{
-      PlayerType_e::MARIO,       PlayerType_e::LUIGI,           PlayerType_e::BLUE_TOAD,
-      PlayerType_e::YELLOW_TOAD, PlayerType_e::BLUE_TOAD,       PlayerType_e::LUIGI,
-      PlayerType_e::TOADETTE,    PlayerType_e::PURPLE_TOADETTE, PlayerType_e::BLACK_TOAD,
-      PlayerType_e::ORANGE_TOAD,
+      PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,           PLAYER_TYPE_e::BLUE_TOAD,
+      PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,       PLAYER_TYPE_e::LUIGI,
+      PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE, PLAYER_TYPE_e::BLACK_TOAD,
+      PLAYER_TYPE_e::ORANGE_TOAD,
     }[modelIndex];
 }
 
-dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PlayerType_e playerType)
+dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerType)
 {
     int playerTypeInt = static_cast<int>(playerType) % 8;
 
-    if (mCreateItem[playerTypeInt] & 8) {
+    if (!!(mCreateItem[playerTypeInt] & PLAYER_CREATE_ITEM_e::RESCUE_TOAD)) {
         return dPyMdlMng_c::ModelType_e::MODEL_TOAD_RED;
     }
 
@@ -574,7 +570,7 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
     return getPlayerTypeModelType(mPlayerType[index]);
 }
 
-int daPyMng_c::getPlayerColorType(PlayerType_e playerType)
+int daPyMng_c::getPlayerColorType(PLAYER_TYPE_e playerType)
 {
     return static_cast<int>(getModelPlayerType(getPlayerTypeModelType(playerType)));
 }
@@ -707,7 +703,7 @@ int daPyMng_c::getEntryNum()
 }
 
 [[address(0x80060110)]]
-int daPyMng_c::findPlayerWithType(PlayerType_e playerType)
+int daPyMng_c::findPlayerWithType(PLAYER_TYPE_e playerType)
 {
     for (int i = 0; i < CHARACTER_COUNT; i++) {
         if (mPlayerType[i] == playerType) {
@@ -1045,7 +1041,7 @@ UNDEF_80060eb4:;
 [[address(0x80060EF0)]]
 void daPyMng_c::checkBonusNoCap()
 {
-    mBonusNoCap = mRest[int(PlayerType_e::MARIO)] >= MAX_LIVES;
+    mBonusNoCap = mRest[int(PLAYER_TYPE_e::MARIO)] >= MAX_LIVES;
 }
 
 // TODO
@@ -1061,21 +1057,22 @@ bool daPyMng_c::isCreateBalloon(int index)
 {
     int playerType = int(mPlayerType[index]);
 
-    return mCreateItem[playerType] & 0x4 || mRest[playerType] <= 0;
+    return !!(mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::BUBBLE) || mRest[playerType] <= 0;
 }
 
 [[address(0x80061160)]]
 void daPyMng_c::checkCorrectCreateInfo()
 {
     for (int i = 0; i < CHARACTER_COUNT; i++) {
-        if (mPlayerType[i] >= PlayerType_e::COUNT || mPlayerType[i] < PlayerType_e::MARIO) {
-            mPlayerType[i] = PlayerType_e::MARIO;
+        if (mPlayerType[i] >= PLAYER_TYPE_e::COUNT || mPlayerType[i] < PLAYER_TYPE_e::MARIO) {
+            mPlayerType[i] = PLAYER_TYPE_e::MARIO;
         }
 
         int playerType = int(mPlayerType[i]);
 
-        if (mPlayerMode[playerType] > POWERUP_COUNT || mPlayerMode[playerType] < 0) {
-            mPlayerMode[playerType] = 0;
+        if (mPlayerMode[playerType] >= PLAYER_MODE_e::COUNT ||
+            mPlayerMode[playerType] < PLAYER_MODE_e::NONE) {
+            mPlayerMode[playerType] = PLAYER_MODE_e::NONE;
         }
 
         if (mRest[playerType] > MAX_LIVES || mRest[playerType] < 0) {

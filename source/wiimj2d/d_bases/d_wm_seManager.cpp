@@ -803,7 +803,7 @@ UNDEF_801050a0:;
 
 [[address(0x801050E0)]]
 void dWmSeManager_c::playPlyVoice(
-  WmPlyVoice_e voice, dPyMdlMng_c::ModelType_e player, PLAYER_POWERUP_e playerMode
+  WmPlyVoice_e voice, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode
 )
 {
     SndObjctPly::PLAYER_VOICE_e voiceId = getPlyVoiceId(voice);
@@ -820,7 +820,7 @@ void dWmSeManager_c::playPlyVoice(
 
 [[address(0x80105170)]]
 void dWmSeManager_c::playPlySound(
-  WmSound_e sound, dPyMdlMng_c::ModelType_e player, PLAYER_POWERUP_e playerMode, f32 param4
+  WmSound_e sound, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode, f32 param4
 )
 {
     u32 soundId = getSoundId(sound);
@@ -836,19 +836,19 @@ void dWmSeManager_c::playPlySound(
     WmSoundType_e soundType = getSoundType(sound);
     if (soundType == WmSoundType_e::PLAYER) {
         if (sound == WmSound_e::PLY_JUMP) {
-            if (playerMode == PLAYER_POWERUP_e::NONE) {
+            if (playerMode == PLAYER_MODE_e::NONE) {
                 soundId = getSoundId(WmSound_e::PLY_JUMP_S);
-            } else if (playerMode == PLAYER_POWERUP_e::MINI_MUSHROOM) {
+            } else if (playerMode == PLAYER_MODE_e::MINI_MUSHROOM) {
                 soundId = getSoundId(WmSound_e::PLY_JUMP_SS);
             }
         } else if (sound == WmSound_e::PLY_LAND_POINT &&
-                   playerMode == PLAYER_POWERUP_e::PENGUIN_SUIT) {
+                   playerMode == PLAYER_MODE_e::PENGUIN_SUIT) {
             soundId = getSoundId(WmSound_e::PLY_LAND_PNGN);
         }
 
         playerSound->startSound(soundId, 0);
     } else if (soundType == WmSoundType_e::FOOTNOTE) {
-        if (playerMode == PLAYER_POWERUP_e::PENGUIN_SUIT) {
+        if (playerMode == PLAYER_MODE_e::PENGUIN_SUIT) {
             soundId = getSoundId(WmSound_e::PLY_FOOTNOTE_PNGN);
         }
         playerSound->startFootSound(soundId, param4, 0);
@@ -865,7 +865,7 @@ dWmSeManager_c::WmSoundType_e dWmSeManager_c::getSoundType(WmSound_e sound) cons
 SndObjctPly::PLAYER_VOICE_e dWmSeManager_c::getPlyVoiceId(WmPlyVoice_e voice) const;
 
 [[address(0x80105CA0)]]
-s32 dWmSeManager_c::getSoundPlyMode(PLAYER_POWERUP_e playerMode) const;
+s32 dWmSeManager_c::getSoundPlyMode(PLAYER_MODE_e playerMode) const;
 
 [[address(0x80105D20)]]
 u32 dWmSeManager_c::getBossSoundId(WmSound_e sound) const;

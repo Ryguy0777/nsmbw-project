@@ -91,6 +91,9 @@
 		<!-- Data -->
 		<file disc="/mkwcat.arc" external="mkwcat-nsmbw.arc" create="true"/>
 
+		<!-- Save Redirection -->
+		<savegame external="."/>
+
 		<!-- Loader -->
 		<memory offset="0x800047E4" value="${INSERT_LOADER_DATA}"/>
 	</patch>

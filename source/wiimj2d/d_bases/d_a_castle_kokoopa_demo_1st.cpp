@@ -206,7 +206,7 @@ bool daCastleKokoopaDemo1st_c::calcIggyDemoScroll()
 
         case 2: {
             f32 yDist = 112.0;
-            if (player->mPlayerMode == PLAYER_POWERUP_e::MINI_MUSHROOM) {
+            if (player->mPlayerMode == PLAYER_MODE_e::MINI_MUSHROOM) {
                 yDist = 48.0;
             }
 

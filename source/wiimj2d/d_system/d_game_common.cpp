@@ -2,15 +2,15 @@
 // NSMBW .text: 0x800B2E70 - 0x800B5930
 
 #include "d_game_common.h"
+
 #include "d_bases/d_s_stage.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_info.h"
+#include "d_system/d_lyttextbox.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
-
-#include "d_system/d_a_player_manager.h"
-#include "d_system/d_info.h"
-#include "d_system/d_lyttextbox.h"
 #include <nw4r/ut/Color.h>
 
 namespace dGameCom
@@ -169,7 +169,7 @@ void Player1upColor(LytTextBox_c* textBox, int player)
       "#464646", // Black Toad
     };
 
-    int index = daPyMng_c::getPlayerColorType(static_cast<daPyMng_c::PlayerType_e>(player));
+    int index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
 
     textBox->SetVtxColor(0, l_PLY_COLOR_0[index]);
     textBox->SetVtxColor(2, l_PLY_COLOR_2[index]);
@@ -193,6 +193,9 @@ bool isNowCourseClear()
       dMj2dGame_c::COURSE_COMPLETION_e::GOAL_MASK
     );
 }
+
+[[address(0x800B5450)]]
+void setWorldClearFlag();
 
 [[address(0x800B5500)]]
 SCAspectRatio GetAspectRatio();

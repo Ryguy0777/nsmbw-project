@@ -16,11 +16,11 @@ public:
     // -------------------
 
 #define CHARACTER_LIST_COUNT 8
-    static constexpr daPyMng_c::PlayerType_e CHARACTER_FROM_BASE[] = {
-      daPyMng_c::PlayerType_e::MARIO,       daPyMng_c::PlayerType_e::LUIGI,
-      daPyMng_c::PlayerType_e::YELLOW_TOAD, daPyMng_c::PlayerType_e::BLUE_TOAD,
-      daPyMng_c::PlayerType_e::TOADETTE,    daPyMng_c::PlayerType_e::PURPLE_TOADETTE,
-      daPyMng_c::PlayerType_e::ORANGE_TOAD, daPyMng_c::PlayerType_e::BLACK_TOAD,
+    static constexpr PLAYER_TYPE_e CHARACTER_FROM_BASE[] = {
+      PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,
+      PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,
+      PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE,
+      PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
     };
 
     enum class Icon_e {
@@ -67,7 +67,7 @@ public:
     bool updateRemocon();
 
     /* 0x8076FC80 */
-    bool isCharacterLocked(daPyMng_c::PlayerType_e character);
+    bool isCharacterLocked(PLAYER_TYPE_e character);
 
     /* 0x8076FD70 */
     void UNDEF_8076FD70(u32 swapIndex, u32 baseIndex);
@@ -105,7 +105,7 @@ public:
 
     FILL(0x29D, 0x2D4);
 
-    /* 0x2D4 */ daPyMng_c::PlayerType_e mDecidedCharacter;
+    /* 0x2D4 */ PLAYER_TYPE_e mDecidedCharacter;
     /* 0x2D8 */ u32 mSelectedCharacter;
     /* 0x2DC */ u32 m0x2DC;
     /* 0x2E0 */ u32 mSelectedBaseIndex;

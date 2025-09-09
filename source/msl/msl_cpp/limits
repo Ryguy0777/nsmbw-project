@@ -1,0 +1,76 @@
+#pragma once
+
+#include <climits>
+
+namespace std
+{
+template <typename T>
+struct numeric_limits;
+
+template <>
+struct numeric_limits<int> {
+    static constexpr int min()
+    {
+        return INT_MIN;
+    }
+
+    static constexpr int max()
+    {
+        return INT_MAX;
+    }
+};
+
+template <>
+struct numeric_limits<unsigned long> {
+    static constexpr unsigned long min()
+    {
+        return ULONG_MIN;
+    }
+
+    static constexpr unsigned long max()
+    {
+        return ULONG_MAX;
+    }
+};
+
+template <>
+struct numeric_limits<float> {
+    static constexpr float min()
+    {
+        return -FLT_MAX;
+    }
+
+    static constexpr float max()
+    {
+        return FLT_MAX;
+    }
+
+    static constexpr float quiet_NaN()
+    {
+        return 0.0f / 0.0f;
+    }
+};
+
+template <>
+struct numeric_limits<double> {
+    static constexpr double min()
+    {
+        return -DBL_MAX;
+    }
+
+    static constexpr double max()
+    {
+        return DBL_MAX;
+    }
+
+    static constexpr double infinity()
+    {
+        return DBL_MAX;
+    }
+
+    static constexpr double quiet_NaN()
+    {
+        return 0.0 / 0.0;
+    }
+};
+} // namespace std

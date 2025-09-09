@@ -8,8 +8,9 @@
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_mj2d_game.h"
 
-#include "d_system/d_a_player_manager.h"
 #include "d_bases/d_s_stage.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_save_manager.h"
 
 //
 // .text
@@ -24,7 +25,7 @@ dInfo_c::~dInfo_c();
 void dInfo_c::PlayerStateInit()
 {
     for (s32 i = 0; i < PLAYER_COUNT; i++) {
-        daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
+        daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
 
         if (i < 4) {
             mPlayerActiveMode[i] = 0;
@@ -36,11 +37,25 @@ void dInfo_c::PlayerStateInit()
 
 EXTERN_SYMBOL(0x800BB1C0, "CourseSelectInit__7dInfo_cFv");
 
-EXTERN_SYMBOL(0x800BB330, "addStockItem__7dInfo_cFi");
+[[address(0x800BB330)]]
+void dInfo_c::addStockItem(int item)
+{
+    auto* save = dSaveMng_c::m_instance->getSaveGame(-1);
+    save->setStockItem(item, save->getStockItem(item) + 1);
+}
 
-EXTERN_SYMBOL(0x800BB380, "subStockItem__7dInfo_cFi");
+[[address(0x800BB380)]]
+void dInfo_c::subStockItem(int item)
+{
+    auto* save = dSaveMng_c::m_instance->getSaveGame(-1);
+    save->setStockItem(item, save->getStockItem(item) - 1);
+}
 
-EXTERN_SYMBOL(0x800BB3D0, "getStockItem__7dInfo_cCFi");
+[[address(0x800BB3D0)]]
+u8 dInfo_c::getStockItem(int item) const
+{
+    return dSaveMng_c::m_instance->getSaveGame(-1)->getStockItem(item);
+}
 
 EXTERN_SYMBOL(0x800BB410, "clsStockItem__7dInfo_cFi");
 
@@ -77,7 +92,7 @@ void dInfo_c::initStage()
         int player = static_cast<int>(daPyMng_c::mPlayerType[i]);
         m_startInfo.mPlayerIndex[player] = i;
         m_startInfo.mPlayerMode[player] =
-          static_cast<PLAYER_POWERUP_e>(daPyMng_c::mPlayerMode[player]);
+          static_cast<PLAYER_MODE_e>(daPyMng_c::mPlayerMode[player]);
         m_startInfo.mIsEntry[player] = daPyMng_c::mPlayerEntry[i] != 0;
         m_startInfo.mCoin[player] = daPyMng_c::mCoin[player];
         m_startInfo.mRest[player] = daPyMng_c::mRest[player];
@@ -122,9 +137,11 @@ void dInfo_c::initStage()
     UNDEF_8042a461 = UNDEF_8042a460;
 }
 
-EXTERN_SYMBOL(0x800BBBC0, "SetWorldMapEnemy__7dInfo_cFiiRCQ27dInfo_c7enemy_s");
+[[address(0x800BBBC0)]]
+void dInfo_c::SetWorldMapEnemy(int world, int index, const enemy_s& enemy);
 
-EXTERN_SYMBOL(0x800BBC00, "GetWorldMapEnemy__7dInfo_cFii");
+[[address(0x800BBC00)]]
+const dInfo_c::enemy_s& dInfo_c::GetWorldMapEnemy(int world, int index);
 
 EXTERN_SYMBOL(0x800BBC20, "SetMapEnemyInfo__7dInfo_cFiiii");
 
@@ -132,13 +149,17 @@ EXTERN_SYMBOL(0x800BBC40, "#0A406FBE");
 
 EXTERN_SYMBOL(0x800BBC60, "GetMapEnemyInfo__7dInfo_cFiiRQ27dInfo_c7enemy_s");
 
-EXTERN_SYMBOL(0x800BBCA0, "#2E37A2E4");
+[[address(0x800BBCA0)]]
+void dInfo_c::SetIbaraNow(int i, IbaraMode_e mode);
 
-EXTERN_SYMBOL(0x800BBCB0, "#9F1989F5");
+[[address(0x800BBCB0)]]
+void dInfo_c::SetIbaraOld(int i, IbaraMode_e mode);
 
-EXTERN_SYMBOL(0x800BBCC0, "GetIbaraNow__7dInfo_cFi");
+[[address(0x800BBCC0)]]
+dInfo_c::IbaraMode_e dInfo_c::GetIbaraNow(int i);
 
-EXTERN_SYMBOL(0x800BBCD0, "GetIbaraOld__7dInfo_cFi");
+[[address(0x800BBCD0)]]
+dInfo_c::IbaraMode_e dInfo_c::GetIbaraOld(int i);
 
 EXTERN_SYMBOL(0x800BBCE0, "__sinit_\\d_info_cpp");
 

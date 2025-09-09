@@ -136,7 +136,7 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     }
 
     fBaseID_e lastHit = s_lastHitEnemy[mPlayerNo];
-    s_lastHitEnemy[mPlayerNo] = source ? source->mUniqueID : fBaseID_e::NULL;
+    s_lastHitEnemy[mPlayerNo] = source ? source->mUniqueID : fBaseID_e::NONE;
 
     bool repeat = source ? source->mUniqueID == lastHit : false;
 

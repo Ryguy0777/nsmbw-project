@@ -154,7 +154,7 @@ UNDEF_809188c4:;
 void dScGameSetup_c::finalizeState_FileSelect()
 {
     for (int i = 0; i < CHARACTER_COUNT; i++) {
-        daPyMng_c::mPlayerType[i] = daPyMng_c::DEFAULT_PLAYER_ORDER[i];
+        daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
     }
 }
 

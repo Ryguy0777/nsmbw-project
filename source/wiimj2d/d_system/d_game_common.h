@@ -42,6 +42,9 @@ bool PlayerEnterCheck(int player);
 /* 0x800B4780 */
 void Player1upColor(LytTextBox_c* textBox, int player);
 
+/* 0x800B5450 */
+void setWorldClearFlag();
+
 /* 0x800B5500 */
 SCAspectRatio GetAspectRatio();
 

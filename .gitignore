@@ -20,3 +20,7 @@ tools/clang/clang.exe
 
 # Riivolution config files
 riivolution/config
+
+# Save data
+riivolution/mkwcat-nsmbw.json
+riivolution/mkwcat-nsmbw.json.tmp

@@ -205,10 +205,16 @@ SOURCES += source/wiimj2d/d_system/d_mj2d_game.cpp
 # d_mj2d_header.cpp
 # NSMBW          .text:  0x800CE660 - 0x800CE7F0
 SOURCES += source/wiimj2d/d_system/d_mj2d_header.cpp
+# d_mj2d_json_handler.cpp
+# NSMBW: ---
+SOURCES += source/wiimj2d/d_system/d_mj2d_json_handler.cpp
 
 # d_multi_manager.cpp
 # NSMBW          .text:  0x800CE8F0 - 0x800CED00
 SOURCES += source/wiimj2d/d_system/d_multi_manager.cpp
+# d_nand_thread.cpp
+# NSMBW          .text:  0x800CED00 - 0x800CFCB0
+SOURCES += source/wiimj2d/d_system/d_nand_thread.cpp
 
 # d_next.cpp
 # NSMBW          .text:  0x800CFCE0 - 0x800D03C0
@@ -349,6 +355,10 @@ SOURCES += source/wiimj2d/d_bases/d_a_line_kinoko_block.cpp
 # d_a_line_train.cpp
 # NSMBW   d_bases.text:  0x80859440 - 0x8085BCB0
 SOURCES += source/wiimj2d/d_bases/d_a_line_train.cpp
+
+# d_a_minigame_wire_mesh_mgr.cpp
+# NSMBW   d_bases.text:  0x8086A040 - 0x8086C8F0
+SOURCES += source/wiimj2d/d_bases/d_a_minigame_wire_mesh_mgr.cpp
 
 # d_a_next_goto_block.cpp
 # NSMBW   d_bases.text:  0x8086E670 - 0x8086EEA0
@@ -832,9 +842,15 @@ SOURCES += source/revolution/os/OSInterrupt.c
 # NSMBW          .text:  0x801B1A50 - 0x801B24D0
 SOURCES += source/revolution/os/OSLink.c
 
+# OSMutex.c
+# NSMBW          .text:  0x801B2F60 - 0x801B3380
+SOURCES += source/revolution/os/OSMutex.c
+
 # OSTime.c
 # NSMBW          .text:  0x801B60C0 - 0x801B64F0
 SOURCES += source/revolution/os/OSTime.c
+
+
 
 #
 # revolution/si
@@ -871,6 +887,30 @@ SOURCES += source/revolution/vi/vi3in1.c
 SOURCES += source/revolution/dvd/dvdfs.c
 
 #
+# revolution/nand
+# NSMBW          .text:  0x801D8620 - 0x801DB980
+#
+
+# nand.c
+# NSMBW           .text: 0x801D8620 - 0x801D95E0
+SOURCES += source/revolution/nand/nand.c
+# NANDOpenClose.c
+# NSMBW           .text: 0x801D95E0 - 0x801DA250
+SOURCES += source/revolution/nand/NANDOpenClose.c
+# NANDCore.c
+# NSMBW           .text: 0x801DA250 - 0x801DB280
+SOURCES += source/revolution/nand/NANDCore.c
+# NANDCheck.c
+# NSMBW           .text: 0x801DB1C0 - 0x801DB3F0
+SOURCES += source/revolution/nand/NANDCheck.c
+# NANDLogging.c
+# NSMBW           .text: 0x801DB3F0 - 0x801DB980
+SOURCES += source/revolution/nand/NANDLogging.c
+# NANDErrorMessage.c
+# NSMBW           .text: 0x801DB980 - 0x801DB980
+SOURCES += source/revolution/nand/NANDErrorMessage.c
+
+#
 # revolution/pad
 #
 
@@ -893,6 +933,14 @@ SOURCES += source/revolution/wpad/WPAD.c
 # KPAD.c
 # NSMBW          .text:  0x801EAA80 - 0x801EEAE0
 SOURCES += source/revolution/kpad/KPAD.c
+
+#
+# revolution/fs
+# NSMBW          .text:  0x802265D0 - 0x80227CB0
+
+# fs.c
+# NSMBW          .text:  0x802265D0 = 0x80227CB0
+SOURCES += source/revolution/fs/fs.c
 
 #
 # nw4r/g3d
@@ -981,9 +1029,17 @@ SOURCES += source/egg/util/eggEffect.cpp
 # NSMBW          .text:  0x802DC98C - 0x802DC9A8
 SOURCES += source/runtime/__mem.c
 
+# runtime.c
+# NSMBW          .text:  0x802DCF3C - 0x802DD5D0
+SOURCES += source/runtime/runtime.c
+
 #
 # msl/msl_c
 #
+
+# file_io.c
+# NSMBW          .text:  0x802DEC0C - 0x802DEDFC
+SOURCES += source/msl/msl_c/file_io.c
 
 # mbstring.c
 # NSMBW          .text:  0x802DF06C - 0x802DF264
@@ -1001,3 +1057,10 @@ SOURCES += source/msl/msl_c/scanf.c
 # string.c
 # NSMBW          .text:  0x802E1C28 - 0x802E4FC8
 SOURCES += source/msl/msl_c/string.c
+# strtoul.c
+# NSMBW          .text:  0x802E1FE4 - 0x802E24BC
+SOURCES += source/msl/msl_c/strtoul.c
+
+# wchar_io.c
+# NSMBW          .text:  0x802E47E8 - 0x802E4860
+SOURCES += source/msl/msl_c/wchar_io.c

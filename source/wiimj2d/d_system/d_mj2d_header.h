@@ -3,15 +3,25 @@
 #include "d_system/d_mj2d_game.h"
 
 class dSaveMng_c;
+class dMj2dJsonHandler_c;
 
 /**
  * Represents the header of the game's save file. The save file header contains data that is not
  * related to a specific save slot, along with basic information required to identify the data and
  * preserve its integrity. For the slot-specific save data, refer to dMj2dGame_c.
  */
-class dMj2dHeader_c
+class alignas(32) dMj2dHeader_c
 {
+    SIZE_ASSERT(0x6A0);
+
+    friend class dSaveMng_c;
+    friend class dMj2dJsonHandler_c;
+
 public:
+    // ----------------
+    // Member Functions
+    // ----------------
+
     /**
      * Constructs the holder.
      */
@@ -67,47 +77,45 @@ private:
     /**
      * The savegame magic.
      */
-    char mMagic[4];
+    /* 0x000 */ char mMagic[4];
 
     /**
      * The save revision numbers.
      */
-    u8 mRevision[2];
+    /* 0x004 */ dMj2dGame_c::Revision_s mRevision;
 
     /**
      * The last selected save data slot.
      */
-    u8 mLastSelectedFile;
+    /* 0x008 */ u8 mLastSelectedFile;
 
     /**
      * @unused Padding.
      */
-    u8 mUnknown7;
+    /* 0x009 */ u8 mUnknown7;
 
     /**
      * The play count of each level in Free Mode.
      */
-    u16 mPlayCountFreeMode[WORLD_COUNT][STAGE_COUNT];
+    /* 0x00A */ u16 mPlayCountFreeMode[WORLD_COUNT][STAGE_COUNT];
 
     /**
      * The play count of each level in Coin Battle.
      */
-    u16 mPlayCountCoinBattle[WORLD_COUNT][STAGE_COUNT];
+    /* 0x350 */ u16 mPlayCountCoinBattle[WORLD_COUNT][STAGE_COUNT];
 
     /**
      * The worlds unlocked in Extra Modes.
      */
-    u16 mMultiWorldOpenFlag;
+    /* 0x698 */ u16 mMultiWorldOpenFlag;
 
     /**
      * @unused Padding.
      */
-    u16 mUnknown69A;
+    /* 0x69A */ u16 mUnknown69A;
 
     /**
      * The CRC32 checksum of the above data (excluding ::mMagic).
      */
-    u32 mChecksum;
-
-    friend class dSaveMng_c;
+    /* 0x69C */ u32 mChecksum;
 };

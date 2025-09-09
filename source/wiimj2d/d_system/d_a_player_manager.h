@@ -1,5 +1,6 @@
 #pragma once
 
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "framework/f_base_id.h"
 
@@ -15,31 +16,7 @@ public:
     // Constants
     // ---------
 
-#define CHARACTER_COUNT 8
-#define PLAYER_COUNT 8 // Same as CHARACTER_COUNT
-
-    enum class PlayerType_e {
-        MARIO = 0,
-        LUIGI = 1,
-        BLUE_TOAD = 2,
-        YELLOW_TOAD = 3,
-        TOADETTE = 4,
-        PURPLE_TOADETTE = 5,
-        ORANGE_TOAD = 6,
-        BLACK_TOAD = 7,
-
-        COUNT = 8,
-    };
-
-    static const PlayerType_e DEFAULT_PLAYER_ORDER[CHARACTER_COUNT];
-
-#define POWERUP_COUNT 7
-
-#define MAX_LIVES 99
-
 #define MAX_COINS 99
-
-#define MAX_SCORE 999999999
 
     enum class YoshiColor_e {
         GREEN = 0,
@@ -117,14 +94,14 @@ public:
     /* 0x8005FB90 */
     static daPlBase_c* getCtrlPlayer(int index);
 
-    static PlayerType_e getModelPlayerType(dPyMdlMng_c::ModelType_e modelType);
+    static PLAYER_TYPE_e getModelPlayerType(dPyMdlMng_c::ModelType_e modelType);
 
-    static dPyMdlMng_c::ModelType_e getPlayerTypeModelType(PlayerType_e playerType);
+    static dPyMdlMng_c::ModelType_e getPlayerTypeModelType(PLAYER_TYPE_e playerType);
 
     /* 0x8005FBE0 */
     static dPyMdlMng_c::ModelType_e getCourseInPlayerModelType(u8 index);
 
-    static int getPlayerColorType(PlayerType_e playerType);
+    static int getPlayerColorType(PLAYER_TYPE_e playerType);
 
     /* 0x8005FC20 */
     static void storeYoshiInfo(int index, YoshiColor_e color, int fruit);
@@ -162,7 +139,7 @@ public:
     static int getEntryNum();
 
     /* 0x80060110 @unofficial */
-    static int findPlayerWithType(PlayerType_e playerType);
+    static int findPlayerWithType(PLAYER_TYPE_e playerType);
 
     /* 0x80060170 */
     static bool changeItemKinopioPlrNo(int* ownedPlayer);
@@ -243,13 +220,13 @@ public:
     static s32 mPlayerEntry[PLAYER_COUNT];
 
     /* 0x80355160 */
-    static PlayerType_e mPlayerType[PLAYER_COUNT];
+    static PLAYER_TYPE_e mPlayerType[PLAYER_COUNT];
 
     /* 0x80355170 */
-    static s32 mPlayerMode[CHARACTER_COUNT];
+    static PLAYER_MODE_e mPlayerMode[CHARACTER_COUNT];
 
     /* 0x80355180 */
-    static s32 mCreateItem[CHARACTER_COUNT];
+    static PLAYER_CREATE_ITEM_e mCreateItem[CHARACTER_COUNT];
 
     /* 0x80355190 */
     static int mRest[CHARACTER_COUNT];
