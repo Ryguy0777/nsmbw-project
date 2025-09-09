@@ -168,7 +168,7 @@ UNDEF_80022a3c:;
 /* 80022A58 7FE0F378 */  or       r0, r31, r30;
 /* 80022A5C 889B068D */  lbz      r4, 1677(r27);
 /* 80022A60 5463801E */  slwi     r3, r3, 16;
-/* 80022A64 64000008 */  oris     r0, r0, 8;
+/* 80022A64          */  oris     r0, r0, 0x4000;
 /* 80022A68 2C050000 */  cmpwi    r5, 0;
                          // Proper direction bitfield
 /* 80022A6C          */  slwi     r4, r4, 29;
@@ -189,7 +189,7 @@ UNDEF_80022a98:;
 /* 80022AA0 38A10010 */  addi     r5, r1, 16;
 /* 80022AA4 3860003C */  li       r3, 60;
 /* 80022AA8 38C00000 */  li       r6, 0;
-/* 80022AAC 48041B65 */  bl       UNDEF_80064610;
+/* 80022AAC 48041B65 */  bl       construct__8dActor_cFUsUlPC7mVec3_cPC7mAng3_cUc;
 /* 80022AB0 2C030000 */  cmpwi    r3, 0;
 /* 80022AB4 41820018 */  beq-     UNDEF_80022acc;
 /* 80022AB8 881C0016 */  lbz      r0, 22(r28);
