@@ -244,7 +244,7 @@ bool daPyMng_c::createPlayer(int player, mVec3_c position, s32 gotoKind, bool fa
 
     dActor_c::construct(
       +fBaseProfile_e::PLAYER, u32(faceLeft) << 24 | u32(gotoKind & 0xFF) << 16 | u32(player & 63),
-      &position, nullptr
+      &position, nullptr, 0
     );
     return true;
 }

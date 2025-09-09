@@ -13,6 +13,9 @@ public:
     /* 0x80A94250 */
     void selectItems();
 
+    /* 0x80A94340 */
+    void awardItems();
+
 public:
     // -----------
     // Member Data

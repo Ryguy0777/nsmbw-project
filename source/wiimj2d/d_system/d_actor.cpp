@@ -68,6 +68,11 @@ fBase_c::PACK_RESULT_e dActor_c::preDraw();
 [[address(0x800645E0)]]
 void dActor_c::postDraw(fBase_c::MAIN_STATE_e status);
 
+[[address(0x80064610)]]
+dActor_c* dActor_c::construct(
+  u16 profile, u32 settings, const mVec3_c* position, const mAng3_c* rotation, u8 layer
+);
+
 [[address(0x80065080)]]
 bool dActor_c::ActorDrawCullCheck();
 

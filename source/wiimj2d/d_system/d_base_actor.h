@@ -213,7 +213,7 @@ public:
      * @return A pointer to the instantiated actor, or nullptr.
      */
     static dBaseActor_c*
-    construct(u16 profName, unsigned long param, const mVec3_c* position, const mAng3_c* rotation);
+    construct(u16 profName, u32 param, const mVec3_c* position, const mAng3_c* rotation);
 
     /**
      * 0x8006CBA0
@@ -227,7 +227,7 @@ public:
      * @return A pointer to the instantiated actor, or nullptr.
      */
     static dBaseActor_c* construct(
-      u16 profName, dBase_c* parent, unsigned long param, const mVec3_c* position,
+      u16 profName, dBase_c* parent, u32 param, const mVec3_c* position,
       const mAng3_c* rotation
     );
 
