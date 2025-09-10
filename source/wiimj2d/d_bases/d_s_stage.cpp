@@ -53,7 +53,7 @@ void dScStage_c::courseClear()
               dMj2dGame_c::COURSE_COMPLETION_e::COIN3_COLLECTED,
             };
 
-            if (mCollectionCoin[i] != dCyuukan_c::COLLECTION_COIN_STATUS_e::NOT_COLLECTED) {
+            if (mCollectionCoin[i] != PLAYER_TYPE_e::COUNT) {
                 save->setCollectCoin(world, stage, COLLECTION_COIN_FLAGS[i]);
             }
         }

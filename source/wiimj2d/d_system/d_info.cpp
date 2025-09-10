@@ -122,7 +122,7 @@ void dInfo_c::initStage()
 
     if (m0xAF4 < 0) {
         for (int i = 0; i < COLLECTION_COIN_COUNT; i++) {
-            dScStage_c::setCollectionCoin(i, dCyuukan_c::COLLECTION_COIN_STATUS_e::NOT_COLLECTED);
+            dScStage_c::setCollectionCoin(i, PLAYER_TYPE_e::COUNT);
         }
     } else {
         for (int i = 0; i < COLLECTION_COIN_COUNT; i++) {

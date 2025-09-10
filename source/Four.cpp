@@ -5,9 +5,9 @@
 #include "Four.h"
 
 #include "AddressMapper.h"
-#include <cstring>
 #include "d_player/d_s_boot.h"
 #include "d_system/d_a_player_manager.h"
+#include <cstring>
 #include <revolution/os.h>
 
 struct FourPatch {
@@ -175,6 +175,11 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dGameCom::GoalScoreExecute
   {0x800B35D0 + 2, 2, -1},
 
+  // dMultiMng_c::setCollectionCoin
+  {0x800CEC94 + 2, 2},
+  {0x800CECB8 + 2, 2},
+  {0x800CECDC + 2, 2},
+
   // PauseManager_c::setPause
   {0x800D152C + 2, 2},
   {0x800D157C + 2, 2},
@@ -220,8 +225,12 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dfukidashiManager_c::FUN_801572F0
   {0x801572FC + 2, 2},
 
+  // dGameDisplay_c::create
+  {0x80157EE0 + 2, 2},
   // dGameDisplay_c::AreaCheck
   {0x80158BA4 + 2, 2},
+  // dGameDisplay_c::setCollect
+  {0x80159D20 + 2, 2},
 
   // SndObjctPly::startFootSound
   {0x8019A850 + 2, 2},
@@ -609,6 +618,18 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80AA2EB8 + 2, 2},
   // UNDEF_80aa33d0
   {0x80AA3404 + 2, 2, -1},
+
+  // daEnStarCoin_c::isCoinCollected
+  {0x80AAA050 + 2, 2},
+  {0x80AAA054 + 2, 2},
+
+  // daEnStarCoin_c::collectedAllCoins
+  {0x80AAA1DC + 2, 2},
+  {0x80AAA1EC + 2, 2},
+  {0x80AAA1FC + 2, 2},
+
+  // daEnStarCoin_c::collectedAllCoinsInSave
+  {0x80AAA2AC + 2, 2},
 
   // daEnTeresa_c::UNDEF_80ab0020
   {0x80AB0118 + 2, 2},

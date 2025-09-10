@@ -16,16 +16,6 @@ public:
     dCyuukan_c();
 
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
-
-    /* @unofficial */
-    enum class COLLECTION_COIN_STATUS_e : s32 {
-        NOT_COLLECTED = 4,
-    };
-
-public:
     // ----------------
     // Member Functions
     // ----------------
@@ -51,6 +41,6 @@ public:
     /* 0x1A */ u8 mCourse; // A.k.a. Area
     /* 0x1B */ u8 mGoto;
     /* 0x1C */ bool mIsKinopioInChukan;
-    /* 0x20 */ COLLECTION_COIN_STATUS_e mCollectionCoin[3];
+    /* 0x20 */ PLAYER_TYPE_e mCollectionCoin[3];
     /* 0x2C */ s32 m0x2C[2];
 };

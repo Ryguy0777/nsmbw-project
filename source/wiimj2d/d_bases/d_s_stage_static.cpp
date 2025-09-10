@@ -2,6 +2,7 @@
 // NSMBW .text: 0x80101A50 - 0x80102770
 
 #include "d_s_stage.h"
+#include "d_system/d_mj2d_game.h"
 
 #include <PatchRel.h>
 
@@ -39,7 +40,7 @@ u8 dScStage_c::m_replayMode;
 bool dScStage_c::m_isReplayGoal;
 
 [[address_data(0x803744B0)]]
-dCyuukan_c::COLLECTION_COIN_STATUS_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
+PLAYER_TYPE_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
 
 /* 0x803744D0 */
 dReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
@@ -117,7 +118,7 @@ UNDEF_80101b94:;
 );
 
 [[address(0x801020E0)]]
-void dScStage_c::setCollectionCoin(int coin, dCyuukan_c::COLLECTION_COIN_STATUS_e status);
+void dScStage_c::setCollectionCoin(int coin, PLAYER_TYPE_e player);
 
 [[address(0x801022C0)]]
 bool dScStage_c::isNowReplay();

@@ -46,7 +46,7 @@ public:
     static void setLoopType();
 
     /* 0x801020E0 @unofficial */
-    static void setCollectionCoin(int coin, dCyuukan_c::COLLECTION_COIN_STATUS_e status);
+    static void setCollectionCoin(int coin, PLAYER_TYPE_e player);
 
     /* 0x801022C0 */
     static bool isNowReplay();
@@ -105,7 +105,7 @@ public:
     static bool m_isReplayGoal;
 
     /* 0x803744B0 */
-    static dCyuukan_c::COLLECTION_COIN_STATUS_e mCollectionCoin[COLLECTION_COIN_COUNT];
+    static PLAYER_TYPE_e mCollectionCoin[COLLECTION_COIN_COUNT];
 
     /* 0x803744D0 */
     static dReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];
