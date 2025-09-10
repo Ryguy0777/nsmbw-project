@@ -304,6 +304,7 @@ int dNandThread_c::load()
     rapidjson::Reader reader;
     dMj2dJsonHandler_c handler;
     rapidjson::ParseResult parseresult = reader.Parse(stream, handler);
+    setNandError(NANDClose(&l_fileInfo));
     if (parseresult.IsError()) {
         OS_REPORT("JSON parse error, offset: %d\n", parseresult.Offset());
         std::memset(static_cast<void*>(&l_tmpSave), 0, sizeof(l_tmpSave));
