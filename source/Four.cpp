@@ -37,9 +37,16 @@ struct FourPatch {
     u32 addressC;
     u8 size;
     s8 offset;
+
+    static constexpr s8 NEGATIVE = -64;
 };
 
 constinit FourPatch FOUR_PATCH_LIST[] = {
+  // dCourseSelectGuide_c::CollectionCoinSet
+  {0x80010EC8 + 2, 2},
+
+  // TODO: dSmallScore_c::chgColor
+
   // daBullet_c::hitCallback
   {0x8001DE5C + 2, 2},
 
@@ -621,7 +628,7 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
 
   // daEnStarCoin_c::isCoinCollected
   {0x80AAA050 + 2, 2},
-  {0x80AAA054 + 2, 2},
+  {0x80AAA054 + 2, 2, FourPatch::NEGATIVE},
 
   // daEnStarCoin_c::collectedAllCoins
   {0x80AAA1DC + 2, 2},
@@ -748,11 +755,20 @@ void Four::Apply()
         }
 
         u8 size = patch.size;
-        u8 offset = patch.offset;
+        s8 offset = patch.offset;
+        if (patch.offset <= FourPatch::NEGATIVE) {
+            offset = patch.offset - FourPatch::NEGATIVE;
+        }
 
         ASSERT(size <= 4);
-        u32 oldValue = 4 + patch.offset;
-        u32 newValue = PLAYER_COUNT + patch.offset;
+        u32 oldValue = 4 + offset;
+        u32 newValue = PLAYER_COUNT + offset;
+
+        if (patch.offset <= FourPatch::NEGATIVE) {
+            oldValue = -oldValue;
+            newValue = -newValue;
+        }
+
         if (std::memcmp(
               reinterpret_cast<void*>(address), reinterpret_cast<u8*>(&oldValue) + (4 - size), size
             ) != 0) {
@@ -762,8 +778,9 @@ void Four::Apply()
               size
             );
             OS_REPORT(
-              "WARNING: Four patch at 0x%08X inconsistent with original value, expected %d.\n",
-              address, int(realOldValue) - 4
+              "WARNING: Four patch at 0x%08X inconsistent with original value, expected %u, found "
+              "%u.\n",
+              address, oldValue, realOldValue
             );
         }
         std::memcpy(
