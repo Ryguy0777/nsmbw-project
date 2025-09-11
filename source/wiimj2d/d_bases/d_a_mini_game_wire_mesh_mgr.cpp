@@ -1,15 +1,13 @@
-// d_a_minigame_wire_mesh_mgr.cpp
+// d_a_mini_game_wire_mesh_mgr.cpp
 // NSMBW d_bases.text: 0x8086A040 - 0x8086C8F0
 
-#include "d_a_minigame_wire_mesh_mgr.h"
+#include "d_a_mini_game_wire_mesh_mgr.h"
 
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"
 
-[[address(0x8086A040)]]
-
 [[address(0x8086B230)]]
-void daMinigameWireMeshMgrObj_c::updateStockItem()
+void daMiniGameWireMeshMgrObj_c::updateStockItem()
 {
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();
 

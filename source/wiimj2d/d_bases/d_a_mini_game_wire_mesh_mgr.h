@@ -3,7 +3,7 @@
 #include "d_system/d_base.h"
 #include "d_system/d_mj2d_game.h"
 
-class daMinigameWireMeshMgrObj_c : dBase_c
+class daMiniGameWireMeshMgrObj_c : dBase_c
 {
 public:
     // ----------------

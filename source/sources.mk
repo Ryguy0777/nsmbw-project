@@ -356,9 +356,12 @@ SOURCES += source/wiimj2d/d_bases/d_a_line_kinoko_block.cpp
 # NSMBW   d_bases.text:  0x80859440 - 0x8085BCB0
 SOURCES += source/wiimj2d/d_bases/d_a_line_train.cpp
 
-# d_a_minigame_wire_mesh_mgr.cpp
+# d_a_mini_game_wire_mesh.cpp
+# NSMBW:  d_bases.text:  0x808681B0 - 0x8086A040
+SOURCES += source/wiimj2d/d_bases/d_a_mini_game_wire_mesh.cpp
+# d_a_mini_game_wire_mesh_mgr.cpp
 # NSMBW   d_bases.text:  0x8086A040 - 0x8086C8F0
-SOURCES += source/wiimj2d/d_bases/d_a_minigame_wire_mesh_mgr.cpp
+SOURCES += source/wiimj2d/d_bases/d_a_mini_game_wire_mesh_mgr.cpp
 
 # d_a_next_goto_block.cpp
 # NSMBW   d_bases.text:  0x8086E670 - 0x8086EEA0
