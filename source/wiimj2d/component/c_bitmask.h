@@ -44,25 +44,25 @@ public:
 
     static constexpr bool checkBit(std::integral auto bitmask, u32 bit)
     {
-        return std::rotl(bitmask, bit) & 1;
+        return std::rotr(bitmask, bit) & 1;
     }
 
     constexpr bool checkBit(u32 bit) const
     {
         if constexpr (Bits <= 32) {
-            return std::rotl(mData[0], bit) & 1;
+            return std::rotr(mData[0], bit) & 1;
         } else if constexpr (Bits <= 64) {
             // OR optimization
-            return (std::rotl(mData[0], bit) | std::rotl(mData[1], bit - 32)) & 1;
+            return (std::rotr(mData[0], bit) | std::rotr(mData[1], bit - 32)) & 1;
         } else if constexpr (Bits <= 96) {
             // OR optimization
-            return (std::rotl(mData[0], bit) | std::rotl(mData[1], bit - 32) |
-                    std::rotl(mData[2], bit - 64)) &
+            return (std::rotr(mData[0], bit) | std::rotr(mData[1], bit - 32) |
+                    std::rotr(mData[2], bit - 64)) &
                    1;
         } else {
             // More than 96 bits, get index by divide
             u32 index = ((Bits >> 5) - 1) - (bit >> 5);
-            return std::rotl(mData[index], bit - (bit & ~31)) & 1;
+            return std::rotr(mData[index], bit & ~31) & 1;
         }
     }
 

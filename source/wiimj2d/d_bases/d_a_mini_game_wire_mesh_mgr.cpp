@@ -21,3 +21,5 @@ void daMiniGameWireMeshMgrObj_c::updateStockItem()
         }
     }
 }
+
+// TODO: 0x8086AB90, 0x8086AEA0 decides the color of the thing circling around players
