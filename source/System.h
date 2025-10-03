@@ -221,3 +221,6 @@ struct __get_this<T&> {
     }()
 
 #define BIT_FLAG(_BIT) (1 << _BIT)
+
+template <class T>
+using ArrayOf = T[];

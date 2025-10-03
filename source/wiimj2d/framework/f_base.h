@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdlib>
 #include "framework/f_base_id.h"
 #include "framework/f_base_profile.h"
+#include <cstdlib>
 #include <type_traits>
 
 class dBase_c;
@@ -352,6 +352,9 @@ public:
     // ---------
     // Functions
     // ---------
+
+    /* 0x80162B60 */
+    bool checkChildProcessCreateState() const;
 
     /**
      * 0x80162650

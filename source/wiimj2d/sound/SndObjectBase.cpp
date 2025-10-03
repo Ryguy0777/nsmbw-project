@@ -13,5 +13,4 @@ NMSndObjectBase::NMSndObjectBase(
 NMSndObjectBase::~NMSndObjectBase();
 
 /* VT+0x1C */
-[[address(0x801976B0)]]
-s8 NMSndObjectBase::VT_0x1C(s32 param1, s32 param2);
+[[address(0x801976B0)]] s8 NMSndObjectBase::VT_0x1C(s32 param1, s32 param2);

@@ -194,11 +194,17 @@ SOURCES += source/wiimj2d/d_system/d_kinopio_model.cpp
 # d_lytbase.cpp
 # NSMBW          .text:  0x800C89A0 - 0x800C9B50
 SOURCES += source/wiimj2d/d_system/d_lytbase.cpp
+# d_lyttextbox.cpp
+# NSMBW          .text:  0x800C9B50 - 0x800CA000
+SOURCES += source/wiimj2d/d_system/d_lyttextbox.cpp
 
 # d_mask_mng.cpp
 # NSMBW          .text:  0x800CD290 - 0x800CD800
 SOURCES += source/wiimj2d/d_system/d_mask_mng.cpp
 
+# d_message.cpp
+# NSMBW          .text:  0x800CDB60 - 0x800CDFB0
+SOURCES += source/wiimj2d/d_system/d_message.cpp
 # d_mj2d_game.cpp
 # NSMBW          .text:  0x800CDFB0 - 0x800CE660
 SOURCES += source/wiimj2d/d_system/d_mj2d_game.cpp
@@ -317,6 +323,13 @@ SOURCES += source/wiimj2d/d_bases/d_CharacterChangeSelectBase.cpp
 # NSMBW   d_bases.text:  0x80772A50 - 0x80773F30
 SOURCES += source/wiimj2d/d_bases/d_CharacterChangeSelectContents.cpp
 
+# d_MessageWindow.cpp
+# NSMBW   d_bases.text:  0x         - 0x8078BC60
+# d_MiniGameCannon.cpp
+# NSMBW   d_bases.text:  0x8078BC60 - 0x8078DA20
+SOURCES += source/wiimj2d/d_bases/d_MiniGameCannon.cpp
+# d_MiniGameWire.cpp
+# NSMBW   d_bases.text:  0x8078DA20 - 0x
 # d_NumberOfPeopleChange.cpp
 # NSMBW   d_bases.text:  0x8079F630 - 0x807A2CF0
 SOURCES += source/wiimj2d/d_bases/d_NumberOfPeopleChange.cpp
@@ -355,6 +368,10 @@ SOURCES += source/wiimj2d/d_bases/d_a_line_kinoko_block.cpp
 # d_a_line_train.cpp
 # NSMBW   d_bases.text:  0x80859440 - 0x8085BCB0
 SOURCES += source/wiimj2d/d_bases/d_a_line_train.cpp
+
+# d_a_mini_game_gun_battery_mgr.cpp
+# NSMBW   d_bases.text:  0x808660F0 - 0x808672B0
+SOURCES += source/wiimj2d/d_bases/d_a_mini_game_gun_battery_mgr.cpp
 
 # d_a_mini_game_wire_mesh.cpp
 # NSMBW:  d_bases.text:  0x808681B0 - 0x8086A040

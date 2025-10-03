@@ -1,5 +1,6 @@
 #pragma once
 
+#include "d_system/d_base.h"
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_fader.h"
 #include "d_system/d_mj2d_game.h"
@@ -7,6 +8,11 @@
 #include "framework/f_base_profile.h"
 
 class dGameDisplay_c;
+class dMiniGameCannon_c;
+class dMiniGameWire_c;
+class dModelPlayManager_c;
+class dMessageWindow_c;
+class dStaffCreditScore_c;
 
 // TODO
 struct dReplayPlay_c {
@@ -15,7 +21,7 @@ struct dReplayPlay_c {
     /* 0x64 */ u8 mFrameFlags;
 };
 
-class dScStage_c
+class dScStage_c : public dBase_c
 {
 public:
     // -------------------
@@ -42,6 +48,14 @@ public:
     /* 0x80101A70 */
     static dGameDisplay_c* getGameDisplay();
 
+    static inline dMiniGameCannon_c* getMiniGameCannon()
+    {
+        if (dScStage_c::m_instance == nullptr) {
+            return nullptr;
+        }
+        return dScStage_c::m_instance->mpMiniGameCannon;
+    }
+
     /* 0x80101AA0 */
     static void setLoopType();
 
@@ -59,6 +73,9 @@ public:
     // ----------------
     // Member Functions
     // ----------------
+
+    /* 0x80924950 */
+    bool CreatedLayouts() const;
 
     /* 0x809251F0 */
     void courseClear();
@@ -115,11 +132,20 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x0000, 0x11D4);
+    FILL(0x0070, 0x11D4);
 
     /* 0x11D4 */ dGameDisplay_c* mpGameDisplay;
 
-    FILL(0x11D8, 0x120C);
+    FILL(0x11D8, 0x11E8);
+
+    /* 0x11E8 */ dMiniGameCannon_c* mpMiniGameCannon;
+    /* 0x11EC */ dMiniGameWire_c* mpMiniGameWire;
+    /* 0x11F0 */ dModelPlayManager_c* mpModelPlayManager;
+    /* 0x11F4 */ dMessageWindow_c* mpMessageWindow;
+    FILL(0x11F8, 0x11FC);
+    /* 0x11FC */ dStaffCreditScore_c* mpStaffCreditScore;
+
+    FILL(0x1200, 0x120C);
 
     /* 0x120C */ WORLD_e mWorld;
     /* 0x120D */ STAGE_e mStage;
@@ -127,4 +153,6 @@ public:
     /* 0x120F */ u8 mArea; // A.k.a. Zone
     /* 0x1210 */ u8 mLayer;
     /* 0x1211 */ u8 mGoto; // A.k.a Entrance
+
+    OFFSET_ASSERT(0x1212);
 };

@@ -46,11 +46,23 @@ void LytBase_c::ReverseAnimeStartSetup(int group, bool param2);
 [[address(0x800C93E0)]]
 void LytBase_c::AnimeStartSetup(int group, bool param2);
 
+[[address(0x800C9470)]]
+void LytBase_c::LoopAnimeStartSetup(int group);
+
 [[address(0x800C9580)]]
 void LytBase_c::AnimeEndSetup(int param1);
 
 [[address(0x800C95F0)]]
 void LytBase_c::AllAnimeEndSetup();
 
+[[address(0x800C9650)]]
+void LytBase_c::AnimePlay();
+
 [[address(0x800C9700)]]
-bool LytBase_c::isAnime(int group);
+bool LytBase_c::isAnime(int group) const;
+
+[[address(0x800C9730)]]
+bool LytBase_c::isAllAnime() const;
+
+[[address(0x800C9A20)]]
+fBase_c::PACK_RESULT_e LytBase_c::doDelete();

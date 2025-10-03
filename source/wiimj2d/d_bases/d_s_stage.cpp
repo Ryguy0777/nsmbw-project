@@ -3,6 +3,11 @@
 
 #include "d_s_stage.h"
 
+#include "d_bases/d_MessageWindow.h"
+#include "d_bases/d_MiniGameCannon.h"
+#include "d_bases/d_MiniGameWire.h"
+#include "d_bases/d_ModelPlayManager.h"
+#include "d_bases/d_StaffCreditScore.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_info.h"
@@ -10,6 +15,13 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_start_info.h"
 #include "d_system/d_wm_lib.h"
+
+[[address(0x80924950)]]
+bool dScStage_c::CreatedLayouts() const
+{
+    return !checkChildProcessCreateState() && (!mpMiniGameCannon || mpMiniGameCannon->mReady) && (!mpMiniGameWire || mpMiniGameWire->mReady) &&
+           (!mpModelPlayManager || mpModelPlayManager->mReady) && (!mpMessageWindow || mpMessageWindow->mReady) && (!mpStaffCreditScore || mpStaffCreditScore->mReady);
+}
 
 [[address(0x809251F0)]]
 void dScStage_c::courseClear()

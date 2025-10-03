@@ -3,7 +3,9 @@
 
 #include "d_game_common.h"
 
+#include "d_bases/d_MiniGameCannon.h"
 #include "d_bases/d_s_stage.h"
+#include "d_player/d_SmallScoreManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
 #include "d_system/d_lyttextbox.h"
@@ -25,24 +27,35 @@ u32 rndInt(u32 max);
 [[address(0x800B30C0)]]
 f32 getDispCenterX();
 
-[[address(0x800B5340)]]
-bool chkContinue()
-{
-    // Original function is flawed as it indexes in mPlayerType twice (so like
-    // mRest[int(mPlayerType[int(mPlayerType[i])])]). It doesn't matter but i think it's kinda
-    // interesting.
+[[address(0x800B34D0)]]
+void CreateBlueNumber(const mVec3_c&, int, int);
 
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
-        if (daPyMng_c::mRest[i] == 0) {
-            return true;
+[[address(0x800B3510)]]
+void CreateRedNumber(const mVec3_c&, int);
+
+[[address(0x800B3540)]]
+void CreateSmallScore(const mVec3_c& pos, int type, int playerNo, bool goal)
+{
+    int color = PLAYER_COUNT;
+    if (playerNo != -1) {
+        if (playerNo >= PLAYER_COUNT) {
+            return;
         }
+        color = static_cast<int>(daPyMng_c::mPlayerType[playerNo]);
     }
 
-    return false;
+    if (!goal) {
+        dSmallScoreManager_c::m_instance->CreateSmallScore(pos, type, color);
+    } else {
+        dSmallScoreManager_c::m_instance->CreateGoalScore(pos, type, color);
+    }
 }
 
-[[address(0x800B53F0)]]
-bool chkCancelButton(int player);
+[[address(0x800B35B0)]]
+void CreateSmallAll1up(const mVec3_c&);
+
+[[address(0x800B35D0)]]
+void GoalScoreExecute(const mVec3_c&, int);
 
 [[address(0x800B3600)]]
 void FUN_800B3600() ASM_METHOD(
@@ -175,6 +188,110 @@ void Player1upColor(LytTextBox_c* textBox, int player)
     textBox->SetVtxColor(2, l_PLY_COLOR_2[index]);
 }
 
+[[address(0x800B4940)]]
+void MiniGameCannonTitle()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        mg->mActive = true;
+        mg->m0x2E0 = true;
+    }
+}
+
+[[address(0x800B4970)]]
+void MiniGameCannonStart()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        mg->mActive = true;
+        mg->m0x2DA = true;
+        mg->m0x2C0 = false;
+    }
+}
+
+[[address(0x800B49A0)]]
+void MiniGameCannonResult()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        mg->mActive = true;
+        mg->m0x2DA = true;
+        mg->m0x2C0 = true;
+    }
+}
+
+[[address(0x800B49D0)]]
+bool MiniGameCannonEndCheck()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        return mg->mActive;
+    }
+    return false;
+}
+
+[[address(0x800B4A00)]]
+void MiniGameCannonTitleCloseRequest()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        mg->m0x2E2 = true;
+    }
+}
+
+[[address(0x800B4A30)]]
+void MiniGameCannonOperateCloseRequest()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        mg->m0x2E3 = true;
+    }
+}
+
+[[address(0x800B4A60)]]
+void MiniGameCannonResultCloseRequest()
+{
+    if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
+        mg->m0x2E4 = true;
+    }
+}
+
+[[address(0x800B4A90)]]
+void MiniGameWireTitle();
+
+[[address(0x800B4AC0)]]
+void MiniGameWireStart();
+
+//[[address(0x800B4AF0)]]
+// void hash_71636FC0_C70BA13D;
+
+[[address(0x800B4B20)]]
+void MiniGameWireResult(const int* param);
+
+[[address(0x800B4B90)]]
+bool MiniGameWireEndCheck();
+
+[[address(0x800B4BC0)]]
+void MiniGameWireTitleCloseRequest();
+
+[[address(0x800B4BF0)]]
+void MiniGameWireOperateCloseRequest();
+
+[[address(0x800B4C20)]]
+void MiniGameWireResultCloseRequest();
+
+[[address(0x800B4C50)]]
+void MiniGameWireTurnOverCloseRequest();
+
+//[[address(0x800B4C80)]]
+// void hash_28043523_E21C82B0;
+
+//[[address(0x800B4CC0)]]
+// void hash_F8207C44_B2544017;
+
+//[[address(0x800B4CF0)]]
+// void hash_8F40075D_69D61FE1;
+
+[[address(0x800B4DC0)]]
+void MiniGameMessageDisp(int param);
+
+[[address(0x800B4E00)]]
+void MiniGameMessageClose();
+
 [[address(0x800B4E30)]]
 bool isNowCourseClear()
 {
@@ -193,6 +310,25 @@ bool isNowCourseClear()
       dMj2dGame_c::COURSE_COMPLETION_e::GOAL_MASK
     );
 }
+
+[[address(0x800B5340)]]
+bool chkContinue()
+{
+    // Original function is flawed as it indexes in mPlayerType twice (so like
+    // mRest[int(mPlayerType[int(mPlayerType[i])])]). It doesn't matter but i think it's kinda
+    // interesting.
+
+    for (int i = 0; i < CHARACTER_COUNT; i++) {
+        if (daPyMng_c::mRest[i] == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+[[address(0x800B53F0)]]
+bool chkCancelButton(int player);
 
 [[address(0x800B5450)]]
 void setWorldClearFlag();

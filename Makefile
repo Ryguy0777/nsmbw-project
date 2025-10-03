@@ -22,6 +22,9 @@ LD := $(DEVKITPPC)/bin/powerpc-eabi-ld
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 ELF2REL := $(TOOLS)/elf2rel
 LZX := $(TOOLS)/lzx
+ifeq ($(PYTHON),)
+PYTHON := python
+endif
 GENSMAP := ./tools/generate_symbol_map.py
 WUJ5 := ./tools/wuj5/wuj5.py
 
@@ -141,21 +144,21 @@ $(ASSETS)/%: $(ASSETS_SRC)/%
 $(ASSETS)/%.brlyt: $(ASSETS_SRC)/%.brlyt.json5
 	@echo $<
 	@mkdir -p $(dir $@)
-	@python $(WUJ5) encode $< --outputs=$@
+	@$(PYTHON) $(WUJ5) encode $< --outputs=$@
 
 $(ASSETS)/%.brlan: $(ASSETS_SRC)/%.brlan.json5
 	@echo $<
 	@mkdir -p $(dir $@)
-	@python $(WUJ5) encode $< --outputs=$@
+	@$(PYTHON) $(WUJ5) encode $< --outputs=$@
 
 $(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
 	@echo Build: $(notdir $@)
 	@mkdir -p $(dir $@)
-	@python $(WUJ5) encode $(ASSETS) --root= --outputs=$@
+	@$(PYTHON) $(WUJ5) encode $(ASSETS) --root= --outputs=$@
 
 $(ASSETS)/wiimj2d.SMAP: $(BUILD)/$(TARGET).elf
 	@echo Make: $(notdir $@)
-	@python $(GENSMAP) $< $@
+	@$(PYTHON) $(GENSMAP) $< $@
 
 $(BUILD)/$(LOADER).elf: $(LOADER_OFILES)
 	@echo Link: $(notdir $@)
@@ -166,10 +169,10 @@ $(BUILD)/$(LOADER).img: $(BUILD)/$(LOADER).elf
 	@mkdir -p $(dir $@)
 	@$(OBJCOPY) $< $@ -O binary
 
-$(OUTPUT)/mkwcat-nsmbw.xml: $(BUILD)/$(LOADER).img mkwcat-nsmbw.xml.template
+$(OUTPUT)/mkwcat-nsmbw.xml: $(BUILD)/$(LOADER).img mkwcat-nsmbw-template.xml
 	@echo Build: $(notdir $@)
 	@mkdir -p $(dir $@)
-	@python ./tools/insert-xml.py ./mkwcat-nsmbw.xml.template $< $@
+	@$(PYTHON) ./tools/insert-xml.py mkwcat-nsmbw-template.xml $< $@
 
 # Tool recipes
 

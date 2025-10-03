@@ -13,13 +13,13 @@ c++
 -fkeep-static-consts
 -femit-all-decls
 -ffreestanding
--Wpedantic
 -Isource
 -Isource/msl/msl_c
 -Isource/msl/msl_cpp
 -Isource/wiimj2d
 -include
 source/System.h
+-Wpedantic
 -Wno-out-of-line-declaration
 -Wno-unknown-attributes
 -Wno-gcc-compat
