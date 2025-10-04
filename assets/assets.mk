@@ -8,7 +8,7 @@ $(ASSETS)/rels/$(TARGET)_J2.rel.LZ \
 $(ASSETS)/rels/$(TARGET)_K1.rel.LZ \
 $(ASSETS)/rels/$(TARGET)_W1.rel.LZ \
 $(ASSETS)/rels/$(TARGET)_C1.rel.LZ \
-$(ASSETS)/wiimj2d.SMAP \
+$(ASSETS)/rels/project.SMAP \
 $(ASSETS)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/blyt/characterChangeSelectContents_05.brlyt \
 $(ASSETS)/Layout/charaChangeSelectContents/charaChangeSelectContents.arc/arc/timg/Im_plofileMario_00.tpl \
 $(ASSETS)/Layout/fileSelectPlayer/fileSelectPlayer.arc/arc/blyt/fileSelectPlayer_23.brlyt \
@@ -24,6 +24,13 @@ $(ASSETS)/Object/C_rcha.arc/g3d/model.brres \
 $(ASSETS)/Object/Kinopico.arc/g3d/model.brres \
 $(ASSETS)/Object/KinopicoPurple.arc/g3d/model.brres \
 $(ASSETS)/Object/KinopioBlackOrange.arc/g3d/model.brres \
+$(ASSETS)/Object/MG_remo_cannon.arc/g3d/MG_remo_cannon.brres \
+$(ASSETS)/Object/middle_flag.arc/g3d/middle_flag.brres \
+$(ASSETS)/Object/remo_kanaami.arc/g3d/remo_kanaami.brres \
+$(ASSETS)/Object/remo_lift_line.arc/g3d/remo_lift_line.brres \
+$(ASSETS)/Object/remo_lift_soroban.arc/g3d/remo_lift_soroban.brres \
+$(ASSETS)/Object/remo_lift_up.arc/g3d/remo_lift_up.brres \
+$(ASSETS)/Object/remo_lift.arc/g3d/remo_lift.brres \
 $(ASSETS)/Sound/BANK_SE_VOC_COURSE_KC.brbnk \
 $(ASSETS)/Sound/GROUP_SE_VOC_COURSE_KC.brwar \
 $(ASSETS)/Stage/01-09.arc.LZ

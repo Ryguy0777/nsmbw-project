@@ -51,7 +51,3 @@ with open(args.elf_file_path, 'rb') as elf_file_stream:
 with open(args.smap_file_path, 'w', newline='\n') as smap_file_stream:
     for item in sorted(symbols.split('\n')):
         smap_file_stream.write(item + '\n')
-
-with open(args.smap_file_path.replace('.SMAP', '_dolphin.MAP'), 'w', newline='\n') as smap_file_stream:
-    for item in sorted(symbols_dolphin.split('\n')):
-        smap_file_stream.write(item + '\n')

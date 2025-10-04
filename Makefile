@@ -156,7 +156,7 @@ $(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
 	@mkdir -p $(dir $@)
 	@$(PYTHON) $(WUJ5) encode $(ASSETS) --root= --outputs=$@
 
-$(ASSETS)/wiimj2d.SMAP: $(BUILD)/$(TARGET).elf
+$(ASSETS)/rels/project.SMAP: $(BUILD)/$(TARGET).elf
 	@echo Make: $(notdir $@)
 	@$(PYTHON) $(GENSMAP) $< $@
 
