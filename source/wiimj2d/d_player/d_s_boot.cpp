@@ -71,8 +71,8 @@ void dScBoot_c::executeState_ProcEnd()
         // daPyMng_c::mPlayerType[i] = PLAYER_TYPE_e::TOADETTE;
         daPyMng_c::mPlayerEntry[i] = 1;
 
-        daPyMng_c::mPlayerMode[i] = int(PLAYER_MODE_e::PROPELLER_SHROOM);
-        daPyMng_c::mCreateItem[i] = 0;
+        daPyMng_c::mPlayerMode[i] = PLAYER_MODE_e::PROPELLER_SHROOM;
+        daPyMng_c::mCreateItem[i] = PLAYER_CREATE_ITEM_e::NONE;
 
         if (i < 4) {
             dInfo_c::m_instance->mPlayerActiveMode[i] = 3;
@@ -92,10 +92,10 @@ void dScBoot_c::executeState_ProcEnd()
       .courseID = 0,
       .isDemo = false,
       .screenType = dInfo_c::ScreenType_e::NORMAL,
-      .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_3,
-      .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_3,
+      .world1 = WORLD_e::WORLD_8,
+      .stage1 = STAGE_e::CASTLE,
+      .world2 = WORLD_e::WORLD_8,
+      .stage2 = STAGE_e::CASTLE,
     });
 }
 #endif

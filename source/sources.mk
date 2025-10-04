@@ -357,6 +357,10 @@ SOURCES += source/wiimj2d/d_bases/d_a_chukan_point.cpp
 # NSMBW   d_bases.text:  0x80830690 - 0x80830C40
 SOURCES += source/wiimj2d/d_bases/d_a_last_actor_stage.cpp
 
+# d_a_lift_fall.cpp
+# NSMBW   d_bases.text:  0x80837370 - 0x80838020
+SOURCES += source/wiimj2d/d_bases/d_a_lift_fall.cpp
+
 # d_a_lift_ride_move.cpp
 # NSMBW   d_bases.text:  0x80845940 - 0x808468E0
 SOURCES += source/wiimj2d/d_bases/d_a_lift_ride_move.cpp

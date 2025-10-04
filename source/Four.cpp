@@ -173,15 +173,6 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dEnTorideKokoopa_c::calcAttackTarget
   {0x800AA348 + 2, 2},
 
-  // dGameCom::CreateBlueNumber
-  {0x800B34D0 + 2, 2, -1},
-  // dGameCom::CreateRedNumber
-  {0x800B3510 + 2, 2, -1},
-  // dGameCom::CreateSmallScore
-  {0x800B355C + 2, 2, -1},
-  // dGameCom::GoalScoreExecute
-  {0x800B35D0 + 2, 2, -1},
-
   // dMultiMng_c::setCollectionCoin
   {0x800CEC94 + 2, 2},
   {0x800CECB8 + 2, 2},
@@ -319,7 +310,7 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_807d7440
   {0x807D7488 + 2, 2},
 
-  // UNDEF_807dacb0 +TODO
+  // daCastleKokoopaDemo1st::checkBattleStDemo +TODO
   {0x807DAD80 + 2, 2},
   // TODO: {0x807DADC0 + 2, 2},
 
@@ -426,8 +417,6 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
 
   // daLineTrain_c::execute
   {0x8085B224 + 2, 2},
-
-  // TODO 0x80866560 adds lives to each player at the end of the 1-up house minigame
 
   // TODO 0x80868F00, 0x80868F90, 0x80869110 (daMiniGameWireMesh_c::executeState_PlayMove)
   // something related to the powerup house minigame
@@ -707,7 +696,7 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x80B50664 + 2, 2},
 
   // Morton stunning players?
-  // TODO: 80b60180
+  // TODO: 0x80B60180
   // TODO: 0x80B60220
 
   // Roy stunning players?

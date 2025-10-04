@@ -7,6 +7,15 @@
 class daYoshi_c : public daPlBase_c
 {
 public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
+      fBaseProfile_e::YOSHI,
+    };
+
+public:
     // -----------------
     // Virtual Functions
     // -----------------
