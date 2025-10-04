@@ -216,7 +216,29 @@ fBase_c::PACK_RESULT_e dSelectPlayer_c::createLayout()
 
     mLayout.mPriority = 8;
 
+    // Set this here for now
+    mMultiMode = false;
+
     return PACK_RESULT_e::SUCCEEDED;
+}
+
+[[address(0x807AC3D0)]]
+void dSelectPlayer_c::executeState_StartWait()
+{
+    if (!m0x26A) {
+        return;
+    }
+
+    m0x26A = false;
+    m0x26B = false;
+    mActDirection = 0;
+    mpaRootPanes[0]->SetVisible(!mMultiMode);
+    mpaRootPanes[1]->SetVisible(mMultiMode);
+    if (mMultiMode && mCurrentButton == 0) {
+        mCurrentButton = 1;
+    }
+
+    return mStateMgr.changeState(StateID_OnStageAnimeEndWait);
 }
 
 [[address(0x807AC4A0)]]
@@ -242,13 +264,23 @@ void dSelectPlayer_c::initializeState_ButtonChangeAnimeEndWait()
         SndAudioMgr::sInstance->startSystemSe(SE_SYS_CURSOR, 1);
     }
 
-    if (dInfo_c::mGameFlag & 0x10 && mCurrentButton < 4) {
+    if (mMultiMode && mCurrentButton < 4) {
         mButtonAnimeOn = (mCurrentButton - 1) + D00_Multi2_a_on;
     } else {
         mButtonAnimeOn = mCurrentButton + C00_Button1_a_on;
     }
 
     mLayout.AnimeStartSetup(mButtonAnimeOn, false);
+}
+
+[[address(0x807AC6E0)]]
+void dSelectPlayer_c::executeState_ButtonChangeAnimeEndWait()
+{
+    if (!mLayout.isAnime(-1)) {
+        return mStateMgr.changeState(
+          !mMultiMode ? StateID_StartMemberSelect : StateID_MultiStartMemberSelect
+        );
+    }
 }
 
 [[address(0x807AC780)]]
@@ -331,7 +363,7 @@ void dSelectPlayer_c::initializeState_StartMemberButtonAnime()
     SndAudioMgr::sInstance->startSystemSe(SE_SYS_DECIDE, 1);
     dSelectCursor_c::m_instance->Cancel(0);
 
-    if (dInfo_c::mGameFlag & 0x10 && mCurrentButton < 4) {
+    if (mMultiMode && mCurrentButton < 4) {
         mLayout.AnimeStartSetup(mCurrentButton + D00_Multi2_a_hit, false);
     } else {
         mLayout.AnimeStartSetup(mCurrentButton + C00_Button1_a_hit, false);

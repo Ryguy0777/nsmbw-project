@@ -52,6 +52,8 @@ public:
 
     /* 0x280 */ nw4r::lyt::Picture* mpaButtons[8 + 3];
 
+    bool mMultiMode;
+
 public:
     // ---------
     // State IDs
