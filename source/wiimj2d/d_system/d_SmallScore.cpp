@@ -19,9 +19,10 @@ void dSmallScore_c::setPlayer1000Color(int player)
       "#00B9DC", // Blue Toad
       "#FFFF00", // Yellow Toad
       "#FA8CFA", // Toadette
-      "#FFFFFF", // Player 5
-      "#FFFFFF", // Player 6
-      "#FFFFFF", // Player 7
+      "#B751FF", // Purple Toadette
+      "#FC834C", // Orange Toad
+      "#4E4E4E", // Black Toad
+      "#FFFFFF",
     };
 
     static constinit const nw4r::ut::Color l_PLY_COLOR_2[] = {
@@ -30,12 +31,16 @@ void dSmallScore_c::setPlayer1000Color(int player)
       "#D2FFFA", // Blue Toad
       "#FFFFB4", // Yellow Toad
       "#FFD1FF", // Toadette
-      "#FFFFFF", // Player 5
-      "#FFFFFF", // Player 6
-      "#FFFFFF", // Player 7
+      "#8121C4", // Purple Toadette
+      "#CE7046", // Orange Toad
+      "#323232", // Black Toad
+      "#FFFFFF",
     };
 
-    int index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
+    int index = PLAYER_COUNT;
+    if (player < PLAYER_COUNT) {
+        index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
+    }
 
     mTxt1000->SetVtxColor(0, l_PLY_COLOR_0[index]);
     mTxt1000->SetVtxColor(2, l_PLY_COLOR_2[index]);
@@ -50,12 +55,16 @@ void dSmallScore_c::setPlayer100Color(int player)
       "#46C8E6", // Blue Toad
       "#FAFF50", // Yellow Toad
       "#FA7AEF", // Toadette
-      "#FFFFFF", // Player 5
-      "#FFFFFF", // Player 6
-      "#FFFFFF", // Player 7
+      "#AD49EE", // Purple Toadette
+      "#CE4F16", // Orange Toad
+      "#383838", // Black Toad
+      "#FAFFFF",
     };
 
-    int index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
+    int index = PLAYER_COUNT;
+    if (player < PLAYER_COUNT) {
+        index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
+    }
 
     mTxt100->GetMaterial()->SetTevColor(1, l_PLY_COLOR[index]);
 }

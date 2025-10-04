@@ -28,10 +28,28 @@ u32 rndInt(u32 max);
 f32 getDispCenterX();
 
 [[address(0x800B34D0)]]
-void CreateBlueNumber(const mVec3_c&, int, int);
+void CreateBlueNumber(const mVec3_c& pos, int type, int playerNo)
+{
+    if (playerNo >= PLAYER_COUNT) {
+        return;
+    }
+
+    dSmallScoreManager_c::m_instance->CreateBlueNumber(
+      pos, type, static_cast<int>(daPyMng_c::mPlayerType[playerNo])
+    );
+}
 
 [[address(0x800B3510)]]
-void CreateRedNumber(const mVec3_c&, int);
+void CreateRedNumber(const mVec3_c& pos, int playerNo)
+{
+    if (playerNo >= PLAYER_COUNT) {
+        return;
+    }
+
+    dSmallScoreManager_c::m_instance->CreateRedNumber(
+      pos, static_cast<int>(daPyMng_c::mPlayerType[playerNo])
+    );
+}
 
 [[address(0x800B3540)]]
 void CreateSmallScore(const mVec3_c& pos, int type, int playerNo, bool goal)
@@ -55,7 +73,16 @@ void CreateSmallScore(const mVec3_c& pos, int type, int playerNo, bool goal)
 void CreateSmallAll1up(const mVec3_c&);
 
 [[address(0x800B35D0)]]
-void GoalScoreExecute(const mVec3_c&, int);
+void GoalScoreExecute(const mVec3_c& pos, int playerNo)
+{
+    if (playerNo >= PLAYER_COUNT) {
+        playerNo = 0;
+    }
+
+    dSmallScoreManager_c::m_instance->GoalScoreExecute(
+      pos, static_cast<int>(daPyMng_c::mPlayerType[playerNo])
+    );
+}
 
 [[address(0x800B3600)]]
 void FUN_800B3600() ASM_METHOD(

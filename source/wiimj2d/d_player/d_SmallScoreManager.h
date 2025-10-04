@@ -22,7 +22,7 @@ public:
     void CreateGoalScore(const mVec3_c& pos, int type, int color);
 
     /* 0x8010D160 */
-    void GoalScoreExecute(const mVec3_c& pos, int);
+    void GoalScoreExecute(const mVec3_c& pos, int color);
 
 public:
     // -----------
