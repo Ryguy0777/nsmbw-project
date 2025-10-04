@@ -149,13 +149,14 @@ void daWmPlayer_c::updateActivePlayers()
     dInfo_c* info = dInfo_c::m_instance;
 
     for (u32 i = 0; i < PLAYER_COUNT; i++) {
-        bool active = i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4];
+        bool active = (i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4]) == 3;
         if (active) {
+            std::size_t index = static_cast<std::size_t>(daPyMng_c::mPlayerType[i]);
             daPyMng_c::mPlayerEntry[i] = 1;
-            if (m_activeCharaFlag[i] == 3) {
-                setPlayerActive(i, i != 0, false);
+            if (m_activeCharaFlag[index] == 3) {
+                setPlayerActive(index, i != 0, false);
             } else {
-                setPlayerActive(i, i != 0, true);
+                setPlayerActive(index, i != 0, true);
             }
         }
     }
@@ -170,7 +171,7 @@ void daWmPlayer_c::updateActivePlayers()
     }
 
     for (u32 i = 0; i < PLAYER_COUNT; i++) {
-        m_activeCharaFlag[static_cast<u32>(daPyMng_c::mPlayerType[i])] =
+        m_activeCharaFlag[static_cast<std::size_t>(daPyMng_c::mPlayerType[i])] =
           info->getPlayerActiveMode(i);
     }
 
