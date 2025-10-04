@@ -73,7 +73,8 @@ public:
     /* 0x0C0 */ dWorldSelect_c* mpWSelect; // WORLD_SELECT
     /* 0x0C4 */ dWorldSelectGuide_c* mpWSelectGuide; // WORLD_SELECT_GUIDE
     /* 0x0C8 */ dCourseSelectGuide_c mCrsSelectGuide;
-    /* 0x518 */ da2DPlayer_c* mpa2DPlayer_Removed[4];
+    // Field removed and 16 bytes added to the end of dCourseSelectGuide_c
+    /* 0x518 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
     /* 0x528 */ dEasyPairing_c* mpEasyPairing; // EASY_PAIRING
     /* 0x52C */ dContinue_c* mpContinue; // CONTINUE
     /* 0x530 */ dYesNoWindow_c* mpYesNoWindow; // YES_NO_WINDOW

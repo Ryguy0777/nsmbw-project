@@ -71,8 +71,6 @@ pythonenv*
 .cache
 # Nested build directory
 /build*
-# VS out directories
-*out/
 # Xcode
 *.xcodeproj/
 # Local scripts
