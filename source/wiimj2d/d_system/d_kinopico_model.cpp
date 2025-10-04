@@ -7,6 +7,7 @@
 #include "d_system/d_player_model_manager.h"
 #include "machine/m_3d_anmtexpat.h"
 #include "machine/m_3d_mdl.h"
+#include <cstring>
 #include <nw4r/g3d/g3d_resmdl.h>
 
 dKinopicoMdl_c::dKinopicoMdl_c(u8 index)
@@ -14,7 +15,7 @@ dKinopicoMdl_c::dKinopicoMdl_c(u8 index)
 {
     static ModelData l_modelData = {
       "Kinopico",
-      "K_rcha",
+      "C_rcha",
       {"CB_model", "SCB_model", "PLCB_model", "PCB_model"},
       {"CH_model", "SCH_model", "PLCH_model", "PCH_model"},
       18.0,
@@ -25,7 +26,7 @@ dKinopicoMdl_c::dKinopicoMdl_c(u8 index)
 
     static ModelData l_modelDataPurple = {
       "KinopicoPurple",
-      "K_rcha",
+      "C_rcha",
       {"CB_model", "SCB_model", "PLCB_model", "PCB_model"},
       {"CH_model", "SCH_model", "PLCH_model", "PCH_model"},
       18.0,
@@ -88,6 +89,9 @@ m3d::anmTexPat_c* dKinopicoMdl_c::getBodyTexAnm()
     }
 }
 
+// TODO
+// void dKinopicoMdl_c::setTexAnmType(TexAnmType_e type);
+
 void dKinopicoMdl_c::setColorType(u8 colorType)
 {
     if (mCurColorType == colorType) {
@@ -135,6 +139,60 @@ void dKinopicoMdl_c::setColorType(u8 colorType)
         bodyTexAnm->setFrame(frame, 0);
         bodyMdl->setAnm(*bodyTexAnm);
     }
+}
+
+bool dKinopicoMdl_c::prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate)
+{
+    const char* s = nullptr;
+
+#define CASE(_key, _str)                                                                           \
+    case ChrAnmType_e::_key:                                                                       \
+        s = _str;                                                                                  \
+        break
+
+    if (mModelIdx == MODEL_e::MODEL_PENGUIN) {
+        switch (type) {
+        default:
+            break;
+
+            CASE(WAIT, "PCB_wait");
+            CASE(STAR_ROLL, "PCB_star_roll");
+            CASE(GOAL_PUTON_CAP2, "PCB_goal_puton_cap");
+        }
+    }
+    if (s == nullptr) {
+        if (dPlayerMdl_c::prepareBodyAnm(type, anm, noUpdate)) {
+            return true;
+        }
+        switch (type) {
+        default:
+            break;
+
+            CASE(WAIT, "CB_wait");
+            CASE(STOOP, "CB_stoop");
+            CASE(STOOP_START, "CB_stoop_start");
+            CASE(ROLL_JUMP, "CB_roll_jump");
+            CASE(MONKEY_START, "KB_monkey_start");
+            CASE(MONKEY_WAIT_R, "KB_monkey_wait_r");
+            CASE(MONKEY_WAIT_L, "KB_monkey_wait_l");
+            CASE(MONKEY_R_TO_L, "KB_monkey_r_to_l");
+            CASE(MONKEY_L_TO_R, "KB_monkey_l_to_r");
+            CASE(SJUMPED, "CB_Sjumped");
+            CASE(STAR_ROLL, "CB_star_roll");
+            CASE(GOAL_PUTON_CAP, "CB_goal_puton_cap");
+            CASE(BUSY_WAIT, "KB_busy_wait");
+            CASE(DEMO_TALK, "KB_demo_takl");
+            CASE(ENDING_WAIT, "KB_ending_wait");
+        }
+    }
+    if (s) {
+        *anm = mAnimResFile.GetResAnmChr(s);
+        if (!noUpdate) {
+            mFlags |= 0x400000;
+        }
+        mFlags2 |= 0x400000;
+    }
+    return !!s;
 }
 
 float dKinopicoMdl_c::VT_0xB4()

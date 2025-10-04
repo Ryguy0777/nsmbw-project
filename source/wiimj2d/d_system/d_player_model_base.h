@@ -4,6 +4,11 @@
 #include "machine/m_allocator.h"
 #include "machine/m_mtx.h"
 
+namespace nw4r::lyt
+{
+class ResAnmChr;
+}
+
 class dPyMdlBase_c
 {
     SIZE_ASSERT(0x20C);
@@ -27,6 +32,45 @@ public:
     // -------------------
 
     enum class TexAnmType_e {
+    };
+
+    /* @unofficial */
+    enum class ChrAnmType_e {
+        WAIT = 0,
+        WALK = 1,
+        RUN = 2,
+        B_DASH = 3,
+        B_DASH2 = 4,
+        JUMP = 5,
+        JUMP2 = 6,
+        JUMPED = 7,
+        _2JMP_C_1 = 8,
+        _2JMP_C_2 = 9,
+        _2JUMPED = 10,
+        ROLL_JUMP = 11,
+        _2JUMP2 = 12,
+        MAME_JUMP2 = 13,
+        TURN = 14,
+        TURNED = 15,
+        HIPSR = 16,
+        HIPAT = 17,
+        HIPED = 18,
+        HIP_TO_STOOP = 19,
+        STOOP = 20,
+        STOOP_START = 21,
+        SLIP = 22,
+        MONKEY_START = 0x2F,
+        MONKEY_WAIT_R = 0x30,
+        MONKEY_WAIT_L = 0x31,
+        MONKEY_R_TO_L = 0x32,
+        MONKEY_L_TO_R = 0x33,
+        GOAL_PUTON_CAP = 0x5A,
+        GOAL_PUTON_CAP2 = 0x5C,
+        STAR_ROLL = 0x75,
+        SJUMPED = 0x78,
+        DEMO_TALK = 0xAB,
+        BUSY_WAIT = 0xAC,
+        ENDING_WAIT = 0xAF,
     };
 
 public:
@@ -84,8 +128,8 @@ public:
     virtual void VT_0x58();
     /* VT+0x5C 0x800D5EC0 */
     virtual void setAnm(int, float, float, float);
-    /* VT+0x60 0x800D6920 */
-    virtual s32 VT_0x60(s32 param1, s32 param2, s32 param3);
+    /* VT+0x60 0x800D6920 @unofficial */
+    virtual bool prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* out, bool noUpdate);
     /* VT+0x64 0x800D62F0 */
     virtual void setBodyAnm(int, float, float, float);
     /* VT+0x68 0x800D63E0 */
@@ -145,6 +189,7 @@ public:
     FILL(0x154, 0x160);
 
     /* 0x160 */ u32 mFlags;
+    /* 0x164 */ u32 mFlags2;
 
-    FILL(0x164, 0x20C);
+    FILL(0x168, 0x20C);
 };

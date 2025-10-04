@@ -15,7 +15,11 @@ protected:
     void createAnim(m3d::anmTexPat_c& anm, const char* name, u8 modelIdx);
 
 public:
+    // void setTexAnmType(TexAnmType_e) override;
+
     void setColorType(u8 modelIndex) override;
+
+    bool prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate) override;
 
     float VT_0xB4() override;
 

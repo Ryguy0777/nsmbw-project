@@ -107,7 +107,8 @@ public:
     virtual void VT_0x58() override;
 
     /* VT+0x60 0x800D3FE0 */
-    virtual s32 VT_0x60(s32 param1, s32 param2, s32 param3) override;
+    virtual bool
+    prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate) override;
 
     /* VT+0x6C 0x800D41E0 */
     virtual void copyAnm() override;

@@ -4,6 +4,7 @@
 #include "d_kinopio_model.h"
 
 #include "d_system/d_player_model_manager.h"
+#include <nw4r/g3d/g3d_resanmchr.h>
 
 [[address(0x800BCBD0)]]
 dKinopioMdl_c::dKinopioMdl_c(u8 index)
@@ -72,7 +73,7 @@ void dKinopioMdl_c::setTexAnmType(TexAnmType_e);
 
 /* VT+0x60 */
 [[address(0x800BD260)]]
-s32 dKinopioMdl_c::VT_0x60(s32 param1, s32 param2, s32 param3);
+bool dKinopioMdl_c::prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate);
 
 /* VT+0x7C */
 [[address(0x800BD5D0)]]

@@ -93,7 +93,7 @@ void dPyMdlBase_c::VT_0x7C();
 
 /* VT+0x60 */
 [[address(0x800D6920)]]
-s32 dPyMdlBase_c::VT_0x60(s32 param1, s32 param2, s32 param3);
+bool dPyMdlBase_c::prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate);
 
 /* VT+0x58 */
 [[address(0x800D6930)]]

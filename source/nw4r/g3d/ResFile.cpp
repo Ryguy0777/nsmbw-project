@@ -9,6 +9,9 @@ namespace nw4r::g3d
 [[address(0x80239F70)]]
 ResMdl ResFile::GetResMdl(const char* name) const;
 
+[[address(0x8023A1F0)]]
+ResAnmChr ResFile::GetResAnmChr(const char* name) const;
+
 [[address(0x8023A340)]]
 ResAnmTexPat ResFile::GetResAnmTexPat(const char* name) const;
 

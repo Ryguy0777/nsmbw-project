@@ -55,7 +55,7 @@ void dPlayerMdl_c::VT_0x7C();
 
 /* VT+0x60 */
 [[address(0x800D3FE0)]]
-s32 dPlayerMdl_c::VT_0x60(s32 param1, s32 param2, s32 param3);
+bool dPlayerMdl_c::prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate);
 
 /* VT+0x58 */
 [[address(0x800D4150)]]

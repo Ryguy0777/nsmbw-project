@@ -24,6 +24,7 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "P_rcha",
       "L_rcha",
       "K_rcha",
+      "C_rcha", // Added
       "Y_rcha",
       "Y_TexGreen",
       "Y_TexRed",

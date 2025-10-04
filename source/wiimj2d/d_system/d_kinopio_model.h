@@ -27,7 +27,8 @@ public:
     virtual void setColorType(u8 colorType) override;
 
     /* VT+0x60 0x800BD260 */
-    virtual s32 VT_0x60(s32 param1, s32 param2, s32 param3) override;
+    virtual bool
+    prepareBodyAnm(ChrAnmType_e type, nw4r::g3d::ResAnmChr* anm, bool noUpdate) override;
 
     /* VT+0x7C 0x800BD5D0 */
     virtual void VT_0x7C() override;
