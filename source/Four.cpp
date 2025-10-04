@@ -119,6 +119,13 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dBg_c::calcAutoScroll
   {0x8007A5EC + 2, 2},
 
+  // dCyuukan_c::checkEntry
+  {0x8008EEE0 + 2, 2},
+  // dCyuukan_c::isCyuukanStart
+  {0x8008F038 + 2, 2},
+  // dCyuukan_c::getPlrNo
+  {0x8008F09C + 2, 2},
+
   // dEn_c::Area_X_check
   {0x80097890 + 2, 2},
   // dEn_c::Area_XY_check

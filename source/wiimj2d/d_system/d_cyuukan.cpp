@@ -15,7 +15,7 @@ void dCyuukan_c::clear()
     mCourse = -1;
     mIsKinopioInChukan = false;
     mPlayerSetPos = {};
-    m0x04 = -1;
+    mState = -1;
     for (int i = 0; i < std::size(mCollectionCoin); i++) {
         mCollectionCoin[i] = PLAYER_TYPE_e::COUNT;
     }

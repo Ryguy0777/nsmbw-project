@@ -183,7 +183,7 @@ void daPyMng_c::initStage()
         }
     }
 
-    if (dScStage_c::getCourseIn() && dInfo_c::m_instance->m0xAF4 >= 0 && isOnePlayer() &&
+    if (dScStage_c::getCourseIn() && dInfo_c::m_instance->mCyuukanState >= 0 && isOnePlayer() &&
         dInfo_c::m_instance->mCyuukan.mIsKinopioInChukan) {
         for (int i = 0; i < PLAYER_COUNT; i++) {
             if (mPlayerEntry[i] == 0) {
@@ -280,7 +280,7 @@ void daPyMng_c::createCourseInit()
     if (!dScStage_c::m_isStaffCredit) {
         bool isAmbush;
 
-        if (stage->m_isCourseIn && dInfo_c::m_instance->m0xAF4 >= 0) {
+        if (stage->m_isCourseIn && dInfo_c::m_instance->mCyuukanState >= 0) {
             playerSetPos = dInfo_c::m_instance->mCyuukan.mPlayerSetPos;
             isAmbush = dInfo_c::m_instance->mCyuukan.m0x14 & 1;
         } else {
@@ -1122,22 +1122,24 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  daPyMng_c::mCourseInList, {
-                              {0x8005D656, R_PPC_ADDR16_HA},
-                              {0x8005D65E, R_PPC_ADDR16_LO},
-                              {0x8005D662, R_PPC_ADDR16_LO},
-                              {0x800601E2, R_PPC_ADDR16_HA},
-                              {0x800601EA, R_PPC_ADDR16_LO},
-                            }
+  daPyMng_c::mCourseInList,
+  {
+    {0x8005D656, R_PPC_ADDR16_HA},
+    {0x8005D65E, R_PPC_ADDR16_LO},
+    {0x8005D662, R_PPC_ADDR16_LO},
+    {0x800601E2, R_PPC_ADDR16_HA},
+    {0x800601EA, R_PPC_ADDR16_LO},
+  }
 );
 
 PATCH_REFERENCES(
-  daPyMng_c::m_yoshiFruit, {
-                             {0x8005FC22, R_PPC_ADDR16_HA},
-                             {0x8005FC32, R_PPC_ADDR16_LO},
-                             {0x8005FC52, R_PPC_ADDR16_HA},
-                             {0x8005FC5A, R_PPC_ADDR16_LO},
-                           }
+  daPyMng_c::m_yoshiFruit,
+  {
+    {0x8005FC22, R_PPC_ADDR16_HA},
+    {0x8005FC32, R_PPC_ADDR16_LO},
+    {0x8005FC52, R_PPC_ADDR16_HA},
+    {0x8005FC5A, R_PPC_ADDR16_LO},
+  }
 );
 
 PATCH_REFERENCES(
@@ -1299,22 +1301,23 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  daPyMng_c::mCoin, {
-                      {0x80060206, R_PPC_ADDR16_HA},
-                      {0x80060216, R_PPC_ADDR16_LO},
-                      {0x800BB982, R_PPC_ADDR16_HA},
-                      {0x800BB9B6, R_PPC_ADDR16_LO},
-                      {0x800E17C6, R_PPC_ADDR16_HA},
-                      {0x800E17DA, R_PPC_ADDR16_LO},
-                      {0x800E197A, R_PPC_ADDR16_HA},
-                      {0x800E1992, R_PPC_ADDR16_LO},
-                      {0x8078904E, R_PPC_ADDR16_HA},
-                      {0x8078906A, R_PPC_ADDR16_LO},
-                      {0x8091F79E, R_PPC_ADDR16_HA},
-                      {0x8091F7BA, R_PPC_ADDR16_LO},
-                      {0x8092541A, R_PPC_ADDR16_HA},
-                      {0x8092544A, R_PPC_ADDR16_LO},
-                      {0x80A2B70E, R_PPC_ADDR16_HA},
-                      {0x80A2B722, R_PPC_ADDR16_LO},
-                    }
+  daPyMng_c::mCoin,
+  {
+    {0x80060206, R_PPC_ADDR16_HA},
+    {0x80060216, R_PPC_ADDR16_LO},
+    {0x800BB982, R_PPC_ADDR16_HA},
+    {0x800BB9B6, R_PPC_ADDR16_LO},
+    {0x800E17C6, R_PPC_ADDR16_HA},
+    {0x800E17DA, R_PPC_ADDR16_LO},
+    {0x800E197A, R_PPC_ADDR16_HA},
+    {0x800E1992, R_PPC_ADDR16_LO},
+    {0x8078904E, R_PPC_ADDR16_HA},
+    {0x8078906A, R_PPC_ADDR16_LO},
+    {0x8091F79E, R_PPC_ADDR16_HA},
+    {0x8091F7BA, R_PPC_ADDR16_LO},
+    {0x8092541A, R_PPC_ADDR16_HA},
+    {0x8092544A, R_PPC_ADDR16_LO},
+    {0x80A2B70E, R_PPC_ADDR16_HA},
+    {0x80A2B722, R_PPC_ADDR16_LO},
+  }
 );

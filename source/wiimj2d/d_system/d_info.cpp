@@ -73,7 +73,7 @@ EXTERN_SYMBOL(0x800BB8D0, "startStaffCredit__7dInfo_cFv");
 [[address(0x800BB940)]]
 void dInfo_c::initStage()
 {
-    m_startInfo.mCyuukan.m0x04 = mCyuukan.m0x04;
+    m_startInfo.mCyuukan.mState = mCyuukan.mState;
     m_startInfo.mCyuukan.mPlayerSetPos = mCyuukan.mPlayerSetPos;
     m_startInfo.mCyuukan.m0x14 = mCyuukan.m0x14;
     m_startInfo.mCyuukan.mWorld = mCyuukan.mWorld;
@@ -115,12 +115,12 @@ void dInfo_c::initStage()
     if ((m_startGameInfo.stage1 < STAGE_e::KINOKO_HOUSE ||
          m_startGameInfo.stage1 > STAGE_e::KINOKO_HOUSE_4) &&
         m_startGameInfo.stage1 != STAGE_e::PEACH_CASTLE) {
-        m0xAF4 = mCyuukan.m0x04;
+        mCyuukanState = mCyuukan.mState;
     } else {
-        m0xAF4 = -1;
+        mCyuukanState = -1;
     }
 
-    if (m0xAF4 < 0) {
+    if (mCyuukanState < 0) {
         for (int i = 0; i < COLLECTION_COIN_COUNT; i++) {
             dScStage_c::setCollectionCoin(i, PLAYER_TYPE_e::COUNT);
         }

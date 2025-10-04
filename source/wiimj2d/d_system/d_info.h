@@ -164,7 +164,7 @@ public:
 
     FILL(0x3B3, 0xAF4);
 
-    /* 0xAF4 */ s32 m0xAF4;
+    /* 0xAF4 */ int mCyuukanState;
 
     FILL(0xAF8, 0xAFC);
 

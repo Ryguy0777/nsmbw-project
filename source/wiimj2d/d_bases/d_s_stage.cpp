@@ -99,7 +99,7 @@ void dScStage_c::restoreStartInfo()
     dCyuukan_c* cyuukan = &info->mCyuukan;
     dStartInfo_c& startInfo = info->m_startInfo;
 
-    cyuukan->m0x04 = startInfo.mCyuukan.m0x04;
+    cyuukan->mState = startInfo.mCyuukan.mState;
     cyuukan->mPlayerSetPos = startInfo.mCyuukan.mPlayerSetPos;
     cyuukan->m0x14 = startInfo.mCyuukan.m0x14;
     cyuukan->mWorld = startInfo.mCyuukan.mWorld;

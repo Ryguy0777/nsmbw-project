@@ -33,7 +33,7 @@ public:
 
     FILL(0x00, 0x04);
 
-    /* 0x04 */ s32 m0x04;
+    /* 0x04 */ int mState;
     /* 0x08 */ mVec3_c mPlayerSetPos;
     /* 0x14 */ s32 m0x14;
     /* 0x18 */ WORLD_e mWorld;
