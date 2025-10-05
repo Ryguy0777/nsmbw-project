@@ -9,6 +9,9 @@ namespace d2d
 [[address(0x80006EA0)]]
 void Multi_c::entry();
 
+[[address(0x80007010)]]
+void Multi_c::draw();
+
 [[address(0x80006EB0)]]
 void Multi_c::calc();
 

@@ -2,6 +2,7 @@
 
 #include "Pane.h"
 #include "Resources.h"
+#include "nw4r/ut/Rect.h"
 
 namespace nw4r::lyt
 {
@@ -48,6 +49,9 @@ public:
 
     [[address(0x802AE2D0)]]
     ~TextBox();
+
+    [[address(0x802AE510)]]
+    ut::Rect GetTextDrawRect() const;
 
     [[address(0x802AF000)]]
     u16 SetString(const wchar_t* pStr, u16 pos);

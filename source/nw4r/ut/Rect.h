@@ -2,6 +2,7 @@
 
 namespace nw4r::ut
 {
+
 struct Rect {
     /* 0x00 */ f32 left;
     /* 0x04 */ f32 top;

@@ -7,6 +7,9 @@
 [[address_data(0x80428A42)]]
 u16 dScene_c::m_nowScene;
 
+[[address(0x800E1B10)]]
+dScene_c::~dScene_c();
+
 [[address(0x800E1F50)]]
 void dScene_c::setNextScene(u16 profile, u32 param, bool param2);
 

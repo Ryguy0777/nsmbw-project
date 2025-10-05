@@ -62,6 +62,12 @@ int dScCrsin_c::loadDefaultObjectResPhase()
     return 1;
 }
 
+[[address(0x8091EFD0)]]
+dScCrsin_c::~dScCrsin_c()
+{
+    mPreGameLyt.~dPreGameLyt_c();
+}
+
 [[address(0x8091F560)]]
 bool dScCrsin_c::isDoneLoading();
 
@@ -100,5 +106,5 @@ void dScCrsin_c::executeState_resWaitProc2()
         }
     }
 
-    changeState(StateID_createReplayHeapProc);
+    mStateMgr.changeState(StateID_createReplayHeapProc);
 }

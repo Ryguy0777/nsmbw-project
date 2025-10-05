@@ -13,10 +13,10 @@ public:
     // ----------------
 
     /* 0x800CE7F0 */
-    void MsgRes_c(const void*, EGG::Heap*);
+    MsgRes_c(const void*, EGG::Heap*);
 
     /* 0x800CE830 */
-    void ~MsgRes_c();
+    ~MsgRes_c();
 
     /* 0x800CE890 */
     void getScale(u32, u32);

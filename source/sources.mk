@@ -461,6 +461,9 @@ SOURCES += source/wiimj2d/d_bases/d_s_World9DeMo.cpp
 # d_s_crsin.cpp
 # NSMBW   d_bases.text:  0x8091EC10 - 0x80921060
 SOURCES += source/wiimj2d/d_bases/d_s_crsin.cpp
+# d_s_crsin_static.cpp
+# NSMBW          .sbss:  0x8042A490 - 0x8042A498
+SOURCES += source/wiimj2d/d_bases/d_s_crsin_static.cpp
 # d_s_game_over.cpp
 # NSMBW   d_bases.text:  0x80921060 - 0x80922060
 SOURCES += source/wiimj2d/d_bases/d_s_game_over.cpp
@@ -656,6 +659,15 @@ SOURCES += source/wiimj2d/state/s_StateMethod.cpp
 # s_StateMethodUsr_FI.cpp
 # NSMBW          .text:  0x8015FDD0 - 0x8015FF80
 SOURCES += source/wiimj2d/state/s_StateMethodUsr_FI.cpp
+
+#
+# wiimj2d/d_en_boss
+#
+#
+
+# d_pregamelyt.cpp
+# NSMBW d_en_boss.text:  0x80B6BCC0 - 0x80B6D1C0
+SOURCES += source/wiimj2d/d_en_boss/d_pregamelyt.cpp
 
 #
 # wiimj2d
