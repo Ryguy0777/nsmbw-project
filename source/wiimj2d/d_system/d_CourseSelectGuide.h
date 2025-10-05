@@ -55,6 +55,9 @@ public:
     /* 0x80010800 */
     void RestNumberDisp();
 
+    /* 0x800108C0 */
+    void RestAlphaDisp();
+
 public:
     // -----------
     // Member Data
@@ -94,7 +97,12 @@ public:
     // Used in one function so we can replace the type int -> short
     /* 0x414 */ s16 mStoredRestNumber[8];
 
-    FILL(0x424, 0x44E);
+    FILL(0x424, 0x42C);
+
+    /* 0x42C */ int mRestAlpha;
+    /* 0x430 */ int mRestAlphaTarget;
+
+    FILL(0x434, 0x44E);
 
     /* 0x44E */ bool mRestDispNeeded;
 

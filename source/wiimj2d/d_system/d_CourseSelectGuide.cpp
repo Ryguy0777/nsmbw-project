@@ -5,6 +5,7 @@
 
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
+#include <algorithm>
 
 [[address_data(0x80429EDC)]]
 dCourseSelectGuide_c* dCourseSelectGuide_c::m_instance;
@@ -139,4 +140,35 @@ void dCourseSelectGuide_c::RestNumberDisp()
     }
 
     mRestDispNeeded = false;
+}
+
+[[address(0x800108C0)]]
+void dCourseSelectGuide_c::RestAlphaDisp()
+{
+    if (mpExtra == nullptr) {
+        return;
+    }
+
+    if (mRestAlpha == mRestAlphaTarget) {
+        return;
+    }
+
+    if (mRestAlphaTarget < mRestAlpha) {
+        mRestAlpha = std::max<int>(mRestAlpha - 20, mRestAlphaTarget);
+    } else {
+        mRestAlpha = std::min<int>(mRestAlpha + 20, mRestAlphaTarget);
+    }
+
+    u8 alpha = mRestAlpha;
+    std::size_t i;
+    for (i = 0; i < 4; i++) {
+        mpNIconPos[i]->SetAlpha(alpha);
+        (&mpPMarioFace)[i]->SetAlpha(alpha);
+    }
+
+    Extra_s* extra = mpExtra;
+    for (; i < LytPlayerCount; i++) {
+        extra->mpNExIconPos[i - 4]->SetAlpha(alpha);
+        (&extra->mpPKinopicoFace)[i - 4]->SetAlpha(alpha);
+    }
 }
