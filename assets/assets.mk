@@ -42,9 +42,13 @@ $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/anim/staffCredit_00_newHighScor
 $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/anim/staffCredit_00_winPlayer.brlan.json5 \
 $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/blyt/staffCredit_00.brlyt.json5 \
 $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopicoIcon_01.tpl \
+$(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopicoIcon_gray.tpl \
 $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopicoIcon_Purple_01.tpl \
+$(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopicoIcon_Purple_gray.tpl \
 $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Black_01.tpl \
+$(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Black_gray.tpl \
 $(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_01.tpl \
+$(ASSETS)/Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_gray.tpl \
 $(ASSETS)/Object/C_rcha.arc/g3d/model.brres \
 $(ASSETS)/Object/Kinopico.arc/g3d/model.brres \
 $(ASSETS)/Object/KinopicoPurple.arc/g3d/model.brres \
