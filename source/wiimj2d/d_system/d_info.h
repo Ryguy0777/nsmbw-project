@@ -107,6 +107,9 @@ public:
     /* 0x800BB7D0 */
     void startGame(const StartGameInfo_s& startGameInfo);
 
+    /* 0x800BB8D0 */
+    void startStaffCredit();
+
     /* 0x800BB940 */
     void initStage();
 

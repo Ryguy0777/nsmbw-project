@@ -24,6 +24,8 @@ fBase_c::PACK_RESULT_e dScWorld9DeMo_c::create()
     dSys_c::setClearColor(nw4r::ut::Color{0, 0, 0, 255});
     mPad::setCurrentChannel(mPad::CH_e::CHAN_0);
 
+    initLight();
+
     dInfo_c::m_instance->m0xAFC = 0;
 
     dWmEffectManager_c::construct();

@@ -66,6 +66,9 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
+    dInfo_c::m_instance->startStaffCredit();
+    return;
+
     // Setup players for title screen test
     for (int i = 0; i < 4; i++) {
         // daPyMng_c::mPlayerType[i] = PLAYER_TYPE_e::TOADETTE;
