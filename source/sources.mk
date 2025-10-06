@@ -915,6 +915,14 @@ SOURCES += source/revolution/vi/i2c.c
 SOURCES += source/revolution/vi/vi3in1.c
 
 #
+# revolution/mtx
+#
+
+# vec.c
+# NSMBW          .text:  0x801C1530 - 0x801C17C0
+SOURCES += source/revolution/mtx/vec.c
+
+#
 # revolution/dvd
 #
 
@@ -1039,6 +1047,14 @@ SOURCES += source/egg/core/eggDisposer.cpp
 # eggController.cpp
 # NSMBW          .text:  0x802BC9D0 - 0x802BE710
 SOURCES += source/egg/core/eggController.cpp
+
+#
+# egg/math
+#
+
+# eggMath.cpp
+# NSMBW          .text:  0x802BE760 - 0x802BE820
+SOURCES += source/egg/math/eggMath.cpp
 
 #
 # egg/gfx

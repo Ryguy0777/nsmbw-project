@@ -25,10 +25,10 @@ public:
     enum class PATH_DIR_e {
         UP = 0,
         DOWN = 1,
-        Z_POSITIVE = 2,
-        Z_NEGATIVE = 3,
-        RIGHT = 4,
-        LEFT = 5,
+        SOUTH = 2,
+        NORTH = 3,
+        EAST = 4,
+        WEST = 5,
     };
 
 public:

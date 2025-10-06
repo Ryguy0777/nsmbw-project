@@ -80,6 +80,15 @@ public:
         /* 0x808EF6D0 */
         Node_s* popFirst();
 
+        Node_s* peekFirst() const
+        {
+            if (mUsedCount < 1) {
+                return nullptr;
+            }
+
+            return &mpNodes[mFirstNode];
+        }
+
         /* 0x0C */ u32 mUsedCount;
         /* 0x10 */ u32 mFirstNode;
     };
@@ -110,13 +119,15 @@ public:
     void loadModel();
 
     /* 0x808EDC40 */
-    void setWalkSpeed(f32 speed);
+    void setWalkSpeed(f32 multiplier);
 
     /* 0x808EE0C0 */
     s32 getPlayerOrder();
 
     /* 0x808EE110 */
     f32 getDistanceToAheadPlayer();
+
+    bool isPastAheadPlayer(float& distToNextNode);
 
     /* 0x808EE200 */
     dWmPlayerBase_c* getAheadPlayer();
@@ -157,12 +168,13 @@ public:
 
     /* 0x1CC */ dPyMdlMng_c* mModelManager;
 
-    FILL(0x1D0, 0x200);
+    FILL(0x1D0, 0x1F4);
 
+    /* 0x1F4 */ int mFromNode;
+    /* 0x1F8 */ int mToNode;
+    FILL(0x1FC, 0x200);
     /* 0x200 */ PATH_DIR_e mMoveDir;
-
     FILL(0x204, 0x208);
-
     /* 0x208 */ int mSubPlayerNo;
 
     FILL(0x20C, 0x214);
@@ -176,7 +188,7 @@ public:
 
     FILL(0x298, 0x2A8);
 
-    /* 0x2A8 */ s32 m0x2A8;
+    /* 0x2A8 */ s32 mPrevSpeedMultiply;
 
     OFFSET_ASSERT(0x2AC);
 };

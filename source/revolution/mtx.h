@@ -12,6 +12,17 @@ typedef float Mtx[3][4];
  */
 typedef float Mtx44[4][4];
 
+struct Vec2 {
+    float x;
+    float y;
+};
+
+struct Vec {
+    float x;
+    float y;
+    float z;
+};
+
 void PSMTXIdentity(Mtx* mtx);
 void PSMTXConcat(const Mtx* a, const Mtx* b, Mtx* out);
 void PSMTXCopy(const Mtx* src, Mtx* dst);
@@ -21,6 +32,16 @@ void PSMTXScale(Mtx* mtx, float x, float y, float z);
 void C_MTXFrustum(Mtx44*, float, float, float, float, float, float);
 void C_MTXPerspective(Mtx44*, float, float, float, float);
 void C_MTXOrtho(Mtx44*, float, float, float, float, float, float);
+
+void PSVECAdd(const Vec* a, const Vec* b, Vec* sum);
+void PSVECSubtract(const Vec* a, const Vec* b, Vec* diff);
+void PSVECScale(const Vec* in, Vec* out, f32 scale);
+void PSVECNormalize(const Vec* in, Vec* out);
+f32 PSVECMag(const Vec* v);
+f32 PSVECDotProduct(const Vec* a, const Vec* b);
+void PSVECCrossProduct(const Vec* a, const Vec* b, Vec* prod);
+f32 PSVECSquareDistance(const Vec* a, const Vec* b);
+void C_VECHalfAngle(const Vec* a, const Vec* b, Vec* half);
 
 /**
  * Sets the given matrix to the identity matrix.
@@ -46,5 +67,7 @@ void C_MTXOrtho(Mtx44*, float, float, float, float, float, float);
  * Sets a scaling matrix with the given components.
  */
 #define MTXScale(mtx, x, y, z) PSMTXScale(mtx, x, y, z)
+
+#define VECSquareDistance PSVECSquareDistance
 
 } // extern "C"

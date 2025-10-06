@@ -1,19 +1,9 @@
 #pragma once
 
+#include <revolution/mtx.h>
 #include <revolution/wpad.h>
 
 extern "C" {
-
-struct Vec2 {
-    float x;
-    float y;
-};
-
-struct Vec {
-    float x;
-    float y;
-    float z;
-};
 
 struct KPADEXStatus {
     SIZE_ASSERT(0x50);

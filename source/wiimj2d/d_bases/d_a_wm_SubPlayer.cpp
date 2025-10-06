@@ -3,6 +3,7 @@
 
 #include "d_a_wm_SubPlayer.h"
 
+#include "d_bases/d_a_wm_Map.h"
 #include "d_bases/d_a_wm_player.h"
 #include "d_player/d_s_boot.h"
 #include "d_system/d_player_model_manager.h"
@@ -10,6 +11,7 @@
 #include "machine/m_angle.h"
 #include "machine/m_heap.h"
 #include <AddressMapper.h>
+#include <revolution/os.h>
 
 /**
  * Copy of create.
@@ -138,19 +140,41 @@ s32 daWmSubPlayer_c::getPlayerOrder()
 [[address(0x808EE110)]]
 f32 daWmSubPlayer_c::getDistanceToAheadPlayer();
 
+bool daWmSubPlayer_c::isPastAheadPlayer(float& distToNextNode)
+{
+    if (getPlayerOrder() == 1 || mToNode < 0) {
+        return false;
+    }
+
+    dWmPlayerBase_c* base = getAheadPlayer();
+    if (base == nullptr) {
+        return false;
+    }
+
+    daWmSubPlayer_c* ahead = static_cast<daWmSubPlayer_c*>(base);
+
+    if (ahead->mNodeTrail.mUsedCount > mNodeTrail.mUsedCount) {
+        return true;
+    }
+    if (mToNode != ahead->mToNode) {
+        return false;
+    }
+
+    mVec3_c toPos = daWmMap_c::m_instance->GetPos(mToNode);
+    distToNextNode = mVec3_c::distance(mPos, toPos);
+    return distToNextNode < mVec3_c::distance(ahead->mPos, toPos);
+}
+
 [[address(0x808EE200)]]
 dWmPlayerBase_c* daWmSubPlayer_c::getAheadPlayer();
 
 [[address(0x808EE620)]]
 void daWmSubPlayer_c::calcWalkSpeed()
 {
-    f32 distance = getDistanceToAheadPlayer();
     f32 prevSpeedF = mSpeedF;
 
-    if (isWrongDirection(mMoveDir, daWmPlayer_c::ms_instance->getMovementDirection())) {
-        return;
-    }
-
+    bool ahead = false;
+    f32 distToNextNode;
     if (isSubPlayerStopPoint()) {
         const float l_SPEED_FACTOR_ARR[] = {
           1.00, 0.75, 0.50, 0.25, 0.18, 0.145, 0.11, 0.09,
@@ -158,21 +182,28 @@ void daWmSubPlayer_c::calcWalkSpeed()
 
         setWalkSpeed(l_SPEED_FACTOR_ARR[getPlayerOrder()]);
     } else if (mMoveDir != PATH_DIR_e::UP && mMoveDir != PATH_DIR_e::DOWN) {
-        if (distance < getPlayerOrderDistance()) {
+        ahead = isPastAheadPlayer(distToNextNode);
+        f32 distance;
+        if (ahead || (distance = getDistanceToAheadPlayer()) < 40.0) {
             setWalkSpeed(0.1);
-            m0x2A8 = 2;
+            mPrevSpeedMultiply = 2;
         } else if (distance < 70.0) {
             setWalkSpeed(0.75);
-            m0x2A8 = 2;
+            mPrevSpeedMultiply = 2;
         } else if (distance > 84.0) {
             setWalkSpeed(1.2);
-            m0x2A8 = 1;
+            mPrevSpeedMultiply = 1;
         } else {
             setWalkSpeed(1.0);
         }
     }
 
-    mSpeedF = prevSpeedF * 0.9 + mSpeedF * 0.1;
+    // Ease into the new speed a bit
+    if (!ahead || distToNextNode > 40.0) {
+        mSpeedF = prevSpeedF * 0.9 + mSpeedF * 0.1;
+    } else {
+        mSpeedF = 0;
+    }
 }
 
 [[address(0x808EE950)]]
@@ -183,55 +214,26 @@ f32 daWmSubPlayer_c::getPlayerOrderDistance()
 {
     using FloatArray = f32[];
 
-    return FloatArray{
-      // 2 players
-      0.0,
-      45.0,
+    return FloatArray{// 2 players
+                      0.0, 45.0,
 
-      // 3 players
-      0.0,
-      40.0,
-      40.0,
+                      // 3 players
+                      0.0, 40.0, 40.0,
 
-      // 4 players
-      0.0,
-      40.0,
-      40.0,
-      50.0,
+                      // 4 players
+                      0.0, 40.0, 40.0, 50.0,
 
-      // 5 players
-      0.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
+                      // 5 players
+                      0.0, 40.0, 40.0, 40.0, 40.0,
 
-      // 6 players
-      0.0,
-      40.0,
-      45.0,
-      50.0,
-      45.0,
-      40.0,
+                      // 6 players
+                      0.0, 40.0, 45.0, 50.0, 45.0, 40.0,
 
-      // 7 players
-      0.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
+                      // 7 players
+                      0.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0,
 
-      // 8 players
-      0.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
-      40.0,
+                      // 8 players
+                      0.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0
     }[getPlayerOrderTableIndex(getPlayerOrder())];
 }
 

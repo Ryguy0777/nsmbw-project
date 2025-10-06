@@ -1,11 +1,13 @@
 #pragma once
 
 #include "machine/m_angle.h"
+#include <egg/math/eggMath.h>
+#include <revolution/mtx.h>
 
 /**
  * A two-dimensional floating point vector.
  */
-class mVec2_c
+class mVec2_c : public Vec2
 {
     SIZE_ASSERT(0x8);
 
@@ -153,37 +155,27 @@ public:
         return x != v.x || y != v.y;
     }
 
-    // static float distance(mVec2_c& v1, mVec2_c& v2)
-    // {
-    //     v1 -= v2;
-    //     return v1.getLength();
-    // }
+    static float distance(mVec2_c& v1, mVec2_c& v2)
+    {
+        v1 -= v2;
+        return v1.getLength();
+    }
 
-    // float getLength() const
-    // {
-    //     return EGG::Math<float>::sqrt(x * x + y * y);
-    // }
+    float getLength() const
+    {
+        return EGG::Math<float>::sqrt(x * x + y * y);
+    }
 
     // float normalise() const
     // {
     //     return ((EGG::Vector2f*) this)->normalise();
     // }
-
-    /**
-     * The coordinates on the X axis.
-     */
-    float x;
-
-    /**
-     * The coordinates on the Y axis.
-     */
-    float y;
 };
 
 /**
  * A three-dimensional floating point vector.
  */
-class mVec3_c
+class mVec3_c : public Vec
 {
     SIZE_ASSERT(0xC);
 
@@ -321,6 +313,11 @@ public:
         return x != v.x || y != v.y || z != v.z;
     }
 
+    static float distance(const mVec3_c& v1, const mVec3_c& v2)
+    {
+        return EGG::Math<float>::sqrt(VECSquareDistance(&v1, &v2));
+    }
+
     /**
      * 0x80170AC0
      * Normalizes the vector.
@@ -346,21 +343,6 @@ public:
      * Rotates the vector on the Y axis by the given angle.
      */
     void rotY(mAng angle);
-
-    /**
-     * The coordinates on the X axis.
-     */
-    float x;
-
-    /**
-     * The coordinates on the Y axis.
-     */
-    float y;
-
-    /**
-     * The coordinates on the Y axis.
-     */
-    float z;
 
     /**
      * 0x803780C8

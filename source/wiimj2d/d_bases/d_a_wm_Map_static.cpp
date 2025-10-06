@@ -5,3 +5,6 @@
 
 [[address_data(0x8042A46C)]]
 daWmMap_c* daWmMap_c::m_instance;
+
+[[address(0x80100310)]]
+mVec3_c daWmMap_c::GetPos(int node);
