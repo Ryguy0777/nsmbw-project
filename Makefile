@@ -158,6 +158,7 @@ $(OUTPUT)/$(ARCHIVE).arc: $(DVD_FILES)
 
 $(ASSETS)/rels/project.SMAP: $(BUILD)/$(TARGET).elf
 	@echo Make: $(notdir $@)
+	@mkdir -p $(dir $@)
 	@$(PYTHON) $(GENSMAP) $< $@
 
 $(BUILD)/$(LOADER).elf: $(LOADER_OFILES)

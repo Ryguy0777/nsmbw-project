@@ -1,7 +1,6 @@
 #pragma once
 
 enum class Region {
-    Error,
     P1, // PAL revision 1
     P2, // PAL revision 2
     E1, // USA revision 1
@@ -11,4 +10,5 @@ enum class Region {
     K, // KOR
     W, // TWN
     C, // CHN (Nvidia Shield TV release)
+    Error,
 };

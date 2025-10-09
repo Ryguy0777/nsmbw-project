@@ -6,7 +6,7 @@
 #include "d_system/d_a_player_manager.h"
 #include "d_player/d_a_player.h"
 
-[[address_data(0x80355100)]]
+[[address_data(0x8042A0B0)]]
 dBgGm_c* dBg_c::m_bg_p;
 
 [[address(0x800785E0)]]

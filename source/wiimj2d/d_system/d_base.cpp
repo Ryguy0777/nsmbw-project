@@ -3,15 +3,27 @@
 
 #include "d_base.h"
 
+#include "d_bases/d_prof.h"
+#include <revolution/os.h>
+
 [[address(0x8006C420)]]
-dBase_c::dBase_c();
+dBase_c::dBase_c()
+  : m0x64(0)
+{
+    mpKindString = getKindString();
+    mpNameString = dProf::getName(mProfName);
+
+    OS_REPORT("Created base: %s\n", mpNameString);
+}
 
 /**
  * VT+0x48
  * Destroys the base.
  */
 [[address(0x8006C490)]]
-dBase_c::~dBase_c();
+dBase_c::~dBase_c()
+{
+}
 
 /**
  * VT+0x0C

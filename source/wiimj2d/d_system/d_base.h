@@ -74,7 +74,7 @@ public:
      */
     virtual const char* getKindString() const;
 
-    /* 0x64 */ u32 m_0x64;
+    /* 0x64 */ u32 m0x64;
 
     /**
      * A string describing the kind of this base.

@@ -15,9 +15,9 @@
 #include "d_system/d_resource_manager.h"
 #include "d_system/d_scene.h"
 #include "d_system/d_system.h"
-#include <egg/core/eggHeap.h>
 #include "machine/m_fader.h"
 #include "machine/m_heap.h"
+#include <egg/core/eggHeap.h>
 
 [[address(0x8042A620)]]
 dScBoot_c* dScBoot_c::m_instance;
@@ -62,43 +62,48 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
     changeState(StateID_ControllerInformationFadeIn);
 }
 
-#if 0
+#if 1
 [[address(0x8015D850)]]
 void dScBoot_c::executeState_ProcEnd()
 {
-    dInfo_c::m_instance->startStaffCredit();
-    return;
+    if (false) {
+        dScene_c::setNextScene(+fBaseProfile_e::MOVIE, 2, false);
+        return;
+    } else if (false) {
+        dInfo_c::m_instance->startStaffCredit();
+        return;
+    } else if (true) {
+        // Setup players for title screen test
+        for (int i = 0; i < 8; i++) {
+            // daPyMng_c::mPlayerType[i] = PLAYER_TYPE_e::TOADETTE;
+            daPyMng_c::mPlayerEntry[i] = 1;
 
-    // Setup players for title screen test
-    for (int i = 0; i < 4; i++) {
-        // daPyMng_c::mPlayerType[i] = PLAYER_TYPE_e::TOADETTE;
-        daPyMng_c::mPlayerEntry[i] = 1;
+            daPyMng_c::mPlayerMode[i] = PLAYER_MODE_e::PROPELLER_SHROOM;
+            daPyMng_c::mCreateItem[i] = PLAYER_CREATE_ITEM_e::NONE;
 
-        daPyMng_c::mPlayerMode[i] = PLAYER_MODE_e::PROPELLER_SHROOM;
-        daPyMng_c::mCreateItem[i] = PLAYER_CREATE_ITEM_e::NONE;
-
-        if (i < 4) {
-            dInfo_c::m_instance->mPlayerActiveMode[i] = 3;
-        } else {
-            dInfo_c::m_instance->mExPlayerActiveMode[i - 4] = 3;
+            if (i < 4) {
+                dInfo_c::m_instance->mPlayerActiveMode[i] = 3;
+            } else {
+                dInfo_c::m_instance->mExPlayerActiveMode[i - 4] = 3;
+            }
         }
+
+        //    daPyMng_c::mPlayerType[0] = PLAYER_TYPE_e::PURPLE_TOADETTE;
+        //    daPyMng_c::mPlayerEntry[0] = 1;
+        //    daPyMng_c::mRest[static_cast<std::size_t>(PLAYER_TYPE_e::PURPLE_TOADETTE)] = 1;
+
+        dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
+          .demoTime = 0,
+          .demoType = 0,
+          .gotoID = 2,
+          .courseID = 0,
+          .isDemo = false,
+          .screenType = dInfo_c::ScreenType_e::NORMAL,
+          .world1 = WORLD_e::WORLD_8,
+          .stage1 = STAGE_e::DOOMSHIP,
+          .world2 = WORLD_e::WORLD_8,
+          .stage2 = STAGE_e::DOOMSHIP,
+        });
     }
-
-//    daPyMng_c::mPlayerType[0] = PLAYER_TYPE_e::PURPLE_TOADETTE;
-//    daPyMng_c::mPlayerEntry[0] = 1;
-//    daPyMng_c::mRest[static_cast<std::size_t>(PLAYER_TYPE_e::PURPLE_TOADETTE)] = 1;
-
-    dInfo_c::m_instance->startGame(dInfo_c::StartGameInfo_s{
-      .demoTime = 0,
-      .demoType = 0,
-      .gotoID = 0,
-      .courseID = 0,
-      .isDemo = false,
-      .screenType = dInfo_c::ScreenType_e::NORMAL,
-      .world1 = WORLD_e::WORLD_1,
-      .stage1 = STAGE_e::STAGE_1,
-      .world2 = WORLD_e::WORLD_1,
-      .stage2 = STAGE_e::STAGE_1,
-    });
 }
 #endif

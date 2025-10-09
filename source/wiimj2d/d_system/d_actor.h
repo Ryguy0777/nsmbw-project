@@ -240,6 +240,12 @@ public:
       u16 profile, u32 settings, const mVec3_c* position, const mAng3_c* rotation, u8 layer
     );
 
+    /* 0x80064680 */
+    static dActor_c* construct(
+      u16 profile, dBase_c* owner, u32 settings, const mVec3_c* position, const mAng3_c* rotation,
+      u8 layer
+    );
+
 public:
     // -----------
     // Static Data

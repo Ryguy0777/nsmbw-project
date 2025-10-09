@@ -6,6 +6,7 @@
 struct _MRel_PatchRel {
     u32 addrP1;
     u8 type;
+    u16 addend = 0;
 
 #ifndef CLANGD
     u32 addrP2 = AddressMapperP2.MapAddress(addrP1);
@@ -35,6 +36,13 @@ struct _MRel_patch_references_array_entry {
     _MRel_PatchRel references[N];
 };
 
+template <u32 N>
+struct _MRel_patch_member_array_entry {
+    u32 offset;
+    u32 count = N;
+    _MRel_PatchRel references[N];
+};
+
 #define _PATCH_REFERENCES3(_COUNTER, _DEST, ...)                                                   \
     [[__gnu__::__section__("patch_references_array"                                                \
     )]] [[__gnu__::__used__]] static constinit _MRel_patch_references_array_entry                  \
@@ -45,3 +53,19 @@ struct _MRel_patch_references_array_entry {
 #define _PATCH_REFERENCES1(_COUNTER, _DEST, ...) _PATCH_REFERENCES2(_COUNTER, _DEST, __VA_ARGS__)
 
 #define PATCH_REFERENCES(_DEST, ...) _PATCH_REFERENCES1(__COUNTER__, _DEST, __VA_ARGS__)
+
+#define _PATCH_MEMBER_REFERENCES3(_COUNTER, _DEST, ...)                                            \
+    [[__gnu__::__section__("patch_references_array"                                                \
+    )]] [[__gnu__::__used__]] static constinit _MRel_patch_member_array_entry                      \
+      _MRel_patch_references_array_entry_##_COUNTER = {                                            \
+        .offset = _DEST, .references = __VA_ARGS__                                                 \
+    };
+
+#define _PATCH_MEMBER_REFERENCES2(_COUNTER, _DEST, ...)                                            \
+    _PATCH_MEMBER_REFERENCES3(_COUNTER, _DEST, __VA_ARGS__)
+
+#define _PATCH_MEMBER_REFERENCES1(_COUNTER, _DEST, ...)                                            \
+    _PATCH_MEMBER_REFERENCES2(_COUNTER, _DEST, __VA_ARGS__)
+
+#define PATCH_MEMBER_REFERENCES(_DEST, ...)                                                        \
+    _PATCH_MEMBER_REFERENCES1(__COUNTER__, _DEST, __VA_ARGS__)

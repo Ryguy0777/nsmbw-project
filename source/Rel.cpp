@@ -138,40 +138,9 @@ extern "C" void _prolog(s32 param1, void* param2)
     // Reference patches
     for (auto repl = _MRel_patch_references_array; repl != _MRel_patch_references_array_end;) {
         for (u32 i = 0; i < repl->count; i++) {
-            u32 offset = reinterpret_cast<u32>(repl->addr);
-            u32 ptr;
-            switch (codeRegion) {
-            case dSys_c::CODE_REGION_e::P1:
-                ptr = repl->references[i].addrP1;
-                break;
-            case dSys_c::CODE_REGION_e::P2:
-                ptr = repl->references[i].addrP2;
-                break;
-            case dSys_c::CODE_REGION_e::E1:
-                ptr = repl->references[i].addrE1;
-                break;
-            case dSys_c::CODE_REGION_e::E2:
-                ptr = repl->references[i].addrE2;
-                break;
-            case dSys_c::CODE_REGION_e::J1:
-                ptr = repl->references[i].addrJ1;
-                break;
-            case dSys_c::CODE_REGION_e::J2:
-                ptr = repl->references[i].addrJ2;
-                break;
-            case dSys_c::CODE_REGION_e::K:
-                ptr = repl->references[i].addrK;
-                break;
-            case dSys_c::CODE_REGION_e::W:
-                ptr = repl->references[i].addrW;
-                break;
-            case dSys_c::CODE_REGION_e::C:
-                ptr = repl->references[i].addrC;
-                break;
+            u32 offset = reinterpret_cast<u32>(repl->addr) + repl->references[i].addend;
+            u32 ptr = (&repl->references[i].addrP1)[static_cast<int>(codeRegion)];
 
-            default:
-                OSPanic(__FILE__, __LINE__, "Invalid code region %d", dSys_c::m_codeRegion);
-            }
             if (repl->references[i].type == R_PPC_ADDR16_LO) {
                 offset &= 0xFFFF;
             } else if (repl->references[i].type == R_PPC_ADDR16_HI) {

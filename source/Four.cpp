@@ -295,7 +295,10 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   {0x807CF35C + 2, 2},
   {0x807CF3E4 + 2, 2},
 
-  // TODO daBossKoopaJrDemo_c::UNDEF_807d03b0
+  // daBossKoopaJrDemo_c::UNDEF_807d05c0
+  {0x807D0650 + 2, 2},
+  // daBossKoopaJrDemo_c::UNDEF_807d06d0
+  {0x807D07B0 + 2, 2},
   // daBossKoopaJrDemo_c::UNDEF_807d0a30
   {0x807D0BAC + 2, 2},
   // daBossKoopaJrDemo_c::executeState_BattleEdDemo

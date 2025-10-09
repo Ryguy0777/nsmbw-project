@@ -67,9 +67,6 @@ SOURCES += source/wiimj2d/d_system/d_actor_groupid_mng.cpp
 # d_actor_mng.cpp
 # NSMBW          .text:  0x80066380 - 0x80066FB0
 SOURCES += source/wiimj2d/d_system/d_actor_mng.cpp
-# d_actor_name.cpp
-# NSMBW: ---
-SOURCES += source/wiimj2d/d_system/d_actor_name.cpp
 # d_actor_state.cpp
 # NSMBW          .text:  0x80066FB0 - 0x80068040
 SOURCES += source/wiimj2d/d_system/d_actor_state.cpp
@@ -342,6 +339,10 @@ SOURCES += source/wiimj2d/d_bases/d_SelectPlayer.cpp
 # NSMBW   d_bases.text:  0x807AF370 - 0x807B2030
 SOURCES += source/wiimj2d/d_bases/d_StockItem.cpp
 
+# d_a_boss_koopa_jr_demo.cpp
+# NSMBW   d_bases.text:  0x807D0070 - 0x807D2AC0
+SOURCES += source/wiimj2d/d_bases/d_a_boss_koopa_jr_demo.cpp
+
 # d_a_castle_kokoopa_demo_1st.cpp
 # NSMBW   d_bases.text:  0x807DAC10 - 0x807DCD80
 SOURCES += source/wiimj2d/d_bases/d_a_castle_kokoopa_demo_1st.cpp
@@ -352,6 +353,10 @@ SOURCES += source/wiimj2d/d_bases/d_a_castle_kokoopa_demo_2nd.cpp
 # d_a_chukan_point.cpp
 # NSMBW   d_bases.text:  0x807E2040 - 0x807E38A0
 SOURCES += source/wiimj2d/d_bases/d_a_chukan_point.cpp
+
+# d_a_floor_jr_C.cpp
+# NSMBW   d_bases.text:  0x807F1A00 - 0x807F2D30
+SOURCES += source/wiimj2d/d_bases/d_a_floor_jr_C.cpp
 
 # d_a_last_actor_stage.cpp
 # NSMBW   d_bases.text:  0x80830690 - 0x80830C40
@@ -449,6 +454,10 @@ SOURCES += source/wiimj2d/d_bases/d_a_wm_player.cpp
 # NSMBW          .text:  0x80100A10 - 0x801016B0
 # NSMBW          .sbss:  0x8042A47E - 0x8042A484
 SOURCES += source/wiimj2d/d_bases/d_a_wm_player_static.cpp
+
+# d_prof_static.cpp
+# NSMBW          .text:  0x801018C0 - 0x801018E0
+SOURCES += source/wiimj2d/d_bases/d_prof_static.cpp
 
 # d_s_GameSetup.cpp
 # NSMBW   d_bases.text:  0x80917960 - 0x8091A2F0

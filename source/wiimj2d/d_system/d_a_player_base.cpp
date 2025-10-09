@@ -3,11 +3,11 @@
 
 #include "d_a_player_base.h"
 
+#include "d_bases/d_prof.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 #include "d_player/d_gamedisplay.h"
 #include "d_system/d_a_player_manager.h"
-#include "d_system/d_actor_name.h"
 #include "d_system/d_game_common.h"
 #include "framework/f_base_profile.h"
 #include "framework/f_feature.h"
@@ -140,18 +140,18 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
 
     bool repeat = source ? source->mUniqueID == lastHit : false;
 
-    const char* selfName = dActorName::getActorFormattedName(this);
+    const char* selfName = dProf::getFormattedName(this);
     if (selfName == nullptr) {
         selfName = "Someone";
     }
 
-    const char* enemyName = dActorName::getActorFormattedName(source);
+    const char* enemyName = dProf::getFormattedName(source);
     fBaseProfile_e enemy = source ? fBaseProfile_e(source->mProfName) : fBaseProfile_e::LASTACTOR;
 
     fBase_c* lastEnemy = fManager_c::searchBaseByID(lastHit);
     const char* lastEnemyName = nullptr;
     if (lastEnemy != nullptr) {
-        lastEnemyName = dActorName::getActorFormattedName(lastEnemy);
+        lastEnemyName = dProf::getFormattedName(lastEnemy);
     }
 
     const char* messages[128] = {};

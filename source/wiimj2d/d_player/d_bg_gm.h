@@ -39,6 +39,12 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x00000, 0x900C6);
+    FILL(0x00000, 0x00110);
+
+    /* 0x00110 */ float m0x00110;
+    /* 0x00114 */ u8 m0x00114;
+
+    FILL(0x00115, 0x900C6);
+
     /* 0x900C6 */ bool mIsAutoscroll;
 };

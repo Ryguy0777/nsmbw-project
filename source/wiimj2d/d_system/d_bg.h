@@ -20,6 +20,6 @@ public:
     // Static Data
     // -----------
 
-    /* 0x80355100 */
+    /* 0x8042A0B0 */
     static dBgGm_c* m_bg_p;
 };
