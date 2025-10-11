@@ -1,15 +1,14 @@
 cmake_minimum_required(VERSION 3.23)
 
+set(HOST_EXECUTABLE_SUFFIX ${CMAKE_EXECUTABLE_SUFFIX})
+set(CMAKE_EXECUTABLE_SUFFIX ".elf")
+
 set(CMAKE_SYSTEM_NAME "Generic")
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR powerpc-eabi)
 
 if(NOT CLANG_DEFAULT)
-    if(WIN32)
-        set(CLANG_DEFAULT ${CMAKE_CURRENT_SOURCE_DIR}/tools/clang/clang.exe)
-    else()
-        set(CLANG_DEFAULT ${CMAKE_CURRENT_SOURCE_DIR}/tools/clang/clang)
-    endif()
+    set(CLANG_DEFAULT "${CMAKE_CURRENT_SOURCE_DIR}/tools/clang/clang${HOST_EXECUTABLE_SUFFIX}")
 endif()
 
 # Use the default clang if it exists, otherwise fall back to whatever cmake has decided
@@ -36,9 +35,6 @@ set(CMAKE_CXX_EXTENSIONS ON)
 
 set(CMAKE_CXX_FLAGS ${OLD_CXX_FLAGS})
 set(CMAKE_CXX_LINK_FLAGS "")
-
-set(HOST_EXECUTABLE_SUFFIX ${CMAKE_EXECUTABLE_SUFFIX})
-set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 
 include_directories(
     source
@@ -78,7 +74,7 @@ add_compile_options(
 )
 
 add_link_options(
-    --prefix=${DEVKITPPC}/bin/powerpc-eabi-
+    --prefix "${DEVKITPPC}/bin/powerpc-eabi-"
     -fuse-ld=ld
     -Wl,-n
     -Wl,--gc-sections
@@ -97,8 +93,8 @@ include(ExternalProject)
 ExternalProject_Add(
     tools
     PREFIX tools
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/tools
-    BINARY_DIR ${CMAKE_BINARY_DIR}/tools
+    SOURCE_DIR "${CMAKE_SOURCE_DIR}/tools"
+    BINARY_DIR "${CMAKE_BINARY_DIR}/tools"
     INSTALL_COMMAND ""
 )
 
@@ -117,11 +113,11 @@ foreach(region P1 P2 E1 E2 J1 J2 "K1;K" "W1;W" "C1;C")
         list(GET region 1 region)
     endif()
 
-    set(rel_file ${CMAKE_BINARY_DIR}/source/project_${suffix}.rel)
+    set(rel_file "${CMAKE_BINARY_DIR}/source/project_${suffix}.rel")
     add_custom_command(OUTPUT ${rel_file}
         DEPENDS tools project
         COMMENT "Linking Wii relocatable module project_${suffix}.rel"
-        COMMAND ${ELF2REL} ${CMAKE_BINARY_DIR}/source/project${CMAKE_EXECUTABLE_SUFFIX} ${rel_file} ${region}
+        COMMAND ${ELF2REL} "${CMAKE_BINARY_DIR}/source/project${CMAKE_EXECUTABLE_SUFFIX}" "${rel_file}" ${region}
     )
 endforeach()
 
@@ -138,30 +134,30 @@ foreach(out_name ${DVD_FILES})
             add_custom_command(OUTPUT ${dst}
                 DEPENDS ${src}
                 COMMENT "Copying ${out_name}"
-                COMMAND ${CMAKE_COMMAND} -E make_directory ${dst_directory}
-                COMMAND ${CMAKE_COMMAND} -E copy ${src} ${dst}
+                COMMAND ${CMAKE_COMMAND} -E make_directory "${dst_directory}"
+                COMMAND ${CMAKE_COMMAND} -E copy "${src}" "${dst}"
             )
         elseif("${dst}" MATCHES "\\.rel\\.LZ$")
             string(REPLACE ".LZ" "" src_name "${dst_name}")
             add_custom_command(OUTPUT ${dst}
                 DEPENDS tools "${CMAKE_BINARY_DIR}/source/${src_name}"
                 COMMENT "Compressing ${out_name}"
-                COMMAND ${CMAKE_COMMAND} -E make_directory ${dst_directory}
-                COMMAND ${LZX} -ewb ${CMAKE_BINARY_DIR}/source/${src_name} ${dst}
+                COMMAND ${CMAKE_COMMAND} -E make_directory "${dst_directory}"
+                COMMAND ${LZX} -ewb "${CMAKE_BINARY_DIR}/source/${src_name}" "${dst}"
             )
         elseif("${out_name}" MATCHES "(\\.brlyt|\\.brlan)$" AND EXISTS ${src}.json5)
             add_custom_command(OUTPUT ${dst}
                 DEPENDS "${src}.json5"
                 COMMENT "Encoding ${out_name}"
                 COMMAND ${CMAKE_COMMAND} -E make_directory ${dst_directory}
-                COMMAND python ${WUJ5} encode ${src}.json5 --outputs=${dst}
+                COMMAND python ${WUJ5} encode "${src}.json5" "--outputs=${dst}"
             )
         elseif("${out_name}" STREQUAL "rels/project.SMAP")
             add_custom_command(OUTPUT ${dst}
                 DEPENDS project ${GENSMAP}
                 COMMENT "Generating ${out_name}"
                 COMMAND ${CMAKE_COMMAND} -E make_directory ${dst_directory}
-                COMMAND python ${GENSMAP} ${CMAKE_BINARY_DIR}/source/project${CMAKE_EXECUTABLE_SUFFIX} ${dst}
+                COMMAND python ${GENSMAP} "${CMAKE_BINARY_DIR}/source/project${CMAKE_EXECUTABLE_SUFFIX}" "${dst}"
             )
         endif()
         list(APPEND DST_DVD_FILES ${dst})
@@ -174,5 +170,5 @@ add_custom_target(mkwcat-nsmbw.arc
     ALL
     DEPENDS ${DST_DVD_FILES}
     COMMENT "Packing archive mkwcat-nsmbw.arc"
-    COMMAND python ${WUJ5} encode ${BUILD_ARCHIVE} --output=${CMAKE_BINARY_DIR}/riivolution/mkwcat-nsmbw.arc
+    COMMAND python ${WUJ5} encode "${BUILD_ARCHIVE}" "--output=${CMAKE_BINARY_DIR}/riivolution/mkwcat-nsmbw.arc"
 )

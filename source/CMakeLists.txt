@@ -5,7 +5,7 @@ target_compile_options(project PRIVATE
 )
 
 target_link_options(project PRIVATE
-    -T${CMAKE_SOURCE_DIR}/source/Module.ld
+    -T "${CMAKE_SOURCE_DIR}/source/Module.ld"
     -r
 )
 
