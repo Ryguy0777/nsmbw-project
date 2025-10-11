@@ -33,7 +33,10 @@ template <u32 N>
 struct _MRel_patch_references_array_entry {
     const void* addr;
     u32 count = N;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wzero-length-array"
     _MRel_PatchRel references[N];
+#pragma clang diagnostic pop
 };
 
 template <u32 N>
