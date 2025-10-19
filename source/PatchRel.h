@@ -4,10 +4,17 @@
 #include <revolution/os/OSLink.h>
 
 struct _MRel_PatchRel {
-    u32 addrP1;
-    u8 type;
-    u16 addend = 0;
+    consteval _MRel_PatchRel(u32 _addrP1, u8 _type, u16 _addend = 0)
+      : type(_type)
+      , addend(_addend)
+      , addrP1(_addrP1)
+    {
+    }
 
+    u8 type;
+    u16 addend;
+
+    u32 addrP1;
 #ifndef CLANGD
     u32 addrP2 = AddressMapperP2.MapAddress(addrP1);
     u32 addrE1 = AddressMapperE1.MapAddress(addrP1);
