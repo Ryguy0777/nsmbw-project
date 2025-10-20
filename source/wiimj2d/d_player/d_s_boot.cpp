@@ -19,7 +19,7 @@
 #include "machine/m_heap.h"
 #include <egg/core/eggHeap.h>
 
-[[address(0x8042A620)]]
+[[address_data(0x8042A620)]]
 dScBoot_c* dScBoot_c::m_instance;
 
 int dScBoot_c::recreate()
