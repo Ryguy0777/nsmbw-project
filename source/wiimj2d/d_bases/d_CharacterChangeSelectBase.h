@@ -93,8 +93,10 @@ public:
     /* 0x080 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
     /* 0x080 */ da2DPlayer_c** mpa2DPlayer;
 
-    FILL(0x084, 0x298);
+    FILL(0x084, 0x296);
 
+    /* 0x296 */ bool m0x296;
+    /* 0x297 */ u8 m0x297;
     /* 0x298 */ u8 m0x298;
 
     FILL(0x299, 0x29A);
@@ -106,9 +108,15 @@ public:
     FILL(0x29D, 0x2D4);
 
     /* 0x2D4 */ PLAYER_TYPE_e mDecidedCharacter;
-    /* 0x2D8 */ u32 mSelectedCharacter;
+    /* 0x2D8 */ int mPlayerNo;
     /* 0x2DC */ u32 m0x2DC;
     /* 0x2E0 */ u32 mSelectedBaseIndex;
+
+    FILL(0x2E4, 0x2F0);
+
+    /* 0x2F0 */ float mBaseY;
+
+    OFFSET_ASSERT(0x2F4);
 
 public:
     // ---------

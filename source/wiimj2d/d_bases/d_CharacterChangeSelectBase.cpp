@@ -4,14 +4,16 @@
 #include "d_CharacterChangeSelectBase.h"
 
 #include "d_bases/d_CharacterChangeSelectContents.h"
+#include "d_bases/d_a_wm_2DPlayer.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_remocon_mng.h"
+#include "framework/f_sound_id.h"
+#include "sound/SndAudioMgr.h"
 #include <revolution/os.h>
 
 PLAYER_TYPE_e g_CHARACTER_FROM_BASE[] = {
-  PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,
-  PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,
-  PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE,
+  PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,      PLAYER_TYPE_e::YELLOW_TOAD,
+  PLAYER_TYPE_e::BLUE_TOAD,   PLAYER_TYPE_e::TOADETTE,   PLAYER_TYPE_e::PURPLE_TOADETTE,
   PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
 };
 
@@ -130,13 +132,13 @@ UNDEF_8076fc5c:;
   // clang-format on
 );
 
-PLAYER_TYPE_e  get_CHARACTER_FROM_BASE(u32 baseIndex)
+PLAYER_TYPE_e get_CHARACTER_FROM_BASE(u32 baseIndex)
 {
     return dCharacterChangeSelectBase_c::CHARACTER_FROM_BASE[4 - baseIndex];
 }
 
 [[address(0x8076FC80)]]
-bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e  character);
+bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e character);
 
 [[address(0x8076FD70)]]
 void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 swapIndex, u32 baseIndex)
@@ -246,7 +248,7 @@ void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait() ASM_METHOD
 /* 80770324 C00602AC */  lfs      f0, 684(r6);
 /* 80770328 C02602A8 */  lfs      f1, 680(r6);
 /* 8077032C C04602A4 */  lfs      f2, 676(r6);
-/* 80770330          */  lwzx     r5, r5, r0; 
+/* 80770330          */  lwzx     r5, r5, r0;
 /* 80770334 D0410008 */  stfs     f2, 8(r1);
 /* 80770338 D065025C */  stfs     f3, 604(r5);
 /* 80770340 D021000C */  stfs     f1, 12(r1);
@@ -290,9 +292,8 @@ UNDEF_807703d0:;
   // clang-format on
 )
 
-[[address(0x807708E0)]]
-void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
-  // clang-format off
+  [[address(0x807708E0)]] void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
+    // clang-format off
 /* 807708E0 9421FFE0 */  stwu     r1, -32(r1);
 /* 807708E4 7C0802A6 */  mflr     r0;
 /* 807708E8 90010024 */  stw      r0, 36(r1);
@@ -439,8 +440,8 @@ UNDEF_80770b24:;
 /* 80770B34 7C0803A6 */  mtlr     r0;
 /* 80770B38 38210020 */  addi     r1, r1, 32;
 /* 80770B3C 4E800020 */  blr;
-  // clang-format on
-);
+    // clang-format on
+  );
 
 [[address(0x80770EE0)]]
 void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageWait() ASM_METHOD(
@@ -514,144 +515,35 @@ void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageW
 );
 
 [[address(0x80771090)]]
-void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait() ASM_METHOD(
-  // clang-format off
-/* 80771090 9421FFF0 */  stwu     r1, -16(r1);
-/* 80771094 7C0802A6 */  mflr     r0;
-/* 80771098 90010014 */  stw      r0, 20(r1);
-/* 8077109C 93E1000C */  stw      r31, 12(r1);
-/* 807710A0 7C7F1B78 */  mr       r31, r3;
-/* 807710A4 800302D4 */  lwz      r0, 724(r3);
-                         cmpwi    r0, 0;
-                         bne-     L_initializeState_PlayerOnStageWait_LuigiSound;
-                         
-                         // Mario voice
-                         slwi     r0, r0, 2;
-                         lwz      r3, 0x80(r3);
-                         lwzx     r3, r3, r0;
-                         lwz      r0, 568(r3);
-                         cmpwi    r0, 3;
-                         bne-     L_initializeState_PlayerOnStageWait_MarioSoundNotMini;
-                         lis      r3, UNDEF_8042a768@ha;
-                         li       r4, 798; // SE_VOC_MA_PLAYER_JOIN_MAME
-                         lwz      r3, UNDEF_8042a768@l(r3);
-                         li       r5, 1;
-                         bl       UNDEF_801954c0;
-                         b        UNDEF_8077118c;
-L_initializeState_PlayerOnStageWait_MarioSoundNotMini:;
-                         lis      r3, UNDEF_8042a768@ha;
-                         li       r4, 797; // SE_VOC_MA_PLAYER_JOIN
-                         lwz      r3, UNDEF_8042a768@l(r3);
-                         li       r5, 1;
-                         bl       UNDEF_801954c0;
-                         b        UNDEF_8077118c;
+void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
+{
+    std::size_t index = static_cast<std::size_t>(mDecidedCharacter);
+    da2DPlayer_c* player = mpa2DPlayer[index];
 
-L_initializeState_PlayerOnStageWait_LuigiSound:;
-/* 807710A8 2C000001 */  cmpwi    r0, 1;
-/* 807710AC 4082004C */  bne-     L_initializeState_PlayerOnStageWait_BlueToadSound;
-/* 807710B0 5400103A */  slwi     r0, r0, 2;
-/* 807710B4          */  lwz      r3, 0x80(r3);
-/* 807710B8          */  lwzx     r3, r3, r0;
-/* 807710BC 80030238 */  lwz      r0, 568(r3);
-/* 807710C0 2C000003 */  cmpwi    r0, 3;
-/* 807710C4 4082001C */  bne-     UNDEF_807710e0;
-/* 807710C8 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 807710CC 38800366 */  li       r4, 870;
-/* 807710D0 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 807710D4 38A00001 */  li       r5, 1;
-/* 807710D8 4BA243E9 */  bl       UNDEF_801954c0;
-/* 807710DC 480000B0 */  b        UNDEF_8077118c;
-UNDEF_807710e0:;
-/* 807710E0 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 807710E4 38800365 */  li       r4, 869;
-/* 807710E8 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 807710EC 38A00001 */  li       r5, 1;
-/* 807710F0 4BA243D1 */  bl       UNDEF_801954c0;
-/* 807710F4 48000098 */  b        UNDEF_8077118c;
+    u16 sound = ArrayOf<u16[2]>{
+      {SE_VOC_MA_PLAYER_JOIN, SE_VOC_MA_PLAYER_JOIN_MAME},
+      {SE_VOC_LU_PLAYER_JOIN, SE_VOC_LU_PLAYER_JOIN_MAME},
+      {SE_VOC_KO_PLAYER_JOIN, SE_VOC_KO_PLAYER_JOIN_MAME},
+      {SE_VOC_KO2_PLAYER_JOIN, SE_VOC_KO2_PLAYER_JOIN_MAME},
+      {SE_VOC_KC_PLAYER_JOIN, SE_VOC_KC_PLAYER_JOIN_MAME},
+      {SE_VOC_KC_PLAYER_JOIN, SE_VOC_KC_PLAYER_JOIN_MAME},
+      {SE_VOC_KO_PLAYER_JOIN, SE_VOC_KO_PLAYER_JOIN_MAME},
+      {SE_VOC_KO2_PLAYER_JOIN, SE_VOC_KO2_PLAYER_JOIN_MAME},
+    }[index % 8][player->mPowerup == PLAYER_MODE_e::MINI_MUSHROOM];
 
-L_initializeState_PlayerOnStageWait_BlueToadSound:;
-/* 807710F8 2C000002 */  cmpwi    r0, 2;
-/* 807710FC 4082004C */  bne-     L_initializeState_PlayerOnStageWait_YellowToadSound;
-/* 80771100 5400103A */  slwi     r0, r0, 2;
-/* 80771104          */  lwz      r3, 0x80(r3);
-/* 80771108          */  lwzx     r3, r3, r0;
-/* 8077110C 80030238 */  lwz      r0, 568(r3);
-/* 80771110 2C000003 */  cmpwi    r0, 3;
-/* 80771114 4082001C */  bne-     UNDEF_80771130;
-/* 80771118 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 8077111C 388003AD */  li       r4, 941;
-/* 80771120 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 80771124 38A00001 */  li       r5, 1;
-/* 80771128 4BA24399 */  bl       UNDEF_801954c0;
-/* 8077112C 48000060 */  b        UNDEF_8077118c;
-UNDEF_80771130:;
-/* 80771130 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 80771134 388003AC */  li       r4, 940;
-/* 80771138 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 8077113C 38A00001 */  li       r5, 1;
-/* 80771140 4BA24381 */  bl       UNDEF_801954c0;
-/* 80771144 48000048 */  b        UNDEF_8077118c;
+    SndAudioMgr::sInstance->startSystemSe(sound, 1);
+    daPyMng_c::mPlayerType[mPlayerNo] = mDecidedCharacter;
+    if (!player->m0x262 && !player->m0x263) {
+        player->m0x263 = true;
+        player->m0x23C = 2;
+        player->m0x240 = true;
+        player->m0x250 = 1.0f;
+        player->m0x265 = true;
+    }
+    player->mBaseY = mBaseY;
 
-L_initializeState_PlayerOnStageWait_YellowToadSound:;
-/* 80771148 5400103A */  slwi     r0, r0, 2;
-/* 8077114C          */  lwz      r3, 0x80(r3);
-/* 80771150          */  lwzx     r3, r3, r0;
-/* 80771154 80030238 */  lwz      r0, 568(r3);
-/* 80771158 2C000003 */  cmpwi    r0, 3;
-/* 8077115C 4082001C */  bne-     UNDEF_80771178;
-/* 80771160 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 80771164 388003F3 */  li       r4, 1011;
-/* 80771168 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 8077116C 38A00001 */  li       r5, 1;
-/* 80771170 4BA24351 */  bl       UNDEF_801954c0;
-/* 80771174 48000018 */  b        UNDEF_8077118c;
-UNDEF_80771178:;
-/* 80771178 3C608043 */  lis      r3, UNDEF_8042a768@ha;
-/* 8077117C 388003F2 */  li       r4, 1010;
-/* 80771180 8063A768 */  lwz      r3, UNDEF_8042a768@l(r3);
-/* 80771184 38A00001 */  li       r5, 1;
-/* 80771188 4BA24339 */  bl       UNDEF_801954c0;
-UNDEF_8077118c:;
-/* 8077118C 801F02D8 */  lwz      r0, 728(r31);
-/* 80771190 3C608035 */  lis      r3, mPlayerType__9daPyMng_c@ha;
-/* 80771194 80BF02D4 */  lwz      r5, 724(r31);
-/* 80771198 38635160 */  addi     r3, r3, mPlayerType__9daPyMng_c@l;
-/* 8077119C 5404103A */  slwi     r4, r0, 2;
-/* 807711A0 54A0103A */  slwi     r0, r5, 2;
-/* 807711A4 7CA3212E */  stwx     r5, r3, r4;
-/* 807711A8          */  lwz      r3, 0x80(r31);
-/* 807711AC          */  lwzx     r5, r3, r0;
-/* 807711B0 88050262 */  lbz      r0, 610(r5);
-/* 807711B4 2C000000 */  cmpwi    r0, 0;
-/* 807711B8 40820034 */  bne-     UNDEF_807711ec;
-/* 807711BC 88050263 */  lbz      r0, 611(r5);
-/* 807711C0 2C000000 */  cmpwi    r0, 0;
-/* 807711C4 40820028 */  bne-     UNDEF_807711ec;
-/* 807711C8 38800001 */  li       r4, 1;
-/* 807711CC 98850263 */  stb      r4, 611(r5);
-/* 807711D0 38000002 */  li       r0, 2;
-/* 807711D4 3C608093 */  lis      r3, UNDEF_80933d50@ha;
-/* 807711D8 9005023C */  stw      r0, 572(r5);
-/* 807711DC C0033D50 */  lfs      f0, UNDEF_80933d50@l(r3);
-/* 807711E0 90850240 */  stw      r4, 576(r5);
-/* 807711E4 D0050250 */  stfs     f0, 592(r5);
-/* 807711E8 98850265 */  stb      r4, 613(r5);
-UNDEF_807711ec:;
-/* 807711EC 807F02D4 */  lwz      r3, 724(r31);
-/* 807711F0 38000001 */  li       r0, 1;
-/* 807711F4 C01F02F0 */  lfs      f0, 752(r31);
-/* 807711F8 5463103A */  slwi     r3, r3, 2;
-/* 807711FC          */  lwz      r4, 0x80(r31);
-/* 80771200          */  lwzx     r3, r4, r3;
-/* 80771204 D003025C */  stfs     f0, 604(r3);
-/* 80771208 981F0296 */  stb      r0, 662(r31);
-/* 8077120C 83E1000C */  lwz      r31, 12(r1);
-/* 80771210 80010014 */  lwz      r0, 20(r1);
-/* 80771214 7C0803A6 */  mtlr     r0;
-/* 80771218 38210010 */  addi     r1, r1, 16;
-/* 8077121C 4E800020 */  blr;
-  // clang-format on
-);
+    m0x296 = true;
+}
 
 [[address(0x80771220)]]
 void dCharacterChangeSelectBase_c::executeState_PlayerOnStageWait() ASM_METHOD(
