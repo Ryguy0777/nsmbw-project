@@ -7,7 +7,7 @@
 void dCharacterChangeSelectArrow_c::executeState_OnStageWait() ASM_METHOD(
   // clang-format off
 /* 8076E600 80030264 */  lwz      r0, 612(r3);
-/* 8076E604 2C000001 */  cmpwi    r0, 1;
+/* 8076E604          */  cmpwi    r0, -3;
 /* 8076E608 40820024 */  bne-     UNDEF_8076e62c;
 /* 8076E60C 38800001 */  li       r4, 1;
 /* 8076E610 38000000 */  li       r0, 0;
@@ -58,7 +58,7 @@ void dCharacterChangeSelectArrow_c::executeState_HitAnimeEndWait() ASM_METHOD(
 /* 8076EA2C 801F0260 */  lwz      r0, 608(r31);
 /* 8076EA30 7C001800 */  cmpw     r0, r3;
 /* 8076EA34 41820100 */  beq-     UNDEF_8076eb34;
-/* 8076EA38 2C030001 */  cmpwi    r3, 1;
+/* 8076EA38          */  cmpwi    r3, -3;
 /* 8076EA3C 907F0260 */  stw      r3, 608(r31);
 /* 8076EA40 40820044 */  bne-     UNDEF_8076ea84;
 /* 8076EA44 801F0250 */  lwz      r0, 592(r31);
