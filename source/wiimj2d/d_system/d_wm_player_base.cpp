@@ -3,6 +3,11 @@
 
 #include "d_wm_player_base.h"
 
+dWmPlayerBase_c::ACTOR_KIND_e dWmPlayerBase_c::GetActorType()
+{
+    return ACTOR_KIND_e::ACTOR_UNK_6;
+}
+
 /**
  * VT+0x78
  */

@@ -2,11 +2,13 @@ add_executable(project "")
 
 target_compile_options(project PRIVATE
     -include System.h
+    -ffile-prefix-map=${CMAKE_SOURCE_DIR}/source=mkwcat-nsmbw:
 )
 
 target_link_options(project PRIVATE
     -T "${CMAKE_SOURCE_DIR}/source/Module.ld"
     -r
+    -Wl,--force-group-allocation
 )
 
 file(GLOB_RECURSE C_SOURCE_FILES "${CMAKE_SOURCE_DIR}/*.c")

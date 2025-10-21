@@ -257,3 +257,8 @@ extern "C" void* __register_global_object(void* object, void* dtor, DestructorCh
 
     return object;
 };
+
+extern "C" void __cxa_pure_virtual()
+{
+    OS_PANIC("Call of pure virtual function!\n");
+}

@@ -1,4 +1,4 @@
-// SndObjctPly.cpp
+// SndObjectPlayer.cpp
 // NSMBW .text: 0x8019A0F0 - 0x8019B240
 
 #include "SndObjectPlayer.h"
@@ -494,4 +494,8 @@ nw4r::snd::SoundHandle* SndObjctPly::holdVoiceSound(PLAYER_VOICE_e voice, u32 re
     }
 
     return handle;
+}
+
+SndObjctPly::~SndObjctPly()
+{
 }

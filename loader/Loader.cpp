@@ -252,11 +252,14 @@ u32 g_StreamDecompLZVTable[] = {
 #endif
 };
 
-EGG::StreamDecompLZ MakeStreamDecompLZ()
+EGG::StreamDecompLZ MakeStreamDecompLZ() asm("MakeStreamDecompLZ");
+EGG::StreamDecompLZ* MakeStreamDecompLZ(EGG::StreamDecompLZ* lzStream) asm("MakeStreamDecompLZ");
+
+EGG::StreamDecompLZ* MakeStreamDecompLZ(EGG::StreamDecompLZ* lzStream)
 {
-    EGG::StreamDecompLZ lzStream;
-    int portIndex = g_portOffset - PORT_CALL_BASE;
-    *reinterpret_cast<u32*>(&lzStream) = g_StreamDecompLZVTable[portIndex / 4];
+    // Hack to construct without needing a vtable reference
+    const int portIndex = (g_portOffset - PORT_CALL_BASE) >> 2;
+    *reinterpret_cast<u32*>(lzStream) = g_StreamDecompLZVTable[portIndex];
     return lzStream;
 }
 

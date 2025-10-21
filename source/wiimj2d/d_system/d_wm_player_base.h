@@ -21,7 +21,6 @@ public:
      * VT+0x58 0x808EF670 - Inlined somewhere?
      * Gets the actor kind. See ACTOR_KIND_e.
      */
-    [[address(0x808EF670)]]
     virtual ACTOR_KIND_e GetActorType() override;
 
     /**

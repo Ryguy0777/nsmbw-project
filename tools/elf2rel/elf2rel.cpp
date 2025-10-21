@@ -244,6 +244,11 @@ int main(int argc, char** argv)
         elfSectIndex++;
     }
 
+    if (relSectIndex > 256) {
+        printf("Too many sections in output module!\n");
+        return 1;
+    }
+
     // Write sections
     std::vector<uint8_t> sectionInfoBuffer;
 
@@ -504,6 +509,58 @@ int main(int argc, char** argv)
               instructionBuffer.begin(), instructionBuffer.end(), outputBuffer.begin() + offset
             );
 
+            continue;
+        }
+
+        // Resolve regular ADDR references to fixed address
+        if (nextRel.moduleID == 0 &&
+            (nextRel.type == R_PPC_ADDR32 || nextRel.type == R_PPC_ADDR24 ||
+             nextRel.type == R_PPC_ADDR16 || nextRel.type == R_PPC_ADDR16_LO ||
+             nextRel.type == R_PPC_ADDR16_HI || nextRel.type == R_PPC_ADDR16_HA ||
+             nextRel.type == R_PPC_ADDR14 || nextRel.type == R_PPC_ADDR14_BRTAKEN ||
+             nextRel.type == R_PPC_ADDR14_BRNKTAKEN)) {
+            int offset = writtenSections.at(inputElf.sections[relToElfSection[nextRel.section]]) +
+                         nextRel.offset;
+            uint32_t target = nextRel.addend;
+
+            std::vector<uint8_t> instructionBuffer(
+              outputBuffer.begin() + offset, outputBuffer.begin() + offset + 4
+            );
+            uint32_t patchedData;
+            load(instructionBuffer, patchedData);
+
+            switch (nextRel.type) {
+            case R_PPC_ADDR32:
+                patchedData = target;
+                break;
+            case R_PPC_ADDR24:
+                patchedData = (patchedData & ~0x03fffffc) | (target & 0x03fffffc);
+                break;
+            case R_PPC_ADDR16:
+            case R_PPC_ADDR16_LO:
+                patchedData = (patchedData & 0xffff) | (target << 16);
+                break;
+            case R_PPC_ADDR16_HI:
+                patchedData = (patchedData & 0xffff) | (target & ~0xffff);
+                break;
+            case R_PPC_ADDR16_HA:
+                patchedData = (patchedData & 0xffff) | ((target + 0x8000) & ~0xffff);
+                break;
+            case R_PPC_ADDR14:
+                patchedData = (patchedData & ~0xfffc) | (target & 0xfffc);
+                break;
+            case R_PPC_ADDR14_BRTAKEN:
+                patchedData = (patchedData & ~0x20fffc) | (target & 0xfffc) | 0x00200000;
+                break;
+            case R_PPC_ADDR14_BRNKTAKEN:
+                patchedData = (patchedData & ~0x20fffc) | (target & 0xfffc);
+                break;
+            }
+
+            save(instructionBuffer, patchedData);
+            std::copy(
+              instructionBuffer.begin(), instructionBuffer.end(), outputBuffer.begin() + offset
+            );
             continue;
         }
 

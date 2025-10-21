@@ -119,9 +119,7 @@ public:
     {
     }
 
-    virtual ~SndObjctPly() override
-    {
-    }
+    virtual ~SndObjctPly() override;
 
 public:
     // -----------------
