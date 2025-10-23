@@ -176,7 +176,7 @@ extern "C" NANDResult nandConvertErrorCode(s32 isfsError);
 int dNandThread_c::save()
 {
     const char* tmpPath = "/tmp/mkwcat-nsmbw.json";
-    char tmpPathData[64];
+    char tmpPathData[64] = {};
     NANDResult result = NANDCreate(tmpPath, 0x3C, 0);
     if (result == NAND_RESULT_INVALID) {
         // Might fail on console if /tmp is not redirected, due to the 12 character filename limit.
@@ -188,6 +188,7 @@ int dNandThread_c::save()
         }
         std::strcat(tmpPathData, "/mkwcat-nsmbw.json.tmp");
         result = NANDCreate(tmpPathData, 0x3C, 0);
+        tmpPath = tmpPathData;
     }
     setNandError(result);
     if (isError()) {

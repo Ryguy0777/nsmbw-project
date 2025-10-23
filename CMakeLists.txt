@@ -1,14 +1,11 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(HOST_EXECUTABLE_SUFFIX ${CMAKE_EXECUTABLE_SUFFIX})
-set(CMAKE_EXECUTABLE_SUFFIX ".elf")
-
 set(CMAKE_SYSTEM_NAME "Generic")
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR powerpc-eabi)
 
 if(NOT CLANG_DEFAULT)
-    set(CLANG_DEFAULT "${CMAKE_CURRENT_SOURCE_DIR}/tools/clang/clang${HOST_EXECUTABLE_SUFFIX}")
+    set(CLANG_DEFAULT "${CMAKE_CURRENT_SOURCE_DIR}/tools/clang/clang${CMAKE_HOST_EXECUTABLE_SUFFIX}")
 endif()
 
 # Use the default clang if it exists, otherwise fall back to whatever cmake has decided
@@ -28,6 +25,8 @@ set(OLD_CXX_FLAGS, ${CMAKE_CXX_FLAGS})
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -c)
 
 project(mkwcat-nsmbw LANGUAGES CXX)
+
+set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -98,8 +97,8 @@ ExternalProject_Add(
     INSTALL_COMMAND ""
 )
 
-set(ELF2REL "${CMAKE_BINARY_DIR}/tools/elf2rel${HOST_EXECUTABLE_SUFFIX}")
-set(LZX "${CMAKE_BINARY_DIR}/tools/lzx${HOST_EXECUTABLE_SUFFIX}")
+set(ELF2REL "${CMAKE_BINARY_DIR}/tools/elf2rel${CMAKE_HOST_EXECUTABLE_SUFFIX}")
+set(LZX "${CMAKE_BINARY_DIR}/tools/lzx${CMAKE_HOST_EXECUTABLE_SUFFIX}")
 set(WUJ5 "${CMAKE_SOURCE_DIR}/tools/wuj5/wuj5.py")
 set(GENSMAP "${CMAKE_SOURCE_DIR}/tools/generate_symbol_map.py")
 set(INSERTXML "${CMAKE_SOURCE_DIR}/tools/insert-xml.py")

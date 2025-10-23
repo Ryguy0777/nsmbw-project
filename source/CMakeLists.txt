@@ -2,7 +2,6 @@ add_executable(project "")
 
 target_compile_options(project PRIVATE
     -include System.h
-    -ffile-prefix-map=${CMAKE_SOURCE_DIR}/source=mkwcat-nsmbw:
 )
 
 target_link_options(project PRIVATE

@@ -750,7 +750,7 @@ void Four::Apply()
             break;
 
         default:
-            OSPanic(__FILE__, __LINE__, "Invalid code region %d", codeRegion);
+            OSPanic(__FILE_NAME__, __LINE__, "Invalid code region %d", codeRegion);
         }
 
         u8 size = patch.size;

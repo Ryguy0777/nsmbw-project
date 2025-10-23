@@ -492,10 +492,6 @@ void* loadArchive(
       builder.getDstStrTabSize()
     );
 
-    // This is silly but it's necessary for loading the file data!!
-    dvdFile->mFileInfo.startAddr = 0;
-    dvdFile->mFileInfo.length = 0x7FFFFFE0;
-
     // Load the file data
     u32 fileDataOffset = newArcHeader.fileStart;
     FstEntry* fst = reinterpret_cast<FstEntry*>(newArcData + newArcHeader.fstOffset);
@@ -506,8 +502,10 @@ void* loadArchive(
         }
 
         const u32 length = (fst[i].file.length + 0x1F) & ~0x1F;
-        if (dvdFile->readData(newArcData + fileDataOffset, length, fst[i].file.startAddr * 4) !=
-            length) {
+        // This is silly but it's necessary for loading the file data!!
+        dvdFile->mFileInfo.startAddr = fst[i].file.startAddr;
+        dvdFile->mFileInfo.length = length;
+        if (dvdFile->readData(newArcData + fileDataOffset, length, 0) != length) {
             OS_REPORT("Failed to read file data\n");
             heap->free(newArcData);
             return nullptr;

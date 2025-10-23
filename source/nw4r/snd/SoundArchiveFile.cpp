@@ -112,52 +112,7 @@ bool SoundArchiveFileReader::ReadBankInfo(u32 id, SoundArchive::BankInfo* pInfo)
         return false;
     }
 
-    {
-        const char* pLabel = GetString(pSrc->stringId);
-        if (pLabel == nullptr) {
-            pLabel = "Unknown";
-        }
-
-        // OS_REPORT("SoundArchiveFileReader::ReadBankInfo: %s (%d)\n", pLabel, id);
-    }
-
     pInfo->fileId = pSrc->fileId;
-
-    return true;
-}
-
-[[address(0x802767A0)]]
-bool SoundArchiveFileReader::ReadGroupInfo(u32 id, SoundArchive::GroupInfo* pInfo) const
-{
-    const SoundArchiveFile::GroupInfo* pSrc = impl_GetGroupInfo(id);
-
-    if (pSrc == nullptr) {
-        return false;
-    }
-
-    {
-        const char* pLabel = GetString(pSrc->stringId);
-        if (pLabel == nullptr) {
-            pLabel = "Unknown";
-        }
-
-        // OS_REPORT("SoundArchiveFileReader::ReadGroupInfo: %s (%d)\n", pLabel, id);
-    }
-
-    const SoundArchiveFile::GroupItemTable* pTable =
-      Util::GetDataRefAddress0(pSrc->itemTableRef, mInfo);
-
-    if (pTable == nullptr) {
-        return false;
-    }
-
-    pInfo->extFilePath = Util::GetDataRefAddress0(pSrc->extFilePathRef, mInfo);
-    pInfo->offset = pSrc->offset;
-    pInfo->size = pSrc->size;
-    pInfo->waveDataOffset = pSrc->waveDataOffset;
-    pInfo->waveDataSize = pSrc->waveDataSize;
-    pInfo->itemCount = pTable->count;
-
     return true;
 }
 
