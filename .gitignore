@@ -51,12 +51,8 @@ autoconf/autom4te.cache
 /CMakeSettings.json
 # CLion project configuration
 /.idea
-# Clang installation
-/tools/clang/clang
-/tools/clang/clang.exe
-# Save data
-/riivolution/mkwcat-nsmbw.json
-/riivolution/mkwcat-nsmbw.json.tmp
+# Custom Clang installation
+/tools/clang/clang*
 
 #==============================================================================#
 # Directories to ignore (do not add trailing '/'s, they skip symlinks).
@@ -70,10 +66,8 @@ pythonenv*
 .clangd/
 .cache
 # Nested build directory
-/build*
+build*/
 # Xcode
 *.xcodeproj/
 # Local scripts
 /private/
-# Riivolution config files
-/riivolution/config
