@@ -89,7 +89,6 @@ extern "C" void _prolog(s32 param1, void* param2)
         ICInvalidateRange(repl->addr, 4);
     }
 
-
     if (preinit(param1, param2) != 0) {
         OSPanic(__FILE_NAME__, __LINE__, "preinit() returned non-zero");
     }

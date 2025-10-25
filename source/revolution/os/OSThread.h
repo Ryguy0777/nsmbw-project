@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OSContext.h"
+#include "revolution/types.h"
 
 extern "C" {
 
@@ -45,5 +46,37 @@ struct OSThread {
     /* 0x30C */ s32 error;
     /* 0x310 */ void* specific[2];
 };
+
+typedef void (*OSSwitchThreadCallback)(OSThread* currThread, OSThread* newThread);
+typedef void* (*OSThreadFunc)(void* arg);
+
+OSSwitchThreadCallback OSSetSwitchThreadCallback(OSSwitchThreadCallback callback);
+void __OSThreadInit(void);
+void OSSetCurrentThread(OSThread* thread);
+void OSInitMutexQueue(OSMutexQueue* queue);
+void OSInitThreadQueue(OSThreadQueue* queue);
+OSThread* OSGetCurrentThread(void);
+BOOL OSIsThreadTerminated(OSThread* thread);
+s32 OSDisableScheduler(void);
+s32 OSEnableScheduler(void);
+s32 __OSGetEffectivePriority(OSThread* thread);
+void __OSPromoteThread(OSThread* thread, s32 prio);
+void __OSReschedule(void);
+void OSYieldThread(void);
+BOOL OSCreateThread(
+  OSThread* thread, OSThreadFunc func, void* funcArg, void* stackBegin, u32 stackSize, s32 prio,
+  u16 flags
+);
+void OSExitThread(OSThread* thread);
+void OSCancelThread(OSThread* thread);
+BOOL OSJoinThread(OSThread* thread, void* val);
+void OSDetachThread(OSThread* thread);
+s32 OSResumeThread(OSThread* thread);
+s32 OSSuspendThread(OSThread* thread);
+void OSSleepThread(OSThreadQueue* queue);
+void OSWakeupThread(OSThreadQueue* queue);
+BOOL OSSetThreadPriority(OSThread* thread, s32 prio);
+void OSClearStack(u8 val);
+void OSSleepTicks(s64 ticks);
 
 } // extern "C"

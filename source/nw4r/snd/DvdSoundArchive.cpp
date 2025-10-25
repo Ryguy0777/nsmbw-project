@@ -19,17 +19,6 @@ u32 DvdSoundArchive::RegisterTmpFile(const void* pFile, const void* pWaveDataFil
     return TMP_REPLACE_FILE;
 }
 
-/* VT+0x0C */
-[[address(0x80269730)]]
-const void* DvdSoundArchive::detail_GetFileAddress(u32 id) const
-{
-    if (id != TMP_REPLACE_FILE) {
-        return nullptr;
-    }
-
-    return s_tmpReplaceFile;
-}
-
 /* VT+0x10 */
 [[address(0x80269720)]]
 const void* DvdSoundArchive::detail_GetWaveDataFileAddress(u32 id) const
@@ -39,6 +28,17 @@ const void* DvdSoundArchive::detail_GetWaveDataFileAddress(u32 id) const
     }
 
     return s_tmpReplaceWaveDataFile;
+}
+
+/* VT+0x0C */
+[[address(0x80269730)]]
+const void* DvdSoundArchive::detail_GetFileAddress(u32 id) const
+{
+    if (id != TMP_REPLACE_FILE) {
+        return nullptr;
+    }
+
+    return s_tmpReplaceFile;
 }
 
 } // namespace nw4r::snd

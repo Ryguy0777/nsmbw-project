@@ -7,13 +7,6 @@
 namespace nw4r::snd::detail
 {
 
-EXTERN_REPL(
-  0x80277210, //
-  void* SoundArchiveLoader::LoadGroupInternal(
-    u32 id, SoundMemoryAllocatable* pAllocatable, void** ppWaveBuffer, u32 blockSize
-  )
-);
-
 [[address(0x80277210)]]
 void* SoundArchiveLoader::LoadGroup(
   u32 id, SoundMemoryAllocatable* pAllocatable, void** ppWaveBuffer, u32 blockSize
