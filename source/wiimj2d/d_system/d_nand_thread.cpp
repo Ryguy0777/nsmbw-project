@@ -119,7 +119,12 @@ void dNandThread_c::existCheck()
     u8 type;
     NANDResult result;
 
-    setNandError(result = NANDGetType("mkwcat-nsmbw.json", &type));
+    result = NANDGetType("mkwcat-nsmbw.json", &type);
+    if (result == NAND_RESULT_NOEXISTS) {
+        result = NANDGetType("mkwcat-nsmbw-old.json", &type);
+    }
+
+    setNandError(result);
     if (isError()) {
         return;
     }
@@ -177,6 +182,7 @@ int dNandThread_c::save()
 {
     const char* tmpPath = "/tmp/mkwcat-nsmbw.json";
     char tmpPathData[64] = {};
+    bool rename = false;
     NANDResult result = NANDCreate(tmpPath, 0x3C, 0);
     if (result == NAND_RESULT_INVALID) {
         // Might fail on console if /tmp is not redirected, due to the 12 character filename limit.
@@ -186,9 +192,10 @@ int dNandThread_c::save()
         if (isError()) {
             return 1;
         }
-        std::strcat(tmpPathData, "/mkwcat-nsmbw.json.tmp");
+        std::strcat(tmpPathData, "/mkwcat-nsmbw-tmp.json");
         result = NANDCreate(tmpPathData, 0x3C, 0);
         tmpPath = tmpPathData;
+        rename = true;
     }
     setNandError(result);
     if (isError()) {
@@ -254,22 +261,35 @@ int dNandThread_c::save()
         return 1;
     }
 
-    char home[64] = {};
-    setNandError(NANDGetHomeDir(home));
+    char newPath[64] = {};
+    setNandError(NANDGetHomeDir(newPath));
     if (isError()) {
         setNandError(NANDDelete(tmpPath));
         return 1;
     }
-    std::strcat(home, "/mkwcat-nsmbw.json");
+    char oldPath[64];
+    if (rename) {
+        std::strcpy(oldPath, newPath);
+    }
+    std::strcat(newPath, "/mkwcat-nsmbw.json");
+    if (rename) {
+        // Rename the new path out of the way in case it's there. This is only a requirement with
+        // Riivolution's proxy ISFS
+        std::strcat(oldPath, "/mkwcat-nsmbw-old.json");
+        result = nandConvertErrorCode(ISFS_Rename(newPath, oldPath));
+        if (result != NAND_RESULT_OK && result != NAND_RESULT_NOEXISTS) {
+            NANDDelete(newPath);
+        }
+        // No error checking as it might still work even if the file still exists
+    }
 
-    setNandError(nandConvertErrorCode(ISFS_Rename(tmpPath, home)));
+    setNandError(nandConvertErrorCode(ISFS_Rename(tmpPath, newPath)));
     if (isError()) {
         setNandError(NANDDelete(tmpPath));
         return 1;
     }
 
     OS_REPORT("File saved!\n");
-
     return 0;
 }
 
@@ -278,12 +298,17 @@ int dNandThread_c::load()
 {
     std::memset(static_cast<void*>(&l_tmpSave), 0, sizeof(l_tmpSave));
 
-    setNandError(NANDOpen("mkwcat-nsmbw.json", &l_fileInfo, 1));
+    NANDResult result = NANDOpen("mkwcat-nsmbw.json", &l_fileInfo, 1);
+    if (result != NAND_RESULT_OK) {
+        result = NANDOpen("mkwcat-nsmbw-old.json", &l_fileInfo, 1);
+    }
+
+    setNandError(result);
     if (isError()) {
         return 1;
     }
 
-    NANDResult result = NANDRead(&l_fileInfo, l_nandBuf, sizeof(l_nandBuf));
+    result = NANDRead(&l_fileInfo, l_nandBuf, sizeof(l_nandBuf));
     if (result < NAND_RESULT_OK) {
         setNandError(result);
         setNandError(NANDClose(&l_fileInfo));
