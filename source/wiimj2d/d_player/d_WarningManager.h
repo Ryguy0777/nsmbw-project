@@ -16,6 +16,6 @@ public:
     // Static Data
     // -----------
 
-    /* 0x8042A5C0 */
-    static s32 m_WarningForbid;
+    /* 0x8042A5B8 */ static dWarningManager_c* m_instance;
+    /* 0x8042A5C0 */ static s32 m_WarningForbid;
 };
