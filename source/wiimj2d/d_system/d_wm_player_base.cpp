@@ -5,7 +5,7 @@
 
 dWmPlayerBase_c::ACTOR_KIND_e dWmPlayerBase_c::GetActorType()
 {
-    return ACTOR_KIND_e::ACTOR_UNK_6;
+    return ACTOR_KIND_e::ACTOR_MAP_PLAYER;
 }
 
 /**
