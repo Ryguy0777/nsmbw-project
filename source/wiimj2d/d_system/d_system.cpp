@@ -163,6 +163,8 @@ void dSys_c::initCModule()
 
     ms_RootHeapMem1->mFlags.setBit(0);
     ms_RootHeapMem2->mFlags.setBit(0);
+
+    dScBoot_c::m_instance->mLoadedSceneSnd = true;
 }
 
 extern "C" int preinit(s32 param1, void* param2)

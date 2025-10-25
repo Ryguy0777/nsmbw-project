@@ -41,10 +41,15 @@ public:
     // -----------
 
     FILL(0x0B0, 0x0F0);
+
     /* 0x0F0 */ dWiiStrap_c* mWiiStrap;
     /* 0x0F4 */ dYesNoWindow_c* mYesNoWindow;
     /* 0x0F8 */ dSelectCursor_c* mSelectCursor;
     /* 0x0FC */ dControllerInformation_c* mControllerInformation;
+
+    FILL(0x100, 0x102);
+
+    /* 0x102 */ bool mLoadedSceneSnd;
 
     // ---------
     // State IDs
