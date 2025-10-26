@@ -27,39 +27,16 @@ void dGameKeyCore_c::setShakeY()
         return;
     }
 
-    PADStatus* padStatus = EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
-    if (padStatus != nullptr) {
+    PADInfo* padInfo = EGG::CoreControllerMgr::getPadInfo(static_cast<WPADChannel>(mChannel));
+    if (padInfo != nullptr) {
         // GameCube controller
 
-        if (mShakeTimer3 != 0) {
-            mShakeTimer3--;
-            mShake = false;
-            return;
-        }
+        bool fullShake = padInfo->trig & PADButton::PAD_TRIGGER_Z;
 
-        bool fullShake = padStatus->triggerL == 255 || padStatus->triggerR == 255 ||
-                         padStatus->button & PADButton::PAD_TRIGGER_L ||
-                         padStatus->button & PADButton::PAD_TRIGGER_R ||
-                         padStatus->button & PADButton::PAD_BUTTON_X;
-
-        bool shake = fullShake || padStatus->triggerL > 170 || padStatus->triggerR > 170;
-
-        if (fullShake || (shake && !mShakeOld)) {
-            if (!fullShake) {
-                dAcPy_c* player = daPyMng_c::getPlayer(static_cast<int>(mChannel));
-
-                // Check if on the ground
-                mShake = player != nullptr && !(player->m0x10D4 & 1);
-            } else {
-                mShake = true;
-            }
+        if (fullShake) {
+            mShake = true;
         } else {
             mShake = false;
-        }
-
-        if (mShake) {
-            // Set cooldown
-            mShakeTimer3 = 5 + 3;
         }
     } else {
         // Wii Remote

@@ -10,6 +10,20 @@
 
 struct PADStatus;
 
+// Not a part of EGG
+// Added here so we can read newly pressed pad buttons at any time
+struct PADInfo
+{
+    u32 hold;
+    u32 trig;
+    u32 release;
+    Vec2 stick;
+    Vec2 substick;
+    f32 lTrigger;
+    f32 rTrigger;
+    u32 prevHold;
+};
+
 namespace EGG
 {
 
@@ -202,7 +216,9 @@ public:
     /* 0x802BCCD0 */
     void calc_posture_matrix(Matrix34f& posture, bool checkStable);
 
-    void padToCoreStatus(PADStatus* padStatus);
+    void updatePadInfo(PADInfo* padInfo, PADStatus* padStatus);
+
+    void padToCoreStatus(PADInfo* padInfo);
 
 public:
     // -----------
@@ -277,6 +293,7 @@ public:
     }
 
     static PADStatus* getPadStatus(WPADChannel chan);
+    static PADInfo* getPadInfo(WPADChannel chan);
 
 public:
     // -----------

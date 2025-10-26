@@ -50,6 +50,7 @@ struct PADClampRegion {
     /* 0x9 */ s8 substickRad;
 };
 
+void PADClamp(PADStatus*);
 void PAD_ClampCircle(s8*, s8*, s8, s8);
 void PADClampCircle(PADStatus*);
 void PADClampCircle2(PADStatus*, u32);

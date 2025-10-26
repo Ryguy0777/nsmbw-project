@@ -21,6 +21,7 @@ CoreControllerMgr* CoreControllerMgr::sInstance;
 CoreControllerMgr::T__Disposer* CoreControllerMgr::T__Disposer::sStaticDisposer;
 
 static PADStatus saPadStatus[4];
+static PADInfo saPadInfo[4];
 
 [[address_data(0x8042B160)]]
 bool s_allocatorCreated;
@@ -76,54 +77,79 @@ void CoreController::stopRumbleMgr();
 [[address(0x802BCCD0)]]
 void CoreController::calc_posture_matrix(Matrix34f& posture, bool checkStable);
 
-void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
+void CoreController::updatePadInfo(PADInfo* restrict padInfo, PADStatus* restrict padStatus)
+{
+    u32 button = padStatus->button;
+
+    // Buttons
+    padInfo->hold = button;
+    padInfo->trig = button & ~padInfo->prevHold;
+    padInfo->release = padInfo->prevHold & button;
+
+    // Triggers
+    // Apparently OEM controllers never report a full analog value
+    // So we report a full press if the digital input is being pressed
+    padInfo->lTrigger = (button & PADButton::PAD_TRIGGER_L) ? 1.0f : padStatus->triggerL / 255;
+    padInfo->rTrigger = (button & PADButton::PAD_TRIGGER_R) ? 1.0f : padStatus->triggerR / 255;
+
+    // Sticks
+    padInfo->stick.x = padStatus->stickX / 110;
+    padInfo->stick.y = padStatus->stickY / 110;
+    padInfo->substick.x = padStatus->substickX / 110;
+    padInfo->substick.y = padStatus->substickY / 110;
+    
+    // Set prevHold
+    padInfo->prevHold = button;
+}
+
+void CoreController::padToCoreStatus(PADInfo* restrict padInfo)
 {
     u32 lastButton = maStatus->getHold();
-    u32 button = padStatus->button;
+    u32 button = padInfo->hold;
 
     maStatus->init();
 
     // Convert to sideways Wii Remote buttons
-    if (padStatus->button & PADButton::PAD_BUTTON_LEFT) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_LEFT) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_UP;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_RIGHT) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_RIGHT) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_DOWN;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_DOWN) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_DOWN) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_LEFT;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_UP) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_UP) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
     }
 
-    if (padStatus->button & PADButton::PAD_BUTTON_A) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_A) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_2;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_B) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_B) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_1;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
-        maStatus->hold |= WPADButton::WPAD_BUTTON_MINUS;
+    if (padInfo->hold & PADButton::PAD_BUTTON_Y) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_FS_C;
     }
-    if (padStatus->button & PADButton::PAD_TRIGGER_Z) {
-        maStatus->hold |= WPADButton::WPAD_BUTTON_A;
-    }
-    if (padStatus->button & PADButton::PAD_BUTTON_START) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_START) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_PLUS;
+    }
+    if (padInfo->hold & PADButton::PAD_TRIGGER_Z) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_MINUS;
     }
 
     // Map stick to D-pad
-    if (padStatus->stickX < -32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_DOWN)) {
+    if (padInfo->stick.x < -0.5 && !(maStatus->hold & WPADButton::WPAD_BUTTON_DOWN)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_UP;
     }
-    if (padStatus->stickX > 32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_UP)) {
+    if (padInfo->stick.x > 0.5 && !(maStatus->hold & WPADButton::WPAD_BUTTON_UP)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_DOWN;
     }
-    if (padStatus->stickY < -32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_RIGHT)) {
+    if (padInfo->stick.y < -0.5 && !(maStatus->hold & WPADButton::WPAD_BUTTON_RIGHT)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_LEFT;
     }
-    if (padStatus->stickY > 32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_LEFT)) {
+    if (padInfo->stick.y > 0.5 && !(maStatus->hold & WPADButton::WPAD_BUTTON_LEFT)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
     }
 
@@ -133,16 +159,16 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
     maStatus->dev_type = static_cast<WPADDeviceType>(eCoreDevType::GCN);
 
     // For in-game but not for use in menus
-    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
+    if (padInfo->hold & PADButton::PAD_BUTTON_Y) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_1;
+    }
+    if (padInfo->hold & PADButton::PAD_BUTTON_X) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_A;
     }
 
     // Map tilt to triggers
-    float analogA = padStatus->triggerL;
-    float analogB = padStatus->triggerR;
-
-    float tilt = analogA / 255;
-    tilt -= analogB / 255;
+    float tilt = padInfo->lTrigger;
+    tilt -= padInfo->rTrigger;
 
     maStatus->acc.z = tilt;
     maStatus->acc_vertical.y = -tilt;
@@ -156,7 +182,7 @@ void CoreController::beginFrame(PADStatus* padStatus)
         mReadStatusIdx = padStatus->err >= 0 ? 1 : 0;
 
         if (mReadStatusIdx > 0) {
-            padToCoreStatus(padStatus);
+            padToCoreStatus(CoreControllerMgr::getPadInfo(mChannel));
             mFlag.setBit(0);
         } else {
             mFlag.resetBit(0);
@@ -284,13 +310,19 @@ CoreControllerMgr::CoreControllerMgr();
 void CoreControllerMgr::beginFrame()
 {
     PADRead(saPadStatus);
+    PADClamp(saPadStatus);
 
     for (int i = 0; i < mControllers.getSize(); ++i) {
         WPADChannel chan = static_cast<WPADChannel>(i);
 
         PADStatus* padStatus = nullptr;
+        PADInfo* padInfo = nullptr;
         if (chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END) {
             padStatus = &saPadStatus[i - static_cast<int>(GC_CHANNEL_BEGIN)];
+
+            // Update PADInfo
+            padInfo = &saPadInfo[i - static_cast<int>(GC_CHANNEL_BEGIN)];
+            mControllers(i)->updatePadInfo(padInfo, padStatus);
         }
 
         mControllers(i)->beginFrame(padStatus);
@@ -367,6 +399,15 @@ PADStatus* CoreControllerMgr::getPadStatus(WPADChannel chan)
 {
     if (chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END) {
         return &saPadStatus[static_cast<int>(chan) - static_cast<int>(GC_CHANNEL_BEGIN)];
+    }
+
+    return nullptr;
+}
+
+PADInfo* CoreControllerMgr::getPadInfo(WPADChannel chan)
+{
+    if (chan >= GC_CHANNEL_BEGIN && chan < GC_CHANNEL_END) {
+        return &saPadInfo[static_cast<int>(chan) - static_cast<int>(GC_CHANNEL_BEGIN)];
     }
 
     return nullptr;
