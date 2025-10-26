@@ -5,6 +5,22 @@
 
 extern "C" {
 
+#define OS_PRIORITY_MIN 0
+#define OS_PRIORITY_MAX 31
+
+enum OSThreadState {
+    OS_THREAD_STATE_EXITED = 0,
+    OS_THREAD_STATE_READY = 1,
+    OS_THREAD_STATE_RUNNING = 2,
+    OS_THREAD_STATE_SLEEPING = 4,
+    OS_THREAD_STATE_MORIBUND = 8
+};
+
+enum OSThreadFlags {
+    OS_THREAD_NO_FLAGS = 0,
+    OS_THREAD_DETACHED = 1 << 0,
+};
+
 struct OSThread;
 
 struct OSThreadQueue {

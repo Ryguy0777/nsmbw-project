@@ -1,13 +1,14 @@
 ENTRY(LoaderMain)
 
 SECTIONS {
-    . = 0x800047E4;
+    . = 0x800047E0;
     .text : {
-        *(.start)
+        *(start)
         *(.text*)
         *(.rodata*)
         *(.data*)
         *(.sdata*)
         *(.bss*)
+        *(.sbss*)
     }
 }
