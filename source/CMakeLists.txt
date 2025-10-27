@@ -536,10 +536,11 @@ target_sources(project PRIVATE
     wiimj2d/component/c_random.cpp
 # NSMBW          .text:  0x80161670 - 0x80161880
     wiimj2d/component/c_tree.cpp
-
+# NSMBW          .text:  0x80161880 - 0x80161A60
+    wiimj2d/component/c_unary_tree.cpp
 #
 # wiimj2d/framework
-# NSMBW          .text:  0x80161880 - 0x801632B0
+# NSMBW          .text:  0x80161A60 - 0x801632B0
 #
 
 # NSMBW          .text:  0x80161880 - 0x80161A60
