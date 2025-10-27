@@ -2,6 +2,8 @@
 // NSMBW .text: 0x8005DFD0 - 0x8005E9A0
 
 #include "d_a_player_key.h"
+#include "d_game_key.h"
+#include <egg/core/eggController.h>
 
 [[address(0x8005E040)]]
 void dAcPyKey_c::update() ASM_METHOD(
@@ -217,3 +219,41 @@ void dAcPyKey_c::onDemoButton(int button);
 
 [[address(0x8005E930)]]
 void dAcPyKey_c::offDemoButton(int button);
+
+// Patch dAcPyKey_c to allow the use of B as a "run only" button with Gamecube controllers
+
+[[address(0x8005e590)]]
+int dAcPyKey_c::triggerOne() const
+{
+    PADInfo* padInfo = EGG::CoreControllerMgr::getPadInfo(static_cast<WPADChannel>(mRemoconID));
+    switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mControllerType) {
+    case 1: // Nunchuck
+        return mTriggeredButtons & WPADButton::WPAD_BUTTON_B;
+    default: // Sideways Wii Remote
+        if (mRemoconID > 3) {
+            // Gamecube controller
+            if (mStatus & 0x181) return 0; // Player is in demo state
+            return padInfo->trig & PADButton::PAD_BUTTON_Y;
+        } else {
+            return mTriggeredButtons & WPADButton::WPAD_BUTTON_1;
+        }
+    }
+}
+
+[[address(0x8005E5D0)]]
+int dAcPyKey_c::buttonOne() const
+{
+    PADInfo* padInfo = EGG::CoreControllerMgr::getPadInfo(static_cast<WPADChannel>(mRemoconID));
+    switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mControllerType) {
+    case 1: // Nunchuck
+        return mDownButtons & WPADButton::WPAD_BUTTON_B;
+    default: // Sideways Wii Remote
+        if (mRemoconID > 3) {
+            // Gamecube controller
+            if (mStatus & 0x181) return 0; // Player is in demo state
+            return padInfo->hold & PADButton::PAD_BUTTON_Y;
+        } else {
+            return mDownButtons & WPADButton::WPAD_BUTTON_1;
+        }
+    }
+}
