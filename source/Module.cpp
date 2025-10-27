@@ -34,6 +34,37 @@ extern _MRel_replace_array_entry _MRel_extern_array_end[];
 extern _MRel_patch_references_array_entry<0> _MRel_patch_references_array[];
 extern _MRel_patch_references_array_entry<0> _MRel_patch_references_array_end[];
 
+#define HID0 1008
+
+void FlushAndInvalidateCache(bool interrupts = OSDisableInterrupts()) ASM_METHOD(
+  // clang-format off
+    // Flush the entire cache by filling up all 8 ways of 128 sets
+    lis     r5, 0x8000;
+    ori     r5, r5, 128 * 8 * 32 - 31;
+    dcbst   r0, r5;
+    lbz     r0, 0(r5);
+    subic.  r5, r5, 32;
+    blt+    cr0, -0xC;
+
+    // Address broadcast to the 60x bus.
+    sc;
+
+    // Flash invalidate instruction cache
+    mfspr   r4, HID0;
+    ori     r0, r4, 1 << 31 >> 20; // Set HID0.ICFI
+    rlwinm  r0, r0, 0, ~(1 << 31 >> 16); // Clear HID0.ICE
+    mtspr   HID0, r0; // Write back
+    isync;
+    mtspr   HID0, r4; // Restore HID0
+
+    // Restore interrupts
+    mfmsr   r4;
+    rlwimi  r4, r3, 15, 0x8000;
+    mtmsr   r4;
+    blr;
+  // clang-format on
+);
+
 extern "C" void _prolog(s32 param1, void* param2)
 {
     dSys_c::initCodeRegion();
@@ -45,7 +76,7 @@ extern "C" void _prolog(s32 param1, void* param2)
     for (auto repl = _MRel_patch_references_array; repl != _MRel_patch_references_array_end;) {
         for (u32 i = 0; i < repl->count; i++) {
             u32 offset = reinterpret_cast<u32>(repl->addr) + repl->references[i].addend;
-            u32 ptr = (&repl->references[i].addrP1)[static_cast<int>(codeRegion)];
+            volatile u16* ptr = reinterpret_cast<volatile u16*>((&repl->references[i].addrP1)[static_cast<int>(codeRegion)]);
 
             if (repl->references[i].type == R_PPC_ADDR16_LO) {
                 offset &= 0xFFFF;
@@ -57,15 +88,7 @@ extern "C" void _prolog(s32 param1, void* param2)
                 OSPanic(__FILE_NAME__, __LINE__, "Unsupported relocation type %d");
             }
 
-            if (ptr & 2) {
-                *(volatile u32*) ToUncached(ptr - 2) =
-                  ((*(volatile u32*) ToUncached(ptr - 2)) & 0xFFFF0000) | offset;
-            } else {
-                *(volatile u32*) ToUncached(ptr) =
-                  ((*(volatile u32*) ToUncached(ptr)) & 0xFFFF) | (offset << 16);
-            }
-
-            ICInvalidateRange((u32*) ptr, 4);
+            *ptr = static_cast<u16>(offset);
         }
 
         // Increment repl to the next entry
@@ -78,16 +101,18 @@ extern "C" void _prolog(s32 param1, void* param2)
     Four::Apply();
 
     // External replaced array
-    for (auto repl = _MRel_extern_array; repl != _MRel_extern_array_end; ++repl) {
-        *ToUncached(repl->dest) = *ToUncached(repl->addr);
-        ICInvalidateRange(repl->dest, 4);
+    for (_MRel_replace_array_entry* __restrict repl = _MRel_extern_array;
+         repl != _MRel_extern_array_end; ++repl) {
+        *repl->dest = *repl->addr;
     }
 
     // Function patches
-    for (auto repl = _MRel_replace_array; repl != _MRel_replace_array_end; ++repl) {
-        *ToUncached(repl->addr) = 0x48000000 | ((u32(repl->dest) - u32(repl->addr)) & 0x3FFFFFC);
-        ICInvalidateRange(repl->addr, 4);
+    for (_MRel_replace_array_entry* __restrict repl = _MRel_replace_array;
+         repl != _MRel_replace_array_end; ++repl) {
+        *repl->addr = 0x48000000 | ((u32(repl->dest) - u32(repl->addr)) & 0x3FFFFFC);
     }
+
+    FlushAndInvalidateCache(false);
 
     if (preinit(param1, param2) != 0) {
         OSPanic(__FILE_NAME__, __LINE__, "preinit() returned non-zero");
@@ -98,14 +123,14 @@ extern "C" void _prolog(s32 param1, void* param2)
         (*ctor)();
     }
 
-    OSRestoreInterrupts(interrupt);
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmain"
     if (main() != 0) {
         OSPanic(__FILE_NAME__, __LINE__, "main() returned non-zero");
     }
 #pragma clang diagnostic pop
+
+    OSRestoreInterrupts(interrupt);
 }
 
 extern "C" void _epilog()

@@ -785,8 +785,5 @@ void Four::Apply()
         std::memcpy(
           reinterpret_cast<void*>(address), reinterpret_cast<u8*>(&newValue) + (4 - size), size
         );
-
-        DCStoreRange(reinterpret_cast<void*>(address), size);
-        ICInvalidateRange(reinterpret_cast<void*>(address), size);
     }
 }
