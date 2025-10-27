@@ -98,7 +98,7 @@ typedef double f64;
     }
 
 #define ASM_METHOD(...)                                                                            \
-    __attribute__((__naked__)) {                                                                   \
+    __attribute__((__naked__)) __attribute__((__noinline__)) {                                     \
         ASM(__VA_ARGS__);                                                                          \
     }
 

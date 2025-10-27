@@ -155,6 +155,9 @@ BOOL OSCreateThread(
 [[address_loader(0x801B59A0)]]
 s32 OSResumeThread(OSThread* thread);
 
+[[address_loader(0x801B1280)]]
+bool OSDisableInterrupts();
+
 [[address_loader(0x802E19D8)]]
 int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
 
@@ -258,6 +261,37 @@ class LoaderBlock
     alignas(32) ARCHandle m_arc_handle;
 };
 
+#define HID0 1008
+
+void FlushAndInvalidateCache(bool interrupts = OSDisableInterrupts()) ASM_METHOD(
+  // clang-format off
+    // Flush the entire cache by filling up all 8 ways of 128 sets
+    lis     r5, 0x8000;
+    ori     r5, r5, 128 * 8 * 32 - 31;
+    dcbst   r0, r5;
+    lbz     r0, 0(r5);
+    subic.  r5, r5, 32;
+    blt+    cr0, -0xC;
+
+    // Address broadcast to the 60x bus.
+    sc;
+
+    // Flash invalidate instruction cache
+    mfspr   r4, HID0;
+    ori     r0, r4, 1 << 31 >> 20; // Set HID0.ICFI
+    rlwinm  r0, r0, 0, ~(1 << 31 >> 16); // Clear HID0.ICE
+    mtspr   HID0, r0; // Write back
+    isync;
+    mtspr   HID0, r4; // Restore HID0
+
+    // Restore interrupts
+    mfmsr   r4;
+    rlwimi  r4, r3, 15, 0x8000;
+    mtmsr   r4;
+    blr;
+  // clang-format on
+);
+
 void* LoaderThread(void* param)
 {
     LoaderBlock* loader_block = static_cast<LoaderBlock*>(param);
@@ -323,6 +357,8 @@ void* LoaderThread(void* param)
     bool link_module_ok = OSLinkFixed(&header->info, bss_block);
     LOADER_ASSERT(link_module_ok);
 
+    FlushAndInvalidateCache();
+
     (*(void (*)(...)) header->prolog)(arc_entry_num, arc_handle);
 
     return nullptr;
@@ -359,7 +395,7 @@ extern "C" [[gnu::section("start")]] bool LoaderMain()
 
     l_stack = heap->alloc(STACK_SIZE, 32);
     bool create_thread_ok = OSCreateThread(
-      &l_thread, LoaderThread, loader_block, static_cast<u8*>(l_stack) + STACK_SIZE, STACK_SIZE, 1,
+      &l_thread, LoaderThread, loader_block, static_cast<u8*>(l_stack) + STACK_SIZE, STACK_SIZE, 17,
       OSThreadFlags::OS_THREAD_DETACHED
     );
     LOADER_ASSERT(create_thread_ok);
