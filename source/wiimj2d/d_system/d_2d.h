@@ -24,6 +24,15 @@ class ResAccMultLoader_c : public ResAccMult_c
 {
     SIZE_ASSERT(0xD4);
 
+public:
+    // ----------------
+    // Member Functions
+    // ----------------
+
+    /* 0x80006BE0 */
+    bool request(const char* path);
+
+public:
     FILL(0xBC, 0xD4);
 };
 
@@ -53,12 +62,12 @@ public:
     /* 0x80007220 */
     nw4r::lyt::Pane* getRootPane();
 
-    bool hasAccessor() const
+    inline bool hasAccessor() const
     {
         return mpResAccessor != nullptr;
     }
 
-    nw4r::lyt::ResourceAccessor* getResAccessor()
+    inline nw4r::lyt::ResourceAccessor* getResAccessor()
     {
         if (mpResAccessor == nullptr) {
             return nullptr;
@@ -67,7 +76,12 @@ public:
         return mpResAccessor->mpBase;
     }
 
-    nw4r::lyt::DrawInfo* getDrawInfo()
+    inline void setResAccessor(ResAccMult_c* obj)
+    {
+        mpResAccessor = obj;
+    }
+
+    inline nw4r::lyt::DrawInfo* getDrawInfo()
     {
         return &mDrawInfo;
     }

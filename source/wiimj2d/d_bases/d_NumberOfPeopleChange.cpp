@@ -9,6 +9,7 @@
 #include "d_system/d_game_common.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
+#include "d_system/d_message.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
 #include "framework/f_base_profile.h"
@@ -26,6 +27,99 @@ dNumberOfPeopleChange_c* dNumberOfPeopleChange_c_classInit()
 
 [[address(0x8079F660)]]
 dNumberOfPeopleChange_c::dNumberOfPeopleChange_c();
+
+[[address(0x8079F990)]]
+fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
+{
+    if (mReady) {
+        return PACK_RESULT_e::SUCCEEDED;
+    }
+
+    for (std::size_t i = 0; i < std::size(mpaCcSelBase); i++) {
+        if (!mpaCcSelBase[i] || !mpaCcSelContents[i] || !mpaCcSelArrow[i] || !mpaCcIndicator[i]) {
+            return PACK_RESULT_e::NOT_READY;
+        }
+    }
+
+    if (!mIndicatorLytResReady) {
+        if (!mIndicatorLytRes.request("Layout/characterChangeIndicator/characterChangeIndicator.arc"
+            )) {
+            return PACK_RESULT_e::NOT_READY;
+        }
+
+        for (std::size_t i = 0; i < std::size(mpaCcIndicator); i++) {
+            mpaCcIndicator[i]->mLayout.setResAccessor(&mIndicatorLytRes);
+        }
+    }
+    if (!mBaseLytResReady) {
+        if (!mBaseLytRes.request("Layout/charaChangeSelectBase/charaChangeSelectBase.arc")) {
+            return PACK_RESULT_e::NOT_READY;
+        }
+
+        for (std::size_t i = 0; i < std::size(mpaCcSelBase); i++) {
+            mpaCcSelBase[i]->mLayout.setResAccessor(&mBaseLytRes);
+        }
+    }
+    if (!mContentsLytResReady) {
+        if (!mContentsLytRes.request(
+              "Layout/charaChangeSelectContents/charaChangeSelectContents.arc"
+            )) {
+            return PACK_RESULT_e::NOT_READY;
+        }
+
+        for (std::size_t i = 0; i < std::size(mpaCcSelContents); i++) {
+            mpaCcSelContents[i]->mLayout.setResAccessor(&mContentsLytRes);
+        }
+    }
+    if (!mArrowLytResReady) {
+        if (!mArrowLytRes.request("Layout/charaChangeSelectArrow/charaChangeSelectArrow.arc")) {
+            return PACK_RESULT_e::NOT_READY;
+        }
+
+        for (std::size_t i = 0; i < std::size(mpaCcSelArrow); i++) {
+            mpaCcSelArrow[i]->mLayout.setResAccessor(&mArrowLytRes);
+        }
+    }
+
+    if (!createLayout()) {
+        return PACK_RESULT_e::NOT_READY;
+    }
+
+    MsgRes_c* msgRes = dMessage_c::getMesRes();
+
+    for (std::size_t i = 0; i < std::size(maPlrBaseIndex); i++) {
+        maPlrBaseIndex[i] = 10;
+        maPlrBaseIndex2[i] = 10;
+    }
+
+    mpPBase[0]->SetVisible(true);
+    mpPBase[1]->SetVisible(true);
+    mpPBase[2]->SetVisible(false);
+
+    if (dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
+        mpTGuide->setMessage(msgRes, 2, 14, 0);
+        if (dGameCom::GetAspectRatio() == SCAspectRatio::STANDARD) {
+            mpPBase[0]->SetVisible(false);
+            mpPBase[1]->SetVisible(false);
+            mpPBase[2]->SetVisible(true);
+        }
+    } else {
+        mpTGuide->setMessage(msgRes, 2, 29, 0);
+    }
+
+    m0x68C = 0;
+    mpRootPane->SetVisible(false);
+    mReady = true;
+    m0x67E = false;
+    m0x67F = 0;
+    m0x680 = 0;
+    mPlayerCount = 4;
+
+    return PACK_RESULT_e::SUCCEEDED;
+}
+
+[[address(0x8079FCD0)]]
+bool dNumberOfPeopleChange_c::createLayout();
 
 [[address(0x807A0060)]]
 void dNumberOfPeopleChange_c::UNDEF_807A0060() ASM_METHOD(
@@ -1303,10 +1397,10 @@ UNDEF_807a17f8:;
 [[address(0x807A1860)]]
 void dNumberOfPeopleChange_c::initializeState_ButtonOnStageAnimeEndWait()
 {
-    m0x404.AnimeStartSetup(4, false);
-    m0x404.AnimeStartSetup(2, false);
-    m0x404.AnimeStartSetup(5, false);
-    m0x404.AnimeStartSetup(3, false);
+    mLayout.AnimeStartSetup(4, false);
+    mLayout.AnimeStartSetup(2, false);
+    mLayout.AnimeStartSetup(5, false);
+    mLayout.AnimeStartSetup(3, false);
 
     for (int i = 0; i < NUM_PY_CHANGE_PLAYER_COUNT; i++) {
         mpaPlayers[i]->m0x266 = 1;

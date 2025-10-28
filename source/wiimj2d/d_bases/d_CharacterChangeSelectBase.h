@@ -2,6 +2,7 @@
 
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
 #include "d_system/d_player_model_manager.h"
 #include "state/s_State.h"
 
@@ -17,9 +18,8 @@ public:
 
 #define CHARACTER_LIST_COUNT 8
     static constexpr PLAYER_TYPE_e CHARACTER_FROM_BASE[] = {
-      PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,
-      PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,
-      PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE,
+      PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,      PLAYER_TYPE_e::YELLOW_TOAD,
+      PLAYER_TYPE_e::BLUE_TOAD,   PLAYER_TYPE_e::TOADETTE,   PLAYER_TYPE_e::PURPLE_TOADETTE,
       PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
     };
 
@@ -93,7 +93,11 @@ public:
     /* 0x080 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
     /* 0x080 */ da2DPlayer_c** mpa2DPlayer;
 
-    FILL(0x084, 0x296);
+    FILL(0x084, 0x090);
+
+    /* 0x090 */ LytBase_c mLayout;
+
+    FILL(0x228, 0x296);
 
     /* 0x296 */ bool m0x296;
     /* 0x297 */ u8 m0x297;

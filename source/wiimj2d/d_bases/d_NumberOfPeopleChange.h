@@ -1,15 +1,16 @@
 #pragma once
 
-#include "d_system/d_a_player_manager.h"
-#include "d_system/d_base.h"
 #include "d_bases/d_CharacterChangeIndicator.h"
 #include "d_bases/d_CharacterChangeSelectArrow.h"
 #include "d_bases/d_CharacterChangeSelectBase.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
-#include "state/s_FStateFct.h"
+#include "d_system/d_2d.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
+#include "d_system/d_lyttextbox.h"
 #include "state/s_State.h"
-#include "state/s_StateMethodUsr_FI.h"
-#include "state/s_StateMgr.h"
+#include "state/s_StateMgrDefault.h"
 
 class da2DPlayer_c;
 
@@ -26,9 +27,23 @@ public:
     dNumberOfPeopleChange_c();
 
 public:
+    // -----------------
+    // Virtual Functions
+    // -----------------
+
+    /**
+     * VT+0x08 0x8079F990
+     * do method for the create operation.
+     */
+    PACK_RESULT_e create() override;
+
+public:
     // ----------------
     // Member Functions
     // ----------------
+
+    /* 0x8079FCD0 */
+    bool createLayout();
 
     void UNDEF_807A0060();
     void UNDEF_807A0170();
@@ -140,38 +155,52 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x70, 0x74);
+    FILL(0x070, 0x074);
 
-    /* 0x74 */ dCharacterChangeSelectBase_c* mpaCcSelBase[4];
-    /* 0x84 */ dCharacterChangeSelectContents_c* mpaCcSelContents[4];
-    /* 0x94 */ dCharacterChangeSelectArrow_c* mpaCcSelArrow[4];
-    /* 0xA4 */ dCharacterChangeIndicator_c* mpaCcIndicator[4];
+    /* 0x074 */ dCharacterChangeSelectBase_c* mpaCcSelBase[4];
+    /* 0x084 */ dCharacterChangeSelectContents_c* mpaCcSelContents[4];
+    /* 0x094 */ dCharacterChangeSelectArrow_c* mpaCcSelArrow[4];
+    /* 0x0A4 */ dCharacterChangeIndicator_c* mpaCcIndicator[4];
+    /* 0x0B4 */ d2d::ResAccMultLoader_c mBaseLytRes;
+    /* 0x188 */ d2d::ResAccMultLoader_c mContentsLytRes;
+    /* 0x25C */ d2d::ResAccMultLoader_c mArrowLytRes;
+    /* 0x330 */ d2d::ResAccMultLoader_c mIndicatorLytRes;
+    /* 0x404 */ LytBase_c mLayout;
+    /* 0x59C */ sStateMgrDefault_c<dNumberOfPeopleChange_c> mStateMgr;
+    /* 0x5D8 */ nw4r::lyt::Pane* mpRootPane;
 
-    FILL(0xB4, 0x404);
+    FILL(0x5DC, 0x60C);
 
-    /* 0x404 */ LytBase_c m0x404;
+    /* 0x60C */ LytTextBox_c* mpTGuide;
+    /* 0x610 */ LytTextBox_c* mpTGuideS;
 
-    /* 0x59C */ sStateMgr_c<
-      dNumberOfPeopleChange_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
-      mStateMgr;
+    FILL(0x614, 0x638);
 
-    FILL(0x5D8, 0x64C);
+    /* 0x638 */ nw4r::lyt::Picture* mpPBase[3];
+
+    FILL(0x644, 0x64C);
 
     /* 0x64C */ da2DPlayer_c* mpaPlayers_Removed[4];
 
-    FILL(0x65C, 0x67E);
+    FILL(0x65C, 0x67C);
 
+    /* 0x67C */ bool mReady;
+    /* 0x67D */ u8 m0x67D;
     /* 0x67E */ bool m0x67E;
     /* 0x67F */ u8 m0x67F;
     /* 0x680 */ u8 m0x680;
-
-    FILL(0x681, 0x687);
-
+    /* 0x681 */ bool mBaseLytResReady;
+    /* 0x682 */ bool mContentsLytResReady;
+    /* 0x683 */ bool mArrowLytResReady;
+    /* 0x684 */ u8 m0x684;
+    /* 0x685 */ bool mIndicatorLytResReady;
+    /* 0x686 */ u8 m0x686;
     /* 0x687 */ u8 m0x687;
     /* 0x688 */ u8 m0x688;
 
-    FILL(0x689, 0x690);
+    FILL(0x689, 0x68C);
 
+    /* 0x68C */ int m0x68C;
     /* 0x690 */ u32 mControllerActive[4];
     /* 0x6A0 */ int m0x6A0;
     /* 0x6A4 */ u32 maPlrBaseIndex[4];
@@ -191,10 +220,12 @@ public:
 #define OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount 0x710
     /* 0x710 */ int mRealPlayerCount;
 
-#define OFFSET_dNumberOfPeopleChange_c_mpaPlayers OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount + 4
+#define OFFSET_dNumberOfPeopleChange_c_mpaPlayers                                                  \
+    OFFSET_dNumberOfPeopleChange_c_mRealPlayerCount + 4
     /* 0x714 */ da2DPlayer_c* mpaPlayers[PLAYER_COUNT];
 
-#define OFFSET_dNumberOfPeopleChange_c_mExControllerActive OFFSET_dNumberOfPeopleChange_c_mpaPlayers + 4 * PLAYER_COUNT
+#define OFFSET_dNumberOfPeopleChange_c_mExControllerActive                                         \
+    OFFSET_dNumberOfPeopleChange_c_mpaPlayers + 4 * PLAYER_COUNT
     /* 0x724 */ u32 mExControllerActive[PLAYER_COUNT - 4];
     /* 0x734 */ PLAYER_TYPE_e maExDecidedPlayerType[PLAYER_COUNT - 4];
     /* 0x744 */ u32 mEx0x6F0[PLAYER_COUNT - 4];
