@@ -1,6 +1,7 @@
 #pragma once
 
 #include "d_system/d_base.h"
+#include "d_system/d_lytbase.h"
 #include "state/s_State.h"
 
 class dCharacterChangeSelectArrow_c : public dBase_c
@@ -17,7 +18,9 @@ public:
     // Member Data
     // -----------
 
-    FILL(0x070, 0x26C);
+    /* 0x070 */ LytBase_c mLayout;
+
+    FILL(0x208, 0x26C);
 
     /* 0x26C */ u8 m0x26C;
 };

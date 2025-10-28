@@ -102,15 +102,15 @@ public:
         /**
          * The step could not completed at this time.
          */
-        NOT_READY,
+        NOT_READY = 0,
         /**
          * The step was completed successfully.
          */
-        SUCCEEDED,
+        SUCCEEDED = 1,
         /**
          * The step could not be completed.
          */
-        FAILED,
+        FAILED = 2,
     };
 
     /**

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "framework/f_base.h"
+#include "component/c_unary_tree.h"
 
 /**
  * An extension of fBase_c with base kind and name strings. All bases should
@@ -74,7 +75,7 @@ public:
      */
     virtual const char* getKindString() const;
 
-    /* 0x64 */ u32 m0x64;
+    /* 0x64 */ cUnaryTreeMg_c mOwnedTree;
 
     /**
      * A string describing the kind of this base.

@@ -8,7 +8,6 @@
 
 [[address(0x8006C420)]]
 dBase_c::dBase_c()
-  : m0x64(0)
 {
     mpKindString = getKindString();
     mpNameString = dProf::getName(mProfName);
@@ -23,6 +22,7 @@ dBase_c::dBase_c()
 [[address(0x8006C490)]]
 dBase_c::~dBase_c()
 {
+    mOwnedTree.~cUnaryTreeMg_c();
 }
 
 /**
