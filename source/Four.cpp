@@ -705,6 +705,10 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80b50580
   {0x80B50664 + 2, 2},
 
+  // dSmallScore_c::DispWait
+  {0x80015b04 + 2, 2},
+
+
   // Morton stunning players?
   // TODO: 0x80B60180
   // TODO: 0x80B60220
