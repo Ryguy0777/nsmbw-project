@@ -24,6 +24,6 @@ extern bool DISABLE_OPENING_MOVIE;
 
 extern bool ALWAYS_CAN_EXIT_COURSE;
 
-extern bool B_SHAKE;
+extern bool SHAKE_WITH_BUTTON;
 
 } // namespace fFeature

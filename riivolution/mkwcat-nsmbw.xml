@@ -47,9 +47,9 @@
                     <patch id="ALWAYS_CAN_EXIT_COURSE"/>
                 </choice>
             </option>
-            <option name="Shake with B-Button">
+            <option name="Shake with Buttons">
                 <choice name="Enabled">
-                    <patch id="B_SHAKE"/>
+                    <patch id="SHAKE_WITH_BUTTON"/>
                 </choice>
             </option>
         </section>
@@ -81,7 +81,7 @@
     <patch id="ALWAYS_CAN_EXIT_COURSE">
         <memory offset="0x8000678B" value="01"/>
     </patch>
-    <patch id="B_SHAKE">
+    <patch id="SHAKE_WITH_BUTTON">
         <memory offset="0x8000678C" value="01"/>
     </patch>
     <patch id="loader">
