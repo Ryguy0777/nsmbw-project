@@ -47,6 +47,11 @@
                     <patch id="ALWAYS_CAN_EXIT_COURSE"/>
                 </choice>
             </option>
+            <option name="Shake with B-Button">
+                <choice name="Enabled">
+                    <patch id="B_SHAKE"/>
+                </choice>
+            </option>
         </section>
     </options>
     <patch id="UNLOCKED_ALL_WORLDS">
@@ -75,6 +80,9 @@
     </patch>
     <patch id="ALWAYS_CAN_EXIT_COURSE">
         <memory offset="0x8000678B" value="01"/>
+    </patch>
+    <patch id="B_SHAKE">
+        <memory offset="0x8000678C" value="01"/>
     </patch>
     <patch id="loader">
         <!-- EU -->

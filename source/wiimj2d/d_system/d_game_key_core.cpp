@@ -9,6 +9,7 @@
 #include "d_bases/d_s_stage.h"
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
+#include "framework/f_feature.h"
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -70,27 +71,32 @@ void dGameKeyCore_c::setShakeY()
             return;
         }
 
-        float accXDiff = fabsf(mAccel.x - mAccelOld.x);
-        float accYDiff = fabsf(mAccel.y - mAccelOld.y);
-        float accZDiff = fabsf(mAccel.z - mAccelOld.z);
+        if (fFeature::B_SHAKE && mControllerType == 0) {
+            // Shake with B Button on sideways wii remote
+            mShake = mTriggered & WPADButton::WPAD_BUTTON_B;
+        } else {
+            float accXDiff = fabsf(mAccel.x - mAccelOld.x);
+            float accYDiff = fabsf(mAccel.y - mAccelOld.y);
+            float accZDiff = fabsf(mAccel.z - mAccelOld.z);
 
-        if (accYDiff >= 0.28) {
-            mShakeTimer1++;
-            if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
-                mShakeTimer3 = 5;
-                mShakeTimer1 = 0;
-                mShake = true;
-            } else {
-                mShake = false;
+            if (accYDiff >= 0.28) {
+                mShakeTimer1++;
+                if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
+                    mShakeTimer3 = 5;
+                    mShakeTimer1 = 0;
+                    mShake = true;
+                } else {
+                    mShake = false;
+                }
+                return;
             }
-            return;
-        }
 
-        if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
-            mShakeTimer1 = 0;
-            mShakeTimer2 = 0;
-        }
+            if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
+                mShakeTimer1 = 0;
+                mShakeTimer2 = 0;
+            }
 
-        mShake = false;
+            mShake = false;
+        }
     }
 }
