@@ -188,6 +188,7 @@ void daPyMng_c::initStage()
         for (int i = 0; i < PLAYER_COUNT; i++) {
             if (mPlayerEntry[i] == 0) {
                 initKinopioPlayer(0, i);
+                break;
             }
         }
     }
