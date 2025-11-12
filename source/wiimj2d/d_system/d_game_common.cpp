@@ -180,7 +180,7 @@ void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum)
       "#00461400", // Luigi
       "#00005A00", // Blue Toad
       "#28280000", // Yellow Toad
-      "#32002A00", // Toadette
+      "#32102A00", // Toadette
       "#2F004100", // Purple Toadette
       "#32320000", // Orange Toad
       "#10101000", // Black Toad
@@ -191,7 +191,7 @@ void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum)
       "#3CBE32FF", // Luigi
       "#4178FAFF", // Blue Toad
       "#FFFF3CFF", // Yellow Toad
-      "#FF3CD8FF", // Toadette
+      "#E97EDBFF", // Toadette
       "#C179FFFF", // Purple Toadette
       "#FF8200FF", // Orange Toad
       "#303030FF", // Black Toad
