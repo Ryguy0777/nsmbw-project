@@ -9,6 +9,7 @@
 #include "d_bases/d_s_stage.h"
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
+#include "framework/f_feature.h"
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -70,27 +71,45 @@ void dGameKeyCore_c::setShakeY()
             return;
         }
 
-        float accXDiff = fabsf(mAccel.x - mAccelOld.x);
-        float accYDiff = fabsf(mAccel.y - mAccelOld.y);
-        float accZDiff = fabsf(mAccel.z - mAccelOld.z);
-
-        if (accYDiff >= 0.28) {
-            mShakeTimer1++;
-            if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
-                mShakeTimer3 = 5;
-                mShakeTimer1 = 0;
-                mShake = true;
+        bool isButtonShake = false;
+        if (fFeature::SHAKE_WITH_BUTTON) {
+            if (mControllerType == 1) {
+                // Shake with 1/2 Buttons on in Nunchuck Mode
+                // NOTE:
+                // We need to access the inputs from EGG::CoreController
+                // Because dGameKeyCore_c converts Z/B/A button presses into 1/2 button presses
+                isButtonShake = mPad::g_core[static_cast<int>(mChannel)]->downTrigger((WPADButton::WPAD_BUTTON_1 | WPADButton::WPAD_BUTTON_2));
             } else {
-                mShake = false;
+                // Shake with B Button on sideways Wii Remote
+                isButtonShake = mTriggered & WPADButton::WPAD_BUTTON_B;
             }
-            return;
         }
 
-        if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
-            mShakeTimer1 = 0;
-            mShakeTimer2 = 0;
-        }
+        if (isButtonShake == false) {
+            float accXDiff = fabsf(mAccel.x - mAccelOld.x);
+            float accYDiff = fabsf(mAccel.y - mAccelOld.y);
+            float accZDiff = fabsf(mAccel.z - mAccelOld.z);
 
-        mShake = false;
+            if (accYDiff >= 0.28) {
+                mShakeTimer1++;
+                if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
+                    mShakeTimer3 = 5;
+                    mShakeTimer1 = 0;
+                    mShake = true;
+                } else {
+                    mShake = false;
+                }
+                return;
+            }
+
+            if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
+                mShakeTimer1 = 0;
+                mShakeTimer2 = 0;
+            }
+
+            mShake = false;
+        } else {
+            mShake = true;
+        }
     }
 }
