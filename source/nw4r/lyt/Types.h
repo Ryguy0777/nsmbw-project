@@ -1,12 +1,51 @@
 #pragma once
 
 #include <nw4r/ut/LinkList.h>
+#include <nw4r/math/vec.h>
 
 namespace nw4r::lyt
 {
 
+enum VertexColor {
+    VERTEXCOLOR_LT,
+    VERTEXCOLOR_RT,
+    VERTEXCOLOR_LB,
+    VERTEXCOLOR_RB,
+
+    VERTEXCOLOR_MAX
+};
+
 namespace detail
 {
+
+typedef math::VEC2 TexCoord[VERTEXCOLOR_MAX];
+
+class TexCoordAry {
+public:
+    TexCoordAry();
+
+    void Free();
+    void Reserve(u8 num);
+    void SetSize(u8 num);
+    void Copy(const void* pSrc, u8 num);
+
+    bool IsEmpty() const {
+        return mCap == 0;
+    }
+
+    u8 GetSize() const {
+        return mNum;
+    }
+
+    TexCoord* GetArray() const {
+        return mpData;
+    }
+
+private:
+    u8 mCap; // at 0x0
+    u8 mNum; // at 0x1
+    TexCoord* mpData;
+};
 
 struct BitGXNums {
     u32 texMap : 4; // ( >> 28 ) &  0xF

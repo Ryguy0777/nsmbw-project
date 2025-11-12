@@ -14,6 +14,7 @@
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
 #include <nw4r/ut/Color.h>
+#include <nw4r/lyt/Window.h>
 
 namespace dGameCom
 {
@@ -170,6 +171,39 @@ bool isGameStop(u32 flag);
 
 [[address(0x800B3B60)]]
 void LayoutDispNumber(const int& value, const int& maxChars, LytTextBox_c* textBox, bool itoaType);
+
+[[address(0x800B3C50)]]
+void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum)
+{
+    static constinit const nw4r::ut::Color l_PLY_COLOR_0[] = {
+      "#32000000", // Mario
+      "#00461400", // Luigi
+      "#00005A00", // Blue Toad
+      "#28280000", // Yellow Toad
+      "#32002A00", // Toadette
+      "#2F004100", // Purple Toadette
+      "#32320000", // Orange Toad
+      "#10101000", // Black Toad
+    };
+
+    static constinit const nw4r::ut::Color l_PLY_COLOR_2[] = {
+      "#E65050FF", // Mario
+      "#3CBE32FF", // Luigi
+      "#4178FAFF", // Blue Toad
+      "#FFFF3CFF", // Yellow Toad
+      "#FF3CD8FF", // Toadette
+      "#C179FFFF", // Purple Toadette
+      "#FF8200FF", // Orange Toad
+      "#303030FF", // Black Toad
+    };
+
+    int index = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(playerNum));
+
+    nw4r::lyt::Material* windowMaterial = window->GetMaterial(1);
+
+    windowMaterial->SetTevColor(0, l_PLY_COLOR_0[index]);
+    windowMaterial->SetTevColor(1, l_PLY_COLOR_2[index]);
+}
 
 [[address(0x800B44D0)]]
 void SelectCursorSetup(nw4r::lyt::Picture* pane, int param2, bool param3);
