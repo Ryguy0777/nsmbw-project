@@ -2,6 +2,8 @@
 // NSMBW .text: 0x8005DFD0 - 0x8005E9A0
 
 #include "d_a_player_key.h"
+#include "d_game_key.h"
+#include "d_pad_info.h"
 
 [[address(0x8005E040)]]
 void dAcPyKey_c::update() ASM_METHOD(
@@ -177,6 +179,36 @@ UNDEF_8005e294:;
 
   // clang-format on
 );
+
+[[address(0x8005E590)]]
+u16 dAcPyKey_c::triggerOne() const
+{
+    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
+    if (padInfo != nullptr) {
+        // GameCube controller
+        return padInfo->mTrig & PADButton::PAD_BUTTON_Y;
+    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mControllerType == 1) {
+        // Nunchuck mode
+        return mTriggeredButtons & WPADButton::WPAD_BUTTON_B;
+    }
+    // Sideways Wii Remote
+    return mTriggeredButtons & WPADButton::WPAD_BUTTON_1;
+}
+
+[[address(0x8005E5D0)]]
+u16 dAcPyKey_c::buttonOne() const
+{
+    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
+    if (padInfo != nullptr) {
+        // GameCube controller
+        return padInfo->mHold & PADButton::PAD_BUTTON_Y;
+    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mControllerType == 1) {
+        // Nunchuck mode
+        return mDownButtons & WPADButton::WPAD_BUTTON_B;
+    }
+    // Sideways Wii Remote
+    return mDownButtons & WPADButton::WPAD_BUTTON_1;
+}
 
 [[address(0x8005E8B0)]]
 bool dAcPyKey_c::triggerJumpBuf(int param2) ASM_METHOD(

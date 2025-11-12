@@ -6,6 +6,7 @@
 #include <revolution/kpad.h>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
+#include <d_system/d_pad_info.h>
 
 namespace EGG
 {
@@ -103,27 +104,24 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
     if (padStatus->button & PADButton::PAD_BUTTON_B) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_1;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
-        maStatus->hold |= WPADButton::WPAD_BUTTON_MINUS;
-    }
     if (padStatus->button & PADButton::PAD_TRIGGER_Z) {
-        maStatus->hold |= WPADButton::WPAD_BUTTON_A;
+        maStatus->hold |= WPADButton::WPAD_BUTTON_MINUS;
     }
     if (padStatus->button & PADButton::PAD_BUTTON_START) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_PLUS;
     }
 
     // Map stick to D-pad
-    if (padStatus->stickX < -32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_DOWN)) {
+    if (padStatus->stickX < -54 && !(maStatus->hold & WPADButton::WPAD_BUTTON_DOWN)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_UP;
     }
-    if (padStatus->stickX > 32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_UP)) {
+    if (padStatus->stickX > 54 && !(maStatus->hold & WPADButton::WPAD_BUTTON_UP)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_DOWN;
     }
-    if (padStatus->stickY < -32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_RIGHT)) {
+    if (padStatus->stickY < -54 && !(maStatus->hold & WPADButton::WPAD_BUTTON_RIGHT)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_LEFT;
     }
-    if (padStatus->stickY > 32 && !(maStatus->hold & WPADButton::WPAD_BUTTON_LEFT)) {
+    if (padStatus->stickY > 54 && !(maStatus->hold & WPADButton::WPAD_BUTTON_LEFT)) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
     }
 
@@ -136,10 +134,13 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
     if (padStatus->button & PADButton::PAD_BUTTON_Y) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_1;
     }
+    if (padStatus->button & PADButton::PAD_BUTTON_X) {
+        maStatus->hold |= WPADButton::WPAD_BUTTON_A;
+    }
 
     // Map tilt to triggers
-    float analogA = padStatus->triggerL;
-    float analogB = padStatus->triggerR;
+    float analogA = button & PADButton::PAD_TRIGGER_L ? 255 : padStatus->triggerL;
+    float analogB = button & PADButton::PAD_TRIGGER_R ? 255 : padStatus->triggerR;
 
     float tilt = analogA / 255;
     tilt -= analogB / 255;
@@ -284,6 +285,13 @@ CoreControllerMgr::CoreControllerMgr();
 void CoreControllerMgr::beginFrame()
 {
     PADRead(saPadStatus);
+
+    // OEM controllers have imperfections in their analog values
+    // PADClamp is designed to remove these imperfections
+    PADClamp(saPadStatus);
+
+    // generate PADInfo structs out of PADStatus
+    dPADInfo::convertPADStatus(saPadStatus);
 
     for (int i = 0; i < mControllers.getSize(); ++i) {
         WPADChannel chan = static_cast<WPADChannel>(i);

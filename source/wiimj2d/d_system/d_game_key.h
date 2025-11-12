@@ -1,9 +1,8 @@
 #pragma once
 
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_game_key_core.h"
 #include <egg/core/eggHeap.h>
-
-class dGameKeyCore_c;
 
 class dGameKey_c
 {
