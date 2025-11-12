@@ -23,6 +23,9 @@ u32 rndInt(u32 max);
 /* 0x800B30C0 */
 f32 getDispCenterX();
 
+/* 0x800B32E0 @unofficial */
+mVec3_c ScalePosForAspectRatio(const mVec3_c&);
+
 /* 0x800B34D0 */
 void CreateBlueNumber(const mVec3_c&, int, int);
 

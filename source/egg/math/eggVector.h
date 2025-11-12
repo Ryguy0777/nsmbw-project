@@ -25,8 +25,6 @@ struct Vector3f : public nw4r::math::VEC3 {
     {
     }
 
-    ~Vector3f() = default;
-
     f32& operator()(int i)
     {
         return ((f32*) this)[i];
@@ -150,24 +148,28 @@ struct Vector3f : public nw4r::math::VEC3 {
     static const Vector3f ez;
 };
 
-struct Vector2f : public nw4r::math::VEC2 {
+class Vector2f
+{
+public:
     SIZE_ASSERT(0x8);
 
-    Vector2f()
+    constexpr Vector2f()
     {
     }
 
-    Vector2f(f32 fx, f32 fy)
-      : VEC2(fx, fy)
+    constexpr Vector2f(f32 fx, f32 fy)
+      : x(fx)
+      , y(fy)
     {
     }
 
-    Vector2f(Vec2 vec)
-      : VEC2(vec.x, vec.y)
+    constexpr Vector2f(Vec2 vec)
+      : x(vec.x)
+      , y(vec.y)
     {
     }
 
-    ~Vector2f()
+    constexpr ~Vector2f()
     {
     }
 
@@ -176,15 +178,17 @@ public:
     static const Vector2f ex;
     static const Vector2f ey;
 
-    Vector2f operator-(const Vector2f& v)
+    constexpr Vector2f operator-(const Vector2f& v)
     {
         return Vector2f(x - v.x, y - v.y);
     }
 
-    f32 squaredLength() const
+    constexpr f32 squaredLength() const
     {
         return (x * x + y * y);
     }
+
+    float x, y;
 };
 
 } // namespace EGG

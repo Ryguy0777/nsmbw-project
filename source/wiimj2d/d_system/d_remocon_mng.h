@@ -1,17 +1,17 @@
 #pragma once
 
 #include "d_system/d_game_key.h"
-#include <egg/core/eggHeap.h>
 #include "machine/m_pad.h"
-#include "state/s_FStateFct.h"
 #include "state/s_State.h"
-#include "state/s_StateMethodUsr_FI.h"
-#include "state/s_StateMgr.h"
+#include "state/s_StateMgrDefault.h"
+#include <egg/core/eggHeap.h>
 
 #define REMOCON_CONNECT_COUNT 8
 
 class dRemoconMng_c
 {
+    SIZE_ASSERT(0x4 + REMOCON_CONNECT_COUNT * 0x4);
+
 public:
     // -------------------
     // Constants and Types
@@ -22,6 +22,8 @@ public:
     class dConnect_c
     {
         SIZE_ASSERT(0x98);
+
+        friend class dRemoconMng_c;
 
     public:
         // -------------------
@@ -40,6 +42,11 @@ public:
 
             /* 0x800DCFF0 */
             void execute();
+        };
+
+        enum class PrimaryDev_e : u8 {
+            CORE,
+            EXTENSION,
         };
 
     public:
@@ -61,7 +68,47 @@ public:
         /* 0x800DCA80 */
         void onRumbleEnable();
 
-    public:
+        inline bool splitExtension()
+        {
+            return false;
+        }
+
+        inline bool isSetup() const
+        {
+            return mStateMgr.getStateID()->isEqual(StateID_Setup);
+        }
+
+        inline mPad::CH_e getChannel() const
+        {
+            return mChannel;
+        }
+
+        inline dExtension_c* getExtension()
+        {
+            return &mExtension;
+        }
+
+        inline int getBattery() const
+        {
+            return mBattery;
+        }
+
+        inline bool getAllowConnect() const
+        {
+            return mAllowConnect;
+        }
+
+        inline bool setAllowConnect(bool set)
+        {
+            return mAllowConnect = set;
+        }
+
+        inline PrimaryDev_e getPrimaryDev() const
+        {
+            return mPrimaryDev;
+        }
+
+    private:
         // -----------
         // Member Data
         // -----------
@@ -74,11 +121,10 @@ public:
         FILL(0x09, 0x50);
 
         /* 0x50 */ int mBattery;
-        /* 0x54 */ u8 m0x54;
+        /* 0x54 */ bool mAllowConnect;
+        /* 0x55 */ PrimaryDev_e mPrimaryDev;
         /* 0x58 */ int m0x58;
-
-        /* 0x5C */
-        sStateMgr_c<dConnect_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
+        /* 0x5C */ sStateMgrDefault_c<dConnect_c> mStateMgr;
 
     public:
         // -----------
@@ -104,12 +150,15 @@ public:
     /* 0x800DC040 */
     dRemoconMng_c();
 
+    dRemoconMng_c(dRemoconMng_c* old);
+
+    /* 0x800DC0D0 */
+    virtual ~dRemoconMng_c();
+
 public:
     // -----------
     // Member Data
     // -----------
-
-    FILL(0x00, 0x04);
 
     /* 0x04 */ dConnect_c* mpaConnect[CONNECT_COUNT];
 

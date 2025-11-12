@@ -93,7 +93,7 @@ void dScCrsin_c::executeState_resWaitProc2()
         for (int i = 0; i < PLAYER_COUNT; i++) {
             daPyMng_c::mPlayerEntry[i] = 1;
 
-            dRemoconMng_c::m_instance->mpaConnect[i]->m0x54 = 1;
+            dRemoconMng_c::m_instance->mpaConnect[i]->setAllowConnect(true);
 
             int playerType = int(daPyMng_c::mPlayerType[i]);
 

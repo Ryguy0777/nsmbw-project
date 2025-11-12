@@ -1,5 +1,6 @@
 #pragma once
 
+#include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_wm_player_base.h"
@@ -192,5 +193,5 @@ public:
 
     /* 0x8042A480 */ static daWmPlayer_c* ms_instance;
 
-    /* 0x809A0DB8 */ static u32 m_activeCharaFlag[SUBPLAYER_COUNT];
+    /* 0x809A0DB8 */ static dInfo_c::PlyConnectStage_e ms_plyConnectStage[SUBPLAYER_COUNT];
 };

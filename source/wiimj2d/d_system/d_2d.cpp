@@ -6,6 +6,9 @@
 namespace d2d
 {
 
+[[address(0x80006AA0)]]
+ResAccMultLoader_c::ResAccMultLoader_c();
+
 [[address(0x80006BE0)]]
 bool ResAccMultLoader_c::request(const char* path);
 

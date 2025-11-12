@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SndID.h"
 #include <egg/audio/eggAudioMgr.h>
 #include <nw4r/snd/SoundArchivePlayer.h>
 
@@ -11,7 +12,7 @@ public:
     // ----------------
 
     /* 0x801954C0 */
-    void startSystemSe(unsigned int sound, u32 param2);
+    void startSystemSe(SndID::Type sound, u32 param2);
 
     /* 0x80196FD0 */
     void setIsReplay(bool value);

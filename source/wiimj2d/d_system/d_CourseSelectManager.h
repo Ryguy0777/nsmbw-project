@@ -12,7 +12,7 @@
 class dCourseSelectMenu_c;
 class dNumberOfPeopleChange_c;
 class dStockItem_c;
-class dStocKItemShadow_c;
+class dStockItemShadow_c;
 class dCollectionCoin_c;
 class dWorldSelect_c;
 class dWorldSelectGuide_c;
@@ -68,7 +68,7 @@ public:
     /* 0x0AC */ dCourseSelectMenu_c* mpCrsSelectMenu; // COURSE_SELECT_MENU
     /* 0x0B0 */ dNumberOfPeopleChange_c* mpNumPyChg; // NUMBER_OF_PEOPLE_CHANGE
     /* 0x0B4 */ dStockItem_c* mpStockItem; // STOCK_ITEM
-    /* 0x0B8 */ dStocKItemShadow_c* mpStockItemSha; // STOCK_ITEM_SHADOW
+    /* 0x0B8 */ dStockItemShadow_c* mpStockItemSha; // STOCK_ITEM_SHADOW
     /* 0x0BC */ dCollectionCoin_c* mpCollectionCoin; // COLLECTION_COIN
     /* 0x0C0 */ dWorldSelect_c* mpWSelect; // WORLD_SELECT
     /* 0x0C4 */ dWorldSelectGuide_c* mpWSelectGuide; // WORLD_SELECT_GUIDE

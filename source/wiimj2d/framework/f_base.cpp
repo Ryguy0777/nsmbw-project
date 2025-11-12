@@ -68,3 +68,9 @@ void fBase_c::operator delete(void*);
 
 [[address(0x80162B60)]]
 bool fBase_c::checkChildProcessCreateState() const;
+
+[[address(0x80162C40)]]
+fBase_c* fBase_c::createChild(u16 profName, fBase_c* parent, u32 param, u8 groupType);
+
+[[address(0x80162C60)]]
+fBase_c* fBase_c::createRoot(u16 profName, u32 param, u8 groupType);

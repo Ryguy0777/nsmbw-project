@@ -26,3 +26,6 @@ void dCyuukan_c::clear()
 
 [[address(0x8008EE00)]]
 void dCyuukan_c::courseIN();
+
+[[address(0x8008EEC0)]]
+bool dCyuukan_c::checkEntry();

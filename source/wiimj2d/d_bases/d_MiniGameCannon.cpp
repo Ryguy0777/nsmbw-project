@@ -89,24 +89,21 @@ bool dMiniGameCannon_c::createLayout()
       "miniGameCannon_15_outWindow.brlan",
     });
     mLayout.GroupRegister(
-      {
-        "A00_Window",
-        "A00_Window",
-        "B00_Yokomochi",
-        "D00_1P_00",
-        "D01_2P_00",
-        "D02_3P_00",
-        "D03_4P_00",
-        "D00_1P_00",
-        "D01_2P_00",
-        "D02_3P_00",
-        "D03_4P_00",
-        "E00_title",
-        "E00_title",
-        "E00_title",
-        "A00_Window",
-      },
-      {0, 1, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 6, 7, 8}
+      {{"A00_Window", 0},
+       {"A00_Window", 1},
+       {"B00_Yokomochi", 2},
+       {"D00_1P_00", 3},
+       {"D01_2P_00", 3},
+       {"D02_3P_00", 3},
+       {"D03_4P_00", 3},
+       {"D00_1P_00", 4},
+       {"D01_2P_00", 4},
+       {"D02_3P_00", 4},
+       {"D03_4P_00", 4},
+       {"E00_title", 5},
+       {"E00_title", 6},
+       {"E00_title", 7},
+       {"A00_Window", 8}}
     );
     mLayout.TPaneNameRegister(
       300,

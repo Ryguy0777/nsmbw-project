@@ -25,8 +25,8 @@
 #include "framework/f_base_profile.h"
 #include "framework/f_feature.h"
 #include "framework/f_manager.h"
-#include "framework/f_sound_id.h"
 #include "machine/m_vec.h"
+#include "sound/SndID.h"
 #include <PatchRel.h>
 #include <numeric>
 #include <revolution/os.h>
@@ -753,8 +753,8 @@ void daPyMng_c::incCoin(int player)
         }
 
         dAudio::SndObjctCmnMap_c* objMap = dAudio::g_pSndObjMap;
-        objMap->startSound(SE_SYS_100COIN_ONE_UP, pos, remoteMask);
-        objMap->startSound(SE_SYS_100COIN_ONE_UP_RC, pos, remoteMask);
+        objMap->startSound(SndID::SE_SYS_100COIN_ONE_UP, pos, remoteMask);
+        objMap->startSound(SndID::SE_SYS_100COIN_ONE_UP_RC, pos, remoteMask);
     }
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -846,9 +846,9 @@ void daPyMng_c::deleteCullingYoshi();
 
 [[gnu::used]]
 int l_QUAKE_SOUND_LIST[] = {
-  SE_PLY_HPDP_SPECIAL_TWO,
-  SE_PLY_HPDP_SPECIAL_THREE,
-  SE_PLY_HPDP_SPECIAL_FOUR,
+  SndID::SE_PLY_HPDP_SPECIAL_TWO,
+  SndID::SE_PLY_HPDP_SPECIAL_THREE,
+  SndID::SE_PLY_HPDP_SPECIAL_FOUR,
 };
 
 [[address(0x80060C10)]]

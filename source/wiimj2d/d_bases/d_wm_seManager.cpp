@@ -6,12 +6,12 @@
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_audio.h"
 #include "d_system/d_mj2d_game.h"
-#include "framework/f_sound_id.h"
-#include <iterator>
 #include "sound/SndAudioMgr.h"
+#include "sound/SndID.h"
 #include "sound/SndObjectEnemy.h"
 #include "sound/SndObjectMap.h"
 #include "sound/SndObjectPlayer.h"
+#include <iterator>
 
 [[address_data(0x8042A55C)]]
 dWmSeManager_c* dWmSeManager_c::m_pInstance;
@@ -600,7 +600,7 @@ UNDEF_80104da4:;
 
 [[address(0x80104DD0)]]
 void dWmSeManager_c::UNDEF_80104dd0() ASM_METHOD(
-    // clang-format off
+  // clang-format off
 /* 80104DD0 9421FFC0 */  stwu     r1, -64(r1);
 /* 80104DD4 7C0802A6 */  mflr     r0;
 /* 80104DD8 C002A174 */  lfs      f0, -24204(r2);
@@ -797,9 +797,8 @@ UNDEF_801050a0:;
 /* 801050B0 7C0803A6 */  mtlr     r0;
 /* 801050B4 38210040 */  addi     r1, r1, 64;
 /* 801050B8 4E800020 */  blr;
-    // clang-format on
-)
-
+  // clang-format on
+);
 
 [[address(0x801050E0)]]
 void dWmSeManager_c::playPlyVoice(
@@ -823,8 +822,8 @@ void dWmSeManager_c::playPlySound(
   WmSound_e sound, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode, f32 param4
 )
 {
-    u32 soundId = getSoundId(sound);
-    if (soundId == SE_DEMO_OP_DUMMY_U) {
+    SndID::Type soundId = getSoundId(sound);
+    if (soundId == SndID::SE_DEMO_OP_DUMMY_U) {
         return;
     }
 

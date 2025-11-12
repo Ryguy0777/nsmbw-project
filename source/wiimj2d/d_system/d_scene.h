@@ -20,11 +20,9 @@ public:
     virtual ~dScene_c() override;
 
 public:
-    // ---------
-    // Functions
-    // ---------
-
-
+    // ----------------
+    // Member Functions
+    // ----------------
 
     /* 0x800E2040 */
     void setFadeInFrame(u16 frames);

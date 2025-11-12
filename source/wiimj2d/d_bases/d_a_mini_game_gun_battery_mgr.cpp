@@ -7,9 +7,9 @@
 #include "d_player/d_a_player.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
-#include "framework/f_sound_id.h"
 #include "machine/m_fader.h"
 #include "sound/SndAudioMgr.h"
+#include "sound/SndID.h"
 #include "sound/SndSceneMgr.h"
 
 [[address(0x80866120)]]
@@ -105,7 +105,7 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowRule()
 
         dGameCom::MiniGameCannonStart();
         SndSceneMgr::sInstance->setMiniGameTrack(2);
-        SndAudioMgr::sInstance->startSystemSe(SE_MG_CMN_WIN_T_OPEN, 2);
+        SndAudioMgr::sInstance->startSystemSe(SndID::SE_MG_CMN_WIN_T_OPEN, 2);
 
         mMessageState = 3;
         mMessageTimer = 480;
@@ -119,7 +119,9 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowRule()
         }
 
         dGameCom::MiniGameCannonOperateCloseRequest();
-        SndAudioMgr::sInstance->startSystemSe(closed ? SE_MG_CMN_WIN_CLK : SE_MG_CMN_WIN_CLOSE, 1);
+        SndAudioMgr::sInstance->startSystemSe(
+          closed ? SndID::SE_MG_CMN_WIN_CLK : SndID::SE_MG_CMN_WIN_CLOSE, 1
+        );
 
         mMessageState = 4;
         mMessageTimer = 0;
@@ -170,7 +172,9 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowResult()
         }
 
         SndSceneMgr::sInstance->setMiniGameTrack(win ? 10 : 9);
-        SndAudioMgr::sInstance->startSystemSe(win ? SE_MG_UH_NICE : SE_MG_UH_WIN_BR_OPEN, 1);
+        SndAudioMgr::sInstance->startSystemSe(
+          win ? SndID::SE_MG_UH_NICE : SndID::SE_MG_UH_WIN_BR_OPEN, 1
+        );
 
         mMessageState = 2;
         mMessageTimer = 300;
@@ -183,7 +187,9 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowResult()
         }
 
         dGameCom::MiniGameCannonResultCloseRequest();
-        SndAudioMgr::sInstance->startSystemSe(closed ? SE_MG_CMN_WIN_CLK : SE_MG_CMN_WIN_CLOSE, 1);
+        SndAudioMgr::sInstance->startSystemSe(
+          closed ? SndID::SE_MG_CMN_WIN_CLK : SndID::SE_MG_CMN_WIN_CLOSE, 1
+        );
 
         mMessageState = 3;
         mMessageTimer = 0;

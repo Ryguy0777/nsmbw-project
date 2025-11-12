@@ -14,7 +14,7 @@
 #include <revolution/os.h>
 
 /* 0x809A0DB8 */
-u32 daWmPlayer_c::m_activeCharaFlag[SUBPLAYER_COUNT];
+dInfo_c::PlyConnectStage_e daWmPlayer_c::ms_plyConnectStage[SUBPLAYER_COUNT];
 
 [[address(0x809027C0)]]
 daWmPlayer_c::daWmPlayer_c()
@@ -149,15 +149,13 @@ void daWmPlayer_c::updateActivePlayers()
     dInfo_c* info = dInfo_c::m_instance;
 
     for (u32 i = 0; i < PLAYER_COUNT; i++) {
-        bool active = (i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4]) == 3;
+        bool active = info->getPlyConnectStage(i) == dInfo_c::PlyConnectStage_e::ENTER;
         if (active) {
             std::size_t index = static_cast<std::size_t>(daPyMng_c::mPlayerType[i]);
             daPyMng_c::mPlayerEntry[i] = 1;
-            if (m_activeCharaFlag[index] == 3) {
-                setPlayerActive(index, i != 0, false);
-            } else {
-                setPlayerActive(index, i != 0, true);
-            }
+            setPlayerActive(
+              index, i != 0, ms_plyConnectStage[index] == dInfo_c::PlyConnectStage_e::ENTER
+            );
         }
     }
 
@@ -171,8 +169,8 @@ void daWmPlayer_c::updateActivePlayers()
     }
 
     for (u32 i = 0; i < PLAYER_COUNT; i++) {
-        m_activeCharaFlag[static_cast<std::size_t>(daPyMng_c::mPlayerType[i])] =
-          info->getPlayerActiveMode(i);
+        ms_plyConnectStage[static_cast<std::size_t>(daPyMng_c::mPlayerType[i])] =
+          info->getPlyConnectStage(i);
     }
 
     for (daWmSubPlayer_c* player = static_cast<daWmSubPlayer_c*>(mNextPlayer); player != nullptr;
@@ -197,8 +195,11 @@ void daWmPlayer_c::initActiveCharaFlags()
     dInfo_c* info = dInfo_c::m_instance;
 
     for (u32 i = 0; i < SUBPLAYER_COUNT; i++) {
-        s32 flag = i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4];
-        m_activeCharaFlag[s32(daPyMng_c::mPlayerType[i]) % SUBPLAYER_COUNT] = flag == 3 ? 3 : 0;
+        auto flag = info->getPlyConnectStage(i);
+        if (flag != dInfo_c::PlyConnectStage_e::ENTER) {
+            flag = dInfo_c::PlyConnectStage_e::OFF;
+        }
+        ms_plyConnectStage[s32(daPyMng_c::mPlayerType[i]) % SUBPLAYER_COUNT] = flag;
     }
 }
 

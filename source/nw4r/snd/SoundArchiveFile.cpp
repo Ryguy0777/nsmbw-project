@@ -3,8 +3,13 @@
 
 #include "SoundArchiveFile.h"
 
-#include <framework/f_sound_id.h>
 #include <revolution/os.h>
+
+namespace
+{
+#include <mkwcat.rsid>
+#include <wiimj2d.rsid>
+} // namespace
 
 namespace nw4r::snd::detail
 {

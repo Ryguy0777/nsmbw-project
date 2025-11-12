@@ -2,12 +2,12 @@
 
 #include "machine/m_angle.h"
 #include <egg/math/eggMath.h>
-#include <revolution/mtx.h>
+#include <nw4r/math/vec.h>
 
 /**
  * A two-dimensional floating point vector.
  */
-class mVec2_c : public Vec2
+class mVec2_c : public nw4r::math::VEC2
 {
     SIZE_ASSERT(0x8);
 
@@ -175,7 +175,7 @@ public:
 /**
  * A three-dimensional floating point vector.
  */
-class mVec3_c : public Vec
+class mVec3_c : public nw4r::math::VEC3
 {
     SIZE_ASSERT(0xC);
 

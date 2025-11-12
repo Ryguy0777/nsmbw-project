@@ -27,6 +27,9 @@ u32 rndInt(u32 max);
 [[address(0x800B30C0)]]
 f32 getDispCenterX();
 
+[[address(0x800B32E0)]]
+mVec3_c ScalePosForAspectRatio(const mVec3_c&);
+
 [[address(0x800B34D0)]]
 void CreateBlueNumber(const mVec3_c& pos, int type, int playerNo)
 {
@@ -177,11 +180,7 @@ void SelectCursorSetup(nw4r::lyt::Picture* pane, int param2, bool param3);
 [[address(0x800B4760)]]
 bool PlayerEnterCheck(int player)
 {
-    if (player < 4) {
-        return dInfo_c::m_instance->mPlayerActiveMode[player] == 3;
-    } else {
-        return dInfo_c::m_instance->mExPlayerActiveMode[player - 4] == 3;
-    }
+    return dInfo_c::m_instance->getPlyConnectStage(player) == dInfo_c::PlyConnectStage_e::ENTER;
 }
 
 [[address(0x800B4780)]]

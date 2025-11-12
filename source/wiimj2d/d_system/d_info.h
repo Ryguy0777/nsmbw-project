@@ -26,6 +26,14 @@ public:
     enum class IbaraMode_e {
     };
 
+    /* @unofficial */
+    enum class PlyConnectStage_e {
+        OFF = 0,
+        SETUP = 1,
+        SELECT = 2,
+        ENTER = 3,
+    };
+
     struct StartGameInfo_s {
         SIZE_ASSERT(0x10);
 
@@ -83,12 +91,21 @@ public:
     // Functions
     // ---------
 
-    u32 getPlayerActiveMode(u32 index)
+    PlyConnectStage_e getPlyConnectStage(u32 index)
     {
         if (index < 4) {
-            return mPlayerActiveMode[index];
+            return mPlyConnectStage[index];
         } else {
-            return mExPlayerActiveMode[index - 4];
+            return mExPlyConnectStage[index - 4];
+        }
+    }
+
+    PlyConnectStage_e& setPlyConnectStage(u32 index, PlyConnectStage_e value)
+    {
+        if (index < 4) {
+            return mPlyConnectStage[index] = value;
+        } else {
+            return mExPlyConnectStage[index - 4] = value;
         }
     }
 
@@ -159,13 +176,17 @@ public:
      */
     /* 0x380 */ bool mSwitchOn;
 
-    /* 0x384 */ s32 mPlayerActiveMode[4];
+    /* 0x384 */ PlyConnectStage_e mPlyConnectStage[4];
     /* 0x394 */ u8 m0x394;
     /* 0x395 */ STAGE_e mKinopioCourseNo[WORLD_COUNT];
     /* 0x39F */ STAGE_e mStage0x39F[WORLD_COUNT];
     /* 0x3A9 */ bool mKinopioCourseInvalid[WORLD_COUNT];
 
-    FILL(0x3B3, 0xAF4);
+    FILL(0x3B3, 0x3CC);
+
+    /* 0x3CC */ int mPlayerCount;
+
+    FILL(0x3D0, 0xAF4);
 
     /* 0xAF4 */ int mCyuukanState;
 
@@ -183,7 +204,7 @@ public:
     OFFSET_ASSERT(0xB5C);
 
 #define OFFSET_dInfo_c_mExPlayerActiveMode 0xB5C
-    /* 0xB5C */ s32 mExPlayerActiveMode[PLAYER_COUNT - 4];
+    /* 0xB5C */ PlyConnectStage_e mExPlyConnectStage[PLAYER_COUNT - 4];
 
 #define OFFSET_dInfo_c_mEx0xAFE (OFFSET_dInfo_c_mExPlayerActiveMode + (PLAYER_COUNT - 4) * 4)
 #define ADJUST_dInfo_c_mEx0xAFE (OFFSET_dInfo_c_mEx0xAFE - 0xAFE - 4 * 22)

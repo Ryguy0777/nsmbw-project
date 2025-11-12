@@ -1,16 +1,20 @@
 #pragma once
 
 #include "System.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_scene.h"
 #include "state/s_FStateFct.h"
 #include "state/s_State.h"
-#include "state/s_StateInterfaces.h"
-#include "state/s_StateMethodUsr_FI.h"
-#include "state/s_StateMgr.h"
+#include "state/s_StateMgrDefault.h"
 
 class da2DPlayer_c;
 class dNumberOfPeopleChange_c;
 class dSelectPlayer_c;
+class dEasyPairing_c;
+class dSequenceBG_c;
+class dFileSelect_c;
+class dDateFile_c;
+class dInfoWindow_c;
 
 class dScGameSetup_c : public dScene_c
 {
@@ -19,16 +23,18 @@ public:
     // Member Functions
     // ----------------
 
+    /* 0x80917C80 */
+    bool Phase_CreateLayoutManagers();
+
     /* 0x80917EB0 */
-    bool add2dPlayer();
+    bool Phase_Create2DPlayer();
 
 public:
     // -----------
     // Member Data
     // -----------
 
-    /* 0x074 */
-    sStateMgr_c<dScGameSetup_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
+    /* 0x074 */ sStateMgrDefault_c<dScGameSetup_c> mStateMgr;
 
     FILL(0x0B0, 0x0B8);
 
@@ -36,10 +42,15 @@ public:
 
     FILL(0x0BC, 0x0C0);
 
-    /* 0x0C0 */ da2DPlayer_c* mpa2DPlayer[4];
+    /* 0x0C0 */ da2DPlayer_c* mpa2DPlayer[ORIGINAL_PLAYER_COUNT];
     /* 0x0D0 */ dSelectPlayer_c* mpSelectPlayer;
+    /* 0x0D4 */ dEasyPairing_c* mpEasyPairing;
+    /* 0x0D8 */ dSequenceBG_c* mpSequenceBG;
+    /* 0x0DC */ dDateFile_c* mpDateFile[SAVE_SLOT_COUNT];
+    /* 0x0E8 */ dFileSelect_c* mpFileSelect;
+    /* 0x0EC */ dInfoWindow_c* mpInfoWindow;
 
-    FILL(0x0D4, 0x0F8);
+    FILL(0x0F0, 0x0F8);
 
     /* 0x0F8 */ u32 mPlayerCreateIdx;
 

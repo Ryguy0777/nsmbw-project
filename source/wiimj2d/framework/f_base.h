@@ -393,4 +393,32 @@ public:
         // Wrong type
         return nullptr;
     }
+
+public:
+    // ----------------
+    // Static Functions
+    // ----------------
+
+    /**
+     * 0x80162C40
+     * Creates a child base under the given parent.
+     *
+     * @param profName The base's profile name.
+     * @param parent The base's parent. Must not be nullptr .
+     * @param param The base's parameters.
+     * @param groupType The base's group type.
+     * @return A pointer to the instantiated base, or nullptr .
+     */
+    static fBase_c* createChild(u16 profName, fBase_c* parent, u32 param, u8 groupType);
+
+    /**
+     * 0x80162C60
+     * Creates a root base.
+     *
+     * @param profName The base's profile name.
+     * @param param The base's parameters.
+     * @param groupType The base's group type.
+     * @return A pointer to the instantiated base, or nullptr .
+     */
+    static fBase_c* createRoot(u16 profName, u32 param, u8 groupType);
 };

@@ -3,11 +3,20 @@
 #include "d_CharacterChangeSelectBase.h"
 #include "d_system/d_base.h"
 #include "d_system/d_lytbase.h"
-#include <nw4r/lyt/Pane.h>
 #include "state/s_State.h"
+#include <nw4r/lyt/Pane.h>
+
+class dCharacterChangeIndicator_c;
 
 class dCharacterChangeSelectContents_c : public dBase_c
 {
+public:
+    // -------------------
+    // Constants and Types
+    // -------------------
+
+    using Icon_e = dCharacterChangeSelectBase_c::Icon_e;
+
 public:
     // ----------------
     // Member Functions
@@ -19,10 +28,10 @@ public:
     /* 0x80772E30 */
     bool createLayout();
 
-    void setMarioIconVisible(u32 param_2);
+    void setMarioIconVisible(int index);
 
     /* 0x80773220 */
-    void UNDEF_80773220();
+    void dispNextConPicture(Icon_e iconNext, int direction);
 
 public:
     // -----------
@@ -30,8 +39,9 @@ public:
     // -----------
 
     /* 0x070 */ LytBase_c mLayout;
+    /* 0x208 */ dCharacterChangeIndicator_c* mpCcIndicator;
 
-    FILL(0x208, 0x248);
+    FILL(0x20C, 0x248);
 
     /* 0x248 */ nw4r::lyt::Pane* mpRootPane;
 
@@ -39,12 +49,12 @@ public:
     /* 0x254 */ nw4r::lyt::Picture* mpaPictures[8];
     /* 0x274 */ LytTextBox_c* mpaTextBoxes[4];
 
-    /* 0x284 */ u32 m0x284; // Set to m0x288 in create
-    /* 0x288 */ u32 m0x288;
-    /* 0x28C */ dCharacterChangeSelectBase_c::Icon_e m0x28C; // Set 6 in create
-    /* 0x290 */ dCharacterChangeSelectBase_c::Icon_e m0x290; // Set 6 in create
-    /* 0x294 */ dCharacterChangeSelectBase_c::Icon_e m0x294; // Set 6 in create
-    /* 0x298 */ dCharacterChangeSelectBase_c::Icon_e m0x298; // Set 2 in create
+    /* 0x284 */ int mPlayerNo; // Set to m0x288 in create
+    /* 0x288 */ int m0x288;
+    /* 0x28C */ Icon_e m0x28C; // Set 6 in create
+    /* 0x290 */ Icon_e m0x290; // Set 6 in create
+    /* 0x294 */ Icon_e m0x294; // Set 6 in create
+    /* 0x298 */ Icon_e m0x298; // Set 2 in create
 
     /* 0x29C */ u8 m0x29C; // Set 1 in create
     /* 0x29D */ u8 m0x29D; // Set 0 in create

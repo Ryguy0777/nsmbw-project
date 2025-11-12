@@ -8,9 +8,9 @@
 #include "d_system/d_game_key.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
-#include "framework/f_sound_id.h"
 #include "machine/m_pad.h"
 #include "sound/SndAudioMgr.h"
+#include "sound/SndID.h"
 #include <revolution/wpad.h>
 
 enum ANIM_ID_e {
@@ -261,7 +261,7 @@ void dSelectPlayer_c::initializeState_ButtonChangeAnimeEndWait()
         mButtonAnimeOff = mButtonAnimeOn + (C00_Button1_a_off - C00_Button1_a_on);
         mLayout.AnimeStartSetup(mButtonAnimeOff, false);
 
-        SndAudioMgr::sInstance->startSystemSe(SE_SYS_CURSOR, 1);
+        SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_CURSOR, 1);
     }
 
     if (mMultiMode && mCurrentButton < 4) {
@@ -334,7 +334,7 @@ void dSelectPlayer_c::executeState_StartMemberSelect()
 
     if (dGameCom::chkCancelButton(0)) {
         mActDirection = -1;
-        SndAudioMgr::sInstance->startSystemSe(SE_SYS_BACK, 1);
+        SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_BACK, 1);
         mStateMgr.changeState(StateID_ExitAnimeEndWait);
         return;
     }
@@ -360,7 +360,7 @@ void dSelectPlayer_c::executeState_MultiStartMemberSelect();
 [[address(0x807ACAD0)]]
 void dSelectPlayer_c::initializeState_StartMemberButtonAnime()
 {
-    SndAudioMgr::sInstance->startSystemSe(SE_SYS_DECIDE, 1);
+    SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_DECIDE, 1);
     dSelectCursor_c::m_instance->Cancel(0);
 
     if (mMultiMode && mCurrentButton < 4) {

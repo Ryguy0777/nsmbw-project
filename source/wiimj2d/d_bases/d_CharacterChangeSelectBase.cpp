@@ -1,15 +1,27 @@
 // d_CharacterChangeSelectBase.cpp
-// NSMBW: 0x8076F350 - 0x80772A50
+// NSMBW: 0x8076F3D0 - 0x80772A50
 
 #include "d_CharacterChangeSelectBase.h"
 
+#include "d_bases/d_CharacterChangeIndicator.h"
+#include "d_bases/d_CharacterChangeSelectArrow.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_remocon_mng.h"
-#include "framework/f_sound_id.h"
+#include "d_system/d_scene.h"
 #include "sound/SndAudioMgr.h"
+#include "sound/SndID.h"
+#include <algorithm>
 #include <revolution/os.h>
+
+fBase_c* dCharacterChangeSelectBase_c_classInit()
+{
+    dCharacterChangeSelectBase_c* base = new dCharacterChangeSelectBase_c();
+    base->mCcCount = 4;
+    return base;
+}
 
 PLAYER_TYPE_e g_CHARACTER_FROM_BASE[] = {
   PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,      PLAYER_TYPE_e::YELLOW_TOAD,
@@ -17,135 +29,158 @@ PLAYER_TYPE_e g_CHARACTER_FROM_BASE[] = {
   PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
 };
 
-[[address(0x8076FAE0)]]
-bool dCharacterChangeSelectBase_c::updateRemocon() ASM_METHOD(
-  // clang-format off
-/* 8076FAE0 9421FFE0 */  stwu     r1, -32(r1);
-/* 8076FAE4 7C0802A6 */  mflr     r0;
-/* 8076FAE8 90010024 */  stw      r0, 36(r1);
-/* 8076FAEC 39610020 */  addi     r11, r1, 32;
-/* 8076FAF0 4BB6D571 */  bl       UNDEF_802dd060;
-/* 8076FAF4 800302D8 */  lwz      r0, 728(r3);
-/* 8076FAF8 7C7F1B78 */  mr       r31, r3;
-/* 8076FAFC 2C000000 */  cmpwi    r0, 0;
-/* 8076FB00 4180006C */  blt-     UNDEF_8076fb6c;
-/* 8076FB04 3C608043 */  lis      r3, m_instance__13dRemoconMng_c@ha;
-/* 8076FB08 5400103A */  slwi     r0, r0, 2;
-/* 8076FB0C 8063A308 */  lwz      r3, m_instance__13dRemoconMng_c@l(r3);
-/* 8076FB10 7C630214 */  add      r3, r3, r0;
-/* 8076FB14 80630004 */  lwz      r3, 4(r3);
-/* 8076FB18 8583005C */  lwzu     r12, 92(r3);
-/* 8076FB1C 818C0028 */  lwz      r12, 40(r12);
-/* 8076FB20 7D8903A6 */  mtctr    r12;
-/* 8076FB24 4E800421 */  bctrl;
-/* 8076FB28 81830000 */  lwz      r12, 0(r3);
-/* 8076FB2C 3C808037 */  lis      r4, UNDEF_80371b70@ha;
-/* 8076FB30 38841B70 */  addi     r4, r4, UNDEF_80371b70@l;
-/* 8076FB34 818C0010 */  lwz      r12, 16(r12);
-/* 8076FB38 7D8903A6 */  mtctr    r12;
-/* 8076FB3C 4E800421 */  bctrl;
-/* 8076FB40 2C030000 */  cmpwi    r3, 0;
-/* 8076FB44 40820114 */  bne-     UNDEF_8076fc58;
-/* 8076FB48 801F02D8 */  lwz      r0, 728(r31);
-/* 8076FB4C 38A00000 */  li       r5, 0;
-/* 8076FB50 809F0280 */  lwz      r4, 640(r31);
-/* 8076FB54 7FE3FB78 */  mr       r3, r31;
-/* 8076FB58 5400103A */  slwi     r0, r0, 2;
-/* 8076FB5C 7CA4012E */  stwx     r5, r4, r0;
-/* 8076FB60 4BFFFEE1 */  bl       UNDEF_8076fa40;
-/* 8076FB64 38600001 */  li       r3, 1;
-/* 8076FB68 480000F4 */  b        UNDEF_8076fc5c;
-UNDEF_8076fb6c:;
-/* 8076FB6C 3B400000 */  li       r26, 0;
-/* 8076FB70 3B600000 */  li       r27, 0;
-/* 8076FB74 3F808043 */  lis      r28, m_instance__13dRemoconMng_c@ha;
-/* 8076FB78 3FA08037 */  lis      r29, UNDEF_80371b70@ha;
-/* 8076FB7C 3BC00004 */  li       r30, 4;
-UNDEF_8076fb80:;
-/* 8076FB80 801CA308 */  lwz      r0, m_instance__13dRemoconMng_c@l(r28);
-/* 8076FB84 7C60DA14 */  add      r3, r0, r27;
-/* 8076FB88 80630004 */  lwz      r3, 4(r3);
-/* 8076FB8C 8583005C */  lwzu     r12, 92(r3);
-/* 8076FB90 818C0028 */  lwz      r12, 40(r12);
-/* 8076FB94 7D8903A6 */  mtctr    r12;
-/* 8076FB98 4E800421 */  bctrl;
-/* 8076FB9C 81830000 */  lwz      r12, 0(r3);
-/* 8076FBA0 389D1B70 */  addi     r4, r29, UNDEF_80371b70@l;
-/* 8076FBA4 818C0010 */  lwz      r12, 16(r12);
-/* 8076FBA8 7D8903A6 */  mtctr    r12;
-/* 8076FBAC 4E800421 */  bctrl;
-/* 8076FBB0 2C030000 */  cmpwi    r3, 0;
-/* 8076FBB4 41820094 */  beq-     UNDEF_8076fc48;
-/* 8076FBB8 807F0284 */  lwz      r3, 644(r31);
-/* 8076FBBC 38800000 */  li       r4, 0;
-/* 8076FBC0 80030000 */  lwz      r0, 0(r3);
-/* 8076FBC4 7C1A0000 */  cmpw     r26, r0;
-/* 8076FBC8 41820038 */  beq-     UNDEF_8076fc00;
-/* 8076FBCC 80030004 */  lwz      r0, 4(r3);
-/* 8076FBD0 38800001 */  li       r4, 1;
-/* 8076FBD4 7C1A0000 */  cmpw     r26, r0;
-/* 8076FBD8 41820028 */  beq-     UNDEF_8076fc00;
-/* 8076FBDC 80030008 */  lwz      r0, 8(r3);
-/* 8076FBE0 38800002 */  li       r4, 2;
-/* 8076FBE4 7C1A0000 */  cmpw     r26, r0;
-/* 8076FBE8 41820018 */  beq-     UNDEF_8076fc00;
-/* 8076FBEC 8003000C */  lwz      r0, 12(r3);
-/* 8076FBF0 38800003 */  li       r4, 3;
-/* 8076FBF4 7C1A0000 */  cmpw     r26, r0;
-/* 8076FBF8 41820008 */  beq-     UNDEF_8076fc00;
-/* 8076FBFC 38800004 */  li       r4, 4;
-UNDEF_8076fc00:;
-/* 8076FC00 2C040004 */  cmpwi    r4, 4;
-/* 8076FC04 41800044 */  blt-     UNDEF_8076fc48;
-/* 8076FC08 38A00000 */  li       r5, 0;
-/* 8076FC0C 38600000 */  li       r3, 0;
-/* 8076FC10 7FC903A6 */  mtctr    r30;
-/* 8076FC14 60000000 */  nop;
-UNDEF_8076fc18:;
-/* 8076FC18 809F0284 */  lwz      r4, 644(r31);
-/* 8076FC1C 7C04182E */  lwzx     r0, r4, r3;
-/* 8076FC20 2C000000 */  cmpwi    r0, 0;
-/* 8076FC24 40800018 */  bge-     UNDEF_8076fc3c;
-/* 8076FC28 54A0103A */  slwi     r0, r5, 2;
-/* 8076FC2C 38600001 */  li       r3, 1;
-/* 8076FC30 7F44012E */  stwx     r26, r4, r0;
-/* 8076FC34 935F02D8 */  stw      r26, 728(r31);
-/* 8076FC38 48000024 */  b        UNDEF_8076fc5c;
-UNDEF_8076fc3c:;
-/* 8076FC3C 38630004 */  addi     r3, r3, 4;
-/* 8076FC40 38A50001 */  addi     r5, r5, 1;
-/* 8076FC44 4200FFD4 */  bdnz+    UNDEF_8076fc18;
-UNDEF_8076fc48:;
-/* 8076FC48 3B5A0001 */  addi     r26, r26, 1;
-/* 8076FC4C 3B7B0004 */  addi     r27, r27, 4;
-/* 8076FC50 2C1A0004 */  cmpwi    r26, REMOCON_CONNECT_COUNT;
-/* 8076FC54 4180FF2C */  blt+     UNDEF_8076fb80;
-UNDEF_8076fc58:;
-/* 8076FC58 38600000 */  li       r3, 0;
-UNDEF_8076fc5c:;
-/* 8076FC5C 39610020 */  addi     r11, r1, 32;
-/* 8076FC60 4BB6D44D */  bl       UNDEF_802dd0ac;
-/* 8076FC64 80010024 */  lwz      r0, 36(r1);
-/* 8076FC68 7C0803A6 */  mtlr     r0;
-/* 8076FC6C 38210020 */  addi     r1, r1, 32;
-/* 8076FC70 4E800020 */  blr;
-  // clang-format on
-);
+[[address(0x8076F400)]]
+dCharacterChangeSelectBase_c::dCharacterChangeSelectBase_c();
 
-PLAYER_TYPE_e get_CHARACTER_FROM_BASE(u32 baseIndex)
+[[address(0x8076FA40)]]
+void dCharacterChangeSelectBase_c::clearPlayerNo()
 {
-    return dCharacterChangeSelectBase_c::CHARACTER_FROM_BASE[4 - baseIndex];
+    if (mPlayerNo < 0) {
+        return;
+    }
+
+    for (std::size_t cc = 0; cc < mCcCount; cc++) {
+        if (mpNumPySetupPlayers[cc] == mPlayerNo) {
+            mpNumPySetupPlayers[cc] = -1;
+            break;
+        }
+    }
+
+    mpCcIndicator->setLampPattern(0u);
+    mpCcIndicator->m0x24C = 0;
+    mpCcIndicator->m0x234 = m0x2EC;
+
+    if (dScene_c::m_nowScene != +fBaseProfile_e::WORLD_MAP) {
+        mPlayerNo = -1;
+    }
+}
+
+[[address(0x8076FAE0)]]
+bool dCharacterChangeSelectBase_c::updateRemocon()
+{
+    if (mPlayerNo >= 0) {
+        bool setup = dRemoconMng_c::m_instance->mpaConnect[mPlayerNo]->isSetup();
+        if (!setup) {
+            mpNumPyConnectStage[mPlayerNo] = dInfo_c::PlyConnectStage_e::OFF;
+            clearPlayerNo();
+        }
+        return !setup;
+    }
+
+    dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
+    for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
+        dRemoconMng_c::dConnect_c* connect = remocons->mpaConnect[ply];
+        if (!connect->isSetup()) {
+            continue;
+        }
+
+        bool exist = false;
+        for (std::size_t cc = 0; cc < mCcCount; cc++) {
+            if (mpNumPySetupPlayers[cc] == ply) {
+                exist = true;
+                break;
+            }
+        }
+
+        if (exist) {
+            continue;
+        }
+
+        for (std::size_t cc = 0; cc < mCcCount; cc++) {
+            if (mpNumPySetupPlayers[cc] < 0) {
+                mpNumPySetupPlayers[cc] = ply;
+                mPlayerNo = ply;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+PLAYER_TYPE_e dCharacterChangeSelectBase_c::getCharacterFromBase(int baseIndex)
+{
+    return dMj2dGame_c::scDefaultPlayerTypes[4 - baseIndex];
+}
+
+PLAYER_TYPE_e dCharacterChangeSelectBase_c::getCharacterFromIcon(Icon_e icon)
+{
+    switch (icon) {
+    default:
+    case Icon_e::ICON_MARIO:
+    case Icon_e::ICON_MARIO_LOCKED:
+        return PLAYER_TYPE_e::MARIO;
+
+    case Icon_e::ICON_LUIGI:
+    case Icon_e::ICON_LUIGI_LOCKED:
+        return PLAYER_TYPE_e::LUIGI;
+
+    case Icon_e::ICON_YELLOW_TOAD:
+    case Icon_e::ICON_YELLOW_TOAD_LOCKED:
+        return PLAYER_TYPE_e::YELLOW_TOAD;
+
+    case Icon_e::ICON_BLUE_TOAD:
+    case Icon_e::ICON_BLUE_TOAD_LOCKED:
+        return PLAYER_TYPE_e::BLUE_TOAD;
+
+    case Icon_e::ICON_TOADETTE:
+    case Icon_e::ICON_TOADETTE_LOCKED:
+        return PLAYER_TYPE_e::TOADETTE;
+
+    case Icon_e::ICON_PURPLE_TOADETTE:
+    case Icon_e::ICON_PURPLE_TOADETTE_LOCKED:
+        return PLAYER_TYPE_e::PURPLE_TOADETTE;
+
+    case Icon_e::ICON_ORANGE_TOAD:
+    case Icon_e::ICON_ORANGE_TOAD_LOCKED:
+        return PLAYER_TYPE_e::ORANGE_TOAD;
+
+    case Icon_e::ICON_BLACK_TOAD:
+    case Icon_e::ICON_BLACK_TOAD_LOCKED:
+        return PLAYER_TYPE_e::BLACK_TOAD;
+    }
+}
+
+bool dCharacterChangeSelectBase_c::isLockedIcon(Icon_e icon)
+{
+    switch (icon) {
+    default:
+        return false;
+
+    case Icon_e::ICON_MARIO_LOCKED:
+    case Icon_e::ICON_LUIGI_LOCKED:
+    case Icon_e::ICON_YELLOW_TOAD_LOCKED:
+    case Icon_e::ICON_BLUE_TOAD_LOCKED:
+    case Icon_e::ICON_TOADETTE_LOCKED:
+    case Icon_e::ICON_PURPLE_TOADETTE_LOCKED:
+    case Icon_e::ICON_ORANGE_TOAD_LOCKED:
+    case Icon_e::ICON_BLACK_TOAD_LOCKED:
+        return true;
+    }
 }
 
 [[address(0x8076FC80)]]
-bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e character);
+bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e character)
+{
+    for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
+        if (mPlayerNo == ply) {
+            continue;
+        }
+
+        if (mpNumPyConnectStage[ply] == dInfo_c::PlyConnectStage_e::ENTER &&
+            mpNumPyDecidedPlayerTypeByPlayer[ply] == character) {
+            return true;
+        }
+    }
+    return false;
+}
 
 [[address(0x8076FD70)]]
-void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 swapIndex, u32 baseIndex)
+void dCharacterChangeSelectBase_c::calcContentsIcon(int swapIndex, int baseIndex)
 {
     Icon_e iconIndex = ICON_FROM_BASE[4 - baseIndex];
 
-    if (isCharacterLocked(get_CHARACTER_FROM_BASE(baseIndex))) {
+    if (isCharacterLocked(getCharacterFromBase(baseIndex))) {
         iconIndex = ICON_LOCKED_FROM_BASE[4 - baseIndex];
     }
 
@@ -157,143 +192,165 @@ void dCharacterChangeSelectBase_c::UNDEF_8076FD70(u32 swapIndex, u32 baseIndex)
 }
 
 [[address(0x8076FE40)]]
-void dCharacterChangeSelectBase_c::UNDEF_8076FE40()
+void dCharacterChangeSelectBase_c::setDecidedCharacter()
 {
-    mDecidedCharacter = get_CHARACTER_FROM_BASE(mSelectedBaseIndex);
+    mDecidedCharacter = getCharacterFromBase(mSelectedBaseIndex);
 }
 
-u32 sSavedIndexToBaseIndex[] = {4, 3, 2, 1, 4, 4, 4, 4};
+[[address(0x8076FE60)]]
+void dCharacterChangeSelectBase_c::setSelectedBaseIndex()
+{
+    mSelectedBaseIndex = 4 - mPlayerNo;
+}
+
+[[address(0x8076FE90)]]
+void dCharacterChangeSelectBase_c::resetIndicator()
+{
+    mpCcIndicator->setLampPattern(0u);
+}
 
 [[address(0x8076FEE0)]]
-void dCharacterChangeSelectBase_c::UNDEF_8076FEE0() ASM_METHOD(
-  // clang-format off
-/* 8076FEE0 9421FFF0 */  stwu     r1, -16(r1);
-/* 8076FEE4 7C0802A6 */  mflr     r0;
-/* 8076FEE8 3C808093 */  lis      r4, sSavedIndexToBaseIndex@ha;
-/* 8076FEEC 90010014 */  stw      r0, 20(r1);
-/* 8076FEF0 38843D20 */  addi     r4, r4, sSavedIndexToBaseIndex@l;
-/* 8076FEF4 93E1000C */  stw      r31, 12(r1);
-/* 8076FEF8 7C7F1B78 */  mr       r31, r3;
-/* 8076FEFC 800302D8 */  lwz      r0, 728(r3);
-/* 8076FF00 80A30278 */  lwz      r5, 632(r3);
-/* 8076FF04 5400103A */  slwi     r0, r0, 2;
-/* 8076FF08 7C04002E */  lwzx     r0, r4, r0;
-/* 8076FF0C 38800000 */  li       r4, 0;
-/* 8076FF10 900302E0 */  stw      r0, 736(r3);
-/* 8076FF14 880500BB */  lbz      r0, 187(r5);
-/* 8076FF18 5400063C */  rlwinm   r0, r0, 0, 24, 30;
-/* 8076FF1C 60000001 */  ori      r0, r0, 1;
-/* 8076FF20 980500BB */  stb      r0, 187(r5);
-/* 8076FF24 80A3027C */  lwz      r5, 636(r3);
-/* 8076FF28 880500BB */  lbz      r0, 187(r5);
-/* 8076FF2C 5400063C */  rlwinm   r0, r0, 0, 24, 30;
-/* 8076FF30 980500BB */  stb      r0, 187(r5);
-/* 8076FF34 80A302E0 */  lwz      r5, 736(r3);
-/* 8076FF38 4BFFFE39 */  bl       UNDEF_8076fd70;
-/* 8076FF3C 807F0074 */  lwz      r3, 116(r31);
-/* 8076FF40 38800001 */  li       r4, 1;
-/* 8076FF44 38000002 */  li       r0, 2;
-/* 8076FF48 9883029D */  stb      r4, 669(r3);
-/* 8076FF4C 807F0074 */  lwz      r3, 116(r31);
-/* 8076FF50 809F02D8 */  lwz      r4, 728(r31);
-/* 8076FF54 90830284 */  stw      r4, 644(r3);
-/* 8076FF58 C01F02EC */  lfs      f0, 748(r31);
-/* 8076FF5C 807F007C */  lwz      r3, 124(r31);
-/* 8076FF60 9003024C */  stw      r0, 588(r3);
-/* 8076FF64 D0030234 */  stfs     f0, 564(r3);
-/* 8076FF68 83E1000C */  lwz      r31, 12(r1);
-/* 8076FF6C 80010014 */  lwz      r0, 20(r1);
-/* 8076FF70 7C0803A6 */  mtlr     r0;
-/* 8076FF74 38210010 */  addi     r1, r1, 16;
-/* 8076FF78 4E800020 */  blr;
-  // clang-format on
-);
+void dCharacterChangeSelectBase_c::readyContents()
+{
+    mSelectedBaseIndex = 4 - mPlayerNo;
+    mp0x278->SetVisible(true);
+    mp0x27C->SetVisible(false);
+    calcContentsIcon(0, mSelectedBaseIndex);
+    mpCcSelContents->m0x29D = true;
+    mpCcSelContents->mPlayerNo = mPlayerNo;
+    mpCcIndicator->m0x24C = 2;
+    mpCcIndicator->m0x234 = m0x2EC;
+}
+
+[[address(0x80770090)]]
+void dCharacterChangeSelectBase_c::finalizeState_OnStageWait()
+{
+    resetIndicator();
+    mp0x278->SetVisible(false);
+    mp0x27C->SetVisible(true);
+
+    bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    if (isWorldMap) {
+        if (mpNumPyConnectStage[mPlayerNo] != dInfo_c::PlyConnectStage_e::ENTER) {
+            return;
+        }
+
+        mpCcIndicator->mPlayerNo = mPlayerNo;
+        mpCcIndicator->m0x248 = 3;
+        mpCcIndicator->setLampPattern(getLampPattern(mPlayerNo));
+        mpCcIndicator->m0x24C = 1;
+        mpCcIndicator->m0x234 = m0x2EC;
+    } else {
+        mPlayerNo = -1;
+        if (!updateRemocon()) {
+            return;
+        }
+
+        mpCcIndicator->mPlayerNo = mPlayerNo;
+        mpCcIndicator->m0x248 = 3;
+        mpCcIndicator->setLampPattern(getLampPattern(mPlayerNo));
+        mpCcIndicator->m0x24C = 0;
+        mpCcIndicator->m0x234 = m0x2EC;
+        mpNumPyConnectStage[mPlayerNo] = dInfo_c::PlyConnectStage_e::SETUP;
+        readyContents();
+        mpCcSelArrow->mSelectedBaseIndex = mSelectedBaseIndex;
+        mpCcSelArrow->m0x269 = true;
+        mpNumPyConnectStage[mPlayerNo] = dInfo_c::PlyConnectStage_e::SELECT;
+    }
+}
 
 [[address(0x807702A0)]]
-void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait() ASM_METHOD(
-  // clang-format off
-/* 807702A0 9421FFE0 */  stwu     r1, -32(r1);
-/* 807702A4 7C0802A6 */  mflr     r0;
-/* 807702A8 90010024 */  stw      r0, 36(r1);
-/* 807702AC 93E1001C */  stw      r31, 28(r1);
-/* 807702B0 7C7F1B78 */  mr       r31, r3;
-/* 807702B4 93C10018 */  stw      r30, 24(r1);
-/* 807702B8 3FC08099 */  lis      r30, UNDEF_80990948@ha;
-/* 807702BC 3BDE0948 */  addi     r30, r30, UNDEF_80990948@l;
-/* 807702C0 88030299 */  lbz      r0, 665(r3);
-/* 807702C4 2C000000 */  cmpwi    r0, 0;
-/* 807702C8 41820108 */  beq-     UNDEF_807703d0;
-/* 807702CC 3C808043 */  lis      r4, m_nowScene__8dScene_c@ha;
-/* 807702D0 A0A48A42 */  lhz      r5, m_nowScene__8dScene_c@l(r4);
-/* 807702D4 28050003 */  cmplwi   r5, 3;
-/* 807702D8 408200B8 */  bne-     UNDEF_80770390;
-/* 807702DC 800302D8 */  lwz      r0, 728(r3);
-/* 807702E0 80830280 */  lwz      r4, 640(r3);
-/* 807702E4 5400103A */  slwi     r0, r0, 2;
-/* 807702E8 7C04002E */  lwzx     r0, r4, r0;
-/* 807702EC 2C000003 */  cmpwi    r0, 3;
-/* 807702F0 408200A0 */  bne-     UNDEF_80770390;
-/* 807702F4 4BFFFB6D */  bl       UNDEF_8076fe60;
-/* 807702F8 7FE3FB78 */  mr       r3, r31;
-/* 807702FC 4BFFFB45 */  bl       UNDEF_8076fe40;
-/* 80770300 80BF02DC */  lwz      r5, 732(r31);
-/* 80770304 387F0228 */  addi     r3, r31, 552;
-/* 80770308 801F02D4 */  lwz      r0, 724(r31);
-/* 8077030C 389E03D0 */  addi     r4, r30, 976;
-/* 80770310 1CA5000C */  mulli    r5, r5, 12;
-/* 80770314 C07F02F0 */  lfs      f3, 752(r31);
-/* 80770318 5400103A */  slwi     r0, r0, 2;
-/* 8077031C 7CDF2A14 */  add      r6, r31, r5;
-/* 80770320          */  lwz      r5, 0x80(r31);
-/* 80770324 C00602AC */  lfs      f0, 684(r6);
-/* 80770328 C02602A8 */  lfs      f1, 680(r6);
-/* 8077032C C04602A4 */  lfs      f2, 676(r6);
-/* 80770330          */  lwzx     r5, r5, r0;
-/* 80770334 D0410008 */  stfs     f2, 8(r1);
-/* 80770338 D065025C */  stfs     f3, 604(r5);
-/* 80770340 D021000C */  stfs     f1, 12(r1);
-/* 8077034C D0010010 */  stfs     f0, 16(r1);
-/* 80770354 D045022C */  stfs     f2, 556(r5);
-/* 80770358 D0250230 */  stfs     f1, 560(r5);
-/* 8077035C D0050234 */  stfs     f0, 564(r5);
-/* 80770370 D04500AC */  stfs     f2, 172(r5);
-/* 80770374 D02500B0 */  stfs     f1, 176(r5);
-/* 80770378 D00500B4 */  stfs     f0, 180(r5);
-/* 8077037C 819F0228 */  lwz      r12, 552(r31);
-/* 80770380 818C0018 */  lwz      r12, 24(r12);
-/* 80770384 7D8903A6 */  mtctr    r12;
-/* 80770388 4E800421 */  bctrl;
-/* 8077038C 48000044 */  b        UNDEF_807703d0;
-UNDEF_80770390:;
-/* 80770390 28050003 */  cmplwi   r5, 3;
-/* 80770394 41820028 */  beq-     UNDEF_807703bc;
-/* 80770398 800302D8 */  lwz      r0, 728(r3);
-/* 8077039C 2C000000 */  cmpwi    r0, 0;
-/* 807703A0 4180001C */  blt-     UNDEF_807703bc;
-/* 807703A4 85830228 */  lwzu     r12, 552(r3);
-/* 807703A8 389E0210 */  addi     r4, r30, 528;
-/* 807703AC 818C0018 */  lwz      r12, 24(r12);
-/* 807703B0 7D8903A6 */  mtctr    r12;
-/* 807703B4 4E800421 */  bctrl;
-/* 807703B8 48000018 */  b        UNDEF_807703d0;
-UNDEF_807703bc:;
-/* 807703BC 85830228 */  lwzu     r12, 552(r3);
-/* 807703C0 389E00D0 */  addi     r4, r30, 208;
-/* 807703C4 818C0018 */  lwz      r12, 24(r12);
-/* 807703C8 7D8903A6 */  mtctr    r12;
-/* 807703CC 4E800421 */  bctrl;
-UNDEF_807703d0:;
-/* 807703D0 80010024 */  lwz      r0, 36(r1);
-/* 807703D4 83E1001C */  lwz      r31, 28(r1);
-/* 807703D8 83C10018 */  lwz      r30, 24(r1);
-/* 807703DC 7C0803A6 */  mtlr     r0;
-/* 807703E0 38210020 */  addi     r1, r1, 32;
-/* 807703E4 4E800020 */  blr;
-  // clang-format on
-)
+void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait()
+{
+    if (!m0x299) {
+        return;
+    }
 
-  [[address(0x807708E0)]] void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
-    // clang-format off
+    const auto* state = &StateID_SelectWait;
+    const bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    if (isWorldMap && mpNumPyConnectStage[mPlayerNo] == dInfo_c::PlyConnectStage_e::ENTER) {
+        setSelectedBaseIndex();
+        setDecidedCharacter();
+        da2DPlayer_c* p2dPlayer = mpa2DPlayer[static_cast<std::size_t>(mDecidedCharacter)];
+        p2dPlayer->mBasePos = mAllBasePos[0];
+        p2dPlayer->mPos = mAllBasePos[0];
+        state = &StateID_PlayerDisp;
+    } else if (isWorldMap || mPlayerNo < 0) {
+        state = &StateID_ConnectWait;
+    }
+    return mStateMgr.changeState(*state);
+}
+
+[[address(0x807703F0)]]
+void dCharacterChangeSelectBase_c::finalizeState_OnStageAnimeEndWait();
+
+[[address(0x80770400)]]
+void dCharacterChangeSelectBase_c::initializeState_ConnectWait();
+
+[[address(0x80770430)]]
+void dCharacterChangeSelectBase_c::executeState_ConnectWait();
+
+// Empty
+[[address(0x80770540)]]
+void dCharacterChangeSelectBase_c::finalizeState_ConnectWait();
+
+// Empty
+[[address(0x80770550)]]
+void dCharacterChangeSelectBase_c::initializeState_SelectStartWait();
+
+[[address(0x80770560)]]
+void dCharacterChangeSelectBase_c::executeState_SelectStartWait();
+
+// Empty
+[[address(0x80770620)]]
+void dCharacterChangeSelectBase_c::finalizeState_SelectStartWait();
+
+[[address(0x80770630)]]
+void dCharacterChangeSelectBase_c::initializeState_ButtonExitAnimeEndWait();
+
+[[address(0x80770670)]]
+void dCharacterChangeSelectBase_c::executeState_ButtonExitAnimeEndWait();
+
+[[address(0x807706D0)]]
+void dCharacterChangeSelectBase_c::finalizeState_ButtonExitAnimeEndWait();
+
+[[address(0x807706E0)]]
+void dCharacterChangeSelectBase_c::initializeState_ButtonOnStageAnimeEndWait()
+{
+    if (mPlayerNo < 0 || mpNumPyConnectStage[mPlayerNo] == dInfo_c::PlyConnectStage_e::OFF) {
+        clearPlayerNo();
+        mp0x278->SetVisible(false);
+        mp0x27C->SetVisible(true);
+        mpCcSelContents->m0x29F = true;
+        mpCcSelArrow->m0x26B = true;
+    } else {
+        readyContents();
+    }
+    mLayout.AnimeStartSetup(0);
+    m0x296 = true;
+}
+
+[[address(0x80770790)]]
+void dCharacterChangeSelectBase_c::executeState_ButtonOnStageAnimeEndWait();
+
+[[address(0x80770820)]]
+void dCharacterChangeSelectBase_c::finalizeState_ButtonOnStageAnimeEndWait();
+
+[[address(0x80770830)]]
+void dCharacterChangeSelectBase_c::initializeState_ArrowDispWait();
+
+[[address(0x80770850)]]
+void dCharacterChangeSelectBase_c::executeState_ArrowDispWait();
+
+[[address(0x807708B0)]]
+void dCharacterChangeSelectBase_c::finalizeState_ArrowDispWait();
+
+[[address(0x807708D0)]]
+void dCharacterChangeSelectBase_c::initializeState_SelectWait();
+
+[[address(0x807708E0)]]
+void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
+  // clang-format off
 /* 807708E0 9421FFE0 */  stwu     r1, -32(r1);
 /* 807708E4 7C0802A6 */  mflr     r0;
 /* 807708E8 90010024 */  stw      r0, 36(r1);
@@ -336,7 +393,7 @@ UNDEF_80770934:;
 /* 80770978 418200F4 */  beq-     UNDEF_80770a6c;
 
                          lwz      r3, 0x2E0(r30);
-                         bl       get_CHARACTER_FROM_BASE__FUl;
+                         bl       getCharacterFromBase__28dCharacterChangeSelectBase_cFi;
                          mr       r4, r3;
 /* 807709DC 7FC3F378 */  mr       r3, r30;
 /* 807709E4 4BFFF29D */  bl       UNDEF_8076fc80;
@@ -440,8 +497,48 @@ UNDEF_80770b24:;
 /* 80770B34 7C0803A6 */  mtlr     r0;
 /* 80770B38 38210020 */  addi     r1, r1, 32;
 /* 80770B3C 4E800020 */  blr;
-    // clang-format on
-  );
+  // clang-format on
+);
+
+[[address(0x80770B40)]]
+void dCharacterChangeSelectBase_c::finalizeState_SelectWait();
+
+[[address(0x80770B50)]]
+void dCharacterChangeSelectBase_c::initializeState_MoveAnimeStartWait();
+
+[[address(0x80770BA0)]]
+void dCharacterChangeSelectBase_c::executeState_MoveAnimeStartWait();
+
+[[address(0x80770BE0)]]
+void dCharacterChangeSelectBase_c::finalizeState_MoveAnimeStartWait();
+
+[[address(0x80770BF0)]]
+void dCharacterChangeSelectBase_c::initializeState_MoveAnimeEndWait();
+
+[[address(0x80770C90)]]
+void dCharacterChangeSelectBase_c::executeState_MoveAnimeEndWait();
+
+[[address(0x80770D00)]]
+void dCharacterChangeSelectBase_c::finalizeState_MoveAnimeEndWait();
+
+[[address(0x80770D80)]]
+void dCharacterChangeSelectBase_c::initializeState_HitAnimeEndWait();
+
+[[address(0x80770E20)]]
+void dCharacterChangeSelectBase_c::executeState_HitAnimeEndWait();
+
+[[address(0x80770E70)]]
+void dCharacterChangeSelectBase_c::finalizeState_HitAnimeEndWait();
+
+[[address(0x80770E80)]]
+void dCharacterChangeSelectBase_c::initializeState_HitAfterExitWait();
+
+[[address(0x80770E90)]]
+void dCharacterChangeSelectBase_c::executeState_HitAfterExitWait();
+
+// Empty
+[[address(0x80770ED0)]]
+void dCharacterChangeSelectBase_c::finalizeState_HitAfterExitWait();
 
 [[address(0x80770EE0)]]
 void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageWait() ASM_METHOD(
@@ -521,14 +618,14 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
     da2DPlayer_c* player = mpa2DPlayer[index];
 
     u16 sound = ArrayOf<u16[2]>{
-      {SE_VOC_MA_PLAYER_JOIN, SE_VOC_MA_PLAYER_JOIN_MAME},
-      {SE_VOC_LU_PLAYER_JOIN, SE_VOC_LU_PLAYER_JOIN_MAME},
-      {SE_VOC_KO_PLAYER_JOIN, SE_VOC_KO_PLAYER_JOIN_MAME},
-      {SE_VOC_KO2_PLAYER_JOIN, SE_VOC_KO2_PLAYER_JOIN_MAME},
-      {SE_VOC_KC_PLAYER_JOIN, SE_VOC_KC_PLAYER_JOIN_MAME},
-      {SE_VOC_KC_PLAYER_JOIN, SE_VOC_KC_PLAYER_JOIN_MAME},
-      {SE_VOC_KO_PLAYER_JOIN, SE_VOC_KO_PLAYER_JOIN_MAME},
-      {SE_VOC_KO2_PLAYER_JOIN, SE_VOC_KO2_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_MA_PLAYER_JOIN, SndID::SE_VOC_MA_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_LU_PLAYER_JOIN, SndID::SE_VOC_LU_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_KO_PLAYER_JOIN, SndID::SE_VOC_KO_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_KO2_PLAYER_JOIN, SndID::SE_VOC_KO2_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_KC_PLAYER_JOIN, SndID::SE_VOC_KC_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_KC_PLAYER_JOIN, SndID::SE_VOC_KC_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_KO_PLAYER_JOIN, SndID::SE_VOC_KO_PLAYER_JOIN_MAME},
+      {SndID::SE_VOC_KO2_PLAYER_JOIN, SndID::SE_VOC_KO2_PLAYER_JOIN_MAME},
     }[index % 8][player->mPowerup == PLAYER_MODE_e::MINI_MUSHROOM];
 
     SndAudioMgr::sInstance->startSystemSe(sound, 1);
@@ -540,7 +637,7 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
         player->m0x250 = 1.0f;
         player->m0x265 = true;
     }
-    player->mBaseY = mBaseY;
+    player->mAddY = m2dPlayerBaseY;
 
     m0x296 = true;
 }
@@ -737,13 +834,13 @@ UNDEF_8077149c:;
 void dCharacterChangeSelectBase_c::finalizeState_PlayerExitWait() ASM_METHOD(
   // clang-format off
 /* 807714C0 800302D8 */  lwz      r0, 728(r3);
-/* 807714C4 3CA08093 */  lis      r5, g_CHARACTER_FROM_BASE@ha;
+/* 807714C4 3CA08093 */  lis      r5, scDefaultPlayerTypes__11dMj2dGame_c@ha;
 /* 807714C8 80C30280 */  lwz      r6, 640(r3);
 /* 807714CC 3C808035 */  lis      r4, mPlayerType__9daPyMng_c@ha;
 /* 807714D0 5400103A */  slwi     r0, r0, 2;
 /* 807714D4 38E00001 */  li       r7, 1;
 /* 807714D8 7CE6012E */  stwx     r7, r6, r0;
-/* 807714DC 38A53CC0 */  addi     r5, r5, g_CHARACTER_FROM_BASE@l;
+/* 807714DC 38A53CC0 */  addi     r5, r5, scDefaultPlayerTypes__11dMj2dGame_c@l;
 /* 807714E0 38845160 */  addi     r4, r4, mPlayerType__9daPyMng_c@l;
 /* 807714E4 38000000 */  li       r0, 0;
 /* 807714E8 80C302D4 */  lwz      r6, 724(r3);
@@ -764,3 +861,29 @@ void dCharacterChangeSelectBase_c::finalizeState_PlayerExitWait() ASM_METHOD(
 /* 80771524 4E800020 */  blr;
   // clang-format on
 );
+
+u32 dCharacterChangeSelectBase_c::getLampPattern(int playerNo)
+{
+    if (unsigned(playerNo) >= dRemoconMng_c::CONNECT_COUNT) {
+        return 0b0000000;
+    }
+
+    dRemoconMng_c::dConnect_c* connect = dRemoconMng_c::m_instance->mpaConnect[playerNo];
+    mPad::CH_e channel = connect->getChannel();
+
+    if (channel >= mPad::CH_e::CHAN_0 && channel <= mPad::CH_e::CHAN_3) {
+        int c = static_cast<int>(channel) - static_cast<int>(mPad::CH_e::CHAN_0);
+        if (connect->getPrimaryDev() == dRemoconMng_c::dConnect_c::PrimaryDev_e::EXTENSION) {
+            return 0b100000 | (0b1000 >> c);
+        } else {
+            return 0b1000 >> c;
+        }
+    }
+
+    if (channel >= mPad::CH_e::CHAN_GC_0 && channel <= mPad::CH_e::CHAN_GC_3) {
+        int c = static_cast<int>(channel) - static_cast<int>(mPad::CH_e::CHAN_GC_0);
+        return 0b10000 | (0b1000 >> c);
+    }
+
+    return 0b000000;
+}

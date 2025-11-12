@@ -1,29 +1,30 @@
 #pragma once
 
+#include <revolution/mtx.h>
+
 namespace nw4r::math
 {
 
-struct VEC2 {
-    SIZE_ASSERT(0x8);
-
-    ~VEC2()
+struct VEC2 : ::Vec2 {
+    constexpr VEC2()
     {
     }
 
-    /* 0x0 */ f32 x;
-    /* 0x4 */ f32 y;
+    constexpr VEC2(float x, float y)
+      : ::Vec2(x, y)
+    {
+    }
 };
 
-struct VEC3 {
-    SIZE_ASSERT(0xC);
-
-    ~VEC3()
+struct VEC3 : ::Vec {
+    constexpr VEC3()
     {
     }
 
-    /* 0x0 */ f32 x;
-    /* 0x4 */ f32 y;
-    /* 0x8 */ f32 z;
+    constexpr VEC3(float x, float y, float z)
+      : ::Vec(x, y, z)
+    {
+    }
 };
 
 } // namespace nw4r::math

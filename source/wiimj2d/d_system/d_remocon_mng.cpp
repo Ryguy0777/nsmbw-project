@@ -17,33 +17,48 @@ dRemoconMng_c* dRemoconMng_c::m_instance;
 
 void dRemoconMng_c::recreate(EGG::Heap* heap)
 {
-    dRemoconMng_c* oldInstance = m_instance;
-
     EGG::Heap* oldHeap = mHeap::setCurrentHeap(heap);
 
-    dRemoconMng_c* newInstance = new dRemoconMng_c();
-
-    if (oldInstance != nullptr) {
-        for (int i = 0; i < 4; i++) {
-            newInstance->mpaConnect[i] = oldInstance->mpaConnect[i];
-        }
+    if (m_instance) {
+        new dRemoconMng_c(m_instance);
     } else {
-        for (int i = 0; i < 4; i++) {
-            newInstance->mpaConnect[i] = new dConnect_c(static_cast<mPad::CH_e>(i));
-        }
+        new dRemoconMng_c();
     }
-
-    for (int i = 4; i < CONNECT_COUNT; i++) {
-        newInstance->mpaConnect[i] = new dConnect_c(static_cast<mPad::CH_e>(i));
-    }
-
-    operator delete(oldInstance);
 
     mHeap::setCurrentHeap(oldHeap);
 }
 
+namespace
+{
+[[address(0x800DC000)]]
+void ClearDeviceCallback(s32);
+}
+
 [[address(0x800DC040)]]
 dRemoconMng_c::dRemoconMng_c();
+
+dRemoconMng_c::dRemoconMng_c(dRemoconMng_c* old)
+{
+    for (std::size_t connect = 0; connect < 4; connect++) {
+        mpaConnect[connect] = old->mpaConnect[connect];
+    }
+    for (std::size_t connect = 4; connect < CONNECT_COUNT; connect++) {
+        mpaConnect[connect] = new dConnect_c(static_cast<mPad::CH_e>(connect));
+    }
+
+    m_instance = this;
+    operator delete(old);
+}
+
+[[address(0x800DC0D0)]]
+dRemoconMng_c::~dRemoconMng_c()
+{
+    for (std::size_t connect; connect < CONNECT_COUNT; connect++) {
+        dConnect_c* pConnect = mpaConnect[connect];
+        mpaConnect[connect] = nullptr;
+        delete pConnect;
+    }
+}
 
 [[address(0x800DC570)]]
 void dRemoconMng_c::execute()
@@ -58,7 +73,7 @@ void dRemoconMng_c::execute()
     for (int i = 0; i < 4; i++) {
         dConnect_c* connect = m_instance->mpaConnect[i];
 
-        if (connect->m0x54 == 0) {
+        if (!connect->mAllowConnect) {
             continue;
         }
 
@@ -77,7 +92,7 @@ dRemoconMng_c::dConnect_c::dConnect_c(mPad::CH_e channel);
 [[address(0x800DC7E0)]]
 void dRemoconMng_c::dConnect_c::executeState_Shutdown()
 {
-    int chanIndex = static_cast<int>(mChannel);
+    std::size_t chanIndex = static_cast<std::size_t>(mChannel);
 
     WPADDeviceType devType = mPad::g_core[chanIndex]->maStatus->dev_type;
 
@@ -89,7 +104,7 @@ void dRemoconMng_c::dConnect_c::executeState_Shutdown()
         return;
     }
 
-    if (m0x54 == 0 && (mChannel < mPad::CH_e::CHAN_GC_0 || mChannel > mPad::CH_e::CHAN_GC_3)) {
+    if (!mAllowConnect && (mChannel < mPad::CH_e::CHAN_GC_0 || mChannel > mPad::CH_e::CHAN_GC_3)) {
         WPADDisconnect(static_cast<WPADChannel>(mChannel));
         return;
     }
@@ -139,12 +154,12 @@ void dRemoconMng_c::dConnect_c::finalizeState_Setup()
 [[address(0x800DC9D0)]]
 void dRemoconMng_c::dConnect_c::executeState_Setup()
 {
-    if (mPad::g_core[static_cast<int>(mChannel)]->mFlag.off(1)) {
+    if (mPad::g_core[static_cast<std::size_t>(mChannel)]->mFlag.off(1)) {
         mStateMgr.changeState(dRemoconMng_c::dConnect_c::StateID_Shutdown);
         return;
     }
 
-    if (m0x54 == 0 && (mChannel < mPad::CH_e::CHAN_GC_0 || mChannel > mPad::CH_e::CHAN_GC_3)) {
+    if (!mAllowConnect && (mChannel < mPad::CH_e::CHAN_GC_0 || mChannel > mPad::CH_e::CHAN_GC_3)) {
         WPADDisconnect(static_cast<WPADChannel>(mChannel));
     }
 
