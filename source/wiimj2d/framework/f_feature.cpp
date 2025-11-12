@@ -32,4 +32,7 @@ bool DISABLE_OPENING_MOVIE;
 [[address_data(0x8000678B)]]
 bool ALWAYS_CAN_EXIT_COURSE;
 
+[[address_data(0x8000678C)]]
+bool SHAKE_WITH_BUTTON;
+
 } // namespace fFeature
