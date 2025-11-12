@@ -24,27 +24,7 @@ dKinopicoMdl_c::dKinopicoMdl_c(u8 index)
       18.0,
     };
 
-    static ModelData l_modelDataPurple = {
-      "KinopicoPurple",
-      "C_rcha",
-      {"CB_model", "SCB_model", "PLCB_model", "PCB_model"},
-      {"CH_model", "SCH_model", "PLCH_model", "PCH_model"},
-      18.0,
-      13.0,
-      18.0,
-      18.0,
-    };
-
-    switch (static_cast<dPyMdlMng_c::ModelType_e>(index)) {
-    case dPyMdlMng_c::ModelType_e::MODEL_TOADETTE:
-    default:
-        mpModelData = &l_modelData;
-        break;
-
-    case dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE:
-        mpModelData = &l_modelDataPurple;
-        break;
-    };
+    mpModelData = &l_modelData;
 
     mFaceJointIdx = 15;
 }
@@ -92,6 +72,8 @@ m3d::anmTexPat_c* dKinopicoMdl_c::getBodyTexAnm()
 // TODO
 // void dKinopicoMdl_c::setTexAnmType(TexAnmType_e type);
 
+#include <revolution/os.h>
+
 void dKinopicoMdl_c::setColorType(u8 colorType)
 {
     if (mCurColorType == colorType) {
@@ -102,11 +84,22 @@ void dKinopicoMdl_c::setColorType(u8 colorType)
     int modelIdx = static_cast<int>(mModelIdx);
 
     float frame = 0;
-    if (colorType == 1) {
-        frame = 1;
-    } else if (colorType == 2) {
-        frame = 2;
+    if (modelIdx == MODEL_PROPELLER || modelIdx == MODEL_PENGUIN) {
+        if (mCharaID == static_cast<u8>(dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE)) {
+            frame = 1;
+        }
+    } else {
+        if (colorType == 1) {
+            frame = 1;
+        } else if (colorType == 2) {
+            frame = 2;
+        }
+        if (mCharaID == static_cast<u8>(dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE)) {
+            frame += 3;
+        }
     }
+
+    OS_REPORT("%f\n", frame);
 
     using StringArray = const char* const[];
 
