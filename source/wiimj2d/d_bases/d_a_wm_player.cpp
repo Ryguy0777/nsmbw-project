@@ -12,6 +12,7 @@
 #include "framework/f_base_profile.h"
 #include "machine/m_pad.h"
 #include <revolution/os.h>
+#include <d_system/d_CourseSelectManager.h>
 
 /* 0x809A0DB8 */
 u32 daWmPlayer_c::m_activeCharaFlag[SUBPLAYER_COUNT];
@@ -183,6 +184,32 @@ void daWmPlayer_c::updateActivePlayers()
 
 [[address(0x80902E30)]]
 void daWmPlayer_c::setPlayerActive(u32 id, bool param2, bool param3);
+
+[[address(0x80902ED0)]]
+void daWmPlayer_c::UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3);
+
+[[address(0x80902FA0)]]
+void daWmPlayer_c::setSubPlayerPower()
+{
+    if (daWmPlayer_c::isPlayerStarMode()) {
+        mModelManager.mModel->onStarAnm();
+        mModelManager.mModel->onStarEffect();
+    }
+
+    int powerup = static_cast<int>(dCourseSelectManager_c::m_instance->getPlayerPowerup(0));
+    mModelManager.mModel->setPlayerMode(powerup);
+
+    dInfo_c* info = dInfo_c::m_instance;
+
+    for (u32 i = 1; i < PLAYER_COUNT; i++) {
+        s32 flag = i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4];
+        if (flag == 3) {
+            int playerType = static_cast<int>(daPyMng_c::mPlayerType[i]);
+            int subPowerup = static_cast<int>(dCourseSelectManager_c::m_instance->getPlayerPowerup(i));
+            UNDEF_80902ED0(playerType, subPowerup, daPyMng_c::mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::STAR_POWER);
+        }
+    }
+}
 
 [[address(0x80907A60)]]
 daWmPlayer_c::PATH_DIR_e daWmPlayer_c::getMovementDirection();
