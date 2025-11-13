@@ -18,8 +18,6 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "Luigi",
       "Kinopio",
       "Kinopico", // Added
-      "KinopicoPurple", // Added
-      "KinopioBlackOrange", // Added
       "Yoshi",
       "P_rcha",
       "L_rcha",

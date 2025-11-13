@@ -51,8 +51,7 @@ set(DVD_FILES
     Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_gray.tpl
     Object/C_rcha.arc/g3d/model.brres
     Object/Kinopico.arc/g3d/model.brres
-    Object/KinopicoPurple.arc/g3d/model.brres
-    Object/KinopioBlackOrange.arc/g3d/model.brres
+    Object/Kinopio.arc/g3d/model.brres
     Object/MG_remo_cannon.arc/g3d/MG_remo_cannon.brres
     Object/middle_flag.arc/g3d/middle_flag.brres
     Object/remo_kanaami.arc/g3d/remo_kanaami.brres
