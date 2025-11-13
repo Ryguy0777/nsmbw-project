@@ -7,6 +7,7 @@
 #include <nw4r/ut/Color.h>
 #include <nw4r/ut/LinkList.h>
 #include <nw4r/ut/RuntimeTypeInfo.h>
+#include <nw4r/lyt/Material.h>
 
 namespace nw4r::lyt
 {
@@ -56,8 +57,6 @@ public:
 };
 
 } // namespace detail
-
-class Material;
 
 class AnimResource;
 
