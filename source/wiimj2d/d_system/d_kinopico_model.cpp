@@ -72,8 +72,6 @@ m3d::anmTexPat_c* dKinopicoMdl_c::getBodyTexAnm()
 // TODO
 // void dKinopicoMdl_c::setTexAnmType(TexAnmType_e type);
 
-#include <revolution/os.h>
-
 void dKinopicoMdl_c::setColorType(u8 colorType)
 {
     if (mCurColorType == colorType) {
@@ -98,8 +96,6 @@ void dKinopicoMdl_c::setColorType(u8 colorType)
             frame += 3;
         }
     }
-
-    OS_REPORT("%f\n", frame);
 
     using StringArray = const char* const[];
 

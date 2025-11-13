@@ -45,6 +45,14 @@ public:
     /* VT+0xB8 0x800BCD20 */
     virtual void createPlayerModel() override;
 
+protected:
+    // -----------
+    // Member Functions
+    // -----------
+
+    /* 0x800BD230  */
+    m3d::anmTexPat_c* getBodyTexAnm();
+
 public:
     // -----------
     // Member Data
