@@ -15,6 +15,7 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_start_info.h"
 #include "d_system/d_wm_lib.h"
+#include "revolution/os/OSError.h"
 
 [[address(0x80924950)]]
 bool dScStage_c::CreatedLayouts() const
@@ -39,7 +40,10 @@ void dScStage_c::courseClear()
 
     if (m_miniGame == 0) {
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            daPyMng_c::mCreateItem[i] = startInfo.mCreateItem[i];
+            // Hacky, but it works
+            // For some reason, mCreateItem will have the star flag reset by this function
+            // Even though the original game's version doesn't.
+            daPyMng_c::mCreateItem[i] = startInfo.mCreateItem[i] & ~PLAYER_CREATE_ITEM_e::STAR_POWER;
         }
     }
 
