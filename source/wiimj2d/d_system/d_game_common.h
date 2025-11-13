@@ -5,6 +5,8 @@
 namespace nw4r::lyt
 {
 class Picture;
+
+class Window;
 } // namespace nw4r::lyt
 
 class LytTextBox_c;
@@ -49,6 +51,9 @@ bool isGameStop(u32 flag);
 
 /* 0x800B3B60 */
 void LayoutDispNumber(const int& value, const int& maxChars, LytTextBox_c* textBox, bool itoaType);
+
+/* 0x800B3C50 */
+void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum);
 
 /* 0x800B44D0 */
 void SelectCursorSetup(nw4r::lyt::Picture* pane, int param2, bool param3);

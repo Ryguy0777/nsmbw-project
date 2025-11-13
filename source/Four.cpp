@@ -708,6 +708,8 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // dSmallScore_c::DispWait
   {0x80015b04 + 2, 2},
 
+  // daPyDemoMng_c::setEnemyStageClearDemo
+  {0x8005d71c + 2, 2},
 
   // Morton stunning players?
   // TODO: 0x80B60180
