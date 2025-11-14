@@ -200,8 +200,8 @@ void daWmPlayer_c::setSubPlayerPower()
     dInfo_c* info = dInfo_c::m_instance;
 
     for (u32 i = 1; i < PLAYER_COUNT; i++) {
-        s32 flag = i < 4 ? info->mPlayerActiveMode[i] : info->mExPlayerActiveMode[i - 4];
-        if (flag == 3) {
+        dInfo_c::PlyConnectStage_e flag = info->getPlyConnectStage(i);
+        if (flag == dInfo_c::PlyConnectStage_e::ENTER) {
             int playerType = static_cast<int>(daPyMng_c::mPlayerType[i]);
             int subPowerup = static_cast<int>(dCourseSelectManager_c::m_instance->getPlayerPowerup(i));
             UNDEF_80902ED0(playerType, subPowerup, daPyMng_c::mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::STAR_POWER);
