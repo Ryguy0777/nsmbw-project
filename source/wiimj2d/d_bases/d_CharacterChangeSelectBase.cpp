@@ -203,7 +203,7 @@ void dCharacterChangeSelectBase_c::setDecidedCharacter()
 [[address(0x8076FE60)]]
 void dCharacterChangeSelectBase_c::setSelectedBaseIndex()
 {
-    mSelectedBaseIndex = 4 - mPlayerNo;
+    mSelectedBaseIndex = 4 - static_cast<std::size_t>(daPyMng_c::mPlayerType[mPlayerNo]);
 }
 
 [[address(0x8076FE90)]]
