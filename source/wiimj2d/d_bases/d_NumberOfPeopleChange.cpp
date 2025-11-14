@@ -487,6 +487,14 @@ void dNumberOfPeopleChange_c::setPlayerSelectPos()
             pos = dGameCom::ScalePosForAspectRatio(pos);
         }
 
+        if (mPlayerCount > 4) {
+            if (!isBottomIndex(cc)) {
+                pos.y += 100.0f;
+            } else {
+                pos.y -= 54.0f;
+            }
+        }
+
         for (std::size_t i = 0; i < std::size(mpCcSelBase[cc]->mAllBasePos); i++) {
             mpCcSelBase[cc]->mAllBasePos[i] = pos;
         }
@@ -647,8 +655,8 @@ void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait()
         dCharacterChangeIndicator_c* indicator = mpCcIndicator[cc];
         base->m0x295 = true;
         base->mpNumPySetupPlayers = mSetupPlayers;
-        base->mpNumPyDecidedPlayerTypeByCc = mCcDecidedPlayerType;
-        base->mpNumPyDecidedPlayerTypeByPlayer = mPlyDecidedPlayerType;
+        base->mpNumPyCcDecidedPlayerType = mCcDecidedPlayerType;
+        base->mpNumPyPlyDecidedPlayerType = mPlyDecidedPlayerType;
         base->mCcCount = mCcCount;
         indicator->mPlayerNo = 0;
         indicator->m0x239 = true;

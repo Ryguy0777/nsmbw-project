@@ -246,8 +246,8 @@ public:
     /* 0x6C8 */ int mOnButton;
     /* 0x6CC */ int mOffButton;
     /* 0x6D0 */ int REMOVED(mSetupPlayers)[4];
-    /* 0x6E0 */ PLAYER_TYPE_e REMOVED(mCcDecidedPlayerType)[4];
-    /* 0x6F0 */ PLAYER_TYPE_e REMOVED(mPlyDecidedPlayerType)[4];
+    /* 0x6E0 */ PLAYER_TYPE_e REMOVED(mPlyDecidedPlayerType)[4];
+    /* 0x6F0 */ PLAYER_TYPE_e REMOVED(mCcDecidedPlayerType)[4];
 
     FILL(0x700, 0x710);
     OFFSET_ASSERT(0x710);
@@ -267,8 +267,8 @@ public:
     int mPlyPlrBaseIndex[PLAYER_COUNT];
     int mSetupPlayers[MAX_CC_COUNT];
 
-    PLAYER_TYPE_e mCcDecidedPlayerType[MAX_CC_COUNT];
-    PLAYER_TYPE_e mPlyDecidedPlayerType[PLAYER_COUNT];
+    PLAYER_TYPE_e mPlyDecidedPlayerType[MAX_CC_COUNT];
+    PLAYER_TYPE_e mCcDecidedPlayerType[PLAYER_COUNT];
 
     nw4r::lyt::Picture* mpPDolphinLight[4];
 };

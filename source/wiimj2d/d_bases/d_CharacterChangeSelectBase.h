@@ -124,8 +124,8 @@ public:
     /* 0x280 */ dInfo_c::PlyConnectStage_e* mpNumPyConnectStage;
     /* 0x284 */ int* mpNumPySetupPlayers;
     /* 0x288 */ int* mpNumPyEnterCount;
-    /* 0x28C */ PLAYER_TYPE_e* mpNumPyDecidedPlayerTypeByCc;
-    /* 0x290 */ PLAYER_TYPE_e* mpNumPyDecidedPlayerTypeByPlayer;
+    /* 0x28C */ PLAYER_TYPE_e* mpNumPyPlyDecidedPlayerType;
+    /* 0x290 */ PLAYER_TYPE_e* mpNumPyCcDecidedPlayerType;
     /* 0x294 */ bool m0x294;
     /* 0x295 */ bool m0x295;
     /* 0x296 */ bool m0x296;

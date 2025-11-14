@@ -171,7 +171,7 @@ bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e character)
         }
 
         if (mpNumPyConnectStage[ply] == dInfo_c::PlyConnectStage_e::ENTER &&
-            mpNumPyDecidedPlayerTypeByPlayer[ply] == character) {
+            mpNumPyPlyDecidedPlayerType[ply] == character) {
             return true;
         }
     }
@@ -365,7 +365,7 @@ void dCharacterChangeSelectBase_c::executeState_SelectWait()
 
     const sFStateID_c<dCharacterChangeSelectBase_c>* state = nullptr;
     if (core->checkMenuConfirm()) {
-        if (isCharacterLocked(dMj2dGame_c::scDefaultPlayerTypes[mSelectedBaseIndex])) {
+        if (isCharacterLocked(dMj2dGame_c::scDefaultPlayerTypes[4 - mSelectedBaseIndex])) {
             return;
         }
 
@@ -458,21 +458,21 @@ void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageW
 /* 80770F04 C0273D40 */  lfs      f1, UNDEF_80933d40@l(r7);
 /* 80770F08 93C10028 */  stw      r30, 40(r1);
 /* 80770F0C 3BC00001 */  li       r30, 1;
-/* 80770F10 80C302DC */  lwz      r6, 732(r3);
+/* 80770F10 80C302DC */  // lwz      r6, 732(r3);
 /* 80770F14 80A302D4 */  lwz      r5, 724(r3);
-/* 80770F18 1D06000C */  mulli    r8, r6, 12;
+/* 80770F18 1D06000C */  // mulli    r8, r6, 12;
 /* 80770F1C 3CC08093 */  lis      r6, UNDEF_809352b0@ha;
 /* 80770F20 54A5103A */  slwi     r5, r5, 2;
 /* 80770F24 90010020 */  stw      r0, 32(r1);
-/* 80770F28 7D234214 */  add      r9, r3, r8;
+/* 80770F28 7D234214 */  // add      r9, r3, r8;
                          lwz      r12, 0x80(r3);
-/* 80770F30 C06902AC */  lfs      f3, 684(r9);
+/* 80770F30          */  lfs      f3, 0x2AC(r3);
 /* 80770F34 3D008043 */  lis      r8, UNDEF_8042a760@ha;
-/* 80770F38 C08902A8 */  lfs      f4, 680(r9);
+/* 80770F38          */  lfs      f4, 0x2A8(r3);
 /* 80770F40          */  lwzx     r10, r12, r5;
 /* 80770F3C 38A00000 */  li       r5, 0;
 /* 80770F44 38800004 */  li       r4, 4;
-/* 80770F48 C00902A4 */  lfs      f0, 676(r9);
+/* 80770F48          */  lfs      f0, 0x2A4(r3);
 /* 80770F4C D00A022C */  stfs     f0, 556(r10);
 /* 80770F50 C00652B0 */  lfs      f0, UNDEF_809352b0@l(r6);
 /* 80770F54 D08A0230 */  stfs     f4, 560(r10);
