@@ -345,6 +345,8 @@ void dNumberOfPeopleChange_c::setCcLytPosition()
         base->mpRootPane->SetTranslate(pos);
         if (mPlayerCount > 4) {
             base->mpRootPane->SetScale({0.8f, 0.8f});
+        } else {
+            base->mpRootPane->SetScale({1.0f, 1.0f});
         }
         arrow->mp0x244->SetTranslate(pos);
         indicator->mpRootPane->SetTranslate(pos);
