@@ -119,14 +119,14 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     mpPBase[2]->SetVisible(false);
 
     if (dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
-        mpTGuide->setMessage(msgRes, 2, 14, 0);
+        mpTGuideS->setMessage(msgRes, 2, 14, 0);
         if (dGameCom::GetAspectRatio() == SCAspectRatio::STANDARD) {
             mpPBase[0]->SetVisible(false);
             mpPBase[1]->SetVisible(false);
             mpPBase[2]->SetVisible(true);
         }
     } else {
-        mpTGuide->setMessage(msgRes, 2, 29, 0);
+        mpTGuideS->setMessage(msgRes, 2, 29, 0);
     }
 
     m0x68C = 0;

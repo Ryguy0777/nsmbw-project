@@ -159,6 +159,7 @@ public:
     // ----------------
 
     static PLAYER_TYPE_e getCharacterFromBase(int baseIndex);
+    static int getBaseFromCharacter(PLAYER_TYPE_e chara);
     static PLAYER_TYPE_e getCharacterFromIcon(Icon_e icon);
     static bool isLockedIcon(Icon_e icon);
 
