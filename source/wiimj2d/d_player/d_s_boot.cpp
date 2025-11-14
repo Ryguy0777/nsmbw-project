@@ -81,11 +81,7 @@ void dScBoot_c::executeState_ProcEnd()
             daPyMng_c::mPlayerMode[i] = PLAYER_MODE_e::PROPELLER_SHROOM;
             daPyMng_c::mCreateItem[i] = PLAYER_CREATE_ITEM_e::NONE;
 
-            if (i < 4) {
-                dInfo_c::m_instance->mPlayerActiveMode[i] = 3;
-            } else {
-                dInfo_c::m_instance->mExPlayerActiveMode[i - 4] = 3;
-            }
+            dInfo_c::m_instance->setPlyConnectStage(dInfo_c::PlyConnectStage_e::ENTER);
         }
 
         //    daPyMng_c::mPlayerType[0] = PLAYER_TYPE_e::PURPLE_TOADETTE;

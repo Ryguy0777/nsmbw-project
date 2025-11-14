@@ -2,8 +2,9 @@
 // NSMBW d_bases.text: 0x8092F020 - 0x80932F60
 
 #include "d_CourseSelectManager.h"
-#include "d_system/d_a_player_manager.h"
 
+#include "d_bases/d_CharacterChangeSelectBase.h"
+#include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_CourseSelectMenu.h"
 #include "d_bases/d_EasyPairing.h"
 #include "d_bases/d_NumberOfPeopleChange.h"
@@ -11,6 +12,7 @@
 #include "d_bases/d_a_wm_2DPlayer.h"
 #include "d_bases/d_a_wm_player.h"
 #include "d_system/d_game_common.h"
+#include "d_system/d_mj2d_game.h"
 #include <iterator>
 
 [[address_data(0x809A2370)]]
@@ -237,9 +239,9 @@ void dCourseSelectManager_c::initializeState_EasyPairingWait()
 
     numPyChg->m0x67F = 1;
 
-    for (int i = 0; i < std::size(numPyChg->mpaCcSelBase); i++) {
-        numPyChg->mpaCcSelBase[i]->m0x29C = 1;
-        numPyChg->mpaCcSelContents[i]->m0x2A1 = 1;
+    for (int i = 0; i < std::size(numPyChg->mpCcSelBase); i++) {
+        numPyChg->mpCcSelBase[i]->m0x29C = 1;
+        numPyChg->mpCcSelContents[i]->m0x2A1 = 1;
     }
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -256,9 +258,9 @@ void dCourseSelectManager_c::finalizeState_EasyPairingWait()
 
     numPyChg->m0x67F = 0;
 
-    for (int i = 0; i < std::size(numPyChg->mpaCcSelBase); i++) {
-        numPyChg->mpaCcSelBase[i]->m0x29C = 0;
-        numPyChg->mpaCcSelContents[i]->m0x2A1 = 0;
+    for (int i = 0; i < std::size(numPyChg->mpCcSelBase); i++) {
+        numPyChg->mpCcSelBase[i]->m0x29C = 0;
+        numPyChg->mpCcSelContents[i]->m0x2A1 = 0;
     }
 
     for (int i = 0; i < PLAYER_COUNT; i++) {

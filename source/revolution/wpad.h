@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include <revolution/types.h>
+#include "revolution/sc.h"
+#include "revolution/types.h"
 
 #include <stdlib.h>
 
@@ -21,6 +22,23 @@ extern "C" {
 // ------------
 // Enumerations
 // ------------
+
+enum WUDLibStatus {
+    WUD_LIB_STATUS_0 = 0,
+    WUD_LIB_STATUS_1 = 1,
+    WUD_LIB_STATUS_2 = 2,
+    WUD_LIB_STATUS_3 = 3,
+    WUD_LIB_STATUS_4 = 4,
+    WUD_LIB_STATUS_5 = 5,
+};
+
+enum WPADLibStatus {
+    WPAD_LIB_STATUS_0 = WUD_LIB_STATUS_0,
+    WPAD_LIB_STATUS_1 = WUD_LIB_STATUS_1,
+    WPAD_LIB_STATUS_2 = WUD_LIB_STATUS_2,
+    WPAD_LIB_STATUS_3 = WUD_LIB_STATUS_3,
+    WPAD_LIB_STATUS_4 = WUD_LIB_STATUS_4,
+};
 
 enum WUDChannel {
     WUD_CHAN0 = 0,
@@ -229,24 +247,23 @@ enum class WPADAccGravityUnitType {
 // Type Definitions
 // ----------------
 
-typedef void* WUDAllocFunc(size_t size);
-typedef int WUDFreeFunc(void* ptr);
+typedef void* (*WUDAllocFunc)(size_t size);
+typedef int (*WUDFreeFunc)(void* ptr);
+typedef void (*WUDSyncDeviceCallback)(s32 result, s32 num);
+typedef void (*WUDClearDeviceCallback)(s32);
 
-typedef void WUDSyncDeviceCallback(s32 result, s32 num);
-typedef void WUDClearDeviceCallback(signed);
+typedef void (*WPADInitFunc)(void); // see __wpadInitSub in WPAD.c
+typedef void (*WPADCallback)(WPADChannel chan, WPADResult result);
+typedef void (*WPADSamplingCallback)(WPADChannel chan);
+typedef void (*WPADConnectCallback)(WPADChannel chan, s32 result);
+typedef void (*WPADExtensionCallback)(WPADChannel chan, WPADDeviceType devType);
 
-typedef WUDAllocFunc WPADAllocFunc;
-typedef WUDFreeFunc WPADFreeFunc;
-
-typedef void WPADInitFunc(void); // see __wpadInitSub in WPAD.c
-
-typedef void WPADCallback(WPADChannel chan, WPADResult result);
-
-typedef void WPADSamplingCallback(WPADChannel chan);
-typedef void WPADConnectCallback(WPADChannel chan, s32 result);
-typedef void WPADExtensionCallback(WPADChannel chan, WPADDeviceType devType);
-
-typedef WUDSyncDeviceCallback WPADSimpleSyncCallback;
+using WPADSaveCallback = SCFlushCallback;
+using WPADAllocFunc = WUDAllocFunc;
+using WPADFreeFunc = WUDFreeFunc;
+using WPADSyncDeviceCallback = WUDSyncDeviceCallback;
+using WPADSimpleSyncCallback = WUDSyncDeviceCallback;
+using WPADClearDeviceCallback = WUDClearDeviceCallback;
 
 // ----------
 // Structures
@@ -423,53 +440,74 @@ struct WPADAccGravityUnit {
 // Functions
 // ---------
 
+/* 0x801DDB90 */
 BOOL WPADIsEnabledVSM(void);
+
+/* 0x801DDBA0 */
 BOOL WPADIsEnabledTRN(void);
+
+/* 0x801DDBB0 */
 BOOL WPADIsEnabledGTR(void);
+
+/* 0x801DDBC0 */
 BOOL WPADIsEnabledDRM(void);
-BOOL WPADIsEnabledTKO(void);
-BOOL WPADIsEnabledTBL(void);
-BOOL WPADIsEnabledBLK(void);
 
+/* 0x801DFB90 */
 void WPADInit(void);
-void WPADShutdown(void);
 
+/* 0x801DFC00 */
 BOOL WPADStartFastSimpleSync(void);
+
+/* 0x801DFC10 */
 BOOL WPADStopSimpleSync(void);
-BOOL WPADCancelSyncDevice(void);
-WPADSimpleSyncCallback* WPADSetSimpleSyncCallback(WPADSimpleSyncCallback* cb);
-void WPADRegisterAllocator(WPADAllocFunc* alloc, WPADFreeFunc* free);
-// WPADLibStatus WPADGetStatus(void);
-u8 WPADGetRadioSensitivity(WPADChannel chan);
-// void WPADGetAddress(WPADChannel chan, BD_ADDR_PTR addr);
+
+/* 0x801DFC20 */
+BOOL WPADStartClearDevice(void);
+
+/* 0x801DFC30 */
+WPADSyncDeviceCallback WPADSetSimpleSyncCallback(WPADSyncDeviceCallback pCallback);
+
+/* 0x801DFC40 */
+WPADClearDeviceCallback WPADSetClearDeviceCallback(WPADClearDeviceCallback pCallback);
+
+/* 0x801DFC50 */
+void WPADRegisterAllocator(WPADAllocFunc pAllocFunc, WPADFreeFunc pFreeFunc);
+
+/* 0x801DFC60 */
+u32 WPADGetWorkMemorySize(void);
+
+/* 0x801DFC70 */
+WPADLibStatus WPADGetStatus(void);
+
+/* 0x801DFCD0 */
 u8 WPADGetSensorBarPosition(void);
 
 /* 0x801DFD10 */
 BOOL WPADSetAcceptConnection(BOOL accept);
 
-void WPADGetAccGravityUnit(WPADChannel chan, WPADAccGravityUnitType type, WPADAccGravityUnit* acc);
+void WPADGetAccGravityUnit(WPADChannel chan, u32 type, WPADAccGravityUnit* pAcc);
 
 /* 0x801E0F80 */
 void WPADDisconnect(WPADChannel chan);
 
 /* 0x801E1080 */
-WPADResult WPADProbe(WPADChannel chan, u32* devTypeOut);
+WPADResult WPADProbe(WPADChannel chan, u32* pDevType);
 
-WPADSamplingCallback* WPADSetSamplingCallback(WPADChannel chan, WPADSamplingCallback* cb);
-WPADConnectCallback* WPADSetConnectCallback(WPADChannel chan, WPADConnectCallback* cb);
-WPADExtensionCallback* WPADSetExtensionCallback(WPADChannel chan, WPADExtensionCallback* cb);
-WPADDataFormat WPADGetDataFormat(WPADChannel chan);
-WPADResult WPADSetDataFormat(WPADChannel chan, WPADDataFormat fmt);
+WPADSamplingCallback WPADSetSamplingCallback(WPADChannel chan, WPADSamplingCallback pCallback);
+WPADConnectCallback WPADSetConnectCallback(WPADChannel chan, WPADConnectCallback pCallback);
+WPADExtensionCallback WPADSetExtensionCallback(WPADChannel chan, WPADExtensionCallback pCallback);
 
-WPADResult WPADGetInfoAsync(WPADChannel chan, WPADInfo* info, WPADCallback* cb);
+u32 WPADGetDataFormat(WPADChannel chan);
+s32 WPADSetDataFormat(WPADChannel chan, u32 format);
+s32 WPADGetInfoAsync(WPADChannel chan, WPADInfo* pInfo, WPADCallback pCallback);
 
 /* 0x801E1620 */
 void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);
 
-void WPADEnableMotor(BOOL enabled);
+void WPADEnableMotor(BOOL enable);
 BOOL WPADIsMotorEnabled(void);
-WPADResult WPADControlLed(WPADChannel chan, u8 ledFlags, WPADCallback cb);
-// BOOL WPADSaveConfig(SCFlushCallback* cb);
+s32 WPADControlLed(WPADChannel chan, u8 flags, WPADCallback pCallback);
+BOOL WPADSaveConfig(WPADSaveCallback pCallback);
 
 /**
  * @param status should match the WPADStatus type for the channel; a check
@@ -478,24 +516,19 @@ WPADResult WPADControlLed(WPADChannel chan, u8 ledFlags, WPADCallback cb);
  * for example, if devType[chan] == WPAD_DEV_CLASSIC, status should be a
  * pointer to WPADCLStatus cast to a pointer to WPADStatus
  */
-void WPADRead(WPADChannel chan, WPADStatus* status);
-void WPADSetAutoSamplingBuf(WPADChannel chan, void* buf, u32 length);
+void WPADRead(WPADChannel chan, WPADStatus* pStatus);
 
+void WPADSetAutoSamplingBuf(WPADChannel chan, void* pBuffer, u32 len);
 BOOL WPADIsSpeakerEnabled(WPADChannel chan);
-WPADResult WPADControlSpeaker(WPADChannel chan, WPADSpeakerCommand command, WPADCallback* cb);
+s32 WPADControlSpeaker(WPADChannel chan, u32 command, WPADCallback pCallback);
 u8 WPADGetSpeakerVolume(void);
-void WPADSetSpeakerVolume(u8 vol);
-
+void WPADSetSpeakerVolume(u8 volume);
 BOOL WPADCanSendStreamData(WPADChannel chan);
-WPADResult WPADSendStreamData(WPADChannel chan, void* p_buf, u16 len);
+s32 WPADSendStreamData(WPADChannel chan, void* pData, u16 len);
 u8 WPADGetDpdSensitivity(void);
+BOOL WPADSetSensorBarPower(BOOL enable);
 BOOL WPADIsDpdEnabled(WPADChannel chan);
-
-WPADResult WPADControlDpd(WPADChannel chan, WPADDpdCommand command, WPADCallback* cb);
-WPADResult WPADControlBLC(WPADChannel chan, WPADBLCCommand command, WPADCallback* cb);
-
+s32 WPADControlDpd(WPADChannel chan, u32 command, WPADCallback pCallback);
 void WPADRecalibrate(WPADChannel chan);
-BOOL WPADIsUsedCallbackByKPAD(void);
-void WPADSetCallbackByKPAD(BOOL isKPAD);
 
 } // extern "C"

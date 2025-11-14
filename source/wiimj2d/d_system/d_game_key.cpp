@@ -10,23 +10,11 @@
 static bool s_isInit = false;
 
 [[address_data(0x8042A230)]]
-dGameKey_c* dGameKey_c::m_instance = createInstance(mHeap::g_gameHeaps[0]);
+dGameKey_c* dGameKey_c::m_instance =
+  [](mHeap::ScopeHeap_c = 0) { return new dGameKey_c(m_instance); }();
 
 [[address(0x800B5930)]]
-dGameKey_c* dGameKey_c::createInstance(EGG::Heap* heap)
-{
-    EGG::Heap* oldHeap = mHeap::setCurrentHeap(heap);
-
-    if (m_instance != nullptr) {
-        delete m_instance;
-    }
-
-    m_instance = new dGameKey_c();
-
-    mHeap::setCurrentHeap(oldHeap);
-
-    return m_instance;
-}
+void dGameKey_c::createInstance(EGG::Heap* heap);
 
 [[address(0x800B5980)]]
 dGameKey_c::dGameKey_c()
@@ -37,23 +25,37 @@ dGameKey_c::dGameKey_c()
     };
 
     for (int i = 0; i < CORE_COUNT; i++) {
-        mpCores[i] = new dGameKeyCore_c(s_channels[i % 8]);
+        mpCores[i] = new dGameKeyCore_c(s_channels[i % std::size(s_channels)]);
+    }
+}
+
+dGameKey_c::dGameKey_c(dGameKey_c* old)
+{
+    static constexpr mPad::CH_e s_channels[8] = {
+      mPad::CH_e::CHAN_0,    mPad::CH_e::CHAN_1,    mPad::CH_e::CHAN_2,    mPad::CH_e::CHAN_3,
+      mPad::CH_e::CHAN_GC_0, mPad::CH_e::CHAN_GC_1, mPad::CH_e::CHAN_GC_2, mPad::CH_e::CHAN_GC_3,
+    };
+
+    int i = 0;
+    if (old) {
+        for (; i < 4; i++) {
+            mpCores[i] = old->mpCores[i];
+        }
+    }
+    for (; i < CORE_COUNT; i++) {
+        mpCores[i] = new dGameKeyCore_c(s_channels[i % std::size(s_channels)]);
     }
 
-    s_isInit = true;
+    operator delete(old);
 }
 
 /* VT+0x8 */
 [[address(0x800B5A00)]]
 dGameKey_c::~dGameKey_c()
 {
-    // Original class only had 4
-    int coreCount = s_isInit ? CORE_COUNT : 4;
-    for (int i = 0; i < coreCount; i++) {
+    for (int i = 0; i < CORE_COUNT; i++) {
         delete mpCores[i];
     }
-
-    m_instance = nullptr;
 }
 
 [[address(0x800B5AB0)]]

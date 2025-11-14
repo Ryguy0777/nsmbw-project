@@ -4,6 +4,23 @@ class dWarningManager_c
 {
 public:
     // ----------------
+    // Member Functions
+    // ----------------
+
+    /* 0x8010E710 */
+    void onControllerCut(int player);
+
+public:
+    // -----------
+    // Member Data
+    // -----------
+
+    FILL(0x000, 0xB8D);
+
+    /* 0xB8D */ bool m0xB8D;
+
+public:
+    // ----------------
     // Static Functions
     // ----------------
 

@@ -1,6 +1,8 @@
 #pragma once
 
-class dSelectCursor_c
+#include "d_system/d_base.h"
+
+class dSelectCursor_c : public dBase_c
 {
 public:
     // ----------------

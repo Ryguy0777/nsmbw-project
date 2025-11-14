@@ -2,26 +2,33 @@
 
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_base.h"
+#include "d_system/d_info.h"
 #include "d_system/d_lytbase.h"
 #include "d_system/d_player_model_manager.h"
 #include "state/s_State.h"
+#include "state/s_StateMgrDefault.h"
 
 class dCharacterChangeSelectContents_c;
+class dCharacterChangeSelectArrow_c;
+class dCharacterChangeIndicator_c;
 class da2DPlayer_c;
 
 class dCharacterChangeSelectBase_c : public dBase_c
 {
+public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* 0x8076F400 */
+    dCharacterChangeSelectBase_c();
+
 public:
     // -------------------
     // Constants and Types
     // -------------------
 
 #define CHARACTER_LIST_COUNT 8
-    static constexpr PLAYER_TYPE_e CHARACTER_FROM_BASE[] = {
-      PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,      PLAYER_TYPE_e::YELLOW_TOAD,
-      PLAYER_TYPE_e::BLUE_TOAD,   PLAYER_TYPE_e::TOADETTE,   PLAYER_TYPE_e::PURPLE_TOADETTE,
-      PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
-    };
 
     enum class Icon_e {
         // Reserved
@@ -63,6 +70,9 @@ public:
     // Member Functions
     // ----------------
 
+    /* 0x8076FA40 */
+    void clearPlayerNo();
+
     /* 0x8076FAE0 */
     bool updateRemocon();
 
@@ -70,13 +80,19 @@ public:
     bool isCharacterLocked(PLAYER_TYPE_e character);
 
     /* 0x8076FD70 */
-    void UNDEF_8076FD70(u32 swapIndex, u32 baseIndex);
+    void calcContentsIcon(int swapIndex, int baseIndex);
 
     /* 0x8076FE40 */
-    void UNDEF_8076FE40();
+    void setDecidedCharacter();
+
+    /* 0x8076FE60 */
+    void setSelectedBaseIndex();
+
+    /* 0x8076FE90 */
+    void resetIndicator();
 
     /* 0x8076FEE0 */
-    void UNDEF_8076FEE0();
+    void readyContents();
 
 public:
     // -----------
@@ -86,41 +102,67 @@ public:
     FILL(0x070, 0x074);
 
     /* 0x074 */ dCharacterChangeSelectContents_c* mpCcSelContents;
-
-    FILL(0x078, 0x07C);
-
-    /* 0x07C */ u32* m0x07C;
+    /* 0x078 */ dCharacterChangeSelectArrow_c* mpCcSelArrow;
+    /* 0x07C */ dCharacterChangeIndicator_c* mpCcIndicator;
     /* 0x080 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
     /* 0x080 */ da2DPlayer_c** mpa2DPlayer;
 
     FILL(0x084, 0x090);
 
     /* 0x090 */ LytBase_c mLayout;
+    /* 0x228 */ sStateMgrDefault_c<dCharacterChangeSelectBase_c> mStateMgr;
 
-    FILL(0x228, 0x296);
+    /* 0x264 */ nw4r::lyt::Pane* mpRootPane;
 
+    /* 0x268 */ nw4r::lyt::Pane* mp0x268;
+    /* 0x26C */ nw4r::lyt::Pane* mp0x26C;
+    /* 0x270 */ nw4r::lyt::Pane* mp0x270;
+    /* 0x274 */ nw4r::lyt::Pane* mp0x274;
+    /* 0x278 */ nw4r::lyt::Pane* mp0x278;
+    /* 0x27C */ nw4r::lyt::Pane* mp0x27C;
+
+    /* 0x280 */ dInfo_c::PlyConnectStage_e* mpNumPyConnectStage;
+    /* 0x284 */ int* mpNumPySetupPlayers;
+    /* 0x288 */ int* mpNumPyEnterCount;
+    /* 0x28C */ PLAYER_TYPE_e* mpNumPyPlyDecidedPlayerType;
+    /* 0x290 */ PLAYER_TYPE_e* mpNumPyCcDecidedPlayerType;
+    /* 0x294 */ bool m0x294;
+    /* 0x295 */ bool m0x295;
     /* 0x296 */ bool m0x296;
-    /* 0x297 */ u8 m0x297;
-    /* 0x298 */ u8 m0x298;
-
-    FILL(0x299, 0x29A);
-
+    /* 0x297 */ bool m0x297;
+    /* 0x298 */ bool m0x298;
+    /* 0x299 */ bool m0x299;
     /* 0x29A */ bool mDecided;
-    /* 0x29B */ u8 m0x29B;
-    /* 0x29C */ u8 m0x29C;
+    /* 0x29B */ bool m0x29B;
+    /* 0x29C */ bool m0x29C;
 
-    FILL(0x29D, 0x2D4);
+    FILL(0x29D, 0x2A0);
 
+    /* 0x2A0 */ int m0x2A0;
+    /* 0x2A4 */ mVec3_c mAllBasePos[4]; // Changed to just use the first element
     /* 0x2D4 */ PLAYER_TYPE_e mDecidedCharacter;
     /* 0x2D8 */ int mPlayerNo;
-    /* 0x2DC */ u32 m0x2DC;
-    /* 0x2E0 */ u32 mSelectedBaseIndex;
-
-    FILL(0x2E4, 0x2F0);
-
-    /* 0x2F0 */ float mBaseY;
+    /* 0x2DC */ int mCcIndex;
+    /* 0x2E0 */ int mSelectedBaseIndex;
+    /* 0x2E4 */ int m0x2E4;
+    /* 0x2E8 */ int mPlayerCount;
+    /* 0x2EC */ float m0x2EC;
+    /* 0x2F0 */ float m2dPlayerBaseY;
 
     OFFSET_ASSERT(0x2F4);
+
+    /* 0x2F4 */ std::size_t mCcCount;
+
+public:
+    // ----------------
+    // Static Functions
+    // ----------------
+
+    static PLAYER_TYPE_e getCharacterFromBase(int baseIndex);
+    static PLAYER_TYPE_e getCharacterFromIcon(Icon_e icon);
+    static bool isLockedIcon(Icon_e icon);
+
+    static u32 getLampPattern(int playerNo);
 
 public:
     // ---------

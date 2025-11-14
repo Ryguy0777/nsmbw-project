@@ -25,6 +25,14 @@ class ResAccMultLoader_c : public ResAccMult_c
     SIZE_ASSERT(0xD4);
 
 public:
+    // ------------
+    // Constructors
+    // ------------
+
+    /* 0x80006AA0 */
+    ResAccMultLoader_c();
+
+public:
     // ----------------
     // Member Functions
     // ----------------

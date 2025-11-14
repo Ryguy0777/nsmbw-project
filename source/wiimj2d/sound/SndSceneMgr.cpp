@@ -6,6 +6,9 @@
 [[address_data(0x8042A788)]]
 SndSceneMgr* SndSceneMgr::sInstance;
 
+[[address(0x8019BB60)]]
+void SndSceneMgr::setGameSetupTrack(int track);
+
 [[address(0x8019C010)]]
 void SndSceneMgr::setMiniGameTrack(int track);
 

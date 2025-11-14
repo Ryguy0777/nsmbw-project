@@ -50,6 +50,7 @@ add_compile_options(
     -fno-rtti
     -fno-short-enums
     -fshort-wchar
+    -fno-signed-char
     -fno-exceptions
     -fno-threadsafe-statics
     -fno-use-cxa-atexit
@@ -156,7 +157,7 @@ foreach(out_name ${DVD_FILES})
                 DEPENDS project ${GENSMAP}
                 COMMENT "Generating ${out_name}"
                 COMMAND ${CMAKE_COMMAND} -E make_directory ${dst_directory}
-                COMMAND python ${GENSMAP} "${CMAKE_BINARY_DIR}/source/project${CMAKE_EXECUTABLE_SUFFIX}" "${dst}"
+                COMMAND python ${GENSMAP} "${CMAKE_BINARY_DIR}/source/project${CMAKE_EXECUTABLE_SUFFIX}" "${dst}" "${MKWCAT_DOLPHIN_MAP_PATH}"
             )
         endif()
         list(APPEND DST_DVD_FILES ${dst})

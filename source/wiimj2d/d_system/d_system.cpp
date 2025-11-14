@@ -146,11 +146,13 @@ void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
 
 void dSys_c::initCModule()
 {
+    mHeap::ScopeHeap_c scope{0};
+
     EGG::CoreControllerMgr::recreateInstance();
 
     mPad::create();
 
-    dRemoconMng_c::recreate(mHeap::g_gameHeaps[0]);
+    dRemoconMng_c::m_instance = new dRemoconMng_c(dRemoconMng_c::m_instance);
 
     dNandThread_c::reinitialize();
     dSaveMng_c::m_instance->refresh();

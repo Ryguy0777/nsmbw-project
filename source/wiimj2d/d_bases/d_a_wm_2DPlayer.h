@@ -18,14 +18,17 @@ public:
     /* 0x808C5990 */
     void loadPlayer();
 
-    //
+public:
+    // -----------
     // Member Data
-    //
+    // -----------
 
     /* 0x128 */ dPyMdlMng_c* mModelMng;
 
-    FILL(0x12C, 0x238);
+    FILL(0x12C, 0x220);
 
+    /* 0x220 */ mVec3_c mBaseScale;
+    /* 0x22C */ mVec3_c mBasePos;
     /* 0x238 */ PLAYER_MODE_e mPowerup;
     /* 0x23C */ s32 m0x23C;
     /* 0x240 */ s32 m0x240;
@@ -36,11 +39,9 @@ public:
 
     FILL(0x254, 0x25C);
 
-    /* 0x25C */ float mBaseY;
+    /* 0x25C */ float mAddY;
     /* 0x260 */ bool mReady;
-
-    FILL(0x261, 0x262);
-
+    /* 0x261 */ u8 m0x261;
     /* 0x262 */ bool m0x262;
     /* 0x263 */ bool m0x263;
     /* 0x264 */ u8 m0x264;

@@ -3,13 +3,12 @@
 
 #include "d_StockItem.h"
 
-#include "d_system/d_a_player_manager.h"
 #include "d_bases/d_StockItemShadow.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
 #include "d_bases/d_a_wm_Item.h"
-#include "framework/f_sound_id.h"
-#include <iterator>
+#include "d_system/d_a_player_manager.h"
 #include "sound/SndSceneMgr.h"
+#include <iterator>
 
 [[address(0x807AF370)]]
 dStockItem_c* dStockItem_c_classInit()
@@ -646,14 +645,14 @@ UNDEF_807b0748:;
 /* 807B076C 2C070000 */  cmpwi    r7, 0;
 /* 807B0770 4182001C */  beq-     UNDEF_807b078c;
 /* 807B0774 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0778 3880066E */  li       r4, SE_PLY_CS_CHANGE_MAME_STAR;
+/* 807B0778 3880066E */  li       r4, 1646; // SE_PLY_CS_CHANGE_MAME_STAR
 /* 807B077C 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
 /* 807B0780 38A00001 */  li       r5, 1;
 /* 807B0784 4B9E4D3D */  bl       startSystemSe__11SndAudioMgrFUiUl;
 /* 807B0788 48000018 */  b        UNDEF_807b07a0;
 UNDEF_807b078c:;
 /* 807B078C 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0790 3880066D */  li       r4, SE_PLY_CS_CHANGE_STAR;
+/* 807B0790 3880066D */  li       r4, 1645; // SE_PLY_CS_CHANGE_STAR
 /* 807B0794 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
 /* 807B0798 38A00001 */  li       r5, 1;
 /* 807B079C 4B9E4D25 */  bl       startSystemSe__11SndAudioMgrFUiUl;
@@ -704,28 +703,28 @@ UNDEF_807b07d4:;
 /* 807B0840 48000060 */  b        UNDEF_807b08a0;
 UNDEF_807b0844:;
 /* 807B0844 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0848 38800669 */  li       r4, SE_PLY_CS_CHANGE_BIG;
+/* 807B0848 38800669 */  li       r4, 1641; // SE_PLY_CS_CHANGE_BIG
 /* 807B084C 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
 /* 807B0850 38A00001 */  li       r5, 1;
 /* 807B0854 4B9E4C6D */  bl       startSystemSe__11SndAudioMgrFUiUl;
 /* 807B0858 48000048 */  b        UNDEF_807b08a0;
 UNDEF_807b085c:;
 /* 807B085C 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0860 3880066A */  li       r4, SE_PLY_CS_CHANGE_PRPL;
+/* 807B0860 3880066A */  li       r4, 1642; // SE_PLY_CS_CHANGE_PRPL
 /* 807B0864 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
 /* 807B0868 38A00001 */  li       r5, 1;
 /* 807B086C 4B9E4C55 */  bl       startSystemSe__11SndAudioMgrFUiUl;
 /* 807B0870 48000030 */  b        UNDEF_807b08a0;
 UNDEF_807b0874:;
 /* 807B0874 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0878 3880066B */  li       r4, SE_PLY_CS_CHANGE_PNGN;
+/* 807B0878 3880066B */  li       r4, 1643; // SE_PLY_CS_CHANGE_PNGN
 /* 807B087C 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
 /* 807B0880 38A00001 */  li       r5, 1;
 /* 807B0884 4B9E4C3D */  bl       startSystemSe__11SndAudioMgrFUiUl;
 /* 807B0888 48000018 */  b        UNDEF_807b08a0;
 UNDEF_807b088c:;
 /* 807B088C 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0890 3880066C */  li       r4, SE_PLY_CS_CHANGE_MAME;
+/* 807B0890 3880066C */  li       r4, 1644; // SE_PLY_CS_CHANGE_MAME
 /* 807B0894 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
 /* 807B0898 38A00001 */  li       r5, 1;
 /* 807B089C 4B9E4C25 */  bl       startSystemSe__11SndAudioMgrFUiUl;
