@@ -407,6 +407,7 @@ void dNumberOfPeopleChange_c::set2dPlyPosition()
             const nw4r::math::VEC2& paneScale = mpNPlayerBasePos[mPlyPlrBaseIndex[ply]]->GetScale();
             scale.x = paneScale.x;
             scale.y = paneScale.y;
+            scale.z = 1.0f;
         }
         std::size_t type = static_cast<std::size_t>(mPlyDecidedPlayerType[ply]);
         mp2DPlayer[type]->mPos = pos;
@@ -563,7 +564,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
 {
     dInfo_c* info = dInfo_c::m_instance;
 
-    if (!(info->mGameFlag & 0x10)) {
+    if (info->mGameFlag & 0x10) {
         info->PlayerStateInit();
     }
     info->m0xAFC = true;
@@ -686,6 +687,9 @@ void dNumberOfPeopleChange_c::finalizeState_OnStageAnimeEndWait()
         mp2DPlayer[type]->m0x267 = 0;
     }
 }
+
+[[address(0x807A1370)]]
+void dNumberOfPeopleChange_c::initializeState_InfoOnStageAnimeEndWait();
 
 [[address(0x807A1380)]]
 void dNumberOfPeopleChange_c::executeState_InfoOnStageAnimeEndWait()
