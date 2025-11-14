@@ -49,7 +49,7 @@ void dGameKeyCore_c::setShakeY()
         /* if (mShake) {
             // Set cooldown
             mShakeTimer3 = 5 + 3;
-        }
+        } */
         return;
     }
 
