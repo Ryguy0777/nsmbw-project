@@ -3,13 +3,13 @@
 
 #include "d_game_key_core.h"
 
-#include <cmath>
+#include "d_bases/d_s_stage.h"
 #include "d_player/d_a_player.h"
 #include "d_system/d_a_player_manager.h"
-#include "d_bases/d_s_stage.h"
+#include "framework/f_feature.h"
+#include <cmath>
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
-#include "framework/f_feature.h"
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -62,54 +62,57 @@ void dGameKeyCore_c::setShakeY()
             // Set cooldown
             mShakeTimer3 = 5 + 3;
         }
-    } else {
-        // Wii Remote
+        return;
+    }
 
-        if (mShakeTimer3 != 0) {
-            mShakeTimer3--;
-            mShake = false;
+    // Wii Remote
+
+    if (mShakeTimer3 != 0) {
+        mShakeTimer3--;
+        mShake = false;
+        return;
+    }
+
+    bool isButtonShake = false;
+    if (fFeature::SHAKE_WITH_BUTTON) {
+        if (mType == Type_e::FREESTYLE) {
+            // Shake with 1/2 Buttons on in Nunchuck Mode
+            // NOTE:
+            // We need to access the inputs from EGG::CoreController
+            // Because dGameKeyCore_c converts Z/B/A button presses into 1/2 button presses
+            isButtonShake = getCoreController()->downTrigger(
+              (WPADButton::WPAD_BUTTON_1 | WPADButton::WPAD_BUTTON_2)
+            );
+        } else {
+            // Shake with B Button on sideways Wii Remote
+            isButtonShake = mTriggered & WPADButton::WPAD_BUTTON_B;
+        }
+    }
+
+    if (isButtonShake == false) {
+        float accXDiff = fabsf(mAccel.x - mAccelOld.x);
+        float accYDiff = fabsf(mAccel.y - mAccelOld.y);
+        float accZDiff = fabsf(mAccel.z - mAccelOld.z);
+
+        if (accYDiff >= 0.28) {
+            mShakeTimer1++;
+            if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
+                mShakeTimer3 = 5;
+                mShakeTimer1 = 0;
+                mShake = true;
+            } else {
+                mShake = false;
+            }
             return;
         }
 
-        bool isButtonShake = false;
-        if (fFeature::SHAKE_WITH_BUTTON) {
-            if (mControllerType == 1) {
-                // Shake with 1/2 Buttons on in Nunchuck Mode
-                // NOTE:
-                // We need to access the inputs from EGG::CoreController
-                // Because dGameKeyCore_c converts Z/B/A button presses into 1/2 button presses
-                isButtonShake = mPad::g_core[static_cast<int>(mChannel)]->downTrigger((WPADButton::WPAD_BUTTON_1 | WPADButton::WPAD_BUTTON_2));
-            } else {
-                // Shake with B Button on sideways Wii Remote
-                isButtonShake = mTriggered & WPADButton::WPAD_BUTTON_B;
-            }
+        if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
+            mShakeTimer1 = 0;
+            mShakeTimer2 = 0;
         }
 
-        if (isButtonShake == false) {
-            float accXDiff = fabsf(mAccel.x - mAccelOld.x);
-            float accYDiff = fabsf(mAccel.y - mAccelOld.y);
-            float accZDiff = fabsf(mAccel.z - mAccelOld.z);
-
-            if (accYDiff >= 0.28) {
-                mShakeTimer1++;
-                if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
-                    mShakeTimer3 = 5;
-                    mShakeTimer1 = 0;
-                    mShake = true;
-                } else {
-                    mShake = false;
-                }
-                return;
-            }
-
-            if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
-                mShakeTimer1 = 0;
-                mShakeTimer2 = 0;
-            }
-
-            mShake = false;
-        } else {
-            mShake = true;
-        }
+        mShake = false;
+    } else {
+        mShake = true;
     }
 }

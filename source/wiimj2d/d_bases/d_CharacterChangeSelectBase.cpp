@@ -7,12 +7,15 @@
 #include "d_bases/d_CharacterChangeSelectArrow.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_system/d_game_key.h"
+#include "d_system/d_game_key_core.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
 #include "sound/SndAudioMgr.h"
 #include "sound/SndID.h"
+#include "sound/SndSceneMgr.h"
 #include <algorithm>
 #include <revolution/os.h>
 
@@ -349,156 +352,56 @@ void dCharacterChangeSelectBase_c::finalizeState_ArrowDispWait();
 void dCharacterChangeSelectBase_c::initializeState_SelectWait();
 
 [[address(0x807708E0)]]
-void dCharacterChangeSelectBase_c::executeState_SelectWait() ASM_METHOD(
-  // clang-format off
-/* 807708E0 9421FFE0 */  stwu     r1, -32(r1);
-/* 807708E4 7C0802A6 */  mflr     r0;
-/* 807708E8 90010024 */  stw      r0, 36(r1);
-/* 807708EC 93E1001C */  stw      r31, 28(r1);
-/* 807708F0 3FE08099 */  lis      r31, UNDEF_80990948@ha;
-/* 807708F4 3BFF0948 */  addi     r31, r31, UNDEF_80990948@l;
-/* 807708F8 93C10018 */  stw      r30, 24(r1);
-/* 807708FC 7C7E1B78 */  mr       r30, r3;
-/* 80770900 93A10014 */  stw      r29, 20(r1);
-/* 80770904 4BFFF1DD */  bl       UNDEF_8076fae0;
-/* 80770908 2C030000 */  cmpwi    r3, 0;
-/* 8077090C 41820028 */  beq-     UNDEF_80770934;
-/* 80770910 3800FFFF */  li       r0, -1;
-/* 80770914 901E02D8 */  stw      r0, 728(r30);
-/* 80770918 387E0228 */  addi     r3, r30, 552;
-/* 8077091C 389F0150 */  addi     r4, r31, 336;
-// /* 80770920 819E0228 */  lwz      r12, 552(r30);
-// /* 80770924 818C0018 */  lwz      r12, 24(r12);
-// /* 80770928 7D8903A6 */  mtctr    r12;
-// /* 8077092C 4E800421 */  bctrl;
-/* 80770930 480001F4 */  b        L_CallChangeState;
-UNDEF_80770934:;
-/* 80770934 80BE02E0 */  lwz      r5, 736(r30);
-/* 80770938 7FC3F378 */  mr       r3, r30;
-/* 8077093C 38800000 */  li       r4, 0;
-/* 80770940 4BFFF431 */  bl       UNDEF_8076fd70;
-/* 80770944 801E02D8 */  lwz      r0, 728(r30);
-/* 80770948 3C608037 */  lis      r3, g_core__4mPad@ha;
-/* 8077094C 3CA08043 */  lis      r5, UNDEF_8042a230@ha;
-/* 80770950 38800900 */  li       r4, 2304;
-/* 80770954 5400103A */  slwi     r0, r0, 2;
-/* 80770958 38637F88 */  addi     r3, r3, g_core__4mPad@l;
-/* 8077095C 7C63002E */  lwzx     r3, r3, r0;
-/* 80770960 83A5A230 */  lwz      r29, UNDEF_8042a230@l(r5);
-/* 80770964 81830000 */  lwz      r12, 0(r3);
-/* 80770968 818C0020 */  lwz      r12, 32(r12);
-/* 8077096C 7D8903A6 */  mtctr    r12;
-/* 80770970 4E800421 */  bctrl;
-/* 80770974 2C030000 */  cmpwi    r3, 0;
-/* 80770978 418200F4 */  beq-     UNDEF_80770a6c;
+void dCharacterChangeSelectBase_c::executeState_SelectWait()
+{
+    if (updateRemocon()) {
+        mPlayerNo = -1;
+        return mStateMgr.changeState(StateID_ButtonExitAnimeEndWait);
+    }
 
-                         lwz      r3, 0x2E0(r30);
-                         bl       getCharacterFromBase__28dCharacterChangeSelectBase_cFi;
-                         mr       r4, r3;
-/* 807709DC 7FC3F378 */  mr       r3, r30;
-/* 807709E4 4BFFF29D */  bl       UNDEF_8076fc80;
-/* 807709E8 2C030000 */  cmpwi    r3, 0;
-/* 807709EC 40820138 */  bne-     UNDEF_80770b24;
+    calcContentsIcon(0, mSelectedBaseIndex);
 
-UNDEF_807709f0:;
-/* 807709F0 809E0288 */  lwz      r4, 648(r30);
-/* 807709F4 80640000 */  lwz      r3, 0(r4);
-/* 807709F8 38030001 */  addi     r0, r3, 1;
-/* 807709FC 90040000 */  stw      r0, 0(r4);
-/* 80770A00 809E0288 */  lwz      r4, 648(r30);
-/* 80770A04 807E02E8 */  lwz      r3, 744(r30);
-/* 80770A08 80040000 */  lwz      r0, 0(r4);
-/* 80770A0C 7C001800 */  cmpw     r0, r3;
-/* 80770A10 41800028 */  blt-     UNDEF_80770a38;
-/* 80770A14 90640000 */  stw      r3, 0(r4);
-/* 80770A18 3C608043 */  lis      r3, m_nowScene__8dScene_c@ha;
-/* 80770A1C A0038A42 */  lhz      r0, m_nowScene__8dScene_c@l(r3);
-/* 80770A20 28000003 */  cmplwi   r0, 3;
-/* 80770A24 41820014 */  beq-     UNDEF_80770a38;
-/* 80770A28 3C608043 */  lis      r3, UNDEF_8042a788@ha;
-/* 80770A2C 38800003 */  li       r4, 3;
-/* 80770A30 8063A788 */  lwz      r3, UNDEF_8042a788@l(r3);
-/* 80770A34 4BA2B12D */  bl       UNDEF_8019bb60;
-UNDEF_80770a38:;
-/* 80770A38 801E02E0 */  lwz      r0, 736(r30);
-/* 80770A3C 3CA08093 */  lis      r5, UNDEF_80933d30@ha;
-/* 80770A40 38A53D30 */  addi     r5, r5, UNDEF_80933d30@l;
-/* 80770A44 387E0228 */  addi     r3, r30, 552;
-/* 80770A48 5400103A */  slwi     r0, r0, 2;
-/* 80770A4C 389F02D0 */  addi     r4, r31, 720;
-/* 80770A50 7C05002E */  lwzx     r0, r5, r0;
-/* 80770A54 901E02A0 */  stw      r0, 672(r30);
-// /* 80770A58 819E0228 */  lwz      r12, 552(r30);
-// /* 80770A5C 818C0018 */  lwz      r12, 24(r12);
-// /* 80770A60 7D8903A6 */  mtctr    r12;
-// /* 80770A64 4E800421 */  bctrl;
-/* 80770A68          */  b        L_CallChangeState;
-UNDEF_80770a6c:;
-/* 80770A6C 809E02D8 */  lwz      r4, 728(r30);
-/* 80770A70 5480103A */  slwi     r0, r4, 2;
-/* 80770A74 7C7D0214 */  add      r3, r29, r0;
-/* 80770A78 80630004 */  lwz      r3, 4(r3);
-/* 80770A7C 8003001C */  lwz      r0, 28(r3);
-/* 80770A80 54000739 */  rlwinm.  r0, r0, 0, 28, 28;
-/* 80770A84 41820048 */  beq-     UNDEF_80770acc;
-/* 80770A88 807E02E0 */  lwz      r3, 736(r30);
+    dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[mPlayerNo];
 
-                         // Changed from 3 to 4 to allow selecting Mario
-/* 80770A8C          */  cmpwi    r3, 4;
+    const sFStateID_c<dCharacterChangeSelectBase_c>* state = nullptr;
+    if (core->checkMenuConfirm()) {
+        if (isCharacterLocked(dMj2dGame_c::scDefaultPlayerTypes[mSelectedBaseIndex])) {
+            return;
+        }
 
-/* 80770A90 4080003C */  bge-     UNDEF_80770acc;
-/* 80770A94 38800005 */  li       r4, 5;
-/* 80770A98 909E02A0 */  stw      r4, 672(r30);
-/* 80770A9C 38030001 */  addi     r0, r3, 1;
-/* 80770AA0 80BE0078 */  lwz      r5, 120(r30);
-/* 80770AA4 901E02E0 */  stw      r0, 736(r30);
-/* 80770AA8 38000001 */  li       r0, 1;
-// /* 80770AAC 387E0228 */  addi     r3, r30, 552;
-// /* 80770AB0 389F0290 */  addi     r4, r31, 656;
-// /* 80770AB4 90050258 */  stw      r0, 600(r5);
-// /* 80770AB8 819E0228 */  lwz      r12, 552(r30);
-// /* 80770ABC 818C0018 */  lwz      r12, 24(r12);
-// /* 80770AC0 7D8903A6 */  mtctr    r12;
-// /* 80770AC4 4E800421 */  bctrl;
-/* 80770AC8          */  b        L_CallChangeStateWithStw;
-UNDEF_80770acc:;
-/* 80770ACC 5480103A */  slwi     r0, r4, 2;
-/* 80770AD0 7C7D0214 */  add      r3, r29, r0;
-/* 80770AD4 80630004 */  lwz      r3, 4(r3);
-/* 80770AD8 8003001C */  lwz      r0, 28(r3);
-/* 80770ADC 5400077B */  rlwinm.  r0, r0, 0, 29, 29;
-/* 80770AE0 41820044 */  beq-     UNDEF_80770b24;
-/* 80770AE4 807E02E0 */  lwz      r3, 736(r30);
+        (*mpNumPyEnterCount)++;
 
-                         // Changed from 1 to -3 to allow selecting four extra characters
-/* 80770AE8          */  cmpwi    r3, 5 - CHARACTER_LIST_COUNT;
+        if (*mpNumPyEnterCount >= mPlayerCount) {
+            *mpNumPyEnterCount = mPlayerCount;
+            if (dScene_c::m_nowScene != +fBaseProfile_e::WORLD_MAP) {
+                SndSceneMgr::sInstance->setGameSetupTrack(3);
+            }
+        }
 
-/* 80770AEC 40810038 */  ble-     UNDEF_80770b24;
-/* 80770AF0 38800004 */  li       r4, 4;
-/* 80770AF4 909E02A0 */  stw      r4, 672(r30);
-/* 80770AF8 3803FFFF */  subi     r0, r3, 1;
-/* 80770AFC 80BE0078 */  lwz      r5, 120(r30);
-/* 80770B00 901E02E0 */  stw      r0, 736(r30);
-/* 80770B04 38000002 */  li       r0, 2;
-L_CallChangeStateWithStw:;
-/* 80770B08 387E0228 */  addi     r3, r30, 552;
-/* 80770B0C 389F0290 */  addi     r4, r31, 656;
-/* 80770B10 90050258 */  stw      r0, 600(r5);
-L_CallChangeState:;
-/* 80770B14 819E0228 */  lwz      r12, 552(r30);
-/* 80770B18 818C0018 */  lwz      r12, 24(r12);
-/* 80770B1C 7D8903A6 */  mtctr    r12;
-/* 80770B20 4E800421 */  bctrl;
-UNDEF_80770b24:;
-/* 80770B24 80010024 */  lwz      r0, 36(r1);
-/* 80770B28 83E1001C */  lwz      r31, 28(r1);
-/* 80770B2C 83C10018 */  lwz      r30, 24(r1);
-/* 80770B30 83A10014 */  lwz      r29, 20(r1);
-/* 80770B34 7C0803A6 */  mtlr     r0;
-/* 80770B38 38210020 */  addi     r1, r1, 32;
-/* 80770B3C 4E800020 */  blr;
-  // clang-format on
-);
+        m0x2A0 = mSelectedBaseIndex;
+        state = &StateID_HitAnimeEndWait;
+    } else if (core->checkLeft()) {
+        if (mSelectedBaseIndex >= 4) {
+            return;
+        }
+        m0x2A0 = 5;
+        mSelectedBaseIndex++;
+        mpCcSelArrow->mMoveDir = 1;
+        state = &StateID_MoveAnimeEndWait;
+    } else if (core->checkRight()) {
+        if (mSelectedBaseIndex <= 5 - CHARACTER_LIST_COUNT) {
+            return;
+        }
+        m0x2A0 = 4;
+        mSelectedBaseIndex--;
+        mpCcSelArrow->mMoveDir = 2;
+        state = &StateID_MoveAnimeEndWait;
+    }
+
+    if (state) {
+        return mStateMgr.changeState(*state);
+    }
+}
 
 [[address(0x80770B40)]]
 void dCharacterChangeSelectBase_c::finalizeState_SelectWait();

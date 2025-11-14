@@ -15,19 +15,6 @@ bool dRemoconMng_c::dConnect_c::m_isBoot;
 [[address_data(0x8042A308)]]
 dRemoconMng_c* dRemoconMng_c::m_instance;
 
-void dRemoconMng_c::recreate(EGG::Heap* heap)
-{
-    EGG::Heap* oldHeap = mHeap::setCurrentHeap(heap);
-
-    if (m_instance) {
-        new dRemoconMng_c(m_instance);
-    } else {
-        new dRemoconMng_c();
-    }
-
-    mHeap::setCurrentHeap(oldHeap);
-}
-
 namespace
 {
 [[address(0x800DC000)]]
@@ -46,7 +33,6 @@ dRemoconMng_c::dRemoconMng_c(dRemoconMng_c* old)
         mpaConnect[connect] = new dConnect_c(static_cast<mPad::CH_e>(connect));
     }
 
-    m_instance = this;
     operator delete(old);
 }
 

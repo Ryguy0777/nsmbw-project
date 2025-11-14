@@ -25,7 +25,11 @@ public:
 
     /* 0x244 */ nw4r::lyt::Pane* mp0x244;
 
-    FILL(0x248, 0x264);
+    FILL(0x248, 0x258);
+
+    /* 0x258 */ int mMoveDir;
+
+    FILL(0x25C, 0x264);
 
     /* 0x264 */ int mSelectedBaseIndex;
 

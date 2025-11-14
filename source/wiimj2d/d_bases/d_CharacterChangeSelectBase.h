@@ -136,8 +136,9 @@ public:
     /* 0x29B */ u8 m0x29B;
     /* 0x29C */ u8 m0x29C;
 
-    FILL(0x29D, 0x2A4);
+    FILL(0x29D, 0x2A0);
 
+    /* 0x2A0 */ int m0x2A0;
     /* 0x2A4 */ mVec3_c mAllBasePos[4]; // Changed to just use the first element
     /* 0x2D4 */ PLAYER_TYPE_e mDecidedCharacter;
     /* 0x2D8 */ int mPlayerNo;

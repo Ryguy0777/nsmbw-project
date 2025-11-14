@@ -24,6 +24,8 @@ public:
     /* 0x800B5980 */
     dGameKey_c();
 
+    dGameKey_c(dGameKey_c* old);
+
     /* VT+0x8 0x800B5A00 */
     virtual ~dGameKey_c();
 
@@ -40,7 +42,7 @@ public:
     // ----------------
 
     /* 0x800B5930 */
-    static dGameKey_c* createInstance(EGG::Heap* heap);
+    static void createInstance(EGG::Heap* heap);
 
 public:
     // ---------
