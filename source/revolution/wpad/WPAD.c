@@ -5,6 +5,9 @@
 
 extern "C" {
 
+[[address(0x801DFC40)]]
+WPADClearDeviceCallback WPADSetClearDeviceCallback(WPADClearDeviceCallback pCallback);
+
 [[address(0x801DFD10)]]
 BOOL WPADSetAcceptConnection(BOOL accept);
 
@@ -12,7 +15,7 @@ BOOL WPADSetAcceptConnection(BOOL accept);
 void WPADDisconnect(WPADChannel chan);
 
 [[address(0x801E1080)]]
-WPADResult WPADProbe(WPADChannel chan, u32* devTypeOut);
+WPADResult WPADProbe(WPADChannel chan, u32* pDevType);
 
 [[address(0x801E1620)]]
 void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);

@@ -8,3 +8,6 @@ dWarningManager_c* dWarningManager_c::m_instance;
 
 [[address_data(0x8042A5C0)]]
 s32 dWarningManager_c::m_WarningForbid;
+
+[[address(0x8010E710)]]
+void dWarningManager_c::onControllerCut(int player);

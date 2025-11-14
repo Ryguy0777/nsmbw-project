@@ -3,9 +3,18 @@
 
 #include "d_s_GameSetup.h"
 
+#include "d_bases/d_CharacterChangeIndicator.h"
+#include "d_bases/d_CharacterChangeSelectArrow.h"
 #include "d_bases/d_CharacterChangeSelectBase.h"
+#include "d_bases/d_CharacterChangeSelectContents.h"
+#include "d_bases/d_DateFile.h"
+#include "d_bases/d_EasyPairing.h"
+#include "d_bases/d_FileSelect.h"
+#include "d_bases/d_InfoWindow.h"
 #include "d_bases/d_NumberOfPeopleChange.h"
 #include "d_bases/d_SelectPlayer.h"
+#include "d_bases/d_SequenceBG.h"
+#include "d_bases/d_a_wm_2DPlayer.h"
 #include "d_bases/d_s_world_map.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_base_actor.h"
@@ -17,31 +26,57 @@
 #include "framework/f_feature.h"
 #include <algorithm>
 
-[[address(0x80917EB0)]]
-bool dScGameSetup_c::add2dPlayer()
+[[address(0x80917C80)]]
+bool dScGameSetup_c::Phase_CreateLayoutManagers()
 {
-    u32 id = mPlayerCreateIdx;
+#define NEW(_TYPE, _PROFILE, _PARAM)                                                               \
+    static_cast<_TYPE>(fBase_c::createChild(+fBaseProfile_e::_PROFILE, this, _PARAM, 0))
+    mpNumPyChg = NEW(dNumberOfPeopleChange_c*, NUMBER_OF_PEOPLE_CHANGE, 0);
 
-    dBaseActor_c* playerBase =
-      dBaseActor_c::construct(+fBaseProfile_e::WM_2D_PLAYER, this, id, nullptr, nullptr);
-    if (playerBase == nullptr) {
+    for (std::size_t cc = 0; cc < mpNumPyChg->mCcCount; cc++) {
+        mpNumPyChg->mpCcSelBase[cc] =
+          NEW(dCharacterChangeSelectBase_c*, CHARACTER_CHANGE_SELECT_BASE, cc);
+        mpNumPyChg->mpCcSelContents[cc] =
+          NEW(dCharacterChangeSelectContents_c*, CHARACTER_CHANGE_SELECT_CONTENTS, cc);
+        mpNumPyChg->mpCcSelArrow[cc] =
+          NEW(dCharacterChangeSelectArrow_c*, CHARACTER_CHANGE_SELECT_ARROW, cc);
+        mpNumPyChg->mpCcIndicator[cc] =
+          NEW(dCharacterChangeIndicator_c*, CHARACTER_CHANGE_INDICATOR, cc);
+    }
+
+    mpSelectPlayer = NEW(dSelectPlayer_c*, SELECT_PLAYER, 0);
+    mpEasyPairing = NEW(dEasyPairing_c*, EASY_PAIRING, 0);
+    mpSequenceBG = NEW(dSequenceBG_c*, SEQUENCE_BG, 0);
+
+    mpFileSelect = NEW(dFileSelect_c*, FILE_SELECT, mParam);
+    for (std::size_t i = 0; i < std::size(mpDateFile); i++) {
+        mpFileSelect->mpDateFile[i] = mpDateFile[i] = NEW(dDateFile_c*, DATE_FILE, 0);
+    }
+    mpFileSelect->mpInfoWindow = mpInfoWindow = NEW(dInfoWindow_c*, INFO_WINDOW, 0);
+
+    return true;
+#undef NEW
+}
+
+[[address(0x80917EB0)]]
+bool dScGameSetup_c::Phase_Create2DPlayer()
+{
+    da2DPlayer_c* player = static_cast<da2DPlayer_c*>(dBaseActor_c::construct(
+      +fBaseProfile_e::WM_2D_PLAYER, this, mPlayerCreateIdx, nullptr, nullptr
+    ));
+    if (player == nullptr) {
         return false;
     }
 
-    da2DPlayer_c* player = reinterpret_cast<da2DPlayer_c*>(playerBase);
-
-    if (id < 4) {
-        mpa2DPlayer[id] = player;
-        // mpNumPyChg->mpaPlayers_Removed[id] = player;
+    if (mPlayerCreateIdx < std::size(mpa2DPlayer)) {
+        mpa2DPlayer[mPlayerCreateIdx] = player;
     }
-    mpNumPyChg->mpaPlayers[id] = player;
+    mpNumPyChg->mp2DPlayer[mPlayerCreateIdx] = player;
 
-    mPlayerCreateIdx++;
-    if (mPlayerCreateIdx < CHARACTER_LIST_COUNT) {
+    if (++mPlayerCreateIdx < CHARACTER_LIST_COUNT) {
         return false;
     }
 
-    // Done
     mPlayerCreateIdx = 0;
     return true;
 }
@@ -113,7 +148,7 @@ UNDEF_80918850:;
 L_StoreLivesLoop_Start:;
                          stwu     r0, 0x4@l(r3);
                          bdnz+    L_StoreLivesLoop_Start;
-                         
+
 /* 80918868 4B748689 */  bl       checkBonusNoCap__9daPyMng_cFv;
 /* 8091886C 3CA08043 */  lis      r5, UNDEF_8042a260@ha;
 /* 80918870 8005A260 */  lwz      r0, UNDEF_8042a260@l(r5);
@@ -176,19 +211,14 @@ void dScGameSetup_c::executeState_StartMember()
     }
 
     dInfo_c* info = dInfo_c::m_instance;
-    for (u32 i = 0; i < 4; i++) {
-        info->mPlayerActiveMode[i] = 0;
-    }
-    for (u32 i = 4; i < PLAYER_COUNT; i++) {
-        info->mExPlayerActiveMode[i - 4] = 0;
+    for (u32 i = 0; i < PLAYER_COUNT; i++) {
+        info->setPlyConnectStage(i, dInfo_c::PlyConnectStage_e::OFF);
     }
 
     // Switch to dNumberOfPeopleChange_c
     dNumberOfPeopleChange_c* numPyChg = mpNumPyChg;
     numPyChg->m0x67E = true;
-    numPyChg->mRealPlayerCount = selPly->mCurrentButton + 1;
-    // Cap the normal player count field to 4
-    numPyChg->mPlayerCount = std::min(numPyChg->mRealPlayerCount, 4);
+    numPyChg->mPlayerCount = selPly->mCurrentButton + 1;
 
     mStateMgr.changeState(dScGameSetup_c::StateID_ConnectionCheck);
 }

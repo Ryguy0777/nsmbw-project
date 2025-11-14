@@ -26,6 +26,9 @@ public:
     /* 0x8008EE00 */
     void courseIN();
 
+    /* 0x8008EEC0 */
+    bool checkEntry();
+
 public:
     // -----------
     // Member Data

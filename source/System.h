@@ -224,3 +224,5 @@ struct __get_this<T&> {
 
 template <class T>
 using ArrayOf = T[];
+
+#define REMOVED(_NAME) Removed_##_NAME

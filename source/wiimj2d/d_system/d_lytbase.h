@@ -3,11 +3,14 @@
 #include "d_system/d_2d.h"
 #include "d_system/d_lyttextbox.h"
 #include "framework/f_base.h"
+#include "machine/m_2d.h"
+#include <array>
 #include <nw4r/lyt/Layout.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
 #include <nw4r/lyt/TextBox.h>
 #include <nw4r/lyt/Window.h>
+#include <utility>
 
 class LytBase_c : public d2d::Multi_c
 {
@@ -73,6 +76,29 @@ public:
         return TPaneNameRegister(const_cast<const char**>(paneNames), param2, param3, N);
     }
 
+    struct TPaneNameInfo {
+        const char* name;
+        int param2;
+    };
+
+private:
+    template <std::size_t N, std::size_t... Indexes>
+    constexpr void
+    PassTPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N], const std::index_sequence<Indexes...>&)
+    {
+        return TPaneNameRegister(
+          const_cast<const char**>(ArrayOf<const char* const>{panes[Indexes].name...}),
+          ArrayOf<int>{panes[Indexes].param2...}, param3, N
+        );
+    }
+
+public:
+    template <std::size_t N>
+    constexpr void TPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N])
+    {
+        return PassTPaneNameRegister<N>(param3, panes, std::make_index_sequence<N>());
+    }
+
     /* 0x800C90A0 */
     void AnimeResRegister(const char** animNames, int count);
 
@@ -85,20 +111,37 @@ public:
     /* 0x800C91E0 */
     void GroupRegister(const char** groupNames, const int* param2, int count);
 
-    template <std::size_t N>
-    constexpr void GroupRegister(const char* const (&groupNames)[N], const int (&param2)[N])
+    struct GroupInfo {
+        const char* name;
+        int animeRes;
+    };
+
+private:
+    template <std::size_t N, std::size_t... Indexes>
+    constexpr void
+    PassGroupRegister(const GroupInfo (&groups)[N], const std::index_sequence<Indexes...>&)
     {
-        return GroupRegister(const_cast<const char**>(groupNames), param2, N);
+        return GroupRegister(
+          const_cast<const char**>(ArrayOf<const char* const>{groups[Indexes].name...}),
+          ArrayOf<int>{groups[Indexes].animeRes...}, N
+        );
+    }
+
+public:
+    template <std::size_t N>
+    constexpr void GroupRegister(const GroupInfo (&groups)[N])
+    {
+        return PassGroupRegister<N>(groups, std::make_index_sequence<N>());
     }
 
     /* 0x800C93E0 */
-    void AnimeStartSetup(int group, bool param2);
+    void AnimeStartSetup(int group, bool param2 = false);
 
     /* 0x800C9470 */
     void LoopAnimeStartSetup(int group);
 
     /* 0x800C94C0 */
-    void ReverseAnimeStartSetup(int group, bool param2);
+    void ReverseAnimeStartSetup(int group, bool param2 = false);
 
     /* 0x800C9580 */
     void AnimeEndSetup(int param1);
@@ -110,7 +153,7 @@ public:
     void AnimePlay();
 
     /* 0x800C9700 const added */
-    bool isAnime(int group) const;
+    bool isAnime(int group = -1) const;
 
     /* 0x800C9730 const added */
     bool isAllAnime() const;
@@ -125,5 +168,10 @@ public:
 
     /* 0x0AC */ d2d::ResAccMultLoader_c mResAccLoader;
 
-    FILL(0x180, 0x198);
+    FILL(0x180, 0x184);
+
+    /* 0x184 */ m2d::AnmGroup_c* mpAnmGroups;
+    /* 0x188 */ bool* mpAnmGroupEnabled;
+
+    FILL(0x18C, 0x198);
 };

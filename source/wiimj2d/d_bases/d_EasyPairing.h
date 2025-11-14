@@ -1,13 +1,15 @@
 #pragma once
 
-class dEasyPairing_c
+#include "framework/f_base.h"
+
+class dEasyPairing_c : public fBase_c
 {
 public:
     // -----------
     // Member Data
     // -----------
 
-    FILL(0x000, 0x279);
+    FILL(0x064, 0x279);
 
     /* 0x279 */ u8 m0x279;
 };

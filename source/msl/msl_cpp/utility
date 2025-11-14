@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cstddef"
 #include "type_traits"
 
 namespace std
@@ -30,5 +31,26 @@ constexpr void swap(T& a, T& b) noexcept
     a = std::move(b);
     b = std::move(temp);
 }
+
+template <class T, T... Ints>
+class integer_sequence
+{
+public:
+    using value_type = T;
+
+    static constexpr size_t size() noexcept
+    {
+        return sizeof...(Ints);
+    }
+};
+
+template <size_t... Ints>
+using index_sequence = integer_sequence<size_t, Ints...>;
+
+template <class T, T N>
+using make_integer_sequence = __make_integer_seq<integer_sequence, T, N>;
+
+template <size_t N>
+using make_index_sequence = make_integer_sequence<size_t, N>;
 
 } // namespace std

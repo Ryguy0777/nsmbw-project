@@ -3,8 +3,8 @@
 
 #include "SndAudioMgr.h"
 
-#include <egg/core/eggDvdRipper.h>
 #include "machine/m_dvd.h"
+#include <egg/core/eggDvdRipper.h>
 #include <nw4r/snd/DvdSoundArchive.h>
 #include <revolution/os.h>
 
@@ -12,7 +12,7 @@
 SndAudioMgr* SndAudioMgr::sInstance;
 
 [[address(0x801954C0)]]
-void SndAudioMgr::startSystemSe(unsigned int sound, u32 param2);
+void SndAudioMgr::startSystemSe(SndID::Type sound, u32 param2);
 
 [[address(0x80196FD0)]]
 void SndAudioMgr::setIsReplay(bool value);

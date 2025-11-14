@@ -7,6 +7,8 @@ from demangle import *
 argument_parser = ArgumentParser()
 argument_parser.add_argument('elf_file_path')
 argument_parser.add_argument('smap_file_path')
+# optional dolphin map path
+argument_parser.add_argument('dolphin_map_file_path', nargs='?')
 args = argument_parser.parse_args()
 
 with open(args.elf_file_path, 'rb') as elf_file_stream:
@@ -24,13 +26,15 @@ with open(args.elf_file_path, 'rb') as elf_file_stream:
             continue
 
         st_value = symbol.entry['st_value']
+        length = 4
 
         section_name = elf_file.get_section(st_shndx).name
         if section_name.startswith('.external.'):
             st_value = int(section_name[10:], 0)
         else:
             # where the module block happens to be allocated
-            st_value += 0x80B8E564
+            st_value += 0x80B8E3AC
+            length = symbol.entry['st_size']
 
         symbol_name = symbol.name
 
@@ -46,8 +50,12 @@ with open(args.elf_file_path, 'rb') as elf_file_stream:
             pass
 
         symbols += f"0x{st_value:08X} {symbol_name}\n"
-        symbols_dolphin += f"{st_value:08x} 00000004 {st_value:08x} 0 {symbol_name}\n"
+        symbols_dolphin += f"{st_value:08x} {length:08x} {st_value:08x} 0 {symbol_name}\n"
 
 with open(args.smap_file_path, 'w', newline='\n') as smap_file_stream:
     for item in sorted(symbols.split('\n')):
         smap_file_stream.write(item + '\n')
+
+if args.dolphin_map_file_path and args.dolphin_map_file_path != "":
+    with open(args.dolphin_map_file_path, 'w', newline='\n') as dolphin_map_file_stream:
+        dolphin_map_file_stream.write(symbols_dolphin)

@@ -27,11 +27,7 @@ void dInfo_c::PlayerStateInit()
     for (s32 i = 0; i < PLAYER_COUNT; i++) {
         daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
 
-        if (i < 4) {
-            mPlayerActiveMode[i] = 0;
-        } else {
-            mExPlayerActiveMode[i - 4] = 0;
-        }
+        setPlyConnectStage(i, dInfo_c::PlyConnectStage_e::OFF);
     }
 }
 
