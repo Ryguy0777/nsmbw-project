@@ -38,5 +38,8 @@ const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
     return nullptr;
 }
 
+[[address(0x801011A0)]]
+bool daWmPlayer_c::isPlayerStarMode();
+
 [[address(0x80101220)]]
 void daWmPlayer_c::startStarSound();

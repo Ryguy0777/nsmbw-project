@@ -115,6 +115,12 @@ public:
     /* 0x80902E30 */
     void setPlayerActive(u32 id, bool param2, bool param3);
 
+    /* 0x80902ED0 */
+    void UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3);
+
+    /* 0x80902FA0 @unofficial */
+    void setSubPlayerPower();
+
     /* 0x80903380 */
     void UNDEF_80903380();
 
@@ -146,6 +152,9 @@ public:
 
     /* 0x80100B60 @unofficial */
     static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
+
+    /* 0x801011A0 */
+    static bool isPlayerStarMode();
 
     /* 0x80101220 */
     static void startStarSound();
