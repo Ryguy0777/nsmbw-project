@@ -26,12 +26,6 @@ fBase_c* dCharacterChangeSelectBase_c_classInit()
     return base;
 }
 
-PLAYER_TYPE_e g_CHARACTER_FROM_BASE[] = {
-  PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,      PLAYER_TYPE_e::YELLOW_TOAD,
-  PLAYER_TYPE_e::BLUE_TOAD,   PLAYER_TYPE_e::TOADETTE,   PLAYER_TYPE_e::PURPLE_TOADETTE,
-  PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
-};
-
 [[address(0x8076F400)]]
 dCharacterChangeSelectBase_c::dCharacterChangeSelectBase_c();
 
@@ -104,6 +98,16 @@ bool dCharacterChangeSelectBase_c::updateRemocon()
 PLAYER_TYPE_e dCharacterChangeSelectBase_c::getCharacterFromBase(int baseIndex)
 {
     return dMj2dGame_c::scDefaultPlayerTypes[4 - baseIndex];
+}
+
+int dCharacterChangeSelectBase_c::getBaseFromCharacter(PLAYER_TYPE_e chara)
+{
+    for (std::size_t i = 0; i < CHARACTER_LIST_COUNT; i++) {
+        if (dMj2dGame_c::scDefaultPlayerTypes[i] == chara) {
+            return 4 - static_cast<int>(i);
+        }
+    }
+    return -1;
 }
 
 PLAYER_TYPE_e dCharacterChangeSelectBase_c::getCharacterFromIcon(Icon_e icon)
@@ -203,7 +207,7 @@ void dCharacterChangeSelectBase_c::setDecidedCharacter()
 [[address(0x8076FE60)]]
 void dCharacterChangeSelectBase_c::setSelectedBaseIndex()
 {
-    mSelectedBaseIndex = 4 - static_cast<std::size_t>(daPyMng_c::mPlayerType[mPlayerNo]);
+    mSelectedBaseIndex = getBaseFromCharacter(daPyMng_c::mPlayerType[mPlayerNo]);
 }
 
 [[address(0x8076FE90)]]
