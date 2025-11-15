@@ -592,7 +592,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
         base->mpCcIndicator = indicator;
         base->mPlayerCount = mPlayerCount;
         contents->mpCcIndicator = indicator;
-        base->mpa2DPlayer = mp2DPlayer;
+        base->mp2DPlayer = mp2DPlayer;
         mSetupPlayers[cc] = -1;
         indicator->mpPInfoBaseS->SetVisible(true);
         indicator->mpPInfoBase->SetVisible(true);
@@ -1026,8 +1026,8 @@ void dNumberOfPeopleChange_c::finalizeState_ExitAnimeEndCheck()
         mp2DPlayer[type]->m0x266 = 0;
         mp2DPlayer[type]->m0x269 = 1;
 
-        if (dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
-            mp2DPlayer[type]->m0x26A = 0;
+        if (dScene_c::isWorldMap()) {
+            mp2DPlayer[type]->mForbidJump = false;
         }
     }
 

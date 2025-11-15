@@ -83,10 +83,10 @@ public:
     void calcContentsIcon(int swapIndex, int baseIndex);
 
     /* 0x8076FE40 */
-    void setDecidedCharacter();
+    void initDecidedCharacter();
 
     /* 0x8076FE60 */
-    void setSelectedBaseIndex();
+    void initOption();
 
     /* 0x8076FE90 */
     void resetIndicator();
@@ -104,10 +104,11 @@ public:
     /* 0x074 */ dCharacterChangeSelectContents_c* mpCcSelContents;
     /* 0x078 */ dCharacterChangeSelectArrow_c* mpCcSelArrow;
     /* 0x07C */ dCharacterChangeIndicator_c* mpCcIndicator;
-    /* 0x080 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
-    /* 0x080 */ da2DPlayer_c** mpa2DPlayer;
 
-    FILL(0x084, 0x090);
+    union {
+        /* 0x080 */ da2DPlayer_c* REMOVED(mp2DPlayer)[4];
+        /* 0x080 */ da2DPlayer_c** mp2DPlayer;
+    };
 
     /* 0x090 */ LytBase_c mLayout;
     /* 0x228 */ sStateMgrDefault_c<dCharacterChangeSelectBase_c> mStateMgr;
@@ -143,7 +144,7 @@ public:
     /* 0x2D4 */ PLAYER_TYPE_e mDecidedCharacter;
     /* 0x2D8 */ int mPlayerNo;
     /* 0x2DC */ int mCcIndex;
-    /* 0x2E0 */ int mSelectedBaseIndex;
+    /* 0x2E0 */ int mOption;
     /* 0x2E4 */ int m0x2E4;
     /* 0x2E8 */ int mPlayerCount;
     /* 0x2EC */ float m0x2EC;

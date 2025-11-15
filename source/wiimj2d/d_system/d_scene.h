@@ -45,6 +45,11 @@ public:
     /* 0x800E1F50 */
     static void setNextScene(u16 profile, u32 param, bool param2);
 
+    static inline bool isWorldMap()
+    {
+        return m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    }
+
 public:
     // -----------
     // Static Data

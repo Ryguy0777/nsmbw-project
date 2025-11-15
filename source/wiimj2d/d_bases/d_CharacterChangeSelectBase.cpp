@@ -199,15 +199,15 @@ void dCharacterChangeSelectBase_c::calcContentsIcon(int swapIndex, int baseIndex
 }
 
 [[address(0x8076FE40)]]
-void dCharacterChangeSelectBase_c::setDecidedCharacter()
+void dCharacterChangeSelectBase_c::initDecidedCharacter()
 {
-    mDecidedCharacter = getCharacterFromBase(mSelectedBaseIndex);
+    mDecidedCharacter = getCharacterFromBase(mOption);
 }
 
 [[address(0x8076FE60)]]
-void dCharacterChangeSelectBase_c::setSelectedBaseIndex()
+void dCharacterChangeSelectBase_c::initOption()
 {
-    mSelectedBaseIndex = getBaseFromCharacter(daPyMng_c::mPlayerType[mPlayerNo]);
+    mOption = getBaseFromCharacter(daPyMng_c::mPlayerType[mPlayerNo]);
 }
 
 [[address(0x8076FE90)]]
@@ -219,10 +219,10 @@ void dCharacterChangeSelectBase_c::resetIndicator()
 [[address(0x8076FEE0)]]
 void dCharacterChangeSelectBase_c::readyContents()
 {
-    mSelectedBaseIndex = 4 - mPlayerNo;
+    mOption = 4 - mPlayerNo;
     mp0x278->SetVisible(true);
     mp0x27C->SetVisible(false);
-    calcContentsIcon(0, mSelectedBaseIndex);
+    calcContentsIcon(0, mOption);
     mpCcSelContents->m0x29D = true;
     mpCcSelContents->mPlayerNo = mPlayerNo;
     mpCcIndicator->m0x24C = 2;
@@ -260,7 +260,7 @@ void dCharacterChangeSelectBase_c::finalizeState_OnStageWait()
         mpCcIndicator->m0x234 = m0x2EC;
         mpNumPyConnectStage[mPlayerNo] = dInfo_c::PlyConnectStage_e::SETUP;
         readyContents();
-        mpCcSelArrow->mSelectedBaseIndex = mSelectedBaseIndex;
+        mpCcSelArrow->mOption = mOption;
         mpCcSelArrow->m0x269 = true;
         mpNumPyConnectStage[mPlayerNo] = dInfo_c::PlyConnectStage_e::SELECT;
     }
@@ -276,9 +276,9 @@ void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait()
     const auto* state = &StateID_SelectWait;
     const bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
     if (isWorldMap && mpNumPyConnectStage[mPlayerNo] == dInfo_c::PlyConnectStage_e::ENTER) {
-        setSelectedBaseIndex();
-        setDecidedCharacter();
-        da2DPlayer_c* p2dPlayer = mpa2DPlayer[static_cast<std::size_t>(mDecidedCharacter)];
+        initOption();
+        initDecidedCharacter();
+        da2DPlayer_c* p2dPlayer = mp2DPlayer[static_cast<std::size_t>(mDecidedCharacter)];
         p2dPlayer->mBasePos = mAllBasePos[0];
         p2dPlayer->mPos = mAllBasePos[0];
         state = &StateID_PlayerDisp;
@@ -363,13 +363,13 @@ void dCharacterChangeSelectBase_c::executeState_SelectWait()
         return mStateMgr.changeState(StateID_ButtonExitAnimeEndWait);
     }
 
-    calcContentsIcon(0, mSelectedBaseIndex);
+    calcContentsIcon(0, mOption);
 
     dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[mPlayerNo];
 
     const sFStateID_c<dCharacterChangeSelectBase_c>* state = nullptr;
     if (core->checkMenuConfirm()) {
-        if (isCharacterLocked(dMj2dGame_c::scDefaultPlayerTypes[4 - mSelectedBaseIndex])) {
+        if (isCharacterLocked(dMj2dGame_c::scDefaultPlayerTypes[4 - mOption])) {
             return;
         }
 
@@ -382,22 +382,22 @@ void dCharacterChangeSelectBase_c::executeState_SelectWait()
             }
         }
 
-        m0x2A0 = mSelectedBaseIndex;
+        m0x2A0 = mOption;
         state = &StateID_HitAnimeEndWait;
     } else if (core->checkLeft()) {
-        if (mSelectedBaseIndex >= 4) {
+        if (mOption >= 4) {
             return;
         }
         m0x2A0 = 5;
-        mSelectedBaseIndex++;
+        mOption++;
         mpCcSelArrow->mMoveDir = 1;
         state = &StateID_MoveAnimeEndWait;
     } else if (core->checkRight()) {
-        if (mSelectedBaseIndex <= 5 - CHARACTER_LIST_COUNT) {
+        if (mOption <= 5 - CHARACTER_LIST_COUNT) {
             return;
         }
         m0x2A0 = 4;
-        mSelectedBaseIndex--;
+        mOption--;
         mpCcSelArrow->mMoveDir = 2;
         state = &StateID_MoveAnimeEndWait;
     }
@@ -522,7 +522,7 @@ void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageW
 void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
 {
     std::size_t index = static_cast<std::size_t>(mDecidedCharacter);
-    da2DPlayer_c* player = mpa2DPlayer[index];
+    da2DPlayer_c* player = mp2DPlayer[index];
 
     u16 sound = ArrayOf<u16[2]>{
       {SndID::SE_VOC_MA_PLAYER_JOIN, SndID::SE_VOC_MA_PLAYER_JOIN_MAME},
@@ -593,19 +593,14 @@ void dCharacterChangeSelectBase_c::finalizeState_PlayerOnStageWait() ASM_METHOD(
 );
 
 [[address(0x807712B0)]]
-void dCharacterChangeSelectBase_c::initializeState_PlayerDisp() ASM_METHOD(
-  // clang-format off
-/* 807712B0 808302D4 */  lwz      r4, 724(r3);
-/* 807712B4 38000001 */  li       r0, 1;
-/* 807712B8 80A302D8 */  lwz      r5, 728(r3);
-/* 807712BC 5484103A */  slwi     r4, r4, 2;
-/* 807712C0          */  lwz      r6, 0x80(r3);
-/* 807712C4          */  lwzx     r4, r6, r4;
-/* 807712C8 90A40248 */  stw      r5, 584(r4);
-/* 807712CC 9803029A */  stb      r0, 666(r3);
-/* 807712D0 4E800020 */  blr;
-  // clang-format on
-);
+void dCharacterChangeSelectBase_c::initializeState_PlayerDisp()
+{
+    mp2DPlayer[mDecidedCharacter]->mPlayerNo = mPlayerNo;
+    if (dScene_c::isWorldMap() && mCcIndex == 0) {
+        mp2DPlayer[mDecidedCharacter]->mForbidJump = true;
+    }
+    mDecided = true;
+}
 
 [[address(0x807712E0)]]
 void dCharacterChangeSelectBase_c::executeState_PlayerDisp() ASM_METHOD(
@@ -673,6 +668,13 @@ UNDEF_807713b4:;
 /* 807713C4 4E800020 */  blr;
   // clang-format on
 );
+
+[[address(0x807713D0)]]
+void dCharacterChangeSelectBase_c::finalizeState_PlayerDisp()
+{
+    mDecided = false;
+    mp2DPlayer[mDecidedCharacter]->mForbidJump = false;
+}
 
 [[address(0x807713E0)]]
 void dCharacterChangeSelectBase_c::initializeState_PlayerExitWait() ASM_METHOD(

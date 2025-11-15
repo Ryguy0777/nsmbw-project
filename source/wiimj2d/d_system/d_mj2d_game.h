@@ -45,7 +45,7 @@
 /**
  * The identifiers for each character.
  */
-enum class PLAYER_TYPE_e {
+enum PLAYER_TYPE_e {
     MARIO = 0,
     LUIGI = 1,
     BLUE_TOAD = 2,
@@ -63,6 +63,7 @@ enum class PLAYER_TYPE_e {
 
 /**
  * Various flags applied to the player on occasion.
+ * @unofficial
  */
 enum class PLAYER_CREATE_ITEM_e {
     NONE = 0,
@@ -90,6 +91,7 @@ enum class PLAYER_CREATE_ITEM_e {
 
 /**
  * The identifiers for each powerup.
+ * @unofficial
  */
 enum class PLAYER_MODE_e {
     NONE = 0,
@@ -99,14 +101,14 @@ enum class PLAYER_MODE_e {
     PROPELLER_SHROOM = 4,
     PENGUIN_SUIT = 5,
     ICE_FLOWER = 6,
-    COUNT = 7,
+    COUNT,
 };
 
 #define PLAYER_MODE_COUNT 7
 
 /**
  * Stock item identifiers.
- * TODO: These meanings are just guesses
+ * @unofficial
  */
 enum class STOCK_ITEM_e : u8 {
     MUSHROOM = 0,
@@ -116,13 +118,14 @@ enum class STOCK_ITEM_e : u8 {
     PENGUIN_SUIT = 4,
     MINI_MUSHROOM = 5,
     STAR = 6,
-    COUNT = 7,
+    COUNT,
 };
 
 #define STOCK_ITEM_COUNT 7
 
 /**
  * The numbers corresponding to each level type.
+ * @unofficial
  */
 enum class STAGE_e : u8 {
     STAGE_1 = 0,
@@ -698,7 +701,7 @@ private:
      */
     /* 0x07 */ bool mSwitchOn;
 
-    /* 0x08 */ // u8 mUnknown8; // @unused
+    /* 0x08 */ // u8 m0x008; // @unused
 
     /**
      * The inventory amount for each item.
@@ -750,7 +753,7 @@ private:
      */
     /* 0x3C */ u8 mEnemyRevivalCount[WORLD_COUNT][AMBUSH_ENEMY_COUNT];
 
-    /* 0x64 */ // u16 mUnknown64; // @unused
+    /* 0x64 */ // u16 m0x064; // @unused
 
     /**
      * The staff credits high score.
@@ -804,12 +807,10 @@ private:
      */
     /* 0x968 */ u8 mDeathCountSwitch;
 
-    /* 0x969 */ // u8 m0x969[0x13]; // Aligns the data to 32
-
     /**
-     * The CRC32 checksum of the above data.
+     * Ensures space for the CRC32 checksum.
      */
-    /* 0x97C */ // u32 mChecksum;
+    // u32 mChecksumSpace;
 
 public:
     /**
