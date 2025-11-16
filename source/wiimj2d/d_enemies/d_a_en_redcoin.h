@@ -25,8 +25,8 @@ public:
 
     FILL(0x670, 0x67C);
 
-    /* 0x67C */ int mPlyItemSpawnMode_Removed[4];
-    /* 0x68C */ int mPlyItem_Removed[4];
+    /* 0x67C */ int REMOVED(mPlyItemSpawnMode)[4];
+    /* 0x68C */ int REMOVED(mPlyItem)[4];
 
     FILL(0x69C, 0x6A8);
     OFFSET_ASSERT(0x6A8);

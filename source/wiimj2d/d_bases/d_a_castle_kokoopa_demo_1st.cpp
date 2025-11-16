@@ -18,9 +18,9 @@ daCastleKokoopaDemo1st_c* daCastleKokoopaDemo1st_c_classInit()
 
     // This should be done in create
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        base->mpaPlayersInOrder[i] = nullptr;
-        base->maBattleStControlStep[i] = 1;
-        base->maIggyDemoScrollStep[i] = 1;
+        base->mpPlayersInOrder[i] = nullptr;
+        base->mBattleStControlStep[i] = 1;
+        base->mIggyDemoScrollStep[i] = 1;
     }
 
     return base;
@@ -90,11 +90,11 @@ bool daCastleKokoopaDemo1st_c::checkBattleStDemo()
                 continue;
             }
 
-            mpaPlayersInOrder[count++] = daPyMng_c::getPlayer(i);
+            mpPlayersInOrder[count++] = daPyMng_c::getPlayer(i);
         }
 
         // Sort the players by X position
-        std::sort(mpaPlayersInOrder, mpaPlayersInOrder + count, [](dAcPy_c* a, dAcPy_c* b) {
+        std::sort(mpPlayersInOrder, mpPlayersInOrder + count, [](dAcPy_c* a, dAcPy_c* b) {
             return a->mPos.x < b->mPos.x;
         });
 
@@ -122,11 +122,11 @@ bool daCastleKokoopaDemo1st_c::calcBattleStDemoControl()
     f32 playerDist = playerStandArea / (numPly + 1);
 
     for (int i = 0; i < numPly; i++) {
-        dAcPy_c* player = mpaPlayersInOrder[i];
+        dAcPy_c* player = mpPlayersInOrder[i];
 
-        switch (maBattleStControlStep[i]) {
+        switch (mBattleStControlStep[i]) {
         case 1: {
-            f32& walkToPos = maWalkToPos[*player->getPlrNo()];
+            f32& walkToPos = mWalkToPos[*player->getPlrNo()];
             walkToPos = playerDist * (i + 1) + (mRightBoundary - playerStandArea / 2);
 
             if (!(player->m0x10D4 & 0x1)) {
@@ -142,16 +142,16 @@ bool daCastleKokoopaDemo1st_c::calcBattleStDemoControl()
                 f32 speed = EGG::Math<f32>::lerp(0.1, xSpeed, 2.5);
                 player->setControlDemoWalk(walkToPos, speed);
                 if (speed == 2.5) {
-                    maBattleStControlStep[i]++;
+                    mBattleStControlStep[i]++;
                 }
-            } else if (mpaPlayersInOrder[i + 1]->mPos.x - player->mPos.x < 24.0) {
+            } else if (mpPlayersInOrder[i + 1]->mPos.x - player->mPos.x < 24.0) {
                 f32 speed = EGG::Math<f32>::lerp(0.1, xSpeed, 2.5 / 2);
                 player->setControlDemoWalk(walkToPos, speed);
             } else {
                 f32 speed = EGG::Math<f32>::lerp(0.1, xSpeed, 2.5);
                 player->setControlDemoWalk(walkToPos, speed);
-                if (maBattleStControlStep[i + 1] == 2 && speed == 2.5) {
-                    maBattleStControlStep[i]++;
+                if (mBattleStControlStep[i + 1] == 2 && speed == 2.5) {
+                    mBattleStControlStep[i]++;
                 }
             }
             break;
@@ -161,7 +161,7 @@ bool daCastleKokoopaDemo1st_c::calcBattleStDemoControl()
             if (player->isControlDemoWait()) {
                 player->setControlDemoDir(0);
                 player->setControlDemoAnm(0x91);
-                maBattleStControlStep[i]++;
+                mBattleStControlStep[i]++;
             }
         }
         }
@@ -184,23 +184,23 @@ bool daCastleKokoopaDemo1st_c::calcIggyDemoScroll()
 
         dAcPy_c* player = daPyMng_c::getPlayer(i);
 
-        if (maIggyDemoScrollStep[i] == 0) {
+        if (mIggyDemoScrollStep[i] == 0) {
             continue;
         }
 
-        if (maIggyDemoScrollStep[i] != 3) {
+        if (mIggyDemoScrollStep[i] != 3) {
             ready = false;
         }
 
-        switch (maIggyDemoScrollStep[i]) {
+        switch (mIggyDemoScrollStep[i]) {
         case 1: {
             if (player->mPos.x < mLeftBoundary - 168.0) {
                 break;
             }
 
             player->mKey.onDemoButton(0x104);
-            player->setControlDemoWalk(maWalkToPos[*player->getPlrNo()], 1.5);
-            maIggyDemoScrollStep[i]++;
+            player->setControlDemoWalk(mWalkToPos[*player->getPlrNo()], 1.5);
+            mIggyDemoScrollStep[i]++;
             break;
         }
 
@@ -211,9 +211,9 @@ bool daCastleKokoopaDemo1st_c::calcIggyDemoScroll()
             }
 
             if (player->mPos.y > mPos.y + yDist ||
-                player->mPos.x >= maWalkToPos[*player->getPlrNo()]) {
+                player->mPos.x >= mWalkToPos[*player->getPlrNo()]) {
                 player->mKey.offDemoButton(0x104);
-                maIggyDemoScrollStep[i]++;
+                mIggyDemoScrollStep[i]++;
             }
             break;
         }

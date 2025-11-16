@@ -78,7 +78,7 @@ public:
     // Instance Variables
     // ^^^^^^
 
-    /* 0x70 */ Player_s mPlayers_Removed[4];
+    /* 0x70 */ Player_s REMOVED(mPlayers)[4];
     /* 0xA4 */
     sStateMgrDefault_c<daMiniGameGunBatteryMgrObj_c> mStateMgr;
     /* 0xDC */ int mMessageState;

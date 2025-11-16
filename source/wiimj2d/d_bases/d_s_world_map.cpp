@@ -115,7 +115,7 @@ bool dScWMap_c::createActorsPhase()
         if (stockItem != nullptr) {
             stockItem->mpa2DPlayer[i] = crsSelMng->mpa2DPlayer[i];
             if (i < 4) {
-                stockItem->mpa2DPlayer_Removed[i] = crsSelMng->mpa2DPlayer[i];
+                stockItem->REMOVED(mpa2DPlayer)[i] = crsSelMng->mpa2DPlayer[i];
             }
         }
     }

@@ -58,17 +58,17 @@ public:
     /* 0x3E0 */ int mDemoNum;
     /* 0x3E4 */ float mXBased;
     /* 0x3E8 */ float mPlayerStandCenter;
-    /* 0x3EC */ float mPlayerWalkPos_Removed[4];
+    /* 0x3EC */ float REMOVED(mPlayerWalkPos)[4];
     /* 0x3FC */ float mAirshipDemoX;
     /* 0x400 */ float mAirshipDemoY;
     /* 0x404 */ float m0x404;
-    /* 0x408 */ dAcPy_c* mpPlayersInOrder_Removed[4];
+    /* 0x408 */ dAcPy_c* REMOVED(mpPlayersInOrder)[4];
     /* 0x418 */ float m0x418;
     /* 0x41C */ float m0x41C;
     /* 0x420 */ daKameckForAirshipDemo_c* mpKamek;
     /* 0x424 */ daPeachForAirshipDemo_c* mpPeach;
-    /* 0x428 */ float mPlrYPos_Removed[4];
-    /* 0x438 */ bool m0x438_Removed[4];
+    /* 0x428 */ float REMOVED(mPlrYPos)[4];
+    /* 0x438 */ bool REMOVED(m0x438)[4];
 
     FILL(0x43C, 0x448);
 

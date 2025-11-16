@@ -38,11 +38,11 @@ public:
     /* 0x685 */ u8 m0x685;
 
 #if PLAYER_COUNT > 7
-    /* 0x686 */ bool m0x686_Removed[4];
+    /* 0x686 */ bool REMOVED(m0x686)[4];
 #else
     /* 0x686 */ bool m0x686[4];
 #endif
-    /* 0x68A */ bool m0x68A_Removed[4];
+    /* 0x68A */ bool REMOVED(m0x68A)[4];
 
     FILL(0x68E, 0x6A8);
     OFFSET_ASSERT(0x6A8);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <component/c_bitmask.h>
+#include <egg/prim/eggBitFlag.h>
 
 /**
  * The maximum amount of ambush enemies per world map.
@@ -71,22 +72,22 @@ enum class PLAYER_CREATE_ITEM_e {
     /**
      * Gives the player Star Power.
      */
-    STAR_POWER = BIT_FLAG(0),
+    STAR_POWER = EGG::BitFlag(0),
 
     /**
      * Spawns a Yoshi along with the player.
      */
-    YOSHI = BIT_FLAG(1),
+    YOSHI = EGG::BitFlag(1),
 
     /**
      * Spawns the player inside a bubble.
      */
-    BUBBLE = BIT_FLAG(2),
+    BUBBLE = EGG::BitFlag(2),
 
     /**
      * Spawns a Rescue Toad instead of the regular player character.
      */
-    RESCUE_TOAD = BIT_FLAG(3),
+    RESCUE_TOAD = EGG::BitFlag(3),
 };
 
 /**
@@ -252,41 +253,41 @@ public:
         /**
          * The first Star Coin was obtained.
          */
-        COIN1_COLLECTED = BIT_FLAG(0),
+        COIN1_COLLECTED = EGG::BitFlag(0),
 
         /**
          * The second Star Coin was obtained.
          */
-        COIN2_COLLECTED = BIT_FLAG(1),
+        COIN2_COLLECTED = EGG::BitFlag(1),
 
         /**
          * The third Star Coin was obtained.
          */
-        COIN3_COLLECTED = BIT_FLAG(2),
+        COIN3_COLLECTED = EGG::BitFlag(2),
 
         COIN_MASK = COIN1_COLLECTED | COIN2_COLLECTED | COIN3_COLLECTED,
 
         /**
          * The regular exit was cleared.
          */
-        GOAL_NORMAL = BIT_FLAG(4),
+        GOAL_NORMAL = EGG::BitFlag(4),
 
         /**
          * The secret exit was cleared.
          */
-        GOAL_SECRET = BIT_FLAG(5),
+        GOAL_SECRET = EGG::BitFlag(5),
 
         GOAL_MASK = GOAL_NORMAL | GOAL_SECRET,
 
         /**
          * The regular exit was cleared with the Super Guide.
          */
-        SUPER_GUIDE_GOAL_NORMAL = BIT_FLAG(7),
+        SUPER_GUIDE_GOAL_NORMAL = EGG::BitFlag(7),
 
         /**
          * The secret exit was cleared with the Super Guide.
          */
-        SUPER_GUIDE_GOAL_SECRET = BIT_FLAG(8),
+        SUPER_GUIDE_GOAL_SECRET = EGG::BitFlag(8),
 
         SUPER_GUIDE_GOAL_MASK = SUPER_GUIDE_GOAL_NORMAL | SUPER_GUIDE_GOAL_SECRET,
     };
@@ -295,7 +296,7 @@ public:
      * The completion status of each world.
      */
     enum class WORLD_COMPLETION_e : u8 {
-        WORLD_UNLOCKED = BIT_FLAG(0)
+        WORLD_UNLOCKED = EGG::BitFlag(0),
     };
 
     /**
@@ -305,37 +306,37 @@ public:
         /**
          * The slot is empty.
          */
-        SAVE_EMPTY = BIT_FLAG(0),
+        SAVE_EMPTY = EGG::BitFlag(0),
 
         /**
          * The final boss was beaten.
          */
-        FINAL_BOSS_BEATEN = BIT_FLAG(1),
+        FINAL_BOSS_BEATEN = EGG::BitFlag(1),
 
         /**
          * All levels were completed.
          */
-        GOAL_ALL = BIT_FLAG(2),
+        GOAL_ALL = EGG::BitFlag(2),
 
         /**
          * All the Star Coins in the regular worlds were obtained.
          */
-        COIN_ALL = BIT_FLAG(3),
+        COIN_ALL = EGG::BitFlag(3),
 
         /**
          * All the Star Coins in the special worlds were obtained.
          */
-        COIN_ALL_SPECIAL = BIT_FLAG(4),
+        COIN_ALL_SPECIAL = EGG::BitFlag(4),
 
         /**
          * All the above objectives were completed.
          */
-        GAME_COMPLETED = BIT_FLAG(5),
+        GAME_COMPLETED = EGG::BitFlag(5),
 
         /**
          * The player died at least SUPER_GUIDE_DEATH_COUNT times in a single stage.
          */
-        SUPER_GUIDE_TRIGGERED = BIT_FLAG(6),
+        SUPER_GUIDE_TRIGGERED = EGG::BitFlag(6),
     };
 
     /**

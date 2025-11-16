@@ -8,6 +8,7 @@
 #include "d_bases/d_CharacterChangeSelectBase.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_bases/d_profile.h"
 #include "d_player/d_WarningManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
@@ -16,9 +17,9 @@
 #include "d_system/d_message.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
-#include "d_bases/d_profile.h"
 #include "machine/m_pad.h"
 #include "sound/SndAudioMgr.h"
+#include <revolution/os.h>
 #include "sound/SndID.h"
 
 static const float l_2d_player_offset = 50.0f;
@@ -34,12 +35,15 @@ dNumberOfPeopleChange_c::dNumberOfPeopleChange_c()
 {
 }
 
-// clang-format off
-// [0x8079F780] __dt__33sFState_c<23dNumberOfPeopleChange_c>Fv
-// [0x8079F7C0] __dt__36sFStateFct_c<23dNumberOfPeopleChange_c>Fv
-// [0x8079F800] __dt__89sStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c,12sFStateFct_c,13sStateIDChk_c>Fv
-// [0x8079F860] __dt__59sFStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c>Fv
-// clang-format on
+EXTERN_SYMBOL(0x8079F780, "__dt__33sFState_c<23dNumberOfPeopleChange_c>Fv");
+EXTERN_SYMBOL(0x8079F7C0, "__dt__36sFStateFct_c<23dNumberOfPeopleChange_c>Fv");
+EXTERN_SYMBOL(
+  0x8079F800, "__dt__89sStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c,12sFStateFct_c,"
+              "13sStateIDChk_c>Fv"
+);
+EXTERN_SYMBOL(
+  0x8079F860, "__dt__59sFStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c>Fv"
+);
 
 [[address(0x8079F8D0)]]
 dNumberOfPeopleChange_c::~dNumberOfPeopleChange_c()
@@ -640,6 +644,8 @@ void dNumberOfPeopleChange_c::finalizeState_InitialSetup()
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
         remocons->mpaConnect[ply]->setAllowConnect(true);
     }
+
+    __builtin_dump_struct(this, OSReport);
 }
 
 [[address(0x807A11A0)]]
