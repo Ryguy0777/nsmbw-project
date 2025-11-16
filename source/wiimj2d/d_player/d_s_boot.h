@@ -3,28 +3,20 @@
 #include "d_system/d_scene.h"
 #include "state/s_FStateFct.h"
 #include "state/s_State.h"
-#include "state/s_StateMethodUsr_FI.h"
-#include "state/s_StateMgr.h"
+#include "state/s_StateMgrDefault.h"
 
 class dWiiStrap_c;
 class dYesNoWindow_c;
 class dSelectCursor_c;
 class dControllerInformation_c;
 
-class dScBoot_c : public dScene_c,
-                  public sStateMgr_c<dScBoot_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
+class dScBoot_c : public dScene_c
 {
 public:
     // Structors
     // ^^^^^^
 
     dScBoot_c();
-
-public:
-    // Functions
-    // ^^^^^^
-
-    int recreate();
 
 public:
     // Static Variables
@@ -36,7 +28,10 @@ public:
     // Instance Variables
     // ^^^^^^
 
-    FILL(0x0B0, 0x0F0);
+    /* 0x074 */ sStateMgrDefault_c<dScBoot_c> mStateMgr;
+    /* 0x0B0 */ sStateMgrDefault_c<dScBoot_c> mStateMgr2;
+
+    FILL(0xEC, 0xF0);
 
     /* 0x0F0 */ dWiiStrap_c* mWiiStrap;
     /* 0x0F4 */ dYesNoWindow_c* mYesNoWindow;
@@ -46,6 +41,8 @@ public:
     FILL(0x100, 0x102);
 
     /* 0x102 */ bool mLoadedSceneSnd;
+
+    OFFSET_ASSERT(0x103);
 
     // State IDs
     // ^^^^^^

@@ -26,7 +26,7 @@ public:
     static void preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle);
     static void initCModule();
 
-    static void initCodeRegion();
+    static CODE_REGION_e findCodeRegion();
 
 public:
     // Static Variables
@@ -38,5 +38,5 @@ public:
     /* 0x8042A374 */
     static EGG::ExpHeap* ms_RootHeapMem2;
 
-    static CODE_REGION_e m_codeRegion;
+    static const CODE_REGION_e m_codeRegion;
 };

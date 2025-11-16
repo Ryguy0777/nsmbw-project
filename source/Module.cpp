@@ -71,8 +71,8 @@ static void FlushAndInvalidateCache(bool interrupts = OSDisableInterrupts()) ASM
 
 extern "C" void _prolog(s32 param1, void* param2)
 {
-    dSys_c::initCodeRegion();
-    auto codeRegion = dSys_c::m_codeRegion;
+    auto codeRegion = dSys_c::findCodeRegion();
+    const_cast<dSys_c::CODE_REGION_e&>(dSys_c::m_codeRegion) = codeRegion;
 
     int interrupt = OSDisableInterrupts();
 

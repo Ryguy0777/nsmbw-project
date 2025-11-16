@@ -5,21 +5,39 @@
 // NSMBW .sbss: 0x8042A25C - 0x8042A268
 
 #include "d_info.h"
-#include "d_system/d_cyuukan.h"
-#include "d_system/d_mj2d_game.h"
 
 #include "d_bases/d_s_stage.h"
-#include "d_system/d_a_player_manager.h"
+#include "d_system/d_cyuukan.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"
 
-//
-// .text
-//
+[[address_data(0x80315E90)]]
+dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
 
-EXTERN_SYMBOL(0x800BB0E0, "__ct__7dInfo_cFv");
+/* 0x80359054 */
+dStartInfo_c dInfo_c::m_startInfo;
+
+[[address_data(0x8042A25C)]]
+dInfo_c* dInfo_c::m_instance;
+
+[[address_data(0x8042A260)]]
+u32 dInfo_c::mGameFlag;
+
+[[address(0x800BB0E0)]]
+dInfo_c::dInfo_c();
 
 [[address(0x800BB130)]]
 dInfo_c::~dInfo_c();
+
+dInfo_c::dInfo_c(dInfo_c* old)
+{
+    u8 dInfoOld[dInfo_c::ORIGINAL_SIZE];
+    std::memcpy(dInfoOld, static_cast<void*>(old), dInfo_c::ORIGINAL_SIZE);
+    operator delete(old);
+    std::memcpy(static_cast<void*>(this), dInfoOld, dInfo_c::ORIGINAL_SIZE);
+}
+
+EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
 
 [[address(0x800BB180)]]
 void dInfo_c::PlayerStateInit()
@@ -31,7 +49,8 @@ void dInfo_c::PlayerStateInit()
     }
 }
 
-EXTERN_SYMBOL(0x800BB1C0, "CourseSelectInit__7dInfo_cFv");
+[[address(0x800BB1C0)]]
+void dInfo_c::CourseSelectInit();
 
 [[address(0x800BB330)]]
 void dInfo_c::addStockItem(int item)
@@ -160,29 +179,3 @@ dInfo_c::IbaraMode_e dInfo_c::GetIbaraOld(int i);
 EXTERN_SYMBOL(0x800BBCE0, "__sinit_\\d_info_cpp");
 
 EXTERN_SYMBOL(0x800BBD60, "__arraydtor$68604");
-
-//
-// .data
-//
-
-[[address_data(0x80315E90)]]
-dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
-
-EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
-
-//
-// .bss
-//
-
-/* 0x80359054 */
-dStartInfo_c dInfo_c::m_startInfo;
-
-//
-// .sbss
-//
-
-[[address_data(0x8042A25C)]]
-dInfo_c* dInfo_c::m_instance;
-
-[[address_data(0x8042A260)]]
-u32 dInfo_c::mGameFlag;
