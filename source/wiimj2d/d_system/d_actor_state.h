@@ -8,9 +8,8 @@
 class dActorState_c : public dActor_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80066FC0 */
     dActorState_c();
@@ -19,9 +18,8 @@ public:
     virtual ~dActorState_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0xD4 0x80067230 */
     virtual void initializeState_Gegneric();
@@ -33,9 +31,8 @@ public:
     virtual void finalizeState_Gegneric();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x394 */
     sFStateMgr_c<dActorState_c, sStateMethodUsr_FI_c> stateMgr;
@@ -44,9 +41,8 @@ public:
 class dActorMultiState_c : public dActor_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80066FC0 */
     dActorMultiState_c()
@@ -60,9 +56,8 @@ public:
     }
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0xD4 0x800675C0 */
     virtual void changeState(const sStateIDIf_c& state);
@@ -77,9 +72,8 @@ public:
     virtual void finalizeState_GegnericMulti();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x394 */
     sFStateStateMgr_c<dActorMultiState_c, sStateMethodUsr_FI_c, sStateMethodUsr_FI_c> mStateMgr;

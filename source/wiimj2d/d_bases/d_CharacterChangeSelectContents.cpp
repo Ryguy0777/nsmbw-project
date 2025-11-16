@@ -97,8 +97,7 @@ void dCharacterChangeSelectContents_c::dispNextConPicture(Icon_e iconNext, int s
         mpaTextBoxes[txt]->SetVisible(false);
     }
 
-    std::size_t type =
-      static_cast<std::size_t>(dCharacterChangeSelectBase_c::getCharacterFromIcon(iconNext));
+    PLAYER_TYPE_e type = dCharacterChangeSelectBase_c::getCharacterFromIcon(iconNext);
 
     dGameCom::LayoutDispNumber(daPyMng_c::mRest[type], 2, mpaTextBoxes[side], false);
 

@@ -10,9 +10,8 @@ class NMSndObjectCmn : public NMSndObjectBase
     SIZE_ASSERT(0x17C);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     NMSndObjectCmn(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
       : NMSndObjectBase(OBJ_TYPE::TYPE_1, soundArchivePlayer)
@@ -21,9 +20,8 @@ public:
     }
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     class SoundHandlePrm : public nw4r::snd::SoundHandle
@@ -31,9 +29,8 @@ public:
         SIZE_ASSERT(0x14);
 
     public:
-        // ------------
-        // Constructors
-        // ------------
+        // Structors
+        // ^^^^^^
 
         /* [0x800699D0 with TParam = 12] */
         SoundHandlePrm()
@@ -50,9 +47,8 @@ public:
         }
 
     public:
-        // -----------
-        // Member Data
-        // -----------
+        // Instance Variables
+        // ^^^^^^
 
         /* 0x04 */ s32 m0x04;
         /* 0x08 */ s32 m0x08;
@@ -61,9 +57,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x20 [0x8006B330 with TParam = 12] */
     virtual nw4r::snd::SoundHandle*
@@ -86,15 +81,13 @@ public:
     holdSound(u32 soundId, int, const nw4r::math::VEC2& position, short seqParam, u32 remoteMask);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
     SoundHandlePrm maHandles[14];
 };
 
-// ------------------------
 // Template Specializations
-// ------------------------
+// ^^^^^^
 
 /* VT+0x20 */
 template <>

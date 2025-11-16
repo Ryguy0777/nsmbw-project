@@ -5,7 +5,7 @@
 #include "d_system/d_fader.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_remocon_mng.h"
-#include "framework/f_base_profile.h"
+#include "d_bases/d_profile.h"
 
 class dGameDisplay_c;
 class dMiniGameCannon_c;
@@ -24,9 +24,8 @@ struct dReplayPlay_c {
 class dScStage_c : public dBase_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     // @unofficial
     enum class GAME_MODE_e {
@@ -35,9 +34,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8005EC90 */
     static bool getCourseIn()
@@ -70,9 +68,8 @@ public:
     goToSceneAfterLevel(int profile, int param2, int param3, dFader_c::fader_type_e faderType);
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80924950 */
     bool CreatedLayouts() const;
@@ -84,9 +81,8 @@ public:
     void restoreStartInfo();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A4A8 */
     static dScStage_c* m_instance;
@@ -128,9 +124,8 @@ public:
     static dReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x0070, 0x11D4);
 

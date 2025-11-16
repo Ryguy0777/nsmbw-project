@@ -7,17 +7,15 @@
 class daLineTrain_c : public dActor_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8085A990 */
     int numPlayersRide();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x0392, 0x1044);
 

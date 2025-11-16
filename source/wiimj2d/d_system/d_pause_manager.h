@@ -3,9 +3,8 @@
 class PauseManager_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800D0C10 */
     void setPauseEnable(bool enable);
@@ -14,9 +13,8 @@ public:
     void setPause();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A2B8 */ static PauseManager_c* m_instance;
 

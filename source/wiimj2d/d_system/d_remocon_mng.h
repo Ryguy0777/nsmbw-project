@@ -13,9 +13,8 @@ class dRemoconMng_c
     SIZE_ASSERT(0x4 + REMOCON_CONNECT_COUNT * 0x4);
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr int CONNECT_COUNT = REMOCON_CONNECT_COUNT;
 
@@ -26,9 +25,8 @@ public:
         friend class dRemoconMng_c;
 
     public:
-        // -------------------
         // Constants and Types
-        // -------------------
+        // ^^^^^^
 
         class dExtension_c
         {
@@ -37,9 +35,8 @@ public:
             /* 0x00 VTABLE 0x80319240 */
 
         public:
-            // -------------------
             // Constants and Types
-            // -------------------
+            // ^^^^^^
 
             enum class Type_e {
                 NONE = 0,
@@ -49,17 +46,15 @@ public:
             };
 
         public:
-            // -----------------
             // Virtual Functions
-            // -----------------
+            // ^^^^^^
 
             /* 0x800DC360 */
             virtual ~dExtension_c();
 
         public:
-            // ----------------
-            // Member Functions
-            // ----------------
+            // Instance Methods
+            // ^^^^^^
 
             /* 0x800DCFD0 */
             void shutdown();
@@ -78,9 +73,8 @@ public:
             }
 
         private:
-            // -----------
-            // Member Data
-            // -----------
+            // Instance Variables
+            // ^^^^^^
 
             /* 0x04 */ mPad::CH_e mChannel;
             /* 0x08 */ Type_e mType;
@@ -93,17 +87,15 @@ public:
         };
 
     public:
-        // ------------
-        // Constructors
-        // ------------
+        // Structors
+        // ^^^^^^
 
         /* 0x800DC660 */
         dConnect_c(mPad::CH_e channel);
 
     public:
-        // ----------------
-        // Member Functions
-        // ----------------
+        // Instance Methods
+        // ^^^^^^
 
         /* 0x800DCA60 */
         void execute();
@@ -211,9 +203,8 @@ public:
         }
 
     private:
-        // -----------
-        // Member Data
-        // -----------
+        // Instance Variables
+        // ^^^^^^
 
         FILL(0x00, 0x04);
 
@@ -226,25 +217,22 @@ public:
         /* 0x5C */ sStateMgrDefault_c<dConnect_c> mStateMgr;
 
     public:
-        // -----------
-        // Static Data
-        // -----------
+        // Static Variables
+        // ^^^^^^
 
         /* 0x80428280 */ static bool m_isBoot;
 
     public:
-        // ---------
         // State IDs
-        // ---------
+        // ^^^^^^
 
         sState_Extern(0x80371B30, dRemoconMng_c::dConnect_c, Shutdown);
         sState_Extern(0x80371B70, dRemoconMng_c::dConnect_c, Setup);
     };
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800DC040 */
     dRemoconMng_c();
@@ -255,24 +243,21 @@ public:
     virtual ~dRemoconMng_c();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ dConnect_c* mpaConnect[CONNECT_COUNT];
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x800DC570 */
     static void execute();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A308 */
     static dRemoconMng_c* m_instance;

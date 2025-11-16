@@ -360,7 +360,7 @@ bool isNowCourseClear()
     }
 
     if (dScStage_c::m_miniGame != 0 || dInfo_c::m_startGameInfo.stage1 == STAGE_e::PEACH_CASTLE ||
-        dScene_c::m_nowScene != +fBaseProfile_e::STAGE || dInfo_c::mGameFlag & 0x10) {
+        dScene_c::m_nowScene != dProf::STAGE || dInfo_c::mGameFlag & 0x10) {
         return true;
     }
 

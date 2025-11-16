@@ -10,9 +10,8 @@ class dGameKeyCore_c
     /* 0x0 VTABLE 0x80315910 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800B5B50 */
     dGameKeyCore_c(mPad::CH_e channel);
@@ -21,9 +20,8 @@ public:
     virtual ~dGameKeyCore_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     enum class Type_e {
@@ -46,9 +44,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800B5BE0 */
     void allclear();

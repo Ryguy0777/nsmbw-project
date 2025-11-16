@@ -12,9 +12,8 @@ class daPyDemoMng_c;
 class daPyMng_c
 {
 public:
-    // ---------
     // Constants
-    // ---------
+    // ^^^^^^
 
 #define MAX_COINS 99
 
@@ -23,9 +22,8 @@ public:
         // TODO: others
     };
 
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     [[nodiscard]]
     static bool isOnePlayer()
@@ -200,9 +198,8 @@ public:
     /* 0x80061160 */
     static void checkCorrectCreateInfo();
 
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x80355110 */
     static fBaseID_e m_playerID[PLAYER_COUNT];

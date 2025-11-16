@@ -6,9 +6,8 @@
 class daEnRedcoin_c : public dEn_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80A94250 */
     void selectItems();
@@ -17,9 +16,8 @@ public:
     void awardItems();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x524, 0x66C);
 

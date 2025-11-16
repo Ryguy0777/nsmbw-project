@@ -5,9 +5,8 @@
 class dScMovie_c : public dScene_c
 {
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x20 0x80922910

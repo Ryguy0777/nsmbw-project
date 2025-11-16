@@ -3,9 +3,8 @@
 class dBg_ctr_c
 {
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80080630 */
     static void updateObjBg();

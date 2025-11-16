@@ -15,9 +15,8 @@ class ExternalSoundPlayer;
 class SoundStartable
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class StartResult {
         START_SUCCESS,
@@ -61,17 +60,15 @@ public:
     };
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* VT+0x08 */
     virtual ~SoundStartable();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C */
     virtual StartResult

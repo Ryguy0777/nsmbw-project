@@ -7,9 +7,8 @@ class daBossDemo_c : public dActorState_c
     SIZE_ASSERT(0x3DC);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x3D0 */ s32 m0x3D0;
     /* 0x3D4 */ s32 mIsBattleEndDemo;

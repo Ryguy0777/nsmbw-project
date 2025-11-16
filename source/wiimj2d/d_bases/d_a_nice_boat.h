@@ -7,17 +7,15 @@
 class daNiceBoat_c : public daLiftRemoconMain_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80871440 */
     int calcPlayerOnRide();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x454, 0xE0A);
 

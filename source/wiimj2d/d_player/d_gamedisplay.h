@@ -16,9 +16,8 @@
 class dGameDisplay_c final : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80157850 */
     dGameDisplay_c();
@@ -27,9 +26,8 @@ public:
     virtual ~dGameDisplay_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80157B70
@@ -57,9 +55,8 @@ public:
     PACK_RESULT_e draw() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80158830 */
     bool createLayout();
@@ -101,9 +98,8 @@ public:
     }
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
     /* 0x208 */ mEf::levelEffect_c mEffect;
@@ -273,9 +269,8 @@ public:
     dDeathMsgMgr_c mDeathMsgMgr;
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A608 */
     static dGameDisplay_c* m_instance;
@@ -286,9 +281,8 @@ public:
     static const long PLAYER_BOTH_TEXTBOX_INDEX[][2];
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80377378, dGameDisplay_c, ProcMainGame);
 

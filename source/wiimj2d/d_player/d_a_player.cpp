@@ -127,11 +127,11 @@ void dAcPy_c::checkRest()
 
     if (gameOver) {
         dScStage_c::goToSceneAfterLevel(
-          +fBaseProfile_e::GAMEOVER, 0, 1, dFader_c::fader_type_e::BOWSER
+          dProf::GAMEOVER, 0, 1, dFader_c::fader_type_e::BOWSER
         );
     } else {
         dScStage_c::goToSceneAfterLevel(
-          +fBaseProfile_e::WORLD_MAP, 0, 1, dFader_c::fader_type_e::BOWSER
+          dProf::WORLD_MAP, 0, 1, dFader_c::fader_type_e::BOWSER
         );
     }
 }

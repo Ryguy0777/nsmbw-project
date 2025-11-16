@@ -20,9 +20,8 @@ class da2DPlayer_c;
 class dNumberOfPeopleChange_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8079F660 */
     dNumberOfPeopleChange_c();
@@ -31,9 +30,8 @@ public:
     virtual ~dNumberOfPeopleChange_c() override;
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr std::size_t MAX_CC_COUNT = 8;
 
@@ -61,9 +59,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x8079F990
@@ -97,9 +94,8 @@ public:
     PACK_RESULT_e draw() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8079FCD0 */
     bool createLayout();
@@ -161,9 +157,8 @@ private:
     }
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x809944C8, dNumberOfPeopleChange_c, InitialSetup);
     sState_Extern(0x80994508, dNumberOfPeopleChange_c, OnStageAnimeEndWait);
@@ -178,9 +173,8 @@ public:
     sState_Extern(0x80994748, dNumberOfPeopleChange_c, ExitAnimeEndCheck);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x074);
 

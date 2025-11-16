@@ -30,17 +30,15 @@ class dCourseSelectManager_c : public dBase_c
     /* 0x060 VTABLE 0x8098EFE8 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8092F050 */
     dCourseSelectManager_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x24 0x8092F3D0
@@ -49,17 +47,15 @@ public:
     virtual PACK_RESULT_e preExecute() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x809311E0 */
     PLAYER_MODE_e getPlayerPowerup(int playerIndex);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */
     sStateMgr_c<dCourseSelectManager_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
@@ -95,16 +91,14 @@ public:
     PLAYER_MODE_e maPlayerPowerup[PLAYER_COUNT];
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x809A2370 */ static dCourseSelectManager_c* m_instance;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     /*
      * initializeState: 0x8092F6E0

@@ -11,9 +11,8 @@ class dEn_c : public dActorMultiState_c
     SIZE_ASSERT(0x524);
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x24 0x80095240
@@ -25,9 +24,8 @@ public:
     virtual bool setEatSpitOut(dActor_c* actor) override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80097B90 */
     void slipBound(dActor_c* actor);
@@ -41,9 +39,8 @@ public:
     u8 incrementCollTimer(int player, int increment);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x414, 0x504);
 
@@ -53,17 +50,15 @@ public:
     FILL(0x50C, 0x524);
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80095950 */
     static void normal_collcheck(dCc_c* object, dCc_c* other);
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80358404, dEn_c, EatOut);
 };

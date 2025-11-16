@@ -8,18 +8,16 @@ namespace EGG
 class IAudioMgr
 {
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
+    // Nested Types
+    // ^^^^^^
 
     class Arg
     {
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x8 */
     virtual void initialize(Arg*)
@@ -33,9 +31,8 @@ public:
 class SimpleAudioMgr : public IAudioMgr
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x004, 0x008);
 

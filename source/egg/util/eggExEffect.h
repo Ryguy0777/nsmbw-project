@@ -13,9 +13,8 @@ class ExEffectParam
     /* 0x00 VTABLE 0x80350D48 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x802DBE60 */
     ExEffectParam();
@@ -24,9 +23,8 @@ public:
     virtual ~ExEffectParam();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class EStatus : u32 {
         LIFE_SET = 0x1,
@@ -55,17 +53,15 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0xC 0x802DC7E0 */
     virtual void reset();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ EStatus mStatus;
     /* 0x08 */ u32 m0x08; // something to do with status

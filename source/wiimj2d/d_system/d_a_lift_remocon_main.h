@@ -8,9 +8,8 @@ class daLiftRemoconMain_c : public dActorState_c
     SIZE_ASSERT(0x454);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daLiftRemoconMain_c()
     {
@@ -20,17 +19,15 @@ public:
     virtual ~daLiftRemoconMain_c() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0xE0 0x80043A30 */
     virtual void VT_0xE0();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800439B0 */
     void MultiRemoconShockSet(u8 playerMask);
@@ -60,9 +57,8 @@ public:
     u8 UpdateControlPlayerNo(u8* rideCheck);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x3D0 */ dRideRoll_c mRideRoll;
     /* 0x430 */ s8 mRemotePlayerID;

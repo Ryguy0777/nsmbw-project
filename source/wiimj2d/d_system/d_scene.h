@@ -1,6 +1,7 @@
 #pragma once
 
-#include "d_base.h"
+#include "d_bases/d_profile.h"
+#include "d_system/d_base.h"
 
 class sPhase_c;
 
@@ -9,9 +10,8 @@ class dScene_c : public dBase_c
     SIZE_ASSERT(0x74);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800E1AA0 */
     dScene_c();
@@ -20,9 +20,8 @@ public:
     virtual ~dScene_c() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800E2040 */
     void setFadeInFrame(u16 frames);
@@ -31,24 +30,26 @@ public:
     void setFadeOutFrame(u16 frames);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x70 */ sPhase_c* mpPhase;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x800E1F50 */
     static void setNextScene(u16 profile, u32 param, bool param2);
 
+    static inline bool isWorldMap()
+    {
+        return m_nowScene == dProf::WORLD_MAP;
+    }
+
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x80428A42 */ static u16 m_nowScene;
 };

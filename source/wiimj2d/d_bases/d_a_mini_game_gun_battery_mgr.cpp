@@ -201,7 +201,7 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowResult()
         }
 
         dScStage_c::goToSceneAfterLevel(
-          +fBaseProfile_e::WORLD_MAP, 0, 0, dFader_c::fader_type_e::MARIO
+          dProf::WORLD_MAP, 0, 0, dFader_c::fader_type_e::MARIO
         );
 
         mMessageState = 4;

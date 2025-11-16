@@ -9,9 +9,8 @@
 class daMiniGameGunBatteryMgrObj_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80866210 */
     daMiniGameGunBatteryMgrObj_c();
@@ -23,9 +22,8 @@ public:
     ~daMiniGameGunBatteryMgrObj_c() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80866450
@@ -46,9 +44,8 @@ public:
     PACK_RESULT_e preExecute() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80866530 */
     void hitBalloon(int player, int lives);
@@ -66,9 +63,8 @@ public:
     void setPlayerDone(int player);
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     struct Player_s {
         SIZE_ASSERT(0xC);
@@ -79,9 +75,8 @@ public:
     };
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x70 */ Player_s mPlayers_Removed[4];
     /* 0xA4 */
@@ -99,9 +94,8 @@ public:
     /* 0xF4 */ Player_s mPlayers[PLAYER_COUNT];
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x8099CBB0, daMiniGameGunBatteryMgrObj_c, ShowRule);
     sState_Extern(0x8099CBF0, daMiniGameGunBatteryMgrObj_c, Play);

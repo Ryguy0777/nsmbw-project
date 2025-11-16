@@ -41,9 +41,8 @@ class Material
     SIZE_ASSERT(0x5A);
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     const TexMap* GetTexMapAry() const;
 
@@ -72,9 +71,8 @@ public:
     TevStage* GetTevStageAry();
 
 public:
-    // ----------------
     // Inline Functions
-    // ----------------
+    // ^^^^^^
 
     bool IsBlendModeCap() const
     {
@@ -230,9 +228,8 @@ public:
 #endif
 
 protected:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x00, 0x04);
 

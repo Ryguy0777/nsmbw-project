@@ -9,7 +9,7 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_lib.h"
-#include "framework/f_base_profile.h"
+#include "d_bases/d_profile.h"
 #include "machine/m_pad.h"
 #include <revolution/os.h>
 #include <d_system/d_CourseSelectManager.h>
@@ -118,7 +118,7 @@ void daWmPlayer_c::createSubPlayers()
 
     for (u32 i = 0; i < SUBPLAYER_COUNT; i++) {
         daWmSubPlayer_c* player = reinterpret_cast<daWmSubPlayer_c*>(
-          dWmActor_c::construct(+fBaseProfile_e::WM_SUBPLAYER, this, i)
+          dWmActor_c::construct(dProf::WM_SUBPLAYER, this, i)
         );
 
         prevPlayer->mNextPlayer = player;

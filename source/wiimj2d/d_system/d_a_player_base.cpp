@@ -3,13 +3,12 @@
 
 #include "d_a_player_base.h"
 
-#include "d_bases/d_prof.h"
+#include "d_bases/d_profile.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 #include "d_player/d_gamedisplay.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
-#include "framework/f_base_profile.h"
 #include "framework/f_feature.h"
 #include "framework/f_manager.h"
 #include <cstdio>
@@ -146,12 +145,12 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     }
 
     const char* enemyName = dProf::getFormattedName(source);
-    fBaseProfile_e enemy = source ? fBaseProfile_e(source->mProfName) : fBaseProfile_e::LASTACTOR;
+    dProfName enemy = source ? source->mProfName : dProf::LASTACTOR;
 
     fBase_c* lastEnemy = fManager_c::searchBaseByID(lastHit);
     const char* lastEnemyName = nullptr;
     if (lastEnemy != nullptr) {
-        lastEnemyName = dProf::getFormattedName(lastEnemy);
+        lastEnemyName = dProf::getFormattedName(static_cast<dBase_c*>(lastEnemy));
     }
 
     const char* messages[128] = {};
@@ -165,6 +164,10 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
 
     switch (type) {
     default:
+        if (enemy == dProf::LASTACTOR) {
+            enemy = dProf::BOOT; // LASTACTOR is not a constant expression
+        }
+
         switch (enemy) {
         default:
             if (repeat) {
@@ -200,7 +203,7 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             }
             break;
 
-        case fBaseProfile_e::LASTACTOR:
+        case dProf::BOOT:
             // Enemy name = "an unknown force"
             if (death) {
                 msg("%s lost the game");
@@ -215,14 +218,14 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
 
             break;
 
-        case fBaseProfile_e::EN_BIGPILE_UNDER:
-        case fBaseProfile_e::EN_BIGPILE_UPPER:
-        case fBaseProfile_e::EN_BIGPILE_RIGHT:
-        case fBaseProfile_e::EN_BIGPILE_LEFT:
-        case fBaseProfile_e::EN_SUPER_BIGPILE_RIGHT:
-        case fBaseProfile_e::EN_SUPER_BIGPILE_LEFT:
-        case fBaseProfile_e::EN_GOKUBUTO_BIGPILE_UNDER:
-        case fBaseProfile_e::EN_GOKUBUTO_BIGPILE_UPPER:
+        case dProf::EN_BIGPILE_UNDER:
+        case dProf::EN_BIGPILE_UPPER:
+        case dProf::EN_BIGPILE_RIGHT:
+        case dProf::EN_BIGPILE_LEFT:
+        case dProf::EN_SUPER_BIGPILE_RIGHT:
+        case dProf::EN_SUPER_BIGPILE_LEFT:
+        case dProf::EN_GOKUBUTO_BIGPILE_UNDER:
+        case dProf::EN_GOKUBUTO_BIGPILE_UPPER:
             // "was skewered by Skewer"
             if (death) {
                 msg("%s was skewered by %s");
@@ -233,10 +236,10 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             }
             break;
 
-        case fBaseProfile_e::EN_KILLER:
-        case fBaseProfile_e::EN_SEARCH_KILLER:
-        case fBaseProfile_e::EN_MAGNUM_KILLER:
-        case fBaseProfile_e::EN_SEARCH_MAGNUM_KILLER:
+        case dProf::EN_KILLER:
+        case dProf::EN_SEARCH_KILLER:
+        case dProf::EN_MAGNUM_KILLER:
+        case dProf::EN_SEARCH_MAGNUM_KILLER:
             if (death) {
                 msg("%s was shot by %s");
             } else {
@@ -244,7 +247,7 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             }
             break;
 
-        case fBaseProfile_e::EN_KING_KILLER:
+        case dProf::EN_KING_KILLER:
             if (death) {
                 msg("%s was blasted by %s");
             } else {
@@ -252,8 +255,8 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             }
             break;
 
-        case fBaseProfile_e::EN_ICICLE:
-        case fBaseProfile_e::EN_BIG_ICICLE:
+        case dProf::EN_ICICLE:
+        case dProf::EN_BIG_ICICLE:
             if (death) {
                 msg("%s was skewered by %s");
             } else {
@@ -261,8 +264,8 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             }
             break;
 
-        case fBaseProfile_e::EN_DOSUN:
-        case fBaseProfile_e::EN_BIGDOSUN:
+        case dProf::EN_DOSUN:
+        case dProf::EN_BIGDOSUN:
             if (death) {
                 msg("%s was smashed by %s");
                 msg("%s was thwomped by %s");
@@ -272,7 +275,7 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
             }
             break;
 
-        case fBaseProfile_e::EN_KANITAMA:
+        case dProf::EN_KANITAMA:
             if (death) {
                 msg("%s was finished by a rock");
                 msg("%s was slain by a rock");

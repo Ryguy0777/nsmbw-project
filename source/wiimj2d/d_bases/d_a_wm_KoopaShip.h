@@ -2,9 +2,8 @@
 
 class daWmKoopaShip_c {
     public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x808DE1A0 */
     static void setup();

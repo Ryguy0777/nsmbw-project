@@ -7,9 +7,8 @@ class dAcPy_c;
 class dBgGm_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80154F90 @unofficial */
     bool inW2CastleMazeBounds(float param1, float param2);
@@ -35,9 +34,8 @@ public:
     }
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x00000, 0x00110);
 

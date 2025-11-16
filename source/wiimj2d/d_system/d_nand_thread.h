@@ -8,9 +8,8 @@
 class dNandThread_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800CF170 @unofficial */
     bool cmdSave(dMj2dData_c* data);
@@ -42,9 +41,8 @@ private:
     }
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x00, 0x54);
     /* 0x54 */ OSMutex mMutex;
@@ -54,9 +52,8 @@ public:
     /* 0x7C */ bool mExists;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static void reinitialize();
 
@@ -67,9 +64,8 @@ private:
     static int ioProc(__file_handle file, u8* buff, std::size_t* count, __idle_proc idle_proc);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A298 */
     static dNandThread_c* m_instance;

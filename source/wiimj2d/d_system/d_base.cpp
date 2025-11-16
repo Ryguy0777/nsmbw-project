@@ -3,7 +3,7 @@
 
 #include "d_base.h"
 
-#include "d_bases/d_prof.h"
+#include "d_bases/d_profile.h"
 #include <revolution/os.h>
 
 [[address(0x8006C420)]]

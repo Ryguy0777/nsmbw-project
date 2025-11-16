@@ -8,16 +8,14 @@ class dAcPy_c;
 class daCastleKokoopaDemo1st_c : public daBossDemo_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daCastleKokoopaDemo1st_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* 0x807DACB0 */
     /* virtual */ bool checkBattleStDemo();
@@ -26,9 +24,8 @@ public:
     /* virtual */ bool demoScroll();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x807DB440 */
     bool calcBattleStDemoControl();
@@ -46,9 +43,8 @@ public:
     void killPlayerFireball();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x3DC, 0x3E8);
 

@@ -6,9 +6,8 @@
 class daPyDemoMng_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8005B3A0 */
     daPyDemoMng_c();
@@ -17,9 +16,8 @@ public:
     virtual ~daPyDemoMng_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class Mode_e {
         MODE_0 = 0,
@@ -39,9 +37,8 @@ public:
     };
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     /* 0x8005B430 */
     void initStage();
@@ -137,16 +134,14 @@ public:
     void genCourseInList();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x80429F74 */ static daPyDemoMng_c* mspInstance;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ Mode_e mDemoMode;
     /* 0x08 */ int mDemoState;

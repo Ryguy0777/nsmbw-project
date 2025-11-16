@@ -3,17 +3,15 @@
 class dPyEffectMng_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800D2E70 */
     void update();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A2D0 */ static dPyEffectMng_c* mspInstance;
 };

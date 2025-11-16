@@ -3,9 +3,8 @@
 class dWmEffectManager_c
 {
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80103020 */
     static dWmEffectManager_c* construct();

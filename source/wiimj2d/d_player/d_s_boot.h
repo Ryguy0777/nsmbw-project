@@ -15,30 +15,26 @@ class dScBoot_c : public dScene_c,
                   public sStateMgr_c<dScBoot_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     dScBoot_c();
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     int recreate();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A620 */ static dScBoot_c* m_instance;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x0B0, 0x0F0);
 
@@ -51,9 +47,8 @@ public:
 
     /* 0x102 */ bool mLoadedSceneSnd;
 
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80377708, dScBoot_c, ResetWait);
 

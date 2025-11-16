@@ -3,9 +3,8 @@
 class dCoin_c
 {
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8008DED0 */
     static int execute();

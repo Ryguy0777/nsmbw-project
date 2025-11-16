@@ -19,9 +19,8 @@ public:
     void loadPlayer();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x128 */ dPyMdlMng_c* mModelMng;
 
@@ -29,30 +28,33 @@ public:
 
     /* 0x220 */ mVec3_c mBaseScale;
     /* 0x22C */ mVec3_c mBasePos;
+
     /* 0x238 */ PLAYER_MODE_e mPowerup;
+
     /* 0x23C */ s32 m0x23C;
     /* 0x240 */ s32 m0x240;
+    /* 0x244 */ s32 m0x244;
+    /* 0x248 */ int mPlayerNo;
 
-    FILL(0x244, 0x250);
+    FILL(0x24C, 0x250);
 
     /* 0x250 */ f32 m0x250;
 
     FILL(0x254, 0x25C);
 
     /* 0x25C */ float mAddY;
+
     /* 0x260 */ bool mReady;
-    /* 0x261 */ u8 m0x261;
+    /* 0x261 */ bool m0x261;
     /* 0x262 */ bool m0x262;
     /* 0x263 */ bool m0x263;
-    /* 0x264 */ u8 m0x264;
+    /* 0x264 */ bool m0x264;
     /* 0x265 */ bool m0x265;
-    /* 0x266 */ u8 m0x266;
-    /* 0x267 */ u8 m0x267;
-
-    FILL(0x268, 0x269);
-
-    /* 0x269 */ u8 m0x269;
-    /* 0x26A */ u8 m0x26A;
+    /* 0x266 */ bool m0x266;
+    /* 0x267 */ bool m0x267;
+    /* 0x268 */ bool m0x268;
+    /* 0x269 */ bool m0x269;
+    /* 0x26A */ bool mForbidJump;
 
     FILL(0x26B, 0x384);
 };

@@ -8,17 +8,15 @@ class dStartInfo_c
     /* Original size: 0x9C */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800E3BA0 */
     dStartInfo_c();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x00 */ dCyuukan_c mCyuukan;
 

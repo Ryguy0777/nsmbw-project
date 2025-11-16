@@ -8,9 +8,8 @@
 class dCharacterChangeIndicator_c : public dBase_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8076DC80 */
     void UNDEF_8076DC80();
@@ -24,9 +23,8 @@ public:
     }
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
     /* 0x208 */ nw4r::lyt::Pane* mpRootPane;

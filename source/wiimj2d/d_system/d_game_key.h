@@ -9,16 +9,14 @@ class dGameKey_c
     /* 0x00 VTABLE 0x80315900 */
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr int CORE_COUNT = PLAYER_COUNT;
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800B5980 */
     dGameKey_c();
@@ -29,24 +27,21 @@ public:
     virtual ~dGameKey_c();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A230 */ static dGameKey_c* m_instance;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x800B5930 */
     static void createInstance(EGG::Heap* heap);
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     /* 0x800B5AB0 */
     void allclear();
@@ -55,9 +50,8 @@ public:
     int read();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ dGameKeyCore_c* mpCores[CORE_COUNT];
 };

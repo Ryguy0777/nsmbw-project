@@ -7,9 +7,8 @@
 class daWmSubPlayer_c : public dWmPlayerBase_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     class NodeTrailBase_c
@@ -94,9 +93,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x808EB220
@@ -105,9 +103,8 @@ public:
     virtual PACK_RESULT_e create() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /**
      * 0x808EB220
@@ -154,17 +151,15 @@ public:
     bool isPlayerType(PLAYER_TYPE_e playerType);
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x808EE950 */
     static int getSubPlayerNum();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x1CC */ dPyMdlMng_c* mModelManager;
 

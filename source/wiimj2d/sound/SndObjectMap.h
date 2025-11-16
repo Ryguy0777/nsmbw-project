@@ -5,9 +5,8 @@
 class SndObjctCmnMap : public NMSndObjectCmn<12>
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     SndObjctCmnMap(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
       : NMSndObjectCmn<12>(soundArchivePlayer)
@@ -18,9 +17,8 @@ public:
     virtual ~SndObjctCmnMap() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x20 0x80198D70 */
     virtual nw4r::snd::SoundHandle*
@@ -41,9 +39,8 @@ public:
     ) override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80199950 */
     void stopSound(u32 soundId);

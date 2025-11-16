@@ -3,9 +3,8 @@
 class SndSceneMgr
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8019BB60 @unofficial */
     void setGameSetupTrack(int track);
@@ -17,9 +16,8 @@ public:
     void closeWindow();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A788 */ static SndSceneMgr* sInstance;
 };

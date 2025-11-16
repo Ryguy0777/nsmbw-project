@@ -21,16 +21,14 @@ class daWmPlayer_c : public dWmPlayerBase_c
     /* 0x060 VTABLE 0x809893F8 */
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr u32 SUBPLAYER_COUNT = 8;
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x809027C0 */
     daWmPlayer_c();
@@ -42,9 +40,8 @@ public:
     virtual ~daWmPlayer_c() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80902960
@@ -100,9 +97,8 @@ public:
     virtual void VT_0x80() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80902C50 */
     void UNDEF_80902C50();
@@ -147,9 +143,8 @@ public:
     bool startGame(WORLD_e world, STAGE_e stage, u8 entrance);
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80100B60 @unofficial */
     static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
@@ -161,9 +156,8 @@ public:
     static void startStarSound();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x1CC */ dPyMdlMng_c mModelManager;
 

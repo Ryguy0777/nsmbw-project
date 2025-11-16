@@ -3,17 +3,15 @@
 class dAttention_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800691B0 */
     void update();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A030 */ static dAttention_c* mspInstance;
 };

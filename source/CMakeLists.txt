@@ -354,7 +354,7 @@ target_sources(project PRIVATE
     wiimj2d/d_bases/d_a_wm_player_static.cpp
 
 # NSMBW          .text:  0x801018C0 - 0x801018E0
-    wiimj2d/d_bases/d_prof_static.cpp
+    wiimj2d/d_bases/d_profile_static.cpp
 
 # NSMBW   d_bases.text:  0x80917960 - 0x8091A2F0
     wiimj2d/d_bases/d_s_GameSetup.cpp

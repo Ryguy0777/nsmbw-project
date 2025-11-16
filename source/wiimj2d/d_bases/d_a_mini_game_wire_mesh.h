@@ -7,16 +7,14 @@
 class daMiniGameWireMesh_c : public dEn_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daMiniGameWireMesh_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x808682B0
@@ -31,9 +29,8 @@ public:
     PACK_RESULT_e execute() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x808687B0 */
     void updatePlayerAmiRoll(int index);
@@ -48,9 +45,8 @@ public:
     void endAmiRollAction();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x524, 0x6A4);
 
@@ -102,17 +98,15 @@ public:
     bool mPlayer0x8C4[PLAYER_COUNT];
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80868590 */
     static void ccCallback(dCc_c* me, dCc_c* other);
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x8099CD08, daMiniGameWireMesh_c, ShowRuleWait);
     sState_Extern(0x8099CD48, daMiniGameWireMesh_c, PlayWait);

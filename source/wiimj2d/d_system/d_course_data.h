@@ -3,9 +3,8 @@
 class dCdFile_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     dCdFile_c();
 
@@ -13,9 +12,8 @@ public:
     virtual ~dCdFile_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     // @unofficial
     struct CourseInfo_s {
@@ -29,9 +27,8 @@ public:
     };
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ u8 mCourseID;
     /* 0x008 */ void* mpPaletteList;
@@ -41,9 +38,8 @@ public:
 class dCd_c
 {
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8005EE70 */
     static dCdFile_c* getFileP(int course);

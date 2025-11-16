@@ -16,17 +16,15 @@ class da2DPlayer_c;
 class dCharacterChangeSelectBase_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8076F400 */
     dCharacterChangeSelectBase_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
 #define CHARACTER_LIST_COUNT 8
 
@@ -66,9 +64,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8076FA40 */
     void clearPlayerNo();
@@ -83,10 +80,10 @@ public:
     void calcContentsIcon(int swapIndex, int baseIndex);
 
     /* 0x8076FE40 */
-    void setDecidedCharacter();
+    void initDecidedCharacter();
 
     /* 0x8076FE60 */
-    void setSelectedBaseIndex();
+    void initOption();
 
     /* 0x8076FE90 */
     void resetIndicator();
@@ -95,19 +92,19 @@ public:
     void readyContents();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x074);
 
     /* 0x074 */ dCharacterChangeSelectContents_c* mpCcSelContents;
     /* 0x078 */ dCharacterChangeSelectArrow_c* mpCcSelArrow;
     /* 0x07C */ dCharacterChangeIndicator_c* mpCcIndicator;
-    /* 0x080 */ // da2DPlayer_c* mpa2DPlayer_Removed[4];
-    /* 0x080 */ da2DPlayer_c** mpa2DPlayer;
 
-    FILL(0x084, 0x090);
+    union {
+        /* 0x080 */ da2DPlayer_c* REMOVED(mp2DPlayer)[4];
+        /* 0x080 */ da2DPlayer_c** mp2DPlayer;
+    };
 
     /* 0x090 */ LytBase_c mLayout;
     /* 0x228 */ sStateMgrDefault_c<dCharacterChangeSelectBase_c> mStateMgr;
@@ -143,7 +140,7 @@ public:
     /* 0x2D4 */ PLAYER_TYPE_e mDecidedCharacter;
     /* 0x2D8 */ int mPlayerNo;
     /* 0x2DC */ int mCcIndex;
-    /* 0x2E0 */ int mSelectedBaseIndex;
+    /* 0x2E0 */ int mOption;
     /* 0x2E4 */ int m0x2E4;
     /* 0x2E8 */ int mPlayerCount;
     /* 0x2EC */ float m0x2EC;
@@ -154,9 +151,8 @@ public:
     /* 0x2F4 */ std::size_t mCcCount;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static PLAYER_TYPE_e getCharacterFromBase(int baseIndex);
     static int getBaseFromCharacter(PLAYER_TYPE_e chara);
@@ -166,9 +162,8 @@ public:
     static u32 getLampPattern(int playerNo);
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     /*
      * initializeState: 0x8076FFF0

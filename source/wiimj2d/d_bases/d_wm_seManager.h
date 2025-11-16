@@ -20,9 +20,8 @@ class dWmSeManager_c
     /* 0x000 VTABLE 0x80321E78 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     dWmSeManager_c()
     {
@@ -32,9 +31,8 @@ public:
     virtual ~dWmSeManager_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     enum class WmSound_e {
@@ -238,9 +236,8 @@ public:
         SIZE_ASSERT(0x34);
 
     public:
-        // ------------
-        // Constructors
-        // ------------
+        // Structors
+        // ^^^^^^
 
         /* 0x80103FD0 */
         SeParam_t();
@@ -249,9 +246,8 @@ public:
         ~SeParam_t();
 
     public:
-        // -----------
-        // Member Data
-        // -----------
+        // Instance Variables
+        // ^^^^^^
 
         /* 0x00 */ s32 m0x00;
         /* 0x04 */ s32 m0x04;
@@ -268,9 +264,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80104250 */
     void initialize();
@@ -306,9 +301,8 @@ public:
     u32 getBossSoundId(WmSound_e sound) const;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ SndObjctEmy* mpObjEmy;
     /* 0x008 */ SndObjctCmnEmy* mpObjCmnEmy;
@@ -325,17 +319,15 @@ public:
     /* 0x63C */ dAudio::SndObjctCSPly_c* mpObjCSPlyArray[PLAYER_COUNT];
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80103F50 */
     static dWmSeManager_c* construct();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A55C */ static dWmSeManager_c* m_pInstance;
 };

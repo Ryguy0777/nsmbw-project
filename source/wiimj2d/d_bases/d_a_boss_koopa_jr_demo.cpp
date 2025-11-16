@@ -80,7 +80,7 @@ void daBossKoopaJrDemo_c::initialize()
     mpPeach = nullptr;
 
     mpKamek = static_cast<daKameckForAirshipDemo_c*>(dActor_c::construct(
-      +fBaseProfile_e::KAMECK_FOR_AIRSHIP_DEMO, this, 0,
+      dProf::KAMECK_FOR_AIRSHIP_DEMO, this, 0,
       ArrayOf<const mVec3_c>{{mAirshipDemoX, mAirshipDemoY, 3256.0f}}, nullptr, 0
     ));
     if (mDemoNum == 3) {
@@ -88,12 +88,12 @@ void daBossKoopaJrDemo_c::initialize()
         bg->m0x00110 = m0x418;
         bg->m0x00114 = 18;
         mpPeach = static_cast<daPeachForAirshipDemo_c*>(dActor_c::construct(
-          +fBaseProfile_e::PEACH_FOR_AIRSHIP_DEMO, this, 0,
+          dProf::PEACH_FOR_AIRSHIP_DEMO, this, 0,
           ArrayOf<const mVec3_c>{{mAirshipDemoX + 2.5f * 16.0f, mAirshipDemoY, 3256.0f}}, nullptr, 0
         ));
         mpKamek->mBossDemoX = mpPeach->mPos.x;
         dActor_c::construct(
-          +fBaseProfile_e::KOOPA_SHIP_FOR_AIRSHIP_DEMO, this, 0,
+          dProf::KOOPA_SHIP_FOR_AIRSHIP_DEMO, this, 0,
           ArrayOf<const mVec3_c>{{mAirshipDemoX + 2.5f * 16.0f, mAirshipDemoY - 56.0f, 0.0f}},
           nullptr, 0
         );

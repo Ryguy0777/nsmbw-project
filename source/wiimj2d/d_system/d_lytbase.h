@@ -162,9 +162,8 @@ public:
     fBase_c::PACK_RESULT_e doDelete();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x0AC */ d2d::ResAccMultLoader_c mResAccLoader;
 

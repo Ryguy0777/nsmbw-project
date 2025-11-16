@@ -9,9 +9,8 @@ class dModelPlayArrow_c;
 class dCollectionCoin_c : public dBase_c
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x70, 0x74);
 

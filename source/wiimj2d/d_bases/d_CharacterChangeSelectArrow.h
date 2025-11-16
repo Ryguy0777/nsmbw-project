@@ -15,9 +15,8 @@ public:
     sState_Extern(0x80990918, dCharacterChangeSelectArrow_c, ExitAnimeEndWait);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
 
@@ -31,7 +30,7 @@ public:
 
     FILL(0x25C, 0x264);
 
-    /* 0x264 */ int mSelectedBaseIndex;
+    /* 0x264 */ int mOption;
 
     /* 0x268 */ bool m0x268;
     /* 0x269 */ bool m0x269;

@@ -8,9 +8,8 @@ class dKinopioMdl_c final : public dPlayerMdl_c
     SIZE_ASSERT(0x87C);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800BCBD0 */
     dKinopioMdl_c(u8 index);
@@ -19,9 +18,8 @@ public:
     virtual ~dKinopioMdl_c() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x34 0x800BCF30 */
     virtual void setColorType(u8 colorType) override;
@@ -46,17 +44,15 @@ public:
     virtual void createPlayerModel() override;
 
 protected:
-    // -----------
-    // Member Functions
-    // -----------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800BD230  */
     m3d::anmTexPat_c* getBodyTexAnm();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x824 */ m3d::anmTexPat_c mPropelBodySwitchAnim;
     /* 0x850 */ m3d::anmTexPat_c mPenguinBodySwitchAnim;

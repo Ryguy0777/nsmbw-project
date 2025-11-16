@@ -7,9 +7,8 @@ class SndObjctPly : public NMSndObject<4>
     SIZE_ASSERT(0xB5);
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     enum class PLAYER_VOICE_e {
@@ -107,9 +106,8 @@ public:
     static constexpr s32 PLAYER_SOUND_INDEX_COUNT = static_cast<s32>(PLAYER_SOUND_INDEX_e::COUNT);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     SndObjctPly(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
       : NMSndObject<4>(soundArchivePlayer)
@@ -122,9 +120,8 @@ public:
     virtual ~SndObjctPly() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x24 0x8019A0F0 */
     virtual nw4r::snd::SoundHandle* startSound(u32 soundId, u32 remoteMask) override;
@@ -148,9 +145,8 @@ public:
     holdSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask) override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8019A810 */
     nw4r::snd::SoundHandle* startFootSound(u32 soundId, f32 param2, u32 remoteMask);
@@ -162,9 +158,8 @@ public:
     nw4r::snd::SoundHandle* holdVoiceSound(PLAYER_VOICE_e voice, u32 remoteMask);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0xAC */ PLAYER_SOUND_INDEX_e mPlayerSndIndex;
     /* 0xB0 */ s32 mSoundPlyMode;

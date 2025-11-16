@@ -9,17 +9,15 @@ class dWmDemoActor_c : public dWmActor_c
     /* 0x060 VTABLE 0x8031C170 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800F60E0 */
     dWmDemoActor_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     enum class PATH_DIR_e {

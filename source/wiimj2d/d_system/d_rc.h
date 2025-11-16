@@ -11,9 +11,8 @@ public:
     virtual ~dRc_c();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ dActor_c* mpOwner;
     /* 0x08 */ mVec3_c* mpOwnerPos;
@@ -27,9 +26,8 @@ class dRide_ctr_c
     /* 0x00 VTABLE 0x80319158 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800DAEA0 */
     dRide_ctr_c();
@@ -38,9 +36,8 @@ public:
     virtual ~dRide_ctr_c();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ dActor_c* mpOwner;
     /* 0x08 */ dRide_ctr_c* mpPrev;
@@ -55,9 +52,8 @@ class dRideRoll_c : public dRide_ctr_c
     SIZE_ASSERT(0x60);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     dRideRoll_c();
 
@@ -65,9 +61,8 @@ public:
     virtual ~dRideRoll_c() override;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x4C, 0x60);
 };
@@ -77,17 +72,15 @@ class dRide2Point_c : public dRide_ctr_c
     SIZE_ASSERT(0x5C);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800DB540 */
     dRide2Point_c();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x4C, 0x5C);
 };

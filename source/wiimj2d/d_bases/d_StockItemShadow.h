@@ -8,9 +8,8 @@ class dStockItemShadow_c : public dBase_c
     SIZE_ASSERT(0x280);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
 

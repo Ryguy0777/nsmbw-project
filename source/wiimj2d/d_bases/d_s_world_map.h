@@ -10,9 +10,8 @@ class dScWMap_c : public dScene_c
     SIZE_ASSERT(0xEC);
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x801027A0 @unofficial */
     static void EnterWorld(WORLD_e world, int node);
@@ -24,9 +23,8 @@ public:
     static void initLoadGame();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80926E10 */
     bool createLayoutPhase();
@@ -35,9 +33,8 @@ public:
     bool createActorsPhase();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x74, 0x7C);
 
@@ -46,9 +43,8 @@ public:
     FILL(0x80, 0xEC);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A538 */
     static bool m_GameOver;

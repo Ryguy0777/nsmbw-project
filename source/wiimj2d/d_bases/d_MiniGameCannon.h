@@ -10,9 +10,8 @@
 class dMiniGameCannon_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8078BC90 */
     dMiniGameCannon_c();
@@ -24,17 +23,15 @@ public:
     ~dMiniGameCannon_c() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8078C000 */
     bool createLayout();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x8078BF30
@@ -68,9 +65,8 @@ public:
     PACK_RESULT_e draw() override;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x8078C250 */
     nw4r::lyt::Pane* getPositionPane(int player);
@@ -85,9 +81,8 @@ public:
     bool isWin() const;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
     /* 0x208 */ sStateMgrDefault_c<dMiniGameCannon_c> mStateMgr;
@@ -131,9 +126,8 @@ public:
     /* 0x2E4 */ bool m0x2E4;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80992DC0, dMiniGameCannon_c, TitleOpenWait);
     sState_Extern(0x80992E00, dMiniGameCannon_c, TitleOpenAnimeEndWait);

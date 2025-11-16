@@ -9,16 +9,14 @@ class daEnWaterStream_c : public dEn_c
     // ORIGINAL SIZE: 0x678
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daEnWaterStream_c() = delete;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x524 */ u32 m0x524;
     /* 0x528 */ u32 m0x528;

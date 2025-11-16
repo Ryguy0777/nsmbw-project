@@ -16,9 +16,8 @@ class BasicSound
     friend class SoundHandle;
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     struct AmbientParamUpdateCallback {
         enum ParamUpdateFlags {
@@ -57,9 +56,8 @@ public:
     static constexpr int PRIORITY_MAX = 127;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     [[address(0x802675F0)]]
     void SetPitch(f32 pitch);

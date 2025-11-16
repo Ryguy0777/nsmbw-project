@@ -9,9 +9,8 @@ class dActor_c : public dBaseActor_c
     SIZE_ASSERT(0x392);
 
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
+    // Static Constants
+    // ^^^^^^
 
     enum class ACTOR_TYPE_e : u8 {
         DEFAULT = 0,
@@ -21,9 +20,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x0C 0x80064350
@@ -174,9 +172,8 @@ public:
     virtual void poisonSplashEffect(const mVec3_c& position, float scale);
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     [[nodiscard]]
     daPlBase_c* castToPlayerBase()
@@ -208,9 +205,8 @@ public:
     dAcPy_c* searchCarryFukidashiPlayer(int param1);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x125, 0x175);
 
@@ -231,9 +227,8 @@ public:
     /* 0x391 */ u8 mOnBackFence;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x80064610 */
     static dActor_c* construct(
@@ -247,9 +242,8 @@ public:
     );
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x80429FD8 */ static u8 mExecStopReq;
 

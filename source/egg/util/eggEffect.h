@@ -16,9 +16,8 @@ class Effect
     /* 0x000 VTABLE 0x80350AF8 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x802D7D90 */
     Effect();
@@ -27,18 +26,16 @@ public:
     virtual ~Effect();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     // TODO
     enum class ERecursive {
     };
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ char name[32];
     /* 0x024 */ u32 mCreator;

@@ -3,9 +3,8 @@
 class daWmKinoBalloon_c
 {
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x808D8560 */
     static void balloonRemove();

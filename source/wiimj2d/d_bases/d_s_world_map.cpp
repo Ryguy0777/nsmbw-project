@@ -23,19 +23,19 @@
 #include "d_bases/d_YesNoWindow.h"
 #include "d_bases/d_a_wm_KoopaShip.h"
 #include "d_bases/d_a_wm_Map.h"
+#include "d_bases/d_profile.h"
 #include "d_bases/d_wm_WorldSelect.h"
 #include "d_bases/d_wm_WorldSelectGuide.h"
 #include "d_player/d_SelectCursor.h"
 #include "d_system/d_CourseSelectManager.h"
 #include "d_system/d_wm_actor.h"
-#include "framework/f_base_profile.h"
 #include <iterator>
 
 [[address(0x80926E10)]]
 bool dScWMap_c::createLayoutPhase()
 {
 #define NEW(_TYPE, _PROFILE, _PARAM)                                                               \
-    static_cast<_TYPE>(fBase_c::createChild(+fBaseProfile_e::_PROFILE, this, _PARAM, 0))
+    static_cast<_TYPE>(fBase_c::createChild(dProf::_PROFILE, this, _PARAM, 0))
 
     mpSelectCursor = NEW(dSelectCursor_c*, SELECT_CURSOR, 0);
 
@@ -88,10 +88,10 @@ bool dScWMap_c::createLayoutPhase()
 [[address(0x809271C0)]]
 bool dScWMap_c::createActorsPhase()
 {
-    dWmActor_c::construct(+fBaseProfile_e::WM_MAP, this, 0, nullptr, nullptr);
-    dWmActor_c::construct(+fBaseProfile_e::WM_CS_SEQ_MNG, this, 0, nullptr, nullptr);
-    dWmActor_c::construct(+fBaseProfile_e::WM_PLAYER, this, 0, nullptr, nullptr);
-    dWmActor_c::construct(+fBaseProfile_e::WORLD_CAMERA, this, 0, nullptr, nullptr);
+    dWmActor_c::construct(dProf::WM_MAP, this, 0, nullptr, nullptr);
+    dWmActor_c::construct(dProf::WM_CS_SEQ_MNG, this, 0, nullptr, nullptr);
+    dWmActor_c::construct(dProf::WM_PLAYER, this, 0, nullptr, nullptr);
+    dWmActor_c::construct(dProf::WORLD_CAMERA, this, 0, nullptr, nullptr);
 
     daWmMap_c* wmMap = daWmMap_c::m_instance;
 
@@ -106,7 +106,7 @@ bool dScWMap_c::createActorsPhase()
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         crsSelMng->mpa2DPlayer[i] = reinterpret_cast<da2DPlayer_c*>(
-          dBaseActor_c::construct(+fBaseProfile_e::WM_2D_PLAYER, this, i, nullptr, nullptr)
+          dBaseActor_c::construct(dProf::WM_2D_PLAYER, this, i, nullptr, nullptr)
         );
 
         if (numPyChg != nullptr) {
@@ -123,7 +123,7 @@ bool dScWMap_c::createActorsPhase()
     if (stockItem != nullptr) {
         for (int i = 0; i < std::size(stockItem->mpaItem); i++) {
             stockItem->mpaItem[i] = reinterpret_cast<daWmItem_c*>(
-              dBaseActor_c::construct(+fBaseProfile_e::WM_ITEM, this, i, nullptr, nullptr)
+              dBaseActor_c::construct(dProf::WM_ITEM, this, i, nullptr, nullptr)
             );
         }
     }
@@ -132,7 +132,7 @@ bool dScWMap_c::createActorsPhase()
     if (wSelect != nullptr) {
         for (int i = 0; i < std::size(wSelect->mpaIsland); i++) {
             wSelect->mpaIsland[i] = reinterpret_cast<daWmIsland_c*>(
-              dBaseActor_c::construct(+fBaseProfile_e::WM_ISLAND, this, i, nullptr, nullptr)
+              dBaseActor_c::construct(dProf::WM_ISLAND, this, i, nullptr, nullptr)
             );
         }
     }

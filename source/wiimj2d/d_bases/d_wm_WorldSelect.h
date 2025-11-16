@@ -8,9 +8,8 @@ class dWorldSelectGuide_c;
 class dWorldSelect_c : public dBase_c
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x248);
 

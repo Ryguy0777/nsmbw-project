@@ -10,9 +10,8 @@ class SoundHandle
     SIZE_ASSERT(0x4);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     SoundHandle()
       : mpSound(nullptr)
@@ -25,17 +24,15 @@ public:
     }
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     [[address(0x8027A340)]]
     void DetachSound();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x0 */ detail::BasicSound* mpSound;
 };

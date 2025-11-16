@@ -7,9 +7,8 @@
 class dfukidashiManager_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80157010 */
     dfukidashiManager_c();
@@ -18,9 +17,8 @@ public:
     ~dfukidashiManager_c() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80157110
@@ -48,9 +46,8 @@ public:
     PACK_RESULT_e draw() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80157360 */
     void FUN_80157360(int param1, int param2, int param3);
@@ -62,9 +59,8 @@ public:
     void FUN_801574A0(int param1, int param2);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x148);
     OFFSET_ASSERT(0x148);
@@ -72,9 +68,8 @@ public:
     /* 0x148 */ dfukidashiInfo_c maInfo[PLAYER_COUNT];
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A600 */
     static dfukidashiManager_c* m_instance;

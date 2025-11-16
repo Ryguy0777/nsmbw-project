@@ -8,17 +8,15 @@ namespace nw4r::lyt
 class Layout
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* VT+0x08 */
     virtual ~Layout() = 0;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     [[address(0x802AD660)]]
     nw4r::ut::Rect GetLayoutRect() const;
