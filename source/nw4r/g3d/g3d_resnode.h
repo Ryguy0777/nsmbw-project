@@ -7,7 +7,7 @@
 namespace nw4r::g3d
 {
 
-class ChrAnmResult;
+struct ChrAnmResult;
 
 struct ResNodeData {
     u32 INT_0x0;

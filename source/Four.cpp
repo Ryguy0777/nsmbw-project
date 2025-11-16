@@ -766,8 +766,8 @@ void Four::Apply()
         }
 
         ASSERT(size <= 4);
-        u32 oldValue = 4 + offset;
-        u32 newValue = PLAYER_COUNT + offset;
+        s32 oldValue = 4 + offset;
+        s32 newValue = PLAYER_COUNT + offset;
 
         if (patch.offset <= FourPatch::NEGATIVE) {
             oldValue = -oldValue;

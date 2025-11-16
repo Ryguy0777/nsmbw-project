@@ -101,7 +101,7 @@ void dCharacterChangeSelectContents_c::dispNextConPicture(Icon_e iconNext, int s
 
     dGameCom::LayoutDispNumber(daPyMng_c::mRest[type], 2, mpaTextBoxes[side], false);
 
-    int picIndex = ArrayOf<int>{
+    int picIndex = (const int[]) {
       std::distance(mpaPictures, mpaMarioPictures), // Mario
       2, // Luigi
       4, // Blue Toad

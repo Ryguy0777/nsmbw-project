@@ -15,11 +15,8 @@ bool dRemoconMng_c::dConnect_c::m_isBoot;
 [[address_data(0x8042A308)]]
 dRemoconMng_c* dRemoconMng_c::m_instance;
 
-namespace
-{
 [[address(0x800DC000)]]
 void ClearDeviceCallback(s32);
-}
 
 [[address(0x800DC040)]]
 dRemoconMng_c::dRemoconMng_c();
@@ -39,7 +36,7 @@ dRemoconMng_c::dRemoconMng_c(dRemoconMng_c* old)
 [[address(0x800DC0D0)]]
 dRemoconMng_c::~dRemoconMng_c()
 {
-    for (std::size_t connect; connect < CONNECT_COUNT; connect++) {
+    for (std::size_t connect = 0; connect < CONNECT_COUNT; connect++) {
         dConnect_c* pConnect = mpaConnect[connect];
         mpaConnect[connect] = nullptr;
         delete pConnect;

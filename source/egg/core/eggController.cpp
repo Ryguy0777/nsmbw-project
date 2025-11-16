@@ -82,32 +82,32 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
     maStatus->init();
 
     // Convert to sideways Wii Remote buttons
-    if (padStatus->button & PADButton::PAD_BUTTON_LEFT) {
+    if (button & PADButton::PAD_BUTTON_LEFT) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_UP;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_RIGHT) {
+    if (button & PADButton::PAD_BUTTON_RIGHT) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_DOWN;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_DOWN) {
+    if (button & PADButton::PAD_BUTTON_DOWN) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_LEFT;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_UP) {
+    if (button & PADButton::PAD_BUTTON_UP) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_RIGHT;
     }
 
-    if (padStatus->button & PADButton::PAD_BUTTON_A) {
+    if (button & PADButton::PAD_BUTTON_A) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_2;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_B) {
+    if (button & PADButton::PAD_BUTTON_B) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_1;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
+    if (button & PADButton::PAD_BUTTON_Y) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_MINUS;
     }
-    if (padStatus->button & PADButton::PAD_TRIGGER_Z) {
+    if (button & PADButton::PAD_TRIGGER_Z) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_A;
     }
-    if (padStatus->button & PADButton::PAD_BUTTON_START) {
+    if (button & PADButton::PAD_BUTTON_START) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_PLUS;
     }
 
@@ -131,7 +131,7 @@ void CoreController::padToCoreStatus(PADStatus* restrict padStatus)
     maStatus->dev_type = static_cast<WPADDeviceType>(eCoreDevType::GCN);
 
     // For in-game but not for use in menus
-    if (padStatus->button & PADButton::PAD_BUTTON_Y) {
+    if (button & PADButton::PAD_BUTTON_Y) {
         maStatus->hold |= WPADButton::WPAD_BUTTON_1;
     }
 

@@ -7,8 +7,8 @@
 #include <cstdio>
 #include <revolution/base/PPCArch.h>
 #include <revolution/os/OSError.h>
-#include <revolution/os/OSInterrupt.h>
 #include <revolution/os/OSFatal.h>
+#include <revolution/os/OSInterrupt.h>
 
 // Unknown 0x8015F810
 
@@ -36,7 +36,6 @@ static void** checkStackAddr(void* stackPtr)
 
 static const char* getRegionInfo()
 {
-    const char* regionStr;
     switch (dSys_c::m_codeRegion) {
     default:
         return "Unknown";

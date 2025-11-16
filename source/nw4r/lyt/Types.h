@@ -1,7 +1,7 @@
 #pragma once
 
-#include <nw4r/ut/LinkList.h>
 #include <nw4r/math/vec.h>
+#include <nw4r/ut/LinkList.h>
 
 namespace nw4r::lyt
 {
@@ -20,7 +20,8 @@ namespace detail
 
 typedef math::VEC2 TexCoord[VERTEXCOLOR_MAX];
 
-class TexCoordAry {
+class TexCoordAry
+{
 public:
     TexCoordAry();
 
@@ -29,15 +30,18 @@ public:
     void SetSize(u8 num);
     void Copy(const void* pSrc, u8 num);
 
-    bool IsEmpty() const {
+    bool IsEmpty() const
+    {
         return mCap == 0;
     }
 
-    u8 GetSize() const {
+    u8 GetSize() const
+    {
         return mNum;
     }
 
-    TexCoord* GetArray() const {
+    TexCoord* GetArray() const
+    {
         return mpData;
     }
 
@@ -97,12 +101,6 @@ struct Size {
       : width(w)
       , height(h)
     {
-    }
-
-    constexpr Size(const Size& r)
-    {
-        width = r.width;
-        height = r.height;
     }
 
     /* 0x0 */ f32 width;

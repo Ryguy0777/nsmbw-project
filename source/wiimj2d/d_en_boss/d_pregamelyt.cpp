@@ -15,8 +15,6 @@
 [[address(0x80B6BCC0)]]
 void dPreGameLyt_c::setPlayerRest()
 {
-    MsgRes_c* msgRes = dMessage_c::getMesRes();
-
     for (std::size_t i = 0; i < LytPlayerCount; i++) {
         int rest = daPyMng_c::mRest[i];
 
@@ -45,7 +43,7 @@ void dPreGameLyt_c::setPlayerRest()
 void dPreGameLyt_c::createLayoutExtra()
 {
     LytTextBox_c* old = reinterpret_cast<LytTextBox_c*>(mpExtra);
-    mpExtra = new Extra_s{0};
+    mpExtra = new Extra_s{};
     mpExtra->mpTRemainderOld1 = old;
 
     mLayout.TPaneRegister(

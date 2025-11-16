@@ -51,6 +51,14 @@ struct is_same<T, T> : std::true_type {
 template <class T, class U>
 constexpr bool is_same_v = is_same<T, U>::value;
 
+template <class T>
+struct type_identity {
+    using type = T;
+};
+
+template <class T>
+using type_identity_t = type_identity<T>::type;
+
 #define DECLARE_BOOL_TYPE_TRAIT(name, predicate)                                                   \
     template <class T>                                                                             \
     using name = std::bool_constant<predicate>;                                                    \

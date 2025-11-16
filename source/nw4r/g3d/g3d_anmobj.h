@@ -5,7 +5,7 @@
 namespace nw4r::g3d
 {
 
-class ResMdl;
+struct ResMdl;
 
 enum AnmPolicy {
     ANM_POLICY_ONETIME,

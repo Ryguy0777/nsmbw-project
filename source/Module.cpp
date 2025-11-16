@@ -145,7 +145,8 @@ extern "C" void _epilog()
 extern "C" void _unresolved()
 {
     // Infinite loop
-    _unresolved();
+    while (true) {
+    }
 }
 
 struct DestructorChain {

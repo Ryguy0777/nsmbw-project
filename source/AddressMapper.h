@@ -206,7 +206,7 @@ private:
     static constexpr Region ConsumeExtend(std::size_t index)
     {
         index = SkipWhitespace(index);
-        for (int i = 0; i < sizeof("extend ") - 1; i++) {
+        for (std::size_t i = 0; i < sizeof("extend ") - 1; i++) {
             if (AddressMapFile[index++] != "extend "[i]) {
                 return Region::Error;
             }

@@ -524,7 +524,7 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
     std::size_t index = static_cast<std::size_t>(mDecidedCharacter);
     da2DPlayer_c* player = mp2DPlayer[index];
 
-    u16 sound = ArrayOf<u16[2]>{
+    u16 sound = (u16[][2]) {
       {SndID::SE_VOC_MA_PLAYER_JOIN, SndID::SE_VOC_MA_PLAYER_JOIN_MAME},
       {SndID::SE_VOC_LU_PLAYER_JOIN, SndID::SE_VOC_LU_PLAYER_JOIN_MAME},
       {SndID::SE_VOC_KO_PLAYER_JOIN, SndID::SE_VOC_KO_PLAYER_JOIN_MAME},

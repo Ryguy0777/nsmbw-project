@@ -8,17 +8,13 @@
 
 extern "C" {
 
-static constexpr u32 DVDEX_ARC_ENTRYNUM_BASE = 800000;
+static constexpr int DVDEX_ARC_ENTRYNUM_BASE = 800000;
 
-EXTERN_DATA(
-  0x8042ABE4, //
-  const char* FstStringStart
-);
+[[address_data(0x8042ABE4)]]
+const char* FstStringStart;
 
-EXTERN_DATA(
-  0x8042ABE8, //
-  FstEntry* FstStart
-);
+[[address_data(0x8042ABE8)]]
+FstEntry* FstStart;
 
 static s32 s_dvdExArc = -1;
 static ARCHandle* s_dvdExArcHandle = nullptr;
@@ -122,7 +118,7 @@ bool DVDClose(DVDFileInfo* fileInfo);
 static bool __DVDEntrynumToPath(s32 entrynum, char* path, u32 maxlen)
 {
     u32 len = 0;
-    for (s32 location = 1; location != entrynum;) {
+    for (u32 location = 1; location != u32(entrynum);) {
         if (!FstStart[location].isDir) {
             location++;
             continue;
@@ -132,7 +128,7 @@ static bool __DVDEntrynumToPath(s32 entrynum, char* path, u32 maxlen)
             continue;
         }
         const char* name = FstStringStart + FstStart[location].stringOffset;
-        len += std::snprintf(path + len, maxlen - len, "%s/", name);
+        len += (u32) std::snprintf(path + len, maxlen - len, "%s/", name);
         if (len >= maxlen) {
             return false;
         }
@@ -140,7 +136,7 @@ static bool __DVDEntrynumToPath(s32 entrynum, char* path, u32 maxlen)
     }
     const char* name = FstStringStart + FstStart[entrynum].stringOffset;
     const char* format = FstStart[entrynum].isDir ? "%s/" : "%s";
-    len += std::snprintf(path + len, maxlen - len, format, name);
+    len += (u32) std::snprintf(path + len, maxlen - len, format, name);
     if (len >= maxlen) {
         return false;
     }

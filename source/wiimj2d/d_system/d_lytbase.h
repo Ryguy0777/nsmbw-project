@@ -87,8 +87,8 @@ private:
     PassTPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N], const std::index_sequence<Indexes...>&)
     {
         return TPaneNameRegister(
-          const_cast<const char**>(ArrayOf<const char* const>{panes[Indexes].name...}),
-          ArrayOf<int>{panes[Indexes].param2...}, param3, N
+          const_cast<const char**>((const char* const[]) {panes[Indexes].name...}),
+          (const int[]) {panes[Indexes].param2...}, param3, N
         );
     }
 
@@ -122,8 +122,8 @@ private:
     PassGroupRegister(const GroupInfo (&groups)[N], const std::index_sequence<Indexes...>&)
     {
         return GroupRegister(
-          const_cast<const char**>(ArrayOf<const char* const>{groups[Indexes].name...}),
-          ArrayOf<int>{groups[Indexes].animeRes...}, N
+          const_cast<const char**>((const char* const[]) {groups[Indexes].name...}),
+          (const int[]) {groups[Indexes].animeRes...}, N
         );
     }
 

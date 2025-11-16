@@ -38,7 +38,7 @@ static constinit struct FontList1 {
       .fontNum = 1,
     },
   .offset1 = offsetof(FontList1, font),
-  .font = {.nameStrOffset = offsetof(FontList1, fontName)},
+  .font = {.nameStrOffset = offsetof(FontList1, fontName), .type = 0},
   .fontName = "mj2d00_MessageFont_32_I4.brfnt",
 };
 
@@ -57,17 +57,18 @@ static constinit struct MaterialList1 {
       .materialNum = 1,
     },
   .offset1 = offsetof(MaterialList1, material),
-  .material = {
-    .materialName = "Mat_DeathMsg",
-    .foreColor = "#00000000",
-    .backColor = "#FFFFFFFF",
-    .colorReg3 = "#00000000",
-    .tevColor1 = "#00000000",
-    .tevColor2 = "#00000000",
-    .tevColor3 = "#00000000",
-    .tevColor4 = "#00000000",
-    .flags = 0,
-  },
+  .material =
+    {
+      .materialName = "Mat_DeathMsg",
+      .foreColor = "#00000000",
+      .backColor = "#FFFFFFFF",
+      .colorReg3 = "#00000000",
+      .tevColor1 = "#00000000",
+      .tevColor2 = "#00000000",
+      .tevColor3 = "#00000000",
+      .tevColor4 = "#00000000",
+      .flags = 0,
+    },
 };
 
 static constinit struct TextBox1 {
@@ -227,10 +228,10 @@ void dDeathMsgMgr_c::draw()
         screen.SetProjectionGX();
     }
 
-    float position = -170.0 + 35.0 * count;
+    float position = -170.0f + 35.0f * count;
 
     for (s32 i = 0; i < count; i++) {
-        position -= 35.0;
+        position -= 35.0f;
         u32 index = (mIndex + i) % MAX_MESSAGES;
         auto textBox = &mTextBox[index];
 
