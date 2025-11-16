@@ -19,7 +19,6 @@
 #include "d_system/d_scene.h"
 #include "machine/m_pad.h"
 #include "sound/SndAudioMgr.h"
-#include <revolution/os.h>
 #include "sound/SndID.h"
 
 static const float l_2d_player_offset = 50.0f;
@@ -458,6 +457,7 @@ void dNumberOfPeopleChange_c::checkRemoConnect()
         } else if (!setup && mAllowControllerCut) {
             info->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::OFF);
         }
+        mPlyConnectSetup[ply] = setup;
     }
 }
 
@@ -545,7 +545,7 @@ bool dNumberOfPeopleChange_c::checkCancel()
             return false;
         }
 
-        return mPad::g_currentCore->downTrigger(0x900) != 0;
+        return dGameKey_c::getCurrentCore()->checkMenuConfirm() != 0;
     }
 
     // But here the cancel button is 1, and we prioritize player 1 cancelling over leaving the whole
@@ -644,8 +644,6 @@ void dNumberOfPeopleChange_c::finalizeState_InitialSetup()
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
         remocons->mpaConnect[ply]->setAllowConnect(true);
     }
-
-    __builtin_dump_struct(this, OSReport);
 }
 
 [[address(0x807A11A0)]]
@@ -891,17 +889,13 @@ void dNumberOfPeopleChange_c::initializeState_ButtonSelect()
 [[address(0x807A1B60)]]
 void dNumberOfPeopleChange_c::executeState_ButtonSelect()
 {
+    dGameKeyCore_c* core = dGameKey_c::getCurrentCore();
+
     int newBtn = mOnButton;
-    if (newBtn == 0 &&
-        dGameKey_c::m_instance->mpCores[static_cast<std::size_t>(mPad::g_currentCoreID)]
-            ->mTriggered &
-          0x8) {
+    if (newBtn == 0 && core->checkLeft()) {
         newBtn = 1;
     }
-    if (newBtn == 1 &&
-        dGameKey_c::m_instance->mpCores[static_cast<std::size_t>(mPad::g_currentCoreID)]
-            ->mTriggered &
-          0x4) {
+    if (newBtn == 1 && core->checkRight()) {
         newBtn = 0;
     }
 
@@ -913,7 +907,7 @@ void dNumberOfPeopleChange_c::executeState_ButtonSelect()
         return;
     }
 
-    if (mPad::g_currentCore->downTrigger(0x900)) {
+    if (core->checkMenuConfirm()) {
         if (mOnButton == 0) {
             SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_DECIDE, 1);
             if (!(dInfo_c::m_instance->mGameFlag & 0x10)) {
