@@ -37,15 +37,6 @@ public:
         y = fy;
     }
 
-    /**
-     * Copy constructor.
-     */
-    mVec2_c(const mVec2_c& v)
-    {
-        x = v.x;
-        y = v.y;
-    }
-
     void init(float x, float y)
     {
         this->x = x;
