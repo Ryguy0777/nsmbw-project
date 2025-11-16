@@ -5,14 +5,14 @@
 
 #include "d_bases/d_a_wm_KinoBalloon.h"
 #include "d_bases/d_a_wm_SubPlayer.h"
+#include "d_bases/d_profile.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_lib.h"
-#include "d_bases/d_profile.h"
 #include "machine/m_pad.h"
-#include <revolution/os.h>
 #include <d_system/d_CourseSelectManager.h>
+#include <revolution/os.h>
 
 /* 0x809A0DB8 */
 dInfo_c::PlyConnectStage_e daWmPlayer_c::ms_plyConnectStage[SUBPLAYER_COUNT];
@@ -117,9 +117,8 @@ void daWmPlayer_c::createSubPlayers()
     dWmPlayerBase_c* prevPlayer = this;
 
     for (u32 i = 0; i < SUBPLAYER_COUNT; i++) {
-        daWmSubPlayer_c* player = reinterpret_cast<daWmSubPlayer_c*>(
-          dWmActor_c::construct(dProf::WM_SUBPLAYER, this, i)
-        );
+        daWmSubPlayer_c* player =
+          reinterpret_cast<daWmSubPlayer_c*>(dWmActor_c::construct(dProf::WM_SUBPLAYER, this, i));
 
         prevPlayer->mNextPlayer = player;
         player->mPrevPlayer = prevPlayer;
@@ -155,7 +154,7 @@ void daWmPlayer_c::updateActivePlayers()
             std::size_t index = static_cast<std::size_t>(daPyMng_c::mPlayerType[i]);
             daPyMng_c::mPlayerEntry[i] = 1;
             setPlayerActive(
-              index, i != 0, ms_plyConnectStage[index] == dInfo_c::PlyConnectStage_e::ENTER
+              index, i != 0, ms_plyConnectStage[index] != dInfo_c::PlyConnectStage_e::ENTER
             );
         }
     }
@@ -184,8 +183,9 @@ void daWmPlayer_c::updateActivePlayers()
 void daWmPlayer_c::setPlayerActive(u32 id, bool param2, bool param3);
 
 [[address(0x80902ED0)]]
-void daWmPlayer_c::UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3) ASM_METHOD (
-  // clang-format off
+void daWmPlayer_c::UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3)
+  ASM_METHOD(
+    // clang-format off
 /* 80902ED0 9421FFE0 */  stwu     r1, -32(r1);
 /* 80902ED4 7C0802A6 */  mflr     r0;
                          stw      r3, 8(r1);
@@ -248,8 +248,8 @@ UNDEF_80902f78:;
 /* 80902F8C 7C0803A6 */  mtlr     r0;
 /* 80902F90 38210020 */  addi     r1, r1, 32;
 /* 80902F94 4E800020 */  blr      ;
-  // clang-format on
-);
+    // clang-format on
+  );
 
 [[address(0x80902FA0)]]
 void daWmPlayer_c::setSubPlayerPower()
@@ -260,8 +260,12 @@ void daWmPlayer_c::setSubPlayerPower()
         dInfo_c::PlyConnectStage_e flag = info->getPlyConnectStage(i);
         if (flag == dInfo_c::PlyConnectStage_e::ENTER) {
             int playerType = static_cast<int>(daPyMng_c::mPlayerType[i]);
-            int subPowerup = static_cast<int>(dCourseSelectManager_c::m_instance->getPlayerPowerup(i));
-            UNDEF_80902ED0(playerType, subPowerup, daPyMng_c::mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::STAR_POWER);
+            int subPowerup =
+              static_cast<int>(dCourseSelectManager_c::m_instance->getPlayerPowerup(i));
+            UNDEF_80902ED0(
+              playerType, subPowerup,
+              daPyMng_c::mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::STAR_POWER
+            );
         }
     }
 }
