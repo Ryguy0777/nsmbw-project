@@ -24,7 +24,7 @@ void dScWMap_c::initLoadGame()
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame(-1);
     dInfo_c* info = dInfo_c::m_instance;
 
-    info->mWorld = save->mCurrentWorld;
+    info->mWorld = static_cast<WORLD_e>(save->mCurrentWorld);
     info->mWmSceneNo = save->mCurrentSubWorld;
     info->mWmNode = save->mCurrentPathNode;
     info->m0x048 = -1;

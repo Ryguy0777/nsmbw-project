@@ -5,6 +5,7 @@
 
 #include "d_player/d_s_boot.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_info.h"
 #include "d_system/d_nand_thread.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_resource_manager.h"
@@ -22,7 +23,7 @@ EGG::ExpHeap* dSys_c::ms_RootHeapMem1;
 [[address_data(0x8042A374)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem2;
 
-dSys_c::CODE_REGION_e dSys_c::m_codeRegion;
+const dSys_c::CODE_REGION_e dSys_c::m_codeRegion = findCodeRegion();
 
 EXTERN_SYMBOL(0x800E46E0, "#CAE882A9");
 
@@ -84,55 +85,48 @@ EXTERN_SYMBOL(0x800E53E0, "fixHeaps__7dSystemFv");
 
 } // namespace dSystem
 
-void dSys_c::initCodeRegion()
+dSys_c::CODE_REGION_e dSys_c::findCodeRegion()
 {
-    u8 c;
-    switch (*reinterpret_cast<u8*>(0x8000423A)) {
+    switch (*reinterpret_cast<volatile u8*>(0x8000423A)) {
     case 0xFF:
         // PAL (P)
-        c = *reinterpret_cast<u8*>(0x800CF287);
-        if (c == 0x30) {
-            m_codeRegion = CODE_REGION_e::P1;
+        if (*reinterpret_cast<volatile u8*>(0x800CF287) == 0x30) {
+            return CODE_REGION_e::P1;
         } else /* if (c == 0x38) */ {
-            m_codeRegion = CODE_REGION_e::P2;
+            return CODE_REGION_e::P2;
         }
-        break;
 
     case 0xFC:
         // USA (E)
-        c = *reinterpret_cast<u8*>(0x800CF197);
-        if (c == 0x30) {
-            m_codeRegion = CODE_REGION_e::E1;
+        if (*reinterpret_cast<volatile u8*>(0x800CF197) == 0x30) {
+            return CODE_REGION_e::E1;
         } else /* if (c == 0x38) */ {
-            m_codeRegion = CODE_REGION_e::E2;
+            return CODE_REGION_e::E2;
         }
         break;
 
     case 0xF9:
         // JPN (J)
-        c = *reinterpret_cast<u8*>(0x800CF117);
-        if (c == 0x30) {
-            m_codeRegion = CODE_REGION_e::J1;
+        if (*reinterpret_cast<volatile u8*>(0x800CF117) == 0x30) {
+            return CODE_REGION_e::J1;
         } else /* if (c == 0x38) */ {
-            m_codeRegion = CODE_REGION_e::J2;
+            return CODE_REGION_e::J2;
         }
-        break;
 
     case 0xC8:
         // KOR (K)
-        m_codeRegion = CODE_REGION_e::K;
-        return;
+        return CODE_REGION_e::K;
 
     case 0xAC:
         // TWN (W)
-        m_codeRegion = CODE_REGION_e::W;
-        return;
+        return CODE_REGION_e::W;
 
     case 0x55:
         // CHN (C)
-        m_codeRegion = CODE_REGION_e::C;
-        return;
+        return CODE_REGION_e::C;
     }
+
+    return CODE_REGION_e::Error;
 }
 
 void dSys_c::preCModuleInit(s32 arcEntryNum, ARCHandle* arcHandle)
@@ -157,7 +151,7 @@ void dSys_c::initCModule()
     dNandThread_c::reinitialize();
     dSaveMng_c::m_instance->refresh();
 
-    dScBoot_c::m_instance->recreate();
+    dInfo_c::m_instance = new dInfo_c(dInfo_c::m_instance);
 
     daPyMng_c::initGame();
 

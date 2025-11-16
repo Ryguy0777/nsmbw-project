@@ -22,30 +22,6 @@
 [[address_data(0x8042A620)]]
 dScBoot_c* dScBoot_c::m_instance;
 
-int dScBoot_c::recreate()
-{
-    // why did i make dScBoot_c recreate dInfo_c
-
-    u8 dInfo_data[dInfo_c::ORIGINAL_SIZE];
-    bool dInfo_copy = false;
-    if (dInfo_c::m_instance != nullptr) {
-        std::memcpy(dInfo_data, static_cast<void*>(dInfo_c::m_instance), dInfo_c::ORIGINAL_SIZE);
-        operator delete(dInfo_c::m_instance);
-        dInfo_copy = true;
-    }
-
-    dInfo_c* newInfo = new (mHeap::g_gameHeaps[0], alignof(dInfo_c)) dInfo_c();
-    if (dInfo_copy) {
-        std::memcpy(static_cast<void*>(newInfo), dInfo_data, dInfo_c::ORIGINAL_SIZE);
-        std::memset(
-          reinterpret_cast<u8*>(newInfo) + dInfo_c::ORIGINAL_SIZE, 0,
-          sizeof(dInfo_c) - dInfo_c::ORIGINAL_SIZE
-        );
-    }
-
-    return 1;
-}
-
 [[address(0x8015D010)]]
 void dScBoot_c::executeState_WiiStrapFadeOut()
 {
@@ -59,7 +35,7 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 
     mWiiStrap->mVisible = false;
 
-    changeState(StateID_ControllerInformationFadeIn);
+    return mStateMgr.changeState(StateID_ControllerInformationFadeIn);
 }
 
 #if 0

@@ -84,30 +84,20 @@ public:
     /* VT+0x8 0x800BB130 */
     virtual ~dInfo_c();
 
+    /**
+     * Recreate the dInfo_c instance for the mod.
+     */
+    dInfo_c(dInfo_c* old);
+
 public:
-    // Functions
+    // Instance Methods
     // ^^^^^^
-
-    PlyConnectStage_e getPlyConnectStage(u32 index)
-    {
-        if (index < 4) {
-            return mPlyConnectStage[index];
-        } else {
-            return mExPlyConnectStage[index - 4];
-        }
-    }
-
-    PlyConnectStage_e& setPlyConnectStage(u32 index, PlyConnectStage_e value)
-    {
-        if (index < 4) {
-            return mPlyConnectStage[index] = value;
-        } else {
-            return mExPlyConnectStage[index - 4] = value;
-        }
-    }
 
     /* 0x800BB180 */
     void PlayerStateInit();
+
+    /* 0x800BB1C0 */
+    void CourseSelectInit();
 
     /* 0x800BB330 */
     void addStockItem(int item);
@@ -146,6 +136,28 @@ public:
     IbaraMode_e GetIbaraOld(int i);
 
 public:
+    // Inline Nethods
+    // ^^^^^^
+
+    inline PlyConnectStage_e getPlyConnectStage(u32 index)
+    {
+        if (index < 4) {
+            return mPlyConnectStage[index];
+        } else {
+            return mExPlyConnectStage[index - 4];
+        }
+    }
+
+    inline PlyConnectStage_e& setPlyConnectStage(u32 index, PlyConnectStage_e value)
+    {
+        if (index < 4) {
+            return mPlyConnectStage[index] = value;
+        } else {
+            return mExPlyConnectStage[index - 4] = value;
+        }
+    }
+
+public:
     // Instance Variables
     // ^^^^^^
 
@@ -153,9 +165,9 @@ public:
 
     /* 0x008 */ dCyuukan_c mCyuukan;
 
-    /* 0x03C */ s32 mWorld;
-    /* 0x040 */ s32 mWmSceneNo;
-    /* 0x044 */ s32 mWmNode;
+    /* 0x03C */ WORLD_e mWorld;
+    /* 0x040 */ int mWmSceneNo;
+    /* 0x044 */ int mWmNode;
     /* 0x048 */ s32 m0x048;
 
     FILL(0x04C, 0x060);
@@ -168,7 +180,7 @@ public:
     FILL(0x06D, 0x380);
 
     /**
-     * The status of the worldmap switch.
+     * The status of the World 3 switch.
      */
     /* 0x380 */ bool mSwitchOn;
 
@@ -200,15 +212,15 @@ public:
     OFFSET_ASSERT(0xB5C);
 
 #define OFFSET_dInfo_c_mExPlayerActiveMode 0xB5C
-    /* 0xB5C */ PlyConnectStage_e mExPlyConnectStage[PLAYER_COUNT - 4];
+    /* 0xB5C */ PlyConnectStage_e mExPlyConnectStage[PLAYER_COUNT - 4] = {};
 
 #define OFFSET_dInfo_c_mEx0xAFE (OFFSET_dInfo_c_mExPlayerActiveMode + (PLAYER_COUNT - 4) * 4)
 #define ADJUST_dInfo_c_mEx0xAFE (OFFSET_dInfo_c_mEx0xAFE - 0xAFE - 4 * 22)
-    /* 0xB6C? */ u8 mEx0xAFE[PLAYER_COUNT - 4][22];
+    /* 0xB6C? */ u8 mEx0xAFE[PLAYER_COUNT - 4][22] = {};
 
 #define OFFSET_dInfo_c_mEx0xB56 (OFFSET_dInfo_c_mEx0xAFE + (PLAYER_COUNT - 4) * 22)
 #define ADJUST_dInfo_c_mEx0xB56 (OFFSET_dInfo_c_mEx0xB56 - 0xB56 - 4)
-    /* 0xBC4? */ u8 mEx0xB56[PLAYER_COUNT - 4];
+    /* 0xBC4? */ u8 mEx0xB56[PLAYER_COUNT - 4] = {};
 
 public:
     // Static Variables
