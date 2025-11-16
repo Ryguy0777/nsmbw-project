@@ -33,7 +33,9 @@ public:
     void NPaneRegister(const char** paneNames, nw4r::lyt::Pane** nullPanes, int count);
 
     template <std::size_t N>
-    constexpr void NPaneRegister(nw4r::lyt::Pane** nullPanes, const char* const (&paneNames)[N])
+    [[gnu::always_inline]]
+    constexpr inline void
+    NPaneRegister(nw4r::lyt::Pane** nullPanes, const char* const (&paneNames)[N])
     {
         return NPaneRegister(const_cast<const char**>(paneNames), nullPanes, N);
     }
@@ -42,7 +44,9 @@ public:
     void WPaneRegister(const char** paneNames, nw4r::lyt::Window** windowPanes, int count);
 
     template <std::size_t N>
-    constexpr void WPaneRegister(nw4r::lyt::Window** windowPanes, const char* const (&paneNames)[N])
+    [[gnu::always_inline]]
+    constexpr inline void
+    WPaneRegister(nw4r::lyt::Window** windowPanes, const char* const (&paneNames)[N])
     {
         return WPaneRegister(const_cast<const char**>(paneNames), windowPanes, N);
     }
@@ -51,7 +55,8 @@ public:
     void PPaneRegister(const char** paneNames, nw4r::lyt::Picture** picturePanes, int count);
 
     template <std::size_t N>
-    constexpr void
+    [[gnu::always_inline]]
+    constexpr inline void
     PPaneRegister(nw4r::lyt::Picture** picturePanes, const char* const (&paneNames)[N])
     {
         return PPaneRegister(const_cast<const char**>(paneNames), picturePanes, N);
@@ -61,7 +66,9 @@ public:
     void TPaneRegister(const char** paneNames, LytTextBox_c** textBoxPanes, int count);
 
     template <std::size_t N>
-    constexpr void TPaneRegister(LytTextBox_c** textBoxPanes, const char* const (&paneNames)[N])
+    [[gnu::always_inline]]
+    constexpr inline void
+    TPaneRegister(LytTextBox_c** textBoxPanes, const char* const (&paneNames)[N])
     {
         return TPaneRegister(const_cast<const char**>(paneNames), textBoxPanes, N);
     }
@@ -70,7 +77,8 @@ public:
     void TPaneNameRegister(const char** paneNames, const int* param2, int param3, int count);
 
     template <std::size_t N>
-    constexpr void
+    [[gnu::always_inline]]
+    constexpr inline void
     TPaneNameRegister(int param3, const char* const (&paneNames)[N], const int (&param2)[N])
     {
         return TPaneNameRegister(const_cast<const char**>(paneNames), param2, param3, N);
@@ -83,7 +91,8 @@ public:
 
 private:
     template <std::size_t N, std::size_t... Indexes>
-    constexpr void
+    [[gnu::always_inline]]
+    constexpr inline void
     PassTPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N], const std::index_sequence<Indexes...>&)
     {
         return TPaneNameRegister(
@@ -94,7 +103,8 @@ private:
 
 public:
     template <std::size_t N>
-    constexpr void TPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N])
+    [[gnu::always_inline]]
+    constexpr inline void TPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N])
     {
         return PassTPaneNameRegister<N>(param3, panes, std::make_index_sequence<N>());
     }
@@ -103,7 +113,8 @@ public:
     void AnimeResRegister(const char** animNames, int count);
 
     template <std::size_t N>
-    constexpr void AnimeResRegister(const char* const (&animNames)[N])
+    [[gnu::always_inline]]
+    constexpr inline void AnimeResRegister(const char* const (&animNames)[N])
     {
         return AnimeResRegister(const_cast<const char**>(animNames), N);
     }
@@ -118,6 +129,7 @@ public:
 
 private:
     template <std::size_t N, std::size_t... Indexes>
+    [[gnu::always_inline]]
     constexpr void
     PassGroupRegister(const GroupInfo (&groups)[N], const std::index_sequence<Indexes...>&)
     {
@@ -129,6 +141,7 @@ private:
 
 public:
     template <std::size_t N>
+    [[gnu::always_inline]]
     constexpr void GroupRegister(const GroupInfo (&groups)[N])
     {
         return PassGroupRegister<N>(groups, std::make_index_sequence<N>());
