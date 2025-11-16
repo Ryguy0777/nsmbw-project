@@ -42,5 +42,5 @@ void SndAudioMgr::loadKinopicoSound()
     );
     ASSERT(waveData != nullptr);
 
-    u32 bankNo = nw4r::snd::DvdSoundArchive::RegisterTmpFile(bnkData, waveData);
+    nw4r::snd::DvdSoundArchive::RegisterTmpFile(bnkData, waveData);
 }

@@ -86,7 +86,7 @@ dGameDisplay_c::dGameDisplay_c()
 {
     OSReport("CONSTRUCT dGameDisplay_c\n");
 
-    for (int i = 0; i < std::size(mPlayNum); i++) {
+    for (std::size_t i = 0; i < std::size(mPlayNum); i++) {
         mPlayNum[i] = -1;
     }
 
@@ -334,7 +334,7 @@ bool dGameDisplay_c::createLayout()
       1, 4
     );
 
-    for (int i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
+    for (std::size_t i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
         mpaTexMap[i] = *mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetMaterial()->GetTexturePtr(0);
         maIconSize[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetSize();
         maIconScale[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetScale();
@@ -345,7 +345,7 @@ bool dGameDisplay_c::createLayout()
 
 void dGameDisplay_c::DecEffectTimers()
 {
-    for (int i = 0; i < std::size(mEffectTimer); i++) {
+    for (std::size_t i = 0; i < std::size(mEffectTimer); i++) {
         if (mEffectTimer[i] != 0) {
             mEffectTimer[i]--;
         }
@@ -357,17 +357,17 @@ void dGameDisplay_c::RestDispSetup()
 {
     nw4r::math::VEC3 position[4 + EXTRA_PLAYER_COUNT];
 
-    for (int i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
+    for (std::size_t i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
         position[i] = mpaPictures[PLAYER_PICTURE_INDEX[i]]->GetTranslate();
         mpaPictures[PLAYER_PICTURE_INDEX[i]]->SetVisible(false);
     }
 
-    for (int i = 0, count = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
+    for (std::size_t i = 0, count = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
         if (daPyMng_c::mPlayerEntry[i] == 0) {
             continue;
         }
 
-        int player = static_cast<int>(daPyMng_c::mPlayerType[i]);
+        std::size_t player = static_cast<std::size_t>(daPyMng_c::mPlayerType[i]);
         if (player >= 4 + EXTRA_PLAYER_COUNT) {
             continue;
         }
@@ -377,8 +377,7 @@ void dGameDisplay_c::RestDispSetup()
 
         m0x414 = PLAYER_PICTURE_INDEX[player];
 
-        int charaIndex =
-          daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
+        int charaIndex = daPyMng_c::getPlayerColorType(static_cast<PLAYER_TYPE_e>(player));
 
         mpaPictures[PLAYER_PICTURE_INDEX[player]]->GetMaterial()->SetTexture(
           0, mpaTexMap[charaIndex]
@@ -770,7 +769,7 @@ void dGameDisplay_c::setPlayNum(int* playNum);
 
 void dGameDisplay_c::updatePlayNum(int* playNum)
 {
-    for (int i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
+    for (std::size_t i = 0; i < 4 + EXTRA_PLAYER_COUNT; i++) {
         int oldPlayNum = mPlayNum[i];
         int newPlayNum = playNum[i];
 
@@ -785,10 +784,10 @@ void dGameDisplay_c::updatePlayNum(int* playNum)
         }
 
         if (!fFeature::INFINITE_LIVES && newPlayNum == 0 && !mPlayerGray[i]) {
-            GrayColorSet(i);
+            GrayColorSet(int(i));
             mPlayerGray[i] = 1;
         } else if ((newPlayNum != 0 || fFeature::INFINITE_LIVES) && mPlayerGray[i]) {
-            ReturnGrayColorSet(i);
+            ReturnGrayColorSet(int(i));
             mPlayerGray[i] = 0;
         }
 

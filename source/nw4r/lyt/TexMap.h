@@ -61,7 +61,7 @@ public:
         *this = t;
     }
 
-     void Set(const GXTexObj&);
+    void Set(const GXTexObj&);
     void Set(const GXTlutObj&);
     void Set(TPLPalette*, u32);
     void Set(const TPLDescriptor*);
@@ -155,12 +155,12 @@ public:
 
     GXTexFmt GetTexelFormat() const
     {
-        return (GXTexFmt) mBits.textureFormat;
+        return GXTexFmt(mBits.textureFormat);
     }
 
     void SetTexelFormat(GXTexFmt fmt)
     {
-        mBits.textureFormat = fmt;
+        mBits.textureFormat = u32(fmt);
     }
 
     bool IsMipMap() const
@@ -201,8 +201,8 @@ public:
 
     void SetFilter(GXTexFilter minFlt, GXTexFilter magFlt)
     {
-        mBits.minFilter = minFlt;
-        mBits.magFilter = magFlt;
+        mBits.minFilter = u32(minFlt);
+        mBits.magFilter = u32(magFlt);
     }
 
     bool IsBiasClampEnable() const
@@ -246,13 +246,13 @@ public:
     }
 
 private:
-    /* 0x00 */ void* mpImage; 
-    /* 0x04 */ void* mpPalette; 
+    /* 0x00 */ void* mpImage;
+    /* 0x04 */ void* mpPalette;
     /* 0x08 */ u16 mWidth;
     /* 0x0A */ u16 mHeight;
     /* 0x0C */ f32 mMinLOD;
     /* 0x10 */ f32 mMaxLOD;
-    /* 0x14 */ u16 mLODBias; 
+    /* 0x14 */ u16 mLODBias;
     /* 0x16 */ u16 mPaletteEntryNum;
 
     /* 0x18 */ struct {

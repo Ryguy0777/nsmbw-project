@@ -826,7 +826,7 @@ void dStockItem_c::finalizeState_WindowCloseAnimeEndWait()
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (maPlayerPresent[i]) {
             int type = static_cast<int>(daPyMng_c::mPlayerType[i]);
-            mpa2DPlayer[i]->m0x269 = 1;
+            mpa2DPlayer[type]->m0x269 = 1;
         }
     }
 

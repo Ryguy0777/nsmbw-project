@@ -6,15 +6,11 @@
 namespace EGG
 {
 
-EXTERN_DATA(
-  0x8042B0E0, //
-  bool DvdFile::sIsInitialized
-);
+[[address_data(0x8042B0E0)]]
+bool DvdFile::sIsInitialized;
 
-EXTERN_DATA(
-  0x80423B70, //
-  nw4r::ut::List DvdFile::sDvdList
-);
+[[address_data(0x80423B70)]]
+nw4r::ut::List DvdFile::sDvdList;
 
 [[address(0x802B7C00)]]
 void DvdFile::initialize();

@@ -34,7 +34,7 @@
 #define PORT_CALL_BASE 0x800047E4
 
 #define PORT_ADDR_LIST(_ADDR)                                                                      \
-    ArrayOf<const u32>                                                                             \
+    (const u32[])                                                                                  \
     {                                                                                              \
         _ADDR, AddressMapperP2.MapAddress(_ADDR), AddressMapperE1.MapAddress(_ADDR),               \
           AddressMapperE2.MapAddress(_ADDR), AddressMapperJ1.MapAddress(_ADDR),                    \
@@ -254,7 +254,6 @@ EGG::Heap* GetHeap()
 
 class LoaderBlock
 {
-    friend bool LoaderPhase();
     friend void* LoaderThread(void* param);
 
     alignas(32) u8 m_module_block[MODULE_BLOCK_SIZE];

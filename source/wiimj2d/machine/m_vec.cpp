@@ -7,34 +7,26 @@
 /**
  * The null vector.
  */
-EXTERN_DATA(
-  0x803780C8, //
-  mVec3_c mVec3_c::Zero
-);
+[[address_data(0x803780C8)]]
+mVec3_c mVec3_c::Zero;
 
 /**
  * The unit vector for the X axis.
  */
-EXTERN_DATA(
-  0x803780D4, //
-  mVec3_c mVec3_c::Ex
-);
+[[address_data(0x803780D4)]]
+mVec3_c mVec3_c::Ex;
 
 /**
  * The unit vector for the Y axis.
  */
-EXTERN_DATA(
-  0x803780E0, //
-  mVec3_c mVec3_c::Ey
-);
+[[address_data(0x803780E0)]]
+mVec3_c mVec3_c::Ey;
 
 /**
  * The unit vector for the Z axis.
  */
-EXTERN_DATA(
-  0x803780EC, //
-  mVec3_c mVec3_c::Ez
-);
+[[address_data(0x803780EC)]]
+mVec3_c mVec3_c::Ez;
 
 /**
  * Normalizes the vector.

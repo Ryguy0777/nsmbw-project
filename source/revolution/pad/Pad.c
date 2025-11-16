@@ -24,55 +24,34 @@ static void SPEC0_MakeStatus(s32, PADStatus*, u32[2]);
 static void SPEC1_MakeStatus(s32, PADStatus*, u32[2]);
 static void SPEC2_MakeStatus(s32, PADStatus*, u32[2]);
 
-// PAL: 0x803869c0 @sbss
 static u32 PADInitialized;
-// PAL: 0x803869bc @sbss
 static u32 PADEnabledBits;
-// PAL: 0x803869b8 @sbss
 static u32 PADResetBits;
-// PAL: 0x80385b0c @sdata
 static s32 PADResetChan = 32;
-// PAL: 0x803869b4 @sbss
 static u32 PADUnk803869b4;
-// PAL: 0x803869b0 @sbss
 static u32 PADUnk803869b0;
-// PAL: 0x803869ac @sbss
 static u32 PADUnk803869ac;
-// PAL: 0x803869a8 @sbss
 static u32 PADUnk803869a8;
-// PAL: 0x803869a4 @sbss
 static u32 PADUnk803869a4;
 
-// PAL: 0x80385b10 @sdata
 static u32 PAD_StickXResetBit = 0xf0000000;
-// PAL: 0x80385b14 @sdata
 static u32 PAD_AnalogMode = 0x00000300u;
 
-// PAL: 0x803869a0
 u32 PAD_Spec;
 
-[[address(0x8042AA8C)]]
+[[address_data(0x8042AA8C)]]
 u32 __PADFixBits;
 
-// PAL: 0x80385b18 @sdata
 static u32 Spec = 5;
-// PAL: 0x80385b1c @sdata
 static void (*PAD_MakeStatus)(s32, PADStatus*, u32[2]) = SPEC2_MakeStatus;
 
-// PAL: 0x803481e0 @bss
 static u32 Type[4];
-// PAL: 0x803481b0 @bss
 static PADStatus Origin[4];
 
-static u32 unk_padding = 0;
-// PAL: 0x80385b20 @sdata
 static u32 PAD_Unk80385b20 = 0x41u << 24;
-// PAL: 0x80385b24 @sdata
 static u32 PAD_Unk80385b24 = 0x42u << 24;
-// PAL: 0x803481f0 @bss
 static u32 PAD_Unk803481f0[4];
 
-// PAL: 0x80348200 => 0x80348230 @bss
 static PADStatus PAD_AltStatus[4];
 
 void PAD_UpdateOrigin(s32 chan)
@@ -205,7 +184,7 @@ void PADTypeAndStatusCallback(s32 chan, u32 type)
         DoReset();
         return;
     }
-    type &= ~0xff;
+    type &= ~0xffu;
     Type[PADResetChan] = type;
     if ((type & 0x18000000u) != 0x08000000u || !(type & 0x01000000u)) {
         DoReset();
@@ -255,7 +234,7 @@ static void PADReceiveCheckCallback(s32 chan, u32 type)
         return;
     }
     error = type & 0xff;
-    type &= ~0xff;
+    type &= ~0xffu;
     PADUnk803869b0 &= ~chanBit;
     PADUnk803869ac &= ~chanBit;
     if (!(error & 0x000f) && (type & 0x80000000u) && (type & 0x00100000u) && (type & 0x40000000u) &&
@@ -311,7 +290,6 @@ int PADRecalibrate(u32 mask)
 
 int PADInit(void)
 {
-    s32 chan;
     if (PADInitialized) {
         return true;
     }
@@ -326,7 +304,7 @@ int PADInit(void)
                             0x3fffu);
         PADUnk803869b4 = 0xf0000000;
     }
-    for (chan = 0; chan < 4; ++chan) {
+    for (u32 chan = 0; chan < 4; ++chan) {
         PAD_Unk803481f0[chan] = (0x4du << 24) | (chan << 22) | ((oslow_30e0 & 0x3fffu) << 8);
     }
     SIRefreshSamplingRate();
@@ -340,13 +318,11 @@ u32 PADRead(PADStatus* status)
     u32 data[2];
     u32 chanBit;
     u32 statusNum;
-    int chanShift;
     u32 motor;
     interrupts = OSDisableInterrupts();
     motor = 0;
     for (i = 0; i < 4; i++, status++) {
         chanBit = 0x80000000 >> i;
-        chanShift = 8 * (4 - 1 - i);
         if (PADUnk803869a8 & chanBit) {
             PADReset(0);
             status->err = -2;

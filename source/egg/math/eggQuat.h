@@ -11,14 +11,14 @@ struct Quatf : public Vector3f {
     }
 
     Quatf(f32 f, Vector3f v)
-      : w(f)
-      , Vector3f(v)
+      : Vector3f(v)
+      , w(f)
     {
     }
 
     Quatf(f32 f, f32 x, f32 y, f32 z)
-      : w(f)
-      , Vector3f(Vector3f(x, y, z))
+      : Vector3f(Vector3f(x, y, z))
+      , w(f)
     {
     }
 

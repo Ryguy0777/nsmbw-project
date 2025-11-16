@@ -64,13 +64,22 @@ add_compile_options(
     -nostdinc++
 
     -Wpedantic
+    -Wall
+    -Wextra
+
     -Wno-out-of-line-declaration
     -Wno-gcc-compat
     -Wno-invalid-offsetof
+    -Wno-frame-address
     -Wno-nested-anon-types
     -Wno-gnu-anonymous-struct
-    -Wno-unused-private-field
     -Wno-c99-extensions
+    -Wno-unused-private-field
+    -Wno-unused-parameter
+    -Wno-unused-const-variable
+    -Wno-overloaded-virtual
+    -Wno-sign-conversion
+    -Wno-sign-compare
 )
 
 add_link_options(
