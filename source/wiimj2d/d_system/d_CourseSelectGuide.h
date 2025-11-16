@@ -9,17 +9,15 @@ class dCourseSelectGuide_c
     SIZE_ASSERT(0x450 + 16);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* VT+0x8 0x80010140 */
     virtual ~dCourseSelectGuide_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr std::size_t LytPlayerCount = 8;
 
@@ -39,9 +37,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80010290 */
     bool createBaseLayout();
@@ -59,9 +56,8 @@ public:
     void RestAlphaDisp();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ u32 m0x004;
     /* 0x008 */ LytBase_c mLayout;
@@ -112,9 +108,8 @@ public:
     FILL(0x454, 0x460);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x80429EDC */ static dCourseSelectGuide_c* m_instance;
 };

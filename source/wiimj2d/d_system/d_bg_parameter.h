@@ -3,9 +3,8 @@
 class dBgParameter_c
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x00, 0x38);
 
@@ -15,9 +14,8 @@ public:
     /* 0x44 */ f32 mScreenHeight;
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A0E0 */ static dBgParameter_c* ms_Instance_p;
 };

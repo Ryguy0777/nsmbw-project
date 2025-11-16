@@ -8,17 +8,15 @@ class dCyuukan_c
     SIZE_ASSERT(0x34);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8008ED70 */
     dCyuukan_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8008EDB0 */
     void clear();
@@ -30,9 +28,8 @@ public:
     bool checkEntry();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x00, 0x04);
 

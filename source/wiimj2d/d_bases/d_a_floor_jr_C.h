@@ -6,17 +6,15 @@
 class daFloorJrC_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x807F20B0 */
     daFloorJrC_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x807F28E0 */
     void clearPlayerInfo();
@@ -25,9 +23,8 @@ public:
     bool checkPlayerFlag(int player);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x66C);
 

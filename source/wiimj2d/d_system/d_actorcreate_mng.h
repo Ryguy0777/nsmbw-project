@@ -2,17 +2,15 @@
 
 class dActorCreateMng_c {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80068620 @unofficial */
     void execute();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A028 */ static dActorCreateMng_c* m_instance;
 };

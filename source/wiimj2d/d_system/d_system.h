@@ -8,16 +8,14 @@
 class dSys_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     using CODE_REGION_e = Region;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x800E4940 */
     static void setClearColor(nw4r::ut::Color color);
@@ -31,9 +29,8 @@ public:
     static void initCodeRegion();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A370 */
     static EGG::ExpHeap* ms_RootHeapMem1;

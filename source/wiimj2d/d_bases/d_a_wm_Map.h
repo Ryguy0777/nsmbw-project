@@ -6,9 +6,8 @@
 class daWmMap_c : public dWmDemoActor_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80100310 */
     mVec3_c GetPos(int node);
@@ -20,9 +19,8 @@ public:
     void createMapActors();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A46C */ static daWmMap_c* m_instance;
 };

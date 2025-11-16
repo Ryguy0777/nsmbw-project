@@ -6,9 +6,8 @@ namespace nw4r::snd
 class SoundHeap
 {
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x8 0x8027A3E0 */
     virtual ~SoundHeap();

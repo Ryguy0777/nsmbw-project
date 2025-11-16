@@ -3,17 +3,15 @@
 class dSwitchFlagMng_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800E4100 */
     void execute();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A358 */ static dSwitchFlagMng_c* m_instance;
 };

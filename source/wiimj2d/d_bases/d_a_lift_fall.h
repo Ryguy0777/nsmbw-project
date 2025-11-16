@@ -6,17 +6,15 @@
 class daLiftFall_c : public dActorState_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x808377B0 */
     bool checkRideStart() const;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x3D0, 0x508);
 

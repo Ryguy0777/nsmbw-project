@@ -12,17 +12,15 @@ class dMj2dGame_c;
 class dSaveMng_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800E02C0 */
     dSaveMng_c();
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     /* 0x800E03C0 */
     void refresh();
@@ -61,25 +59,22 @@ public:
     void initLoadGame(s8 file);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     bool mSaving;
     dMj2dData_c mData;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x800E0270 */
     static void create(EGG::Heap* heap);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A320 */ static dSaveMng_c* m_instance;
 };

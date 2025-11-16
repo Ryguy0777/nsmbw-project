@@ -9,24 +9,21 @@
 class dDeathMsgMgr_c final : public m2d::Base_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr u32 MAX_MESSAGES = 12;
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     dDeathMsgMgr_c();
     ~dDeathMsgMgr_c() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     void newMessage(const wchar_t* message, PLAYER_TYPE_e player);
     void deleteFront();
@@ -34,16 +31,14 @@ public:
     void build(nw4r::lyt::ResourceAccessor* resAcc, nw4r::lyt::DrawInfo* drawInfo);
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     virtual void draw() override;
 
 private:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     nw4r::lyt::TextBox* mTextBox;
     nw4r::lyt::ResBlockSet mResBlockSet;

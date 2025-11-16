@@ -16,7 +16,7 @@
 #include "d_system/d_message.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
-#include "framework/f_base_profile.h"
+#include "d_bases/d_profile.h"
 #include "machine/m_pad.h"
 #include "sound/SndAudioMgr.h"
 #include "sound/SndID.h"
@@ -118,7 +118,7 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     mpPBase[1]->SetVisible(true);
     mpPBase[2]->SetVisible(false);
 
-    if (dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
+    if (dScene_c::m_nowScene == dProf::WORLD_MAP) {
         mpTGuideS->setMessage(msgRes, 2, 14, 0);
         if (dGameCom::GetAspectRatio() == SCAspectRatio::STANDARD) {
             mpPBase[0]->SetVisible(false);
@@ -373,7 +373,7 @@ void dNumberOfPeopleChange_c::setCcLytPosition()
 [[address(0x807A0440)]]
 void dNumberOfPeopleChange_c::set2dPlyPosition()
 {
-    if (dScene_c::m_nowScene != +fBaseProfile_e::WORLD_MAP) {
+    if (dScene_c::m_nowScene != dProf::WORLD_MAP) {
         mVec3_c pos = mVec3_c::Zero;
         mVec3_c scale = mVec3_c::Zero;
         const nw4r::math::MTX34& mtx = mpNPlayerBasePos[mPlyPlrBaseIndex[0]]->GetGlobalMtx();
@@ -535,7 +535,7 @@ bool dNumberOfPeopleChange_c::checkCancel()
 {
     bool p1Active = mpCcSelBase[0]->mDecided;
 
-    if (dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
+    if (dScene_c::m_nowScene == dProf::WORLD_MAP) {
         if (!p1Active) {
             // We can't allow the player to cancel when player 1 isn't even registered
             return false;
@@ -613,7 +613,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
         player->m0x267 = true;
     }
 
-    bool worldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    bool worldMap = dScene_c::m_nowScene == dProf::WORLD_MAP;
     mpPBgShadowST->SetVisible(worldMap);
     mpPBgST->SetVisible(worldMap);
     mpPStripeMLT->SetVisible(!worldMap);
@@ -694,7 +694,7 @@ void dNumberOfPeopleChange_c::initializeState_InfoOnStageAnimeEndWait();
 [[address(0x807A1380)]]
 void dNumberOfPeopleChange_c::executeState_InfoOnStageAnimeEndWait()
 {
-    bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    bool isWorldMap = dScene_c::m_nowScene == dProf::WORLD_MAP;
     if (isWorldMap) {
         dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
         for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
@@ -740,7 +740,7 @@ void dNumberOfPeopleChange_c::executeState_NowEntrantRecruit()
         }
     }
 
-    bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    bool isWorldMap = dScene_c::m_nowScene == dProf::WORLD_MAP;
     if (checkCancel()) {
         SndAudioMgr::sInstance->startSystemSe(
           isWorldMap ? SndID::SE_SYS_DECIDE : SndID::SE_SYS_BACK, 1
@@ -955,7 +955,7 @@ void dNumberOfPeopleChange_c::finalizeState_ButtonDecision();
 void dNumberOfPeopleChange_c::initializeState_ExitAnimeEndCheck()
 {
     mCancelAllowed = false;
-    if (mOnButton == 1 || dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP) {
+    if (mOnButton == 1 || dScene_c::m_nowScene == dProf::WORLD_MAP) {
         if (!mExitWithGuide) {
             mLayout.AnimeStartSetup(outWindowInCourseSelectMenu_guide);
         }
@@ -983,7 +983,7 @@ void dNumberOfPeopleChange_c::executeState_ExitAnimeEndCheck()
     info->m0xAFC = 0;
 
     for (std::size_t cc = 0; cc < mCcCount; cc++) {
-        if (mOnButton == 1 && dScene_c::m_nowScene == +fBaseProfile_e::GAME_SETUP) {
+        if (mOnButton == 1 && dScene_c::m_nowScene == dProf::GAME_SETUP) {
             PLAYER_TYPE_e type = dMj2dGame_c::scDefaultPlayerTypes[cc];
             mCcDecidedPlayerType[cc] = type;
             daPyMng_c::mPlayerType[cc] = dMj2dGame_c::scDefaultPlayerTypes[cc];

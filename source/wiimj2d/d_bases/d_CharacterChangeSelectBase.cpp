@@ -47,7 +47,7 @@ void dCharacterChangeSelectBase_c::clearPlayerNo()
     mpCcIndicator->m0x24C = 0;
     mpCcIndicator->m0x234 = m0x2EC;
 
-    if (dScene_c::m_nowScene != +fBaseProfile_e::WORLD_MAP) {
+    if (dScene_c::m_nowScene != dProf::WORLD_MAP) {
         mPlayerNo = -1;
     }
 }
@@ -236,7 +236,7 @@ void dCharacterChangeSelectBase_c::finalizeState_OnStageWait()
     mp0x278->SetVisible(false);
     mp0x27C->SetVisible(true);
 
-    bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    bool isWorldMap = dScene_c::m_nowScene == dProf::WORLD_MAP;
     if (isWorldMap) {
         if (mpNumPyConnectStage[mPlayerNo] != dInfo_c::PlyConnectStage_e::ENTER) {
             return;
@@ -274,7 +274,7 @@ void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait()
     }
 
     const auto* state = &StateID_SelectWait;
-    const bool isWorldMap = dScene_c::m_nowScene == +fBaseProfile_e::WORLD_MAP;
+    const bool isWorldMap = dScene_c::m_nowScene == dProf::WORLD_MAP;
     if (isWorldMap && mpNumPyConnectStage[mPlayerNo] == dInfo_c::PlyConnectStage_e::ENTER) {
         initOption();
         initDecidedCharacter();
@@ -377,7 +377,7 @@ void dCharacterChangeSelectBase_c::executeState_SelectWait()
 
         if (*mpNumPyEnterCount >= mPlayerCount) {
             *mpNumPyEnterCount = mPlayerCount;
-            if (dScene_c::m_nowScene != +fBaseProfile_e::WORLD_MAP) {
+            if (dScene_c::m_nowScene != dProf::WORLD_MAP) {
                 SndSceneMgr::sInstance->setGameSetupTrack(3);
             }
         }

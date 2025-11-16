@@ -15,17 +15,15 @@ class dStockItemShadow_c;
 class dStockItem_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x807AF3A0 */
     dStockItem_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class PANE_LIST_e {
         FIRST = 0,
@@ -44,9 +42,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x807AFB90 */
     PANE_LIST_e getPosPaneForPlayer(int player);
@@ -61,9 +58,8 @@ public:
     bool checkItemSelect();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x074);
 
@@ -100,9 +96,8 @@ public:
     /* 0x8F0 */ u8 maPlayerPresent[PLAYER_COUNT];
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     /*
      * executeState: 0x807B09D0

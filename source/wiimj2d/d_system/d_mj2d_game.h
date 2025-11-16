@@ -237,9 +237,8 @@ class alignas(32) dMj2dGame_c
     friend class dScWMap_c;
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     struct Revision_s {
         u8 mMajor;

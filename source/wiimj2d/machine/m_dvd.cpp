@@ -103,7 +103,7 @@ private:
     s32 copyArchive2(const char* srcFst, u32 startIndex, s32 dstIndex, u32 offsetDisplacement);
 
     //
-    // Member Data
+    // Instance Variables
     //
 
     EGG::Heap* mHeap;

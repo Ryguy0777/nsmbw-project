@@ -18,9 +18,8 @@ class alignas(32) dMj2dHeader_c
     friend class dMj2dJsonHandler_c;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /**
      * Constructs the holder.

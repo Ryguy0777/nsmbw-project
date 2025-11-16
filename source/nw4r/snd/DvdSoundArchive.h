@@ -8,9 +8,8 @@ namespace nw4r::snd
 class DvdSoundArchive : public SoundArchive
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     DvdSoundArchive();
 
@@ -18,9 +17,8 @@ public:
     virtual ~DvdSoundArchive() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C 0x80269730 */
     virtual const void* detail_GetFileAddress(u32 id) const override;
@@ -38,9 +36,8 @@ public:
     ) const override;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static u32 RegisterTmpFile(const void* pFile, const void* pWaveDataFile);
 };

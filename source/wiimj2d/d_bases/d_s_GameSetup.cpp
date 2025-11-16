@@ -15,6 +15,7 @@
 #include "d_bases/d_SelectPlayer.h"
 #include "d_bases/d_SequenceBG.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_bases/d_profile.h"
 #include "d_bases/d_s_world_map.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_base_actor.h"
@@ -22,7 +23,6 @@
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
-#include "framework/f_base_profile.h"
 #include "framework/f_feature.h"
 #include <algorithm>
 
@@ -30,7 +30,7 @@
 bool dScGameSetup_c::Phase_CreateLayoutManagers()
 {
 #define NEW(_TYPE, _PROFILE, _PARAM)                                                               \
-    static_cast<_TYPE>(fBase_c::createChild(+fBaseProfile_e::_PROFILE, this, _PARAM, 0))
+    static_cast<_TYPE>(fBase_c::createChild(dProf::_PROFILE, this, _PARAM, 0))
     mpNumPyChg = NEW(dNumberOfPeopleChange_c*, NUMBER_OF_PEOPLE_CHANGE, 0);
 
     for (std::size_t cc = 0; cc < mpNumPyChg->mCcCount; cc++) {
@@ -61,9 +61,9 @@ bool dScGameSetup_c::Phase_CreateLayoutManagers()
 [[address(0x80917EB0)]]
 bool dScGameSetup_c::Phase_Create2DPlayer()
 {
-    da2DPlayer_c* player = static_cast<da2DPlayer_c*>(dBaseActor_c::construct(
-      +fBaseProfile_e::WM_2D_PLAYER, this, mPlayerCreateIdx, nullptr, nullptr
-    ));
+    da2DPlayer_c* player = static_cast<da2DPlayer_c*>(
+      dBaseActor_c::construct(dProf::WM_2D_PLAYER, this, mPlayerCreateIdx, nullptr, nullptr)
+    );
     if (player == nullptr) {
         return false;
     }
@@ -228,8 +228,8 @@ void dScGameSetup_c::finalizeState_VoiceEndWait()
 {
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();
     if (save->isEmpty() && !fFeature::DISABLE_OPENING_MOVIE) {
-        dScene_c::setNextScene(+fBaseProfile_e::MOVIE, 0, false);
+        dScene_c::setNextScene(dProf::MOVIE, 0, false);
     } else {
-        dScene_c::setNextScene(+fBaseProfile_e::WORLD_MAP, dScWMap_c::CreateBootParam(), false);
+        dScene_c::setNextScene(dProf::WORLD_MAP, dScWMap_c::CreateBootParam(), false);
     }
 }

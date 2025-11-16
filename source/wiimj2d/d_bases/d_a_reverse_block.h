@@ -14,9 +14,8 @@ class daReverseBlock_c : public dActor_c
     /* 0x060 VTABLE 0x809790C4 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daReverseBlock_c() = default;
 
@@ -27,9 +26,8 @@ public:
     virtual ~daReverseBlock_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80897FD0
@@ -51,9 +49,8 @@ public:
     PACK_RESULT_e execute() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80898280 */
     void resetPlayerData();
@@ -62,9 +59,8 @@ public:
     void updatePlayer(dAcPy_c* player, int index);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x394 */ dCc_c mCc0;
     /* 0x438 */ dCc_c mCc1;

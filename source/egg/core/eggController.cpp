@@ -10,9 +10,8 @@
 namespace EGG
 {
 
-// ----
 // Data
-// ----
+// ^^^^^^
 
 [[address_data(0x8042B150)]]
 CoreControllerMgr* CoreControllerMgr::sInstance;
@@ -25,9 +24,8 @@ static PADStatus saPadStatus[4];
 [[address_data(0x8042B160)]]
 bool s_allocatorCreated;
 
-// ---------
 // Functions
-// ---------
+// ^^^^^^
 
 [[address(0x802BC9E0)]]
 u32 EGG::CoreStatus::getFSStickButton() const;

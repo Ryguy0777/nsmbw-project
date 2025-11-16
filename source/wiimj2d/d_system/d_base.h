@@ -1,7 +1,8 @@
 #pragma once
 
-#include "framework/f_base.h"
 #include "component/c_unary_tree.h"
+#include "d_bases/d_profile.h"
+#include "framework/f_base.h"
 
 /**
  * An extension of fBase_c with base kind and name strings. All bases should
@@ -11,9 +12,21 @@ class dBase_c : public fBase_c
 {
     SIZE_ASSERT(0x70);
 
+
+
+    // Nested Types
+    // ^^^^^^
+
 public:
+    // Structors
+    // ^^^^^^
+
     /* 0x8006C420 */
     dBase_c();
+
+public:
+    // Virtual Methods
+    // ^^^^^^
 
     /**
      * VT+0x48 0x8006C490
@@ -74,6 +87,24 @@ public:
      * Gets a string describing the kind of this base.
      */
     virtual const char* getKindString() const;
+
+public:
+    // Instance Methods
+    // ^^^^^^
+
+    /**
+     * Downcast the base to the specified type. Verifies the object's profile with the specified
+     * type's profile, and returns nullptr if the profile doesn't match.
+     */
+    template <class T>
+    constexpr T* DynamicCast()
+    {
+        return dProf::cast<T>(this);
+    }
+
+public:
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x64 */ cUnaryTreeMg_c mOwnedTree;
 

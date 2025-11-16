@@ -25,17 +25,15 @@ class ResAccMultLoader_c : public ResAccMult_c
     SIZE_ASSERT(0xD4);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80006AA0 */
     ResAccMultLoader_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80006BE0 */
     bool request(const char* path);

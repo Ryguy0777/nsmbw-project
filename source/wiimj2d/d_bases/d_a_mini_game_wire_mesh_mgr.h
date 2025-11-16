@@ -6,17 +6,15 @@
 class daMiniGameWireMeshMgrObj_c : dBase_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8086B230 */
     void updateStockItem();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x1E8);
     OFFSET_ASSERT(0x1E8);

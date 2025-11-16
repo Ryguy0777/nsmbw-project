@@ -39,9 +39,8 @@ namespace detail
 class PaneBase
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     PaneBase();
 
@@ -49,9 +48,8 @@ public:
     virtual ~PaneBase();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x4 */ ut::LinkListNode mLink;
 };
@@ -65,17 +63,15 @@ class Pane : detail::PaneBase
     SIZE_ASSERT(0xD8);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* VT+0x08 0x802AB7C0 */
     virtual ~Pane();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     // For use with TestBit<Uc>
     enum PaneBits {
@@ -85,9 +81,8 @@ public:
     };
 
 public:
-    // ----------------
     // Inline Functions
-    // ----------------
+    // ^^^^^^
 
     bool IsVisible() const
     {
@@ -200,14 +195,12 @@ public:
     }
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C 0x800073C0 */
     NW4R_UT_RTTI_DECL(Pane);
@@ -288,9 +281,8 @@ public:
     virtual void LoadMtx(const DrawInfo& drawInfo);
 
 protected:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x0C */ Pane* mpParent;
     /* 0x10 */ ut::LinkList<Pane, 4> mChildList;

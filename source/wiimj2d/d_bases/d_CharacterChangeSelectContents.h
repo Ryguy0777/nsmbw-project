@@ -11,16 +11,14 @@ class dCharacterChangeIndicator_c;
 class dCharacterChangeSelectContents_c : public dBase_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     using Icon_e = dCharacterChangeSelectBase_c::Icon_e;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80772A80 */
     dCharacterChangeSelectContents_c();
@@ -34,9 +32,8 @@ public:
     void dispNextConPicture(Icon_e iconNext, int direction);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
     /* 0x208 */ dCharacterChangeIndicator_c* mpCcIndicator;
@@ -69,17 +66,15 @@ public:
     /* 0x2B4 */ float m0x2B4;
 
 public:
-    // -----------------
-    // Added Member Data
-    // -----------------
+    // Instance Variables
+    // ++++++
     OFFSET_ASSERT(0x2B8);
 
     /* 0x2B8 */ nw4r::lyt::Picture* mpaMarioPictures[2];
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80990E60, dCharacterChangeSelectContents_c, OnStageWait);
     sState_Extern(0x80990EA0, dCharacterChangeSelectContents_c, AnimeWait);

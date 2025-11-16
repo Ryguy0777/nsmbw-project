@@ -6,26 +6,23 @@
 class daEnGlpole_c : public dEn_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     struct UNKPlayerPos {
         FILL(0x00, 0x10);
     };
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80A09710 */
     daEnGlpole_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80A09980
@@ -34,9 +31,8 @@ public:
     PACK_RESULT_e create() override;
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     /* 0x80A0A700 */
     bool isTopOfFlagPole(u32 mask, int player);
@@ -45,9 +41,8 @@ public:
     bool isAllPlayerOnPole();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x524, 0xAAC);
 

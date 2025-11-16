@@ -7,9 +7,8 @@
 class SndAudioMgr : public EGG::ExpAudioMgr
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x801954C0 */
     void startSystemSe(SndID::Type sound, u32 param2);
@@ -20,18 +19,16 @@ public:
     void loadKinopicoSound();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x010, 0x5BC);
 
     /* 0x5BC */ nw4r::snd::SoundArchivePlayer* mpSoundArchivePlayer;
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A768 */ static SndAudioMgr* sInstance;
 };

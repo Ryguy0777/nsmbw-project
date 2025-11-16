@@ -5,9 +5,8 @@ class dAcPyKey_c
     SIZE_ASSERT(0x164);
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8005E040 */
     void update();
@@ -22,9 +21,8 @@ public:
     void offDemoButton(int button);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x000, 0x164);
 };

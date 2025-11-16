@@ -5,9 +5,8 @@ class mVec3_c;
 class dSmallScoreManager_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8010CFC0 */
     void CreateBlueNumber(const mVec3_c& pos, int, int);
@@ -25,9 +24,8 @@ public:
     void GoalScoreExecute(const mVec3_c& pos, int color);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A5B0 */ static dSmallScoreManager_c* m_instance;
 };

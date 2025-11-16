@@ -5,17 +5,15 @@
 class dResMng_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800DF8C0 */
     void setRes(const char* dir, const char** files, int count, EGG::Heap* heap);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A318 */
     static dResMng_c* m_instance;

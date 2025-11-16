@@ -5,9 +5,8 @@ class dBgGm_c;
 class dBg_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800785E0 */
     bool UNDEF_800785E0();
@@ -16,9 +15,8 @@ public:
     void initScroll();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A0B0 */
     static dBgGm_c* m_bg_p;

@@ -12,9 +12,8 @@ class NMSndObject : public NMSndObjectBase
     SIZE_ASSERT(0xAC);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     NMSndObject(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
       : NMSndObjectBase(OBJ_TYPE::TYPE_0, soundArchivePlayer)
@@ -31,18 +30,16 @@ public:
     }
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     class SoundHandlePrm : public nw4r::snd::SoundHandle
     {
         SIZE_ASSERT(0x8);
 
     public:
-        // ------------
-        // Constructors
-        // ------------
+        // Structors
+        // ^^^^^^
 
         /* [0x80046470 with TParam = 4] */
         SoundHandlePrm()
@@ -52,17 +49,15 @@ public:
         }
 
     public:
-        // -----------
-        // Member Data
-        // -----------
+        // Instance Variables
+        // ^^^^^^
 
         /* 0x4 */ f32 m0x4;
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x20 [0x80046E00 with TParam = 4] */
     virtual void calc(const nw4r::math::VEC2&);
@@ -91,9 +86,8 @@ public:
     holdSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x64 */ f32 m0x64;
 
@@ -108,9 +102,8 @@ public:
     /* 0xA4 */ nw4r::math::VEC2 m0xA4;
 };
 
-// ------------------------
 // Template Specializations
-// ------------------------
+// ^^^^^^
 
 /* VT+0x20 */
 template <>

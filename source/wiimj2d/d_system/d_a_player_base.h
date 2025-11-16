@@ -1,28 +1,24 @@
 #pragma once
 
+#include "d_bases/d_profile.h"
 #include "d_system/d_a_player_key.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_actor.h"
 #include "d_system/d_mj2d_game.h"
-#include "framework/f_base_profile.h"
 #include "machine/m_mtx.h"
 #include "sound/SndObjectPlayer.h"
 #include "state/s_State.h"
 
-class daPlBase_c : public dActor_c
+class daPlBase_c : public dActor_c,
+                   public dProf::Info<daPlBase_c, dProf::PLAYER, dProf::YOSHI>
 {
     SIZE_ASSERT(0x14D4);
 
     /* 0x0060 VTABLE 0x803087C8 */
 
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
-
-    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
-      fBaseProfile_e::PLAYER, fBaseProfile_e::YOSHI
-    };
+    // Static Constants
+    // ^^^^^^
 
     enum class DamageType_e {
         NORMAL = 0,
@@ -74,9 +70,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0D4 0x80046DF0 */
     virtual void executeMain();
@@ -157,9 +152,8 @@ public:
     virtual s32 setDemoCannonWarp(int param1, short param2, short param3);
 
 public:
-    // -----------------
     // Virtual State IDs
-    // -----------------
+    // ^^^^^^
 
     /**
      * initializeState: VT+0x138 0x8004E450
@@ -295,9 +289,8 @@ public:
     sState_ExternVirtual(0x80354EEC, daPlBase_c, StateID_DemoControl);
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x21C 0x8004D820 */
     virtual void initialDokanUnder();
@@ -393,9 +386,8 @@ public:
     virtual void changeState(const sStateIDIf_c& state, void* param);
 
 public:
-    // -----------------
     // Virtual State IDs
-    // -----------------
+    // ^^^^^^
 
     /**
      * initializeState: VT+0x298 0x800475B0
@@ -524,9 +516,8 @@ public:
     sState_ExternVirtual(0x8035495C, daPlBase_c, StateID_WaitJump);
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x370 0x800588C0 */
     virtual bool isWaitFrameCountMax();
@@ -700,9 +691,8 @@ public:
     virtual bool setDamage2(dActor_c* source, DamageType_e type);
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8004DB40 */
     bool isDemoType(DemoType_e type);
@@ -790,9 +780,8 @@ public:
     void addDeathMessage(dActor_c* source, DamageType_e type, bool death);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x0392, 0x0EA4);
 

@@ -9,9 +9,8 @@
 class dMj2dJsonHandler_c
 {
 private:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     bool expectValue()
     {
@@ -73,9 +72,8 @@ public:
     bool EndArray(std::size_t elementCount);
 
 private:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum Flag_e {
         UNKNOWN_OBJECT = 1 << 0,
@@ -106,9 +104,8 @@ private:
     };
 
 private:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     u8 mFlags = EXPECT_OBJECT_START;
     Object_e mObject = Object_e::BASE;
@@ -130,9 +127,8 @@ private:
     u8 mWmEnemy = AMBUSH_ENEMY_COUNT;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static bool writeJSON(std::FILE* f);
 };

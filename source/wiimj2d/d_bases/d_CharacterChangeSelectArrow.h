@@ -15,9 +15,8 @@ public:
     sState_Extern(0x80990918, dCharacterChangeSelectArrow_c, ExitAnimeEndWait);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
 

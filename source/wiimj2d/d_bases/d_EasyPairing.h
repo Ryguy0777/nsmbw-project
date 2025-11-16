@@ -5,9 +5,8 @@
 class dEasyPairing_c : public fBase_c
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x064, 0x279);
 

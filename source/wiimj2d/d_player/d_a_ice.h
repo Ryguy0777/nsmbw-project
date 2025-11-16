@@ -1,22 +1,13 @@
 #pragma once
 
+#include "d_bases/d_profile.h"
 #include "d_system/d_actor.h"
 
-class daIce_c : public dActor_c
+class daIce_c : public dActor_c, public dProf::Info<daIce_c, dProf::ICE_ACTOR>
 {
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
-
-    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
-      fBaseProfile_e::ICE_ACTOR,
-    };
-
-public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8011EFC0 */
     bool checkPlAttach_Head(int*);

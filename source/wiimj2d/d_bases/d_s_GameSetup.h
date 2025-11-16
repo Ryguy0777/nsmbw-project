@@ -19,9 +19,8 @@ class dInfoWindow_c;
 class dScGameSetup_c : public dScene_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80917C80 */
     bool Phase_CreateLayoutManagers();
@@ -30,9 +29,8 @@ public:
     bool Phase_Create2DPlayer();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x074 */ sStateMgrDefault_c<dScGameSetup_c> mStateMgr;
 
@@ -59,9 +57,8 @@ public:
     /* 0x108 */ bool mInPlayerSelect;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x809A14E0, dScGameSetup_c, FadeInEndWait);
     sState_Extern(0x809A1520, dScGameSetup_c, FileSelect);

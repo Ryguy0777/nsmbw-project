@@ -10,18 +10,16 @@
 
 extern "C" {
 
-// ---------
 // Constants
-// ---------
+// ^^^^^^
 
 #define WPAD_MAX_DPD_OBJECTS 4
 
 #define WPAD_MIN_DPD_SENS 1
 #define WPAD_MAX_DPD_SENS 5
 
-// ------------
 // Enumerations
-// ------------
+// ^^^^^^
 
 enum WUDLibStatus {
     WUD_LIB_STATUS_0 = 0,
@@ -243,9 +241,8 @@ enum class WPADAccGravityUnitType {
     WPAD_ACC_GRAVITY_UNIT_FS,
 };
 
-// ----------------
 // Type Definitions
-// ----------------
+// ^^^^^^
 
 typedef void* (*WUDAllocFunc)(size_t size);
 typedef int (*WUDFreeFunc)(void* ptr);
@@ -265,9 +262,8 @@ using WPADSyncDeviceCallback = WUDSyncDeviceCallback;
 using WPADSimpleSyncCallback = WUDSyncDeviceCallback;
 using WPADClearDeviceCallback = WUDClearDeviceCallback;
 
-// ----------
 // Structures
-// ----------
+// ^^^^^^
 
 struct DPDObject {
     SIZE_ASSERT(0x8);
@@ -436,9 +432,8 @@ struct WPADAccGravityUnit {
     /* 0x4 */ s16 z;
 };
 
-// ---------
 // Functions
-// ---------
+// ^^^^^^
 
 /* 0x801DDB90 */
 BOOL WPADIsEnabledVSM(void);

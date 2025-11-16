@@ -3,9 +3,8 @@
 class dActorMng_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80066EC0 */
     void finalUpdate();
@@ -14,9 +13,8 @@ public:
     void execute();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A020 */ static dActorMng_c* m_instance;
 };

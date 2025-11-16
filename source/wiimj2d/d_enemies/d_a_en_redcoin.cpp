@@ -6,7 +6,7 @@
 #include "d_player/d_a_player.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_bg_parameter.h"
-#include "framework/f_base_profile.h"
+#include "d_bases/d_profile.h"
 
 u32 daEnRedcoin_c_sizeof()
 {
@@ -94,7 +94,7 @@ void daEnRedcoin_c::awardItems()
 
         mVec3_c position = {mPos.x, dBgParameter_c::ms_Instance_p->mScreenTop + 2, 0};
         dActor_c::construct(
-          +fBaseProfile_e::EN_ITEM, i << 16 | mPlyItem[i] | 0x2080, &position, nullptr, 0
+          dProf::EN_ITEM, i << 16 | mPlyItem[i] | 0x2080, &position, nullptr, 0
         );
     }
 }

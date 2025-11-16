@@ -10,9 +10,8 @@ class dInfo_c
     /* 0x000 VTABLE 0x80315EA0 */
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /* @unofficial */
     enum class ScreenType_e {
@@ -76,9 +75,8 @@ public:
     static constexpr u32 ORIGINAL_SIZE = 0xB5C;
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800BB0E0 */
     dInfo_c();
@@ -87,9 +85,8 @@ public:
     virtual ~dInfo_c();
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     PlyConnectStage_e getPlyConnectStage(u32 index)
     {
@@ -149,9 +146,8 @@ public:
     IbaraMode_e GetIbaraOld(int i);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ s32 m0x004;
 
@@ -215,9 +211,8 @@ public:
     /* 0xBC4? */ u8 mEx0xB56[PLAYER_COUNT - 4];
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x80315E98 */ static StartGameInfo_s m_startGameInfo;
 

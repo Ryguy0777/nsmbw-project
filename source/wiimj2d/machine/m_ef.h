@@ -12,9 +12,8 @@ class effect_c : public EGG::Effect
     /* 0x000 VTABLE 0x80329D68 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     effect_c() = default;
 
@@ -29,9 +28,8 @@ class levelEffect_c : public effect_c
     /* 0x000 VTABLE 0x80329D68 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     // This is normally inlined but is (luckily for us) emitted externally as its own function in
     // d_en_toride_kokoopa.cpp for use with __construct_array, alleviating the requirement for us to
@@ -44,9 +42,8 @@ public:
     virtual ~levelEffect_c() override;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x114 */ levelEffect_c* mpPrev;
     /* 0x118 */ levelEffect_c* mpNext;

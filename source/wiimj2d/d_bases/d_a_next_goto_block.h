@@ -10,9 +10,8 @@
 class daNextGotoBlock_c : public dActorState_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daNextGotoBlock_c()
     {
@@ -22,9 +21,8 @@ public:
     virtual ~daNextGotoBlock_c() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x8086E6C0
@@ -46,17 +44,15 @@ public:
     virtual PACK_RESULT_e draw() override;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8086E8D0 */
     static void normal_collcheck(dCc_c* self, dCc_c* other);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x3D0 */ mVec2_c mCenterDist;
     /* 0x3D8 */ mVec2_c mEdgeDist;
@@ -88,9 +84,8 @@ public:
     bool mPlayerInBlock[PLAYER_COUNT];
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     /**
      * initializeState: 0x8086E9D0

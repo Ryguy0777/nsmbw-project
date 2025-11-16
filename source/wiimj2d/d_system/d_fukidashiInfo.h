@@ -17,9 +17,8 @@ class dfukidashiInfo_c : public DummyInherit, public LytBase_c
     friend class dfukidashiManager_c;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800B1A50 */
     void SetPosOffset(int playerType, int powerupType);
@@ -28,9 +27,8 @@ public:
     void ColorSet();
 
 protected:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x19C, 0x1DC);
 
@@ -68,9 +66,8 @@ protected:
     FILL(0x23B, 0x23C);
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80358CD8, dfukidashiInfo_c, Move);
 

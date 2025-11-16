@@ -19,9 +19,8 @@ public:
     void loadPlayer();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x128 */ dPyMdlMng_c* mModelMng;
 

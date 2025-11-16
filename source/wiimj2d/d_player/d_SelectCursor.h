@@ -5,17 +5,15 @@
 class dSelectCursor_c : public dBase_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8010C890 */
     void Cancel(int param);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A5A8 */ static dSelectCursor_c* m_instance;
 };

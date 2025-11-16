@@ -12,9 +12,8 @@ class dPlayerMdl_c : public dPyMdlBase_c
 
     /* 0x000 VTABLE 0x80318048 */
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800D2EC0 */
     dPlayerMdl_c(u8 index);
@@ -23,9 +22,8 @@ public:
     virtual ~dPlayerMdl_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum MODEL_e {
         MODEL_NORMAL = 0,
@@ -50,9 +48,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C */
     EXTERN_TEXT_INLINE(
@@ -185,17 +182,15 @@ public:
     virtual void createPlayerModel();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800D3DA0 */
     m3d::anmTexPat_c* getHeadTexAnm();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x20C */ nw4r::g3d::ResFile mModelResFile;
     /* 0x210 */ nw4r::g3d::ResFile mCommonAnimResFile;

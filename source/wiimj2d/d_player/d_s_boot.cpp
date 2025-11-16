@@ -67,7 +67,7 @@ void dScBoot_c::executeState_WiiStrapFadeOut()
 void dScBoot_c::executeState_ProcEnd()
 {
     if (false) {
-        dScene_c::setNextScene(+fBaseProfile_e::MOVIE, 2, false);
+        dScene_c::setNextScene(dProf::MOVIE, 2, false);
         return;
     } else if (false) {
         dInfo_c::m_instance->startStaffCredit();

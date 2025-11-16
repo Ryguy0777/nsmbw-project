@@ -1,9 +1,8 @@
 #pragma once
 
 #include "framework/f_base_id.h"
-#include "framework/f_base_profile.h"
+#include "framework/f_profile.h"
 #include <cstdlib>
-#include <type_traits>
 
 class dBase_c;
 
@@ -12,9 +11,8 @@ class fBase_c
     SIZE_ASSERT(0x64);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80161C10 */
     fBase_c();
@@ -33,9 +31,8 @@ public:
     static void operator delete(void*);
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     /**
      * The possible lifecycle states.
@@ -136,9 +133,8 @@ public:
     };
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /**
      * Unique ID that is incremented for every created base.
@@ -159,7 +155,7 @@ public:
     /**
      * The base's profile name
      */
-    /* 0x08 */ u16 mProfName; // The base's profile name.
+    /* 0x08 */ fProfName mProfName;
 
     /**
      * The temporary state value for the profile name.
@@ -230,9 +226,8 @@ protected:
     /* 0x10 */ FILL(0x10, 0x60);
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80161EC0
@@ -349,9 +344,8 @@ public:
     virtual ~fBase_c();
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     /* 0x80162B60 */
     bool checkChildProcessCreateState() const;
@@ -362,42 +356,9 @@ public:
      */
     void deleteRequest();
 
-    /**
-     * Upcast the base to the specified type. Verifies the object's profile with the specified
-     * type's profile, and returns nullptr if the profile doesn't match.
-     */
-    template <class T>
-    constexpr T* DynamicCast()
-    {
-        if constexpr (std::is_same_v<T, dBase_c>) {
-            // Everything is a dBase_c
-            return static_cast<T*>(this);
-        } else {
-            fBaseProfile_e myProfName = static_cast<fBaseProfile_e>(mProfName);
-
-            for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
-                if (expected >= fBaseProfile_e::WM_CS_SEQ_MNG) {
-                    // This profile is region dependant
-                    myProfName = to_fBaseProfile_e(mProfName);
-                    break;
-                }
-            }
-
-            for (fBaseProfile_e expected : T::EXPECTED_PROFILES) {
-                if (myProfName == expected) {
-                    return static_cast<T*>(this);
-                }
-            }
-        }
-
-        // Wrong type
-        return nullptr;
-    }
-
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /**
      * 0x80162C40
@@ -409,7 +370,7 @@ public:
      * @param groupType The base's group type.
      * @return A pointer to the instantiated base, or nullptr .
      */
-    static fBase_c* createChild(u16 profName, fBase_c* parent, u32 param, u8 groupType);
+    static fBase_c* createChild(fProfName profName, fBase_c* parent, u32 param, u8 groupType);
 
     /**
      * 0x80162C60
@@ -420,5 +381,5 @@ public:
      * @param groupType The base's group type.
      * @return A pointer to the instantiated base, or nullptr .
      */
-    static fBase_c* createRoot(u16 profName, u32 param, u8 groupType);
+    static fBase_c* createRoot(fProfName profName, u32 param, u8 groupType);
 };

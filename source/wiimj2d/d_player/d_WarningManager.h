@@ -3,35 +3,31 @@
 class dWarningManager_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8010E710 */
     void onControllerCut(int player);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x000, 0xB8D);
 
     /* 0xB8D */ bool m0xB8D;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     // Normally inline
     [[address(0x800B3B20)]]
     static bool isWarning();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042A5B8 */ static dWarningManager_c* m_instance;
     /* 0x8042A5C0 */ static s32 m_WarningForbid;

@@ -8,9 +8,8 @@ class dAcPy_c;
 class daKameckForAirshipDemo_c : public dActor_c
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x392, 0x858);
 
@@ -25,24 +24,21 @@ class daPeachForAirshipDemo_c : public dActor_c
 class daBossKoopaJrDemo_c : public daBossDemo_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daBossKoopaJrDemo_c();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* 0x807D00D0 */
     /* virtual */ void initialize();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x807D03B0 */
     void sortPlayers();
@@ -54,9 +50,8 @@ public:
     bool isPlayerEntry(int player);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x3DC, 0x3E0);
 

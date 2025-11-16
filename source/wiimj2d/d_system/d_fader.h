@@ -3,9 +3,8 @@
 class dFader_c
 {
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class fader_type_e {
         FADE = 0,
@@ -18,9 +17,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x800B0DB0 */
     static bool setFader(fader_type_e faderType);

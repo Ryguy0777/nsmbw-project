@@ -6,18 +6,16 @@
 class dEnemyCarry_c : dEn_c
 {
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     OFFSET_ASSERT(0x524);
 
     /* 0x524 */ bool m0x524;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     // Actually virtual states but leaving it like this for now
 

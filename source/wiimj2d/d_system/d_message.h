@@ -10,9 +10,8 @@ class MsgRes_c;
 class dMessage_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800CDB60 */
     dMessage_c();

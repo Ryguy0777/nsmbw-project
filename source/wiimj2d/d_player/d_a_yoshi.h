@@ -1,40 +1,28 @@
 #pragma once
 
-#include "System.h"
+#include "d_bases/d_profile.h"
 #include "d_system/d_a_player_base.h"
 #include "d_system/d_player_model_manager.h"
 
-class daYoshi_c : public daPlBase_c
+class daYoshi_c : public daPlBase_c, public dProf::Info<daYoshi_c, dProf::YOSHI>
 {
 public:
-    // -------------------
-    // Constants and Types
-    // -------------------
-
-    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
-      fBaseProfile_e::YOSHI,
-    };
-
-public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0DC 0x80150E10 */
     virtual void executeLastAll() override;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80150420 */
     void setHitTongueReserve();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x14D4 */ dPyMdlMng_c mModelMng;
 

@@ -7,9 +7,8 @@
 class dPreGameLyt_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     ~dPreGameLyt_c()
     {
@@ -21,9 +20,8 @@ public:
     }
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     static constexpr std::size_t LytPlayerCount = 8;
 
@@ -39,9 +37,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80B6BCC0 */
     void setPlayerRest();
@@ -55,9 +52,8 @@ public:
     void Phase0_Init();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x000 */ LytBase_c mLayout;
     /* 0x198 */ nw4r::lyt::Pane* mpRootPane;

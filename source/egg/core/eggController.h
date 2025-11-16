@@ -122,17 +122,15 @@ class CoreController
     SIZE_ASSERT(0xBD0);
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x802BCA90 */
     CoreController();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x08 */
     virtual void setPosParam(f32 v1, f32 v2);
@@ -171,9 +169,8 @@ public:
     virtual void endFrame();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x802BCAF0 */
     void sceneReset();
@@ -205,9 +202,8 @@ public:
     void padToCoreStatus(PADStatus* padStatus);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ WPADChannel mChannel;
     /* 0x008 */ u32 mHeld;
@@ -242,9 +238,8 @@ class CoreControllerMgr
     /* 0x0010 VTABLE */
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     struct T__Disposer : Disposer {
         /* VT+0x08 */
@@ -257,17 +252,15 @@ public:
     /* 0x000 */ T__Disposer mDisposer;
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x802BD790 */
     CoreControllerMgr();
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static void recreateInstance();
 
@@ -279,16 +272,14 @@ public:
     static PADStatus* getPadStatus(WPADChannel chan);
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042B150 */ static CoreControllerMgr* sInstance;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x08 0x802BDBB0 */
     virtual void beginFrame();
@@ -297,17 +288,15 @@ public:
     virtual void endFrame();
 
 public:
-    // ---------
     // Functions
-    // ---------
+    // ^^^^^^
 
     [[address(0x802BD660)]]
     CoreController* getNthController(int n);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x014 */ TBuffer<CoreController*> mControllers;
     FILL(0x020, 0xE24);

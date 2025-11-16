@@ -14,9 +14,8 @@ namespace detail
 class SoundArchiveLoader
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80277210 */
     void*
@@ -29,9 +28,8 @@ private:
     );
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x00 */ OSMutex mMutex;
     /* 0x18 */ const SoundArchive* mArc;

@@ -14,9 +14,8 @@ class Screen : public Frustum
     /* 0x38 VTABLE */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x802D0FB0 */
     Screen();
@@ -27,9 +26,8 @@ public:
     }
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum TVMode {
         TV_MODE_4_3,
@@ -45,24 +43,21 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C 0x802D1230 */
     virtual void SetProjectionGX() const;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x3C, 0x88);
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static u16 GetSizeXMax(TVMode mode)
     {
@@ -105,9 +100,8 @@ public:
     }
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042B1E8 */ static TVMode sTVMode;
     /* 0x80350820 */ static TVModeInfo sTVModeInfo[TVMode::TV_MODE_MAX];

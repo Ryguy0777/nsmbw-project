@@ -14,9 +14,8 @@ class Frustum
     /* 0x38 VTABLE */
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class ProjectionType {
         PROJ_ORTHO,
@@ -24,9 +23,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     [[address(0x802C6DD0)]]
     void ResetOrthographic(f32 top, f32 bottom, f32 left, f32 right, f32, f32);
@@ -47,9 +45,8 @@ public:
     }
 
 private:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x00 */ ProjectionType mProjType;
 
@@ -59,9 +56,8 @@ private:
     /* 0x34 */ mutable u16 mFlags;
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* VT+0x08 */
     virtual ~Frustum()
@@ -69,9 +65,8 @@ public:
     }
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C */
     virtual void SetProjectionGX() const;

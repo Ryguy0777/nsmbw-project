@@ -107,9 +107,8 @@ struct Info {
 class SoundArchiveFileReader final
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80276020 */
     SoundType GetSoundType(u32 id) const;
@@ -132,9 +131,8 @@ public:
     const char* GetString(u32 id) const;
 
 private:
-    // ------------------------
-    // Private Member Functions
-    // ------------------------
+    // Private Instance Methods
+    // ^^^^^^
 
     /* 0x80276020 */
     SoundType GetSoundTypeInternal(u32 id) const;
@@ -158,9 +156,8 @@ private:
     }
 
 private:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x00, 0x28);
 

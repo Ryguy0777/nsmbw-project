@@ -7,9 +7,8 @@
 class daEnRedRing_c : public dEn_c
 {
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80A92820
@@ -21,17 +20,15 @@ public:
     void executeState_Wait();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80A92E80 */
     void UNDEF_80A92E80();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x524, 0x688);
 

@@ -9,9 +9,8 @@ class dCc_c
     /* 0x00 VTABLE 0x803110F0 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8008C200 */
     dCc_c();
@@ -20,25 +19,22 @@ public:
     virtual ~dCc_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8008C380 */
     void release();
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8008C9E0 */
     static void execute();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ dActor_c* mpOwner;
 

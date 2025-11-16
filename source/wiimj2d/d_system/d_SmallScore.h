@@ -5,9 +5,8 @@
 class dSmallScore_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80015200 */
     void setPlayer1upColor(int player);
@@ -19,9 +18,8 @@ public:
     void setPlayer100Color(int player);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x000, 0x1D8);
 

@@ -8,9 +8,8 @@ class Heap;
 class MsgRes_c
 {
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800CE7F0 */
     MsgRes_c(const void*, EGG::Heap*);

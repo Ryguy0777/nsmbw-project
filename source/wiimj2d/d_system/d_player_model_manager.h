@@ -16,9 +16,8 @@ class dPyMdlMng_c
     /* 0x0 VTABLE 0x80318D98 */
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class ModelType_e {
         MODEL_NONE = -1,
@@ -41,9 +40,8 @@ public:
     };
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800D6DB0 */
     dPyMdlMng_c(ModelType_e modelType);
@@ -55,9 +53,8 @@ public:
     virtual ~dPyMdlMng_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x800D6E00 */
     void construct(u8 index);
@@ -81,17 +78,15 @@ public:
     void draw();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x4 */ dPyMdlBase_c* mModel;
     /* 0x8 */ u32 mDrawReady;
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x803710A0 */ static dPyMdlBase_HIO_c m_hio;
 };

@@ -9,17 +9,15 @@
 class dScCrsin_c : public dScene_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8091EFD0 */
     virtual ~dScCrsin_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8091EC50 */
     int loadDefaultObjectResPhase();
@@ -28,24 +26,21 @@ public:
     bool isDoneLoading();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x074 */ sStateMgrDefault_c<dScCrsin_c> mStateMgr;
     /* 0x0B0 */ dPreGameLyt_c mPreGameLyt;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8042A494 */ static dScCrsin_c* m_instance;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x809A1BA8, dScCrsin_c, initStageProc);
     sState_Extern(0x809A1BE8, dScCrsin_c, resWaitProc);

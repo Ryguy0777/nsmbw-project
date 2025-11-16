@@ -11,9 +11,8 @@ class SndObjctEmy : public NMSndObject<4>
     /* 0x00 VTABLE 0x8032E380 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     SndObjctEmy(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
       : NMSndObject<4>(soundArchivePlayer)
@@ -24,9 +23,8 @@ public:
     virtual ~SndObjctEmy() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x24 0x80197790 */
     virtual nw4r::snd::SoundHandle* startSound(u32 soundId, u32 remoteMask) override;
@@ -57,9 +55,8 @@ class SndObjctCmnEmy : public NMSndObjectCmn<12>
     /* 0x00 VTABLE 0x8032E348 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     SndObjctCmnEmy(nw4r::snd::SoundArchivePlayer& soundArchivePlayer)
       : NMSndObjectCmn<12>(soundArchivePlayer)
@@ -70,9 +67,8 @@ public:
     virtual ~SndObjctCmnEmy() override;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x20 0x80198040 */
     virtual nw4r::snd::SoundHandle*

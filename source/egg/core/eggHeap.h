@@ -77,9 +77,8 @@ public:
     Heap* _becomeCurrentHeapWithoutLock();
 
 public:
-    // -----------
-    // Static Data
-    // -----------
+    // Static Variables
+    // ^^^^^^
 
     /* 0x8042B0F0 */
     static Heap* sCurrentHeap;

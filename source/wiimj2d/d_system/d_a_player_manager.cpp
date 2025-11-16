@@ -22,7 +22,7 @@
 #include "d_system/d_quake.h"
 #include "d_system/d_score_manager.h"
 #include "d_system/d_stage_timer.h"
-#include "framework/f_base_profile.h"
+#include "d_bases/d_profile.h"
 #include "framework/f_feature.h"
 #include "framework/f_manager.h"
 #include "machine/m_vec.h"
@@ -137,9 +137,8 @@ int daPyMng_c::mBonusNoCap;
 [[address_data(0x80429FCC)]]
 int daPyMng_c::mKinopioCarryCount;
 
-// ---------
 // Functions
-// ---------
+// ^^^^^^
 
 [[address(0x8005EA60)]]
 void daPyMng_c::initGame()
@@ -244,7 +243,7 @@ bool daPyMng_c::createPlayer(int player, mVec3_c position, s32 gotoKind, bool fa
     }
 
     dActor_c::construct(
-      +fBaseProfile_e::PLAYER, u32(faceLeft) << 24 | u32(gotoKind & 0xFF) << 16 | u32(player & 63),
+      dProf::PLAYER, u32(faceLeft) << 24 | u32(gotoKind & 0xFF) << 16 | u32(player & 63),
       &position, nullptr, 0
     );
     return true;

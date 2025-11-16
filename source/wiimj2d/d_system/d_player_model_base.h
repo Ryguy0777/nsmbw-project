@@ -16,9 +16,8 @@ class dPyMdlBase_c
     /* 0x000 VTABLE 0x80318CB8 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x800D5420 */
     dPyMdlBase_c(u8 index);
@@ -27,9 +26,8 @@ public:
     virtual ~dPyMdlBase_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     enum class TexAnmType_e {
     };
@@ -74,9 +72,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C 0x800D6DA0 */
     virtual int getFaceJointIdx() const;
@@ -174,9 +171,8 @@ public:
     }
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x004 */ mAllocator_c mAllocator;
 

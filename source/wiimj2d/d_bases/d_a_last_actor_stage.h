@@ -6,18 +6,16 @@
 class daLastActorStage_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     daLastActorStage_c() = default;
 
     virtual ~daLastActorStage_c() override = default;
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x808306E0
@@ -45,9 +43,8 @@ public:
     PACK_RESULT_e draw() override;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     // Original class
     // /* 0x70 */ u32 mBtnPressed[4];

@@ -22,9 +22,8 @@ enum class SoundType {
 class SoundArchive
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     SoundArchive();
 
@@ -32,9 +31,8 @@ public:
     virtual ~SoundArchive();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
     struct SoundInfo {
         SIZE_ASSERT(0x1C);
@@ -87,9 +85,8 @@ public:
     };
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C */
     virtual const void* detail_GetFileAddress(u32 id) const = 0;
@@ -110,9 +107,8 @@ public:
     ) const = 0;
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x80275860 */
     const char* GetSoundLabelString(u32 id) const;

@@ -12,25 +12,22 @@
 class dSelectPlayer_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x807ABE40 */
     dSelectPlayer_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x807AC170 */
     PACK_RESULT_e createLayout();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x070 */
     sStateMgr_c<dSelectPlayer_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
@@ -55,9 +52,8 @@ public:
     bool mMultiMode;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x809953A0, dSelectPlayer_c, StartWait);
     sState_Extern(0x809953E0, dSelectPlayer_c, OnStageAnimeEndWait);

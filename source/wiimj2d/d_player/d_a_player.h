@@ -1,24 +1,16 @@
 #pragma once
 
+#include "d_bases/d_profile.h"
 #include "d_system/d_a_player_base.h"
 #include "d_system/d_a_player_manager.h"
 #include "state/s_State.h"
 
-class dAcPy_c : public daPlBase_c
+class dAcPy_c : public daPlBase_c, public dProf::Info<dAcPy_c, dProf::PLAYER>
 {
-public:
-    // -------------------
-    // Constants and Types
-    // -------------------
-
-    static constexpr fBaseProfile_e EXPECTED_PROFILES[] = {
-      fBaseProfile_e::PLAYER,
-    };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x801275B0 */
     float getJumpSpeed();
@@ -62,9 +54,8 @@ public:
     void setFallDownDemoNoMsg();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /**
      * VT+0x08 0x80144EA0
@@ -88,9 +79,8 @@ public:
     bool setForcedDamage(dActor_c* source, DamageType_e type) override;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x14D4 */ PLAYER_TYPE_e mPlayerType;
 
@@ -107,9 +97,8 @@ public:
     /* 0x1554 */ int m0x1554;
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     sState_Extern(0x80376A70, dAcPy_c, DemoFallDown);
 };

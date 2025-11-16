@@ -16,17 +16,15 @@ class da2DPlayer_c;
 class dCharacterChangeSelectBase_c : public dBase_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x8076F400 */
     dCharacterChangeSelectBase_c();
 
 public:
-    // -------------------
     // Constants and Types
-    // -------------------
+    // ^^^^^^
 
 #define CHARACTER_LIST_COUNT 8
 
@@ -66,9 +64,8 @@ public:
     };
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8076FA40 */
     void clearPlayerNo();
@@ -95,9 +92,8 @@ public:
     void readyContents();
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     FILL(0x070, 0x074);
 
@@ -155,9 +151,8 @@ public:
     /* 0x2F4 */ std::size_t mCcCount;
 
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     static PLAYER_TYPE_e getCharacterFromBase(int baseIndex);
     static int getBaseFromCharacter(PLAYER_TYPE_e chara);
@@ -167,9 +162,8 @@ public:
     static u32 getLampPattern(int playerNo);
 
 public:
-    // ---------
     // State IDs
-    // ---------
+    // ^^^^^^
 
     /*
      * initializeState: 0x8076FFF0

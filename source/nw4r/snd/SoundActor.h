@@ -14,9 +14,8 @@ class SoundActor : public SoundStartable
     /* 0x00 VTABLE 0x8034F3F8 */
 
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* 0x80275530 */
     SoundActor(nw4r::snd::SoundArchivePlayer&);
@@ -25,9 +24,8 @@ public:
     virtual ~SoundActor();
 
 public:
-    // -----------------
     // Virtual Functions
-    // -----------------
+    // ^^^^^^
 
     /* VT+0x0C 0x80275710 */
     virtual StartResult detail_SetupSound(
@@ -46,9 +44,8 @@ public:
     detail_SetupSoundWithAmbientInfo(SoundHandle* pHandle, u32 id, bool hold, const StartInfo* pStartInfo, detail::BasicSound::AmbientArgInfo* pAmbientArgInfo, void*);
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x802756A0 */
     u32 GetPlayingSoundCount(int) const;
@@ -57,9 +54,8 @@ public:
     void SetPlayableSoundCount(int, int);
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 
     /* 0x04 */ SoundArchivePlayer& mSoundArchivePlayer;
 

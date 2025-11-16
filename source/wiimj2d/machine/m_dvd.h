@@ -24,33 +24,29 @@ bool getFileSize(const char* path, u32* outFileSize);
 class mDvd_command_c
 {
 public:
-    // ------------
-    // Constructors
-    // ------------
+    // Structors
+    // ^^^^^^
 
     /* VT+0x8 0x */
     virtual ~mDvd_command_c();
 
 public:
-    // ----------------
-    // Member Functions
-    // ----------------
+    // Instance Methods
+    // ^^^^^^
 
     /* 0x8016B630 */
     void waitDone() const;
 
 public:
-    // -----------
-    // Member Data
-    // -----------
+    // Instance Variables
+    // ^^^^^^
 };
 
 class mDvd_toMainRam_c : public mDvd_command_c
 {
 public:
-    // ----------------
-    // Static Functions
-    // ----------------
+    // Static Methods
+    // ^^^^^^
 
     /* 0x8016C0B0 */
     static mDvd_toMainRam_c* create(const char* path, u8 param2, EGG::Heap* heap);
