@@ -13,6 +13,7 @@
 #include <revolution/pad.h>
 #include "d_system/d_pad_info.h"
 #include "machine/m_vec.h"
+#include "revolution/os/OSError.h"
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -35,6 +36,9 @@ void dGameKeyCore_c::read()
 
     dReplayPlay_c *replayData = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)];
     if (replayData == nullptr) {
+        // Replay is not active for this channel
+
+        // Assign controller type
         PADStatus* padStatus = EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
         if (padStatus != nullptr) {
             // GameCube controller
@@ -53,8 +57,11 @@ void dGameKeyCore_c::read()
                 mType = Type_e::CLASSIC;
             }
         }
-        mRawHeld = coreCont->mHeld & 0x7fffffff;
 
+        // Set raw button input from EGG::CoreController
+        mRawHeld = coreCont->maStatus->hold & 0x7fffffff;
+
+        // Accelerometer data from EGG::CoreController
         mAccel.x = coreCont->mAccel.x;
         mAccel.y = coreCont->mAccel.y;
         mAccel.z = coreCont->mAccel.z;
@@ -68,6 +75,7 @@ void dGameKeyCore_c::read()
         mAccelVerticalZ.x = mPad::g_PadAdditionalData[static_cast<int>(mChannel)][4];
         mAccelVerticalZ.y = mPad::g_PadAdditionalData[static_cast<int>(mChannel)][5];
     } else {
+        // Replay is active, assign data from current replay
         mType = Type_e::CORE;
         if (replayData->mFrameFlags & 0x10000000) {
             mPrevRawHeld = replayData->mPrevFrameInput;
@@ -79,18 +87,23 @@ void dGameKeyCore_c::read()
         mAccelVerticalZ = replayData->mFrameAccelVertZ;
     }
 
+    // Pointer
     mAngle.x = coreCont->maStatus->horizon.x;
     mAngle.y = coreCont->maStatus->horizon.y;
 
-    mPrevHeld = setConfigKey(mPrevHeld);
-    mHeld = setConfigKey(mHeld);
+    // "Process" inputs for Nunchuck mode
+    mPrevHeld = setConfigKey(mPrevRawHeld);
+    mHeld = setConfigKey(mRawHeld);
     mTriggered = mHeld & (mHeld ^ mPrevHeld);
 
+    // Flip accelerometer data for Nunchuck mode
+    // TODO: Seems to be broken
     if (mType == Type_e::FREESTYLE) {
         mAccel.x = mAccel.z;
         mAccel.z = mAccel.x;
     }
 
+    // Not sure what this does
     int uVar10 = 0;
     for (int i = 0; i < 2; i++) {
         int uVar14 = 1 << (uVar10 & 0x3f);
