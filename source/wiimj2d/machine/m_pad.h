@@ -27,6 +27,9 @@ static_assert(static_cast<long>(CH_e::COUNT) == PAD_CHAN_COUNT, "CH_e and PAD_CH
 /* 0x80377F88 */
 extern EGG::CoreController* g_core[PAD_CHAN_COUNT];
 
+/* 0x80377FA8 */
+static float g_PadAdditionalData[PAD_CHAN_COUNT][6];
+
 /* 0x8042A740 */
 extern EGG::CoreControllerMgr* g_padMg;
 
@@ -41,6 +44,7 @@ extern bool g_IsConnected[PAD_CHAN_COUNT];
 
 /* 0x8042A750 */
 extern u32 g_PadFrame;
+
 
 /* 0x8016F330 */
 void create();

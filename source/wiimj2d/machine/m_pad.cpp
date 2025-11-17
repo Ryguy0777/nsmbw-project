@@ -38,9 +38,6 @@ s32 s_GetWPADInfoInterval;
 [[address_data(0x8042A75C)]]
 s32 s_GetWPADInfoCount;
 
-/* 0x80377FA8 */
-float g_PadAdditionalData[PAD_CHAN_COUNT][6];
-
 /* 0x80378008 */
 WPADInfo s_WPADInfo[PAD_CHAN_COUNT];
 

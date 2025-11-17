@@ -58,5 +58,7 @@
         "xloctime": "cpp",
         "xstddef": "cpp"
     },
-    "makefile.configureOnOpen": false
+    "makefile.configureOnOpen": false,
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.enable": true
 }

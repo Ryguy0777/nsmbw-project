@@ -53,6 +53,12 @@ public:
     /* 0x800B5CB0 */
     void read();
 
+    /* 0x800B60D0 */
+    u32 setConfigKey(u32 button);
+
+    /* 0x800B61F0 */
+    void handleTilting();
+
     /* 0x800B62A0 */
     void setShakeY();
 
@@ -165,14 +171,15 @@ public:
 public:
     /* 0x04 */ mPad::CH_e mChannel;
     /* 0x08 */ Type_e mType;
-
-    FILL(0x0C, 0x18);
-
-    /* 0x18 */ u32 mHeld;
+    /* 0x0C */ u32 mRawHeld; // mHeld without Nunchuck button manipulation
+    /* 0x10 */ u32 mPrevRawHeld; // mHeld without Nunchuck button manipulation
+    /* 0x14 */ u32 mHeld;
+    /* 0x18 */ u32 mPrevHeld;
     /* 0x1C */ u32 mTriggered;
-
-    FILL(0x20, 0x30);
-
+    /* 0x20 */ u32 m0x20;
+    /* 0x24 */ u32 m0x24;
+    /* 0x28 */ u32 m0x28;
+    /* 0x2C */ u32 m0x2C;
     /* 0x30 */ u32 m0x30;
     /* 0x34 */ mVec3_c mAccel;
     /* 0x40 */ mVec3_c mAccelOld;

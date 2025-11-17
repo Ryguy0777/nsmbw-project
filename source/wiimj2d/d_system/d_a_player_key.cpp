@@ -187,7 +187,7 @@ u16 dAcPyKey_c::triggerOne() const
     if (padInfo != nullptr) {
         // GameCube controller
         return padInfo->mTrig & PADButton::PAD_BUTTON_Y;
-    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mControllerType == 1) {
+    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mType == dGameKeyCore_c::Type_e::FREESTYLE) {
         // Nunchuck mode
         return mTriggeredButtons & WPADButton::WPAD_BUTTON_B;
     }
@@ -202,7 +202,7 @@ u16 dAcPyKey_c::buttonOne() const
     if (padInfo != nullptr) {
         // GameCube controller
         return padInfo->mHold & PADButton::PAD_BUTTON_Y;
-    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mControllerType == 1) {
+    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mType == dGameKeyCore_c::Type_e::FREESTYLE) {
         // Nunchuck mode
         return mDownButtons & WPADButton::WPAD_BUTTON_B;
     }
