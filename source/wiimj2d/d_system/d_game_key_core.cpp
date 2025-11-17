@@ -14,6 +14,7 @@
 #include "d_system/d_pad_info.h"
 #include "machine/m_vec.h"
 #include "revolution/os/OSError.h"
+#include "revolution/wpad.h"
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -24,6 +25,7 @@ void dGameKeyCore_c::allclear();
 [[address(0x800B5CB0)]]
 void dGameKeyCore_c::read()
 {
+    // Set data from previous frame
     mPrevRawHeld = mRawHeld;
     mPrevHeld = mHeld;
     mAccelOld = mAccel;
@@ -52,10 +54,11 @@ void dGameKeyCore_c::read()
             } else if (devType == Extension_e::FREESTYLE) {
                 // Wii Remote + Nunchuck
                 mType = Type_e::FREESTYLE;
-            } else if (devType == Extension_e::CLASSIC) {
+            }/*  else if (devType == Extension_e::CLASSIC) {
                 // Wii Remote + Classic controller
                 mType = Type_e::CLASSIC;
-            }
+            } */
+            // TODO: Fix this ^
         }
 
         // Set raw button input from EGG::CoreController
@@ -153,7 +156,58 @@ void dGameKeyCore_c::read()
 }
 
 [[address(0x800B60D0)]]
-u32 dGameKeyCore_c::setConfigKey(u32 button);
+u32 dGameKeyCore_c::setConfigKey(u32 button)
+{
+    u32 processed;
+    if (mType == Type_e::FREESTYLE) {
+        // Home, Minus, and Plus can stay the same
+        processed = 
+          button & (WPADButton::WPAD_BUTTON_HOME | WPADButton::WPAD_BUTTON_MINUS | WPADButton::WPAD_BUTTON_PLUS);
+
+        // Clear D-Pad if stick is pushed in any direction
+        if (button & FSStickButton::WPAD_FS_STICK_ALL) {
+            button &= 0xFFFFFFF0;
+        }
+
+        // Flip D-Pad inputs
+        if (!(button & WPADButton::WPAD_BUTTON_DOWN) && !(button & FSStickButton::WPAD_FS_STICK_DOWN)) {
+            if ((button & WPADButton::WPAD_BUTTON_UP) || (button & FSStickButton::WPAD_FS_STICK_UP)) {
+                processed |= WPADButton::WPAD_BUTTON_RIGHT;
+            }
+        } else {
+            processed |= WPADButton::WPAD_BUTTON_LEFT;
+        }
+
+        if (!(button & WPADButton::WPAD_BUTTON_RIGHT) && !(button & FSStickButton::WPAD_FS_STICK_RIGHT)) {
+            if ((button & WPADButton::WPAD_BUTTON_LEFT) || (button & FSStickButton::WPAD_FS_STICK_LEFT)) {
+                processed |= WPADButton::WPAD_BUTTON_UP;
+            }
+        } else {
+            processed |= WPADButton::WPAD_BUTTON_DOWN;
+        }
+
+        // Handle Nunchuck controls
+        if (button & WPADButton::WPAD_BUTTON_FS_C) {
+            processed |= WPADButton::WPAD_BUTTON_A;
+        }
+
+        if (button & WPADButton::WPAD_BUTTON_B) {
+            processed |= (WPADButton::WPAD_BUTTON_B | WPADButton::WPAD_BUTTON_1);
+        }
+
+        if (button & WPADButton::WPAD_BUTTON_FS_Z) {
+            processed |= (WPADButton::WPAD_BUTTON_FS_Z | WPADButton::WPAD_BUTTON_1);
+        }
+
+        // A -> 2
+        u32 pressingA = button & WPADButton::WPAD_BUTTON_A;
+        button = processed;
+        if (pressingA) {
+            button = processed | WPADButton::WPAD_BUTTON_2;
+        }
+    }
+    return button;
+}
 
 [[address(0x800B61F0)]]
 void dGameKeyCore_c::handleTilting();
@@ -166,9 +220,10 @@ void dGameKeyCore_c::setShakeY()
         return;
     }
 
-    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
-    if (padInfo != nullptr) {
+    if (mType == Type_e::DOLPHIN) {
         // GameCube controller
+
+        dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
 
         if (mShakeTimer3 != 0) {
             mShakeTimer3--;
@@ -202,12 +257,8 @@ void dGameKeyCore_c::setShakeY()
     if (fFeature::SHAKE_WITH_BUTTON) {
         if (mType == Type_e::FREESTYLE) {
             // Shake with 1/2 Buttons on in Nunchuck Mode
-            // NOTE:
-            // We need to access the inputs from EGG::CoreController
-            // Because dGameKeyCore_c converts Z/B/A button presses into 1/2 button presses
-            isButtonShake = getCoreController()->downTrigger(
-              (WPADButton::WPAD_BUTTON_1 | WPADButton::WPAD_BUTTON_2)
-            );
+            u32 rawTrigger = mRawHeld & (mRawHeld ^ mPrevRawHeld);
+            isButtonShake = rawTrigger & (WPADButton::WPAD_BUTTON_1 | WPADButton::WPAD_BUTTON_2);
         } else {
             // Shake with B Button on sideways Wii Remote
             isButtonShake = mTriggered & WPADButton::WPAD_BUTTON_B;

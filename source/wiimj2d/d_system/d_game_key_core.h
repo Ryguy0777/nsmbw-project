@@ -34,13 +34,25 @@ public:
          */
         FREESTYLE = 1,
         /**
-         * GameCube Controller (TODO: currently set as CORE).
+         * GameCube Controller.
          */
         DOLPHIN = 2,
         /**
          * Classic Controller (TODO).
          */
         CLASSIC = 3,
+    };
+
+    /* @unofficial */
+    // Unsure if this is a part of dGameKeyCore_c
+    // Might be flipped?
+    enum FSStickButton {
+        WPAD_FS_STICK_UP = (1 << 16),
+        WPAD_FS_STICK_DOWN = (1 << 17),
+        WPAD_FS_STICK_LEFT = (1 << 18),
+        WPAD_FS_STICK_RIGHT = (1 << 19),
+
+        WPAD_FS_STICK_ALL = 0xF0000,
     };
 
 public:

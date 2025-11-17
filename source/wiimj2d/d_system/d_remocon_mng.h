@@ -42,7 +42,7 @@ public:
                 NONE = 0,
                 FREESTYLE = 1,
                 OTHER = 2,
-                CLASSIC = 3,
+                NOT_FOUND = 3,
             };
 
         public:

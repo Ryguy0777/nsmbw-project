@@ -182,10 +182,11 @@ UNDEF_8005e294:;
 
 [[address(0x8005E590)]]
 u16 dAcPyKey_c::triggerOne() const
-{
-    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
-    if (padInfo != nullptr) {
+{   
+    dGameKeyCore_c::Type_e type = dGameKey_c::m_instance->mpCores[mRemoconID]->mType;
+    if (type == dGameKeyCore_c::Type_e::DOLPHIN) {
         // GameCube controller
+        dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
         return padInfo->mTrig & PADButton::PAD_BUTTON_Y;
     } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mType == dGameKeyCore_c::Type_e::FREESTYLE) {
         // Nunchuck mode
@@ -198,9 +199,10 @@ u16 dAcPyKey_c::triggerOne() const
 [[address(0x8005E5D0)]]
 u16 dAcPyKey_c::buttonOne() const
 {
-    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
-    if (padInfo != nullptr) {
+    dGameKeyCore_c::Type_e type = dGameKey_c::m_instance->mpCores[mRemoconID]->mType;
+    if (type == dGameKeyCore_c::Type_e::DOLPHIN) {
         // GameCube controller
+        dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
         return padInfo->mHold & PADButton::PAD_BUTTON_Y;
     } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mType == dGameKeyCore_c::Type_e::FREESTYLE) {
         // Nunchuck mode
