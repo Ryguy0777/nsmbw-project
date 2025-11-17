@@ -183,33 +183,41 @@ UNDEF_8005e294:;
 [[address(0x8005E590)]]
 u16 dAcPyKey_c::triggerOne() const
 {   
-    dGameKeyCore_c::Type_e type = dGameKey_c::m_instance->mpCores[mRemoconID]->mType;
-    if (type == dGameKeyCore_c::Type_e::DOLPHIN) {
+    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
+    switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mType) {
+    case dGameKeyCore_c::Type_e::DOLPHIN:
         // GameCube controller
-        dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
-        return padInfo->mTrig & PADButton::PAD_BUTTON_Y;
-    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mType == dGameKeyCore_c::Type_e::FREESTYLE) {
+        if (mStatus & 0x181) return 0; // Player is in demo mode
+        return padInfo->mTrig & PAD_BUTTON_Y;
+        
+    case dGameKeyCore_c::Type_e::FREESTYLE:
         // Nunchuck mode
-        return mTriggeredButtons & WPADButton::WPAD_BUTTON_B;
+        return mTriggeredButtons & WPAD_BUTTON_B;
+
+    default:
+        // Sideways Wii Remote
+        return mTriggeredButtons & WPAD_BUTTON_1;
     }
-    // Sideways Wii Remote
-    return mTriggeredButtons & WPADButton::WPAD_BUTTON_1;
 }
 
 [[address(0x8005E5D0)]]
 u16 dAcPyKey_c::buttonOne() const
 {
-    dGameKeyCore_c::Type_e type = dGameKey_c::m_instance->mpCores[mRemoconID]->mType;
-    if (type == dGameKeyCore_c::Type_e::DOLPHIN) {
+    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
+    switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mType) {
+    case dGameKeyCore_c::Type_e::DOLPHIN:
         // GameCube controller
-        dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
-        return padInfo->mHold & PADButton::PAD_BUTTON_Y;
-    } else if (dGameKey_c::m_instance->mpCores[mRemoconID]->mType == dGameKeyCore_c::Type_e::FREESTYLE) {
+        if (mStatus & 0x181) return 0; // Player is in demo mode
+        return padInfo->mHold & PAD_BUTTON_Y;
+        
+    case dGameKeyCore_c::Type_e::FREESTYLE:
         // Nunchuck mode
-        return mDownButtons & WPADButton::WPAD_BUTTON_B;
+        return mDownButtons & WPAD_BUTTON_B;
+
+    default:
+        // Sideways Wii Remote
+        return mDownButtons & WPAD_BUTTON_1;
     }
-    // Sideways Wii Remote
-    return mDownButtons & WPADButton::WPAD_BUTTON_1;
 }
 
 [[address(0x8005E8B0)]]

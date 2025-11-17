@@ -90,6 +90,11 @@ public:
         return EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
     }
 
+    inline ::dPADInfo* getPadInfo() const
+    {
+        return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
+    }
+
     /**
      * Returns true if one of the button flags is set.
      */
@@ -124,7 +129,7 @@ public:
             break;
 
         case Type_e::DOLPHIN:
-            return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel))->mTrig & PAD_BUTTON_A;
+            return getPadInfo()->mTrig & PAD_BUTTON_A;
         }
 
         return getCoreController()->downTrigger(button);
@@ -148,7 +153,7 @@ public:
             break;
 
         case Type_e::DOLPHIN:
-            return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel))->mTrig & PAD_BUTTON_B;
+            return getPadInfo()->mTrig & PAD_BUTTON_B;
         }
 
         return getCoreController()->downTrigger(button);

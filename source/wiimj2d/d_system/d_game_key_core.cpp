@@ -13,7 +13,6 @@
 #include <revolution/pad.h>
 #include "d_system/d_pad_info.h"
 #include "machine/m_vec.h"
-#include "revolution/os/OSError.h"
 #include "revolution/wpad.h"
 
 [[address(0x800B5B50)]]
@@ -99,7 +98,6 @@ void dGameKeyCore_c::read()
     mTriggered = mHeld & (mHeld ^ mPrevHeld);
 
     // Flip accelerometer data for Nunchuck mode
-    // TODO: Seems to be broken
     if (mType == Type_e::FREESTYLE) {
         float accelX = mAccel.x;
         mAccel.x = mAccel.z;
@@ -220,16 +218,16 @@ void dGameKeyCore_c::setShakeY()
         return;
     }
 
+    if (mShakeTimer3 != 0) {
+        mShakeTimer3--;
+        mShake = false;
+        return;
+    }
+
     if (mType == Type_e::DOLPHIN) {
         // GameCube controller
 
         dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
-
-        if (mShakeTimer3 != 0) {
-            mShakeTimer3--;
-            mShake = false;
-            return;
-        }
 
         // Z trigger
         mShake = padInfo->mTrig & PAD_TRIGGER_Z;
@@ -246,12 +244,6 @@ void dGameKeyCore_c::setShakeY()
     }
 
     // Wii Remote
-
-    if (mShakeTimer3 != 0) {
-        mShakeTimer3--;
-        mShake = false;
-        return;
-    }
 
     bool isButtonShake = false;
     if (fFeature::SHAKE_WITH_BUTTON) {
