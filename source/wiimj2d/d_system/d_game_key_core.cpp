@@ -14,6 +14,7 @@
 #include "d_system/d_pad_info.h"
 #include "machine/m_vec.h"
 #include "revolution/wpad.h"
+#include "state/s_Lib.h"
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -208,7 +209,19 @@ u32 dGameKeyCore_c::setConfigKey(u32 button)
 }
 
 [[address(0x800B61F0)]]
-void dGameKeyCore_c::handleTilting();
+void dGameKeyCore_c::handleTilting()
+{
+    if (dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)] != nullptr) {
+        mTilt = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)]->mFrameTilt;
+        return;
+    }
+
+    if (mType != Type_e::FREESTYLE) {
+        mTilt = static_cast<short>(mAccelVerticalX.y * 16384.0);
+    } else {
+        sLib::addCalcAngle(&mTilt, static_cast<short>(-mAccel.z * 16384.0), 10, 0x1000, 0);
+    }
+}
 
 [[address(0x800B62A0)]]
 void dGameKeyCore_c::setShakeY()

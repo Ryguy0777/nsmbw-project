@@ -225,7 +225,7 @@ public:
     /* 0x88 */ f32 mMoveDistanceOld;
     /* 0x8C */ bool mShake;
     /* 0x8D */ bool mShakeOld;
-    /* 0x8E */ u16 mTilt;
+    /* 0x8E */ short mTilt;
     /* 0x90 */ u8 mShakeTimer1;
     /* 0x91 */ u8 mShakeTimer2;
     /* 0x92 */ u8 mShakeTimer3;

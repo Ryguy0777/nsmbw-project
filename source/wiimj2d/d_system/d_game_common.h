@@ -43,6 +43,9 @@ void CreateSmallAll1up(const mVec3_c&);
 /* 0x800B35D0 */
 void GoalScoreExecute(const mVec3_c&, int);
 
+/* 0x800B3980 */
+short CalculateTilt(int, float, float); 
+
 /* 0x800B5340 */
 bool chkContinue();
 

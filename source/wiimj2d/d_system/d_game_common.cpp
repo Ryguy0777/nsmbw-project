@@ -88,6 +88,9 @@ void GoalScoreExecute(const mVec3_c& pos, int playerNo)
     );
 }
 
+[[address(0x800B3980)]]
+short CalculateTilt(int, float, float); 
+
 [[address(0x800B3600)]]
 void FUN_800B3600() ASM_METHOD(
   // clang-format off
