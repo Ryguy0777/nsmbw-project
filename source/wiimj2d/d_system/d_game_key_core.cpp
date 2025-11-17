@@ -162,48 +162,48 @@ u32 dGameKeyCore_c::setConfigKey(u32 button)
     if (mType == Type_e::FREESTYLE) {
         // Home, Minus, and Plus can stay the same
         processed = 
-          button & (WPADButton::WPAD_BUTTON_HOME | WPADButton::WPAD_BUTTON_MINUS | WPADButton::WPAD_BUTTON_PLUS);
+          button & (WPAD_BUTTON_HOME | WPAD_BUTTON_MINUS | WPAD_BUTTON_PLUS);
 
         // Clear D-Pad if stick is pushed in any direction
-        if (button & FSStickButton::WPAD_FS_STICK_ALL) {
+        if (button & WPAD_FS_STICK_ALL) {
             button &= 0xFFFFFFF0;
         }
 
         // Flip D-Pad inputs
-        if (!(button & WPADButton::WPAD_BUTTON_DOWN) && !(button & FSStickButton::WPAD_FS_STICK_DOWN)) {
-            if ((button & WPADButton::WPAD_BUTTON_UP) || (button & FSStickButton::WPAD_FS_STICK_UP)) {
-                processed |= WPADButton::WPAD_BUTTON_RIGHT;
+        if (!(button & WPAD_BUTTON_DOWN) && !(button & WPAD_FS_STICK_DOWN)) {
+            if ((button & WPAD_BUTTON_UP) || (button & WPAD_FS_STICK_UP)) {
+                processed |= WPAD_BUTTON_RIGHT;
             }
         } else {
-            processed |= WPADButton::WPAD_BUTTON_LEFT;
+            processed |= WPAD_BUTTON_LEFT;
         }
 
-        if (!(button & WPADButton::WPAD_BUTTON_RIGHT) && !(button & FSStickButton::WPAD_FS_STICK_RIGHT)) {
-            if ((button & WPADButton::WPAD_BUTTON_LEFT) || (button & FSStickButton::WPAD_FS_STICK_LEFT)) {
-                processed |= WPADButton::WPAD_BUTTON_UP;
+        if (!(button & WPAD_BUTTON_RIGHT) && !(button & WPAD_FS_STICK_RIGHT)) {
+            if ((button & WPAD_BUTTON_LEFT) || (button & WPAD_FS_STICK_LEFT)) {
+                processed |= WPAD_BUTTON_UP;
             }
         } else {
-            processed |= WPADButton::WPAD_BUTTON_DOWN;
+            processed |= WPAD_BUTTON_DOWN;
         }
 
         // Handle Nunchuck controls
-        if (button & WPADButton::WPAD_BUTTON_FS_C) {
-            processed |= WPADButton::WPAD_BUTTON_A;
+        if (button & WPAD_BUTTON_FS_C) {
+            processed |= WPAD_BUTTON_A;
         }
 
-        if (button & WPADButton::WPAD_BUTTON_B) {
-            processed |= (WPADButton::WPAD_BUTTON_B | WPADButton::WPAD_BUTTON_1);
+        if (button & WPAD_BUTTON_B) {
+            processed |= (WPAD_BUTTON_B | WPAD_BUTTON_1);
         }
 
-        if (button & WPADButton::WPAD_BUTTON_FS_Z) {
-            processed |= (WPADButton::WPAD_BUTTON_FS_Z | WPADButton::WPAD_BUTTON_1);
+        if (button & WPAD_BUTTON_FS_Z) {
+            processed |= (WPAD_BUTTON_FS_Z | WPAD_BUTTON_1);
         }
 
         // A -> 2
-        u32 pressingA = button & WPADButton::WPAD_BUTTON_A;
+        u32 pressingA = button & WPAD_BUTTON_A;
         button = processed;
         if (pressingA) {
-            button = processed | WPADButton::WPAD_BUTTON_2;
+            button = processed | WPAD_BUTTON_2;
         }
     }
     return button;
@@ -232,7 +232,7 @@ void dGameKeyCore_c::setShakeY()
         }
 
         // Z trigger
-        mShake = padInfo->mTrig & PADButton::PAD_TRIGGER_Z;
+        mShake = padInfo->mTrig & PAD_TRIGGER_Z;
 
         // In my opinion, we don't need the cooldown
         // Since shake is now triggered by the press of a button
@@ -258,10 +258,10 @@ void dGameKeyCore_c::setShakeY()
         if (mType == Type_e::FREESTYLE) {
             // Shake with 1/2 Buttons on in Nunchuck Mode
             u32 rawTrigger = mRawHeld & (mRawHeld ^ mPrevRawHeld);
-            isButtonShake = rawTrigger & (WPADButton::WPAD_BUTTON_1 | WPADButton::WPAD_BUTTON_2);
+            isButtonShake = rawTrigger & (WPAD_BUTTON_1 | WPAD_BUTTON_2);
         } else {
             // Shake with B Button on sideways Wii Remote
-            isButtonShake = mTriggered & WPADButton::WPAD_BUTTON_B;
+            isButtonShake = mTriggered & WPAD_BUTTON_B;
         }
     }
 

@@ -1,7 +1,9 @@
 #pragma once
 
+#include "d_system/d_pad_info.h"
 #include "machine/m_pad.h"
 #include "machine/m_vec.h"
+#include "revolution/wpad.h"
 #include <revolution/pad.h>
 
 class dGameKeyCore_c
@@ -122,7 +124,7 @@ public:
             break;
 
         case Type_e::DOLPHIN:
-            return getPadStatus()->button & PAD_BUTTON_A;
+            return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel))->mTrig & PAD_BUTTON_A;
         }
 
         return getCoreController()->downTrigger(button);
@@ -146,7 +148,7 @@ public:
             break;
 
         case Type_e::DOLPHIN:
-            return getPadStatus()->button & PAD_BUTTON_B;
+            return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel))->mTrig & PAD_BUTTON_B;
         }
 
         return getCoreController()->downTrigger(button);
