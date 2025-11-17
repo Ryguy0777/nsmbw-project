@@ -138,7 +138,7 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     m0x67E = false;
     m0x67F = false;
     mCancelAllowed = false;
-    mPlayerCount = 4;
+    mPlayerCount = MAX_CC_COUNT;
 
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
         mPlyConnectSetup[ply] = true;

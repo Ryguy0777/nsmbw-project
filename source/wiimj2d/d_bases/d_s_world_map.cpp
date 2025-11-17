@@ -58,8 +58,6 @@ bool dScWMap_c::createLayoutPhase()
     crsSelMng->mpCrsSelectMenu = NEW(dCourseSelectMenu_c*, COURSE_SELECT_MENU, 0);
 
     crsSelMng->mpNumPyChg = NEW(dNumberOfPeopleChange_c*, NUMBER_OF_PEOPLE_CHANGE, 0);
-    // Limit count on the world map to 4 for now
-    crsSelMng->mpNumPyChg->mCcCount = 4;
     for (std::size_t cc = 0; cc < crsSelMng->mpNumPyChg->mCcCount; cc++) {
         crsSelMng->mpNumPyChg->mpCcSelBase[cc] =
           NEW(dCharacterChangeSelectBase_c*, CHARACTER_CHANGE_SELECT_BASE, cc);
