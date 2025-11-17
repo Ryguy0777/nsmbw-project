@@ -6,14 +6,14 @@
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
 
-[[address_data(0x8042A600)]]
-dfukidashiManager_c* dfukidashiManager_c::m_instance;
-
 [[address(0x80156FE0)]]
-dfukidashiManager_c* dfukidashiManager_c_classInit()
+fBase_c* dfukidashiManager_c_classInit()
 {
     return new dfukidashiManager_c();
 }
+
+[[address_data(0x8042A600)]]
+dfukidashiManager_c* dfukidashiManager_c::m_instance;
 
 [[address(0x80157010)]]
 dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
@@ -49,45 +49,16 @@ dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
 
 /* VT+0x48 */
 [[address(0x80157080)]]
-dfukidashiManager_c::~dfukidashiManager_c() ASM_METHOD(
-  // clang-format off
-/* 80157080 9421FFF0 */  stwu     r1, -16(r1);
-/* 80157084 7C0802A6 */  mflr     r0;
-/* 80157088 2C030000 */  cmpwi    r3, 0;
-/* 8015708C 90010014 */  stw      r0, 20(r1);
-/* 80157090 93E1000C */  stw      r31, 12(r1);
-/* 80157094 7C9F2378 */  mr       r31, r4;
-/* 80157098 93C10008 */  stw      r30, 8(r1);
-/* 8015709C 7C7E1B78 */  mr       r30, r3;
-/* 801570A0 4182004C */  beq-     UNDEF_801570ec;
-/* 801570A4 38000000 */  li       r0, 0;
-/* 801570A8 3C80800B */  lis      r4, UNDEF_800b16e0@ha; // __dt__16dfukidashiInfo_cFv
-/* 801570AC 900DAC80 */  stw      r0, UNDEF_8042a600@sda21;
-/* 801570B0 388416E0 */  addi     r4, r4, UNDEF_800b16e0@l; // __dt__16dfukidashiInfo_cFv
-/* 801570B4 38A0023C */  li       r5, 0x23C;
-/* 801570B8          */  li       r6, PLAYER_COUNT;
-/* 801570BC 38630148 */  addi     r3, r3, 0x148;
-/* 801570C0 48185CC9 */  bl       UNDEF_802dcd88; // __destroy_arr
-/* 801570C4 387E0074 */  addi     r3, r30, 116;
-/* 801570C8 3880FFFF */  li       r4, -1;
-/* 801570CC 4BEAFA25 */  bl       UNDEF_80006af0; // __dt__Q23d2d18ResAccMultLoader_cFv
-/* 801570D0 7FC3F378 */  mr       r3, r30;
-/* 801570D4 38800000 */  li       r4, 0;
-/* 801570D8 4BF153B9 */  bl       __dt__7dBase_cFv;
-/* 801570DC 2C1F0000 */  cmpwi    r31, 0;
-/* 801570E0 4081000C */  ble-     UNDEF_801570ec;
-/* 801570E4 7FC3F378 */  mr       r3, r30;
-/* 801570E8 4800B979 */  bl       __dl__7fBase_cFPv;
-UNDEF_801570ec:;
-/* 801570EC 7FC3F378 */  mr       r3, r30;
-/* 801570F0 83E1000C */  lwz      r31, 12(r1);
-/* 801570F4 83C10008 */  lwz      r30, 8(r1);
-/* 801570F8 80010014 */  lwz      r0, 20(r1);
-/* 801570FC 7C0803A6 */  mtlr     r0;
-/* 80157100 38210010 */  addi     r1, r1, 16;
-/* 80157104 4E800020 */  blr;
-  // clang-format on
-);
+dfukidashiManager_c::~dfukidashiManager_c()
+{
+#ifndef __has_macintosh_dt_fix
+    m_instance = nullptr;
+    for (std::size_t i = 0; i < std::size(mInfo); i++) {
+        mInfo[i].~dfukidashiInfo_c();
+    }
+    mResLoader.~ResAccMultLoader_c();
+#endif // !__has_macintosh_dt_fix
+}
 
 /**
  * VT+0x08
@@ -264,8 +235,8 @@ void dfukidashiManager_c::FUN_80157360(int param1, int param2, int param3)
     }
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        if (maInfo[i].mDisplayed && maInfo[i].m0x220 == param2 && maInfo[i].mPlayerID == param1) {
-            maInfo[i].m0x230 = param3;
+        if (mInfo[i].mDisplayed && mInfo[i].m0x220 == param2 && mInfo[i].mPlayerID == param1) {
+            mInfo[i].m0x230 = param3;
         }
     }
 }

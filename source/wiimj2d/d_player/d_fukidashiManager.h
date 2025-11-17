@@ -1,8 +1,9 @@
 #pragma once
 
-#include "d_system/d_a_player_manager.h"
+#include "d_system/d_2d.h"
 #include "d_system/d_base.h"
 #include "d_system/d_fukidashiInfo.h"
+#include "d_system/d_mj2d_game.h"
 
 class dfukidashiManager_c : public dBase_c
 {
@@ -62,10 +63,14 @@ public:
     // Instance Variables
     // ^^^^^^
 
-    FILL(0x070, 0x148);
+    FILL(0x070, 0x074);
+
+    /* 0x74 */ d2d::ResAccMultLoader_c mResLoader;
+
     OFFSET_ASSERT(0x148);
 
-    /* 0x148 */ dfukidashiInfo_c maInfo[PLAYER_COUNT];
+    // +++ Original count is 4
+    /* 0x148 */ dfukidashiInfo_c mInfo[PLAYER_COUNT];
 
 public:
     // Static Variables

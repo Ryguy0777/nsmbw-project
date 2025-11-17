@@ -3,6 +3,7 @@
 
 #include "d_a_player_manager.h"
 
+#include "d_bases/d_profile.h"
 #include "d_bases/d_s_stage.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
@@ -22,7 +23,6 @@
 #include "d_system/d_quake.h"
 #include "d_system/d_score_manager.h"
 #include "d_system/d_stage_timer.h"
-#include "d_bases/d_profile.h"
 #include "framework/f_feature.h"
 #include "framework/f_manager.h"
 #include "machine/m_vec.h"
@@ -236,15 +236,15 @@ mVec3_c daPyMng_c::getPlayerSetPos(u8 course, u8 gotoID);
 u8 daPyMng_c::getPlayerCreateAction();
 
 [[address(0x8005EEE0)]]
-bool daPyMng_c::createPlayer(int player, mVec3_c position, s32 gotoKind, bool faceLeft)
+bool daPyMng_c::create(int player, mVec3_c position, int gotoKind, u8 faceLeft)
 {
     if (!(mActPlayerInfo & (1 << player))) {
         return false;
     }
 
     dActor_c::construct(
-      dProf::PLAYER, u32(faceLeft) << 24 | u32(gotoKind & 0xFF) << 16 | u32(player & 63),
-      &position, nullptr, 0
+      dProf::PLAYER, u32(faceLeft) << 24 | u32(gotoKind & 0xFF) << 16 | u32(player & 63), &position,
+      nullptr, 0
     );
     return true;
 }
@@ -267,7 +267,7 @@ void daPyMng_c::createCourseInit()
         daPyDemoMng_c::mspInstance->genCourseInList();
         f32 dispCenter = dGameCom::getDispCenterX();
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            createPlayer(i, playerSetPos, entType, dispCenter < 0);
+            create(i, playerSetPos, entType, dispCenter < 0);
         }
 
         return;
@@ -311,7 +311,7 @@ void daPyMng_c::createCourseInit()
 
         if (PLAYER_COUNT > 4 &&
             dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
-            playerSetDist -= 2.0 * (PLAYER_COUNT - 4);
+            playerSetDist -= 2.0f * (PLAYER_COUNT - 4);
         }
 
         if (isAmbush) {
@@ -325,7 +325,7 @@ void daPyMng_c::createCourseInit()
                 continue;
             }
 
-            bool result = createPlayer(createOrder[i], playerSetPos, entType, isAmbush);
+            bool result = create(createOrder[i], playerSetPos, entType, isAmbush);
 
             if (result && !isCreateBalloon(createOrder[i])) {
                 if (isAmbush) {
@@ -359,7 +359,7 @@ void daPyMng_c::createCourseInit()
                   playerSetPos.y + l_STAFF_CREDIT_POS[i % 8][1],
                   playerSetPos.z,
                 };
-                createPlayer(i, pos, 0, l_STAFF_CREDIT_POS[i % 8][0] > 0);
+                create(i, pos, 0, l_STAFF_CREDIT_POS[i % 8][0] > 0);
             }
         }
     }
@@ -625,7 +625,7 @@ u8 daPyMng_c::getScrollNum()
             scrollNum++;
         }
     }
-    return scrollNum;
+    return (u8) scrollNum;
 }
 
 [[address(0x8005FDB0)]]
@@ -762,8 +762,7 @@ void daPyMng_c::incCoin(int player)
             continue;
         }
 
-        dAcPy_c* player = getPlayer(i);
-        if (player == nullptr || player->isStatus(4)) {
+        if (dAcPy_c* pPlayer = getPlayer(i); pPlayer && pPlayer->isStatus(4)) {
             addRest(i, 1, !noEntry);
         } else {
             dScoreMng_c::m_instance->UNDEF_800E25A0(8, i, noEntry);
@@ -896,7 +895,7 @@ L_daPyMng_c_setHipAttackQuake_LoopStart:;
 
                          stw      r7, 0(r6);
                          addi     r10, r10, 1;
-                        
+
 L_daPyMng_c_setHipAttackQuake_LoopCond:;
                          addi     r6, r6, 4;
                          addi     r11, r11, 1;
