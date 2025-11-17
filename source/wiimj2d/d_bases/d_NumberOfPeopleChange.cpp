@@ -8,6 +8,7 @@
 #include "d_bases/d_CharacterChangeSelectBase.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_bases/d_profile.h"
 #include "d_player/d_WarningManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
@@ -16,7 +17,6 @@
 #include "d_system/d_message.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
-#include "d_bases/d_profile.h"
 #include "machine/m_pad.h"
 #include "sound/SndAudioMgr.h"
 #include "sound/SndID.h"
@@ -34,12 +34,15 @@ dNumberOfPeopleChange_c::dNumberOfPeopleChange_c()
 {
 }
 
-// clang-format off
-// [0x8079F780] __dt__33sFState_c<23dNumberOfPeopleChange_c>Fv
-// [0x8079F7C0] __dt__36sFStateFct_c<23dNumberOfPeopleChange_c>Fv
-// [0x8079F800] __dt__89sStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c,12sFStateFct_c,13sStateIDChk_c>Fv
-// [0x8079F860] __dt__59sFStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c>Fv
-// clang-format on
+EXTERN_SYMBOL(0x8079F780, "__dt__33sFState_c<23dNumberOfPeopleChange_c>Fv");
+EXTERN_SYMBOL(0x8079F7C0, "__dt__36sFStateFct_c<23dNumberOfPeopleChange_c>Fv");
+EXTERN_SYMBOL(
+  0x8079F800, "__dt__89sStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c,12sFStateFct_c,"
+              "13sStateIDChk_c>Fv"
+);
+EXTERN_SYMBOL(
+  0x8079F860, "__dt__59sFStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c>Fv"
+);
 
 [[address(0x8079F8D0)]]
 dNumberOfPeopleChange_c::~dNumberOfPeopleChange_c()
@@ -135,7 +138,7 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     m0x67E = false;
     m0x67F = false;
     mCancelAllowed = false;
-    mPlayerCount = 4;
+    mPlayerCount = MAX_CC_COUNT;
 
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
         mPlyConnectSetup[ply] = true;
@@ -454,6 +457,7 @@ void dNumberOfPeopleChange_c::checkRemoConnect()
         } else if (!setup && mAllowControllerCut) {
             info->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::OFF);
         }
+        mPlyConnectSetup[ply] = setup;
     }
 }
 
@@ -541,7 +545,7 @@ bool dNumberOfPeopleChange_c::checkCancel()
             return false;
         }
 
-        return mPad::g_currentCore->downTrigger(0x900) != 0;
+        return dGameKey_c::getCurrentCore()->checkMenuConfirm() != 0;
     }
 
     // But here the cancel button is 1, and we prioritize player 1 cancelling over leaving the whole
@@ -885,17 +889,13 @@ void dNumberOfPeopleChange_c::initializeState_ButtonSelect()
 [[address(0x807A1B60)]]
 void dNumberOfPeopleChange_c::executeState_ButtonSelect()
 {
+    dGameKeyCore_c* core = dGameKey_c::getCurrentCore();
+
     int newBtn = mOnButton;
-    if (newBtn == 0 &&
-        dGameKey_c::m_instance->mpCores[static_cast<std::size_t>(mPad::g_currentCoreID)]
-            ->mTriggered &
-          0x8) {
+    if (newBtn == 0 && core->checkLeft()) {
         newBtn = 1;
     }
-    if (newBtn == 1 &&
-        dGameKey_c::m_instance->mpCores[static_cast<std::size_t>(mPad::g_currentCoreID)]
-            ->mTriggered &
-          0x4) {
+    if (newBtn == 1 && core->checkRight()) {
         newBtn = 0;
     }
 
@@ -907,7 +907,7 @@ void dNumberOfPeopleChange_c::executeState_ButtonSelect()
         return;
     }
 
-    if (mPad::g_currentCore->downTrigger(0x900)) {
+    if (core->checkMenuConfirm()) {
         if (mOnButton == 0) {
             SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_DECIDE, 1);
             if (!(dInfo_c::m_instance->mGameFlag & 0x10)) {

@@ -5,7 +5,13 @@
 namespace EGG
 {
 
-template <typename T>
+template <class T = int>
+constexpr T BitFlag(u8 bit)
+{
+    return 1 << bit;
+}
+
+template <class T>
 class TBitFlag
 {
 public:

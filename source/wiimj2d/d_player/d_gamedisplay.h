@@ -105,15 +105,15 @@ public:
     /* 0x208 */ mEf::levelEffect_c mEffect;
 
     // Moved
-    /* 0x330 */ s16 mPlayerRGBA0_Removed[4][4];
-    /* 0x350 */ s16 mPlayerRGBA1_Removed[4][4];
-    /* 0x370 */ s16 mPlayerRGBA2_Removed[4][4];
+    /* 0x330 */ s16 REMOVED(mPlayerRGBA0)[4][4];
+    /* 0x350 */ s16 REMOVED(mPlayerRGBA1)[4][4];
+    /* 0x370 */ s16 REMOVED(mPlayerRGBA2)[4][4];
 
     /* 0x390 */
     sStateMgr_c<dGameDisplay_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
 
     // Moved
-    /* 0x3CC */ int mPlayNum_Removed[4];
+    /* 0x3CC */ int REMOVED(mPlayNum)[4];
     /* 0x3DC */ int mCoinNum;
     /* 0x3E0 */ int mTime;
     /* 0x3E4 */ s32 m0x3E4;

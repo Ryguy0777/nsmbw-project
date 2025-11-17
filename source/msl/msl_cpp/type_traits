@@ -1,7 +1,19 @@
 #pragma once
 
+#include "cstddef"
+
 namespace std
 {
+
+#define __trait_predicate(__type, __name, __predicate)                                             \
+    template <class T>                                                                             \
+    struct __name : integral_constant<__type, __predicate> {                                       \
+    };                                                                                             \
+    template <class T>                                                                             \
+    constexpr __type __name##_v = __name<T>::value
+
+// Helper Classes
+// ^^^^^^
 
 template <class T, T v>
 struct integral_constant {
@@ -16,11 +28,62 @@ struct integral_constant {
 };
 
 template <bool B>
-struct bool_constant : integral_constant<bool, B> {
-};
-
+using bool_constant = integral_constant<bool, B>;
 using true_type = bool_constant<true>;
 using false_type = bool_constant<false>;
+
+// Const-volatility Specifiers
+// ^^^^^^
+
+template <class T>
+struct remove_cv {
+    using type = T;
+};
+
+template <class T>
+struct remove_cv<const T> {
+    using type = T;
+};
+
+template <class T>
+struct remove_cv<volatile T> {
+    using type = T;
+};
+
+template <class T>
+struct remove_cv<const volatile T> {
+    using type = T;
+};
+
+template <class T>
+struct remove_const {
+    using type = T;
+};
+
+template <class T>
+struct remove_const<const T> {
+    using type = T;
+};
+
+template <class T>
+struct remove_volatile {
+    using type = T;
+};
+
+template <class T>
+struct remove_volatile<volatile T> {
+    using type = T;
+};
+
+template <class T>
+using remove_cv_t = typename remove_cv<T>::type;
+template <class T>
+using remove_const_t = typename remove_const<T>::type;
+template <class T>
+using remove_volatile_t = typename remove_volatile<T>::type;
+
+// References
+// ^^^^^^
 
 template <class T>
 struct remove_reference {
@@ -40,16 +103,8 @@ struct remove_reference<T&&> {
 template <class T>
 using remove_reference_t = typename remove_reference<T>::type;
 
-template <class T, class U>
-struct is_same : std::false_type {
-};
-
-template <class T>
-struct is_same<T, T> : std::true_type {
-};
-
-template <class T, class U>
-constexpr bool is_same_v = is_same<T, U>::value;
+// Miscellaneous Transformations
+// ^^^^^^
 
 template <class T>
 struct type_identity {
@@ -59,30 +114,77 @@ struct type_identity {
 template <class T>
 using type_identity_t = type_identity<T>::type;
 
-#define DECLARE_BOOL_TYPE_TRAIT(name, predicate)                                                   \
-    template <class T>                                                                             \
-    using name = std::bool_constant<predicate>;                                                    \
-    template <class T>                                                                             \
-    constexpr bool name##_v = name<T>::value
+// Primary Types
+// ^^^^^^
 
-DECLARE_BOOL_TYPE_TRAIT(is_integral, __is_integral(T));
-DECLARE_BOOL_TYPE_TRAIT(is_floating_point, __is_floating_point(T));
-DECLARE_BOOL_TYPE_TRAIT(is_arithmetic, __is_arithmetic(T));
-DECLARE_BOOL_TYPE_TRAIT(is_pointer, __is_pointer(T));
-DECLARE_BOOL_TYPE_TRAIT(is_reference, __is_reference(T));
-DECLARE_BOOL_TYPE_TRAIT(is_lvalue_reference, __is_lvalue_reference(T));
-DECLARE_BOOL_TYPE_TRAIT(is_rvalue_reference, __is_rvalue_reference(T));
-DECLARE_BOOL_TYPE_TRAIT(is_const, __is_const(T));
-DECLARE_BOOL_TYPE_TRAIT(is_volatile, __is_volatile(T));
-DECLARE_BOOL_TYPE_TRAIT(is_trivially_copyable, __is_trivially_copyable(T));
-DECLARE_BOOL_TYPE_TRAIT(is_trivially_destructible, __is_trivially_destructible(T));
-DECLARE_BOOL_TYPE_TRAIT(is_trivially_constructible, __is_trivially_constructible(T));
+__trait_predicate(bool, is_void, __is_same_as(void, remove_cv_t<T>));
+__trait_predicate(bool, is_null_pointer, __is_same_as(nullptr_t, remove_cv_t<T>));
+__trait_predicate(bool, is_integral, __is_integral(T));
+__trait_predicate(bool, is_floating_point, __is_floating_point(T));
+__trait_predicate(bool, is_array, __is_array(T));
+__trait_predicate(bool, is_enum, __is_enum(T));
+__trait_predicate(bool, is_union, __is_union(T));
+__trait_predicate(bool, is_class, __is_class(T));
+__trait_predicate(bool, is_function, __is_function(T));
+__trait_predicate(bool, is_pointer, __is_pointer(T));
+__trait_predicate(bool, is_lvalue_reference, __is_lvalue_reference(T));
+__trait_predicate(bool, is_rvalue_reference, __is_rvalue_reference(T));
+__trait_predicate(bool, is_member_object_pointer, __is_member_object_pointer(T));
+__trait_predicate(bool, is_member_function_pointer, __is_member_function_pointer(T));
 
-DECLARE_BOOL_TYPE_TRAIT(is_signed, __is_signed(T));
-DECLARE_BOOL_TYPE_TRAIT(is_unsigned, __is_unsigned(T));
-DECLARE_BOOL_TYPE_TRAIT(is_signed_integral, __is_integral(T) && __is_signed(T));
-DECLARE_BOOL_TYPE_TRAIT(is_unsigned_integral, __is_integral(T) && __is_unsigned(T));
+// Composite Types
+// ^^^^^^
 
-#undef DECLARE_BOOL_TYPE_TRAIT
+__trait_predicate(bool, is_fundamental, __is_fundamental(T));
+__trait_predicate(bool, is_arithmetic, __is_arithmetic(T));
+__trait_predicate(bool, is_scalar, __is_scalar(T));
+__trait_predicate(bool, is_object, __is_object(T));
+__trait_predicate(bool, is_compound, __is_compound(T));
+__trait_predicate(bool, is_reference, __is_reference(T));
+__trait_predicate(bool, is_member_pointer, __is_member_pointer(T));
+
+// Type Properties
+// ^^^^^^
+
+__trait_predicate(bool, is_const, __is_const(T));
+__trait_predicate(bool, is_volatile, __is_volatile(T));
+__trait_predicate(bool, is_trivial, __is_trivial(T));
+__trait_predicate(bool, is_trivially_copyable, __is_trivially_copyable(T));
+__trait_predicate(bool, is_standard_layout, __is_standard_layout(T));
+__trait_predicate(bool, is_pod, __is_pod(T));
+__trait_predicate(bool, is_literal_type, __is_literal_type(T));
+__trait_predicate(bool, has_unique_object_representations, __has_unique_object_representations(T));
+__trait_predicate(bool, is_empty, __is_empty(T));
+__trait_predicate(bool, is_polymorphic, __is_polymorphic(T));
+__trait_predicate(bool, is_abstract, __is_abstract(T));
+__trait_predicate(bool, is_final, __is_final(T));
+__trait_predicate(bool, is_aggregate, __is_aggregate(T));
+// __trait_predicate(bool, is_implicit_lifetime, __builtin_is_implicit_lifetime(T)); // Not
+// implemented in current Clang version
+__trait_predicate(bool, is_signed, __is_signed(T));
+__trait_predicate(bool, is_unsigned, __is_unsigned(T));
+
+// Property Queries
+// ^^^^^^
+
+__trait_predicate(size_t, alignment_of, alignof(T));
+__trait_predicate(size_t, rank, __array_rank(T));
+
+template <class T, unsigned N = 0>
+struct extent : public std::integral_constant<size_t, __array_extent(T, N)> {
+};
+template <class T, unsigned N = 0>
+constexpr size_t extent_v = extent<T, N>::value;
+
+// Type Relationships
+// ^^^^^^
+
+template <class T, class U>
+struct is_same : std::bool_constant<__is_same_as(T, U)> {
+};
+template <class T, class U>
+constexpr bool is_same_v = is_same<T, U>::value;
+
+#undef __trait_predicate
 
 } // namespace std

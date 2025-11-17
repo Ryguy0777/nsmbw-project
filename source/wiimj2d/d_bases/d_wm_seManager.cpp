@@ -55,7 +55,7 @@ void dWmSeManager_c::initialize()
         mpObjCSPlyArray[i] = new dAudio::SndObjctCSPly_c();
 
         if (i < 4) {
-            mpObjCSPlyArray_Removed[i] = mpObjCSPlyArray[i];
+            REMOVED(mpObjCSPlyArray)[i] = mpObjCSPlyArray[i];
         }
 
         mpObjCSPlyArray[i]->mPlayerSndIndex = static_cast<SndObjctPly::PLAYER_SOUND_INDEX_e>(i);

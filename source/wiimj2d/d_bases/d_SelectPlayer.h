@@ -1,8 +1,8 @@
 #pragma once
 
-#include "nw4r/lyt/Picture.h"
 #include "d_system/d_base.h"
 #include "d_system/d_lytbase.h"
+#include "nw4r/lyt/Picture.h"
 #include "state/s_FStateFct.h"
 #include "state/s_State.h"
 #include "state/s_StateInterfaces.h"
@@ -33,7 +33,7 @@ public:
     sStateMgr_c<dSelectPlayer_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
 
     /* 0xAC */ LytBase_c mLayout;
-    /* 0x244 */ nw4r::lyt::Picture* mpaButtons_Removed[4 + 3];
+    /* 0x244 */ nw4r::lyt::Picture* REMOVED(mpaButtons)[4 + 3];
     /* 0x260 */ nw4r::lyt::Pane* mpaRootPanes[2];
     /* 0x268 */ bool mLayoutLoaded;
     /* 0x269 */ u8 m0x269;

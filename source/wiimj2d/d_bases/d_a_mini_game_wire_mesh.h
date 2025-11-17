@@ -54,9 +54,9 @@ public:
 
     FILL(0x6E8, 0x744);
 
-    /* 0x744 */ f32 mPlayerX_Removed[4];
-    /* 0x754 */ f32 mPlayerY_Removed[4];
-    /* 0x764 */ f32 mPlayerZ_Removed[4];
+    /* 0x744 */ f32 REMOVED(mPlayerX)[4];
+    /* 0x754 */ f32 REMOVED(mPlayerY)[4];
+    /* 0x764 */ f32 REMOVED(mPlayerZ)[4];
 
     FILL(0x774, 0x8B0);
 
@@ -65,10 +65,10 @@ public:
     /* 0x8B6 */ s16 m0x8B6;
     /* 0x8B8 */ s16 m0x8B8;
     /* 0x8BA */ s16 m0x8BA;
-    /* 0x8BC */ bool mPlayers0x8BC_Removed[4];
-    /* 0x8C0 */ u8 mPlayerChainlinkMode_Removed[4];
-    /* 0x8C4 */ bool mPlayers0x8C4_Removed[4];
-    /* 0x8C8 */ s8 mPlayerIDs_Removed[4];
+    /* 0x8BC */ bool REMOVED(mPlayers0x8BC)[4];
+    /* 0x8C0 */ u8 REMOVED(mPlayerChainlinkMode)[4];
+    /* 0x8C4 */ bool REMOVED(mPlayers0x8C4)[4];
+    /* 0x8C8 */ s8 REMOVED(mPlayerIDs)[4];
 
     FILL(0x8CC, 0x908);
     OFFSET_ASSERT(0x908);

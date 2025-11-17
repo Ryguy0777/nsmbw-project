@@ -5,6 +5,8 @@
 
 #define PRAGMA(...) _Pragma(#__VA_ARGS__)
 
+#define restrict __restrict
+
 #define address(_ADDRESS) _Clang::__external__(#_ADDRESS)
 
 #define address_data(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)
@@ -52,8 +54,6 @@ struct _MRel_extern_array_entry {
 
 #define FILL(_START, _END) u8 __##_START[_END - _START]
 
-#define restrict __restrict
-
 struct [[__gnu__::__packed__]] __offset_assert {
     template <class T>
     struct utype;
@@ -96,7 +96,5 @@ static_assert(sizeof(__offset_assert) == 0);
 #define OFFSET_ASSERT(_OFFSET)                                                                     \
     [[no_unique_address]] __offset_assert __assert_##_OFFSET = __offset_assert::test<              \
       __builtin_offsetof(__offset_assert::u<decltype(this)>, __assert_##_OFFSET), _OFFSET>()
-
-#define BIT_FLAG(_BIT) (1 << _BIT)
 
 #define REMOVED(_NAME) Removed_##_NAME

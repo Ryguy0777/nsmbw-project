@@ -1,6 +1,7 @@
 #pragma once
 
 #include "d_system/d_a_player_manager.h"
+#include "machine/m_pad.h"
 #include "d_system/d_game_key_core.h"
 #include <egg/core/eggHeap.h>
 
@@ -21,23 +22,13 @@ public:
     /* 0x800B5980 */
     dGameKey_c();
 
+    /**
+     * Recreate the dGameKey\_c class to support 8 players.
+     */
     dGameKey_c(dGameKey_c* old);
 
     /* VT+0x8 0x800B5A00 */
     virtual ~dGameKey_c();
-
-public:
-    // Static Variables
-    // ^^^^^^
-
-    /* 0x8042A230 */ static dGameKey_c* m_instance;
-
-public:
-    // Static Methods
-    // ^^^^^^
-
-    /* 0x800B5930 */
-    static void createInstance(EGG::Heap* heap);
 
 public:
     // Functions
@@ -54,4 +45,26 @@ public:
     // ^^^^^^
 
     /* 0x04 */ dGameKeyCore_c* mpCores[CORE_COUNT];
+
+public:
+    // Static Methods
+    // ^^^^^^
+
+    /* 0x800B5930 */
+    static void createInstance(EGG::Heap* heap);
+
+public:
+    // Static Inline Methods
+    // ^^^^^^
+
+    static inline dGameKeyCore_c* getCurrentCore()
+    {
+        return m_instance->mpCores[static_cast<std::size_t>(mPad::g_currentCoreID)];
+    }
+
+public:
+    // Static Variables
+    // ^^^^^^
+
+    /* 0x8042A230 */ static dGameKey_c* m_instance;
 };

@@ -20,7 +20,7 @@ public:
     virtual ~dGameKeyCore_c();
 
 public:
-    // Constants and Types
+    // Constants
     // ^^^^^^
 
     /* @unofficial */
@@ -61,6 +61,10 @@ public:
 
     /* 0x800B62A0 */
     void setShakeY();
+
+public:
+    // Inline Methods
+    // ^^^^^^
 
     inline EGG::CoreController* getCoreController() const
     {

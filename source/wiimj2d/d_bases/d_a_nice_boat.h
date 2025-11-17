@@ -19,7 +19,7 @@ public:
 
     FILL(0x454, 0xE0A);
 
-    /* 0xE0A */ u8 mPlayerRideStatus_Removed[4];
+    /* 0xE0A */ u8 REMOVED(mPlayerRideStatus)[4];
 
     FILL(0xE0E, 0xE18);
     OFFSET_ASSERT(0xE18);

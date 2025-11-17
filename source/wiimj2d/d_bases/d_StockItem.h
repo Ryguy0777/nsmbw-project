@@ -33,7 +33,7 @@ public:
         P_iconBase_02 = 16,
         P_iconBase_03 = 17,
         P_iconBase_04 = 18,
-        P_iconBase_05 = 19,  
+        P_iconBase_05 = 19,
         P_iconBase_06 = 20,
         P_iconBase_07 = 21,
         P_iconBase_08 = 22,
@@ -69,7 +69,7 @@ public:
 
     FILL(0x248, 0x2E4);
 
-    /* 0x2E4 */ da2DPlayer_c* mpa2DPlayer_Removed[4];
+    /* 0x2E4 */ da2DPlayer_c* REMOVED(mpa2DPlayer)[4];
     /* 0x2F4 */ daWmItem_c* mpaItem[7];
     /* 0x310 */ dStockItemShadow_c* mpShadow;
 
@@ -80,7 +80,7 @@ public:
 
     FILL(0x8D0, 0x8D8);
 
-    /* 0x8D8 */ bool maPlayerPresent_Removed[4];
+    /* 0x8D8 */ bool REMOVED(maPlayerPresent)[4];
 
     FILL(0x8DC, 0x8DD);
 

@@ -308,7 +308,7 @@ public:
     /* 0x008 */ SndObjctCmnEmy* mpObjCmnEmy;
     /* 0x00C */ SndObjctCmnMap* mpObjCmnMap;
 
-    /* 0x010 */ dAudio::SndObjctCSPly_c* mpObjCSPlyArray_Removed[4];
+    /* 0x010 */ dAudio::SndObjctCSPly_c* REMOVED(mpObjCSPlyArray)[4];
     /* 0x020 */ dAudio::SndObjctCSPly_c* mpObjCSPly;
 
     /* 0x024 */ SeParam_t mSeParam[30];
