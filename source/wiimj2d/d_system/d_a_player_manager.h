@@ -54,8 +54,8 @@ public:
     [[nodiscard]]
     static u8 getPlayerCreateAction();
 
-    /* 0x8005EEE0 @unofficial */
-    static bool createPlayer(int player, mVec3_c position, s32 gotoKind, bool faceLeft);
+    /* 0x8005EEE0 */
+    static bool create(int player, mVec3_c position, int gotoKind, u8 faceLeft);
 
     /* 0x8005EF50 */
     static void createCourseInit();

@@ -3,8 +3,12 @@
 
 #include "c_unary_tree.h"
 
-// Looks like a badly stripped assert
-void UNDEF_80161880();
+/**
+ * @unofficial
+ * Looks like a badly stripped assert.
+ */
+[[address(0x80161880)]]
+void cUnaryTree_Fatal();
 
 [[address(0x80161890)]]
 void cUnaryTreeMg_c::add(cUnaryTreeNd_c* nd, void* owner);
