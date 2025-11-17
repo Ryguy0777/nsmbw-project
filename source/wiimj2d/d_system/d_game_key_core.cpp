@@ -54,11 +54,10 @@ void dGameKeyCore_c::read()
             } else if (devType == Extension_e::FREESTYLE) {
                 // Wii Remote + Nunchuck
                 mType = Type_e::FREESTYLE;
-            }/*  else if (devType == Extension_e::CLASSIC) {
-                // Wii Remote + Classic controller
+            } else if (devType == Extension_e::CLASSIC) {
+                // Classic controller
                 mType = Type_e::CLASSIC;
-            } */
-            // TODO: Fix this ^
+            }
         }
 
         // Set raw button input from EGG::CoreController
@@ -102,8 +101,9 @@ void dGameKeyCore_c::read()
     // Flip accelerometer data for Nunchuck mode
     // TODO: Seems to be broken
     if (mType == Type_e::FREESTYLE) {
+        float accelX = mAccel.x;
         mAccel.x = mAccel.z;
-        mAccel.z = mAccel.x;
+        mAccel.z = accelX;
     }
 
     // Not sure what this does

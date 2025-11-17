@@ -43,6 +43,7 @@ public:
                 FREESTYLE = 1,
                 OTHER = 2,
                 NOT_FOUND = 3,
+                CLASSIC = 4, // TODO: Implement
             };
 
         public:

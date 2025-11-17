@@ -185,6 +185,14 @@ public:
     {
         return isTrig(WPAD_SIDE_BUTTON_DOWN);
     }
+    
+    /**
+     * Gets the mTilt value as a usuable s16 for actors.
+     */
+    inline s16 getTiltLR() const
+    {
+        return static_cast<s16>(static_cast<int>((mAccelVerticalX.y / 30.0) * 16384.0));
+    }
 
 public:
     /* 0x04 */ mPad::CH_e mChannel;
