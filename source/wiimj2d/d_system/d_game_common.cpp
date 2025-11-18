@@ -7,6 +7,8 @@
 #include "d_bases/d_s_stage.h"
 #include "d_player/d_SmallScoreManager.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_game_key.h"
+#include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
 #include "d_system/d_lyttextbox.h"
 #include "d_system/d_mj2d_game.h"
@@ -417,7 +419,10 @@ bool chkContinue()
 }
 
 [[address(0x800B53F0)]]
-bool chkCancelButton(int player);
+bool chkCancelButton(int player)
+{
+    return dGameKey_c::m_instance->mpCores[player]->checkMenuCancel();
+}
 
 [[address(0x800B5450)]]
 void setWorldClearFlag();
