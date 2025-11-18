@@ -7,5 +7,7 @@ namespace std
 
 using ::fabs;
 using ::fabsf;
+using ::sqrt;
+using ::sqrtf;
 
 } // namespace std

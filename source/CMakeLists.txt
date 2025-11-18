@@ -847,7 +847,7 @@ target_sources(project PRIVATE
     runtime/runtime.c
 
 #
-# msl/msl_c
+# PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src
 #
 
 # NSMBW          .text:  0x802DEC0C - 0x802DEDFC
@@ -869,4 +869,12 @@ target_sources(project PRIVATE
 
 # NSMBW          .text:  0x802E47E8 - 0x802E4860
     msl/msl_c/wchar_io.c
+
+#
+# PowerPC_EABI_Support/MSL/MSL_C/MSL_Common_Embedded/Math/Double_precision
+#
+
+# NSMBW .text: 0x802E8B58 - 0x802E8B5C
+    msl/msl_c/math/w_sqrt.c
+
 )
