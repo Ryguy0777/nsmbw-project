@@ -13,8 +13,8 @@ void dPADInfo::convertPADStatus(PADStatus* status)
     for (int i = 0; i < 4; i++) {
         // Get raw inputs
         PADStatus padStatus = status[i];
-        dPADInfo *padInfo = &saPadInfo[i];
-        
+        dPADInfo* padInfo = &saPadInfo[i];
+
         // Assign button data from previous frame
         padInfo->mPrevHold = padInfo->mHold;
         padInfo->mPrevTrig = padInfo->mTrig;
@@ -29,8 +29,10 @@ void dPADInfo::convertPADStatus(PADStatus* status)
         // Triggers
         // OEM controllers never report a full analog value
         // So we report a full press if the digital input is being pressed
-        padInfo->mLTrigger = padInfo->mHold & PADButton::PAD_TRIGGER_L ? 1.0f : padStatus.triggerL / 255;
-        padInfo->mRTrigger = padInfo->mHold & PADButton::PAD_TRIGGER_R ? 1.0f : padStatus.triggerR / 255;
+        padInfo->mLTrigger =
+          padInfo->mHold & PADButton::PAD_TRIGGER_L ? 1.0f : padStatus.triggerL / 255;
+        padInfo->mRTrigger =
+          padInfo->mHold & PADButton::PAD_TRIGGER_R ? 1.0f : padStatus.triggerR / 255;
 
         // Sticks
         padInfo->mStick.x = padStatus.stickX / 110;

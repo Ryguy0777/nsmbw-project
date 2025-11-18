@@ -3,10 +3,11 @@
 
 #include "eggController.h"
 
+#include <d_system/d_pad_info.h>
 #include <revolution/kpad.h>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
-#include <d_system/d_pad_info.h>
+
 
 namespace EGG
 {

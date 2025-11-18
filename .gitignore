@@ -71,3 +71,4 @@ build*/
 *.xcodeproj/
 # Local scripts
 /private/
+/.vscode
