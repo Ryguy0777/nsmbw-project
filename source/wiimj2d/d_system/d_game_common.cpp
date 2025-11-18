@@ -13,6 +13,8 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
+#include "state/s_Lib.h"
+#include <algorithm>
 #include <nw4r/lyt/Window.h>
 #include <nw4r/ut/Color.h>
 
@@ -89,6 +91,30 @@ void GoalScoreExecute(const mVec3_c& pos, int playerNo)
     dSmallScoreManager_c::m_instance->GoalScoreExecute(
       pos, static_cast<int>(daPyMng_c::mPlayerType[playerNo])
     );
+}
+
+[[address(0x800B3980)]]
+short CalculateTilt(int, float, float);
+
+bool CalculateTiltShoulder(
+  short* target_var, short target_value, short increment, s8 playerNo, short max
+)
+{
+    if (playerNo < 0) {
+        return sLib::chaseAngle(target_var, target_value, increment);
+    }
+
+    dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[playerNo];
+    if (currentCore->mType == dGameKeyCore_c::Type_e::DOLPHIN) {
+        short LR = currentCore->getTiltLR();
+        short newTarget = *target_var + LR;
+        if (max) {
+            newTarget = std::clamp<short>(newTarget, -max, max);
+        }
+        return sLib::chaseAngle(target_var, newTarget, increment);
+    } else {
+        return sLib::chaseAngle(target_var, target_value, increment);
+    }
 }
 
 [[address(0x800B3600)]]

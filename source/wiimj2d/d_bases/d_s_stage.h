@@ -18,7 +18,16 @@ class dStaffCreditScore_c;
 struct dReplayPlay_c {
     FILL(0x00, 0x64);
 
-    /* 0x64 */ u8 mFrameFlags;
+    /* 0x64 */ u32 mFrameFlags;
+    /* 0x68 */ u32 mPrevFrameFlags;
+    /* 0x6C */ u32 mFrameInput;
+    /* 0x70 */ u32 mPrevFrameInput;
+    /* 0x74 */ u32 mFrameCount;
+    /* 0x78 */ mVec3_c mFrameAccel;
+    /* 0x84 */ mVec2_c mFrameAccelVertX;
+    /* 0x8C */ mVec2_c mFrameAccelVertY;
+    /* 0x94 */ mVec2_c mFrameAccelVertZ;
+    /* 0x9C */ u16 mFrameTilt;
 };
 
 class dScStage_c : public dBase_c

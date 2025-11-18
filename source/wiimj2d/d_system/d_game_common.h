@@ -46,6 +46,13 @@ void CreateSmallAll1up(const mVec3_c&);
 /* 0x800B35D0 */
 void GoalScoreExecute(const mVec3_c&, int);
 
+/* 0x800B3980 */
+short CalculateTilt(int, float, float);
+
+bool CalculateTiltShoulder(
+  short* target_var, short target_value, short increment, s8 playerNo, short max
+);
+
 /* 0x800B5340 */
 bool chkContinue();
 

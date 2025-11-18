@@ -180,6 +180,9 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x800CFCE0 - 0x800D03C0
     wiimj2d/d_system/d_next.cpp
 
+# NSMBW: ---
+    wiimj2d/d_system/d_pad_info.cpp
+
 # NSMBW          .text:  0x800D0A90 - 0x800D15F0
     wiimj2d/d_system/d_pause_manager.cpp
 
@@ -285,6 +288,9 @@ target_sources(project PRIVATE
 
 # NSMBW   d_bases.text:  0x80837370 - 0x80838020
     wiimj2d/d_bases/d_a_lift_fall.cpp
+
+# NSMBW   d_bases.text:  0x8083EBC0 - 0x8083FEC0
+    wiimj2d/d_bases/d_a_lift_remocon_seesaw.cpp
 
 # NSMBW   d_bases.text:  0x80845940 - 0x808468E0
     wiimj2d/d_bases/d_a_lift_ride_move.cpp
@@ -479,6 +485,8 @@ target_sources(project PRIVATE
     wiimj2d/d_enemies/d_a_en_red_ring.cpp
 # NSMBW d_enemies.text:  0x80A93990 - 0x80A94D90
     wiimj2d/d_enemies/d_a_en_redcoin.cpp
+# NSMBW d_enemies.text:  0x80A94D90 - 0x80A97B30
+    wiimj2d/d_enemies/d_a_en_remocon_cannon.cpp
 
 # NSMBW d_enemies.text:  0x80AC7800 - 0x80AC8270
     wiimj2d/d_enemies/d_a_en_water_stream.cpp
@@ -744,6 +752,8 @@ target_sources(project PRIVATE
 
 # NSMBW          .text:  0x801DDB10 - 0x801DDB70
     revolution/pad/Pad.c
+# NSMBW: ---
+    revolution/pad/PadClamp.c
 
 #
 # revolution/wpad

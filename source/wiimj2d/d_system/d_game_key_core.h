@@ -1,7 +1,9 @@
 #pragma once
 
+#include "d_system/d_pad_info.h"
 #include "machine/m_pad.h"
 #include "machine/m_vec.h"
+#include "revolution/wpad.h"
 #include <revolution/pad.h>
 
 class dGameKeyCore_c
@@ -34,13 +36,25 @@ public:
          */
         FREESTYLE = 1,
         /**
-         * GameCube Controller (TODO: currently set as CORE).
+         * GameCube Controller.
          */
         DOLPHIN = 2,
         /**
          * Classic Controller (TODO).
          */
         CLASSIC = 3,
+    };
+
+    /* @unofficial */
+    // Unsure if this is a part of dGameKeyCore_c
+    // Might be flipped?
+    enum FSStickButton {
+        WPAD_FS_STICK_UP = (1 << 16),
+        WPAD_FS_STICK_DOWN = (1 << 17),
+        WPAD_FS_STICK_LEFT = (1 << 18),
+        WPAD_FS_STICK_RIGHT = (1 << 19),
+
+        WPAD_FS_STICK_ALL = 0xF0000,
     };
 
 public:
@@ -52,6 +66,12 @@ public:
 
     /* 0x800B5CB0 */
     void read();
+
+    /* 0x800B60D0 */
+    u32 setConfigKey(u32 button);
+
+    /* 0x800B61F0 */
+    void handleTilting();
 
     /* 0x800B62A0 */
     void setShakeY();
@@ -68,6 +88,11 @@ public:
     inline ::PADStatus* getPadStatus() const
     {
         return EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
+    }
+
+    inline ::dPADInfo* getPadInfo() const
+    {
+        return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
     }
 
     /**
@@ -104,7 +129,7 @@ public:
             break;
 
         case Type_e::DOLPHIN:
-            return getPadStatus()->button & PAD_BUTTON_A;
+            return getPadInfo()->mTrig & PAD_BUTTON_A;
         }
 
         return getCoreController()->downTrigger(button);
@@ -128,7 +153,7 @@ public:
             break;
 
         case Type_e::DOLPHIN:
-            return getPadStatus()->button & PAD_BUTTON_B;
+            return getPadInfo()->mTrig & PAD_BUTTON_B;
         }
 
         return getCoreController()->downTrigger(button);
@@ -165,18 +190,30 @@ public:
     {
         return isTrig(WPAD_SIDE_BUTTON_DOWN);
     }
+    
+    /**
+     * Gets the mTilt value as a usuable s16 for actors.
+     */
+    inline s16 getTiltLR() const
+    {
+        return static_cast<s16>(static_cast<int>((mAccelVerticalX.y / 30.0) * 16384.0));
+    }
 
 public:
+    // Instance Variables
+    // ^^^^^^
+
     /* 0x04 */ mPad::CH_e mChannel;
     /* 0x08 */ Type_e mType;
-
-    FILL(0x0C, 0x18);
-
-    /* 0x18 */ u32 mHeld;
+    /* 0x0C */ u32 mRawHeld; // mHeld without Nunchuck button manipulation
+    /* 0x10 */ u32 mPrevRawHeld; // mHeld without Nunchuck button manipulation
+    /* 0x14 */ u32 mHeld;
+    /* 0x18 */ u32 mPrevHeld;
     /* 0x1C */ u32 mTriggered;
-
-    FILL(0x20, 0x30);
-
+    /* 0x20 */ u32 m0x20;
+    /* 0x24 */ u32 m0x24;
+    /* 0x28 */ u32 m0x28;
+    /* 0x2C */ u32 m0x2C;
     /* 0x30 */ u32 m0x30;
     /* 0x34 */ mVec3_c mAccel;
     /* 0x40 */ mVec3_c mAccelOld;
@@ -191,7 +228,7 @@ public:
     /* 0x88 */ f32 mMoveDistanceOld;
     /* 0x8C */ bool mShake;
     /* 0x8D */ bool mShakeOld;
-    /* 0x8E */ u16 mTilt;
+    /* 0x8E */ short mTilt;
     /* 0x90 */ u8 mShakeTimer1;
     /* 0x91 */ u8 mShakeTimer2;
     /* 0x92 */ u8 mShakeTimer3;

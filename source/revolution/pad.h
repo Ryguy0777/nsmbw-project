@@ -38,18 +38,19 @@ struct PADStatus {
 struct PADClampRegion {
     SIZE_ASSERT(0xA);
 
-    /* 0x0 */ u8 unk_00;
-    /* 0x1 */ u8 unk_01;
-    /* 0x2 */ s8 stickMin;
-    /* 0x3 */ s8 unk_03;
-    /* 0x4 */ s8 unk_04;
-    /* 0x5 */ s8 substickMin;
-    /* 0x6 */ s8 unk_06;
-    /* 0x7 */ s8 unk_07;
-    /* 0x8 */ s8 stickRad;
-    /* 0x9 */ s8 substickRad;
+    /* 0x0 */ u8 minTrigger;
+    /* 0x1 */ u8 maxTrigger;
+    /* 0x2 */ s8 minStick;
+    /* 0x3 */ s8 maxStick;
+    /* 0x4 */ s8 xyStick;
+    /* 0x5 */ s8 minSubstick;
+    /* 0x6 */ s8 maxSubstick;
+    /* 0x7 */ s8 xySubstick;
+    /* 0x8 */ s8 radStick;
+    /* 0x9 */ s8 radSubstick;
 };
 
+void PADClamp(PADStatus*);
 void PAD_ClampCircle(s8*, s8*, s8, s8);
 void PADClampCircle(PADStatus*);
 void PADClampCircle2(PADStatus*, u32);
