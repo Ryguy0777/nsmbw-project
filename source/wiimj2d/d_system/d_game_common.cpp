@@ -13,7 +13,6 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
-#include "revolution/os/OSError.h"
 #include "state/s_Lib.h"
 #include <algorithm>
 #include <nw4r/lyt/Window.h>
@@ -101,13 +100,11 @@ bool CalculateTiltShoulder(
   short* target_var, short target_value, short increment, s8 playerNo, short max
 )
 {
-    OS_REPORT("%x, %x, %x, %d, %x\n", *target_var, target_value, increment, playerNo, max);
     if (playerNo < 0) {
         return sLib::chaseAngle(target_var, target_value, increment);
     }
 
     dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[playerNo];
-    OS_REPORT("%d\n", currentCore->mType);
     if (currentCore->mType == dGameKeyCore_c::Type_e::DOLPHIN) {
         short LR = currentCore->getTiltLR();
         short newTarget = *target_var + LR;
