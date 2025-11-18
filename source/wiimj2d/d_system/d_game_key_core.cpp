@@ -6,15 +6,16 @@
 #include "d_bases/d_s_stage.h"
 #include "d_player/d_a_player.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_pad_info.h"
 #include "d_system/d_remocon_mng.h"
 #include "framework/f_feature.h"
-#include <cmath>
-#include <egg/core/eggController.h>
-#include <revolution/pad.h>
-#include "d_system/d_pad_info.h"
 #include "machine/m_vec.h"
 #include "revolution/wpad.h"
 #include "state/s_Lib.h"
+#include <cmath>
+#include <egg/core/eggController.h>
+#include <revolution/pad.h>
+
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -34,20 +35,23 @@ void dGameKeyCore_c::read()
     mAngleOld = mAngle;
     mMoveDistanceOld = mMoveDistance;
 
-    EGG::CoreController *coreCont = getCoreController();
+    EGG::CoreController* coreCont = getCoreController();
 
-    dReplayPlay_c *replayData = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)];
+    dReplayPlay_c* replayData = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)];
     if (replayData == nullptr) {
         // Replay is not active for this channel
 
         // Assign controller type
-        PADStatus* padStatus = EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
+        PADStatus* padStatus =
+          EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
         if (padStatus != nullptr) {
             // GameCube controller
             mType = Type_e::DOLPHIN;
         } else {
             using Extension_e = dRemoconMng_c::dConnect_c::dExtension_c::Type_e;
-            Extension_e devType = dRemoconMng_c::m_instance->mpaConnect[static_cast<int>(mChannel)]->getExtension()->getType();
+            Extension_e devType = dRemoconMng_c::m_instance->mpaConnect[static_cast<int>(mChannel)]
+                                    ->getExtension()
+                                    ->getType();
             if (devType == Extension_e::NONE) {
                 // Sideways Wii Remote
                 mType = Type_e::CORE;
@@ -139,7 +143,9 @@ void dGameKeyCore_c::read()
         uVar10 += 2;
     }
     handleTilting();
-    mMoveDistance = EGG::Math<float>::sqrt(static_cast<float>(mAccel.z * mAccel.z + mAccel.x * mAccel.x + mAccel.y * mAccel.y));
+    mMoveDistance = EGG::Math<float>::sqrt(
+      static_cast<float>(mAccel.z * mAccel.z + mAccel.x * mAccel.x + mAccel.y * mAccel.y)
+    );
     if (mMoveDistance < 1.2) {
         mMoveDistance = 1.0;
     }
@@ -160,8 +166,7 @@ u32 dGameKeyCore_c::setConfigKey(u32 button)
     u32 processed;
     if (mType == Type_e::FREESTYLE) {
         // Home, Minus, and Plus can stay the same
-        processed = 
-          button & (WPAD_BUTTON_HOME | WPAD_BUTTON_MINUS | WPAD_BUTTON_PLUS);
+        processed = button & (WPAD_BUTTON_HOME | WPAD_BUTTON_MINUS | WPAD_BUTTON_PLUS);
 
         // Clear D-Pad if stick is pushed in any direction
         if (button & WPAD_FS_STICK_ALL) {

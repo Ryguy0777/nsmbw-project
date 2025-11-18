@@ -200,6 +200,9 @@ public:
     }
 
 public:
+    // Instance Variables
+    // ^^^^^^
+
     /* 0x04 */ mPad::CH_e mChannel;
     /* 0x08 */ Type_e mType;
     /* 0x0C */ u32 mRawHeld; // mHeld without Nunchuck button manipulation

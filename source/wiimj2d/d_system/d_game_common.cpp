@@ -13,8 +13,11 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
-#include <nw4r/ut/Color.h>
+#include "revolution/os/OSError.h"
+#include "state/s_Lib.h"
+#include <algorithm>
 #include <nw4r/lyt/Window.h>
+#include <nw4r/ut/Color.h>
 
 namespace dGameCom
 {
@@ -89,7 +92,30 @@ void GoalScoreExecute(const mVec3_c& pos, int playerNo)
 }
 
 [[address(0x800B3980)]]
-short CalculateTilt(int, float, float); 
+short CalculateTilt(int, float, float);
+
+bool CalculateTiltShoulder(
+  short* target_var, short target_value, short increment, s8 playerNo, short max
+)
+{
+    OS_REPORT("%x, %x, %x, %d, %x\n", *target_var, target_value, increment, playerNo, max);
+    if (playerNo < 0) {
+        return sLib::chaseAngle(target_var, target_value, increment);
+    }
+
+    dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[playerNo];
+    OS_REPORT("%d\n", currentCore->mType);
+    if (currentCore->mType == dGameKeyCore_c::Type_e::DOLPHIN) {
+        short LR = currentCore->getTiltLR();
+        short newTarget = *target_var + LR;
+        if (max) {
+            newTarget = std::clamp<short>(newTarget, -max, max);
+        }
+        return sLib::chaseAngle(target_var, newTarget, increment);
+    } else {
+        return sLib::chaseAngle(target_var, target_value, increment);
+    }
+}
 
 [[address(0x800B3600)]]
 void FUN_800B3600() ASM_METHOD(

@@ -182,14 +182,17 @@ UNDEF_8005e294:;
 
 [[address(0x8005E590)]]
 u16 dAcPyKey_c::triggerOne() const
-{   
+{
     dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
     switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mType) {
     case dGameKeyCore_c::Type_e::DOLPHIN:
         // GameCube controller
-        if (mStatus & 0x181) return 0; // Player is in demo mode
+        if (mStatus & 0x181) {
+            // Player is in demo mode
+            return 0;
+        }
         return padInfo->mTrig & PAD_BUTTON_Y;
-        
+
     case dGameKeyCore_c::Type_e::FREESTYLE:
         // Nunchuck mode
         return mTriggeredButtons & WPAD_BUTTON_B;
@@ -207,9 +210,12 @@ u16 dAcPyKey_c::buttonOne() const
     switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mType) {
     case dGameKeyCore_c::Type_e::DOLPHIN:
         // GameCube controller
-        if (mStatus & 0x181) return 0; // Player is in demo mode
+        if (mStatus & 0x181) {
+            // Player is in demo mode
+            return 0;
+        }
         return padInfo->mHold & PAD_BUTTON_Y;
-        
+
     case dGameKeyCore_c::Type_e::FREESTYLE:
         // Nunchuck mode
         return mDownButtons & WPAD_BUTTON_B;

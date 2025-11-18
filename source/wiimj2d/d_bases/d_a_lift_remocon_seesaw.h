@@ -13,6 +13,7 @@ public:
 
     /* 0x8083F4F0 */
     short CalculateAngle();
+
 public:
     // Instance Variables
     // ^^^^^^
