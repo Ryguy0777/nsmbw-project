@@ -125,7 +125,8 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_enemy_death.cpp
 # NSMBW          .text:  0x800A2870 - 0x800A2B70
     wiimj2d/d_system/d_enemy_fumi.cpp
-
+# NSMBW          .text:  0x800A2B70 - 0x800A7450
+    wiimj2d/d_system/d_enemy_jr_clown_base.cpp
 # NSMBW          .text:  0x800A7450 - 0x800A7DA0
     wiimj2d/d_system/d_enemy_manager.cpp
 

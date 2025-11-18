@@ -121,6 +121,9 @@ bool daPlBase_c::isStatus(int flag);
 [[address(0x800583A0)]]
 void daPlBase_c::calcHeadAttentionAngle();
 
+[[address(0x80057E70)]]
+void daPlBase_c::playSound(daPlBase_c*, SndID::Type, long);
+
 // Static array works here as we have a limited number of players
 static fBaseID_e s_lastHitEnemy[PLAYER_COUNT] = {};
 

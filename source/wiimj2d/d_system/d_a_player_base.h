@@ -6,6 +6,7 @@
 #include "d_system/d_actor.h"
 #include "d_system/d_mj2d_game.h"
 #include "machine/m_mtx.h"
+#include "sound/SndID.h"
 #include "sound/SndObjectPlayer.h"
 #include "state/s_State.h"
 
@@ -776,6 +777,9 @@ public:
 
     /* 0x800583A0 */
     void calcHeadAttentionAngle();
+
+    /* 0x80057E70 */
+    static void playSound(daPlBase_c*, SndID::Type, long);
 
     void addDeathMessage(dActor_c* source, DamageType_e type, bool death);
 
