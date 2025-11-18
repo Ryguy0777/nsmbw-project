@@ -24,8 +24,6 @@
 #include <revolution/dvd.h>
 #include <revolution/os.h>
 
-#include <runtime/__mem.c>
-
 // Since the same Loader.bin file will be used for every region, ported addresses need to be
 // realized on the fly.
 
