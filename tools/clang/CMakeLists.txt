@@ -16,8 +16,8 @@ ExternalProject_Add(
         -DLLVM_BUILD_TOOLS=OFF
         -DLLVM_ENABLE_PROJECTS=clang
         -DLLVM_TARGETS_TO_BUILD=PowerPC
-        -DLLVM_DEFAULT_TARGET_TRIPLE=powerpc-gekko-ibm-kuribo-eabi
-        -DLLVM_ENABLE_THREADS=OFF
+        -DLLVM_DEFAULT_TARGET_TRIPLE=powerpc-eabi-kuribo
+        -DLLVM_ENABLE_ASSERTIONS=OFF
         -DLLVM_ENABLE_ZLIB=OFF
         -DLLVM_ENABLE_LIBXML2=OFF
         -DLLVM_ENABLE_UNWIND_TABLES=OFF

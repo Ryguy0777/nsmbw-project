@@ -22,6 +22,9 @@ void initRandomSeed();
 /* 0x800B2EE0 */
 u32 rndInt(u32 max);
 
+/* 0x800B2F00 */
+f32 rnd();
+
 /* 0x800B30C0 */
 f32 getDispCenterX();
 

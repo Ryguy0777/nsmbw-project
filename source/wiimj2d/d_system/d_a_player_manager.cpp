@@ -28,6 +28,7 @@
 #include "machine/m_vec.h"
 #include "sound/SndID.h"
 #include <PatchRel.h>
+#include <algorithm>
 #include <numeric>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
@@ -289,29 +290,34 @@ void daPyMng_c::createCourseInit()
 
         int createOrder[PLAYER_COUNT];
         std::iota(createOrder, createOrder + PLAYER_COUNT, 0);
+        int entryNum = getEntryNum();
 
         if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
             // Randomize the spawn order
+            float createOrderRandom[PLAYER_COUNT];
             for (int i = 0; i < PLAYER_COUNT; i++) {
-                int randomIndex = dGameCom::rndInt(PLAYER_COUNT);
-                int temp = createOrder[i];
-                createOrder[i] = createOrder[randomIndex];
-                createOrder[randomIndex] = temp;
+                createOrderRandom[i] = dGameCom::rnd();
             }
+
+            std::sort(
+              &createOrder[0], &createOrder[PLAYER_COUNT],
+              [createOrderRandom](int l, int r) {
+                return createOrderRandom[l] < createOrderRandom[r];
+            }
+            );
         }
 
         int livePlayerCount = 0;
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            if (mPlayerEntry[i] != 0 && !isCreateBalloon(i)) {
+            if (mPlayerEntry[i] && !isCreateBalloon(i)) {
                 livePlayerCount++;
             }
         }
 
         f32 playerSetDist = 24.0f;
 
-        if (PLAYER_COUNT > 4 &&
-            dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
-            playerSetDist -= 2.0f * (PLAYER_COUNT - 4);
+        if (entryNum > 4 && dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
+            playerSetDist -= 2.0f * (entryNum - 4);
         }
 
         if (isAmbush) {
