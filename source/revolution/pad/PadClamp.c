@@ -29,13 +29,6 @@ static const PADClampRegion ClampRegion = {
     44,
 };
 
-[[address(0x80276020)]]
-double sqrt(double x);
-
-inline float sqrtf(float x) {
-    return sqrt(x);
-}
-
 // prototypes
 static void ClampStick(s8* px, s8* py, s8 max, s8 xy, s8 min);
 static void ClampCircle(s8* px, s8* py, s8 radius, s8 min);
