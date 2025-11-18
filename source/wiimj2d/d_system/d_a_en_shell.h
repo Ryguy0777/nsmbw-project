@@ -17,11 +17,11 @@ public:
     /* VT+0x8C 0x8003A5D0 */
     virtual bool setEatSpitOut(dActor_c* actor) override;
 
-    /* VT+? 0x800389E0 */
-    void Normal_VsPlHitCheck(dCc_c* main, dCc_c* other);
+    /* VT+0xCC 0x800389E0 */
+    virtual void Normal_VsPlHitCheck(dCc_c* self, dCc_c* other) override;
 
-    /* VT+? 0x80039D70 */
-    int hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other);
+    /* VT+0xF0 0x80039D70 */
+    virtual bool hitCallback_YoshiHipAttk(dCc_c* self, dCc_c* other) override;
 
     // Virtual States
     // ^^^^^^

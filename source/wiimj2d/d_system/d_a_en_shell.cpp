@@ -471,7 +471,7 @@ void daEnShell_c::setKickSlide(dCc_c* cc, dActor_c* actor) ASM_METHOD(
 );
 
 [[address(0x80039D70)]]
-int daEnShell_c::hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
+bool daEnShell_c::hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 80039D70 9421FFE0 */  stwu     r1, -32(r1);
 /* 80039D74 7C0802A6 */  mflr     r0;
