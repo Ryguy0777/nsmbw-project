@@ -610,7 +610,15 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
 
   // TODO: daEnRailPolyChild_c::UNDEF_80a8ee60
 
-  // TODO 80a95990, 80a95c00, 80a95c90
+  // daEnRemoconCannon_c::UNDEF_80a95990
+  // {0x80A95BD8 + 2, 2},
+
+  // daEnRemoconCannon_c::UNDEF_80a95c00
+  {0x80A95C6C + 2, 2},
+
+  // daEnRemoconCannon_c::UNDEF_80a95c90
+  {0x80A95CD8 + 2, 2},
+
   // daEnRemoconCannon_c::UNDEF_80a95d00
   {0x80A95D40 + 2, 2},
   // TODO: 80a96c10 daEnRemoconCannon_c::initializeState_Fire
