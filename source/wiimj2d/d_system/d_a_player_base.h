@@ -775,11 +775,11 @@ public:
         return isStatus(static_cast<int>(flag));
     }
 
+    /* 0x80057E70 */
+    void playSound(SndID::Type, long);
+
     /* 0x800583A0 */
     void calcHeadAttentionAngle();
-
-    /* 0x80057E70 */
-    static void playSound(daPlBase_c*, SndID::Type, long);
 
     void addDeathMessage(dActor_c* source, DamageType_e type, bool death);
 
