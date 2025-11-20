@@ -118,6 +118,9 @@ void daPlBase_c::offStatus(int flag);
 [[address(0x80056CF0)]]
 bool daPlBase_c::isStatus(int flag);
 
+[[address(0x80057E70)]]
+void daPlBase_c::playSound(SndID::Type, long);
+
 [[address(0x800583A0)]]
 void daPlBase_c::calcHeadAttentionAngle();
 

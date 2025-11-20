@@ -154,7 +154,7 @@ UNDEF_809c9fd4:;
 );
 
 [[address(0x809CA8D0)]]
-void daEnBomhei_c::hitCallback_HipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
+bool daEnBomhei_c::hitCallback_HipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 809CA8D0 9421FFE0 */  stwu     r1, -32(r1);
 /* 809CA8D4 7C0802A6 */  mflr     r0;

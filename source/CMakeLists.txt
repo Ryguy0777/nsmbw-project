@@ -125,7 +125,8 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_enemy_death.cpp
 # NSMBW          .text:  0x800A2870 - 0x800A2B70
     wiimj2d/d_system/d_enemy_fumi.cpp
-
+# NSMBW          .text:  0x800A2B70 - 0x800A7450
+    wiimj2d/d_system/d_enemy_jr_clown_base.cpp
 # NSMBW          .text:  0x800A7450 - 0x800A7DA0
     wiimj2d/d_system/d_enemy_manager.cpp
 
@@ -282,6 +283,9 @@ target_sources(project PRIVATE
 
 # NSMBW   d_bases.text:  0x807F1A00 - 0x807F2D30
     wiimj2d/d_bases/d_a_floor_jr_C.cpp
+
+# NSMBW   d_bases.text:  0x8080F910 - 0x80813760
+    wiimj2d/d_bases/d_a_jr_clown_for_player.cpp
 
 # NSMBW   d_bases.text:  0x80830690 - 0x80830C40
     wiimj2d/d_bases/d_a_last_actor_stage.cpp

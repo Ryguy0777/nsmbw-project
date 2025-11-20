@@ -53,6 +53,9 @@ bool CalculateTiltShoulder(
   short* target_var, short target_value, short increment, s8 playerNo, short max
 );
 
+/* 0x800B3600 */
+void FUN_800B3600(int, int);
+
 /* 0x800B5340 */
 bool chkContinue();
 

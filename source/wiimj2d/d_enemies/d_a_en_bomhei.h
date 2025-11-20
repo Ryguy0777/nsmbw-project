@@ -10,8 +10,8 @@ public:
     // Virtual Functions
     // ^^^^^^
 
-    /* VT+? 0x809CA8D0 */
-    void hitCallback_HipAttk(dCc_c* main, dCc_c* other);
+    /* VT+0xEC 0x809CA8D0 */
+    virtual bool hitCallback_HipAttk(dCc_c* main, dCc_c* other) override;
 
 public:
     // State IDs

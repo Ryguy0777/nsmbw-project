@@ -1,12 +1,40 @@
 #pragma once
 
+#include "System.h"
 #include "d_system/d_enemy.h"
+#include "machine/m_3d_anmchr.h"
+#include "machine/m_3d_anmtexpat.h"
+#include <nw4r/g3d/g3d_resfile.h>
+
+/* @unofficial */
+class dRemoconCannonGuide_c
+{
+    SIZE_ASSERT(0xAC);
+
+public:
+    // Instance Variables
+    // ^^^^^^
+
+    /* 0x00 */ nw4r::g3d::ResFile mRes;
+    /* 0x04 */ m3d::mdl_c mModel;
+    /* 0x44 */ m3d::anmChr_c mAnmChr;
+    /* 0x7C */ u32 m0x7C;
+    /* 0x80 */ m3d::anmTexPat_c mAnmTexPat;
+};
 
 class daEnRemoconCannon_c : public dEn_c
 {
+    SIZE_ASSERT(0xB60);
+
 public:
     // Instance Methods
     // ^^^^^^
+
+    /* 0x80A950A0 */
+    static void setupGuide(dRemoconCannonGuide_c** guide, int mPlayerNo);
+
+    /* 0x80A95890 */
+    void setBodyColor();
 
     /* 0x80A964E0 */
     bool UNDEF_80a964e0(short target);
@@ -23,5 +51,21 @@ public:
 
     /* 0x7A4 */ short mTargetAngle;
 
-    FILL(0x7A6, 0xB60);
+    FILL(0x7A6, 0x7BC);
+
+    /* 0x7BC */ dRemoconCannonGuide_c *mGuide;
+    
+    FILL(0x7C0, 0x888);
+
+    /* 0x888 */ bool mHasPlayer;
+
+    FILL(0x889, 0x898);
+
+    /* 0x898 */ m3d::anmTexPat_c mAnmTexPat;
+
+    FILL(0x8C4, 0xB54);
+
+    /* 0xB54 */ int mPlayerNo2;
+
+    FILL(0xB58, 0xB60);
 };

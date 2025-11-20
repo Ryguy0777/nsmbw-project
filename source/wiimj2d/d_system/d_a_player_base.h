@@ -6,6 +6,7 @@
 #include "d_system/d_actor.h"
 #include "d_system/d_mj2d_game.h"
 #include "machine/m_mtx.h"
+#include "sound/SndID.h"
 #include "sound/SndObjectPlayer.h"
 #include "state/s_State.h"
 
@@ -773,6 +774,9 @@ public:
     {
         return isStatus(static_cast<int>(flag));
     }
+
+    /* 0x80057E70 */
+    void playSound(SndID::Type, long);
 
     /* 0x800583A0 */
     void calcHeadAttentionAngle();

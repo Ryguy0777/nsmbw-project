@@ -49,9 +49,11 @@ set(DVD_FILES
     Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Black_gray.tpl
     Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_01.tpl
     Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_gray.tpl
+    Object/boat_light_wood.arc/g3d/boat_light_wood.brres
     Object/C_rcha.arc/g3d/model.brres
     Object/Kinopico.arc/g3d/model.brres
     Object/Kinopio.arc/g3d/model.brres
+    Object/koopaJr_clown_ply.arc/g3d/koopaJr_clown_ply.brres
     Object/MG_remo_cannon.arc/g3d/MG_remo_cannon.brres
     Object/middle_flag.arc/g3d/middle_flag.brres
     Object/remo_kanaami.arc/g3d/remo_kanaami.brres

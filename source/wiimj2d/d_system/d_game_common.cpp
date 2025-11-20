@@ -120,7 +120,7 @@ bool CalculateTiltShoulder(
 }
 
 [[address(0x800B3600)]]
-void FUN_800B3600() ASM_METHOD(
+void FUN_800B3600(int, int) ASM_METHOD(
   // clang-format off
 /* 800B3600 800DAB64 */  lwz      r0, UNDEF_8042a4e4@sda21;
 /* 800B3604 7C691B78 */  mr       r9, r3;
