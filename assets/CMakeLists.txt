@@ -61,5 +61,6 @@ set(DVD_FILES
     Object/remo_lift.arc/g3d/remo_lift.brres
     Sound/BANK_SE_VOC_COURSE_KC.brbnk
     Sound/GROUP_SE_VOC_COURSE_KC.brwar
+    Stage/01-09.arc.LZ
     PARENT_SCOPE
 )
