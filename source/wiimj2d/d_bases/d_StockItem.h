@@ -54,6 +54,9 @@ public:
     /* 0x807B00A0 */
     void calc2DPlayerItemUpdate();
 
+    /* 0x807B03A0 */
+    void calcUseEffects();
+
     /* 0x807B06C0 */
     bool checkItemSelect();
 

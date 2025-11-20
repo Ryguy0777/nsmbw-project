@@ -6,7 +6,10 @@
 #include "d_bases/d_StockItemShadow.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
 #include "d_bases/d_a_wm_Item.h"
+#include "d_bases/d_wm_seManager.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_audio.h"
+#include "d_system/d_mj2d_game.h"
 #include "sound/SndSceneMgr.h"
 #include <iterator>
 
@@ -594,6 +597,74 @@ UNDEF_807b031c:;
   // clang-format on
 );
 
+[[address(0x807B03A0)]]
+void dStockItem_c::calcUseEffects() ASM_METHOD(
+  // clang-format off
+UNDEF_807b03a0:;
+/* 807B03A0 9421FFC0 */  stwu     r1, -64(r1);
+/* 807B03A4 7C0802A6 */  mflr     r0;
+/* 807B03A8 3C808093 */  lis      r4, UNDEF_809359d0@ha;
+/* 807B03AC 90010044 */  stw      r0, 68(r1);
+/* 807B03B0 DBE10030 */  stfd     f31, 48(r1);
+/* 807B03B4 F3E10038 */  .long    0xF3E10038; // psq_st   f31, 56(r1), 0, 0;
+/* 807B03B8 C3E459D0 */  lfs      f31, UNDEF_809359d0@l(r4);
+/* 807B03BC 93E1002C */  stw      r31, 44(r1);
+/* 807B03C0 93C10028 */  stw      r30, 40(r1);
+/* 807B03C4 3BC3032C */  addi     r30, r3, 812;
+/* 807B03C8 93A10024 */  stw      r29, 36(r1);
+/* 807B03CC 3BA00000 */  li       r29, 0;
+/* 807B03D0 93810020 */  stw      r28, 32(r1);
+/* 807B03D4 7C7C1B78 */  mr       r28, r3;
+/* 807B03D8 7F9FE378 */  mr       r31, r28;
+UNDEF_807b03dc:;
+/* 807B03DC 801F0890 */  lwz      r0, 2192(r31);
+/* 807B03E0 2C000004 */  cmpwi    r0, 4;
+/* 807B03E4 4182004C */  beq-     UNDEF_807b0430;
+/* 807B03E8 5400103A */  slwi     r0, r0, 2                 ;
+/* 807B03EC 7FC3F378 */  mr       r3, r30;
+/* 807B03F0 7CBC0214 */  add      r5, r28, r0;
+/* 807B03F4 38810008 */  addi     r4, r1, 8;
+/* 807B03F8          */  lwz      r7, dStockItem_c_OFFSET_mpa2DPlayer(r5);
+/* 807B03FC 38A00000 */  li       r5, 0;
+/* 807B0400 38C00000 */  li       r6, 0;
+/* 807B0404 C00700B0 */  lfs      f0, 176(r7);
+/* 807B0408 C02700B4 */  lfs      f1, 180(r7);
+/* 807B040C C04700AC */  lfs      f2, 172(r7);
+/* 807B0410 EC00F82A */  fadds    f0, f0, f31;
+/* 807B0414 D0410008 */  stfs     f2, 8(r1);
+/* 807B0418 D0210010 */  stfs     f1, 16(r1);
+/* 807B041C D001000C */  stfs     f0, 12(r1);
+/* 807B0420 819E0000 */  lwz      r12, 0(r30);
+/* 807B0424 818C00B0 */  lwz      r12, 176(r12);
+/* 807B0428 7D8903A6 */  mtctr    r12;
+/* 807B042C 4E800421 */  bctrl    ;
+UNDEF_807b0430:;
+/* 807B0430 3BBD0001 */  addi     r29, r29, 1;
+/* 807B0434 3BDE0114 */  addi     r30, r30, 276;
+/* 807B0438 2C1D0004 */  cmpwi    r29, 4;
+/* 807B043C 3BFF0004 */  addi     r31, r31, 4;
+/* 807B0440 4180FF9C */  blt+     UNDEF_807b03dc;
+/* 807B0444 80010044 */  lwz      r0, 68(r1);
+/* 807B0448 E3E10038 */  .long    0xE3E10038; // psq_l    f31, 56(r1), 0, 0;
+/* 807B044C CBE10030 */  lfd      f31, 48(r1);
+/* 807B0450 83E1002C */  lwz      r31, 44(r1);
+/* 807B0454 83C10028 */  lwz      r30, 40(r1);
+/* 807B0458 83A10024 */  lwz      r29, 36(r1);
+/* 807B045C 83810020 */  lwz      r28, 32(r1);
+/* 807B0460 7C0803A6 */  mtlr     r0;
+/* 807B0464 38210040 */  addi     r1, r1, 64;
+/* 807B0468 4E800020 */  blr      ;
+/* 807B046C 00000000 */  .word    0x00000000;
+  // clang-format on
+)
+
+void stockItemPlayStarVoice(PLAYER_TYPE_e character, bool isMame)
+{
+    dAudio::SndObjctCSPly_c* playerSound = dWmSeManager_c::m_pInstance->mpObjCSPlyArray[character];
+    playerSound->mSoundPlyMode = (isMame) ? 3 : 0;
+    playerSound->startVoiceSound(SndObjctPly::PLAYER_VOICE_e::GET_STAR, 0);
+}
+
 [[address(0x807B06C0)]]
 bool dStockItem_c::checkItemSelect() ASM_METHOD(
   // clang-format off
@@ -644,18 +715,14 @@ UNDEF_807b0748:;
 /* 807B0768 41820040 */  beq-     UNDEF_807b07a8;
 /* 807B076C 2C070000 */  cmpwi    r7, 0;
 /* 807B0770 4182001C */  beq-     UNDEF_807b078c;
-/* 807B0774 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0778 3880066E */  li       r4, 1646; // SE_PLY_CS_CHANGE_MAME_STAR
-/* 807B077C 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
-/* 807B0780 38A00001 */  li       r5, 1;
-/* 807B0784 4B9E4D3D */  bl       startSystemSe__11SndAudioMgrFUiUl;
+                         lwz      r3, 0x0(r6);
+                         li       r4, 1;
+                         bl       stockItemPlayStarVoice__F13PLAYER_TYPE_eb;
 /* 807B0788 48000018 */  b        UNDEF_807b07a0;
 UNDEF_807b078c:;
-/* 807B078C 3C608043 */  lis      r3, sInstance__11SndAudioMgr@ha;
-/* 807B0790 3880066D */  li       r4, 1645; // SE_PLY_CS_CHANGE_STAR
-/* 807B0794 8063A768 */  lwz      r3, sInstance__11SndAudioMgr@l(r3);
-/* 807B0798 38A00001 */  li       r5, 1;
-/* 807B079C 4B9E4D25 */  bl       startSystemSe__11SndAudioMgrFUiUl;
+                         lwz      r3, 0x0(r6);
+                         li       r4, 0;
+                         bl       stockItemPlayStarVoice__F13PLAYER_TYPE_eb;
 UNDEF_807b07a0:;
 /* 807B07A0 38600001 */  li       r3, 1;
 /* 807B07A4 48000118 */  b        UNDEF_807b08bc;
@@ -665,13 +732,13 @@ UNDEF_807b07a8:;
 /* 807B07B0 4200FF98 */  bdnz+    UNDEF_807b0748;
 /* 807B07B4 48000104 */  b        UNDEF_807b08b8;
 UNDEF_807b07b8:;
-/* 807B07B8 3FA08035 */  lis      r29, UNDEF_80355160@ha;
-/* 807B07BC 3FC08035 */  lis      r30, UNDEF_80355180@ha;
-/* 807B07C0 3FE08035 */  lis      r31, UNDEF_80355170@ha;
+/* 807B07B8 3FA08035 */  lis      r29, mPlayerType__9daPyMng_c@ha;
+/* 807B07BC 3FC08035 */  lis      r30, mCreateItem__9daPyMng_c@ha;
+/* 807B07C0 3FE08035 */  lis      r31, mPlayerMode__9daPyMng_c@ha;
 /* 807B07C4 3B400000 */  li       r26, 0;
-/* 807B07C8 3BBD5160 */  addi     r29, r29, UNDEF_80355160@l;
-/* 807B07CC 3BDE5180 */  addi     r30, r30, UNDEF_80355180@l;
-/* 807B07D0 3BFF5170 */  addi     r31, r31, UNDEF_80355170@l;
+/* 807B07C8 3BBD5160 */  addi     r29, r29, mPlayerType__9daPyMng_c@l;
+/* 807B07CC 3BDE5180 */  addi     r30, r30, mCreateItem__9daPyMng_c@l;
+/* 807B07D0 3BFF5170 */  addi     r31, r31, mPlayerMode__9daPyMng_c@l;
 UNDEF_807b07d4:;
 /* 807B07D4 801D0000 */  lwz      r0, 0(r29);
 /* 807B07D8 7F63DB78 */  mr       r3, r27;
