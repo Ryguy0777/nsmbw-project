@@ -50,7 +50,7 @@ bool dScGameSetup_c::Phase_CreateLayoutManagers()
 
     mpFileSelect = NEW(dFileSelect_c*, FILE_SELECT, mParam);
     for (std::size_t i = 0; i < std::size(mpDateFile); i++) {
-        mpFileSelect->mpDateFile[i] = mpDateFile[i] = NEW(dDateFile_c*, DATE_FILE, 0);
+        mpFileSelect->mpDateFile[i] = mpDateFile[i] = NEW(dDateFile_c*, DATE_FILE, i);
     }
     mpFileSelect->mpInfoWindow = mpInfoWindow = NEW(dInfoWindow_c*, INFO_WINDOW, 0);
 
