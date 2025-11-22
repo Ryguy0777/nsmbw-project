@@ -49,4 +49,44 @@ constexpr int popcount(T x) noexcept
     return __builtin_popcountg(x);
 }
 
+template <std::unsigned_integral T>
+constexpr int countr_zero(T x)
+{
+    int count = 0;
+    while (!(x & 1)) {
+        ++count;
+        x >>= 1;
+    }
+    return count;
+}
+
+template <std::unsigned_integral T>
+constexpr int countr_one(T x)
+{
+    int count = 0;
+    while (x & 1) {
+        ++count;
+        x >>= 1;
+    }
+    return count;
+}
+
+template <std::unsigned_integral T>
+constexpr int countl_zero(T x)
+{
+    return __builtin_clzg(x);
+}
+
+template <std::unsigned_integral T>
+constexpr int countl_one(T x)
+{
+    int count = 0;
+    T mask = T(1) << (sizeof(T) * 8 - 1);
+    while (x & mask) {
+        ++count;
+        mask >>= 1;
+    }
+    return count;
+}
+
 } // namespace std

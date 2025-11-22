@@ -3,6 +3,7 @@
 
 #include "eggController.h"
 
+#include <bit>
 #include <cstring>
 #include <iterator>
 #include <revolution/kpad.h>
@@ -31,15 +32,15 @@ u32 getStickButton(const f32& x, const f32& y)
     u32 result = 0;
 
     if (x <= -0.5f) {
-        result |= cCORE_FSSTICK_LEFT;
+        result |= (1 << 0);
     } else if (x >= 0.5f) {
-        result |= cCORE_FSSTICK_RIGHT;
+        result |= (1 << 1);
     }
 
     if (y <= -0.5f) {
-        result |= cCORE_FSSTICK_DOWN;
+        result |= (1 << 3);
     } else if (y >= 0.5f) {
-        result |= cCORE_FSSTICK_UP;
+        result |= (1 << 2);
     }
 
     return result;
@@ -49,7 +50,8 @@ u32 getStickButton(const f32& x, const f32& y)
 [[address(0x802BC9E0)]]
 u32 CoreStatus::getFSStickButton() const
 {
-    return getStickButton(getFSStickX(), getFSStickY());
+    return getStickButton(getFSStickX(), getFSStickY())
+           << std::countr_zero<u32>(cCORE_FSSTICK_BUTTONS);
 }
 
 [[address(0x802BCA90)]]
@@ -319,12 +321,6 @@ void GCController::beginFrame(PADStatus* status)
     }
     mFlag.setBit(0);
 
-    // Buttons
-    u32 prev_down = mDown;
-    mDown = status->button;
-    mTrig = mDown & ~prev_down;
-    mUp = ~mDown & prev_down;
-
     // Triggers
     // OEM controllers never report a full analog value
     // So we report a full press if the digital input is being pressed
@@ -336,6 +332,15 @@ void GCController::beginFrame(PADStatus* status)
     mStick.y = float(status->stickY) / 110.0f;
     mSubstick.x = float(status->substickX) / 110.0f;
     mSubstick.y = float(status->substickY) / 110.0f;
+
+    // Buttons
+    u32 prev_down = mDown;
+    mDown = status->button;
+    mDown |= getStickButton(mStick.x, mStick.y) << std::countr_zero<u32>(cDOLPHIN_STICK_BUTTONS);
+    mDown |= getStickButton(mSubstick.x, mSubstick.y)
+             << std::countr_zero<u32>(cDOLPHIN_SUBSTICK_BUTTONS);
+    mTrig = mDown & ~prev_down;
+    mUp = ~mDown & prev_down;
 
     if (mRumbleMgr) {
         mRumbleMgr->calc();
@@ -421,6 +426,30 @@ void GCControllerMgr::endFrame()
 
 void ClassicController::beginFrame(PADStatus*)
 {
+    KPADEXStatus::Classic& cl = mpCore->mStatus->ex_status.cl;
+
+    u32 prev_stick_btn = mDown & (cCLASSIC_LSTICK_BUTTONS | cCLASSIC_RSTICK_BUTTONS);
+
+    mDown = cl.hold;
+    mTrig = cl.trig;
+    mUp = cl.release;
+
+    // Triggers
+    mLTrigger = mDown & cCLASSIC_BUTTON_FULL_L ? 1.0f : cl.ltrigger;
+    mRTrigger = mDown & cCLASSIC_BUTTON_FULL_R ? 1.0f : cl.rtrigger;
+
+    // Sticks
+    mLStick.x = cl.lstick.x;
+    mLStick.y = cl.lstick.y;
+    mRStick.x = cl.rstick.x;
+    mRStick.y = cl.rstick.y;
+
+    mDown |= getStickButton(mLStick.x, mLStick.y) << std::countr_zero<u32>(cCLASSIC_LSTICK_BUTTONS);
+    mDown |= getStickButton(mRStick.x, mRStick.y) << std::countr_zero<u32>(cCLASSIC_RSTICK_BUTTONS);
+
+    mTrig |= (mDown & (cCLASSIC_LSTICK_BUTTONS | cCLASSIC_RSTICK_BUTTONS)) & ~prev_stick_btn;
+    mUp |= (~mDown & (cCLASSIC_LSTICK_BUTTONS | cCLASSIC_RSTICK_BUTTONS)) & prev_stick_btn;
+
     if (mDown) {
         if (mIdleTime < 216000) {
             mIdleTime++;
