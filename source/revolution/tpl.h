@@ -1,8 +1,8 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 struct TPLPalette;
 struct TPLDescriptor;
 
-} // extern "C"
+EXTERN_C_END

@@ -3,7 +3,7 @@
 
 #include "OSMutex.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x801B2F60)]]
 void OSInitMutex(OSMutex* mutex);
@@ -23,4 +23,4 @@ BOOL OSTryLockMutex(OSMutex* mutex);
 [[address(0x801B3370)]]
 void OSSignalCond(OSThreadQueue* queue);
 
-} // extern "C"
+EXTERN_C_END

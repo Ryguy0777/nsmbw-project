@@ -1,6 +1,10 @@
+//
+//  mkwcat/Asm.h
+//  nsmbw-project
+//
+
 #pragma once
 
-// ASM definitions
 #define r0 % r0
 #define r1 % r1
 #define sp % r1

@@ -3,7 +3,7 @@
 #include "stdarg.h"
 #include "stddef.h"
 
-extern "C" {
+EXTERN_C_START
 
 #define SEEK_SET 0
 #define SEEK_CUR 1
@@ -115,22 +115,22 @@ typedef struct _files {
 /* 0x802DECC8 */
 int fflush(FILE* file);
 
-int fprintf(FILE* restrict file, const char* restrict format, ...);
+int fprintf(FILE* __restrict file, const char* __restrict format, ...);
 
 /* 0x802E1850 */
-int vprintf(const char* restrict format, va_list ap);
+int vprintf(const char* __restrict format, va_list ap);
 
 /* 0x802E18CC */
-int vsnprintf(char* restrict s, size_t n, const char* restrict format, va_list ap);
+int vsnprintf(char* __restrict s, size_t n, const char* __restrict format, va_list ap);
 
 /* 0x802E1954 */
-int vsprintf(char* restrict s, const char* restrict format, va_list ap);
+int vsprintf(char* __restrict s, const char* __restrict format, va_list ap);
 
 /* 0x802E19D8 */
-int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
+int snprintf(char* __restrict s, size_t n, const char* __restrict format, ...);
 
 /* 0x802E1ACC */
-int sprintf(char* restrict s, const char* restrict format, ...);
+int sprintf(char* __restrict s, const char* __restrict format, ...);
 
 //
-} // extern "C"
+EXTERN_C_END

@@ -11,7 +11,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../../source/AddressMapper.h"
+#include "../../source/mkwcat/AddressMapper.hpp"
 
 enum RelRelocationType {
     R_PPC_NONE = 0,
@@ -132,35 +132,35 @@ int main(int argc, char** argv)
         relFilename = elfFilename.substr(0, elfFilename.find_last_of('.')) + ".rel";
     }
 
-    Region region = Region::P1;
+    mkwcat::Region region = mkwcat::Region::P1;
 
     if (argc > 3) {
         std::string regionStr = std::string(argv[3]);
         if (regionStr == "P1") {
-            region = Region::P1;
+            region = mkwcat::Region::P1;
         } else if (regionStr == "P2") {
-            region = Region::P2;
+            region = mkwcat::Region::P2;
         } else if (regionStr == "E1") {
-            region = Region::E1;
+            region = mkwcat::Region::E1;
         } else if (regionStr == "E2") {
-            region = Region::E2;
+            region = mkwcat::Region::E2;
         } else if (regionStr == "J1") {
-            region = Region::J1;
+            region = mkwcat::Region::J1;
         } else if (regionStr == "J2") {
-            region = Region::J2;
+            region = mkwcat::Region::J2;
         } else if (regionStr == "K") {
-            region = Region::K;
+            region = mkwcat::Region::K;
         } else if (regionStr == "W") {
-            region = Region::W;
+            region = mkwcat::Region::W;
         } else if (regionStr == "C") {
-            region = Region::C;
+            region = mkwcat::Region::C;
         } else {
             printf("Unknown region '%s'\n", regionStr.c_str());
             return 1;
         }
     }
 
-    const AddressMapper& addressMapper = GetAddressMapper(region);
+    const mkwcat::AddressMapper& addressMapper = mkwcat::GetAddressMapper(region);
 
     // Load input file
     ELFIO::elfio inputElf;
@@ -429,7 +429,7 @@ int main(int argc, char** argv)
     }
 
     // Port relocations
-    if (region != Region::P1) {
+    if (region != mkwcat::Region::P1) {
         for (auto& rel : allRelocations) {
             if (rel.moduleID == 0) {
                 rel.addend = addressMapper.MapAddress(rel.addend);

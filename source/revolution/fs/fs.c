@@ -3,9 +3,9 @@
 
 #include "revolution/fs.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x80227180)]]
 s32 ISFS_Rename(const char* oldPath, const char* newPath);
 
-} // extern "C"
+EXTERN_C_END

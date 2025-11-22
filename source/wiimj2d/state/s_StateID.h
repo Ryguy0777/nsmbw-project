@@ -11,21 +11,23 @@ public:
     class NumberMemo_c
     {
     public:
-        NumberMemo_c()
+        constexpr NumberMemo_c()
           : curr(0)
         {
         }
 
-        unsigned int get()
+        constexpr unsigned get()
         {
             curr++;
             return curr;
         }
 
-        unsigned int curr;
+        unsigned curr;
     };
 
-    sStateID_c()
+    constexpr sStateID_c()
+      : mpName(nullptr)
+      , mNumber(-1)
     {
     }
 
@@ -54,7 +56,7 @@ public:
     virtual const char* name() const;
 
     /* VT+0x24 0x8015FA70 */
-    virtual unsigned int number() const;
+    virtual unsigned number() const;
 
 protected:
     /**
@@ -65,7 +67,7 @@ protected:
     /**
      * The number of this state ID.
      */
-    /* 0x08 */ unsigned int mNumber;
+    /* 0x08 */ mutable unsigned mNumber;
 
     /**
      * Used to give each state a unique number.

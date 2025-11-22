@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 struct GXColor {
     u8 r;
@@ -20,4 +20,4 @@ struct GXTexObj;
 
 struct GXTlutObj;
 
-} // extern "C"
+EXTERN_C_END

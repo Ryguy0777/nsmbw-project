@@ -3,7 +3,7 @@
 
 #include <revolution/os/OSError.h>
 
-extern "C" {
+EXTERN_C_START
 
 // OVERRIDDEN: OSReport
 
@@ -14,4 +14,4 @@ extern "C" {
 [[address(0x801AD750)]]
 void OSSetErrorHandler(void (*handler)(const char* file, int line, const char* msg));
 
-} // extern "C"
+EXTERN_C_END

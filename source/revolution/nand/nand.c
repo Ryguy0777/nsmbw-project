@@ -3,7 +3,7 @@
 
 #include "revolution/nand.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x801D8620)]]
 NANDResult NANDCreate(const char* path, u8 perm, u8 attr);
@@ -20,4 +20,4 @@ NANDResult NANDWrite(NANDFileInfo* file, const void* data, u32 len);
 [[address(0x801D9110)]]
 NANDResult NANDMove(const char* from, const char* to);
 
-} // extern "C"
+EXTERN_C_END

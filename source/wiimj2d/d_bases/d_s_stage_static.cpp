@@ -4,7 +4,7 @@
 #include "d_s_stage.h"
 #include "d_system/d_mj2d_game.h"
 
-#include <PatchRel.h>
+#include <mkwcat/Relocate.hpp>
 
 [[address_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
@@ -128,8 +128,7 @@ void dScStage_c::goToSceneAfterLevel(
   int profile, int param2, int param3, dFader_c::fader_type_e faderType
 );
 
-PATCH_REFERENCES(
-  dScStage_c::m_replayPlay_p,
+PATCH_REFERENCES(&dScStage_c::m_replayPlay_p,
   {
     {0x8006A18A, R_PPC_ADDR16_HA}, {0x8006A18E, R_PPC_ADDR16_LO}, {0x800B5CBA, R_PPC_ADDR16_HA},
     {0x800B5CC2, R_PPC_ADDR16_LO}, {0x800B61FA, R_PPC_ADDR16_HA}, {0x800B6202, R_PPC_ADDR16_LO},

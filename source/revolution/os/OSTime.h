@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 typedef s64 OSTime;
 typedef s32 OSTick;
@@ -11,4 +11,4 @@ OSTime OSGetTime();
 /* 0x801B60E0 */
 OSTick OSGetTick();
 
-} // extern "C"
+EXTERN_C_END

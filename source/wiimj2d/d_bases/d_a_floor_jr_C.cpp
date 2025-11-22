@@ -3,7 +3,7 @@
 
 #include "d_a_floor_jr_C.h"
 
-#include <PatchRel.h>
+#include <mkwcat/Relocate.hpp>
 
 [[address(0x807F1A00)]]
 daFloorJrC_c* daFloorJrC_c_classInit()
@@ -46,7 +46,7 @@ bool daFloorJrC_c::checkPlayerFlag(int player)
 
 #if PLAYER_COUNT > 7
 
-PATCH_MEMBER_REFERENCES(
+PATCH_REFERENCES(
   offsetof(daFloorJrC_c, m0x686),
   {
     {0x807F1D68 + 2, R_PPC_ADDR16_LO},

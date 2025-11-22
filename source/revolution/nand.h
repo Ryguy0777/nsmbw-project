@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 enum NANDResult {
     NAND_RESULT_FATAL_ERROR = -128,
@@ -132,4 +132,4 @@ NANDResult NANDGetHomeDir(char* out);
 /* 0x801DAFB0 */
 NANDResult NANDGetType(const char* path, u8* type);
 
-} // extern "C"
+EXTERN_C_END

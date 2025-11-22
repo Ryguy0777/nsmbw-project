@@ -1,15 +1,21 @@
-// AddressMapper.h - Compile-time address porter
+//
+//  Attribute.hpp
+//  nsmbw-project
+//
 
 #pragma once
 
-#include "Region.h"
+#include "Region.hpp"
 #include <cstddef>
 #include <cstdint>
+
+namespace mkwcat
+{
 
 constexpr char AddressMapFile[] = {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wc23-extensions"
-#embed "../address-map.txt"
+#embed "../../address-map.txt"
 #pragma clang diagnostic pop
 };
 
@@ -17,6 +23,9 @@ class AddressMapper;
 
 static constexpr const AddressMapper& GetAddressMapper(Region region);
 
+/**
+ * Compile-time address mapper.
+ */
 class AddressMapper
 {
 #ifndef CLANGD
@@ -391,3 +400,5 @@ static_assert(GetAddressMapper(Region::E2).MapAddress(0x800CF6F8) == 0x800CF610)
 static_assert(GetAddressMapper(Region::J1).MapAddress(0x80779C1C) == 0x80779AEC);
 static_assert(GetAddressMapper(Region::W).MapAddress(0x800B34D0) == 0x800B3650);
 #endif
+
+} // namespace mkwcat

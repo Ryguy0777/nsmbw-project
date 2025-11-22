@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 /**
  * Pack value into bitfield.
@@ -888,4 +888,4 @@ enum GXZTexOp {
     GX_MAX_ZTEXOP
 };
 
-} // extern "C"
+EXTERN_C_END

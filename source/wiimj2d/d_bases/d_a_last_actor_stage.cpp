@@ -148,7 +148,7 @@ fBase_c::PACK_RESULT_e daLastActorStage_c::execute()
             }
 
             for (int i = 0; i < PLAYER_COUNT && i < dRemoconMng_c::CONNECT_COUNT; i++) {
-                dRemoconMng_c::m_instance->mpaConnect[i]->onRumbleEnable();
+                dRemoconMng_c::m_instance->mpConnect[i]->onRumbleEnable();
             }
 
             VIEnableDimming(1);

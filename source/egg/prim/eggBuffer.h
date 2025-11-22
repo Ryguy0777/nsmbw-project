@@ -38,10 +38,10 @@ public:
     }
 
     /* VT+0x0C */
-    virtual void allocate(int n, int);
+    virtual void allocate(int n, int = 0);
 
     /* VT+0x10 */
-    virtual void allocate(int n, Heap* heap, int);
+    virtual void allocate(int n, Heap* heap, int = 0);
 
     /* VT+0x14 */
     virtual void onAllocate(Heap*)

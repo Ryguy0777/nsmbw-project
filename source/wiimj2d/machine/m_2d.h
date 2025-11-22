@@ -34,10 +34,10 @@ class AnmGroupBase_c
     SIZE_ASSERT(0x10);
 
 public:
-    /* 0x00 */ FrameCtrl_c* mpFrameCtrl;
-    /* 0x04 */ AnmResV2_c* mpAnmRes;
-    /* 0x08 */ nw4r::lyt::Group* mpLytGroup;
-    /* 0x0C */ u8 mFlag;
+    /* 0x0 */ FrameCtrl_c* mpFrameCtrl;
+    /* 0x4 */ AnmResV2_c* mpAnmRes;
+    /* 0x8 */ nw4r::lyt::Group* mpLytGroup;
+    /* 0xC */ u8 mFlag;
 };
 
 class AnmGroup_c : public AnmGroupBase_c

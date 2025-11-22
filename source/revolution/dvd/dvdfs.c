@@ -6,7 +6,7 @@
 #include <revolution/dvd.h>
 #include <revolution/os.h>
 
-extern "C" {
+EXTERN_C_START
 
 static constexpr int DVDEX_ARC_ENTRYNUM_BASE = 800000;
 
@@ -230,4 +230,4 @@ s32 DVDGetExEntrynum(s32 entrynum)
     return entrynum - DVDEX_ARC_ENTRYNUM_BASE;
 }
 
-} // extern "C"
+EXTERN_C_END

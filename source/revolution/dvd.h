@@ -2,8 +2,6 @@
 
 #include <revolution/arc.h>
 
-extern "C" {
-
 struct DVDCommandBlock {
     SIZE_ASSERT(0x30);
 
@@ -20,6 +18,8 @@ struct DVDFileInfo {
     u32 length;
     void* callback;
 };
+
+EXTERN_C_START
 
 void __DVDEXInit(s32 arcEntryNum, ARCHandle* arcHandle);
 
@@ -50,4 +50,4 @@ s32 DVDGetExEntrynum(s32 entrynum);
 
 bool DVDOpenExArc(DVDFileInfo* fileInfo);
 
-} // extern "C"
+EXTERN_C_END

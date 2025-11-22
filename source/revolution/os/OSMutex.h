@@ -3,7 +3,7 @@
 #include "OSThread.h"
 #include "revolution/types.h"
 
-extern "C" {
+EXTERN_C_START
 
 struct OSThreadQueue;
 
@@ -31,4 +31,4 @@ BOOL OSTryLockMutex(OSMutex* mutex);
 /* 0x801B3370 */
 void OSSignalCond(OSThreadQueue* queue);
 
-} // extern "C"
+EXTERN_C_END

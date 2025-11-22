@@ -2,8 +2,8 @@
 
 #include "stdio.h"
 
-extern "C" {
+EXTERN_C_START
 
 int fwide(FILE* file, int mode);
 
-} // extern "C"
+EXTERN_C_END

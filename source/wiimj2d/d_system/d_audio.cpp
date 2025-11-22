@@ -4,7 +4,7 @@
 
 #include "d_audio.h"
 
-#include <PatchRel.h>
+#include <mkwcat/Relocate.hpp>
 #include "d_system/d_a_player_manager.h"
 
 namespace dAudio
@@ -39,7 +39,7 @@ u32 getRemotePlayer(int player)
 [[address(0x8006A3F0)]]
 nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
 
-PATCH_REFERENCES(
+PATCH_REFERENCES(&
   g_pNonPosSndObjctPly,
   {
     {0x80069E66, R_PPC_ADDR16_HA},

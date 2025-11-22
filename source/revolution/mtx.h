@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 /**
  * A 3x4 matrix.
@@ -70,4 +70,4 @@ void C_VECHalfAngle(const Vec* a, const Vec* b, Vec* half);
 
 #define VECSquareDistance PSVECSquareDistance
 
-} // extern "C"
+EXTERN_C_END

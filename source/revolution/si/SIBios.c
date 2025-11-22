@@ -4,7 +4,7 @@
 #include <revolution/os/OSInterrupt.h>
 #include <revolution/si.h>
 
-extern "C" {
+EXTERN_C_START
 
 [[address_data(0x803402D0)]] struct Si_ {
     /* 0x00 */ s32 status;
@@ -263,4 +263,4 @@ UNDEF_801b3aa0:;
   // clang-format on
 );
 
-} // extern "C"
+EXTERN_C_END

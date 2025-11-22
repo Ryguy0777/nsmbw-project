@@ -9,49 +9,32 @@
  * @tparam T The class that this state belongs to.
  */
 template <class T>
-class sFStateID_c : public sStateID_c
+class sFStateID_c final : public sStateID_c
 {
 public:
     typedef void (T::*stateFunc)();
 
-    sFStateID_c();
-
     /**
-     * Constructs a new sFStateID_c instance.
+     * Constructs a new sFStateID\_c instance.
      *
      * @param name The name of this state ID.
      * @param initialize The initialize method for this state ID.
      * @param execute The execute method for this state ID.
      * @param finalize The finalize method for this state ID.
      */
-    sFStateID_c(const char* name, stateFunc initialize, stateFunc execute, stateFunc finalize)
-      : sStateID_c(name)
+    constexpr sFStateID_c(
+      const char* name, stateFunc initialize, stateFunc execute, stateFunc finalize
+    )
+      : sStateID_c()
       , mpInitialize(initialize)
       , mpExecute(execute)
       , mpFinalize(finalize)
     {
+        mpName = name;
     }
 
     /**
-     * VT+0x08
-     * Returns true if the given name matches this state ID's name.
-     */
-    virtual bool isSameName(const char* otherName) const
-    {
-        char* part = strrchr(otherName, ':');
-        if (part != nullptr) {
-            otherName = part + 1;
-        }
-        const char* thisName = strrchr(name(), ':') + 1;
-        if (strcmp(thisName, otherName) == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * VT+0x0C
+     * VT+0x28
      * Calls the initialize method on the owner.
      * @param owner The owner of this state ID.
      */
@@ -61,7 +44,7 @@ public:
     }
 
     /**
-     * VT+0x10
+     * VT+0x2C
      * Calls the execute method on the owner.
      * @param owner The owner of this state ID.
      */
@@ -71,7 +54,7 @@ public:
     }
 
     /**
-     * VT+0x14
+     * VT+0x30
      * Calls the finalize method on the owner.
      * @param owner The owner of this state ID.
      */

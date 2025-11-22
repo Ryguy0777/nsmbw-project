@@ -6,7 +6,7 @@
 #include "d_player/d_a_player.h"
 #include "d_player/d_bg_gm.h"
 #include "d_system/d_bg.h"
-#include <PatchRel.h>
+#include <mkwcat/Relocate.hpp>
 #include <algorithm>
 
 [[address(0x807D0070)]]
@@ -150,7 +150,7 @@ bool daBossKoopaJrDemo_c::isPlayerEntry(int player)
     return daPyMng_c::mActPlayerInfo & (1 << player);
 }
 
-PATCH_MEMBER_REFERENCES( //
+PATCH_REFERENCES( //
   offsetof(daBossKoopaJrDemo_c, mPlayerWalkPos),
   {
     {0x807D0620 + 2, R_PPC_ADDR16_LO},
@@ -169,7 +169,7 @@ PATCH_MEMBER_REFERENCES( //
   }
 );
 
-PATCH_MEMBER_REFERENCES( //
+PATCH_REFERENCES( //
   offsetof(daBossKoopaJrDemo_c, mpPlayersInOrder),
   {
     {0x807D063C + 2, R_PPC_ADDR16_LO},
@@ -178,14 +178,14 @@ PATCH_MEMBER_REFERENCES( //
   }
 );
 
-PATCH_MEMBER_REFERENCES( //
+PATCH_REFERENCES( //
   offsetof(daBossKoopaJrDemo_c, mPlrYPos),
   {
     {0x807D1938 + 2, R_PPC_ADDR16_LO},
   }
 );
 
-PATCH_MEMBER_REFERENCES( //
+PATCH_REFERENCES( //
   offsetof(daBossKoopaJrDemo_c, m0x438),
   {
     {0x807D1B40 + 2, R_PPC_ADDR16_LO},

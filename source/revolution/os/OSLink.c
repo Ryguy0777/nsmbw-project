@@ -3,7 +3,7 @@
 
 #include "OSLink.h"
 
-extern "C" {
+EXTERN_C_START
 
 EXTERN_SYMBOL(0x801B1A50, "OSNotifyLink");
 
@@ -33,4 +33,4 @@ bool OSLinkFixed(OSModuleInfo* info, void* bss);
 
 // UNUSED: OSSearchModule
 
-} // extern "C"
+EXTERN_C_END

@@ -3,7 +3,7 @@
 
 #include "OSThread.h"
 
-extern "C" {
+EXTERN_C_START
 
 EXTERN_SYMBOL(0x801B4950, "DefaultSwitchThreadCallback");
 
@@ -57,4 +57,4 @@ EXTERN_SYMBOL(0x801B5FC0, "OSSetThreadPriority");
 
 EXTERN_SYMBOL(0x801B60B0, "OSGetThreadPriority");
 
-} // extern "C"
+EXTERN_C_END

@@ -9,7 +9,7 @@
 #include <revolution/si.h>
 #include <revolution/vi.h>
 
-extern "C" {
+EXTERN_C_START
 
 // Credit:
 // https://github.com/riidefi/mkw/blob/master/source/rvl/pad/rvlPad.c
@@ -602,4 +602,4 @@ static void SPEC2_MakeStatus(s32 chan, PADStatus* status, u32 data[2])
     status->triggerR = ClampU8(status->triggerR, origin->triggerR);
 }
 
-} // extern "C"
+EXTERN_C_END

@@ -8,8 +8,8 @@
 #include "os/OSLink.h"
 #include "os/OSThread.h"
 
-extern "C" {
+EXTERN_C_START
 
 void OSRegisterVersion(const char* string);
 
-} // extern "C"
+EXTERN_C_END

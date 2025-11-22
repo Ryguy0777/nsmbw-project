@@ -3,7 +3,7 @@
 
 #include <revolution/os.h>
 
-extern "C" {
+EXTERN_C_START
 
 // 0x801AF2C0: ScreenReport
 
@@ -14,4 +14,4 @@ void OSFatal(GXColor textColor, GXColor bgColor, const char* text);
 
 // 0x801AF900: Halt
 
-} // extern "C"
+EXTERN_C_END

@@ -2,9 +2,9 @@
 // NSMBW .text: 0x8015F810 - 0x8015F900
 
 #include "d_player/d_s_boot.h"
-#include <Region.h>
 #include <cstdarg>
 #include <cstdio>
+#include <mkwcat/Region.hpp>
 #include <revolution/base/PPCArch.h>
 #include <revolution/os/OSError.h>
 #include <revolution/os/OSFatal.h>
@@ -40,28 +40,28 @@ static const char* getRegionInfo()
     default:
         return "Unknown";
 
-    case Region::P1:
+    case mkwcat::Region::P1:
         return "PAL Rev 1";
-    case Region::P2:
+    case mkwcat::Region::P2:
         return "PAL Rev 2";
 
-    case Region::E1:
+    case mkwcat::Region::E1:
         return "USA Rev 1";
-    case Region::E2:
+    case mkwcat::Region::E2:
         return "USA Rev 2";
 
-    case Region::J1:
+    case mkwcat::Region::J1:
         return "JPN Rev 1";
-    case Region::J2:
+    case mkwcat::Region::J2:
         return "JPN Rev 2";
 
-    case Region::K:
+    case mkwcat::Region::K:
         return "KOR";
 
-    case Region::W:
+    case mkwcat::Region::W:
         return "TWN";
 
-    case Region::C:
+    case mkwcat::Region::C:
         return "CHN";
     }
 }

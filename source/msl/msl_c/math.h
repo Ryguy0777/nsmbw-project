@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 #define NAN (0.0 / 0.0)
 
@@ -28,4 +28,4 @@ inline float sqrtf(float x)
     return sqrt(x);
 }
 
-} // extern "C"
+EXTERN_C_END

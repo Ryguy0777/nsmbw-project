@@ -3,7 +3,7 @@
 #include "OSContext.h"
 #include <stdarg.h>
 
-extern "C" {
+EXTERN_C_START
 
 typedef u8 __OSException;
 typedef u16 OSError;
@@ -31,4 +31,4 @@ void OSSetErrorHandler(void (*handler)(const char* file, int line, const char* m
 #define ASSERTMSG(exp, msg) (void) ((exp) || (OSPanic(__FILE_NAME__, __LINE__, (msg)), 0))
 #define ASSERT(cond) ((cond) || (OSPanic(__FILE_NAME__, __LINE__, "Failed assertion " #cond), 0))
 
-} // extern "C"
+EXTERN_C_END

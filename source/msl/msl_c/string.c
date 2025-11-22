@@ -3,19 +3,19 @@
 
 #include "string.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x802E1C28)]]
-char* strcpy(char* restrict dst, const char* restrict src);
+char* strcpy(char* __restrict dst, const char* __restrict src);
 
 [[address(0x802E1CE8)]]
 char* strncpy(char* dst, const char* src, size_t n);
 
 [[address(0x802E1D2C)]]
-char* strcat(char* restrict dst, const char* restrict src);
+char* strcat(char* __restrict dst, const char* __restrict src);
 
 [[address(0x802E1D58)]]
-char* strncat(char* restrict dst, const char* restrict src, size_t n);
+char* strncat(char* __restrict dst, const char* __restrict src, size_t n);
 
 [[address(0x802E1DA4)]]
 int strcmp(const char* s1, const char* s2);
@@ -32,4 +32,4 @@ char* strrchr(const char* s, int c);
 [[address(0x802E1F78)]]
 char* strstr(const char* haystack, const char* needle);
 
-} // extern "C"
+EXTERN_C_END

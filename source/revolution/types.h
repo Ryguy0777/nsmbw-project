@@ -1,7 +1,7 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 typedef int BOOL;
 
-} // extern "C"
+EXTERN_C_END

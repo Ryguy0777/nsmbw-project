@@ -1,8 +1,5 @@
 #pragma once
 
-
-extern "C" {
-
 #define ARC_MAGIC 0x55AA382D
 
 struct ARCHeader {
@@ -75,6 +72,8 @@ struct FstEntry {
     };
 };
 
+EXTERN_C_START
+
 bool ARCInitHandle(void* arcStart, ARCHandle* handle);
 
 bool ARCOpen(ARCHandle* handle, const char* fileName, ARCFileInfo* af);
@@ -105,4 +104,4 @@ bool ARCReadDir(ARCDir* dir, ARCDirEntry* dirent);
 
 bool ARCCloseDir(ARCDir* dir);
 
-} // extern "C"
+EXTERN_C_END

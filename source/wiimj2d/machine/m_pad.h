@@ -1,34 +1,44 @@
 #pragma once
 
+#include "machine/m_vec.h"
 #include <egg/core/eggController.h>
 
 namespace mPad
 {
 
-enum class CH_e {
+enum CH_e {
     CHAN_0 = 0,
     CHAN_1 = 1,
     CHAN_2 = 2,
     CHAN_3 = 3,
+    CHAN_LAST = CHAN_3,
 
     // GameCube
-    CHAN_GC_0 = 4,
-    CHAN_GC_1 = 5,
-    CHAN_GC_2 = 6,
-    CHAN_GC_3 = 7,
+    CHAN_GC_0,
+    CHAN_GC_1,
+    CHAN_GC_2,
+    CHAN_GC_3,
+    CHAN_GC_LAST = CHAN_GC_3,
 
-    COUNT = 8,
+    // Classic
+    CHAN_CL_0,
+    CHAN_CL_1,
+    CHAN_CL_2,
+    CHAN_CL_3,
+    CHAN_CL_LAST = CHAN_CL_3,
+
+    COUNT,
 };
 
-#define PAD_CHAN_COUNT 8
-
-static_assert(static_cast<long>(CH_e::COUNT) == PAD_CHAN_COUNT, "CH_e and PAD_CHAN_COUNT mismatch");
+struct PadAdditionalData_s {
+    mVec2_c mAccVertical[3];
+};
 
 /* 0x80377F88 */
-extern EGG::CoreController* g_core[PAD_CHAN_COUNT];
+extern EGG::Controller* g_core[CH_e::COUNT];
 
 /* 0x80377FA8 */
-static float g_PadAdditionalData[PAD_CHAN_COUNT][6];
+extern PadAdditionalData_s g_PadAdditionalData[4];
 
 /* 0x8042A740 */
 extern EGG::CoreControllerMgr* g_padMg;
@@ -37,14 +47,13 @@ extern EGG::CoreControllerMgr* g_padMg;
 extern CH_e g_currentCoreID;
 
 /* 0x8042A748 */
-extern EGG::CoreController* g_currentCore;
+extern EGG::Controller* g_currentCore;
 
 /* 0x8042A74C */
-extern bool g_IsConnected[PAD_CHAN_COUNT];
+extern bool g_IsConnected[CH_e::COUNT];
 
 /* 0x8042A750 */
 extern u32 g_PadFrame;
-
 
 /* 0x8016F330 */
 void create();

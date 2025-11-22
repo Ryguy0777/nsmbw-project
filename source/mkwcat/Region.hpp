@@ -1,4 +1,12 @@
+//
+//  mkwcat/Region.hpp
+//  nsmbw-project
+//
+
 #pragma once
+
+namespace mkwcat
+{
 
 enum class Region {
     P1, // PAL revision 1
@@ -12,3 +20,5 @@ enum class Region {
     C, // CHN (Nvidia Shield TV release)
     Error,
 };
+
+} // namespace mkwcat

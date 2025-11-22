@@ -12,17 +12,18 @@
 #undef EXTERN_REPL
 #define EXTERN_REPL(...)
 
-#include <AddressMapper.h>
 #include <cstdio>
 #include <cstring>
 #include <egg/core/eggDvdFile.h>
 #include <egg/core/eggDvdRipper.h>
 #include <egg/core/eggHeap.h>
 #include <egg/core/eggStreamDecomp.h>
+#include <mkwcat/AddressMapper.hpp>
 #include <new>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>
+#include <utility>
 
 // Since the same Loader.bin file will be used for every region, ported addresses need to be
 // realized on the fly.
@@ -34,10 +35,11 @@
 #define PORT_ADDR_LIST(_ADDR)                                                                      \
     (const u32[])                                                                                  \
     {                                                                                              \
-        _ADDR, AddressMapperP2.MapAddress(_ADDR), AddressMapperE1.MapAddress(_ADDR),               \
-          AddressMapperE2.MapAddress(_ADDR), AddressMapperJ1.MapAddress(_ADDR),                    \
-          AddressMapperJ2.MapAddress(_ADDR), AddressMapperK.MapAddress(_ADDR),                     \
-          AddressMapperW.MapAddress(_ADDR), AddressMapperC.MapAddress(_ADDR),                      \
+        _ADDR, mkwcat::AddressMapperP2.MapAddress(_ADDR),                                          \
+          mkwcat::AddressMapperE1.MapAddress(_ADDR), mkwcat::AddressMapperE2.MapAddress(_ADDR),    \
+          mkwcat::AddressMapperJ1.MapAddress(_ADDR), mkwcat::AddressMapperJ2.MapAddress(_ADDR),    \
+          mkwcat::AddressMapperK.MapAddress(_ADDR), mkwcat::AddressMapperW.MapAddress(_ADDR),      \
+          mkwcat::AddressMapperC.MapAddress(_ADDR),                                                \
     }
 
 #define _ADDRESS_LOADER3(_ADDR, _COUNTER, _PORT_CALL_BASE)                                         \
@@ -56,11 +58,14 @@ __gnu__::__naked__]]  void _LoaderFunction##_COUNTER() asm("_LoaderFunction" #_C
                 ".long %7;"                                                                        \
                 ".long %8;"                                                                        \
                 :                                                                                  \
-                : "i"(_ADDR), "i"(AddressMapperP2.MapAddress(_ADDR)),                              \
-                  "i"(AddressMapperE1.MapAddress(_ADDR)), "i"(AddressMapperE2.MapAddress(_ADDR)),  \
-                  "i"(AddressMapperJ1.MapAddress(_ADDR)), "i"(AddressMapperJ2.MapAddress(_ADDR)),  \
-                  "i"(AddressMapperK.MapAddress(_ADDR)), "i"(AddressMapperW.MapAddress(_ADDR)),    \
-                  "i"(AddressMapperC.MapAddress(_ADDR)));                                          \
+                : "i"(_ADDR), "i"(mkwcat::AddressMapperP2.MapAddress(_ADDR)),                      \
+                  "i"(mkwcat::AddressMapperE1.MapAddress(_ADDR)),                                  \
+                  "i"(mkwcat::AddressMapperE2.MapAddress(_ADDR)),                                  \
+                  "i"(mkwcat::AddressMapperJ1.MapAddress(_ADDR)),                                  \
+                  "i"(mkwcat::AddressMapperJ2.MapAddress(_ADDR)),                                  \
+                  "i"(mkwcat::AddressMapperK.MapAddress(_ADDR)),                                   \
+                  "i"(mkwcat::AddressMapperW.MapAddress(_ADDR)),                                   \
+                  "i"(mkwcat::AddressMapperC.MapAddress(_ADDR)));                                  \
     }                                                                                              \
 [[__gnu__::__alias__("_LoaderFunction" #_COUNTER)
 
@@ -70,7 +75,7 @@ __gnu__::__naked__]]  void _LoaderFunction##_COUNTER() asm("_LoaderFunction" #_C
     _ADDRESS_LOADER2(_ADDR, _COUNTER, _PORT_CALL_BASE)
 #define address_loader(_ADDR) _ADDRESS_LOADER(_ADDR, __COUNTER__, PORT_CALL_BASE)
 
-extern "C" {
+EXTERN_C_START
 
 constinit u32 g_port_offset = 0;
 
@@ -84,7 +89,7 @@ void PortCall() ASM_METHOD(
   // clang-format on
 );
 
-} // extern "C"
+EXTERN_C_END
 
 [[address_loader(0x8019F7A0)]]
 bool ARCInitHandle(void* arcStart, ARCHandle* handle);
@@ -157,7 +162,17 @@ s32 OSResumeThread(OSThread* thread);
 bool OSDisableInterrupts();
 
 [[address_loader(0x802E19D8)]]
-int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
+int snprintf(char* __restrict s, size_t n, const char* __restrict format, ...);
+
+void* memcpy(void* __restrict dest, const void* __restrict src, size_t n)
+{
+    u8* d = static_cast<u8*>(dest);
+    const u8* s = static_cast<const u8*>(src);
+    for (size_t i = 0; i < n; i++) {
+        d[i] = s[i];
+    }
+    return dest;
+}
 
 namespace
 {
@@ -170,6 +185,9 @@ constinit char l_module_path[] = "rels/project_?1.rel.LZ";
 constinit const char l_archive_path[] = "mkwcat.arc";
 constinit void* l_stack = nullptr;
 constinit OSThread l_thread = {};
+constinit ARCHandle l_arc_handle = {};
+constinit s32 l_arc_entry_num = -1;
+constinit void* l_loader_block = nullptr;
 
 [[gnu::noinline]]
 void Error(const char* expr, int line)
@@ -178,13 +196,12 @@ void Error(const char* expr, int line)
     std::snprintf(
       print_msg, sizeof(print_msg),
       "mkwcat-nsmbw loader error!\n"
-      "  %s\n"
-      "  line %d\n",
+      "code: %s(%d)\n",
       expr, line
     );
 
     OSFatal(GXColor{255, 255, 255, 255}, GXColor{0, 0, 0, 255}, print_msg);
-    __builtin_unreachable();
+    std::unreachable();
 }
 
 #define LOADER_ASSERT(_EXPR) (((_EXPR) ? (void) 0 : Error(#_EXPR, __LINE__)))
@@ -232,7 +249,7 @@ bool GetPortByCode()
         return true;
     }
 
-    bool rev2 = c == 0x38;
+    const bool rev2 = c == 0x38;
     if (rev2) {
         g_port_offset += 0x4;
         l_module_path[REGION_INDEX + 1] = '2';
@@ -250,61 +267,52 @@ EGG::Heap* GetHeap()
     return *reinterpret_cast<EGG::Heap**>(PORT_ADDR_LIST(0x8042A664)[GetPortIndex()]);
 }
 
-class LoaderBlock
-{
-    friend void* LoaderThread(void* param);
-
-    alignas(32) u8 m_module_block[MODULE_BLOCK_SIZE];
-    alignas(32) ARCHandle m_arc_handle;
-};
-
 void* LoaderThread(void* param)
 {
-    LoaderBlock* loader_block = static_cast<LoaderBlock*>(param);
-    EGG::Heap* heap = GetHeap();
+    EGG::Heap* const heap = GetHeap();
 
     alignas(alignof(EGG::DvdFile)) u8 dvd_file_memory[sizeof(EGG::DvdFile)];
-    EGG::DvdFile* dvd_file = MakeDvdFile(reinterpret_cast<EGG::DvdFile*>(dvd_file_memory));
+    EGG::DvdFile* const dvd_file = MakeDvdFile(reinterpret_cast<EGG::DvdFile*>(dvd_file_memory));
 
-    s32 arc_entry_num = DVDConvertPathToEntrynum(l_archive_path);
-    bool arc_exists = arc_entry_num != -1;
+    l_arc_entry_num = DVDConvertPathToEntrynum(l_archive_path);
+    const bool arc_exists = l_arc_entry_num != -1;
     LOADER_ASSERT(arc_exists);
 
     // Open the project archive
-    bool dvd_open_ok = dvd_file->open(arc_entry_num);
+    const bool dvd_open_ok = dvd_file->open(l_arc_entry_num);
     LOADER_ASSERT(dvd_open_ok);
 
     // Read the 32 byte ARC header to get the size of the full header
     ARCHeader arc_small_header alignas(32);
-    bool arc_header_read_ok =
+    const bool arc_header_read_ok =
       dvd_file->readData(&arc_small_header, sizeof(ARCHeader), 0) == sizeof(ARCHeader);
     LOADER_ASSERT(arc_header_read_ok);
 
-    s32 arc_header_size = (arc_small_header.fileStart + 31) & ~31;
-    void* arc_header = heap->alloc(arc_header_size, 32);
+    const s32 arc_header_size = (arc_small_header.fileStart + 31) & ~31;
+    void* const arc_header = heap->alloc(arc_header_size, 32);
     LOADER_ASSERT(arc_header);
 
     // Read the full header
-    bool arc_full_header_read_ok =
+    const bool arc_full_header_read_ok =
       dvd_file->readData(arc_header, arc_header_size, 0) == arc_header_size;
     LOADER_ASSERT(arc_full_header_read_ok);
 
-    ARCHandle* arc_handle = &loader_block->m_arc_handle;
-    bool arc_init_handle_ok = ARCInitHandle(arc_header, arc_handle);
+    ARCHandle* const arc_handle = &l_arc_handle;
+    const bool arc_init_handle_ok = ARCInitHandle(arc_header, arc_handle);
     LOADER_ASSERT(arc_init_handle_ok);
 
     ARCFileInfo arc_file_info;
-    bool arc_open_ok = ARCOpen(arc_handle, l_module_path, &arc_file_info);
+    const bool arc_open_ok = ARCOpen(arc_handle, l_module_path, &arc_file_info);
     LOADER_ASSERT(arc_open_ok);
 
     // Hack to construct EGG::StreamDecompLZ without needing a vtable reference
     alignas(alignof(EGG::StreamDecompLZ)) u8 lz_stream_memory[sizeof(EGG::StreamDecompLZ)];
     *reinterpret_cast<u32*>(lz_stream_memory) = PORT_ADDR_LIST(0x8034FFA8)[GetPortIndex()];
-    EGG::StreamDecompLZ* lz_stream = reinterpret_cast<EGG::StreamDecompLZ*>(lz_stream_memory);
+    EGG::StreamDecompLZ* const lz_stream = reinterpret_cast<EGG::StreamDecompLZ*>(lz_stream_memory);
 
     u32 amount_read, file_size;
-    bool module_load_ok = EGG::DvdRipper::loadToMainRAMDecomp(
-      dvd_file, lz_stream, loader_block->m_module_block, heap, EGG::DvdRipper::ALLOC_DIR_TOP,
+    const bool module_load_ok = EGG::DvdRipper::loadToMainRAMDecomp(
+      dvd_file, lz_stream, static_cast<u8*>(l_loader_block), heap, EGG::DvdRipper::ALLOC_DIR_TOP,
       ARCGetStartOffset(&arc_file_info), ARCGetLength(&arc_file_info), 0x10000, &amount_read,
       &file_size
     );
@@ -312,18 +320,16 @@ void* LoaderThread(void* param)
 
     dvd_file->~DvdFile();
 
-    OSModuleHeader* header = reinterpret_cast<OSModuleHeader*>(loader_block->m_module_block);
+    OSModuleHeader* const header = static_cast<OSModuleHeader*>(l_loader_block);
 
-    u32 fix_size = (header->fixSize + 31) & ~31;
-    bool bss_size_ok = header->bssSize <= MODULE_BLOCK_SIZE - fix_size;
+    const u32 fix_size = (header->fixSize + 31) & ~31;
+    const bool bss_size_ok = header->bssSize <= MODULE_BLOCK_SIZE - fix_size;
     LOADER_ASSERT(bss_size_ok);
 
-    void* bss_block = loader_block->m_module_block + fix_size;
+    void* const bss_block = static_cast<u8*>(l_loader_block) + fix_size;
 
-    bool link_module_ok = OSLinkFixed(&header->info, bss_block);
+    const bool link_module_ok = OSLinkFixed(&header->info, bss_block);
     LOADER_ASSERT(link_module_ok);
-
-    (*(void (*)(...)) header->prolog)(arc_entry_num, arc_handle);
 
     return nullptr;
 }
@@ -338,6 +344,9 @@ extern "C" [[gnu::section("start")]] bool LoaderMain()
             return false;
         }
         GetHeap()->free(l_stack);
+
+        OSModuleHeader* const header = static_cast<OSModuleHeader*>(l_loader_block);
+        (*(void (*)(...)) header->prolog)(l_arc_entry_num, &l_arc_handle);
         return true;
     }
 
@@ -350,16 +359,15 @@ extern "C" [[gnu::section("start")]] bool LoaderMain()
 
     l_started = true;
 
-    EGG::Heap* heap = GetHeap();
+    EGG::Heap* const heap = GetHeap();
     LOADER_ASSERT(heap);
 
-    LoaderBlock* loader_block =
-      new (heap->alloc(sizeof(LoaderBlock), alignof(LoaderBlock))) LoaderBlock;
-    LOADER_ASSERT(loader_block);
+    l_loader_block = heap->alloc(MODULE_BLOCK_SIZE, 32);
+    LOADER_ASSERT(l_loader_block);
 
     l_stack = heap->alloc(STACK_SIZE, 32);
-    bool create_thread_ok = OSCreateThread(
-      &l_thread, LoaderThread, loader_block, static_cast<u8*>(l_stack) + STACK_SIZE, STACK_SIZE, 17,
+    const bool create_thread_ok = OSCreateThread(
+      &l_thread, LoaderThread, nullptr, static_cast<u8*>(l_stack) + STACK_SIZE, STACK_SIZE, 17,
       OSThreadFlags::OS_THREAD_DETACHED
     );
     LOADER_ASSERT(create_thread_ok);

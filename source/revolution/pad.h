@@ -2,7 +2,7 @@
 
 #include <revolution/os/OSContext.h>
 
-extern "C" {
+EXTERN_C_START
 
 enum PADButton : u16 {
     PAD_BUTTON_LEFT = 0x0001,
@@ -75,4 +75,4 @@ u32 PADGetSpec();
 
 typedef void (*PADSamplingCallback)();
 
-} // extern "C"
+EXTERN_C_END

@@ -3,7 +3,7 @@
 
 #include "OSTime.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x801B60C0)]]
 OSTime OSGetTime();
@@ -24,4 +24,4 @@ EXTERN_SYMBOL(0x801B61C0, "OSTicksToCalendarTime");
 
 // UNUSED: OSCalendarTimeToTicks
 
-} // extern "C"
+EXTERN_C_END

@@ -3,7 +3,7 @@
 
 #include "revolution/nand.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x801D96F0)]]
 NANDResult NANDOpen(const char* path, NANDFileInfo* file, u8 mode);
@@ -11,4 +11,4 @@ NANDResult NANDOpen(const char* path, NANDFileInfo* file, u8 mode);
 [[address(0x801D9990)]]
 NANDResult NANDClose(NANDFileInfo* file);
 
-} // extern "C"
+EXTERN_C_END

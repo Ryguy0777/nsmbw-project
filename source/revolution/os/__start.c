@@ -1,6 +1,6 @@
 // __start.c
 // NSMBW:
 
-extern "C" {
+EXTERN_C_START
 
-} // extern "C"
+EXTERN_C_END

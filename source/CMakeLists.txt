@@ -181,9 +181,6 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x800CFCE0 - 0x800D03C0
     wiimj2d/d_system/d_next.cpp
 
-# NSMBW: ---
-    wiimj2d/d_system/d_pad_info.cpp
-
 # NSMBW          .text:  0x800D0A90 - 0x800D15F0
     wiimj2d/d_system/d_pause_manager.cpp
 

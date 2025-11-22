@@ -1,10 +1,10 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 /* 0x801BE430 */
 int VIEnableDimming(int enable);
 
 bool __VIResetSIIdle();
 
-} // extern "C"
+EXTERN_C_END

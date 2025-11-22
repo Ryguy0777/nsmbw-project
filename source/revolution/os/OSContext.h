@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 struct OSContext {
     SIZE_ASSERT(0x2C8);
@@ -22,4 +22,4 @@ struct OSContext {
     /* 0x1C8 */ f64 psfs[32];
 };
 
-} // extern "C"
+EXTERN_C_END

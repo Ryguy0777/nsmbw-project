@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 struct OSModuleInfo;
 
@@ -93,4 +93,4 @@ bool OSLink(OSModuleInfo* info, void* bss);
 bool OSLinkFixed(OSModuleInfo* info, void* bss);
 
 //
-} // extern "C"
+EXTERN_C_END

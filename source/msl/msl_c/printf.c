@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "wchar.h"
 
-extern "C" {
+EXTERN_C_START
 
 // 0x802DF7A8: parse_format
 
@@ -47,7 +47,7 @@ int fprintf(FILE* file, const char* format, ...)
 // UNUSED: fprintf_s
 
 [[address(0x802E1850)]]
-int vprintf(const char* restrict format, va_list ap);
+int vprintf(const char* __restrict format, va_list ap);
 
 // UNUSED: vprintf_s
 
@@ -56,23 +56,23 @@ int vprintf(const char* restrict format, va_list ap);
 // UNUSED: vfprintf_s
 
 [[address(0x802E18CC)]]
-int vsnprintf(char* restrict s, size_t n, const char* restrict format, va_list ap);
+int vsnprintf(char* __restrict s, size_t n, const char* __restrict format, va_list ap);
 
 // UNUSED: vsnprintf_s
 
 [[address(0x802E1954)]]
-int vsprintf(char* restrict s, const char* restrict format, va_list ap);
+int vsprintf(char* __restrict s, const char* __restrict format, va_list ap);
 
 // UNUSED: vsprintf_s
 
 [[address(0x802E19D8)]]
-int snprintf(char* restrict s, size_t n, const char* restrict format, ...);
+int snprintf(char* __restrict s, size_t n, const char* __restrict format, ...);
 
 // UNUSED: snprintf_s
 
 [[address(0x802E1ACC)]]
-int sprintf(char* restrict s, const char* restrict format, ...);
+int sprintf(char* __restrict s, const char* __restrict format, ...);
 
 // UNUSED: sprintf_s
 
-} // extern "C"
+EXTERN_C_END

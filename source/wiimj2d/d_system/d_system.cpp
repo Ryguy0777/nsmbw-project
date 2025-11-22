@@ -142,7 +142,8 @@ void dSys_c::initCModule()
 {
     mHeap::ScopeHeap_c scope{0};
 
-    EGG::CoreControllerMgr::recreateInstance();
+    EGG::GCControllerMgr::createInstance();
+    EGG::CoreControllerMgr::instance()->initClassic();
 
     mPad::create();
 

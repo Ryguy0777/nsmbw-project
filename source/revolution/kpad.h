@@ -3,42 +3,46 @@
 #include <revolution/mtx.h>
 #include <revolution/wpad.h>
 
-extern "C" {
+EXTERN_C_START
 
 struct KPADEXStatus {
     SIZE_ASSERT(0x50);
 
+    struct Freestyle {
+        SIZE_ASSERT(0x1C);
+
+        /* 0x00 */ Vec2 stick;
+        /* 0x08 */ Vec acc;
+        /* 0x14 */ f32 acc_value;
+        /* 0x08 */ f32 acc_speed;
+    };
+
+    struct Classic {
+        SIZE_ASSERT(0x24);
+
+        /* 0x00 */ u32 hold;
+        /* 0x04 */ u32 trig;
+        /* 0x08 */ u32 release;
+        /* 0x0C */ Vec2 lstick;
+        /* 0x14 */ Vec2 rstick;
+        /* 0x1C */ f32 ltrigger;
+        /* 0x20 */ f32 rtrigger;
+    };
+
+    struct Balance {
+        SIZE_ASSERT(0x50);
+
+        /* 0x00 */ f64 tgc_weight;
+        /* 0x08 */ f64 weight[4];
+        /* 0x28 */ f64 weight_ave[4];
+        /* 0x48 */ s32 weight_err;
+        /* 0x4C */ s32 tgc_weight_err;
+    };
+
     union {
-        struct {
-            SIZE_ASSERT(0x1C);
-
-            /* 0x00 */ Vec2 stick;
-            /* 0x08 */ Vec acc;
-            /* 0x14 */ f32 acc_value;
-            /* 0x08 */ f32 acc_speed;
-        } fs;
-
-        struct {
-            SIZE_ASSERT(0x24);
-
-            /* 0x00 */ u32 hold;
-            /* 0x04 */ u32 trig;
-            /* 0x08 */ u32 release;
-            /* 0x0C */ Vec2 lstick;
-            /* 0x14 */ Vec2 rstick;
-            /* 0x1C */ f32 ltrigger;
-            /* 0x20 */ f32 rtrigger;
-        } cl;
-
-        struct {
-            SIZE_ASSERT(0x50);
-
-            /* 0x00 */ f64 tgc_weight;
-            /* 0x08 */ f64 weight[4];
-            /* 0x28 */ f64 weight_ave[4];
-            /* 0x48 */ s32 weight_err;
-            /* 0x4C */ s32 tgc_weight_err;
-        } bl;
+        Freestyle fs;
+        Classic cl;
+        Balance bl;
     };
 };
 
@@ -71,4 +75,4 @@ struct KPADStatus {
 /* 0x801ED4F0 */
 int KPADReadEx(WPADChannel chan, KPADStatus* status, u32 count, s32* result);
 
-} // extern "C"
+EXTERN_C_END

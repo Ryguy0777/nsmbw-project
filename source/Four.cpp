@@ -4,23 +4,23 @@
 
 #include "Four.h"
 
-#include "AddressMapper.h"
 #include "d_player/d_s_boot.h"
 #include "d_system/d_a_player_manager.h"
+#include "mkwcat/AddressMapper.hpp"
 #include <cstring>
 #include <revolution/os.h>
 
 struct FourPatch {
     consteval FourPatch(u32 address, u8 size, s8 offset = 0)
       : addressP1(address)
-      , addressP2(AddressMapperP2.MapAddress(address))
-      , addressE1(AddressMapperE1.MapAddress(address))
-      , addressE2(AddressMapperE2.MapAddress(address))
-      , addressJ1(AddressMapperJ1.MapAddress(address))
-      , addressJ2(AddressMapperJ2.MapAddress(address))
-      , addressK(AddressMapperK.MapAddress(address))
-      , addressW(AddressMapperW.MapAddress(address))
-      , addressC(AddressMapperC.MapAddress(address))
+      , addressP2(mkwcat::AddressMapperP2.MapAddress(address))
+      , addressE1(mkwcat::AddressMapperE1.MapAddress(address))
+      , addressE2(mkwcat::AddressMapperE2.MapAddress(address))
+      , addressJ1(mkwcat::AddressMapperJ1.MapAddress(address))
+      , addressJ2(mkwcat::AddressMapperJ2.MapAddress(address))
+      , addressK(mkwcat::AddressMapperK.MapAddress(address))
+      , addressW(mkwcat::AddressMapperW.MapAddress(address))
+      , addressC(mkwcat::AddressMapperC.MapAddress(address))
       , size(size)
       , offset(offset)
     {
@@ -44,6 +44,9 @@ struct FourPatch {
 constinit FourPatch FOUR_PATCH_LIST[] = {
   // dCourseSelectGuide_c::CollectionCoinSet
   {0x80010EC8 + 2, 2},
+
+  // dSmallScore_c::DispWait
+  {0x80015B04 + 2, 2},
 
   // TODO: dSmallScore_c::chgColor
 
@@ -713,9 +716,6 @@ constinit FourPatch FOUR_PATCH_LIST[] = {
   // UNDEF_80b50580
   {0x80B50664 + 2, 2},
 
-  // dSmallScore_c::DispWait
-  {0x80015b04 + 2, 2},
-
   // daPyDemoMng_c::setEnemyStageClearDemo
   {0x8005d71c + 2, 2},
 
@@ -735,31 +735,31 @@ void Four::Apply()
     for (const FourPatch& patch : FOUR_PATCH_LIST) {
         u32 address;
         switch (codeRegion) {
-        case Region::P1:
+        case mkwcat::Region::P1:
             address = patch.addressP1;
             break;
-        case Region::P2:
+        case mkwcat::Region::P2:
             address = patch.addressP2;
             break;
-        case Region::E1:
+        case mkwcat::Region::E1:
             address = patch.addressE1;
             break;
-        case Region::E2:
+        case mkwcat::Region::E2:
             address = patch.addressE2;
             break;
-        case Region::J1:
+        case mkwcat::Region::J1:
             address = patch.addressJ1;
             break;
-        case Region::J2:
+        case mkwcat::Region::J2:
             address = patch.addressJ2;
             break;
-        case Region::K:
+        case mkwcat::Region::K:
             address = patch.addressK;
             break;
-        case Region::W:
+        case mkwcat::Region::W:
             address = patch.addressW;
             break;
-        case Region::C:
+        case mkwcat::Region::C:
             address = patch.addressC;
             break;
 

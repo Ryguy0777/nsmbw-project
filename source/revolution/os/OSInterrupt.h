@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 /* 0x801B1280 */
 bool OSDisableInterrupts();
@@ -11,4 +11,4 @@ bool OSEnableInterrupts();
 /* 0x801B12C0 */
 bool OSRestoreInterrupts(bool status);
 
-} // extern "C"
+EXTERN_C_END

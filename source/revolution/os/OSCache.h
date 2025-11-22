@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 /* 0x801AC560 */
 void DCEnable();
@@ -55,5 +55,5 @@ u32 LCQueueLength();
 
 /* 0x801AC960 */
 u32 LCQueueWait(u32 param_1);
-//
-}
+
+EXTERN_C_END

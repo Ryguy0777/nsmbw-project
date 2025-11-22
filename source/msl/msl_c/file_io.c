@@ -3,9 +3,9 @@
 
 #include "stdio.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x802DECC8)]]
 int fflush(FILE* file);
 
-} // extern "C"
+EXTERN_C_END

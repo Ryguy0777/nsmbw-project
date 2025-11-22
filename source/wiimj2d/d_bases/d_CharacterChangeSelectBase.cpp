@@ -10,13 +10,11 @@
 #include "d_system/d_game_key.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_mj2d_game.h"
-#include "d_system/d_player_model_manager.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
 #include "sound/SndAudioMgr.h"
 #include "sound/SndID.h"
 #include "sound/SndSceneMgr.h"
-#include <algorithm>
 #include <revolution/os.h>
 
 fBase_c* dCharacterChangeSelectBase_c_classInit()
@@ -56,7 +54,7 @@ void dCharacterChangeSelectBase_c::clearPlayerNo()
 bool dCharacterChangeSelectBase_c::updateRemocon()
 {
     if (mPlayerNo >= 0) {
-        bool setup = dRemoconMng_c::m_instance->mpaConnect[mPlayerNo]->isSetup();
+        bool setup = dRemoconMng_c::m_instance->mpConnect[mPlayerNo]->isSetup();
         if (!setup) {
             mpNumPyConnectStage[mPlayerNo] = dInfo_c::PlyConnectStage_e::OFF;
             clearPlayerNo();
@@ -66,7 +64,7 @@ bool dCharacterChangeSelectBase_c::updateRemocon()
 
     dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
-        dRemoconMng_c::dConnect_c* connect = remocons->mpaConnect[ply];
+        dRemoconMng_c::dConnect_c* connect = remocons->mpConnect[ply];
         if (!connect->isSetup()) {
             continue;
         }
@@ -777,21 +775,17 @@ u32 dCharacterChangeSelectBase_c::getLampPattern(int playerNo)
         return 0b0000000;
     }
 
-    dRemoconMng_c::dConnect_c* connect = dRemoconMng_c::m_instance->mpaConnect[playerNo];
+    dRemoconMng_c::dConnect_c* connect = dRemoconMng_c::m_instance->mpConnect[playerNo];
     mPad::CH_e channel = connect->getChannel();
 
-    if (channel >= mPad::CH_e::CHAN_0 && channel <= mPad::CH_e::CHAN_3) {
-        int c = static_cast<int>(channel) - static_cast<int>(mPad::CH_e::CHAN_0);
-        if (connect->getPrimaryDev() == dRemoconMng_c::dConnect_c::PrimaryDev_e::EXTENSION) {
-            return 0b100000 | (0b1000 >> c);
-        } else {
-            return 0b1000 >> c;
-        }
+    if (channel >= mPad::CH_e::CHAN_0 && channel <= mPad::CH_e::CHAN_LAST) {
+        return 0b1000 >> (channel - mPad::CH_e::CHAN_0);
     }
-
-    if (channel >= mPad::CH_e::CHAN_GC_0 && channel <= mPad::CH_e::CHAN_GC_3) {
-        int c = static_cast<int>(channel) - static_cast<int>(mPad::CH_e::CHAN_GC_0);
-        return 0b10000 | (0b1000 >> c);
+    if (channel >= mPad::CH_e::CHAN_GC_0 && channel <= mPad::CH_e::CHAN_GC_LAST) {
+        return 0b10000 | (0b1000 >> (channel - mPad::CH_e::CHAN_GC_0));
+    }
+    if (channel >= mPad::CH_e::CHAN_CL_0 && channel <= mPad::CH_e::CHAN_CL_LAST) {
+        return 0b100000 | (0b1000 >> (channel - mPad::CH_e::CHAN_CL_0));
     }
 
     return 0b000000;

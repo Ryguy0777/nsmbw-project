@@ -4,18 +4,15 @@
 #include "d_game_key_core.h"
 
 #include "d_bases/d_s_stage.h"
-#include "d_player/d_a_player.h"
-#include "d_system/d_a_player_manager.h"
-#include "d_system/d_pad_info.h"
 #include "d_system/d_remocon_mng.h"
 #include "framework/f_feature.h"
+#include "machine/m_pad.h"
 #include "machine/m_vec.h"
-#include "revolution/wpad.h"
 #include "state/s_Lib.h"
 #include <cmath>
 #include <egg/core/eggController.h>
 #include <revolution/pad.h>
-
+#include <utility>
 
 [[address(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
@@ -35,51 +32,88 @@ void dGameKeyCore_c::read()
     mAngleOld = mAngle;
     mMoveDistanceOld = mMoveDistance;
 
-    EGG::CoreController* coreCont = getCoreController();
+    EGG::Controller* controller = getController();
 
     dReplayPlay_c* replayData = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)];
     if (replayData == nullptr) {
-        // Replay is not active for this channel
+        // Replay is not active for this channel, sssign controller type
+        using Extension_e = dRemoconMng_c::dConnect_c::dExtension_c::Type_e;
+        Extension_e devType = dRemoconMng_c::m_instance->mpConnect[static_cast<int>(mChannel)]
+                                ->getExtension()
+                                ->getType();
 
-        // Assign controller type
-        PADStatus* padStatus =
-          EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
-        if (padStatus != nullptr) {
-            // GameCube controller
+        EGG::CoreController* core = nullptr;
+        EGG::GCController* dolphin = nullptr;
+        EGG::ClassicController* classic = nullptr;
+        mType = Type_e::CORE;
+        if (devType == Extension_e::NONE) {
+            // Sideways Wii Remote
+        } else if (devType == Extension_e::FREESTYLE) {
+            // Wii Remote + Nunchuk
+            mType = Type_e::FREESTYLE;
+        } else if (devType == Extension_e::CLASSIC) {
+            // Wii Classic Controller
+            mType = Type_e::CLASSIC;
+        } else if (devType == Extension_e::DOLPHIN) {
+            // Gamecube Controller
             mType = Type_e::DOLPHIN;
-        } else {
-            using Extension_e = dRemoconMng_c::dConnect_c::dExtension_c::Type_e;
-            Extension_e devType = dRemoconMng_c::m_instance->mpaConnect[static_cast<int>(mChannel)]
-                                    ->getExtension()
-                                    ->getType();
-            if (devType == Extension_e::NONE) {
-                // Sideways Wii Remote
-                mType = Type_e::CORE;
-            } else if (devType == Extension_e::FREESTYLE) {
-                // Wii Remote + Nunchuck
-                mType = Type_e::FREESTYLE;
-            } else if (devType == Extension_e::CLASSIC) {
-                // Classic controller
-                mType = Type_e::CLASSIC;
-            }
         }
 
-        // Set raw button input from EGG::CoreController
-        mRawHeld = coreCont->maStatus->hold & 0x7fffffff;
+        if (isCore() || isFreestyle() || isClassic()) {
+            core = controller->getCoreController();
+            if (core && isClassic()) {
+                classic = core->mpClassic;
+            }
+        } else if (isDolphin()) {
+            dolphin = controller->getGCController();
+            mRawHeld = dolphin->mDown;
+        }
 
-        // Accelerometer data from EGG::CoreController
-        mAccel.x = coreCont->mAccel.x;
-        mAccel.y = coreCont->mAccel.y;
-        mAccel.z = coreCont->mAccel.z;
+        if (core && !isClassic()) {
+            // Raw button data from EGG::CoreController
+            mRawHeld = core->mStatus->hold & 0x7fffffff;
 
-        mAccelVerticalX.x = coreCont->maStatus->acc_vertical.x;
-        mAccelVerticalX.y = coreCont->maStatus->acc_vertical.y;
+            // Accelerometer data from EGG::CoreController
+            mAccel.x = core->mAccel.x;
+            mAccel.y = core->mAccel.y;
+            mAccel.z = core->mAccel.z;
 
-        mAccelVerticalY.x = mPad::g_PadAdditionalData[static_cast<int>(mChannel)][2];
-        mAccelVerticalY.y = mPad::g_PadAdditionalData[static_cast<int>(mChannel)][3];
+            // Flip accelerometer data for Nunchuk mode
+            if (mType == Type_e::FREESTYLE) {
+                std::swap(mAccel.x, mAccel.z);
+            }
 
-        mAccelVerticalZ.x = mPad::g_PadAdditionalData[static_cast<int>(mChannel)][4];
-        mAccelVerticalZ.y = mPad::g_PadAdditionalData[static_cast<int>(mChannel)][5];
+            mAccelVerticalX = mPad::g_PadAdditionalData[mChannel].mAccVertical[0];
+            mAccelVerticalY = mPad::g_PadAdditionalData[mChannel].mAccVertical[1];
+            mAccelVerticalZ = mPad::g_PadAdditionalData[mChannel].mAccVertical[2];
+
+            // Pointer
+            mAngle.x = core->mStatus->horizon.x;
+            mAngle.y = core->mStatus->horizon.y;
+        } else if (isClassic()) {
+            mRawHeld = classic->mDown;
+
+            mAccel = {0.0f, classic->mLTrigger - classic->mRTrigger, 0.0f};
+
+            mVec2_c x = {0.0f, classic->mRTrigger - classic->mLTrigger};
+            mVec2_c y = x - mAccelVerticalX;
+            mVec2_c z = y - mAccelVerticalY;
+            mAccelVerticalX = x;
+            mAccelVerticalY = y;
+            mAccelVerticalZ = z;
+        } else if (isDolphin()) {
+            mRawHeld = dolphin->mDown;
+
+            mAccel = {0.0f, dolphin->mLTrigger - dolphin->mRTrigger, 0.0f};
+
+            mVec2_c x = {0.0f, dolphin->mRTrigger - dolphin->mLTrigger};
+            mVec2_c y = x - mAccelVerticalX;
+            mVec2_c z = y - mAccelVerticalY;
+            mAccelVerticalX = x;
+            mAccelVerticalY = y;
+            mAccelVerticalZ = z;
+        }
+
     } else {
         // Replay is active, assign data from current replay
         mType = Type_e::CORE;
@@ -93,21 +127,10 @@ void dGameKeyCore_c::read()
         mAccelVerticalZ = replayData->mFrameAccelVertZ;
     }
 
-    // Pointer
-    mAngle.x = coreCont->maStatus->horizon.x;
-    mAngle.y = coreCont->maStatus->horizon.y;
-
     // "Process" inputs for Nunchuck mode
     mPrevHeld = setConfigKey(mPrevRawHeld);
     mHeld = setConfigKey(mRawHeld);
     mTriggered = mHeld & (mHeld ^ mPrevHeld);
-
-    // Flip accelerometer data for Nunchuck mode
-    if (mType == Type_e::FREESTYLE) {
-        float accelX = mAccel.x;
-        mAccel.x = mAccel.z;
-        mAccel.z = accelX;
-    }
 
     // Not sure what this does
     int uVar10 = 0;
@@ -142,6 +165,7 @@ void dGameKeyCore_c::read()
         }
         uVar10 += 2;
     }
+
     handleTilting();
     mMoveDistance = EGG::Math<float>::sqrt(
       static_cast<float>(mAccel.z * mAccel.z + mAccel.x * mAccel.x + mAccel.y * mAccel.y)
@@ -161,56 +185,143 @@ void dGameKeyCore_c::read()
 }
 
 [[address(0x800B60D0)]]
-u32 dGameKeyCore_c::setConfigKey(u32 button)
+u32 dGameKeyCore_c::setConfigKey(u32 input)
 {
     u32 processed;
-    if (mType == Type_e::FREESTYLE) {
+    switch (mType) {
+    default:
+    case Type_e::CORE:
+        processed = input;
+        if (fFeature::SHAKE_WITH_BUTTON && (input & EGG::cCORE_BUTTON_B)) {
+            processed |= SHAKE;
+        }
+        break;
+
+    case Type_e::FREESTYLE:
         // Home, Minus, and Plus can stay the same
-        processed = button & (WPAD_BUTTON_HOME | WPAD_BUTTON_MINUS | WPAD_BUTTON_PLUS);
+        processed = input & (HOME | MINUS | PLUS);
 
         // Clear D-Pad if stick is pushed in any direction
-        if (button & WPAD_FS_STICK_ALL) {
-            button &= 0xFFFFFFF0;
+        if (input & EGG::cCORE_FSSTICK_BUTTONS) {
+            input &= ~(UP | DOWN | LEFT | RIGHT);
         }
 
-        // Flip D-Pad inputs
-        if (!(button & WPAD_BUTTON_DOWN) && !(button & WPAD_FS_STICK_DOWN)) {
-            if ((button & WPAD_BUTTON_UP) || (button & WPAD_FS_STICK_UP)) {
-                processed |= WPAD_BUTTON_RIGHT;
+        if (input & (EGG::cCORE_BUTTON_DOWN | EGG::cCORE_FSSTICK_DOWN)) {
+            processed |= DOWN;
+        } else if (input & (EGG::cCORE_BUTTON_UP | EGG::cCORE_FSSTICK_UP)) {
+            processed |= UP;
+        }
+
+        if (input & (EGG::cCORE_BUTTON_RIGHT | EGG::cCORE_FSSTICK_RIGHT)) {
+            processed |= RIGHT;
+        } else if (input & (EGG::cCORE_BUTTON_LEFT | EGG::cCORE_FSSTICK_LEFT)) {
+            processed |= LEFT;
+        }
+
+        if (fFeature::SHAKE_WITH_BUTTON) {
+            // C is replaced with shake
+            if (input & EGG::cCORE_BUTTON_FS_C) {
+                processed |= SHAKE;
             }
-        } else {
-            processed |= WPAD_BUTTON_LEFT;
-        }
 
-        if (!(button & WPAD_BUTTON_RIGHT) && !(button & WPAD_FS_STICK_RIGHT)) {
-            if ((button & WPAD_BUTTON_LEFT) || (button & WPAD_FS_STICK_LEFT)) {
-                processed |= WPAD_BUTTON_UP;
+            if (input & (EGG::cCORE_BUTTON_1 | EGG::cCORE_BUTTON_2)) {
+                processed |= BTN_A;
             }
-        } else {
-            processed |= WPAD_BUTTON_DOWN;
+
+        } else if (input & (EGG::cCORE_BUTTON_FS_C | EGG::cCORE_BUTTON_1 | EGG::cCORE_BUTTON_2)) {
+            processed |= BTN_A;
         }
 
-        // Handle Nunchuck controls
-        if (button & WPAD_BUTTON_FS_C) {
-            processed |= WPAD_BUTTON_A;
+        if (input & EGG::cCORE_BUTTON_B) {
+            processed |= (BTN_B | BTN_1);
         }
 
-        if (button & WPAD_BUTTON_B) {
-            processed |= (WPAD_BUTTON_B | WPAD_BUTTON_1);
+        if (input & EGG::cCORE_BUTTON_FS_Z) {
+            processed |= (BTN_Z | BTN_1);
         }
 
-        if (button & WPAD_BUTTON_FS_Z) {
-            processed |= (WPAD_BUTTON_FS_Z | WPAD_BUTTON_1);
+        if (input & EGG::cCORE_BUTTON_A) {
+            processed |= BTN_2;
+        }
+        break;
+
+    case Type_e::CLASSIC:
+        processed = 0;
+
+        if (input & (EGG::cCLASSIC_BUTTON_DOWN | EGG::cCLASSIC_LSTICK_DOWN)) {
+            processed |= DOWN;
+        } else if (input & (EGG::cCLASSIC_BUTTON_UP | EGG::cCLASSIC_LSTICK_UP)) {
+            processed |= UP;
         }
 
-        // A -> 2
-        u32 pressingA = button & WPAD_BUTTON_A;
-        button = processed;
-        if (pressingA) {
-            button = processed | WPAD_BUTTON_2;
+        if (input & (EGG::cCLASSIC_BUTTON_RIGHT | EGG::cCLASSIC_LSTICK_RIGHT)) {
+            processed |= RIGHT;
+        } else if (input & (EGG::cCLASSIC_BUTTON_LEFT | EGG::cCLASSIC_LSTICK_LEFT)) {
+            processed |= LEFT;
         }
+
+        if (input & (EGG::cCLASSIC_BUTTON_A | EGG::cCLASSIC_BUTTON_B)) {
+            processed |= BTN_2;
+        }
+
+        if (input & (EGG::cCLASSIC_BUTTON_X | EGG::cCLASSIC_BUTTON_Y)) {
+            processed |= BTN_1;
+        }
+
+        if (input & (EGG::cCLASSIC_BUTTON_ZL | EGG::cCLASSIC_BUTTON_ZR)) {
+            processed |= SHAKE;
+        }
+
+        if (input & EGG::cCLASSIC_BUTTON_MINUS) {
+            processed |= BTN_A;
+        }
+
+        if (input & EGG::cCLASSIC_BUTTON_PLUS) {
+            processed |= PLUS;
+        }
+        break;
+
+    case Type_e::DOLPHIN:
+        processed = 0;
+
+        if (input & (EGG::cDOLPHIN_BUTTON_DOWN | EGG::cDOLPHIN_STICK_DOWN)) {
+            processed |= DOWN;
+        } else if (input & (EGG::cDOLPHIN_BUTTON_UP | EGG::cDOLPHIN_STICK_UP)) {
+            processed |= UP;
+        }
+
+        if (input & (EGG::cDOLPHIN_BUTTON_RIGHT | EGG::cDOLPHIN_STICK_RIGHT)) {
+            processed |= RIGHT;
+        } else if (input & (EGG::cDOLPHIN_BUTTON_LEFT | EGG::cDOLPHIN_STICK_LEFT)) {
+            processed |= LEFT;
+        }
+
+        if (input & EGG::cDOLPHIN_BUTTON_A) {
+            processed |= BTN_2;
+        }
+
+        if (input & EGG::cDOLPHIN_BUTTON_B) {
+            processed |= (BTN_Z | BTN_1);
+        }
+
+        if (input & EGG::cDOLPHIN_BUTTON_Y) {
+            processed |= (BTN_B | BTN_1);
+        }
+
+        if (input & EGG::cDOLPHIN_BUTTON_Z) {
+            processed |= SHAKE;
+        }
+
+        if (input & EGG::cDOLPHIN_BUTTON_X) {
+            processed |= BTN_A;
+        }
+
+        if (input & EGG::cDOLPHIN_BUTTON_START) {
+            processed |= PLUS;
+        }
+        break;
     }
-    return button;
+    return processed;
 }
 
 [[address(0x800B61F0)]]
@@ -242,63 +353,37 @@ void dGameKeyCore_c::setShakeY()
         return;
     }
 
-    if (mType == Type_e::DOLPHIN) {
-        // GameCube controller
-
-        dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
-
-        // Z trigger
-        mShake = padInfo->mTrig & PAD_TRIGGER_Z;
-
-        // In my opinion, we don't need the cooldown
-        // Since shake is now triggered by the press of a button
-        // Instead of holding a button down
-
-        /* if (mShake) {
-            // Set cooldown
-            mShakeTimer3 = 5 + 3;
-        } */
+    // Check shake with button
+    if (isTrig(SHAKE)) {
+        mShake = true;
         return;
     }
 
-    // Wii Remote
-
-    bool isButtonShake = false;
-    if (fFeature::SHAKE_WITH_BUTTON) {
-        if (mType == Type_e::FREESTYLE) {
-            // Shake with 1/2 Buttons on in Nunchuck Mode
-            u32 rawTrigger = mRawHeld & (mRawHeld ^ mPrevRawHeld);
-            isButtonShake = rawTrigger & (WPAD_BUTTON_1 | WPAD_BUTTON_2);
-        } else {
-            // Shake with B Button on sideways Wii Remote
-            isButtonShake = mTriggered & WPAD_BUTTON_B;
-        }
+    if (!isCore() && !isFreestyle()) {
+        // Motion shaking only applies to Wii Remote
+        return;
     }
 
-    if (isButtonShake == false) {
-        float accXDiff = fabsf(mAccel.x - mAccelOld.x);
-        float accYDiff = fabsf(mAccel.y - mAccelOld.y);
-        float accZDiff = fabsf(mAccel.z - mAccelOld.z);
+    float accXDiff = fabsf(mAccel.x - mAccelOld.x);
+    float accYDiff = fabsf(mAccel.y - mAccelOld.y);
+    float accZDiff = fabsf(mAccel.z - mAccelOld.z);
 
-        if (accYDiff >= 0.28) {
-            mShakeTimer1++;
-            if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
-                mShakeTimer3 = 5;
-                mShakeTimer1 = 0;
-                mShake = true;
-            } else {
-                mShake = false;
-            }
-            return;
-        }
-
-        if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
+    if (accYDiff >= 0.28) {
+        mShakeTimer1++;
+        if (mShakeTimer1 >= 4 && (accZDiff <= accYDiff || accZDiff <= accXDiff)) {
+            mShakeTimer3 = 5;
             mShakeTimer1 = 0;
-            mShakeTimer2 = 0;
+            mShake = true;
+        } else {
+            mShake = false;
         }
-
-        mShake = false;
-    } else {
-        mShake = true;
+        return;
     }
+
+    if (mShakeTimer1 != 0 && mShakeTimer2++ >= 2) {
+        mShakeTimer1 = 0;
+        mShakeTimer2 = 0;
+    }
+
+    mShake = false;
 }

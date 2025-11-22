@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Region.h>
 #include <egg/core/eggExpHeap.h>
+#include <mkwcat/Region.hpp>
 #include <nw4r/ut/Color.h>
 #include <revolution/arc.h>
 
@@ -11,7 +11,7 @@ public:
     // Constants and Types
     // ^^^^^^
 
-    using CODE_REGION_e = Region;
+    using CODE_REGION_e = mkwcat::Region;
 
 public:
     // Static Methods

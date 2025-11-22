@@ -1,7 +1,7 @@
 // vi.c
 // NSMBW .text: 0x801BBB70 - 0x801BE5C0
 
-extern "C" {
+EXTERN_C_START
 
 #include <revolution/vi.h>
 
@@ -109,4 +109,5 @@ bool __VIResetSIIdle()
 // UNUSED: __VIResetDev7Idle
 // UNUSED: __VIResetDev8Idle
 // UNUSED: __VIResetDev9Idle
-}
+
+EXTERN_C_END

@@ -12,12 +12,12 @@
 #include "d_player/d_WarningManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
+#include "d_system/d_game_key.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
 #include "d_system/d_message.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
-#include "machine/m_pad.h"
 #include "sound/SndAudioMgr.h"
 #include "sound/SndID.h"
 
@@ -69,7 +69,8 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     }
 
     if (!mIndicatorLytResReady) {
-        if (!mIndicatorLytRes.request("Layout/characterChangeIndicator/characterChangeIndicator.arc"
+        if (!mIndicatorLytRes.request(
+              "Layout/characterChangeIndicator/characterChangeIndicator.arc"
             )) {
             return PACK_RESULT_e::NOT_READY;
         }
@@ -205,67 +206,62 @@ bool dNumberOfPeopleChange_c::createLayout()
     mpRootPane = mLayout.getRootPane();
 
     mLayout.NPaneRegister(
-      mpNPlayerBasePos,
-      {
-        "N_pos1P_00",
-        "N_pos2P_00",
-        "N_pos3P_00",
-        "N_pos4P_00",
-        "N_pos1P_01",
-        "N_pos2P_01",
-        "N_pos3P_01",
-        "N_pos1P_02",
-        "N_pos2P_02",
-        "N_pos2P_01",
-      }
+      mpNPlayerBasePos, {
+                          "N_pos1P_00",
+                          "N_pos2P_00",
+                          "N_pos3P_00",
+                          "N_pos4P_00",
+                          "N_pos1P_01",
+                          "N_pos2P_01",
+                          "N_pos3P_01",
+                          "N_pos1P_02",
+                          "N_pos2P_02",
+                          "N_pos2P_01",
+                        }
     );
 
     mLayout.TPaneNameRegister(
-      2,
-      {
-        {"T_guide_01", 11},
-        {"T_yes_00", 25},
-        {"T_yes_01", 25},
-        {"T_no_01", 26},
-        {"T_no_00", 26},
-        {"T_titleNinzuMenu", 27},
-      }
+      2, {
+           {"T_guide_01", 11},
+           {"T_yes_00", 25},
+           {"T_yes_01", 25},
+           {"T_no_01", 26},
+           {"T_no_00", 26},
+           {"T_titleNinzuMenu", 27},
+         }
     );
 
     mLayout.TPaneRegister(
-      &mpTTitleNinzuMenu,
-      {
-        "T_titleNinzuMenu",
-        "T_titleNinzu_00",
-        "T_guide_01",
-        "T_guideS_02",
-      }
+      &mpTTitleNinzuMenu, {
+                            "T_titleNinzuMenu",
+                            "T_titleNinzu_00",
+                            "T_guide_01",
+                            "T_guideS_02",
+                          }
     );
 
     mLayout.PPaneRegister(
-      mpPYesNoBase,
-      {
-        "P_yesBase_00",
-        "P_noBase_00",
-        "P_bgShadowST_00",
-        "P_bgST_00",
-        "P_stripeMLT_00",
-        "P_remo1P_Light",
-        "P_remo2P_Light",
-        "P_remo3P_Light",
-        "P_remo4P_Light",
-        "P_base_00",
-        "P_base_01",
-        "P_base01_Menu43",
-      }
+      mpPYesNoBase, {
+                      "P_yesBase_00",
+                      "P_noBase_00",
+                      "P_bgShadowST_00",
+                      "P_bgST_00",
+                      "P_stripeMLT_00",
+                      "P_remo1P_Light",
+                      "P_remo2P_Light",
+                      "P_remo3P_Light",
+                      "P_remo4P_Light",
+                      "P_base_00",
+                      "P_base_01",
+                      "P_base01_Menu43",
+                    }
     );
 
     mLayout.WPaneRegister(
-      mpWButton,
-      {
-        "W_button_00",
-        "W_button_00",
-      }
+      mpWButton, {
+                   "W_button_00",
+                   "W_button_00",
+                 }
     );
 
     mLayout.mPriority = 10;
@@ -427,10 +423,10 @@ void dNumberOfPeopleChange_c::disableInactiveControllers()
 
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
         if (mPlyConnectStage[ply] == dInfo_c::PlyConnectStage_e::ENTER) {
-            remoconMng->mpaConnect[ply]->setAllowConnect(true);
+            remoconMng->mpConnect[ply]->setAllowConnect(true);
             info->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::ENTER);
         } else {
-            remoconMng->mpaConnect[ply]->setAllowConnect(false);
+            remoconMng->mpConnect[ply]->setAllowConnect(false);
         }
     }
 }
@@ -441,13 +437,13 @@ void dNumberOfPeopleChange_c::checkRemoConnect()
     dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
     dInfo_c* info = dInfo_c::m_instance;
     for (std::size_t ply = 0; ply < mCcCount; ply++) {
-        dRemoconMng_c::dConnect_c* connect = remocons->mpaConnect[ply];
+        dRemoconMng_c::dConnect_c* connect = remocons->mpConnect[ply];
         bool setup = connect->isSetup();
         if (setup == mPlyConnectSetup[ply]) {
             continue;
         }
 
-        std::size_t channel = static_cast<std::size_t>(remocons->mpaConnect[ply]->getChannel());
+        std::size_t channel = static_cast<std::size_t>(remocons->mpConnect[ply]->getChannel());
         if (nw4r::lyt::Picture* remoLight = getControllerLight(channel)) {
             remoLight->SetVisible(setup);
         }
@@ -642,7 +638,7 @@ void dNumberOfPeopleChange_c::finalizeState_InitialSetup()
 {
     dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
-        remocons->mpaConnect[ply]->setAllowConnect(true);
+        remocons->mpConnect[ply]->setAllowConnect(true);
     }
 }
 
@@ -702,7 +698,7 @@ void dNumberOfPeopleChange_c::executeState_InfoOnStageAnimeEndWait()
     if (isWorldMap) {
         dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
         for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
-            if (!remocons->mpaConnect[ply]->isSetup() && dGameCom::PlayerEnterCheck(ply)) {
+            if (!remocons->mpConnect[ply]->isSetup() && dGameCom::PlayerEnterCheck(ply)) {
                 dWarningManager_c::m_instance->onControllerCut(ply);
             }
         }

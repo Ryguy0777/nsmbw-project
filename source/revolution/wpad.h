@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 
-extern "C" {
+EXTERN_C_START
 
 // Constants
 // ^^^^^^
@@ -48,7 +48,7 @@ enum WUDChannel {
     WUD_CHAN_INVALID = -1
 };
 
-enum class WPADChannel {
+enum WPADChannel {
     WPAD_CHAN0 = WUDChannel::WUD_CHAN0,
     WPAD_CHAN1 = WUDChannel::WUD_CHAN1,
     WPAD_CHAN2 = WUDChannel::WUD_CHAN2,
@@ -58,7 +58,7 @@ enum class WPADChannel {
     WPAD_CHAN_INVALID = WUDChannel::WUD_CHAN_INVALID,
 };
 
-enum class WPADResult {
+enum WPADResult {
     WPAD_ERR_OK = 0,
     WPAD_ERR_NO_CONTROLLER = -1,
     WPAD_ERR_COMMUNICATION_ERROR = -2,
@@ -67,9 +67,9 @@ enum class WPADResult {
     WPAD_ERR_CORRUPTED = -7,
 };
 
-enum class WPADDeviceType : u8 {
+enum WPADDeviceType : u8 {
     WPAD_DEV_CORE = 0,
-    WPAD_DEV_FS = 1,
+    WPAD_DEV_FREESTYLE = 1,
     WPAD_DEV_CLASSIC = 2,
     WPAD_DEV_BALANCE_CHECKER = 3,
     WPAD_DEV_VSM = 4,
@@ -95,13 +95,14 @@ enum class WPADDeviceType : u8 {
 
     WPAD_DEV_MPLS_PT_UNKNOWN = 250,
 
-    WPAD_DEV_251 = 251,
-    WPAD_DEV_252 = 252,
-    WPAD_DEV_NONE = 253,
-    WPAD_DEV_INITIALIZING = 255,
+    WPAD_DEV_FUTURE = 251,
+    WPAD_DEV_NOT_SUPPORTED = 252,
+    WPAD_DEV_NOT_FOUND = 253,
+    WPAD_DEV_NULL = 254,
+    WPAD_DEV_UNKNOWN = 255,
 };
 
-enum class WPADDataFormat {
+enum WPADDataFormat {
     WPAD_FMT_CORE_BTN = 0,
     WPAD_FMT_CORE_BTN_ACC = 1,
     WPAD_FMT_CORE_BTN_ACC_DPD = 2,
@@ -129,7 +130,7 @@ enum class WPADDataFormat {
     WPAD_FMT_BULK = 19,
 };
 
-enum class WPADDeviceMode {
+enum WPADDeviceMode {
     WPAD_DEV_MODE_NORMAL = 0,
 
     WPAD_DEV_MODE_CLASSIC_REDUCED = 1,
@@ -197,12 +198,12 @@ enum WPADClassicButton : u16 {
     WPAD_BUTTON_CL_ALL = 0xFEFF,
 };
 
-enum class WPADMotorCommand {
+enum WPADMotorCommand {
     WPAD_MOTOR_STOP = 0,
     WPAD_MOTOR_RUMBLE = 1,
 };
 
-enum class WPADSpeakerCommand {
+enum WPADSpeakerCommand {
     WPAD_SPEAKER_DISABLE = 0,
     WPAD_SPEAKER_ENABLE = 1,
     WPAD_SPEAKER_MUTE = 2,
@@ -211,20 +212,20 @@ enum class WPADSpeakerCommand {
     WPAD_SPEAKER_CMD_05 = 5,
 };
 
-enum class WPADDpdCommand {
+enum WPADDpdCommand {
     WPAD_DPD_DISABLE = 0x00,
     WPAD_DPD_BASIC = 0x01,
     WPAD_DPD_STANDARD = 0x03,
     WPAD_DPD_EXTENDED = 0x05,
 };
 
-enum class WPADBLCCommand : u8 {
+enum WPADBLCCommand : u8 {
     WPAD_BLC_DISABLE = 0x00,
     WPAD_BLC_CMD_55 = 0x55,
     WPAD_BLC_ENABLE = 0xAA,
 };
 
-enum class WPADMPStatusFlags : u8 {
+enum WPADMPStatusFlags : u8 {
     WPAD_MPLS_STATUS_DATA_VALID = (1 << 7),
     WPAD_MPLS_STATUS_EXTENSION_DATA_VALID = (1 << 6),
 
@@ -236,7 +237,7 @@ enum class WPADMPStatusFlags : u8 {
     WPAD_MPLS_STATUS_EXTENSION_CONNECTED = (1 << 0),
 };
 
-enum class WPADAccGravityUnitType {
+enum WPADAccGravityUnitType {
     WPAD_ACC_GRAVITY_UNIT_CORE,
     WPAD_ACC_GRAVITY_UNIT_FS,
 };
@@ -526,4 +527,4 @@ BOOL WPADIsDpdEnabled(WPADChannel chan);
 s32 WPADControlDpd(WPADChannel chan, u32 command, WPADCallback pCallback);
 void WPADRecalibrate(WPADChannel chan);
 
-} // extern "C"
+EXTERN_C_END

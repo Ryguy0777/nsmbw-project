@@ -3,9 +3,9 @@
 
 #include "msl/msl_c/math.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x802E8B58)]]
 double sqrt(double x);
 
-} // extern "C"
+EXTERN_C_END

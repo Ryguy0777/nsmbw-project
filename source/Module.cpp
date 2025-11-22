@@ -1,8 +1,8 @@
 // Module.cpp
 
 #include "Four.h"
-#include "PatchRel.h"
-#include "d_player/d_s_boot.h"
+#include "mkwcat/Relocate.hpp"
+#include "wiimj2d/d_player/d_s_boot.h"
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>
@@ -25,14 +25,14 @@ typedef void (*PFN_voidfunc)();
 extern PFN_voidfunc _ctors[];
 extern PFN_voidfunc _ctors_end[];
 
-extern _MRel_replace_array_entry _MRel_replace_array[];
-extern _MRel_replace_array_entry _MRel_replace_array_end[];
+extern mkwcat::Attribute::Entry _MRel_replace_array[];
+extern mkwcat::Attribute::Entry _MRel_replace_array_end[];
 
-extern _MRel_replace_array_entry _MRel_extern_array[];
-extern _MRel_replace_array_entry _MRel_extern_array_end[];
+extern mkwcat::Attribute::Entry _MRel_extern_array[];
+extern mkwcat::Attribute::Entry _MRel_extern_array_end[];
 
-extern _MRel_patch_references_array_entry<0> _MRel_patch_references_array[];
-extern _MRel_patch_references_array_entry<0> _MRel_patch_references_array_end[];
+extern mkwcat::Relocate::Entry<1> _MRel_patch_references_array[];
+extern mkwcat::Relocate::Entry<1> _MRel_patch_references_array_end[];
 
 #define HID0 1008
 #define HID0_ICFI (1 << 31 >> 20)
@@ -79,7 +79,7 @@ extern "C" void _prolog(s32 param1, void* param2)
     // Reference patches
     for (auto repl = _MRel_patch_references_array; repl != _MRel_patch_references_array_end;) {
         for (u32 i = 0; i < repl->count; i++) {
-            u32 offset = reinterpret_cast<u32>(repl->addr) + repl->references[i].addend;
+            u32 offset = reinterpret_cast<u32>(repl->dest.addr) + repl->references[i].addend;
             volatile u16* ptr = reinterpret_cast<volatile u16*>((&repl->references[i].addrP1
             )[static_cast<int>(codeRegion)]);
 
@@ -97,24 +97,21 @@ extern "C" void _prolog(s32 param1, void* param2)
         }
 
         // Increment repl to the next entry
-        repl = reinterpret_cast<_MRel_patch_references_array_entry<0>*>(
-          reinterpret_cast<u32>(repl) + sizeof(_MRel_patch_references_array_entry<0>) +
-          repl->count * sizeof(_MRel_PatchRel)
-        );
+        repl = reinterpret_cast<mkwcat::Relocate::Entry<1>*>(&repl->references[repl->count]);
     }
 
     Four::Apply();
 
     // External replaced array
-    for (_MRel_replace_array_entry* __restrict repl = _MRel_extern_array;
+    for (mkwcat::Attribute::Entry* __restrict repl = _MRel_extern_array;
          repl != _MRel_extern_array_end; ++repl) {
-        *repl->dest = *repl->addr;
+        *repl->dest.instruction = *repl->addr;
     }
 
     // Function patches
-    for (_MRel_replace_array_entry* __restrict repl = _MRel_replace_array;
+    for (mkwcat::Attribute::Entry* __restrict repl = _MRel_replace_array;
          repl != _MRel_replace_array_end; ++repl) {
-        *repl->addr = 0x48000000 | ((u32(repl->dest) - u32(repl->addr)) & 0x3FFFFFC);
+        *repl->addr = 0x48000000 | ((u32(repl->dest.instruction) - u32(repl->addr)) & 0x3FFFFFC);
     }
 
     FlushAndInvalidateCache(false);

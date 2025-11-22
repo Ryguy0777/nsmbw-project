@@ -3,8 +3,6 @@
 
 #include "d_a_player_key.h"
 #include "d_game_key.h"
-#include "d_pad_info.h"
-
 [[address(0x8005E040)]]
 void dAcPyKey_c::update() ASM_METHOD(
   // clang-format off
@@ -183,46 +181,30 @@ UNDEF_8005e294:;
 [[address(0x8005E590)]]
 u16 dAcPyKey_c::triggerOne() const
 {
-    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
-    switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mType) {
-    case dGameKeyCore_c::Type_e::DOLPHIN:
-        // GameCube controller
-        if (mStatus & 0x181) {
-            // Player is in demo mode
-            return 0;
-        }
-        return padInfo->mTrig & PAD_BUTTON_Y;
-
+    dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[mRemoconID];
+    switch (core->mType) {
     case dGameKeyCore_c::Type_e::FREESTYLE:
-        // Nunchuck mode
-        return mTriggeredButtons & WPAD_BUTTON_B;
+        // Nunchuk mode
+        return mDownButtons & dGameKeyCore_c::BTN_B;
 
     default:
-        // Sideways Wii Remote
-        return mTriggeredButtons & WPAD_BUTTON_1;
+        // Other
+        return mTriggeredButtons & dGameKeyCore_c::BTN_1;
     }
 }
 
 [[address(0x8005E5D0)]]
 u16 dAcPyKey_c::buttonOne() const
 {
-    dPADInfo* padInfo = dPADInfo::getPADInfo(static_cast<WPADChannel>(mRemoconID));
-    switch (dGameKey_c::m_instance->mpCores[mRemoconID]->mType) {
-    case dGameKeyCore_c::Type_e::DOLPHIN:
-        // GameCube controller
-        if (mStatus & 0x181) {
-            // Player is in demo mode
-            return 0;
-        }
-        return padInfo->mHold & PAD_BUTTON_Y;
-
+    dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[mRemoconID];
+    switch (core->mType) {
     case dGameKeyCore_c::Type_e::FREESTYLE:
-        // Nunchuck mode
-        return mDownButtons & WPAD_BUTTON_B;
-
+        // Nunchuk mode
+        return mDownButtons & dGameKeyCore_c::BTN_B;
+        
     default:
-        // Sideways Wii Remote
-        return mDownButtons & WPAD_BUTTON_1;
+        // Other
+        return mTriggeredButtons & dGameKeyCore_c::BTN_1;
     }
 }
 

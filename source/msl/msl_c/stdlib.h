@@ -2,7 +2,7 @@
 
 #include "msl/msl_c/stddef.h"
 
-extern "C" {
+EXTERN_C_START
 
 #define abs(x) __builtin_abs(x)
 #define labs(x) __builtin_abs(x)
@@ -19,4 +19,4 @@ size_t mbstowcs(wchar_t* dest, const char* src, size_t len);
 /* 0x802DDB50 */
 void* free(void* ptr);
 
-} // extern "C"
+EXTERN_C_END

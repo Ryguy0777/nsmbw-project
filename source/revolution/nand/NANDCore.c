@@ -3,7 +3,7 @@
 
 #include "revolution/nand.h"
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x801DA6B0)]]
 NANDResult nandConvertErrorCode(s32 isfsError);
@@ -14,4 +14,4 @@ NANDResult NANDGetHomeDir(char* out);
 [[address(0x801DAFB0)]]
 NANDResult NANDGetType(const char* path, u8* type);
 
-} // extern "C"
+EXTERN_C_END

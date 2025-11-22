@@ -2,9 +2,9 @@
 
 #include "revolution/gx/GXStruct.h"
 
-extern "C" {
+EXTERN_C_START
 
 /* 0x801AF710 */
 void OSFatal(GXColor textColor, GXColor bgColor, const char* text);
 
-} // extern "C"
+EXTERN_C_END

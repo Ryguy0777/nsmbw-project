@@ -5,6 +5,7 @@
 
 #include "d_bases/d_MiniGameCannon.h"
 #include "d_bases/d_s_stage.h"
+#include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
 
 [[address_data(0x8042A330)]]

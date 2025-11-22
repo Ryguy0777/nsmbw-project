@@ -1,7 +1,5 @@
 #pragma once
 
-extern "C" {
-
 struct MEMAllocator;
 struct MEMiHeapHead;
 
@@ -27,5 +25,3 @@ void MEMFreeToAllocator(MEMAllocator* allocator, void* block);
 
 void MEMInitAllocatorForExpHeap(MEMAllocator* allocator, struct MEMiHeapHead* heap, s32 align);
 void MEMInitAllocatorForFrmHeap(MEMAllocator* allocator, struct MEMiHeapHead* heap, s32 align);
-
-} // extern "C"

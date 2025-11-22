@@ -1,7 +1,7 @@
 // runtime.c
 // NSMBW .text: 0x802DCF3C - 0x802DD5D0
 
-extern "C" {
+EXTERN_C_START
 
 void __cvt_ull_dbl() ASM_METHOD(
   // clang-format off
@@ -50,4 +50,4 @@ void __cvt_ull_dbl() ASM_METHOD(
   // clang-format on
 );
 
-} // extern "C"
+EXTERN_C_END

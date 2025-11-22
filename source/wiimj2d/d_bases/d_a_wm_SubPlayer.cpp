@@ -5,12 +5,10 @@
 
 #include "d_bases/d_a_wm_Map.h"
 #include "d_bases/d_a_wm_player.h"
-#include "d_player/d_s_boot.h"
-#include "d_system/d_player_model_manager.h"
 #include "d_system/d_wm_player_base.h"
 #include "machine/m_angle.h"
 #include "machine/m_heap.h"
-#include <AddressMapper.h>
+#include <mkwcat/AddressMapper.hpp>
 #include <revolution/os.h>
 
 /**
@@ -33,7 +31,7 @@ fBase_c::PACK_RESULT_e daWmSubPlayer_c::create()
     mNodeTrail.alloc(16, mHeap::g_gameHeaps[0]);
 
     // Temporary(?) hack that makes the node reached check more generous
-    *reinterpret_cast<float*>(AutoPort<0x8093CE28>(dSys_c::m_codeRegion)) = 0.05f;
+    *reinterpret_cast<float*>(mkwcat::AutoPort<0x8093CE28>(dSys_c::m_codeRegion)) = 0.05f;
 
     return PACK_RESULT_e::SUCCEEDED;
 }
@@ -214,26 +212,27 @@ f32 daWmSubPlayer_c::getPlayerOrderDistance()
 {
     using FloatArray = f32[];
 
-    return FloatArray{// 2 players
-                      0.0, 45.0,
+    return FloatArray{
+      // 2 players
+      0.0, 45.0,
 
-                      // 3 players
-                      0.0, 40.0, 40.0,
+      // 3 players
+      0.0, 40.0, 40.0,
 
-                      // 4 players
-                      0.0, 40.0, 40.0, 50.0,
+      // 4 players
+      0.0, 40.0, 40.0, 50.0,
 
-                      // 5 players
-                      0.0, 40.0, 40.0, 40.0, 40.0,
+      // 5 players
+      0.0, 40.0, 40.0, 40.0, 40.0,
 
-                      // 6 players
-                      0.0, 40.0, 45.0, 50.0, 45.0, 40.0,
+      // 6 players
+      0.0, 40.0, 45.0, 50.0, 45.0, 40.0,
 
-                      // 7 players
-                      0.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0,
+      // 7 players
+      0.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0,
 
-                      // 8 players
-                      0.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0
+      // 8 players
+      0.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0
     }[getPlayerOrderTableIndex(getPlayerOrder())];
 }
 

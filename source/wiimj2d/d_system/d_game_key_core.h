@@ -1,9 +1,7 @@
 #pragma once
 
-#include "d_system/d_pad_info.h"
 #include "machine/m_pad.h"
 #include "machine/m_vec.h"
-#include "revolution/wpad.h"
 #include <revolution/pad.h>
 
 class dGameKeyCore_c
@@ -46,15 +44,24 @@ public:
     };
 
     /* @unofficial */
-    // Unsure if this is a part of dGameKeyCore_c
-    // Might be flipped?
-    enum FSStickButton {
-        WPAD_FS_STICK_UP = (1 << 16),
-        WPAD_FS_STICK_DOWN = (1 << 17),
-        WPAD_FS_STICK_LEFT = (1 << 18),
-        WPAD_FS_STICK_RIGHT = (1 << 19),
+    enum Button_e {
+        UP = EGG::cCORE_SIDE_BUTTON_UP,
+        DOWN = EGG::cCORE_SIDE_BUTTON_DOWN,
+        LEFT = EGG::cCORE_SIDE_BUTTON_LEFT,
+        RIGHT = EGG::cCORE_SIDE_BUTTON_RIGHT,
 
-        WPAD_FS_STICK_ALL = 0xF0000,
+        BTN_2 = EGG::cCORE_BUTTON_2,
+        BTN_1 = EGG::cCORE_BUTTON_1,
+        BTN_A = EGG::cCORE_BUTTON_A,
+        BTN_B = EGG::cCORE_BUTTON_B,
+        BTN_Z = EGG::cCORE_BUTTON_FS_Z,
+
+        PLUS = EGG::cCORE_BUTTON_PLUS,
+        MINUS = EGG::cCORE_BUTTON_MINUS,
+
+        HOME = EGG::cCORE_BUTTON_HOME,
+
+        SHAKE = 1 << 24,
     };
 
 public:
@@ -80,19 +87,41 @@ public:
     // Inline Methods
     // ^^^^^^
 
-    inline EGG::CoreController* getCoreController() const
+    inline EGG::Controller* getController() const
     {
         return mPad::g_core[static_cast<std::size_t>(mChannel)];
     }
 
-    inline ::PADStatus* getPadStatus() const
+    /**
+     * Returns true if the controller is a sideways Wii Remote.
+     */
+    inline bool isCore() const
     {
-        return EGG::CoreControllerMgr::getPadStatus(static_cast<WPADChannel>(mChannel));
+        return mType == Type_e::CORE;
     }
 
-    inline ::dPADInfo* getPadInfo() const
+    /**
+     * Returns true if the controller is a Wii Remote + Nunchuk.
+     */
+    inline bool isFreestyle() const
     {
-        return dPADInfo::getPADInfo(static_cast<WPADChannel>(mChannel));
+        return mType == Type_e::FREESTYLE;
+    }
+
+    /**
+     * Returns true if the controller is a Wii Classic Controller.
+     */
+    inline bool isClassic() const
+    {
+        return mType == Type_e::CLASSIC;
+    }
+
+    /**
+     * Returns true if the controller is a GameCube Controller.
+     */
+    inline bool isDolphin() const
+    {
+        return mType == Type_e::DOLPHIN;
     }
 
     /**
@@ -121,18 +150,19 @@ public:
         switch (mType) {
         case Type_e::CORE:
         case Type_e::FREESTYLE:
-            button = WPAD_BUTTON_2 | WPAD_BUTTON_A;
+            button = EGG::cCORE_BUTTON_2 | EGG::cCORE_BUTTON_A;
             break;
 
         case Type_e::CLASSIC:
-            button = WPAD_BUTTON_CL_A;
+            button = EGG::cCLASSIC_BUTTON_A;
             break;
 
         case Type_e::DOLPHIN:
-            return getPadInfo()->mTrig & PAD_BUTTON_A;
+            button = EGG::cDOLPHIN_BUTTON_A;
+            break;
         }
 
-        return getCoreController()->downTrigger(button);
+        return getController()->downTrigger(button);
     }
 
     /**
@@ -145,18 +175,19 @@ public:
         switch (mType) {
         case Type_e::CORE:
         case Type_e::FREESTYLE:
-            button = WPAD_BUTTON_1 | WPAD_BUTTON_B;
+            button = EGG::cCORE_BUTTON_1 | EGG::cCORE_BUTTON_A;
             break;
 
         case Type_e::CLASSIC:
-            button = WPAD_BUTTON_CL_B;
+            button = EGG::cCLASSIC_BUTTON_A;
             break;
 
         case Type_e::DOLPHIN:
-            return getPadInfo()->mTrig & PAD_BUTTON_B;
+            button = EGG::cDOLPHIN_BUTTON_A;
+            break;
         }
 
-        return getCoreController()->downTrigger(button);
+        return getController()->downTrigger(button);
     }
 
     /**
@@ -164,7 +195,7 @@ public:
      */
     inline bool checkLeft() const
     {
-        return isTrig(WPAD_SIDE_BUTTON_LEFT);
+        return isTrig(LEFT);
     }
 
     /**
@@ -172,7 +203,7 @@ public:
      */
     inline bool checkRight() const
     {
-        return isTrig(WPAD_SIDE_BUTTON_RIGHT);
+        return isTrig(RIGHT);
     }
 
     /**
@@ -180,7 +211,7 @@ public:
      */
     inline bool checkUp() const
     {
-        return isTrig(WPAD_SIDE_BUTTON_UP);
+        return isTrig(UP);
     }
 
     /**
@@ -188,11 +219,11 @@ public:
      */
     inline bool checkDown() const
     {
-        return isTrig(WPAD_SIDE_BUTTON_DOWN);
+        return isTrig(DOWN);
     }
-    
+
     /**
-     * Gets the mTilt value as a usuable s16 for actors.
+     * Gets the mTilt value as a usable s16 for actors.
      */
     inline s16 getTiltLR() const
     {

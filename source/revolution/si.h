@@ -1,6 +1,6 @@
 #pragma once
 
-extern "C" {
+EXTERN_C_START
 
 typedef void (*SICallback)(s32, u32, void*);
 typedef void (*SITypeAndStatusCallback)(s32, u32);
@@ -27,4 +27,4 @@ u32 SIGetType(s32 chan);
 
 u32 SIGetTypeAsync(s32 param_1, SITypeAndStatusCallback param_2);
 
-} // extern "C"
+EXTERN_C_END

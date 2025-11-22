@@ -3,7 +3,7 @@
 
 #include "OSCache.h"
 
-extern "C" {
+EXTERN_C_START
 
 // UNUSED: DCFlashInvalidate
 
@@ -119,4 +119,4 @@ u32 LCQueueWait(u32 param_1);
 [[address(0x801ACAD0)]]
 void __OSCacheInit();
 
-} // extern "C"
+EXTERN_C_END

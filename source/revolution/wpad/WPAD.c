@@ -3,7 +3,7 @@
 
 #include <revolution/wpad.h>
 
-extern "C" {
+EXTERN_C_START
 
 [[address(0x801DFC40)]]
 WPADClearDeviceCallback WPADSetClearDeviceCallback(WPADClearDeviceCallback pCallback);
@@ -20,4 +20,4 @@ WPADResult WPADProbe(WPADChannel chan, u32* pDevType);
 [[address(0x801E1620)]]
 void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);
 
-} // extern "C"
+EXTERN_C_END

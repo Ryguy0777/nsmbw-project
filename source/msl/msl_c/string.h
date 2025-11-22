@@ -2,14 +2,14 @@
 
 #include <stddef.h>
 
-extern "C" {
+EXTERN_C_START
 
 //
 // runtime/__mem.c
 //
 
 /* 0x80004364 */
-void* memcpy(void* restrict dest, const void* restrict src, size_t n);
+void* memcpy(void* __restrict dest, const void* __restrict src, size_t n);
 
 /* 0x800046B4 */
 void* memset(void* s, int c, size_t n);
@@ -39,16 +39,16 @@ int memcmp(const void* s1, const void* s2, size_t n);
 //
 
 /* 0x802E1C28 */
-char* strcpy(char* restrict dst, const char* restrict src);
+char* strcpy(char* __restrict dst, const char* __restrict src);
 
 /* 0x802E1CE8 */
 char* strncpy(char* dst, const char* src, size_t n);
 
 /* 0x802E1D2C */
-char* strcat(char* restrict dst, const char* restrict src);
+char* strcat(char* __restrict dst, const char* __restrict src);
 
 /* 0x802E1D58 */
-char* strncat(char* restrict dst, const char* restrict src, size_t n);
+char* strncat(char* __restrict dst, const char* __restrict src, size_t n);
 
 /* 0x802E1DA4 */
 int strcmp(const char* s1, const char* s2);
@@ -66,4 +66,4 @@ char* strrchr(const char* s, int c);
 char* strstr(const char* haystack, const char* needle);
 
 
-} // extern "C"
+EXTERN_C_END

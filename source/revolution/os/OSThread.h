@@ -3,7 +3,7 @@
 #include "OSContext.h"
 #include "revolution/types.h"
 
-extern "C" {
+EXTERN_C_START
 
 #define OS_PRIORITY_MIN 0
 #define OS_PRIORITY_MAX 31
@@ -95,4 +95,4 @@ BOOL OSSetThreadPriority(OSThread* thread, s32 prio);
 void OSClearStack(u8 val);
 void OSSleepTicks(s64 ticks);
 
-} // extern "C"
+EXTERN_C_END
