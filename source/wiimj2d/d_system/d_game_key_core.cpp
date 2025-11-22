@@ -361,6 +361,7 @@ void dGameKeyCore_c::setShakeY()
 
     if (!isCore() && !isFreestyle()) {
         // Motion shaking only applies to Wii Remote
+        mShake = false;
         return;
     }
 
