@@ -19,6 +19,9 @@ public:
     /* 0x80102B50 */
     static u32 CreateBootParam();
 
+    /* 0x80102B70 @unofficial */
+    static u32 AssembleBootParam(WORLD_e, u32, int);
+
     /* 0x80102B90 */
     static void initLoadGame();
 
