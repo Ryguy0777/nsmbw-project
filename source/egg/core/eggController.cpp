@@ -3,6 +3,7 @@
 
 #include "eggController.h"
 
+#include <cstring>
 #include <iterator>
 #include <revolution/kpad.h>
 #include <revolution/pad.h>
@@ -197,10 +198,10 @@ void CoreController::beginFrame(PADStatus*)
 
         if (mpClassic) {
             if (pStatus->isClassic()) {
-                mpClassic->mFlag.setBit(1);
+                mpClassic->mFlag.setBit(0);
                 mpClassic->beginFrame(nullptr);
             } else {
-                mpClassic->mFlag.resetBit(1);
+                mpClassic->mFlag.resetBit(0);
             }
         }
 
@@ -291,10 +292,14 @@ CoreControllerMgr::CoreControllerMgr();
 
 void CoreControllerMgr::initClassic()
 {
+    u8* classicCtrl =
+      new (alignof(ClassicController)) u8[sizeof(ClassicController) * mControllers.mSize];
+
     for (int i = 0; i < mControllers.mSize; i++) {
         CoreController* core = mControllers(i);
         if (core->mpClassic == nullptr) {
-            core->mpClassic = new ClassicController(core);
+            core->mpClassic =
+              new (classicCtrl + sizeof(ClassicController) * i) ClassicController(core);
         }
     }
 }
@@ -309,10 +314,10 @@ void GCController::beginFrame(PADStatus* status)
 {
     mpStatus = status;
     if (status->err < 0) {
-        mFlag.resetBit(1);
+        mFlag.resetBit(0);
         return;
     }
-    mFlag.setBit(1);
+    mFlag.setBit(0);
 
     // Buttons
     u32 prev_down = mDown;
@@ -378,18 +383,20 @@ GCController* GCControllerMgr::getNthController(int n)
 GCControllerMgr::GCControllerMgr()
 {
     mControllers.allocate(4);
+    GCController* gcCtrl = new GCController[4]{0, 1, 2, 3};
     for (int i = 0; i < mControllers.mSize; i++) {
-        mControllers(i) = new GCController(i);
+        mControllers(i) = gcCtrl + i;
     }
 }
 
 void GCControllerMgr::beginFrame()
 {
-    ::PADRead(mPadStatus);
+    std::memset(mPadStatus.data(), 0, sizeof(mPadStatus));
+    ::PADRead(mPadStatus.data());
 
     // OEM controllers have imperfections in their analog values
     // PADClamp is designed to remove these imperfections
-    ::PADClamp(mPadStatus);
+    ::PADClamp(mPadStatus.data());
 
     for (int i = 0; i < mControllers.mSize; i++) {
         mControllers(i)->beginFrame(&mPadStatus[i]);
@@ -405,7 +412,7 @@ void GCControllerMgr::endFrame()
 
         if (mControllers(i)->mFlag.off(1)) {
             // Bit mask starting from the left
-            mask |= 1 << (31 - (i - 4));
+            mask |= 1u << (31 - i);
         }
     }
 

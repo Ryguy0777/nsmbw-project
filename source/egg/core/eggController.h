@@ -5,6 +5,7 @@
 #include "egg/math/eggVector.h"
 #include "egg/prim/eggBitFlag.h"
 #include "egg/prim/eggBuffer.h"
+#include <array>
 #include <nw4r/ut/List.h>
 #include <revolution/kpad.h>
 #include <revolution/pad.h>
@@ -638,7 +639,7 @@ public:
 
     inline bool connected() const
     {
-        return mFlag.on(1);
+        return mpCore->connected() && mpCore->mStatus->isClassic();
     }
 
 public:
@@ -723,7 +724,7 @@ private:
     // ^^^^^^
 
     /* 0x010 */ TBuffer<GCController*> mControllers;
-    /* 0x01C */ PADStatus mPadStatus[4];
+    /* 0x01C */ std::array<PADStatus, 4> mPadStatus;
 
 public:
     // Instance Methods

@@ -184,7 +184,11 @@ void beginPad()
 }
 
 [[address(0x8016F550)]]
-void endPad();
+void endPad()
+{
+    g_padMg->endFrame();
+    EGG::GCControllerMgr::instance()->endFrame();
+}
 
 [[address(0x8016F570)]]
 void setCurrentChannel(CH_e chan);
