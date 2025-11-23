@@ -13,7 +13,7 @@ short sSeesawAngle[PLAYER_COUNT];
 short daLiftRemoconSeesaw_c::CalculateInitialAngle()
 {
     dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[mRemotePlayerID];
-    if (currentCore->mType == dGameKeyCore_c::Type_e::DOLPHIN) {
+    if (currentCore->isClassic() || currentCore->isDolphin()) {
         short LR = currentCore->getTiltLR();
         sSeesawAngle[mRemotePlayerID] =
           std::clamp<short>(sSeesawAngle[mRemotePlayerID] + LR, -0x1a2c, 0x1a2c);
@@ -30,7 +30,7 @@ short daLiftRemoconSeesaw_c::CalculateAngle()
 {
     dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[mRemotePlayerID];
     short angle;
-    if (currentCore->mType == dGameKeyCore_c::Type_e::DOLPHIN) {
+    if (currentCore->isClassic() || currentCore->isDolphin()) {
         short LR = currentCore->getTiltLR();
         sSeesawAngle[mRemotePlayerID] =
           std::clamp<short>(sSeesawAngle[mRemotePlayerID] + LR, -0x1a2c, 0x1a2c);

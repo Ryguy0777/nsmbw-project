@@ -130,9 +130,90 @@ UNDEF_8086f058:;
   // clang-format on
 );
 
-[[address(0x80871440)]]
-int daNiceBoat_c::calcPlayerOnRide() ASM_METHOD(
+[[address(0x808710C0)]]
+short daNiceBoat_c::calcLampAngle() ASM_METHOD(
   // clang-format off
+UNDEF_808710c0:;
+/* 808710C0 9421FFE0 */  stwu     r1, -32(r1);
+/* 808710C4 7C0802A6 */  mflr     r0;
+/* 808710C8 90010024 */  stw      r0, 36(r1);
+/* 808710CC 93E1001C */  stw      r31, 28(r1);
+/* 808710D0 93C10018 */  stw      r30, 24(r1);
+/* 808710D4 7C7E1B78 */  mr       r30, r3;
+/* 808710D8 4BFFFDE9 */  bl       UNDEF_80870ec0;
+/* 808710DC 7C7F1B78 */  mr       r31, r3;
+/* 808710E0 4B7EEED1 */  bl       UNDEF_8005ffb0;
+/* 808710E4 3803FFFF */  subi     r0, r3, 1;
+/* 808710E8 7C000034 */  cntlzw   r0, r0;
+/* 808710EC 5400D97F */  srwi.    r0, r0, 5                 ;
+/* 808710F0 41820014 */  beq-     UNDEF_80871104;
+/* 808710F4          */  cmplwi   r31, PLAYER_COUNT;
+/* 808710F8 40800054 */  bge-     UNDEF_8087114c;
+/* 808710FC 9BFE0430 */  stb      r31, 1072(r30);
+/* 80871100 4800004C */  b        UNDEF_8087114c;
+UNDEF_80871104:;
+/* 80871104          */  cmplwi   r31, PLAYER_COUNT;
+/* 80871108 4080000C */  bge-     UNDEF_80871114;
+/* 8087110C 38000010 */  li       r0, 16;
+/* 80871110 981E0E0F */  stb      r0, 3599(r30);
+UNDEF_80871114:;
+/* 80871114 7FC3F378 */  mr       r3, r30;
+/* 80871118 7FE5FB78 */  mr       r5, r31;
+/* 8087111C 38810008 */  addi     r4, r1, 8;
+/* 80871120 4BFFFEA1 */  bl       UNDEF_80870fc0;
+/* 80871124 881E0E08 */  lbz      r0, 3592(r30);
+/* 80871128 2C000000 */  cmpwi    r0, 0;
+/* 8087112C 4182000C */  beq-     UNDEF_80871138;
+/* 80871130 80010008 */  lwz      r0, 8(r1);
+/* 80871134 981E0430 */  stb      r0, 1072(r30);
+UNDEF_80871138:;
+/* 80871138 887E0E0F */  lbz      r3, 3599(r30);
+/* 8087113C 2C030000 */  cmpwi    r3, 0;
+/* 80871140 4182000C */  beq-     UNDEF_8087114c;
+/* 80871144 3803FFFF */  subi     r0, r3, 1;
+/* 80871148 981E0E0F */  stb      r0, 3599(r30);
+UNDEF_8087114c:;
+/* 8087114C 881E0430 */  lbz      r0, 1072(r30);
+/* 80871150 7C000774 */  extsb    r0, r0;
+/* 80871154          */  cmplwi   r0, PLAYER_COUNT;
+/* 80871158 40800034 */  bge-     UNDEF_8087118c;
+/* 8087115C 3C608043 */  lis      r3, UNDEF_8042a230@ha;
+/* 80871160 5400103A */  slwi     r0, r0, 2                 ;
+/* 80871164 8063A230 */  lwz      r3, UNDEF_8042a230@l(r3);
+/* 80871168 7C630214 */  add      r3, r3, r0;
+/* 8087116C 80630004 */  lwz      r3, 4(r3);
+/* 80871170 4B844B31 */  bl       UNDEF_800b5ca0;
+/* 80871174 5460843E */  srwi     r0, r3, 16                ;
+/* 80871178 387E0E04 */  addi     r3, r30, 3588;
+/* 8087117C 7C040734 */  extsh    r4, r0;
+/* 80871180 38A00800 */  li       r5, 2048;
+                         mr       r12, r6;
+                         mr       r11, r7;
+                         lbz      r6, 0x430(r30);
+                         li       r7, 0x4000;
+                         bl       CalculateTiltShoulder__8dGameComFPssscs;
+                         mr       r6, r12;
+                         mr       r7, r11;
+/* 80871188 4800001C */  b        UNDEF_808711a4;
+UNDEF_8087118c:;
+/* 8087118C 387E0E04 */  addi     r3, r30, 3588;
+/* 80871190 38800000 */  li       r4, 0;
+/* 80871194 38A00008 */  li       r5, 8;
+/* 80871198 38C00800 */  li       r6, 2048;
+/* 8087119C 38E00008 */  li       r7, 8;
+/* 808711A0 4B8EE1A1 */  bl       UNDEF_8015f340;
+UNDEF_808711a4:;
+/* 808711A4 80010024 */  lwz      r0, 36(r1);
+/* 808711A8 83E1001C */  lwz      r31, 28(r1);
+/* 808711AC 83C10018 */  lwz      r30, 24(r1);
+/* 808711B0 7C0803A6 */  mtlr     r0;
+/* 808711B4 38210020 */  addi     r1, r1, 32;
+/* 808711B8 4E800020 */  blr      ;
+  // clang-format on
+)
+
+  [[address(0x80871440)]] int daNiceBoat_c::calcPlayerOnRide() ASM_METHOD(
+    // clang-format off
 /* 80871440 9421FFB0 */  stwu     r1, -80(r1);
 /* 80871444 7C0802A6 */  mflr     r0;
 /* 80871448 90010054 */  stw      r0, 84(r1);
@@ -304,5 +385,5 @@ UNDEF_80871690:;
 /* 808716BC 7C0803A6 */  mtlr     r0;
 /* 808716C0 38210050 */  addi     r1, r1, 80;
 /* 808716C4 4E800020 */  blr;
-  // clang-format on
-);
+    // clang-format on
+  );
