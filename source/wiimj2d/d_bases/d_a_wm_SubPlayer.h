@@ -150,6 +150,9 @@ public:
     /* 0x808EF2B0 */
     bool isPlayerType(PLAYER_TYPE_e playerType);
 
+    /* 0x808EF2D0 */
+    bool isPlayerStar();
+
 public:
     // Static Methods
     // ^^^^^^

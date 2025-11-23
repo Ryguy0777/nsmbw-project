@@ -5,6 +5,7 @@
 
 #include "d_bases/d_a_wm_Map.h"
 #include "d_bases/d_a_wm_player.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_player_base.h"
 #include "machine/m_angle.h"
 #include "machine/m_heap.h"
@@ -317,6 +318,15 @@ bool daWmSubPlayer_c::isSubPlayerStopPoint();
 bool daWmSubPlayer_c::isPlayerType(PLAYER_TYPE_e playerType)
 {
     return dMj2dGame_c::scDefaultPlayerTypes[getPlayerNo()] == playerType;
+}
+
+[[address(0x808EF2D0)]]
+bool daWmSubPlayer_c::isPlayerStar()
+{
+    return static_cast<bool>(
+      daPyMng_c::mCreateItem[daPyMng_c::mPlayerType[mModelManager->mModel->mPlayerNo]] &
+      PLAYER_CREATE_ITEM_e::STAR_POWER
+    );
 }
 
 [[address(0x808EF680)]]
