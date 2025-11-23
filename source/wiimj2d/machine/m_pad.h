@@ -1,6 +1,7 @@
 #pragma once
 
 #include "machine/m_vec.h"
+#include <array>
 #include <egg/core/eggController.h>
 
 namespace mPad
@@ -34,8 +35,12 @@ struct PadAdditionalData_s {
     mVec2_c mAccVertical[3];
 };
 
-/* 0x80377F88 */
-extern EGG::Controller* g_core[CH_e::COUNT];
+/* 0x80377F88 @renamed */
+extern std::array<EGG::Controller*, CH_e::COUNT> g_core_order;
+
+extern std::array<EGG::Controller*, CH_e::COUNT> g_core;
+
+extern std::array<CH_e, CH_e::COUNT> g_playerChannel;
 
 /* 0x80377FA8 */
 extern PadAdditionalData_s g_PadAdditionalData[4];
@@ -77,5 +82,7 @@ void clearWPADInfo(CH_e chan);
 int getWPADInfoAsync(CH_e chan);
 
 bool isGameCubeChannel(CH_e chan);
+
+void setPlayerOrder(const std::array<CH_e, CH_e::COUNT>& order);
 
 } // namespace mPad

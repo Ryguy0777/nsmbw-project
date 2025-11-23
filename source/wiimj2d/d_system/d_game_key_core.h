@@ -145,24 +145,7 @@ public:
      */
     inline bool checkMenuConfirm() const
     {
-        u32 button = 0;
-
-        switch (mType) {
-        case Type_e::CORE:
-        case Type_e::FREESTYLE:
-            button = EGG::cCORE_BUTTON_2 | EGG::cCORE_BUTTON_A;
-            break;
-
-        case Type_e::CLASSIC:
-            button = EGG::cCLASSIC_BUTTON_A;
-            break;
-
-        case Type_e::DOLPHIN:
-            button = EGG::cDOLPHIN_BUTTON_A;
-            break;
-        }
-
-        return getController()->downTrigger(button);
+        return getController()->downTrigger(EGG::cCORE_BUTTON_2 | EGG::cCORE_BUTTON_A);
     }
 
     /**
@@ -170,24 +153,7 @@ public:
      */
     inline bool checkMenuCancel() const
     {
-        u32 button = 0;
-
-        switch (mType) {
-        case Type_e::CORE:
-        case Type_e::FREESTYLE:
-            button = EGG::cCORE_BUTTON_1 | EGG::cCORE_BUTTON_A;
-            break;
-
-        case Type_e::CLASSIC:
-            button = EGG::cCLASSIC_BUTTON_A;
-            break;
-
-        case Type_e::DOLPHIN:
-            button = EGG::cDOLPHIN_BUTTON_A;
-            break;
-        }
-
-        return getController()->downTrigger(button);
+        return getController()->downTrigger(EGG::cCORE_BUTTON_1 | EGG::cCORE_BUTTON_B);
     }
 
     /**

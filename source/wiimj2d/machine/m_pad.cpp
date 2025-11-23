@@ -7,12 +7,23 @@
 #include <mkwcat/Relocate.hpp>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
+#include <utility>
 
 namespace mPad
 {
 
 /* 0x80377F88 */
-EGG::Controller* g_core[CH_e::COUNT];
+std::array<EGG::Controller*, CH_e::COUNT> g_core_order;
+
+std::array<EGG::Controller*, CH_e::COUNT> g_core;
+
+constinit std::array<CH_e, CH_e::COUNT> g_playerChannel = [] {
+    std::array<CH_e, CH_e::COUNT> arr{};
+    for (int i = 0; i < CH_e::COUNT; i++) {
+        arr[i] = static_cast<CH_e>(i);
+    }
+    return arr;
+}();
 
 [[address_data(0x8042A740)]]
 EGG::CoreControllerMgr* g_padMg;
@@ -89,7 +100,7 @@ void beginPad()
 
     for (int i = CH_e::CHAN_0; i <= CH_e::CHAN_LAST; i++) {
         EGG::CoreController* core = g_padMg->getNthController(i);
-        g_core[i] = core;
+        g_core_order[g_playerChannel[i]] = g_core[i] = core;
 
         if (!core->connected()) {
             if (!g_IsConnected[i]) {
@@ -123,7 +134,7 @@ void beginPad()
 
     for (int i = CH_e::CHAN_CL_0; i <= CH_e::CHAN_CL_LAST; i++) {
         EGG::ClassicController* classic = g_padMg->getNthClassic(i - CH_e::CHAN_CL_0);
-        g_core[i] = classic;
+        g_core_order[g_playerChannel[i]] = g_core[i] = classic;
         g_IsConnected[i] =
           g_IsConnected[i - (CH_e::CHAN_CL_0 - CH_e::CHAN_0)] && classic->connected();
         if (!g_IsConnected[i]) {
@@ -151,7 +162,7 @@ void beginPad()
 
     for (int i = CH_e::CHAN_GC_0; i <= CH_e::CHAN_GC_LAST; i++) {
         EGG::GCController* core = gcPadMg->getNthController(i - CH_e::CHAN_GC_0);
-        g_core[i] = core;
+        g_core_order[g_playerChannel[i]] = g_core[i] = core;
         g_IsConnected[i] = core->connected();
         if (!g_IsConnected[i]) {
             continue;
@@ -225,8 +236,16 @@ bool isGameCubeChannel(CH_e chan)
     return chan >= CH_e::CHAN_GC_0 && chan <= CH_e::CHAN_GC_3;
 }
 
+void setPlayerOrder(const std::array<CH_e, CH_e::COUNT>& order)
+{
+    g_playerChannel = order;
+    for (int i = 0; i < CH_e::COUNT; i++) {
+        g_core_order[g_playerChannel[i]] = g_core[i];
+    }
+}
+
 PATCH_REFERENCES(
-  &g_core,
+  &g_core_order,
   {
     {0x80017EEA, R_PPC_ADDR16_HA}, {0x80017EF6, R_PPC_ADDR16_LO}, {0x800582CA, R_PPC_ADDR16_HA},
     {0x800582CE, R_PPC_ADDR16_LO}, {0x800B540E, R_PPC_ADDR16_HA}, {0x800B5416, R_PPC_ADDR16_LO},

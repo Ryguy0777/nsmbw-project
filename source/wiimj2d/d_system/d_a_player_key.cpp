@@ -185,7 +185,7 @@ u16 dAcPyKey_c::triggerOne() const
     switch (core->mType) {
     case dGameKeyCore_c::Type_e::FREESTYLE:
         // Nunchuk mode
-        return mDownButtons & dGameKeyCore_c::BTN_B;
+        return mTriggeredButtons & dGameKeyCore_c::BTN_B;
 
     default:
         // Other
@@ -204,7 +204,7 @@ u16 dAcPyKey_c::buttonOne() const
         
     default:
         // Other
-        return mTriggeredButtons & dGameKeyCore_c::BTN_1;
+        return mDownButtons & dGameKeyCore_c::BTN_1;
     }
 }
 

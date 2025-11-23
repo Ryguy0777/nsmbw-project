@@ -500,37 +500,37 @@ public:
     /* VT+0x18 */
     bool down(u32 mask) const override
     {
-        return mDown & mask;
+        return mDown & gcMask(mask);
     }
 
     /* VT+0x1C */
     bool up(u32 mask) const override
     {
-        return (mDown & mask) != mask;
+        return (mDown & gcMask(mask)) != gcMask(mask);
     }
 
     /* VT+0x20 */
     bool downTrigger(u32 mask) const override
     {
-        return mTrig & mask;
+        return mTrig & gcMask(mask);
     }
 
     /* VT+0x24 */
     bool upTrigger(u32 mask) const override
     {
-        return mUp & mask;
+        return mUp & gcMask(mask);
     }
 
     /* VT+0x28 */
     bool downAll(u32 mask) const override
     {
-        return (mDown & mask) == mask;
+        return (mDown & gcMask(mask)) == gcMask(mask);
     }
 
     /* VT+0x2C */
     bool upAll(u32 mask) const override
     {
-        return (mDown & mask) == 0;
+        return (mDown & gcMask(mask)) == 0;
     }
 
     /* VT+0x30 0x802BD0D0 */
@@ -569,9 +569,30 @@ private:
     s32 mMotorFrameDuration = 0;
     u8 mMotorPatternLength = 0;
     u8 mMotorPatternPos = 0;
-    ControllerRumbleMgr* mRumbleMgr;
+    ControllerRumbleMgr* mRumbleMgr = nullptr;
 
     u32 mIdleTime = 0;
+
+public:
+    // Static Inline Methods
+    // ^^^^^^
+    static constexpr u32 gcMask(u32 mask)
+    {
+        u32 gc_mask = 0;
+        if (mask & cCORE_BUTTON_A) {
+            gc_mask |= cDOLPHIN_BUTTON_A;
+        }
+        if (mask & cCORE_BUTTON_B) {
+            gc_mask |= cDOLPHIN_BUTTON_B;
+        }
+        if (mask & cCORE_BUTTON_PLUS) {
+            gc_mask |= cDOLPHIN_BUTTON_START;
+        }
+        if (mask & cCORE_BUTTON_MINUS) {
+            gc_mask |= cDOLPHIN_BUTTON_Z;
+        }
+        return gc_mask;
+    }
 };
 
 class ClassicController final : public Controller
@@ -597,37 +618,37 @@ public:
     /* VT+0x18 */
     bool down(u32 mask) const override
     {
-        return mDown & mask;
+        return mDown & clMask(mask);
     }
 
     /* VT+0x1C */
     bool up(u32 mask) const override
     {
-        return (mDown & mask) != mask;
+        return (mDown & clMask(mask)) != clMask(mask);
     }
 
     /* VT+0x20 */
     bool downTrigger(u32 mask) const override
     {
-        return mTrig & mask;
+        return mTrig & clMask(mask);
     }
 
     /* VT+0x24 */
     bool upTrigger(u32 mask) const override
     {
-        return mUp & mask;
+        return mUp & clMask(mask);
     }
 
     /* VT+0x28 */
     bool downAll(u32 mask) const override
     {
-        return (mDown & mask) == mask;
+        return (mDown & clMask(mask)) == clMask(mask);
     }
 
     /* VT+0x2C */
     bool upAll(u32 mask) const override
     {
-        return (mDown & mask) == 0;
+        return (mDown & clMask(mask)) == 0;
     }
 
     /* VT+0x30 0x802BD0D0 */
@@ -666,6 +687,30 @@ private:
     TBitFlag<u8> mFlag;
 
     u32 mIdleTime = 0;
+
+public:
+    // Static Inline Variables
+    // ^^^^^^
+    static constexpr u32 clMask(u32 mask)
+    {
+        u32 cl_mask = 0;
+        if (mask & cCORE_BUTTON_A) {
+            cl_mask |= cCLASSIC_BUTTON_A;
+        }
+        if (mask & cCORE_BUTTON_B) {
+            cl_mask |= cCLASSIC_BUTTON_B;
+        }
+        if (mask & cCORE_BUTTON_PLUS) {
+            cl_mask |= cCLASSIC_BUTTON_PLUS;
+        }
+        if (mask & cCORE_BUTTON_MINUS) {
+            cl_mask |= cCLASSIC_BUTTON_MINUS;
+        }
+        if (mask & cCORE_BUTTON_HOME) {
+            cl_mask |= cCLASSIC_BUTTON_HOME;
+        }
+        return cl_mask;
+    }
 };
 
 class CoreControllerMgr

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "d_system/d_a_player_manager.h"
-#include "machine/m_pad.h"
 #include "d_system/d_game_key_core.h"
+#include "d_system/d_mj2d_game.h"
+#include "machine/m_pad.h"
 #include <egg/core/eggHeap.h>
 
 class dGameKey_c
