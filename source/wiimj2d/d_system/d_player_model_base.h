@@ -176,8 +176,9 @@ public:
 
     /* 0x004 */ mAllocator_c mAllocator;
 
-    FILL(0x020, 0x151);
+    FILL(0x020, 0x150);
 
+    /* 0x150 */ u8 mPlayerNo;
     /* 0x151 */ u8 mCharaID;
     /* 0x152 */ u8 mPowerupID;
     /* 0x153 */ u8 mCurColorType;
