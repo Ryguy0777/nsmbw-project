@@ -1,7 +1,6 @@
 #pragma once
 
 #include "s_StateID.h"
-#include <cstring>
 
 /**
  * An implementation of a state ID for a given class. It adds the ability to call the three state

@@ -1,7 +1,7 @@
 // s_Print.cpp
 // NSMBW .text: 0x8015F810 - 0x8015F900
 
-#include "d_player/d_s_boot.h"
+#include "d_system/d_system.h"
 #include <cstdarg>
 #include <cstdio>
 #include <mkwcat/Region.hpp>

@@ -1,7 +1,7 @@
 // d_a_fireball_player.cpp
 // NSMBW .text: 0x8011A5B0 - 0x8011B640
 
-#include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
 #include <mkwcat/Relocate.hpp>
 
 /* 0x80375840 */
@@ -47,8 +47,8 @@ void daFireBall_Player_c_createCheck(void* this_) ASM_METHOD(
   // clang-format on
 );
 
-PATCH_REFERENCES(&
-  daFireBall_Player_c_m_limit1,
+PATCH_REFERENCES(
+  &daFireBall_Player_c_m_limit1, //
   {
     {0x8011A6DA, R_PPC_ADDR16_HA},
     {0x8011A6F2, R_PPC_ADDR16_LO},
@@ -59,8 +59,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daFireBall_Player_c_m_limit2,
+PATCH_REFERENCES(
+  &daFireBall_Player_c_m_limit2, //
   {
     {0x8011A6DE, R_PPC_ADDR16_HA},
     {0x8011A6FA, R_PPC_ADDR16_LO},

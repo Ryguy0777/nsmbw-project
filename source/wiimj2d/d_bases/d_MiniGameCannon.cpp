@@ -119,54 +119,51 @@ bool dMiniGameCannon_c::createLayout()
     );
     mpRootPane = mLayout.getRootPane();
     mLayout.NPaneRegister(
-      &mpN4pPos[0],
-      {
-        "N_4P_Pos_00",
-        "N_4P_Pos_01",
-        "N_4P_Pos_02",
-        "N_4P_Pos_03",
+      &mpN4pPos[0], {
+                      "N_4P_Pos_00",
+                      "N_4P_Pos_01",
+                      "N_4P_Pos_02",
+                      "N_4P_Pos_03",
 
-        "N_3P_Pos_00",
-        "N_3P_Pos_01",
-        "N_3P_Pos_02",
+                      "N_3P_Pos_00",
+                      "N_3P_Pos_01",
+                      "N_3P_Pos_02",
 
-        "N_2P_Pos_00",
-        "N_2P_Pos_01",
+                      "N_2P_Pos_00",
+                      "N_2P_Pos_01",
 
-        "N_1P_Pos_00",
+                      "N_1P_Pos_00",
 
-        "N_info_00",
-        "N_result_00",
-        "N_gameCannon_00",
-        "N_result_01",
+                      "N_info_00",
+                      "N_result_00",
+                      "N_gameCannon_00",
+                      "N_result_01",
 
-        "N_1P_00",
-        "N_2P_00",
-        "N_3P_00",
-        "N_4P_00",
-      }
+                      "N_1P_00",
+                      "N_2P_00",
+                      "N_3P_00",
+                      "N_4P_00",
+                    }
     );
     mLayout.TPaneRegister(
-      &mpT1up[0],
-      {
-        "T_1Up_00",
-        "T_1Up_01",
-        "T_1Up_02",
-        "T_1Up_03",
-        "T_info_04",
-      }
+      &mpT1up[0], {
+                    "T_1Up_00",
+                    "T_1Up_01",
+                    "T_1Up_02",
+                    "T_1Up_03",
+                    "T_info_04",
+                  }
     );
     mpTInfo->setMessage(dMessage_c::getMesRes(), 301, 7, 0);
     mLayout.PPaneRegister(
-      &mpPPlayer[0],
-      {
-        "P_1P_00",
-        "P_2P_00",
-        "P_3P_00",
-        "P_4P_00",
-        "P_BG_00",
-        "P_titleBase_00",
-      }
+      &mpPPlayer[0], {
+                       "P_1P_00",
+                       "P_2P_00",
+                       "P_3P_00",
+                       "P_4P_00",
+                       "P_BG_00",
+                       "P_titleBase_00",
+                     }
     );
     mLayout.WPaneRegister(&mpWGameCannon, {"W_gameCannon_00"});
 

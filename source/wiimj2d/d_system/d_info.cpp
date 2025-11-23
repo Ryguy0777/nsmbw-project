@@ -10,6 +10,7 @@
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"
+#include <cstring>
 
 [[address_data(0x80315E90)]]
 dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;

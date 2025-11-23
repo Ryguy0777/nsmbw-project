@@ -4,8 +4,8 @@
 
 #include "d_audio.h"
 
+#include "d_system/d_mj2d_game.h"
 #include <mkwcat/Relocate.hpp>
-#include "d_system/d_a_player_manager.h"
 
 namespace dAudio
 {
@@ -39,8 +39,20 @@ u32 getRemotePlayer(int player)
 [[address(0x8006A3F0)]]
 nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
 
-PATCH_REFERENCES(&
-  g_pNonPosSndObjctPly,
+[[address(0x8006A7D0)]]
+void pauseMove(int player);
+
+[[address(0x8006A7F0)]]
+void pauseOffMove(int player);
+
+/* VT+0x08 - Moved here */
+[[address(0x80104160)]]
+SndObjctCSPly_c::~SndObjctCSPly_c()
+{
+}
+
+PATCH_REFERENCES(
+  &g_pNonPosSndObjctPly, //
   {
     {0x80069E66, R_PPC_ADDR16_HA},
     {0x80069E76, R_PPC_ADDR16_LO},
@@ -54,17 +66,5 @@ PATCH_REFERENCES(&
     {0x800D73BA, R_PPC_ADDR16_LO},
   }
 )
-
-[[address(0x8006A7D0)]]
-void pauseMove(int player);
-
-[[address(0x8006A7F0)]]
-void pauseOffMove(int player);
-
-/* VT+0x08 - Moved here */
-[[address(0x80104160)]]
-SndObjctCSPly_c::~SndObjctCSPly_c()
-{
-}
 
 } // namespace dAudio

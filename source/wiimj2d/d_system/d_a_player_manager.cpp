@@ -27,8 +27,8 @@
 #include "framework/f_manager.h"
 #include "machine/m_vec.h"
 #include "sound/SndID.h"
-#include <mkwcat/Relocate.hpp>
 #include <algorithm>
+#include <mkwcat/Relocate.hpp>
 #include <numeric>
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
@@ -300,8 +300,7 @@ void daPyMng_c::createCourseInit()
             }
 
             std::sort(
-              &createOrder[0], &createOrder[PLAYER_COUNT],
-              [createOrderRandom](int l, int r) {
+              &createOrder[0], &createOrder[PLAYER_COUNT], [createOrderRandom](int l, int r) {
                 return createOrderRandom[l] < createOrderRandom[r];
             }
             );
@@ -1096,8 +1095,8 @@ void daPyMng_c::checkCorrectCreateInfo()
     }
 }
 
-PATCH_REFERENCES(&
-  daPyMng_c::m_playerID,
+PATCH_REFERENCES(
+  &daPyMng_c::m_playerID, //
   {
     {0x8005EA6A, R_PPC_ADDR16_HA}, {0x8005EA76, R_PPC_ADDR16_LO}, {0x8005EB26, R_PPC_ADDR16_HA},
     {0x8005EB2A, R_PPC_ADDR16_LO}, {0x8005ECE6, R_PPC_ADDR16_HA}, {0x8005ECEA, R_PPC_ADDR16_LO},
@@ -1112,8 +1111,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::m_yoshiID,
+PATCH_REFERENCES(
+  &daPyMng_c::m_yoshiID, //
   {
     {0x8005F9A2, R_PPC_ADDR16_HA}, {0x8005F9AA, R_PPC_ADDR16_LO}, {0x8005F9C6, R_PPC_ADDR16_HA},
     {0x8005F9D6, R_PPC_ADDR16_LO}, {0x8005FA0A, R_PPC_ADDR16_HA}, {0x8005FA12, R_PPC_ADDR16_LO},
@@ -1126,8 +1125,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mCourseInList,
+PATCH_REFERENCES(
+  &daPyMng_c::mCourseInList, //
   {
     {0x8005D656, R_PPC_ADDR16_HA},
     {0x8005D65E, R_PPC_ADDR16_LO},
@@ -1137,8 +1136,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::m_yoshiFruit,
+PATCH_REFERENCES(
+  &daPyMng_c::m_yoshiFruit, //
   {
     {0x8005FC22, R_PPC_ADDR16_HA},
     {0x8005FC32, R_PPC_ADDR16_LO},
@@ -1147,8 +1146,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mPlayerEntry,
+PATCH_REFERENCES(
+  &daPyMng_c::mPlayerEntry, //
   {
     {0x8005D31A, R_PPC_ADDR16_HA}, {0x8005D32E, R_PPC_ADDR16_LO}, {0x8005EEEA, R_PPC_ADDR16_HA},
     {0x8005EEF6, R_PPC_ADDR16_LO}, {0x8005F38A, R_PPC_ADDR16_HA}, {0x8005F392, R_PPC_ADDR16_LO},
@@ -1169,8 +1168,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mPlayerType,
+PATCH_REFERENCES(
+  &daPyMng_c::mPlayerType, //
   {
     {0x8001B7E2, R_PPC_ADDR16_HA}, {0x8001B7F2, R_PPC_ADDR16_LO}, {0x8001CD52, R_PPC_ADDR16_HA},
     {0x8001CD5A, R_PPC_ADDR16_LO}, {0x8005D31E, R_PPC_ADDR16_HA}, {0x8005D336, R_PPC_ADDR16_LO},
@@ -1234,8 +1233,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mPlayerMode,
+PATCH_REFERENCES(
+  &daPyMng_c::mPlayerMode, //
   {
     {0x8001B7E6, R_PPC_ADDR16_HA}, {0x8001B7FE, R_PPC_ADDR16_LO}, {0x800BB96E, R_PPC_ADDR16_HA},
     {0x800BB9A2, R_PPC_ADDR16_LO}, {0x800E17BA, R_PPC_ADDR16_HA}, {0x800E17CE, R_PPC_ADDR16_LO},
@@ -1257,8 +1256,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mCreateItem,
+PATCH_REFERENCES(
+  &daPyMng_c::mCreateItem, //
   {
     {0x8005D326, R_PPC_ADDR16_HA}, {0x8005D342, R_PPC_ADDR16_LO}, {0x8005FBE6, R_PPC_ADDR16_HA},
     {0x8005FBF2, R_PPC_ADDR16_LO}, {0x800BB97A, R_PPC_ADDR16_HA}, {0x800BB9B2, R_PPC_ADDR16_LO},
@@ -1282,8 +1281,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mRest,
+PATCH_REFERENCES(
+  &daPyMng_c::mRest, //
   {
     {0x80010822, R_PPC_ADDR16_HA}, {0x80010832, R_PPC_ADDR16_LO}, {0x8001CD56, R_PPC_ADDR16_HA},
     {0x8001CD62, R_PPC_ADDR16_LO}, {0x8006052E, R_PPC_ADDR16_HA}, {0x80060542, R_PPC_ADDR16_LO},
@@ -1305,8 +1304,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daPyMng_c::mCoin,
+PATCH_REFERENCES(
+  &daPyMng_c::mCoin, //
   {
     {0x80060206, R_PPC_ADDR16_HA},
     {0x80060216, R_PPC_ADDR16_LO},

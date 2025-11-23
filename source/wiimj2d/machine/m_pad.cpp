@@ -7,7 +7,6 @@
 #include <mkwcat/Relocate.hpp>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
-#include <utility>
 
 namespace mPad
 {
@@ -245,7 +244,7 @@ void setPlayerOrder(const std::array<CH_e, CH_e::COUNT>& order)
 }
 
 PATCH_REFERENCES(
-  &g_core_order,
+  &g_core_order, //
   {
     {0x80017EEA, R_PPC_ADDR16_HA}, {0x80017EF6, R_PPC_ADDR16_LO}, {0x800582CA, R_PPC_ADDR16_HA},
     {0x800582CE, R_PPC_ADDR16_LO}, {0x800B540E, R_PPC_ADDR16_HA}, {0x800B5416, R_PPC_ADDR16_LO},
@@ -280,36 +279,39 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &g_PadAdditionalData, {
-                          {0x800B5E12, R_PPC_ADDR16_HA},
-                          {0x800B5E26, R_PPC_ADDR16_LO},
-                          {0x8016F3A2, R_PPC_ADDR16_HA},
-                          {0x8016F3AE, R_PPC_ADDR16_LO},
-                          {0x8016F7BA, R_PPC_ADDR16_HA},
-                          {0x8016F7CE, R_PPC_ADDR16_LO},
-                          {0x8016F862, R_PPC_ADDR16_HA},
-                          {0x8016F86A, R_PPC_ADDR16_LO},
-                        }
+  &g_PadAdditionalData, //
+  {
+    {0x800B5E12, R_PPC_ADDR16_HA},
+    {0x800B5E26, R_PPC_ADDR16_LO},
+    {0x8016F3A2, R_PPC_ADDR16_HA},
+    {0x8016F3AE, R_PPC_ADDR16_LO},
+    {0x8016F7BA, R_PPC_ADDR16_HA},
+    {0x8016F7CE, R_PPC_ADDR16_LO},
+    {0x8016F862, R_PPC_ADDR16_HA},
+    {0x8016F86A, R_PPC_ADDR16_LO},
+  }
 );
 
 PATCH_REFERENCES(
-  &s_WPADInfo, {
-                 {0x8016F5B6, R_PPC_ADDR16_HA},
-                 {0x8016F5BA, R_PPC_ADDR16_LO},
-                 {0x8016F5D6, R_PPC_ADDR16_HA},
-                 {0x8016F5E2, R_PPC_ADDR16_LO},
-                 {0x8016F646, R_PPC_ADDR16_HA},
-                 {0x8016F64E, R_PPC_ADDR16_LO},
-               }
+  &s_WPADInfo, //
+  {
+    {0x8016F5B6, R_PPC_ADDR16_HA},
+    {0x8016F5BA, R_PPC_ADDR16_LO},
+    {0x8016F5D6, R_PPC_ADDR16_HA},
+    {0x8016F5E2, R_PPC_ADDR16_LO},
+    {0x8016F646, R_PPC_ADDR16_HA},
+    {0x8016F64E, R_PPC_ADDR16_LO},
+  }
 );
 
 PATCH_REFERENCES(
-  &s_WPADInfo, {
-                 {0x8016F6F6, R_PPC_ADDR16_HA},
-                 {0x8016F6FA, R_PPC_ADDR16_LO},
-                 {0x8016F71A, R_PPC_ADDR16_HA},
-                 {0x8016F72A, R_PPC_ADDR16_LO},
-               }
+  &s_WPADInfo, //
+  {
+    {0x8016F6F6, R_PPC_ADDR16_HA},
+    {0x8016F6FA, R_PPC_ADDR16_LO},
+    {0x8016F71A, R_PPC_ADDR16_HA},
+    {0x8016F72A, R_PPC_ADDR16_LO},
+  }
 );
 
 } // namespace mPad

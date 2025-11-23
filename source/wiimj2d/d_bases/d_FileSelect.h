@@ -1,5 +1,6 @@
 #pragma once
 
+#include "d_system/d_mj2d_game.h"
 #include "framework/f_base.h"
 
 class dDateFile_c;

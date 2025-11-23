@@ -2,6 +2,7 @@
 // NSMBW d_bases.text: 0x808681B0 - 0x8086A040
 
 #include "d_bases/d_a_mini_game_wire_mesh.h"
+#include <cstring>
 
 [[address(0x808681B0)]]
 daMiniGameWireMesh_c* daMiniGameWireMesh_c_classInit()

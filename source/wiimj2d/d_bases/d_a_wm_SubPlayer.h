@@ -1,6 +1,6 @@
 #pragma once
 
-#include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_wm_player_base.h"
 

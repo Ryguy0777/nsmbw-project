@@ -27,6 +27,7 @@ source/System.h
 -Wno-nested-anon-types
 -Wno-gnu-anonymous-struct
 -Wno-c23-extensions
+-Wno-c99-extensions
 -nostdinc
 -nostdinc++
 -DCLANGD
