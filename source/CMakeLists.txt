@@ -241,6 +241,7 @@ target_sources(project PRIVATE
 
 #
 # wiimj2d/d_bases
+# NSMBW   d_bases.text:  0x8076D880 - 0x
 #
 
 # NSMBW   d_bases.text:  0x8076D880 - 0x8076DEE0
@@ -251,21 +252,86 @@ target_sources(project PRIVATE
     wiimj2d/d_bases/d_CharacterChangeSelectBase.cpp
 # NSMBW   d_bases.text:  0x80772A50 - 0x80773F30
     wiimj2d/d_bases/d_CharacterChangeSelectContents.cpp
-
-# NSMBW   d_bases.text:  0x         - 0x8078BC60
-    # wiimj2d/d_bases/d_MessageWindow.cpp
+# NSMBW   d_bases.text:  0x80773F30 - 0x80776150
+  # wiimj2d/d_bases/d_CollectionCoin.cpp
+# NSMBW   d_bases.text:  0x80776150 - 0x80776570
+  # wiimj2d/d_bases/d_CollectionCoinBase.cpp
+# NSMBW   d_bases.text:  0x80776570 - 0x807775E0
+  # wiimj2d/d_bases/d_CollectionCoinDate.cpp
+# NSMBW   d_bases.text:  0x807775E0 - 0x80779650
+  # wiimj2d/d_bases/d_Continue.cpp
+# NSMBW   d_bases.text:  0x80779650 - 0x8077A750
+  # wiimj2d/d_bases/d_CourseClear.cpp
+# NSMBW   d_bases.text:  0x8077A750 - 0x8077BB00
+  # wiimj2d/d_bases/d_CourseSelectMenu.cpp
+# NSMBW   d_bases.text:  0x8077BB00 - 0x8077CAE0
+  # wiimj2d/d_bases/d_CourseTimeUp.cpp
+# NSMBW   d_bases.text:  0x8077CAE0 - 0x8077E590
+  # wiimj2d/d_bases/d_DateFile.cpp
+# NSMBW   d_bases.text:  0x8077E590 - 0x8077F450
+  # wiimj2d/d_bases/d_DemoMessage.cpp
+# NSMBW   d_bases.text:  0x8077F450 - 0x807801F0
+  # wiimj2d/d_bases/d_DrawGame.cpp
+# NSMBW   d_bases.text:  0x807801F0 - 0x80781980
+  # wiimj2d/d_bases/d_EasyPairing.cpp
+# NSMBW   d_bases.text:  0x80781980 - 0x80782AB0
+  # wiimj2d/d_bases/d_EventOpeningTitle.cpp
+# NSMBW   d_bases.text:  0x80782AB0 - 0x80788510
+  # wiimj2d/d_bases/d_FileSelect.cpp
+# NSMBW   d_bases.text:  0x80788510 - 0x80789810
+  # wiimj2d/d_bases/d_GameOver.cpp
+# NSMBW   d_bases.text:  0x80789810 - 0x80789BB0
+  # wiimj2d/d_bases/d_InfoWindow.cpp
+# NSMBW   d_bases.text:  0x80789BB0 - 0x8078AD30
+  # wiimj2d/d_bases/d_LetterWindow.cpp
+# NSMBW   d_bases.text:  0x8078AD30 - 0x8078BC60
+  # wiimj2d/d_bases/d_MessageWindow.cpp
 # NSMBW   d_bases.text:  0x8078BC60 - 0x8078DA20
     wiimj2d/d_bases/d_MiniGameCannon.cpp
-# NSMBW   d_bases.text:  0x8078DA20 - 0x
-    # wiimj2d/d_bases/d_MiniGameWire.cpp
+# NSMBW   d_bases.text:  0x8078DA20 - 0x80790450
+  # wiimj2d/d_bases/d_MiniGameWire.cpp
+# NSMBW   d_bases.text:  0x80790450 - 0x807916F0
+  # wiimj2d/d_bases/d_ModeSelect.cpp
+# NSMBW   d_bases.text:  0x807916F0 - 0x80792B00
+  # wiimj2d/d_bases/d_ModelPlayArrow.cpp
+# NSMBW   d_bases.text:  0x80792B00 - 0x80793E60
+  # wiimj2d/d_bases/d_ModelPlayBase.cpp
+# NSMBW   d_bases.text:  0x80793E60 - 0x80794F90
+  # wiimj2d/d_bases/d_ModelPlayDate.cpp
+# NSMBW   d_bases.text:  0x80794F90 - 0x80795290
+  # wiimj2d/d_bases/d_ModelPlayGuide.cpp
+# NSMBW   d_bases.text:  0x80795290 - 0x80798920
+  # wiimj2d/d_bases/d_ModelPlayManager.cpp
+# NSMBW   d_bases.text:  0x80798920 - 0x8079D540
+  # wiimj2d/d_bases/d_MultiCourseSelect.cpp
+# NSMBW   d_bases.text:  0x8079D540 - 0x8079F630
+  # wiimj2d/d_bases/d_MultiCourseSelectContents.cpp
 # NSMBW   d_bases.text:  0x8079F630 - 0x807A2CF0
     wiimj2d/d_bases/d_NumberOfPeopleChange.cpp
-
+# NSMBW   d_bases.text:  0x807A2CF0 - 0x807A3F50
+  # wiimj2d/d_bases/d_OtehonClear.cpp
+# NSMBW   d_bases.text:  0x807A3F50 - 0x807A7770
+  # wiimj2d/d_bases/d_PointResultDateFile.cpp
+# NSMBW   d_bases.text:  0x807A7770 - 0x807A89C0
+  # wiimj2d/d_bases/d_PointResultDateFileFree.cpp
+# NSMBW   d_bases.text:  0x807A89C0 - 0x807ABE10
+  # wiimj2d/d_bases/d_PointResultMulti.cpp
 # NSMBW   d_bases.text:  0x807ABE10 - 0x807AD5F0
     wiimj2d/d_bases/d_SelectPlayer.cpp
-
+# NSMBW   d_bases.text:  0x807AD5F0 - 0x807ADAD0
+  # wiimj2d/d_bases/d_SequenceBG.cpp
+# NSMBW   d_bases.text:  0x807ADAD0 - 0x807AF370
+  # wiimj2d/d_bases/d_StaffCreditScore.cpp
 # NSMBW   d_bases.text:  0x807AF370 - 0x807B2030
     wiimj2d/d_bases/d_StockItem.cpp
+# NSMBW   d_bases.text:  0x807B2030 - 0x807B2540
+  # wiimj2d/d_bases/d_StockItemShadow.cpp
+# NSMBW   d_bases.text:  0x807B2540 - 0x807B32D0
+  # wiimj2d/d_bases/d_TheEnd.cpp
+# NSMBW   d_bases.text:  0x807B32D0 - 0x807B40A0
+  # wiimj2d/d_bases/d_TimeUp.cpp
+# NSMBW   d_bases.text:  0x807B40A0 - 0x807B77D0
+  # wiimj2d/d_bases/d_a_bg_polygon.cpp
 
 # NSMBW   d_bases.text:  0x807D0070 - 0x807D2AC0
     wiimj2d/d_bases/d_a_boss_koopa_jr_demo.cpp

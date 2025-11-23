@@ -2,6 +2,7 @@
 
 #include "d_system/d_system.h"
 #include "framework/f_base.h"
+#include "framework/f_profile.h"
 #include <type_traits>
 
 class dBase_c;

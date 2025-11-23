@@ -6,6 +6,13 @@
 #include "machine/m_mtx.h"
 #include "machine/m_vec.h"
 
+struct dBaseActorCtor_s : dBaseCtor_s {
+    /**
+     * Various actor-related properties.
+     */
+    u32 mActorProps;
+};
+
 /**
  * The minimum required implementation for an actor base.
  */
@@ -227,8 +234,7 @@ public:
      * @return A pointer to the instantiated actor, or nullptr.
      */
     static dBaseActor_c* construct(
-      u16 profName, dBase_c* parent, u32 param, const mVec3_c* position,
-      const mAng3_c* rotation
+      u16 profName, dBase_c* parent, u32 param, const mVec3_c* position, const mAng3_c* rotation
     );
 
 private:

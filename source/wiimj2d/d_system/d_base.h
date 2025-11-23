@@ -4,6 +4,8 @@
 #include "d_bases/d_profile.h"
 #include "framework/f_base.h"
 
+using dBaseCtor_s = fBaseCtor_s;
+
 /**
  * An extension of fBase_c with base kind and name strings. All bases should
  * inherit from this class, not from fBase_c.
@@ -11,11 +13,6 @@
 class dBase_c : public fBase_c
 {
     SIZE_ASSERT(0x70);
-
-
-
-    // Nested Types
-    // ^^^^^^
 
 public:
     // Structors
