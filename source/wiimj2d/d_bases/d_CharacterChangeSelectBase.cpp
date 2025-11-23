@@ -771,7 +771,7 @@ void dCharacterChangeSelectBase_c::finalizeState_PlayerExitWait() ASM_METHOD(
 
 u32 dCharacterChangeSelectBase_c::getLampPattern(int playerNo)
 {
-    if (unsigned(playerNo) >= dRemoconMng_c::CONNECT_COUNT) {
+    if (unsigned(playerNo) >= PLAYER_COUNT) {
         return 0b0000000;
     }
 

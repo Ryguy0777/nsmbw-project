@@ -1,11 +1,10 @@
 #pragma once
 
+#include "d_bases/d_profile.h"
 #include "d_system/d_base.h"
-#include "d_system/d_cyuukan.h"
 #include "d_system/d_fader.h"
 #include "d_system/d_mj2d_game.h"
-#include "d_system/d_remocon_mng.h"
-#include "d_bases/d_profile.h"
+#include "machine/m_vec.h"
 
 class dGameDisplay_c;
 class dMiniGameCannon_c;
@@ -130,7 +129,7 @@ public:
     static PLAYER_TYPE_e mCollectionCoin[COLLECTION_COIN_COUNT];
 
     /* 0x803744D0 */
-    static dReplayPlay_c* m_replayPlay_p[REMOCON_CONNECT_COUNT];
+    static dReplayPlay_c* m_replayPlay_p[PLAYER_COUNT];
 
 public:
     // Instance Variables

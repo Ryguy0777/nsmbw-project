@@ -1,16 +1,15 @@
 #pragma once
 
+#include "d_system/d_mj2d_game.h"
 #include "machine/m_pad.h"
 #include "state/s_State.h"
 #include "state/s_StateMgrDefault.h"
 #include <egg/core/eggHeap.h>
 
-#define REMOCON_CONNECT_COUNT 8
+#define REMOCON_CONNECT_COUNT 12
 
 class dRemoconMng_c
 {
-    SIZE_ASSERT(0x4 + REMOCON_CONNECT_COUNT * 0x4);
-
 public:
     // Constants and Types
     // ^^^^^^
@@ -35,7 +34,9 @@ public:
     // Instance Variables
     // ^^^^^^
 
-    /* 0x04 */ dConnect_c* mpConnect[CONNECT_COUNT];
+    /* 0x04 */ dConnect_c* mpConnect[PLAYER_COUNT];
+    dConnect_c* mpConnectAll[CONNECT_COUNT];
+    dConnect_c& mDummyConnect;
 
 public:
     // Static Methods
@@ -69,6 +70,8 @@ public:
         SIZE_ASSERT(0x48);
 
         VTABLE(0x00, dExtension_c, 0x80319240);
+
+        friend class dConnect_c;
 
     public:
         // Structors
@@ -109,6 +112,9 @@ public:
 
         inline mPad::CH_e getChannel() const
         {
+            if (mType == Type_e::CLASSIC) {
+                return static_cast<mPad::CH_e>(mChannel + (mPad::CHAN_CL_0 - mPad::CHAN_0));
+            }
             return mChannel;
         }
 
@@ -123,8 +129,7 @@ public:
         }
 
     private:
-        template <Type_e Current>
-        inline void checkState();
+        void checkState();
 
     private:
         // Instance Variables
@@ -142,6 +147,7 @@ public:
         sState_Extern(0x80371BF0, dRemoconMng_c::dConnect_c::dExtension_c, None);
         sState_Extern(0x80371C30, dRemoconMng_c::dConnect_c::dExtension_c, Freestyle);
         sState_Extern(0x80371C70, dRemoconMng_c::dConnect_c::dExtension_c, Other);
+        sState(dRemoconMng_c::dConnect_c::dExtension_c, Split);
         sState(dRemoconMng_c::dConnect_c::dExtension_c, Classic);
         sState(dRemoconMng_c::dConnect_c::dExtension_c, Dolphin);
     };
@@ -166,9 +172,13 @@ public:
     /* 0x800DCA80 */
     void onRumbleEnable();
 
-    inline bool splitExtension()
+    void registerOrder();
+    void deregisterOrder();
+    bool splitExtension();
+
+    inline int getPlayerNo() const
     {
-        return false;
+        return mPlayerNo;
     }
 
     inline bool isSetup() const
@@ -178,7 +188,12 @@ public:
 
     inline mPad::CH_e getChannel() const
     {
-        return mChannel;
+        return mExtension.getChannel();
+    }
+
+    inline mPad::CH_e getCoreChannel() const
+    {
+        return mPad::CH_e(mChannel);
     }
 
     inline dExtension_c* getExtension()
@@ -205,11 +220,12 @@ private:
     // Instance Variables
     // ^^^^^^
 
-    /* 0x04 */ mPad::CH_e mChannel;
+    /* 0x04 @renamed */ int mPlayerNo;
     /* 0x08 */ dExtension_c mExtension;
     /* 0x50 */ int mBattery;
     /* 0x54 */ bool mAllowConnect;
     /* 0x55 */ bool mEnableMotor;
+    /* 0x56 */ s8 mChannel;
     /* 0x58 */ int m0x58;
     /* 0x5C */ sStateMgrDefault_c<dConnect_c> mStateMgr;
 

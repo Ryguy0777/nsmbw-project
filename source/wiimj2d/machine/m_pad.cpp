@@ -190,7 +190,7 @@ void beginPad()
         s_GetWPADInfoCount = 0;
     }
 
-    g_currentCore = g_core[g_currentCoreID];
+    g_currentCore = g_core_order[g_currentCoreID];
 }
 
 [[address(0x8016F550)]]
@@ -241,6 +241,14 @@ void setPlayerOrder(const std::array<CH_e, CH_e::COUNT>& order)
     for (int i = 0; i < CH_e::COUNT; i++) {
         g_core_order[g_playerChannel[i]] = g_core[i];
     }
+    g_currentCore = g_core_order[g_currentCoreID];
+}
+
+void setPlayerOrder(int player, CH_e channel)
+{
+    g_playerChannel[player] = channel;
+    g_core_order[player] = g_core[channel];
+    g_currentCore = g_core_order[g_currentCoreID];
 }
 
 PATCH_REFERENCES(

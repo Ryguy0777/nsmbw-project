@@ -6,6 +6,7 @@
 #include "d_system/d_lytbase.h"
 #include "d_system/d_lyttextbox.h"
 #include "d_system/d_mj2d_game.h"
+#include "d_system/d_remocon_mng.h"
 #include "state/s_State.h"
 #include "state/s_StateMgrDefault.h"
 
@@ -254,7 +255,7 @@ public:
 
     da2DPlayer_c* mp2DPlayer[CHARACTER_COUNT];
 
-    bool mPlyConnectSetup[PLAYER_COUNT];
+    int mConnectPlrNo[REMOCON_CONNECT_COUNT];
     dInfo_c::PlyConnectStage_e mPlyConnectStage[PLAYER_COUNT];
     int mCcPlrBaseIndex[MAX_CC_COUNT];
     int mPlyPlrBaseIndex[PLAYER_COUNT];

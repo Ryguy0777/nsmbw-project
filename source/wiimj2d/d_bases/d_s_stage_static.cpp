@@ -2,8 +2,8 @@
 // NSMBW .text: 0x80101A50 - 0x80102770
 
 #include "d_s_stage.h"
-#include "d_system/d_mj2d_game.h"
 
+#include "d_system/d_mj2d_game.h"
 #include <mkwcat/Relocate.hpp>
 
 [[address_data(0x8042A4A8)]]
@@ -43,7 +43,7 @@ bool dScStage_c::m_isReplayGoal;
 PLAYER_TYPE_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
 
 /* 0x803744D0 */
-dReplayPlay_c* dScStage_c::m_replayPlay_p[REMOCON_CONNECT_COUNT];
+dReplayPlay_c* dScStage_c::m_replayPlay_p[PLAYER_COUNT];
 
 [[address(0x80101A70)]]
 dGameDisplay_c* dScStage_c::getGameDisplay();

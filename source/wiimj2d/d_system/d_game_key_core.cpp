@@ -34,13 +34,12 @@ void dGameKeyCore_c::read()
 
     EGG::Controller* controller = getController();
 
-    dReplayPlay_c* replayData = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)];
+    dReplayPlay_c* replayData = dScStage_c::m_replayPlay_p[mPlayerNo];
     if (replayData == nullptr) {
         // Replay is not active for this channel, sssign controller type
         using Extension_e = dRemoconMng_c::dConnect_c::dExtension_c::Type_e;
-        Extension_e devType = dRemoconMng_c::m_instance->mpConnect[static_cast<int>(mChannel)]
-                                ->getExtension()
-                                ->getType();
+        Extension_e devType =
+          dRemoconMng_c::m_instance->mpConnect[mPlayerNo]->getExtension()->getType();
 
         EGG::CoreController* core = nullptr;
         EGG::GCController* dolphin = nullptr;
@@ -83,9 +82,10 @@ void dGameKeyCore_c::read()
                 std::swap(mAccel.x, mAccel.z);
             }
 
-            mAccelVerticalX = mPad::g_PadAdditionalData[mChannel].mAccVertical[0];
-            mAccelVerticalY = mPad::g_PadAdditionalData[mChannel].mAccVertical[1];
-            mAccelVerticalZ = mPad::g_PadAdditionalData[mChannel].mAccVertical[2];
+            mPad::CH_e channel = mPad::g_playerChannel[mPlayerNo];
+            mAccelVerticalX = mPad::g_PadAdditionalData[channel].mAccVertical[0];
+            mAccelVerticalY = mPad::g_PadAdditionalData[channel].mAccVertical[1];
+            mAccelVerticalZ = mPad::g_PadAdditionalData[channel].mAccVertical[2];
 
             // Pointer
             mAngle.x = core->mStatus->horizon.x;
@@ -327,8 +327,8 @@ u32 dGameKeyCore_c::setConfigKey(u32 input)
 [[address(0x800B61F0)]]
 void dGameKeyCore_c::handleTilting()
 {
-    if (dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)] != nullptr) {
-        mTilt = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)]->mFrameTilt;
+    if (dScStage_c::m_replayPlay_p[mPlayerNo] != nullptr) {
+        mTilt = dScStage_c::m_replayPlay_p[mPlayerNo]->mFrameTilt;
         return;
     }
 
@@ -342,8 +342,8 @@ void dGameKeyCore_c::handleTilting()
 [[address(0x800B62A0)]]
 void dGameKeyCore_c::setShakeY()
 {
-    if (dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)] != nullptr) {
-        mShake = dScStage_c::m_replayPlay_p[static_cast<int>(mChannel)]->mFrameFlags & (1 << 29);
+    if (dScStage_c::m_replayPlay_p[mPlayerNo] != nullptr) {
+        mShake = dScStage_c::m_replayPlay_p[mPlayerNo]->mFrameFlags & (1 << 29);
         return;
     }
 

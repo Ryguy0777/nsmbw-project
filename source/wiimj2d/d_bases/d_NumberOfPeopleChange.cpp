@@ -141,8 +141,8 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     mCancelAllowed = false;
     mPlayerCount = MAX_CC_COUNT;
 
-    for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
-        mPlyConnectSetup[ply] = true;
+    for (std::size_t connect = 0; connect < PLAYER_COUNT; connect++) {
+        mConnectPlrNo[connect] = -2;
     }
     for (std::size_t cc = 0; cc < std::size(mSetupPlayers); cc++) {
         mSetupPlayers[cc] = -1;
@@ -436,24 +436,25 @@ void dNumberOfPeopleChange_c::checkRemoConnect()
 {
     dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
     dInfo_c* info = dInfo_c::m_instance;
-    for (std::size_t ply = 0; ply < mCcCount; ply++) {
-        dRemoconMng_c::dConnect_c* connect = remocons->mpConnect[ply];
-        bool setup = connect->isSetup();
-        if (setup == mPlyConnectSetup[ply]) {
+    for (std::size_t connect = 0; connect < REMOCON_CONNECT_COUNT; connect++) {
+        dRemoconMng_c::dConnect_c* pConnect = remocons->mpConnectAll[connect];
+        int ply = pConnect->getPlayerNo();
+        if (ply == mConnectPlrNo[connect]) {
             continue;
         }
 
-        std::size_t channel = static_cast<std::size_t>(remocons->mpConnect[ply]->getChannel());
+        std::size_t channel = pConnect->getCoreChannel();
         if (nw4r::lyt::Picture* remoLight = getControllerLight(channel)) {
-            remoLight->SetVisible(setup);
+            remoLight->SetVisible(ply >= 0);
         }
 
-        if (setup && info->getPlyConnectStage(ply) < dInfo_c::PlyConnectStage_e::SETUP) {
+        if (ply >= 0 && info->getPlyConnectStage(ply) < dInfo_c::PlyConnectStage_e::SETUP) {
             info->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::SETUP);
-        } else if (!setup && mAllowControllerCut) {
-            info->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::OFF);
+        } else if (ply < 0 && mAllowControllerCut) {
+            info->setPlyConnectStage(mConnectPlrNo[connect], dInfo_c::PlyConnectStage_e::OFF);
         }
-        mPlyConnectSetup[ply] = setup;
+
+        mConnectPlrNo[connect] = ply;
     }
 }
 

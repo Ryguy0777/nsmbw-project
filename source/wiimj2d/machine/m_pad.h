@@ -85,4 +85,6 @@ bool isGameCubeChannel(CH_e chan);
 
 void setPlayerOrder(const std::array<CH_e, CH_e::COUNT>& order);
 
+void setPlayerOrder(int player, CH_e channel);
+
 } // namespace mPad

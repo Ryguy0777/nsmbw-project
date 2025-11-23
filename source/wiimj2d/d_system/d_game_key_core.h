@@ -89,7 +89,7 @@ public:
 
     inline EGG::Controller* getController() const
     {
-        return mPad::g_core[static_cast<std::size_t>(mChannel)];
+        return mPad::g_core_order[mPlayerNo];
     }
 
     /**
@@ -200,7 +200,7 @@ public:
     // Instance Variables
     // ^^^^^^
 
-    /* 0x04 */ mPad::CH_e mChannel;
+    /* 0x04 */ int mPlayerNo;
     /* 0x08 */ Type_e mType;
     /* 0x0C */ u32 mRawHeld; // mHeld without Nunchuck button manipulation
     /* 0x10 */ u32 mPrevRawHeld; // mHeld without Nunchuck button manipulation

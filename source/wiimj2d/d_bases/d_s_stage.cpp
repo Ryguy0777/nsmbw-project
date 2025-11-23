@@ -15,13 +15,15 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_start_info.h"
 #include "d_system/d_wm_lib.h"
-#include "revolution/os/OSError.h"
 
 [[address(0x80924950)]]
 bool dScStage_c::CreatedLayouts() const
 {
-    return !checkChildProcessCreateState() && (!mpMiniGameCannon || mpMiniGameCannon->mReady) && (!mpMiniGameWire || mpMiniGameWire->mReady) &&
-           (!mpModelPlayManager || mpModelPlayManager->mReady) && (!mpMessageWindow || mpMessageWindow->mReady) && (!mpStaffCreditScore || mpStaffCreditScore->mReady);
+    return !checkChildProcessCreateState() && (!mpMiniGameCannon || mpMiniGameCannon->mReady) &&
+           (!mpMiniGameWire || mpMiniGameWire->mReady) &&
+           (!mpModelPlayManager || mpModelPlayManager->mReady) &&
+           (!mpMessageWindow || mpMessageWindow->mReady) &&
+           (!mpStaffCreditScore || mpStaffCreditScore->mReady);
 }
 
 [[address(0x809251F0)]]
@@ -43,7 +45,8 @@ void dScStage_c::courseClear()
             // Hacky, but it works
             // For some reason, mCreateItem will have the star flag reset by this function
             // Even though the original game's version doesn't.
-            daPyMng_c::mCreateItem[i] = startInfo.mCreateItem[i] & ~PLAYER_CREATE_ITEM_e::STAR_POWER;
+            daPyMng_c::mCreateItem[i] =
+              startInfo.mCreateItem[i] & ~PLAYER_CREATE_ITEM_e::STAR_POWER;
         }
     }
 
