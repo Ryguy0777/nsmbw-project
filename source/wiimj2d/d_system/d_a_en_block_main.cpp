@@ -1,6 +1,55 @@
 // d_a_en_block_main.cpp
 // NSMBW .text: 0x800208B0 - 0x80023C60
 
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_actorcreate_mng.h"
+#include "d_system/d_yoshi_model.h"
+#include "d_player/d_a_yoshi.h"
+
+[[address(0x80021AB0)]]
+bool daEnBlockMain_c_isYossyColor(void *self, u16 yoshi)
+{
+    int yoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
+        dYoshiMdl_c::COLOR_GREEN,
+        dYoshiMdl_c::COLOR_YELLOW,
+        dYoshiMdl_c::COLOR_BLUE,
+        dYoshiMdl_c::COLOR_RED,
+        dYoshiMdl_c::COLOR_CRIMSON,
+        dYoshiMdl_c::COLOR_ORANGE,
+        dYoshiMdl_c::COLOR_PURPLE,
+        dYoshiMdl_c::COLOR_BLACK,
+    };
+
+    int checkColor = yoshiColors[yoshi];
+    daYoshi_c *yoshiP;
+    dYoshiMdl_c *yoshiMdl;
+    for (int i = 0; i < 8; i++) {
+        yoshiP = daPyMng_c::getYoshi(i);
+        if (yoshiP == nullptr) {
+            return false;
+        }
+        yoshiMdl = static_cast<dYoshiMdl_c*>(yoshiP->mModelMng.mModel);
+        if (checkColor != yoshiMdl->mColor) {
+            return true;
+        }
+    }
+    return false;
+}
+
+[[address(0x80021B30)]]
+u32 daEnBlockMain_c_yossy_color_search(void *self)
+{
+    u16 yoshiNo = dActorCreateMng_c::m_instance->m0xBC8;
+
+    for (int i = 0; i < dYoshiMdl_c::COLOR_COUNT; i++) {
+        if (!daEnBlockMain_c_isYossyColor(self, yoshiNo)) {
+            dActorCreateMng_c::m_instance->m0xBC8++;
+            return yoshiNo;
+        }
+    }
+    return -1;
+}
+
 [[address(0x80022810)]]
 void daEnBlockMain_c_FUN_80022810() ASM_METHOD(
     // clang-format off

@@ -23,6 +23,7 @@
 #include "d_system/d_quake.h"
 #include "d_system/d_score_manager.h"
 #include "d_system/d_stage_timer.h"
+#include "d_system/d_yoshi_model.h"
 #include "framework/f_feature.h"
 #include "framework/f_manager.h"
 #include "machine/m_vec.h"
@@ -140,6 +141,9 @@ int daPyMng_c::mKinopioCarryCount;
 
 // Functions
 // ^^^^^^
+
+[[address(0x8005E9A0)]]
+void daPyMng_c::createYoshi(mVec3_c &, int, dAcPy_c*);
 
 [[address(0x8005EA60)]]
 void daPyMng_c::initGame()
@@ -581,16 +585,16 @@ int daPyMng_c::getPlayerColorType(PLAYER_TYPE_e playerType)
 }
 
 [[address(0x8005FC20)]]
-void daPyMng_c::storeYoshiInfo(int index, daPyMng_c::YoshiColor_e color, int fruit)
+void daPyMng_c::storeYoshiInfo(int index, dYoshiMdl_c::COLOR_e color, int fruit)
 {
     m_yoshiColor[index] = static_cast<u8>(color);
     m_yoshiFruit[index] = fruit;
 }
 
 [[address(0x8005FC40)]]
-daPyMng_c::YoshiColor_e daPyMng_c::getYoshiColor(int index)
+dYoshiMdl_c::COLOR_e daPyMng_c::getYoshiColor(int index)
 {
-    return static_cast<YoshiColor_e>(m_yoshiColor[index]);
+    return static_cast<dYoshiMdl_c::COLOR_e>(m_yoshiColor[index]);
 }
 
 [[address(0x8005FC50)]]
