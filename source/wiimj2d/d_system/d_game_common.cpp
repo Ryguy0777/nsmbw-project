@@ -107,7 +107,7 @@ bool CalculateTiltShoulder(
     }
 
     dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[playerNo];
-    if (currentCore->mType == dGameKeyCore_c::Type_e::DOLPHIN) {
+    if (currentCore->isClassic() || currentCore->isDolphin()) {
         short LR = currentCore->getTiltLR();
         short newTarget = *target_var + LR;
         if (max) {

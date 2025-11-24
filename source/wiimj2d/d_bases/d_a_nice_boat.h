@@ -10,6 +10,9 @@ public:
     // Instance Methods
     // ^^^^^^
 
+    /* 0x808710C0 */
+    short calcLampAngle();
+
     /* 0x80871440 */
     int calcPlayerOnRide();
 
