@@ -1,0 +1,42 @@
+#pragma once
+
+namespace std
+{
+
+template <class... Types>
+class tuple
+{
+};
+
+template <class Top, class... Types>
+class tuple<Top, Types...>
+{
+    template <class U, class... UTypes>
+    friend constexpr const U& get(const tuple<UTypes...>& t);
+    template <class T1, class T2>
+    friend struct pair;
+
+    Top m_object;
+    [[no_unique_address]] tuple<Types...> m_other;
+
+public:
+    constexpr tuple() = default;
+
+    constexpr tuple(const Top& top, const Types&... args)
+      : m_object(top)
+      , m_other(args...)
+    {
+    }
+};
+
+template <class U, class... Types>
+constexpr const U& get(const tuple<Types...>& t)
+{
+    if constexpr (__is_same_as(U, Types...[0])) {
+        return t.m_object;
+    } else {
+        return get<U>(t.m_other);
+    }
+}
+
+} // namespace std

@@ -6,6 +6,15 @@
 namespace std
 {
 
+template <class T1, class T2>
+struct pair {
+    using first_type = T1;
+    using second_type = T2;
+
+    T1 first;
+    T2 second;
+};
+
 template <class T>
 constexpr std::remove_reference_t<T>&& move(T&& t) noexcept
 {

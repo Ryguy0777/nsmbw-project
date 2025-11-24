@@ -25,7 +25,7 @@ struct Name_c {
 };
 
 #define PROFILE(_ID, _NAME, _CLASS) constexpr Name_c<_ID> _NAME;
-#include "d_profile.lst"
+#include "d_profile_table.inc"
 #undef PROFILE
 
 template <dProfName V>
@@ -76,11 +76,11 @@ constexpr T* cast(fBase_c* base)
     return nullptr;
 }
 
-// Moved dProf_getName into the dProf namespace
-
-/* 0x801018C0 */
+/* 0x801018C0 @renamed */
 const char* getName(dProfName profile);
 
 const char* getFormattedName(dBase_c* base);
+
+dProfName getProfByName(const char* string);
 
 } // namespace dProf
