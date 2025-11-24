@@ -1,5 +1,7 @@
 #pragma once
 
+#include "machine/m_vec.h"
+
 class dEnemyMng_c
 {
 public:
@@ -8,6 +10,9 @@ public:
 
     /* 0x800A7D30 @unofficial */
     void execute();
+
+    /* 0x800A7560 */
+    void spawnYoshiEgg(mVec3_c *pos, int param_2, u32 param_3, s8 param_4, int param_5);
 
 public:
     // Static Variables

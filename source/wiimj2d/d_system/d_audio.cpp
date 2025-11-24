@@ -39,6 +39,9 @@ u32 getRemotePlayer(int player)
 [[address(0x8006A3F0)]]
 nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
 
+[[address(0x8006A4B0)]]
+void cvtSndObjctPos(nw4r::math::VEC2 &out, const mVec3_c& pos);
+
 [[address(0x8006A7D0)]]
 void pauseMove(int player);
 
