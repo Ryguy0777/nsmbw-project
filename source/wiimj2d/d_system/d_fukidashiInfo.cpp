@@ -3,12 +3,33 @@
 
 #include "d_fukidashiInfo.h"
 
+#include "d_system/d_2d.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_pause_manager.h"
+#include "framework/f_feature.h"
 #include <nw4r/lyt/Material.h>
 #include <nw4r/ut/Color.h>
+
+[[address(0x800B1990)]]
+void dfukidashiInfo_c::draw()
+{
+    if (!mDisplayed) {
+        return;
+    }
+    switch (fFeature::FUKIDASHI_MODE) {
+    case fFeature::FUKIDASHI_MODE_e::ALWAYS_SHOW:
+        return mLayout.entry();
+    case fFeature::FUKIDASHI_MODE_e::HIDE_IF_5_TO_8_PLAYER:
+        if (daPyMng_c::getNumInGame() < 5) {
+            return mLayout.entry();
+        }
+        break;
+    case fFeature::FUKIDASHI_MODE_e::ALWAYS_HIDE:
+        return;
+    }
+}
 
 [[address(0x800B1A50)]]
 void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
@@ -103,9 +124,8 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
       },
     };
 
-    int index = static_cast<int>(
-      daPyMng_c::getPlayerTypeModelType(static_cast<PLAYER_TYPE_e>(playerType))
-    );
+    int index =
+      static_cast<int>(daPyMng_c::getPlayerTypeModelType(static_cast<PLAYER_TYPE_e>(playerType)));
 
     mPosOffset.x = 0.0;
     mPosOffset.y = s_FUKIDASHI_Y_OFFSET[index][powerupType];
@@ -269,7 +289,7 @@ UNDEF_800b2330:;
 [[address(0x800B2370)]]
 void dfukidashiInfo_c::finalizeState_Move()
 {
-    AnimeEndSetup(m0x22C);
+    mLayout.AnimeEndSetup(m0x22C);
 
     if (m0x23A == false) {
         return;
@@ -312,6 +332,6 @@ void dfukidashiInfo_c::finalizeState_Exit()
 
     m0x234 = 0;
     mDisplayed = false;
-    AllAnimeEndSetup();
+    mLayout.AllAnimeEndSetup();
     mpPane->SetVisible(false);
 }
