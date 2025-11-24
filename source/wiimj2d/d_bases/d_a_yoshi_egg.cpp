@@ -8,7 +8,7 @@
 #include "machine/m_ef.h"
 
 
-float eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {0.0, 2.0, 3.0, 1.0, 4.0, 5.0, 6.0, 7.0};
+float eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {0.0, 2.0, 3.0, 1.0, 7.0, 5.0, 6.0, 4.0};
 
 [[address(0x80911380)]]
 void daYoshiEgg_c::loadModel() ASM_METHOD(
@@ -147,14 +147,8 @@ void daYoshiEgg_c::spawnEggBreakEffect()
 [[address(0x80911680)]]
 void daYoshiEgg_c::hatchYoshi()
 {
-    int defaultYoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
-      dYoshiMdl_c::COLOR_GREEN,  dYoshiMdl_c::COLOR_YELLOW,  dYoshiMdl_c::COLOR_BLUE,
-      dYoshiMdl_c::COLOR_RED,    dYoshiMdl_c::COLOR_CRIMSON, dYoshiMdl_c::COLOR_ORANGE,
-      dYoshiMdl_c::COLOR_PURPLE, dYoshiMdl_c::COLOR_BLACK,
-    };
-
     spawnEggBreakEffect();
-    daPyMng_c::createYoshi(mPos, defaultYoshiColors[mColor], nullptr);
+    daPyMng_c::createYoshi(mPos, dYoshiMdl_c::yoshiColors[mColor], nullptr);
     deleteRequest();
 }
 

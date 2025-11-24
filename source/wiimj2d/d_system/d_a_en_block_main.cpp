@@ -11,16 +11,10 @@
 [[address(0x80021AB0)]]
 bool daEnBlockMain_c::isYossyColor(u16 yoshiColor)
 {
-    int yoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
-      dYoshiMdl_c::COLOR_GREEN,  dYoshiMdl_c::COLOR_YELLOW,  dYoshiMdl_c::COLOR_BLUE,
-      dYoshiMdl_c::COLOR_RED,    dYoshiMdl_c::COLOR_CRIMSON, dYoshiMdl_c::COLOR_ORANGE,
-      dYoshiMdl_c::COLOR_PURPLE, dYoshiMdl_c::COLOR_BLACK,
-    };
-
-    int checkColor = yoshiColors[yoshiColor];
+    int checkColor = dYoshiMdl_c::yoshiColors[yoshiColor];
     daYoshi_c* yoshi;
     dYoshiMdl_c* yoshiMdl;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < dYoshiMdl_c::COLOR_COUNT; i++) {
         yoshi = daPyMng_c::getYoshi(i);
         if (yoshi == nullptr) {
             return false;

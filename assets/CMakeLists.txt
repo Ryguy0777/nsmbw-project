@@ -62,7 +62,7 @@ set(DVD_FILES
     Object/remo_lift_soroban.arc/g3d/remo_lift_soroban.brres
     Object/remo_lift_up.arc/g3d/remo_lift_up.brres
     Object/remo_lift.arc/g3d/remo_lift.brres
-    Object/Y_TexBlack.arc/g3d/model.brres
+    Object/Y_TexAzure.arc/g3d/model.brres
     Object/Y_TexOrange.arc/g3d/model.brres
     Object/Y_TexPurple.arc/g3d/model.brres
     Object/Y_TexCrimson.arc/g3d/model.brres

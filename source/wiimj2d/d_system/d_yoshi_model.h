@@ -27,9 +27,15 @@ public:
         COLOR_CRIMSON = 4,
         COLOR_ORANGE = 5,
         COLOR_PURPLE = 6,
-        COLOR_BLACK = 7,
+        COLOR_AZURE = 7,
 
         COLOR_COUNT,
+    };
+
+    constexpr static int yoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
+      dYoshiMdl_c::COLOR_GREEN,  dYoshiMdl_c::COLOR_YELLOW,  dYoshiMdl_c::COLOR_BLUE,
+      dYoshiMdl_c::COLOR_RED,    dYoshiMdl_c::COLOR_AZURE,   dYoshiMdl_c::COLOR_ORANGE,
+      dYoshiMdl_c::COLOR_PURPLE, dYoshiMdl_c::COLOR_CRIMSON,
     };
 
 public:

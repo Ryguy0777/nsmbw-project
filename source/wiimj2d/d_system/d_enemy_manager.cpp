@@ -28,7 +28,7 @@ void dEnemyMng_c::spawnYoshiEgg(mVec3_c* pos, int param_2, u32 param_3, s8 param
     dAudio::cvtSndObjctPos(soundPos, eggPos);
     dAudio::g_pSndObjMap->startSound(SndID::SE_PLY_YOSHI_LAY_EGG, soundPos, 0);
 
-    int yoshiEggColors[dYoshiMdl_c::COLOR_COUNT] = {0, 3, 1, 2, 4, 5, 6, 7};
+    int yoshiEggColors[dYoshiMdl_c::COLOR_COUNT] = {0, 3, 1, 2, 7, 5, 6, 4};
     dActor_c::construct(
       dProf::AC_YOSHI_EGG,
       param_5 << 0x10 | param_4 << 0x14 | yoshiEggColors[param_2] | param_3 << 4 | 0x1000, &eggPos,

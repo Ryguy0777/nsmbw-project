@@ -31,7 +31,7 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "Y_TexCrimson", // Added
       "Y_TexOrange", // Added
       "Y_TexPurple", // Added
-      "Y_TexBlack", // Added
+      "Y_TexAzure", // Added
       "obj_coin",
       "balloon",
       "I_kinoko",
