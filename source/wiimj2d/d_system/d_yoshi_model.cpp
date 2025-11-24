@@ -6,15 +6,9 @@
 [[address(0x800FE2E0)]]
 dYoshiMdl_c::dYoshiMdl_c(u8 index);
 
-const char *yoshiColorNames[dYoshiMdl_c::COLOR_COUNT] = {
-    "Y_TexGreen",
-    "Y_TexRed",
-    "Y_TexYellow",
-    "Y_TexBlue",
-    "Y_TexCrimson",
-    "Y_TexOrange",
-    "Y_TexPurple",
-    "Y_TexBlack",
+const char* yoshiColorNames[dYoshiMdl_c::COLOR_COUNT] = {
+  "Y_TexGreen",   "Y_TexRed",    "Y_TexYellow", "Y_TexBlue",
+  "Y_TexCrimson", "Y_TexOrange", "Y_TexPurple", "Y_TexBlack",
 };
 
 [[address(0x800FE510)]]

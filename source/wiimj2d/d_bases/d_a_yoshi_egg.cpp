@@ -1,16 +1,15 @@
 // d_a_yoshi_egg.cpp
 // NSMBW d_bases.text: 0x80910F00 - 0x809125E0
 
-#include "d_system/d_actor.h"
+#include "d_a_yoshi_egg.h"
 #include "d_system/d_yoshi_model.h"
+#include "machine/m_ef.h"
 
-float eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {
-    0.0, 2.0, 3.0, 1.0, 4.0, 5.0, 6.0, 7.0
-};
+float eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {0.0, 2.0, 3.0, 1.0, 4.0, 5.0, 6.0, 7.0};
 
 [[address(0x80911380)]]
-void daYoshiEgg_c_loadModel() ASM_METHOD(
-    // clang-format off
+void daYoshiEgg_c::loadModel() ASM_METHOD(
+  // clang-format off
 /* 80911380 9421FFB0 */  stwu     r1, -80(r1);
 /* 80911384 7C0802A6 */  mflr     r0;
 /* 80911388 90010054 */  stw      r0, 84(r1);
@@ -124,30 +123,37 @@ void daYoshiEgg_c_loadModel() ASM_METHOD(
 /* 80911530 7C0803A6 */  mtlr     r0;
 /* 80911534 38210050 */  addi     r1, r1, 80;
 /* 80911538 4E800020 */  blr      ;
-    // clang-format on
+  // clang-format on
 )
 
 [[address(0x80911610)]]
-void daYoshiEgg_c_spawnEggBreakEffect(dActor_c *egg);
-
-[[address(0x80911680)]]
-void daYoshiEgg_c_hatchYoshi(dActor_c *egg)
-{   
-    int color = egg->mParam & 0xF;
-    int defaultYoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
-        dYoshiMdl_c::COLOR_GREEN,
-        dYoshiMdl_c::COLOR_YELLOW,
-        dYoshiMdl_c::COLOR_BLUE,
-        dYoshiMdl_c::COLOR_RED,
-        dYoshiMdl_c::COLOR_CRIMSON,
-        dYoshiMdl_c::COLOR_ORANGE,
-        dYoshiMdl_c::COLOR_PURPLE,
-        dYoshiMdl_c::COLOR_BLACK,
+void daYoshiEgg_c::spawnEggBreakEffect()
+{
+    // TODO: Add effects for new egg colors
+    const char* eggBreakEffects[dYoshiMdl_c::COLOR_COUNT] = {
+        "Wm_ob_eggbreak_gr",
+        "Wm_ob_eggbreak_yw",
+        "Wm_ob_eggbreak_bl",
+        "Wm_ob_eggbreak_rd",
+        "Wm_ob_eggbreak_gr",
+        "Wm_ob_eggbreak_gr",
+        "Wm_ob_eggbreak_gr",
+        "Wm_ob_eggbreak_gr",
     };
 
-    if (color < 4) {
-        daYoshiEgg_c_spawnEggBreakEffect(egg);
-    }
-    daPyMng_c::createYoshi(egg->mPos, defaultYoshiColors[color], nullptr);
-    egg->deleteRequest();
+    mEf::createEffect(eggBreakEffects[mColor], 0, &mPos, nullptr, nullptr);
+}
+
+[[address(0x80911680)]]
+void daYoshiEgg_c::hatchYoshi()
+{
+    int defaultYoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
+      dYoshiMdl_c::COLOR_GREEN,  dYoshiMdl_c::COLOR_YELLOW,  dYoshiMdl_c::COLOR_BLUE,
+      dYoshiMdl_c::COLOR_RED,    dYoshiMdl_c::COLOR_CRIMSON, dYoshiMdl_c::COLOR_ORANGE,
+      dYoshiMdl_c::COLOR_PURPLE, dYoshiMdl_c::COLOR_BLACK,
+    };
+
+    spawnEggBreakEffect();
+    daPyMng_c::createYoshi(mPos, defaultYoshiColors[mColor], nullptr);
+    deleteRequest();
 }

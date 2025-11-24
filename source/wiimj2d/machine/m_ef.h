@@ -1,5 +1,6 @@
 #pragma once
 
+#include "machine/m_vec.h"
 #include <egg/util/eggEffect.h>
 
 namespace mEf
@@ -52,5 +53,8 @@ public:
     /* 0x120 */ u32 m0x120;
     /* 0x124 */ u32 m0x124;
 };
+
+[[address(0x8016C9D0)]]
+void createEffect(const char*, unsigned long, const mVec3_c*, const mAng3_c*, const mVec3_c*);
 
 } // namespace mEf

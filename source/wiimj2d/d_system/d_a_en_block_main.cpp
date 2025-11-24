@@ -1,34 +1,31 @@
 // d_a_en_block_main.cpp
 // NSMBW .text: 0x800208B0 - 0x80023C60
 
+#include "d_a_en_block_main.h"
+#include "d_player/d_a_yoshi.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_actorcreate_mng.h"
 #include "d_system/d_yoshi_model.h"
-#include "d_player/d_a_yoshi.h"
+
 
 [[address(0x80021AB0)]]
-bool daEnBlockMain_c_isYossyColor(void *self, u16 yoshi)
+bool daEnBlockMain_c::isYossyColor(u16 yoshiColor)
 {
     int yoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
-        dYoshiMdl_c::COLOR_GREEN,
-        dYoshiMdl_c::COLOR_YELLOW,
-        dYoshiMdl_c::COLOR_BLUE,
-        dYoshiMdl_c::COLOR_RED,
-        dYoshiMdl_c::COLOR_CRIMSON,
-        dYoshiMdl_c::COLOR_ORANGE,
-        dYoshiMdl_c::COLOR_PURPLE,
-        dYoshiMdl_c::COLOR_BLACK,
+      dYoshiMdl_c::COLOR_GREEN,  dYoshiMdl_c::COLOR_YELLOW,  dYoshiMdl_c::COLOR_BLUE,
+      dYoshiMdl_c::COLOR_RED,    dYoshiMdl_c::COLOR_CRIMSON, dYoshiMdl_c::COLOR_ORANGE,
+      dYoshiMdl_c::COLOR_PURPLE, dYoshiMdl_c::COLOR_BLACK,
     };
 
-    int checkColor = yoshiColors[yoshi];
-    daYoshi_c *yoshiP;
-    dYoshiMdl_c *yoshiMdl;
+    int checkColor = yoshiColors[yoshiColor];
+    daYoshi_c* yoshi;
+    dYoshiMdl_c* yoshiMdl;
     for (int i = 0; i < 8; i++) {
-        yoshiP = daPyMng_c::getYoshi(i);
-        if (yoshiP == nullptr) {
+        yoshi = daPyMng_c::getYoshi(i);
+        if (yoshi == nullptr) {
             return false;
         }
-        yoshiMdl = static_cast<dYoshiMdl_c*>(yoshiP->mModelMng.mModel);
+        yoshiMdl = static_cast<dYoshiMdl_c*>(yoshi->mModelMng.mModel);
         if (checkColor != yoshiMdl->mColor) {
             return true;
         }
@@ -37,22 +34,22 @@ bool daEnBlockMain_c_isYossyColor(void *self, u16 yoshi)
 }
 
 [[address(0x80021B30)]]
-u32 daEnBlockMain_c_yossy_color_search(void *self)
+u32 daEnBlockMain_c::yossy_color_search()
 {
-    u16 yoshiNo = dActorCreateMng_c::m_instance->m0xBC8;
+    u16 yoshiColor = dActorCreateMng_c::m_instance->m0xBC8;
 
     for (int i = 0; i < dYoshiMdl_c::COLOR_COUNT; i++) {
-        if (!daEnBlockMain_c_isYossyColor(self, yoshiNo)) {
+        if (!isYossyColor(yoshiColor)) {
             dActorCreateMng_c::m_instance->m0xBC8++;
-            return yoshiNo;
+            return yoshiColor;
         }
     }
     return -1;
 }
 
 [[address(0x80022810)]]
-void daEnBlockMain_c_FUN_80022810() ASM_METHOD(
-    // clang-format off
+void daEnBlockMain_c::FUN_80022810() ASM_METHOD(
+  // clang-format off
 /* 80022810 9421FFC0 */  stwu     r1, -64(r1);
 /* 80022814 7C0802A6 */  mflr     r0;
 /* 80022818 90010044 */  stw      r0, 68(r1);
@@ -265,5 +262,5 @@ UNDEF_80022af8:;
 /* 80022B04 7C0803A6 */  mtlr     r0;
 /* 80022B08 38210040 */  addi     r1, r1, 64;
 /* 80022B0C 4E800020 */  blr;
-    // clang-format on
+  // clang-format on
 );
