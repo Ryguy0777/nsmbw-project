@@ -32,6 +32,9 @@ u32 rndInt(u32 max);
 [[address(0x800B2F00)]]
 f32 rnd();
 
+[[address(0x800B2F10)]]
+f32 rndF(f32 max);
+
 [[address(0x800B30C0)]]
 f32 getDispCenterX();
 

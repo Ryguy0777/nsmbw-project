@@ -2,8 +2,11 @@
 // NSMBW d_bases.text: 0x80910F00 - 0x809125E0
 
 #include "d_a_yoshi_egg.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_game_common.h"
 #include "d_system/d_yoshi_model.h"
 #include "machine/m_ef.h"
+
 
 float eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {0.0, 2.0, 3.0, 1.0, 4.0, 5.0, 6.0, 7.0};
 
@@ -126,19 +129,16 @@ void daYoshiEgg_c::loadModel() ASM_METHOD(
   // clang-format on
 )
 
+[[address(0x80911540)]]
+void daYoshiEgg_c::playAnimation(int);
+
 [[address(0x80911610)]]
 void daYoshiEgg_c::spawnEggBreakEffect()
 {
     // TODO: Add effects for new egg colors
     const char* eggBreakEffects[dYoshiMdl_c::COLOR_COUNT] = {
-        "Wm_ob_eggbreak_gr",
-        "Wm_ob_eggbreak_yw",
-        "Wm_ob_eggbreak_bl",
-        "Wm_ob_eggbreak_rd",
-        "Wm_ob_eggbreak_gr",
-        "Wm_ob_eggbreak_gr",
-        "Wm_ob_eggbreak_gr",
-        "Wm_ob_eggbreak_gr",
+      "Wm_ob_eggbreak_gr", "Wm_ob_eggbreak_yw", "Wm_ob_eggbreak_bl", "Wm_ob_eggbreak_rd",
+      "Wm_ob_eggbreak_gr", "Wm_ob_eggbreak_gr", "Wm_ob_eggbreak_gr", "Wm_ob_eggbreak_gr",
     };
 
     mEf::createEffect(eggBreakEffects[mColor], 0, &mPos, nullptr, nullptr);
@@ -156,4 +156,62 @@ void daYoshiEgg_c::hatchYoshi()
     spawnEggBreakEffect();
     daPyMng_c::createYoshi(mPos, defaultYoshiColors[mColor], nullptr);
     deleteRequest();
+}
+
+[[address(0x80911AD0)]]
+void daYoshiEgg_c::initializeState_MultiJumpUp()
+{
+    // Add some variation to the spawning speeds if >4 players
+    if (daPyMng_c::getNumInGame() > 4) {
+        float randomXSpeed = dGameCom::rndF(1.3) + 0.6;
+        if (mDirection != 0) {
+            randomXSpeed = -randomXSpeed;
+        }
+        mSpeed.x = randomXSpeed;
+        mSpeed.y = dGameCom::rndF(2.1) + 2.5;
+    } else {
+        if (m0x5F4 == 0) {
+            float randomXSpeed = dGameCom::rndF(0.7) + 0.3;
+            if (mDirection != 0) {
+                randomXSpeed = -randomXSpeed;
+            }
+            mSpeed.x = randomXSpeed;
+            mSpeed.y = dGameCom::rndF(2.1) + 2.5;
+        } else {
+            mSpeed.x = (mDirection == 0) ? 1.8 : -1.8;
+            mSpeed.y = 3.4;
+        }
+    }
+    mSpeed.z = 0.0;
+    m0x60C = 1;
+    m0x60C = 0xD;
+    playAnimation(1);
+}
+
+[[address(0x80911BD0)]]
+void daYoshiEgg_c::initializeState_MultiJumpDown()
+{
+    // Add some variation to the spawning speeds if >4 players
+    if (daPyMng_c::getNumInGame() > 4) {
+        float randomXSpeed = dGameCom::rndF(1.3) + 0.6;
+        if (mDirection != 0) {
+            randomXSpeed = -randomXSpeed;
+        }
+        mSpeed.x = randomXSpeed;
+    } else {
+        if (m0x5F4 == 0) {
+            float randomXSpeed = dGameCom::rndF(0.7) + 0.3;
+            if (mDirection != 0) {
+                randomXSpeed = -randomXSpeed;
+            }
+            mSpeed.x = randomXSpeed;
+        } else {
+            mSpeed.x = (mDirection == 0) ? 2.0 : -2.0;
+        }
+    }
+    mSpeed.y = -0.5;
+    mSpeed.z = 0.0;
+    m0x60C = 1;
+    m0x60C = 0xD;
+    playAnimation(1);
 }
