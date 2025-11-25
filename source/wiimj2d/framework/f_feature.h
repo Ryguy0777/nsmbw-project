@@ -26,4 +26,10 @@ extern bool ALWAYS_CAN_EXIT_COURSE;
 
 extern bool SHAKE_WITH_BUTTON;
 
+extern enum class FUKIDASHI_MODE_e : u8 {
+    ALWAYS_SHOW = 0,
+    HIDE_IF_5_TO_8_PLAYER = 1,
+    ALWAYS_HIDE = 2,
+} FUKIDASHI_MODE;
+
 } // namespace fFeature

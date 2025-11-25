@@ -52,6 +52,14 @@
                     <patch id="SHAKE_WITH_BUTTON"/>
                 </choice>
             </option>
+			<option name="Hide Motion Control Guides">
+                <choice name="When More Than 4 Players">
+                    <patch id="FUKIDASHI_HIDE_PLAYERS"/>
+                </choice>
+                <choice name="Always">
+                    <patch id="FUKIDASHI_HIDE_ALWAYS"/>
+                </choice>
+            </option>
         </section>
     </options>
     <patch id="UNLOCKED_ALL_WORLDS">
@@ -83,6 +91,12 @@
     </patch>
     <patch id="SHAKE_WITH_BUTTON">
         <memory offset="0x8000678C" value="01"/>
+    </patch>
+    <patch id="FUKIDASHI_HIDE_PLAYERS">
+        <memory offset="0x8000678D" value="01"/>
+    </patch>
+    <patch id="FUKIDASHI_HIDE_ALWAYS">
+        <memory offset="0x8000678D" value="02"/>
     </patch>
     <patch id="loader">
         <!-- Call Custom Module Loader -->

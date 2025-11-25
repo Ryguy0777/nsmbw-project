@@ -4,21 +4,25 @@
 #include "machine/m_vec.h"
 #include <nw4r/lyt/Picture.h>
 #include "state/s_State.h"
-
-class DummyInherit {
-public:
-    virtual ~DummyInherit() = 0;
-};
-
-class dfukidashiInfo_c : public DummyInherit, public LytBase_c
+class dfukidashiInfo_c
 {
     SIZE_ASSERT(0x23C);
 
     friend class dfukidashiManager_c;
 
 public:
+    // Structors
+    // ^^^^^^
+
+    /* 0x800B16E0 */
+    virtual ~dfukidashiInfo_c();
+
+public:
     // Instance Methods
     // ^^^^^^
+
+    /* 0x800B1990 */
+    void draw();
 
     /* 0x800B1A50 */
     void SetPosOffset(int playerType, int powerupType);
@@ -29,6 +33,8 @@ public:
 protected:
     // Instance Variables
     // ^^^^^^
+
+    LytBase_c mLayout;
 
     FILL(0x19C, 0x1DC);
 
