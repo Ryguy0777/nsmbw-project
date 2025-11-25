@@ -28,38 +28,122 @@ target_sources(project PRIVATE
 
 # NSMBW          .text:  0x80006790 - 0x80007510
     wiimj2d/d_system/d_2d.cpp
-
+# NSMBW          .text:  0x80007510 - 0x8000D740
+  # wiimj2d/d_system/d_3d.cpp
+# NSMBW          .text:  0x8000D740 - 0x8000FC30
+  # wiimj2d/d_system/d_3d_disp.cpp
 # NSMBW          .text:  0x8000FC30 - 0x80014330
     wiimj2d/d_system/d_CourseSelectGuide.cpp
 # NSMBW   d_bases.text:  0x8092F020 - 0x80932F60
     wiimj2d/d_system/d_CourseSelectManager.cpp
-
+# NSMBW          .text:  0x80014330 - 0x800145B0
+  # wiimj2d/d_system/d_GXStateSave.cpp
+# NSMBW          .text:  0x800145B0 - 0x80014820
+  # wiimj2d/d_system/d_PanelObjList.cpp
+# NSMBW          .text:  0x80014820 - 0x80014970
+  # wiimj2d/d_system/d_PanelObjMgr.cpp
+# NSMBW          .text:  0x80014970 - 0x80014B30
+  # wiimj2d/d_system/d_SimpleCapture.cpp
+# NSMBW          .text:  0x80014B30 - 0x80014F10
+  # wiimj2d/d_system/d_SimpleCaptureDraw.cpp
 # NSMBW          .text:  0x80014F10 - 0x80015D60
     wiimj2d/d_system/d_SmallScore.cpp
-
+# NSMBW          .text:  0x80015D60 - 0x80016F70
+  # wiimj2d/d_system/d_WarningBattery.cpp
+# NSMBW          .text:  0x80016F70 - 0x80018CA0
+  # wiimj2d/d_system/d_WarningErrorInfo.cpp
+# NSMBW          .text:  0x80018CA0 - 0x80019990
+  # wiimj2d/d_system/d_WarningNunchuk.cpp
+# NSMBW          .text:  0x80019990 - 0x8001A6B0
+  # wiimj2d/d_system/d_WarningOther.cpp
+# NSMBW          .text:  0x8001A6B0 - 0x8001B3A0
+  # wiimj2d/d_system/d_WarningYoKo.cpp
+# NSMBW          .text:  0x8001B3A0 - 0x8001BB90
+  # wiimj2d/d_system/d_WipeCircle.cpp
+# NSMBW          .text:  0x8001BB90 - 0x8001C170
+  # wiimj2d/d_system/d_WipeDokan.cpp
+# NSMBW          .text:  0x8001C170 - 0x8001C690
+  # wiimj2d/d_system/d_WipeKuppa.cpp
+# NSMBW          .text:  0x8001C690 - 0x8001CBB0
+  # wiimj2d/d_system/d_WipeMario.cpp
+# NSMBW          .text:  0x8001CBB0 - 0x8001DA50
+  # wiimj2d/d_system/d_a_boss_demo.cpp
+# NSMBW          .text:  0x8001DA50 - 0x8001F6C0
+  # wiimj2d/d_system/d_a_bullet.cpp
+# NSMBW          .text:  0x8001F6C0 - 0x800208B0
+  # wiimj2d/d_system/d_a_en_bigpile.cpp
+# NSMBW          .text:  0x8001F6C0 - 0x800208B0
+  # wiimj2d/d_system/d_a_en_bigpile.cpp
+# NSMBW          .text:  0x8001F6C0 - 0x800208B0
+  # wiimj2d/d_system/d_a_en_bigpile.cpp
 # NSMBW          .text:  0x800208B0 - 0x80023C60
     wiimj2d/d_system/d_a_en_block_main.cpp
-
+# NSMBW          .text:  0x80023C60 - 0x80026BB0
+  # wiimj2d/d_system/d_a_en_bros_base.cpp
+# NSMBW          .text:  0x80026BB0 - 0x800272F0
+  # wiimj2d/d_system/d_a_en_carry.cpp
+# NSMBW          .text:  0x800272F0 - 0x800281C0
+  # wiimj2d/d_system/d_a_en_coin_main.cpp
+# NSMBW          .text:  0x800281C0 - 0x8002AB40
+  # wiimj2d/d_system/d_a_en_dfpakkun.cpp
+# NSMBW          .text:  0x8002AB40 - 0x8002BE40
+  # wiimj2d/d_system/d_a_en_door.cpp
+# NSMBW          .text:  0x8002BE40 - 0x8002CB70
+  # wiimj2d/d_system/d_a_en_dpakkun.cpp
 # NSMBW          .text:  0x8002CB70 - 0x8002EF50
     wiimj2d/d_system/d_a_en_dpakkun_base.cpp
 # NSMBW          .text:  0x8002EF50 - 0x800311E0
     wiimj2d/d_system/d_a_en_jimen_pakkun_base.cpp
-
+# NSMBW          .text:  0x800311E0 - 0x800331E0
+  # wiimj2d/d_system/d_a_en_kuribo_base.cpp
+# NSMBW          .text:  0x800331E0 - 0x800356D0
+  # wiimj2d/d_system/d_a_en_lkuribo_base.cpp
+# NSMBW          .text:  0x800356D0 - 0x80036930
+  # wiimj2d/d_system/d_a_en_net_nokonoko_base.cpp
+# NSMBW          .text:  0x80036930 - 0x80037EA0
+  # wiimj2d/d_system/d_a_en_obj_coinblock.cpp
 # NSMBW          .text:  0x80037EA0 - 0x8003C9F0
     wiimj2d/d_system/d_a_en_shell.cpp
-
-# NSMBW          .text:  0x800439B0 - 0x80044460
+# NSMBW          .text:  0x8003C9F0 - 0x8003DBD0
+  # wiimj2d/d_system/d_a_en_super_bigpile.cpp
+# NSMBW          .text:  0x8003DBD0 - 0x80040920
+  # wiimj2d/d_system/d_a_en_togezo_base.cpp
+# NSMBW          .text:  0x80040920 - 0x80041C00
+  # wiimj2d/d_system/d_a_en_fireball_base.cpp
+# NSMBW          .text:  0x80041C00 - 0x80042480
+  # wiimj2d/d_system/d_a_fly_dokan.cpp
+# NSMBW          .text:  0x80042480 - 0x80042A70
+  # wiimj2d/d_system/d_a_ice_ashiba_base.cpp
+# NSMBW          .text:  0x80042A70 - 0x80042AE0
+  # wiimj2d/d_system/d_a_kawanagare_obj.cpp
+# NSMBW          .text:  0x80042AE0 - 0x80042AE0
+  # wiimj2d/d_system/d_a_kawanagare_obj.cpp
+# NSMBW          .text:  0x800437D0 - 0x80044460
     wiimj2d/d_system/d_a_lift_remocon_main.cpp
-
+# NSMBW          .text:  0x80044460 - 0x80044940
+  # wiimj2d/d_system/d_a_move_pipe.cpp
+# NSMBW          .text:  0x80044940 - 0x800451F0
+  # wiimj2d/d_system/d_a_net_enemy.cpp
+# NSMBW          .text:  0x800451F0 - 0x80045600
+  # wiimj2d/d_system/d_a_obj_move_on_base.cpp
+# NSMBW          .text:  0x80045600 - 0x80045650
+  # wiimj2d/d_system/d_a_obj_pipe.cpp
+# NSMBW          .text:  0x80045650 - 0x80045D20
+  # wiimj2d/d_system/d_a_obj_pipe_base.cpp
+# NSMBW          .text:  0x80045D20 - 0x800460D0
+  # wiimj2d/d_system/d_a_obj_spin_child_base.cpp
 # NSMBW          .text:  0x800460D0 - 0x8005B3A0
     wiimj2d/d_system/d_a_player_base.cpp
 # NSMBW          .text:  0x8005B3A0 - 0x8005D7E0
     wiimj2d/d_system/d_a_player_demo_manager.cpp
-
+# NSMBW          .text:  0x8005D7E0 - 0x8005DFD0
+  # wiimj2d/d_system/d_a_player_hio.cpp # @unofficial
 # NSMBW          .text:  0x8005DFD0 - 0x8005E9A0
     wiimj2d/d_system/d_a_player_key.cpp
 # NSMBW          .text:  0x8005E9A0 - 0x800613B0
     wiimj2d/d_system/d_a_player_manager.cpp
+# NSMBW          .text:  0x800613B0 - 0x800620F0
+  # wiimj2d/d_system/d_a_right_base.cpp
 
 # NSMBW          .text:  0x80064110 - 0x800660C0
     wiimj2d/d_system/d_actor.cpp

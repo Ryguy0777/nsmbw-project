@@ -74,6 +74,7 @@ add_compile_options(
     -Wno-nested-anon-types
     -Wno-gnu-anonymous-struct
     -Wno-c99-extensions
+    -Wno-c++26-extensions
     -Wno-unused-private-field
     -Wno-unused-parameter
     -Wno-unused-const-variable

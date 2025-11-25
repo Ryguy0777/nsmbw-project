@@ -1,5 +1,5 @@
 // d_a_lift_remocon_main.cpp
-// NSMBW .text: 0x800439B0 - 0x80044460
+// NSMBW .text: 0x800437D0 - 0x80044460
 
 #include "d_a_lift_remocon_main.h"
 
