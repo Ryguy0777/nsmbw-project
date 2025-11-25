@@ -3,6 +3,7 @@
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "framework/f_base_id.h"
+#include "d_yoshi_model.h"
 
 class dAcPy_c;
 class daYoshi_c;
@@ -16,11 +17,6 @@ public:
     // ^^^^^^
 
 #define MAX_COINS 99
-
-    enum class YoshiColor_e {
-        GREEN = 0,
-        // TODO: others
-    };
 
     // Static Methods
     // ^^^^^^
@@ -36,6 +32,9 @@ public:
     {
         return mActPlayerInfo & (1 << player);
     }
+
+    /* 0x8005E9A0 */
+    static void createYoshi(mVec3_c &, int, dAcPy_c*);
 
     /* 0x8005EA60 */
     static void initGame();
@@ -102,10 +101,10 @@ public:
     static int getPlayerColorType(PLAYER_TYPE_e playerType);
 
     /* 0x8005FC20 */
-    static void storeYoshiInfo(int index, YoshiColor_e color, int fruit);
+    static void storeYoshiInfo(int index, dYoshiMdl_c::COLOR_e color, int fruit);
 
     /* 0x8005FC40 */
-    static YoshiColor_e getYoshiColor(int index);
+    static dYoshiMdl_c::COLOR_e getYoshiColor(int index);
 
     /* 0x8005FC50 */
     static int getYoshiFruit(int index);

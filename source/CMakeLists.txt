@@ -234,6 +234,9 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x800F9380 - 0x800FD6A0
     wiimj2d/d_system/d_wm_lib.cpp
 
+#NSMBW           .text:  0x800FE2E0 - 0x800FFF80
+    wiimj2d/d_system/d_yoshi_model.cpp
+
 # NSMBW          .text:  0x800FDB60 - 0x800FDC40
     wiimj2d/d_system/d_wm_path.cpp
 # NSMBW          .text:  0x800FDC40 - 0x800FE140
@@ -425,6 +428,9 @@ target_sources(project PRIVATE
 
 # NSMBW          .text:  0x801018C0 - 0x801018E0
     wiimj2d/d_bases/d_profile_static.cpp
+
+# NSMBW   d_bases.text:  0x80910F00 - 0x809125E0
+    wiimj2d/d_bases/d_a_yoshi_egg.cpp
 
 # NSMBW   d_bases.text:  0x80917960 - 0x8091A2F0
     wiimj2d/d_bases/d_s_GameSetup.cpp

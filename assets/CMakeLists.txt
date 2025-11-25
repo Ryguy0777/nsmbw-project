@@ -51,6 +51,7 @@ set(DVD_FILES
     Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_gray.tpl
     Object/boat_light_wood.arc/g3d/boat_light_wood.brres
     Object/C_rcha.arc/g3d/model.brres
+    Object/I_yoshi_egg.arc/g3d/I_yoshi_egg.brres
     Object/Kinopico.arc/g3d/model.brres
     Object/Kinopio.arc/g3d/model.brres
     Object/koopaJr_clown_ply.arc/g3d/koopaJr_clown_ply.brres
@@ -61,6 +62,10 @@ set(DVD_FILES
     Object/remo_lift_soroban.arc/g3d/remo_lift_soroban.brres
     Object/remo_lift_up.arc/g3d/remo_lift_up.brres
     Object/remo_lift.arc/g3d/remo_lift.brres
+    Object/Y_TexAzure.arc/g3d/model.brres
+    Object/Y_TexOrange.arc/g3d/model.brres
+    Object/Y_TexPurple.arc/g3d/model.brres
+    Object/Y_TexCrimson.arc/g3d/model.brres
     Sound/BANK_SE_VOC_COURSE_KC.brbnk
     Sound/GROUP_SE_VOC_COURSE_KC.brwar
     Stage/01-09.arc.LZ
