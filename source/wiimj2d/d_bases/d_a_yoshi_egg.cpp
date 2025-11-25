@@ -7,8 +7,9 @@
 #include "d_system/d_yoshi_model.h"
 #include "machine/m_ef.h"
 
-
-float eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {0.0, 2.0, 3.0, 1.0, 7.0, 5.0, 6.0, 4.0};
+extern const float c_eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {
+  0.0, 2.0, 3.0, 1.0, 7.0, 5.0, 6.0, 4.0,
+};
 
 [[address(0x80911380)]]
 void daYoshiEgg_c::loadModel() ASM_METHOD(
@@ -94,10 +95,10 @@ void daYoshiEgg_c::loadModel() ASM_METHOD(
 /* 809114B8 389D0070 */  addi     r4, r29, 112;
 /* 809114BC 801B05BC */  lwz      r0, 1468(r27);
 /* 809114C0 387B05C0 */  addi     r3, r27, 1472;
-/* 809114C4 54A5103A */  slwi     r5, r5, 2                 ;
+/* 809114C4 54A5103A */  slwi     r5, r5, 2;
 /* 809114C8 9001001C */  stw      r0, 28(r1);
-                         lis      r4, eggColorFrames@ha;
-                         addi     r4, r4, eggColorFrames@l;
+                         lis      r4, c_eggColorFrames@ha;
+                         addi     r4, r4, c_eggColorFrames@l;
 /* 809114CC 7FE42C2E */  lfsx     f31, r4, r5;
 /* 809114D0 389B0544 */  addi     r4, r27, 1348;
 /* 809114D4 38A1001C */  addi     r5, r1, 28;
@@ -125,12 +126,11 @@ void daYoshiEgg_c::loadModel() ASM_METHOD(
 /* 8091152C 80010054 */  lwz      r0, 84(r1);
 /* 80911530 7C0803A6 */  mtlr     r0;
 /* 80911534 38210050 */  addi     r1, r1, 80;
-/* 80911538 4E800020 */  blr      ;
+/* 80911538 4E800020 */  blr;
   // clang-format on
 )
 
-[[address(0x80911540)]]
-void daYoshiEgg_c::playAnimation(int);
+  [[address(0x80911540)]] void daYoshiEgg_c::playAnimation(int);
 
 [[address(0x80911610)]]
 void daYoshiEgg_c::spawnEggBreakEffect()
@@ -148,7 +148,7 @@ void daYoshiEgg_c::spawnEggBreakEffect()
 void daYoshiEgg_c::hatchYoshi()
 {
     spawnEggBreakEffect();
-    daPyMng_c::createYoshi(mPos, dYoshiMdl_c::yoshiColors[mColor], nullptr);
+    daPyMng_c::createYoshi(mPos, dYoshiMdl_c::sc_yoshiColors[mColor], nullptr);
     deleteRequest();
 }
 

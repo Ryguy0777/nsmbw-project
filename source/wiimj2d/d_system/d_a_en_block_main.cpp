@@ -7,11 +7,10 @@
 #include "d_system/d_actorcreate_mng.h"
 #include "d_system/d_yoshi_model.h"
 
-
 [[address(0x80021AB0)]]
 bool daEnBlockMain_c::isYossyColor(u16 yoshiColor)
 {
-    int checkColor = dYoshiMdl_c::yoshiColors[yoshiColor];
+    int checkColor = dYoshiMdl_c::sc_yoshiColors[yoshiColor];
     daYoshi_c* yoshi;
     dYoshiMdl_c* yoshiMdl;
     for (int i = 0; i < dYoshiMdl_c::COLOR_COUNT; i++) {

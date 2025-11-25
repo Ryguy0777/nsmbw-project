@@ -2,7 +2,6 @@
 
 #include "d_bases/d_profile.h"
 #include "d_system/d_a_player_key.h"
-#include "d_system/d_a_player_manager.h"
 #include "d_system/d_actor.h"
 #include "d_system/d_mj2d_game.h"
 #include "machine/m_mtx.h"
@@ -10,8 +9,7 @@
 #include "sound/SndObjectPlayer.h"
 #include "state/s_State.h"
 
-class daPlBase_c : public dActor_c,
-                   public dProf::Info<daPlBase_c, dProf::PLAYER, dProf::YOSHI>
+class daPlBase_c : public dActor_c, public dProf::Info<daPlBase_c, dProf::PLAYER, dProf::YOSHI>
 {
     SIZE_ASSERT(0x14D4);
 
@@ -787,7 +785,11 @@ public:
     // Instance Variables
     // ^^^^^^
 
-    FILL(0x0392, 0x0EA4);
+    FILL(0x0392, 0x0DE8);
+
+    /* 0x0DE8 */ dPyMdlMng_c* mpModelMng;
+
+    FILL(0x0DEC, 0x0EA4);
 
     /* 0x0EA4 */ dAcPyKey_c mKey;
 

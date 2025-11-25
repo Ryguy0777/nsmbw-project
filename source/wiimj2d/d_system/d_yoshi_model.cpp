@@ -3,13 +3,13 @@
 
 #include "d_yoshi_model.h"
 
-[[address(0x800FE2E0)]]
-dYoshiMdl_c::dYoshiMdl_c(u8 index);
-
-const char* yoshiColorNames[dYoshiMdl_c::COLOR_COUNT] = {
+extern const char* const c_yoshiColorNames[dYoshiMdl_c::COLOR_COUNT] = {
   "Y_TexGreen",   "Y_TexRed",    "Y_TexYellow", "Y_TexBlue",
   "Y_TexCrimson", "Y_TexOrange", "Y_TexPurple", "Y_TexAzure",
 };
+
+[[address(0x800FE2E0)]]
+dYoshiMdl_c::dYoshiMdl_c(u8 index);
 
 [[address(0x800FE510)]]
 void dYoshiMdl_c::getPlayerObjectRes() ASM_METHOD(
@@ -44,9 +44,9 @@ void dYoshiMdl_c::getPlayerObjectRes() ASM_METHOD(
 /* 800FE57C 801F024C */  lwz      r0, 588(r31);
 /* 800FE580 38BE0040 */  addi     r5, r30, 64;
 /* 800FE584 80CDA998 */  lwz      r6, -22120(r13);
-/* 800FE588 5400103A */  slwi     r0, r0, 2                 ;
-                         lis      r3, yoshiColorNames@ha;
-                         addi     r3, r3, yoshiColorNames@l;
+/* 800FE588 5400103A */  slwi     r0, r0, 2;
+                         lis      r3, c_yoshiColorNames@ha;
+                         addi     r3, r3, c_yoshiColorNames@l;
 /* 800FE58C 7C83002E */  lwzx     r4, r3, r0;
 /* 800FE590 38660004 */  addi     r3, r6, 4;
 /* 800FE594 4BFE0CDD */  bl       UNDEF_800df270;
@@ -105,6 +105,6 @@ UNDEF_800fe640:;
 /* 800FE658 83C10028 */  lwz      r30, 40(r1);
 /* 800FE65C 7C0803A6 */  mtlr     r0;
 /* 800FE660 38210030 */  addi     r1, r1, 48;
-/* 800FE664 4E800020 */  blr      ;
+/* 800FE664 4E800020 */  blr;
   // clang-format on
 )

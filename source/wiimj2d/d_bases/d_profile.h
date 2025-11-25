@@ -51,7 +51,7 @@ struct Info {
 };
 
 template <class Owner, auto... Profiles>
-constexpr bool hasProfile(dProfName prof, const Info<Owner, Profiles...>*)
+inline constexpr bool hasProfile(dProfName prof, const Info<Owner, Profiles...>*)
 {
     return (false || ... || (Profiles == prof));
 }
@@ -63,11 +63,13 @@ constexpr bool hasProfile(dProfName prof, const Info<Owner, Profiles...>*)
 template <class T>
 constexpr T* cast(fBase_c* base)
 {
+    static_assert(__is_complete_type(T), "Cast to an incomplete type");
+
     if constexpr (std::is_same_v<T, dBase_c>) {
         // Everything is a dBase_c
         return static_cast<T*>(base);
     } else {
-        if (hasProfile<T>(base->mProfName, (T*) nullptr)) {
+        if (hasProfile<T>(base->mProfName, (const T*) nullptr)) {
             return static_cast<T*>(base);
         }
     }

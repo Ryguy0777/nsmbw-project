@@ -48,14 +48,22 @@ add_compile_options(
     -fno-PIE
     -fno-PIC
     -fno-rtti
+    -fno-strict-enums
     -fno-short-enums
     -fshort-wchar
     -fno-signed-char
+    -fno-fast-math
     -fno-exceptions
+    -fno-unwind-tables
     -fno-threadsafe-statics
     -fno-use-cxa-atexit
+    -fcheck-new
+    -fnew-alignment=4
     -fkeep-static-consts
     -femit-all-decls
+    -fforce-emit-vtables
+    -fno-virtual-function-elimination
+    -fmerge-all-constants
     -ffreestanding
     -ffunction-sections
     -fdata-sections

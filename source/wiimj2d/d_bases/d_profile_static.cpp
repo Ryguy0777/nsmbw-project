@@ -5,8 +5,11 @@
 
 #include "d_bases/d_profile.h"
 #include "d_player/d_a_player.h"
+#include "d_player/d_a_yoshi.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_base.h"
+#include "d_system/d_player_model_manager.h"
+#include "d_system/d_yoshi_model.h"
 #include <algorithm>
 #include <array>
 #include <cstring>
@@ -136,8 +139,8 @@ const char* getFormattedName(dBase_c* actor)
             return "Road";
         }
 
-        auto colorType = daPyMng_c::getPlayerColorType(player->mPlayerType);
-        auto playerType = static_cast<PLAYER_TYPE_e>(colorType);
+        int colorType = daPyMng_c::getPlayerColorType(player->mPlayerType);
+        PLAYER_TYPE_e playerType = static_cast<PLAYER_TYPE_e>(colorType);
 
         switch (playerType) {
         default:
@@ -159,6 +162,27 @@ const char* getFormattedName(dBase_c* actor)
             return "Oroad";
         case PLAYER_TYPE_e::BLACK_TOAD:
             return "Blaod";
+        }
+    } else if (auto yoshi = actor->DynamicCast<daYoshi_c>()) {
+        dYoshiMdl_c* yoshiMdl = static_cast<dYoshiMdl_c*>(yoshi->mpModelMng->mModel);
+        switch (yoshiMdl->mColor) {
+            default:
+            case dYoshiMdl_c::COLOR_e::COLOR_GREEN:
+                return "Yoshi";
+            case dYoshiMdl_c::COLOR_e::COLOR_RED: // Pink
+                return "Poshi";
+            case dYoshiMdl_c::COLOR_e::COLOR_YELLOW: 
+                return "Yelloshi";
+            case dYoshiMdl_c::COLOR_e::COLOR_BLUE: // Light blue
+                return "Blueshi";
+            case dYoshiMdl_c::COLOR_e::COLOR_CRIMSON: // Red
+                return "Roshi";
+            case dYoshiMdl_c::COLOR_e::COLOR_ORANGE:
+                return "Oroshi";
+            case dYoshiMdl_c::COLOR_e::COLOR_PURPLE:
+                return "Purposhi";
+            case dYoshiMdl_c::COLOR_e::COLOR_AZURE: // Blue
+                return "Boshi";
         }
     }
 
