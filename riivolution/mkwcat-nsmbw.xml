@@ -118,6 +118,12 @@
         <!-- JP --><memory offset="0x800B6410" value="3C800012" original="3C800010"/>
         <!-- KR/TW --><memory offset="0x800B65A0" value="3C800012" original="3C800010"/>
         <!-- CN --><memory offset="0x800B6790" value="3C800012" original="3C800010"/>
+        <!-- Disable Exception Handler Key Sequence -->
+        <!-- EU --><memory offset="0x800E4E84" value="38600000" original="3863330C"/>
+        <!-- US --><memory offset="0x800E4D70" value="38600000" original="3863300C"/>
+        <!-- JP --><memory offset="0x800E4CF0" value="38600000" original="38632E2C"/>
+        <!-- KR/TW --><memory offset="0x800E4E80" value="38600000" original="3863364C"/>
+        <!-- CN --><memory offset="0x800E54B0" value="38600000" original="3863364C"/>
 
         <!-- Data -->
         <file disc="/mkwcat.arc" external="mkwcat-nsmbw.arc" create="true"/>
