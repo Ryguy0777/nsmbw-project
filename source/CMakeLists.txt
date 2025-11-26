@@ -2,6 +2,7 @@ add_executable(project "")
 
 target_compile_options(project PRIVATE
     -include System.h
+    -fstack-protector-all
 )
 
 target_link_options(project PRIVATE
@@ -1003,15 +1004,26 @@ target_sources(project PRIVATE
     egg/util/eggEffect.cpp
 
 #
-# runtime
+# msl/runtime
 #
 
 # NSMBW          .init:  0x80004364 - 0x800046E4
 # NSMBW          .text:  0x802DC98C - 0x802DC9A8
-    runtime/__mem.c
+    msl/runtime/__mem.c
+
+# cxa.c
+# nsmbw-project
+    msl/runtime/cxa.c
+
+# NSMBW          .text:  0x802DCA70 - 0x802DCAD0
+    msl/runtime/global_destructor_chain.c
 
 # NSMBW          .text:  0x802DCF3C - 0x802DD5D0
-    runtime/runtime.c
+    msl/runtime/runtime.c
+
+# stack_chk.c
+# nsmbw-project
+    msl/runtime/stack_chk.c
 
 #
 # PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src

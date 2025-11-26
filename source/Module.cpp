@@ -1,29 +1,31 @@
 // Module.cpp
 
 #include "Four.h"
-#include "mkwcat/Relocate.hpp"
-#include "wiimj2d/d_player/d_s_boot.h"
+#include <mkwcat/Relocate.hpp>
 #include <revolution/arc.h>
 #include <revolution/dvd.h>
 #include <revolution/os.h>
+#include <wiimj2d/d_system/d_system.h>
 
-extern "C" {
+EXTERN_C_START
 
+// External init
 int main();
 int preinit(s32, void*);
 
+// Rel init
 void _prolog(s32, void*);
 void _epilog();
 void _unresolved();
 
-} // extern "C"
+// Runtime init
+void __stack_chk_init(std::uintptr_t value);
 
 constexpr u32 THIS_MODULE_ID = 0x50414C41; // 'PALA'
 
-typedef void (*PFN_voidfunc)();
-
-extern PFN_voidfunc _ctors[];
-extern PFN_voidfunc _ctors_end[];
+using VoidFunction = void (*)();
+extern VoidFunction _ctors[];
+extern VoidFunction _ctors_end[];
 
 extern mkwcat::Attribute::Entry _MRel_replace_array[];
 extern mkwcat::Attribute::Entry _MRel_replace_array_end[];
@@ -37,7 +39,7 @@ extern mkwcat::Relocate::Entry<1> _MRel_patch_references_array_end[];
 #define HID0 1008
 #define HID0_ICFI (1 << 31 >> 20)
 #define HID0_DCFA (1 << 31 >> 25)
-static void FlushAndInvalidateCache(bool interrupts = OSDisableInterrupts()) ASM_METHOD(
+static void __flush_entire_cache(bool interrupts = OSDisableInterrupts()) ASM_METHOD(
   // clang-format off
     // Set data cache flush assist
     mfspr   r4, HID0;
@@ -69,8 +71,11 @@ static void FlushAndInvalidateCache(bool interrupts = OSDisableInterrupts()) ASM
   // clang-format on
 );
 
-extern "C" void _prolog(s32 param1, void* param2)
+[[gnu::no_stack_protector]]
+void _prolog(s32 param1, void* param2)
 {
+    __stack_chk_init(OSGetTick());
+
     auto codeRegion = dSys_c::findCodeRegion();
     *const_cast<volatile dSys_c::CODE_REGION_e*>(&dSys_c::m_codeRegion) = codeRegion;
 
@@ -80,8 +85,9 @@ extern "C" void _prolog(s32 param1, void* param2)
     for (auto repl = _MRel_patch_references_array; repl != _MRel_patch_references_array_end;) {
         for (u32 i = 0; i < repl->count; i++) {
             u32 offset = reinterpret_cast<u32>(repl->dest.addr) + repl->references[i].addend;
-            volatile u16* ptr = reinterpret_cast<volatile u16*>((&repl->references[i].addrP1
-            )[static_cast<int>(codeRegion)]);
+            volatile u16* ptr = reinterpret_cast<volatile u16*>(
+              (&repl->references[i].addrP1)[static_cast<int>(codeRegion)]
+            );
 
             if (repl->references[i].type == R_PPC_ADDR16_LO) {
                 offset &= 0xFFFF;
@@ -114,14 +120,14 @@ extern "C" void _prolog(s32 param1, void* param2)
         *repl->addr = 0x48000000 | ((u32(repl->dest.instruction) - u32(repl->addr)) & 0x3FFFFFC);
     }
 
-    FlushAndInvalidateCache(false);
+    __flush_entire_cache(false);
 
     if (preinit(param1, param2) != 0) {
         OSPanic(__FILE_NAME__, __LINE__, "preinit() returned non-zero");
     }
 
     // Run global constructors
-    for (PFN_voidfunc* ctor = _ctors; ctor != _ctors_end && *ctor; ++ctor) {
+    for (VoidFunction* ctor = _ctors; ctor != _ctors_end && *ctor; ++ctor) {
         (*ctor)();
     }
 
@@ -135,36 +141,17 @@ extern "C" void _prolog(s32 param1, void* param2)
     OSRestoreInterrupts(interrupt);
 }
 
-extern "C" void _epilog()
+[[gnu::no_stack_protector]]
+void _epilog()
 {
 }
 
-extern "C" void _unresolved()
+[[gnu::no_stack_protector]]
+void _unresolved()
 {
     // Infinite loop
     while (true) {
     }
 }
 
-struct DestructorChain {
-    void* next;
-    void* destructor;
-    void* object;
-};
-
-DestructorChain* __global_destructor_chain = nullptr;
-
-extern "C" void* __register_global_object(void* object, void* dtor, DestructorChain* entry)
-{
-    entry->next = __global_destructor_chain;
-    entry->destructor = dtor;
-    entry->object = object;
-    __global_destructor_chain = entry;
-
-    return object;
-};
-
-extern "C" void __cxa_pure_virtual()
-{
-    OS_PANIC("Call of pure virtual function!\n");
-}
+EXTERN_C_END

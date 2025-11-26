@@ -6,31 +6,31 @@ namespace std
 {
 
 template <class T>
-constexpr const T& min(const T& l, const T& r)
+constexpr inline const T& min(const T& l, const T& r)
 {
     return (r < l) ? r : l;
 }
 
 template <class T>
-constexpr const T& max(const T& l, const T& r)
+constexpr inline const T& max(const T& l, const T& r)
 {
     return (l < r) ? r : l;
 }
 
-template<class T>
-constexpr const T& clamp(const T& v, const T& lo, const T& hi)
+template <class T>
+constexpr inline const T& clamp(const T& v, const T& lo, const T& hi)
 {
     return (v < lo) ? lo : (hi < v) ? hi : v;
 }
 
-template<class T, class Compare>
-constexpr const T& clamp(const T& v, const T& lo, const T& hi, Compare comp)
+template <class T, class Compare>
+constexpr inline const T& clamp(const T& v, const T& lo, const T& hi, Compare comp)
 {
     return comp(v, lo) ? lo : comp(hi, v) ? hi : v;
 }
 
 template <class Iterator, class Compare>
-constexpr void sort(Iterator begin, Iterator end, Compare comp)
+constexpr inline void sort(Iterator begin, Iterator end, Compare comp)
 {
     auto partition = [](Iterator begin, Iterator end, Compare comp) {
         auto pivot = *end;
@@ -57,7 +57,7 @@ constexpr void sort(Iterator begin, Iterator end, Compare comp)
 }
 
 template <class Iterator>
-constexpr void sort(Iterator begin, Iterator end)
+constexpr inline void sort(Iterator begin, Iterator end)
 {
     sort(begin, end, [](auto l, auto r) { return l < r; });
 }
