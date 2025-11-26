@@ -123,7 +123,7 @@
         <!-- US --><memory offset="0x800E4D70" value="38600000" original="3863300C"/>
         <!-- JP --><memory offset="0x800E4CF0" value="38600000" original="38632E2C"/>
         <!-- KR/TW --><memory offset="0x800E4E80" value="38600000" original="3863364C"/>
-        <!-- CN --><memory offset="0x800E54B0" value="38600000" original="3863364C"/>
+        <!-- CN --><memory offset="0x800E54B0" value="38600000" original="38637AAC"/>
 
         <!-- Data -->
         <file disc="/mkwcat.arc" external="mkwcat-nsmbw.arc" create="true"/>
