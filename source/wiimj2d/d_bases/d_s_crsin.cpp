@@ -8,7 +8,7 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_remocon_mng.h"
-#include "d_system/d_resource_manager.h"
+#include "d_system/d_resource_mng.h"
 
 [[address(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()

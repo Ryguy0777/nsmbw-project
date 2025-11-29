@@ -1,5 +1,5 @@
 // d_system.cpp
-// NSMBW .text: 0x800E46E0 - 0x800E5480
+// NSMBW .text: 0x800E46E0 - 0x800E5510
 
 #include "d_system.h"
 
@@ -8,7 +8,6 @@
 #include "d_system/d_info.h"
 #include "d_system/d_nand_thread.h"
 #include "d_system/d_remocon_mng.h"
-#include "d_system/d_resource_manager.h"
 #include "d_system/d_save_manager.h"
 #include "machine/m_heap.h"
 #include "machine/m_pad.h"

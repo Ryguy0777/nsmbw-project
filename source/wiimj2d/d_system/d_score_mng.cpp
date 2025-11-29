@@ -1,7 +1,7 @@
-// d_score_manager.cpp
-// NSMBW .text: 0x800E2070 - 0x800E2640
+// d_score_mng.cpp
+// NSMBW .text: 0x800E2070 - 0x800E2670
 
-#include "d_score_manager.h"
+#include "d_score_mng.h"
 
 #include "d_bases/d_MiniGameCannon.h"
 #include "d_bases/d_s_stage.h"

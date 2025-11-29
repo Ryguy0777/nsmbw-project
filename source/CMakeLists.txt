@@ -73,10 +73,6 @@ target_sources(project PRIVATE
   # wiimj2d/d_system/d_a_bullet.cpp
 # NSMBW          .text:  0x8001F6C0 - 0x800208B0
   # wiimj2d/d_system/d_a_en_bigpile.cpp
-# NSMBW          .text:  0x8001F6C0 - 0x800208B0
-  # wiimj2d/d_system/d_a_en_bigpile.cpp
-# NSMBW          .text:  0x8001F6C0 - 0x800208B0
-  # wiimj2d/d_system/d_a_en_bigpile.cpp
 # NSMBW          .text:  0x800208B0 - 0x80023C60
     wiimj2d/d_system/d_a_en_block_main.cpp
 # NSMBW          .text:  0x80023C60 - 0x80026BB0
@@ -145,7 +141,16 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_a_player_manager.cpp
 # NSMBW          .text:  0x800613B0 - 0x800620F0
   # wiimj2d/d_system/d_a_right_base.cpp
-
+# NSMBW          .text:  0x800620F0 - 0x800622A0
+  # wiimj2d/d_system/d_a_rot_block.cpp
+# NSMBW          .text:  0x800622A0 - 0x80062F00
+  # wiimj2d/d_system/d_a_rot_objs_base.cpp
+# NSMBW          .text:  0x80062F00 - 0x80063820
+  # wiimj2d/d_system/d_a_sink_dokan.cpp
+# NSMBW          .text:  0x80063820 - 0x80063F80
+  # wiimj2d/d_system/d_a_spin_child_base.cpp
+# NSMBW          .text:  0x80063F80 - 0x80064110
+  # wiimj2d/d_system/d_a_zoom_pipe_base.cpp
 # NSMBW          .text:  0x80064110 - 0x800660C0
     wiimj2d/d_system/d_actor.cpp
 # NSMBW          .text:  0x800660C0 - 0x80066380
@@ -156,7 +161,8 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_actor_state.cpp
 # NSMBW          .text:  0x80068040 - 0x80069020
     wiimj2d/d_system/d_actorcreate_mng.cpp
-
+# NSMBW          .text:  0x80069020 - 0x800690F0
+  # wiimj2d/d_system/d_allocator.cpp
 # NSMBW          .text:  0x800690F0 - 0x80069500
     wiimj2d/d_system/d_attention.cpp
 # NSMBW          .text:  0x80069500 - 0x8006C0B0
@@ -168,42 +174,80 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_base.cpp
 # NSMBW          .text:  0x8006C6D0 - 0x8006CF40
     wiimj2d/d_system/d_base_actor.cpp
-
+# NSMBW          .text:  0x8006CF40 - 0x80076BC0
+  # wiimj2d/d_system/d_bc.cpp
 # NSMBW          .text:  0x80076BC0 - 0x80076FD0
     wiimj2d/d_system/d_beans_kuribo_mng.cpp
 # NSMBW          .text:  0x80076FD0 - 0x8007E180
     wiimj2d/d_system/d_bg.cpp
-
+# NSMBW          .text:  0x8007E180 - 0x8007F7A0
+  # wiimj2d/d_system/d_bg_actor_mng.cpp
 # NSMBW          .text:  0x8007F7A0 - 0x80081070
     wiimj2d/d_system/d_bg_ctr.cpp
-
+# NSMBW          .text:  0x80081070 - 0x800818E0
+  # wiimj2d/d_system/d_bg_global.cpp
+# NSMBW          .text:  0x800818E0 - 0x80081D20
+  # wiimj2d/d_system/d_bg_panel.cpp
 # NSMBW          .text:  0x80081D20 - 0x800822E0
     wiimj2d/d_system/d_bg_parameter.cpp
-
+# NSMBW          .text:  0x800822E0 - 0x80083490
+  # wiimj2d/d_system/d_bg_texture.cpp
+# NSMBW          .text:  0x80083490 - 0x800872E0
+  # wiimj2d/d_system/d_bg_unit.cpp
+# NSMBW          .text:  0x800872E0 - 0x80087F40
+  # wiimj2d/d_system/d_bgtex_mng.cpp
 # NSMBW          .text:  0x80087F40 - 0x80088D90
     wiimj2d/d_system/d_block_mng.cpp
-
+# NSMBW          .text:  0x80088D90 - 0x80088FD0
+  # wiimj2d/d_system/d_boat_log.cpp
+# NSMBW          .text:  0x80088FD0 - 0x8008A230
+  # wiimj2d/d_system/d_capture_mng.cpp
+# NSMBW          .text:  0x8008A230 - 0x8008C200
+  # wiimj2d/d_system/d_capturecoin.cpp
 # NSMBW          .text:  0x8008C200 - 0x8008DC80
     wiimj2d/d_system/d_cc.cpp
-
+# NSMBW          .text:  0x8008DC80 - 0x8008DED0
+  # wiimj2d/d_system/d_center_save_mng.cpp
 # NSMBW          .text:  0x8008DED0 - 0x8008DFF0
     wiimj2d/d_system/d_coin.cpp
 # NSMBW          .text:  0x8008DFF0 - 0x8008ECC0
     wiimj2d/d_system/d_course_data.cpp
-
+# NSMBW          .text:  0x8008ECC0 - 0x8008ED70
+  # wiimj2d/d_system/d_curtain_mng.cpp
 # NSMBW          .text:  0x8008ED70 - 0x8008F110
     wiimj2d/d_system/d_cyuukan.cpp
-
-# NSMBW          .text:  0x8008FE30 - 0x80092C00
+# NSMBW          .text:  0x8008F110 - 0x8008F460
+  # wiimj2d/d_system/d_dvd.cpp
+# NSMBW          .text:  0x8008F460 - 0x8008F920
+  # wiimj2d/d_system/d_dylink.cpp
+# NSMBW          .text:  0x8008F920 - 0x8008FE30
+  # wiimj2d/d_system/d_ef.cpp
+# NSMBW          .text:  0x8008FE30 - 0x800909A0
+  # wiimj2d/d_system/d_eff_big_block_fragment.cpp
+# NSMBW          .text:  0x800909A0 - 0x80091100
+  # wiimj2d/d_system/d_eff_block_fragment.cpp
+# NSMBW          .text:  0x80091100 - 0x80091860
+  # wiimj2d/d_system/d_eff_ice_fragment.cpp
+# NSMBW          .text:  0x80091860 - 0x80091F60
+  # wiimj2d/d_system/d_eff_wan_chain.cpp
+# NSMBW          .text:  0x80091F60 - 0x80092290
+  # wiimj2d/d_system/d_eff_water_splash.cpp
+# NSMBW          .text:  0x80092290 - 0x80092300
+  # wiimj2d/d_system/d_effactor.cpp
+# NSMBW          .text:  0x80092300 - 0x80092C00
     wiimj2d/d_system/d_effactor_mng.cpp
-
+# NSMBW          .text:  0x80092C00 - 0x80092F10
+  # wiimj2d/d_system/d_effect_proc.cpp
+# NSMBW          .text:  0x80092F10 - 0x80094E80
+  # wiimj2d/d_system/d_effectmanager.cpp
 # NSMBW          .text:  0x80094E80 - 0x800983C0
     wiimj2d/d_system/d_enemy.cpp
 # NSMBW          .text:  0x800983C0 - 0x8009AD30
     wiimj2d/d_system/d_enemy_boss.cpp
-
+# NSMBW          .text:  0x8009AD30 - 0x8009EA30
+  # wiimj2d/d_system/d_enemy_boss_koopa_jr_base.cpp
 # NSMBW          .text:  0x8009EA30 - 0x8009EAF0
-    wiimj2d/d_system/d_enemy_boyon.cpp
+    wiimj2d/d_system/d_enemy_boyon_mng.cpp
 # NSMBW          .text:  0x8009EAF0 - 0x8009F5F0
     wiimj2d/d_system/d_enemy_carry.cpp
 # NSMBW          .text:  0x8009F5F0 - 0x800A2870
@@ -214,61 +258,107 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_enemy_jr_clown_base.cpp
 # NSMBW          .text:  0x800A7450 - 0x800A7DA0
     wiimj2d/d_system/d_enemy_manager.cpp
-
-# NSMBW          .text:  0x800B0800 - 0x800B0A20
-    wiimj2d/d_system/d_enemy_toride_kokoopa_slide.cpp
+# NSMBW          .text:  0x800A7DA0 - 0x800A8710
+  # wiimj2d/d_system/d_enemy_state.cpp
+# NSMBW          .text:  0x800A8710 - 0x800B0A20
+  # wiimj2d/d_system/d_enemy_toride_kokoopa.cpp
 # NSMBW          .text:  0x800B0A20 - 0x800B0EA0
     wiimj2d/d_system/d_fader.cpp
-
+# NSMBW          .text:  0x800B0EA0 - 0x800B11D0
+  # wiimj2d/d_system/d_flag_ctrl.cpp
+# NSMBW          .text:  0x800B11D0 - 0x800B14E0
+  # wiimj2d/d_system/d_font_manager.cpp
 # NSMBW          .text:  0x800B14E0 - 0x800B2D20
     wiimj2d/d_system/d_fukidashiInfo.cpp
-
+# NSMBW          .text:  0x800B2D20 - 0x800B2E70
+  # wiimj2d/d_system/d_funsui_act.cpp
 # NSMBW          .text:  0x800B2E70 - 0x800B5930
     wiimj2d/d_system/d_game_common.cpp
 # NSMBW          .text:  0x800B5930 - 0x800B5B50
     wiimj2d/d_system/d_game_key.cpp
 # NSMBW          .text:  0x800B5B50 - 0x800B64A0
     wiimj2d/d_system/d_game_key_core.cpp
-
+# NSMBW          .text:  0x800B64A0 - 0x800B6570
+  # wiimj2d/d_system/d_graph.cpp
+# NSMBW          .text:  0x800B6570 - 0x800B8130
+  # wiimj2d/d_system/d_hana_body.cpp
+# NSMBW          .text:  0x800B8130 - 0x800B8490
+  # wiimj2d/d_system/d_ice_effect_maker.cpp
+# NSMBW          .text:  0x800B8490 - 0x800B8FF0
+  # wiimj2d/d_system/d_ice_manager.cpp
+# NSMBW          .text:  0x800B8FF0 - 0x800B90A0
+  # wiimj2d/d_system/d_ice_param.cpp
+# NSMBW          .text:  0x800B90A0 - 0x800BAC00
+  # wiimj2d/d_system/d_iggy_wan_kusari.cpp
+# NSMBW          .text:  0x800BAC00 - 0x800BB0E0
+  # wiimj2d/d_system/d_iggy_wan_kusari_piece.cpp
 # NSMBW          .text:  0x800BB0E0 - 0x800BBD80
 # NSMBW          .data:  0x80315E90 - 0x80315EB0
 # NSMBW          .bss:   0x80359054 - 0x803590F0
 # NSMBW          .sbss:  0x8042A25C - 0x8042A268
     wiimj2d/d_system/d_info.cpp
-
-# NSMBW: ---
+# NSMBW          .text:  0x800BBD80 - 0x800BC330
+  # wiimj2d/d_system/d_ka_draw.cpp
+# NSMBW          .text:  0x800BC330 - 0x800BC9A0
+  # wiimj2d/d_system/d_kinoko_kasa_draw.cpp
+# NSMBW          .text:  0x800BC9A0 - 0x800BCBD0
+  # wiimj2d/d_system/d_kinoko_lift_draw.cpp
+# nsmbw-project
     wiimj2d/d_system/d_kinopico_model.cpp
 # NSMBW          .text:  0x800BCBD0 - 0x800BD7F0
     wiimj2d/d_system/d_kinopio_model.cpp
-
+# NSMBW          .text:  0x800BD7F0 - 0x800C0060
+  # wiimj2d/d_system/d_lift_all_hit_draw.cpp
+# NSMBW          .text:  0x800C0060 - 0x800C0360
+  # wiimj2d/d_system/d_lift_down_on_normal_draw.cpp
+# NSMBW          .text:  0x800C0360 - 0x800C0B30
+  # wiimj2d/d_system/d_lift_normal_model_draw.cpp
+# NSMBW          .text:  0x800C0B30 - 0x800C0DC0
+  # wiimj2d/d_system/d_light.cpp
+# NSMBW          .text:  0x800C0DC0 - 0x800C89A0
+  # wiimj2d/d_system/d_line_mng.cpp
 # NSMBW          .text:  0x800C89A0 - 0x800C9B50
     wiimj2d/d_system/d_lytbase.cpp
 # NSMBW          .text:  0x800C9B50 - 0x800CA000
     wiimj2d/d_system/d_lyttextbox.cpp
-
+# NSMBW          .text:  0x800CA000 - 0x800CA150
+  # wiimj2d/d_system/d_main.cpp
+# NSMBW          .text:  0x800CA150 - 0x800CAC00
+  # wiimj2d/d_system/d_mario_model.cpp
+# NSMBW          .text:  0x800CAC00 - 0x800CD290
+  # wiimj2d/d_system/d_mask_draw.cpp
 # NSMBW          .text:  0x800CD290 - 0x800CD800
     wiimj2d/d_system/d_mask_mng.cpp
-
+# NSMBW          .text:  0x800CD800 - 0x800CDB60
+  # wiimj2d/d_system/d_md_actor.cpp
 # NSMBW          .text:  0x800CDB60 - 0x800CDFB0
     wiimj2d/d_system/d_message.cpp
 # NSMBW          .text:  0x800CDFB0 - 0x800CE660
     wiimj2d/d_system/d_mj2d_game.cpp
 # NSMBW          .text:  0x800CE660 - 0x800CE7F0
     wiimj2d/d_system/d_mj2d_header.cpp
-# NSMBW: ---
+# nsmbw-project
     wiimj2d/d_system/d_mj2d_json_handler.cpp
-
+# NSMBW          .text:  0x800CE7F0 - 0x800CE8F0
+  # wiimj2d/d_system/d_msgres.cpp
 # NSMBW          .text:  0x800CE8F0 - 0x800CED00
     wiimj2d/d_system/d_multi_manager.cpp
-# NSMBW          .text:  0x800CED00 - 0x800CFCB0
+# NSMBW          .text:  0x800CED00 - 0x800CFCE0
     wiimj2d/d_system/d_nand_thread.cpp
-
 # NSMBW          .text:  0x800CFCE0 - 0x800D03C0
     wiimj2d/d_system/d_next.cpp
-
+# NSMBW          .text:  0x800D03C0 - 0x800D0700
+  # wiimj2d/d_system/d_objblock_mng.cpp
+# NSMBW          .text:  0x800D0700 - 0x800D0A90
+  # wiimj2d/d_system/d_pad.cpp
 # NSMBW          .text:  0x800D0A90 - 0x800D15F0
     wiimj2d/d_system/d_pause_manager.cpp
-
+# NSMBW          .text:  0x800D15F0 - 0x800D2480
+  # wiimj2d/d_system/d_pc.cpp
+# NSMBW          .text:  0x800D2480 - 0x800D2600
+  # wiimj2d/d_system/d_pole_ctr.cpp
+# NSMBW          .text:  0x800D2600 - 0x800D2AE0
+  # wiimj2d/d_system/d_pole_rope.cpp
 # NSMBW          .text:  0x800D2AE0 - 0x800D2D10
     wiimj2d/d_system/d_player_effect.cpp
 # NSMBW          .text:  0x800D2D10 - 0x800D2EC0
@@ -279,57 +369,129 @@ target_sources(project PRIVATE
     wiimj2d/d_system/d_player_model_base.cpp
 # NSMBW          .text:  0x800D6DB0 - 0x800D7190
     wiimj2d/d_system/d_player_model_manager.cpp
-
+# NSMBW          .text:  0x800D7190 - 0x800D7440
+  # wiimj2d/d_system/d_player_orchestra.cpp
+# NSMBW          .text:  0x800D7440 - 0x800D81A0
+  # wiimj2d/d_system/d_pos_go_and_come_exe_frm.cpp
+# NSMBW          .text:  0x800D81A0 - 0x800D82D0
+  # wiimj2d/d_system/d_pos_shake.cpp
+# NSMBW          .text:  0x800D81A0 - 0x800D86C0
+  # wiimj2d/d_system/d_propel_parts.cpp
+# NSMBW          .text:  0x800D86C0 - 0x800D8940
+  # wiimj2d/d_system/d_pswitch_manager.cpp
 # NSMBW          .text:  0x800D8940 - 0x800D91B0
     wiimj2d/d_system/d_quake.cpp
-
+# NSMBW          .text:  0x800D91B0 - 0x800D9850
+  # wiimj2d/d_system/d_rail.cpp
+# NSMBW          .text:  0x800D9850 - 0x800D9950
+  # wiimj2d/d_system/d_random.cpp
+# NSMBW          .text:  0x800D9950 - 0x800DBDB0
+  # wiimj2d/d_system/d_rc.cpp
+# NSMBW          .text:  0x800DBDB0 - 0x800DBFD0
+  # wiimj2d/d_system/d_remocon_fukidashi.cpp
 # NSMBW          .text:  0x800DBFD0 - 0x800DDA40
     wiimj2d/d_system/d_remocon_mng.cpp
-
+# NSMBW          .text:  0x800DDA40 - 0x800DEA30
+  # wiimj2d/d_system/d_replay_play.cpp
+# NSMBW          .text:  0x800DDA40 - 0x800DF770
+  # wiimj2d/d_system/d_res.cpp
 # NSMBW          .text:  0x800DF770 - 0x800DF950
 # NSMBW          .sbss:  0x8042A318 - 0x8042A31C
-    wiimj2d/d_system/d_resource_manager.cpp
-
+    wiimj2d/d_system/d_resource_mng.cpp
+# NSMBW          .text:  0x800DF950 - 0x800DFA80
+  # wiimj2d/d_system/d_rot_shake.cpp
+# NSMBW          .text:  0x800DFA80 - 0x800E0270
+  # wiimj2d/d_system/d_rs_node.cpp
 # NSMBW          .text:  0x800E0270 - 0x800E1AA0
     wiimj2d/d_system/d_save_manager.cpp
 # NSMBW          .text:  0x800E1AA0 - 0x800E2070
 # NSMBW          .sdata: 0x80428A40 - 0x80428A50
     wiimj2d/d_system/d_scene.cpp
-# NSMBW          .text:  0x800E2070 - 0x800E2640
-    wiimj2d/d_system/d_score_manager.cpp
-
+# NSMBW          .text:  0x800E2070 - 0x800E2670
+    wiimj2d/d_system/d_score_mng.cpp
+# NSMBW          .text:  0x800E2670 - 0x800E2BC0
+  # wiimj2d/d_system/d_screen.cpp
+# NSMBW          .text:  0x800E2BC0 - 0x800E3370
+  # wiimj2d/d_system/d_spline.cpp
+# NSMBW          .text:  0x800E3370 - 0x800E3730
+  # wiimj2d/d_system/d_square_rail.cpp
+# NSMBW          .text:  0x800E3730 - 0x800E38E0
+  # wiimj2d/d_system/d_stage.cpp
 # NSMBW          .text:  0x800E38E0 - 0x800E3BA0
     wiimj2d/d_system/d_stage_timer.cpp
 # NSMBW          .text:  0x800E3BA0 - 0x800E3BD0
     wiimj2d/d_system/d_start_info.cpp
 # NSMBW          .text:  0x800E3BD0 - 0x800E46E0
-    wiimj2d/d_system/d_switch_flag_mng.cpp
-# NSMBW          .text:  0x800E46E0 - 0x800E5480
+    wiimj2d/d_system/d_switchflag_mng.cpp
+# NSMBW          .text:  0x800E46E0 - 0x800E5510
     wiimj2d/d_system/d_system.cpp
-
+# NSMBW          .text:  0x800E5510 - 0x800E75D0
+  # wiimj2d/d_system/d_tag_processor.cpp
 # NSMBW          .text:  0x800E75D0 - 0x800E78D0
     wiimj2d/d_system/d_tencoin_mng.cpp
-
+# NSMBW          .text:  0x800E78D0 - 0x800E8BC0
+  # wiimj2d/d_system/d_ut_boss_demo.cpp
+# NSMBW          .text:  0x800E8BC0 - 0x800E8C40
+  # wiimj2d/d_system/d_video.cpp
+# NSMBW          .text:  0x800E8C40 - 0x800EA740
+  # wiimj2d/d_system/d_wan_kusari.cpp
+# NSMBW          .text:  0x800EA740 - 0x800EAB10
+  # wiimj2d/d_system/d_wan_kusari_piece.cpp
+# NSMBW          .text:  0x800EAB10 - 0x800EB5D0
+  # wiimj2d/d_system/d_water_draw.cpp
+# NSMBW          .text:  0x800EB5D0 - 0x800EBCF0
+  # wiimj2d/d_system/d_water_entry_mng.cpp
+# NSMBW          .text:  0x800EBCF0 - 0x800EE030
+  # wiimj2d/d_system/d_water_wave.cpp
+# NSMBW          .text:  0x800EE030 - 0x800EE3C0
+  # wiimj2d/d_system/d_wipe_fader.cpp
+# NSMBW          .text:  0x800EE3C0 - 0x800F1A50
+  # wiimj2d/d_system/d_wm_MapModel.cpp
+# NSMBW          .text:  0x800F1A50 - 0x800F24A0
+  # wiimj2d/d_system/d_wm_Map_ExRouteAnim.cpp
+# NSMBW          .text:  0x800F24A0 - 0x800F2820
+  # wiimj2d/d_system/d_wm_ShadowVolume.cpp
 # NSMBW          .text:  0x800F2820 - 0x800F2C00
     wiimj2d/d_system/d_wm_actor.cpp
-
+# NSMBW          .text:  0x800F2C00 - 0x800F3570
+  # wiimj2d/d_system/d_wm_connect.cpp
+# NSMBW          .text:  0x800F3570 - 0x800F60E0
+  # wiimj2d/d_system/d_wm_csvdata.cpp
 # NSMBW          .text:  0x800F60E0 - 0x800F7050
     wiimj2d/d_system/d_wm_demo_actor.cpp
-
+# NSMBW          .text:  0x800F7050 - 0x800F7510
+  # wiimj2d/d_system/d_wm_en_path.cpp
+# NSMBW          .text:  0x800F7510 - 0x800F9380
+  # wiimj2d/d_system/d_wm_enemy.cpp
 # NSMBW          .text:  0x800F9380 - 0x800FD6A0
     wiimj2d/d_system/d_wm_lib.cpp
-
-#NSMBW           .text:  0x800FE2E0 - 0x800FFF80
-    wiimj2d/d_system/d_yoshi_model.cpp
-
+# NSMBW          .text:  0x800FD6A0 - 0x800FD8F0
+  # wiimj2d/d_system/d_wm_material.cpp
+# NSMBW          .text:  0x800FD8F0 - 0x800FDB60
+  # wiimj2d/d_system/d_wm_material.cpp
 # NSMBW          .text:  0x800FDB60 - 0x800FDC40
     wiimj2d/d_system/d_wm_path.cpp
 # NSMBW          .text:  0x800FDC40 - 0x800FE140
     wiimj2d/d_system/d_wm_player_base.cpp
+# NSMBW          .text:  0x800FE140 - 0x800FE160
+  # wiimj2d/d_system/d_wm_viewclip.cpp
+# NSMBW          .text:  0x800FE160 - 0x800FE2E0
+  # wiimj2d/d_system/d_world.cpp
+# NSMBW          .text:  0x800FE2E0 - 0x800FFF80
+    wiimj2d/d_system/d_yoshi_model.cpp
+
+#
+# wiimj2d/d_stage
+# NSMBW          .text:  0x800FFF80 - 0x801000F0
+#
+
+# NSMBW          .text:  0x800FFF80 - 0x801000F0
+  # wiimj2d/d_stage/d_stage_field.cpp
 
 #
 # wiimj2d/d_bases
-# NSMBW   d_bases.text:  0x8076D880 - 0x
+# NSMBW          .text:  0x801000F0 - 0x80106F00
+# NSMBW   d_bases.text:  0x8076D880 - 0x8092F020
 #
 
 # NSMBW   d_bases.text:  0x8076D880 - 0x8076DEE0
@@ -559,8 +721,13 @@ target_sources(project PRIVATE
 
 #
 # wiimj2d/d_player
+# NSMBW          .text:  0x8010A3D0 - 0x8015F270
 #
 
+# NSMBW          .text:  0x8010A3D0 - 0x8010B050
+  # wiimj2d/d_player/<UNKNOWN>
+# NSMBW          .text:  0x8010B050 - 0x8010C130
+  # wiimj2d/d_player/d_GoalManager.cpp
 # NSMBW          .text:  0x8010C130 - 0x8010CAE0
     wiimj2d/d_player/d_SelectCursor.cpp
 # NSMBW          .text:  0x8010CAE0 - 0x8010D270
@@ -597,7 +764,7 @@ target_sources(project PRIVATE
     wiimj2d/d_player/d_a_yoshi.cpp
 # NSMBW          .text:  0x80154800 - 0x80156FE0
     wiimj2d/d_player/d_bg_gm.cpp
-# NSMBW          .text:  ---
+# nsmbw-project
     wiimj2d/d_player/d_death_message_mgr.cpp
 # NSMBW          .text:  0x80156FE0 - 0x80157820
     wiimj2d/d_player/d_fukidashiManager.cpp
@@ -672,7 +839,6 @@ target_sources(project PRIVATE
 #
 # wiimj2d/d_en_boss
 #
-#
 
 # NSMBW d_en_boss.text:  0x80B6BCC0 - 0x80B6D1C0
     wiimj2d/d_en_boss/d_pregamelyt.cpp
@@ -713,7 +879,7 @@ target_sources(project PRIVATE
     wiimj2d/framework/f_ba_helper.cpp
 # NSMBW          .text:  0x80161A60 - 0x80162C80
     wiimj2d/framework/f_base.cpp
-# NSMBW: ----
+# nsmbw-project
     wiimj2d/framework/f_feature.cpp
 # NSMBW          .text:  0x80162C80 - 0x80162E30
     wiimj2d/framework/f_list.cpp
@@ -910,7 +1076,7 @@ target_sources(project PRIVATE
 
 # NSMBW          .text:  0x801DDB10 - 0x801DDB70
     revolution/pad/Pad.c
-# NSMBW: ---
+# nsmbw-project
     revolution/pad/PadClamp.c
 
 #

@@ -25,7 +25,7 @@
 #include "d_system/d_pause_manager.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_stage_timer.h"
-#include "d_system/d_switch_flag_mng.h"
+#include "d_system/d_switchflag_mng.h"
 #include "d_system/d_tencoin_mng.h"
 #include "machine/m_fader.h"
 #include "sound/SndAudioMgr.h"

@@ -21,7 +21,7 @@
 #include "d_system/d_player_effect_mng.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_system/d_quake.h"
-#include "d_system/d_score_manager.h"
+#include "d_system/d_score_mng.h"
 #include "d_system/d_stage_timer.h"
 #include "d_system/d_yoshi_model.h"
 #include "framework/f_feature.h"
@@ -143,7 +143,7 @@ int daPyMng_c::mKinopioCarryCount;
 // ^^^^^^
 
 [[address(0x8005E9A0)]]
-void daPyMng_c::createYoshi(mVec3_c &, int, dAcPy_c*);
+void daPyMng_c::createYoshi(mVec3_c&, int, dAcPy_c*);
 
 [[address(0x8005EA60)]]
 void daPyMng_c::initGame()
