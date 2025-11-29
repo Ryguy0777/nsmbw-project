@@ -604,9 +604,9 @@ int daPyMng_c::getYoshiFruit(int index)
 }
 
 [[address(0x8005FC70)]]
-u8 daPyMng_c::getActScrollInfo()
+u32 daPyMng_c::getActScrollInfo()
 {
-    u8 info = 0;
+    u32 info = 0;
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mPlayerEntry[i] == 0) {
             continue;

@@ -4,6 +4,17 @@
 #include "d_bg_gm.h"
 
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
+#include <bit>
+
+u32 dBgGm_countr_one(u32 v)
+{
+    u32 r = std::countr_zero(v);
+    if (r >= PLAYER_COUNT) {
+        return 0;
+    }
+    return r;
+}
 
 [[address(0x80154F90)]]
 bool dBgGm_c::inW2CastleMazeBounds(float param1, float param2) ASM_METHOD(
@@ -745,10 +756,11 @@ UNDEF_801559f0:;
 /* 80155A10 4182004C */  beq-     UNDEF_80155a5c;
 UNDEF_80155a14:;
 /* 80155A14 4BF0A25D */  bl       getActScrollInfo__9daPyMng_cFv;
+                         bl       dBgGm_countr_one__FUl;
                          addis    r4, r31, 0x9;
-                         stb      r3, 0x90037@l(r4);
+                         stb      r3, 0x90025@l(r4);
                          li       r0, 0;
-                         stb      r0, 0x90036@l(r4);
+                         stb      r0, 0x90024@l(r4);
 /* 80155A58 4800000C */  b        UNDEF_80155a64;
 UNDEF_80155a5c:;
 /* 80155A5C 38000001 */  li       r0, 1;

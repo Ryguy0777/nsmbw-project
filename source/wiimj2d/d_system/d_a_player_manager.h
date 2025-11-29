@@ -111,7 +111,7 @@ public:
 
     /* 0x8005FC70 */
     [[nodiscard]]
-    static u8 getActScrollInfo();
+    static u32 getActScrollInfo();
 
     /* 0x8005FD20 */
     [[nodiscard]]
