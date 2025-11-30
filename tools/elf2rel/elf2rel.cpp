@@ -325,7 +325,7 @@ int main(int argc, char** argv)
     };
 
     static constexpr std::tuple<uint16_t, uint16_t, uint32_t, uint32_t> ModuleSections[] = {
-      {1, 1, 0x80768514, 0x00001fb8}, {1, 2, 0x8076a558, 0x00000008},
+      {1, 1, 0x807685a0, 0x00001fb8}, {1, 2, 0x8076a558, 0x00000008},
       {1, 3, 0x8076a560, 0x0000000c}, {1, 4, 0x8076a570, 0x000001d8},
       {1, 5, 0x8076a748, 0x000015fc}, {1, 6, 0x8076d460, 0x00000208},
 
