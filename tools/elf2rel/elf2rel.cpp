@@ -324,6 +324,30 @@ int main(int argc, char** argv)
         uint8_t type;
     };
 
+    static constexpr std::tuple<uint16_t, uint16_t, uint32_t, uint32_t> ModuleSections[] = {
+      {1, 1, 0x80768514, 0x00001fb8}, {1, 2, 0x8076a558, 0x00000008},
+      {1, 3, 0x8076a560, 0x0000000c}, {1, 4, 0x8076a570, 0x000001d8},
+      {1, 5, 0x8076a748, 0x000015fc}, {1, 6, 0x8076d460, 0x00000208},
+
+      {2, 1, 0x8076d770, 0x001c6004}, {2, 2, 0x80933774, 0x000004fc},
+      {2, 3, 0x80933c70, 0x0000000c}, {2, 4, 0x80933c80, 0x0000a5fc},
+      {2, 5, 0x8093e280, 0x00051c98}, {2, 6, 0x80990800, 0x00012484},
+
+      {3, 1, 0x809a2d90, 0x0012a428}, {3, 2, 0x80acd1b8, 0x0000028c},
+      {3, 3, 0x80acd444, 0x0000000c}, {3, 4, 0x80acd450, 0x00008610},
+      {3, 5, 0x80ad5a60, 0x0003b678}, {3, 6, 0x80b11420, 0x0000b4e0},
+
+      {4, 1, 0x80b1ca10, 0x0005702c}, {4, 2, 0x80b73a3c, 0x0000006c},
+      {4, 3, 0x80b73aa8, 0x0000000c}, {4, 4, 0x80b73ab8, 0x000021f0},
+      {4, 5, 0x80b75ca8, 0x00013520}, {4, 6, 0x80b89aa0, 0x0000487c},
+    };
+
+    uint32_t regionModuleSections[std::size(ModuleSections)];
+
+    for (std::size_t i = 0; i < std::size(ModuleSections); i++) {
+        regionModuleSections[i] = addressMapper.MapAddress(std::get<2>(ModuleSections[i]));
+    }
+
     std::deque<Relocation> allRelocations;
     for (const auto& section : relocationSections) {
         int relocatedSectionIndex = section->get_info();
@@ -418,25 +442,6 @@ int main(int argc, char** argv)
                 }
 
                 if (resolved && rel.moduleID == 0 && rel.targetSection == 0) {
-                    static constexpr std::tuple<uint16_t, uint16_t, uint32_t, uint32_t>
-                      ModuleSections[] = {
-                        {1, 1, 0x80768514, 0x00001fb8}, {1, 2, 0x8076a558, 0x00000008},
-                        {1, 3, 0x8076a560, 0x0000000c}, {1, 4, 0x8076a570, 0x000001d8},
-                        {1, 5, 0x8076a748, 0x000015fc}, {1, 6, 0x8076d460, 0x00000208},
-
-                        {2, 1, 0x8076d770, 0x001c6004}, {2, 2, 0x80933774, 0x000004fc},
-                        {2, 3, 0x80933c70, 0x0000000c}, {2, 4, 0x80933c80, 0x0000a5fc},
-                        {2, 5, 0x8093e280, 0x00051c98}, {2, 6, 0x80990800, 0x00012484},
-
-                        {3, 1, 0x809a2d90, 0x0012a428}, {3, 2, 0x80acd1b8, 0x0000028c},
-                        {3, 3, 0x80acd444, 0x0000000c}, {3, 4, 0x80acd450, 0x00008610},
-                        {3, 5, 0x80ad5a60, 0x0003b678}, {3, 6, 0x80b11420, 0x0000b4e0},
-
-                        {4, 1, 0x80b1ca10, 0x0005702c}, {4, 2, 0x80b73a3c, 0x0000006c},
-                        {4, 3, 0x80b73aa8, 0x0000000c}, {4, 4, 0x80b73ab8, 0x000021f0},
-                        {4, 5, 0x80b75ca8, 0x00013520}, {4, 6, 0x80b89aa0, 0x0000487c},
-                      };
-
                     auto inside = std::find_if(
                       std::begin(ModuleSections), std::end(ModuleSections), [&](const auto& val) {
                         return rel.addend >= std::get<2>(val) &&
@@ -447,7 +452,8 @@ int main(int argc, char** argv)
                     if (inside != std::end(ModuleSections)) {
                         rel.moduleID = std::get<0>(*inside);
                         rel.targetSection = std::get<1>(*inside);
-                        rel.addend -= std::get<2>(*inside);
+                        rel.addend = addressMapper.MapAddress(rel.addend) -
+                                     regionModuleSections[std::distance(ModuleSections, inside)];
                     }
                 }
 
