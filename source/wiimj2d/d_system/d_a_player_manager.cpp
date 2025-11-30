@@ -299,7 +299,9 @@ void daPyMng_c::createCourseInit()
         if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
             // Randomize the spawn order
             float createOrderRandom[PLAYER_COUNT];
-            for (int i = 0; i < PLAYER_COUNT; i++) {
+            int randomCount = entryNum > 4 ? entryNum : 4;
+
+            for (int i = 0; i < randomCount; i++) {
                 createOrderRandom[i] = dGameCom::rnd();
             }
 
