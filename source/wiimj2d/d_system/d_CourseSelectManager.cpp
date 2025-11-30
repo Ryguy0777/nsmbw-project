@@ -235,37 +235,14 @@ void dCourseSelectManager_c::executeState_StockItemSelectWait()
 [[address(0x80930960)]]
 void dCourseSelectManager_c::initializeState_EasyPairingWait()
 {
-    dNumberOfPeopleChange_c* numPyChg = mpNumPyChg;
-
-    numPyChg->m0x67F = 1;
-
-    for (int i = 0; i < std::size(numPyChg->mpCcSelBase); i++) {
-        numPyChg->mpCcSelBase[i]->m0x29C = 1;
-        numPyChg->mpCcSelContents[i]->m0x2A1 = 1;
-    }
-
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        mpa2DPlayer[i]->m0x264 = 1;
-    }
-
-    mpEasyPairing->m0x279 = 1;
+    mpNumPyChg->setEasyPairingWait(true);
+    mpEasyPairing->m0x279 = true;
 }
 
 [[address(0x80930A10)]]
 void dCourseSelectManager_c::finalizeState_EasyPairingWait()
 {
-    dNumberOfPeopleChange_c* numPyChg = mpNumPyChg;
-
-    numPyChg->m0x67F = 0;
-
-    for (int i = 0; i < std::size(numPyChg->mpCcSelBase); i++) {
-        numPyChg->mpCcSelBase[i]->m0x29C = 0;
-        numPyChg->mpCcSelContents[i]->m0x2A1 = 0;
-    }
-
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        mpa2DPlayer[i]->m0x264 = 0;
-    }
+    mpNumPyChg->setEasyPairingWait(false);
 }
 
 [[address(0x809311E0)]]

@@ -24,13 +24,13 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_scene.h"
 #include "framework/f_feature.h"
-#include <algorithm>
 
 [[address(0x80917C80)]]
 bool dScGameSetup_c::Phase_CreateLayoutManagers()
 {
 #define NEW(_TYPE, _PROFILE, _PARAM)                                                               \
     static_cast<_TYPE>(fBase_c::createChild(dProf::_PROFILE, this, _PARAM, 0))
+
     mpNumPyChg = NEW(dNumberOfPeopleChange_c*, NUMBER_OF_PEOPLE_CHANGE, 0);
 
     for (std::size_t cc = 0; cc < mpNumPyChg->mCcCount; cc++) {
@@ -221,6 +221,19 @@ void dScGameSetup_c::executeState_StartMember()
     numPyChg->mPlayerCount = selPly->mCurrentButton + 1;
 
     mStateMgr.changeState(dScGameSetup_c::StateID_ConnectionCheck);
+}
+
+[[address(0x80918DC0)]]
+void dScGameSetup_c::initializeState_EasyPairingWait()
+{
+    mpNumPyChg->setEasyPairingWait(true);
+    mpEasyPairing->m0x279 = true;
+}
+
+[[address(0x80918E70)]]
+void dScGameSetup_c::finalizeState_EasyPairingWait()
+{
+    mpNumPyChg->setEasyPairingWait(false);
 }
 
 [[address(0x80919190)]]

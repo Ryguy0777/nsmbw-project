@@ -30,7 +30,7 @@ public:
     virtual ~dNumberOfPeopleChange_c() override;
 
 public:
-    // Constants and Types
+    // Constants
     // ^^^^^^
 
     static constexpr std::size_t MAX_CC_COUNT = 8;
@@ -59,7 +59,7 @@ public:
     };
 
 public:
-    // Virtual Functions
+    // Virtual Methods
     // ^^^^^^
 
     /**
@@ -100,7 +100,7 @@ public:
     /* 0x8079FCD0 */
     bool createLayout();
 
-    void UNDEF_807A0060();
+    void setCcAnimFrame();
 
     /* 0x807A0170 */
     void setCcLytPosition();
@@ -115,7 +115,8 @@ public:
     void checkRemoConnect();
 
     /* 0x807A09B0 */
-    int getBaseForPlayerCount(int playerCount, int player);
+    [[nodiscard]]
+    int getBaseForPlayerCount(int playerCount, int player) const;
 
     /* 0x807A09D0 */
     void calcBasesForPlayerCount();
@@ -126,14 +127,18 @@ public:
     void setupPlayerTypes();
 
     /* 0x807A0D20 */
+    [[nodiscard]]
     bool checkCancel();
+
+    void setEasyPairingWait(bool enable);
 
     inline void setPlayer(std::size_t index, da2DPlayer_c* player)
     {
         mp2DPlayer[index] = player;
     }
 
-    inline nw4r::lyt::Picture* getControllerLight(std::size_t index)
+    [[nodiscard]]
+    inline nw4r::lyt::Picture* getControllerLight(std::size_t index) const
     {
         if (index < 4) {
             return mpPRemoLight[index];
@@ -145,9 +150,14 @@ public:
     }
 
 private:
-    std::size_t getCcFromPly(std::size_t ply);
+    // Private Instance Methods
+    // ^^^^^^
 
-    inline bool isBottomIndex(std::size_t cc)
+    [[nodiscard]]
+    std::size_t getCcFromPly(std::size_t ply) const;
+
+    [[nodiscard]]
+    inline bool isBottomIndex(std::size_t cc) const
     {
         if (mPlayerCount <= 6) {
             return cc >= 3u;
@@ -219,7 +229,7 @@ public:
     /* 0x67C */ bool mReady = false;
     /* 0x67D */ bool m0x67D;
     /* 0x67E */ bool m0x67E;
-    /* 0x67F */ bool m0x67F;
+    /* 0x67F */ bool mEasyPairingWait;
     /* 0x680 */ bool mCancelAllowed;
     /* 0x681 */ bool mBaseLytResReady = false;
     /* 0x682 */ bool mContentsLytResReady = false;

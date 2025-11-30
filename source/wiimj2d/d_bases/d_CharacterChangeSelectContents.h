@@ -53,13 +53,12 @@ public:
     /* 0x294 */ Icon_e m0x294; // Set 6 in create
     /* 0x298 */ Icon_e m0x298; // Set 2 in create
 
-    /* 0x29C */ u8 m0x29C; // Set 1 in create
-    /* 0x29D */ u8 m0x29D; // Set 0 in create
-    /* 0x29E */ u8 m0x29E; // Set 0 in create
-    /* 0x29F */ u8 m0x29F; // Set 0 in create
-    /* 0x2A0 */ u8 m0x2A0; // Set 0 in create
-
-    /* 0x2A1 */ u8 m0x2A1;
+    /* 0x29C */ bool m0x29C; // Set true in create
+    /* 0x29D */ bool m0x29D; // Set false in create
+    /* 0x29E */ bool m0x29E; // Set false in create
+    /* 0x29F */ bool m0x29F; // Set false in create
+    /* 0x2A0 */ bool m0x2A0; // Set false in create
+    /* 0x2A1 */ bool mEasyPairingWait;
 
     /* 0x2A4 */ u32 mLives[4];
 

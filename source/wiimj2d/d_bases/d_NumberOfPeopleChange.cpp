@@ -137,7 +137,7 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     mpRootPane->SetVisible(false);
     mReady = true;
     m0x67E = false;
-    m0x67F = false;
+    mEasyPairingWait = false;
     mCancelAllowed = false;
     mPlayerCount = MAX_CC_COUNT;
 
@@ -158,7 +158,7 @@ bool dNumberOfPeopleChange_c::createLayout()
         return false;
     }
 
-    mLayout.build("characterChange_70.brlyt", nullptr);
+    mLayout.build("characterChange_70.brlyt");
 
     enum {
         inWindow,
@@ -206,62 +206,67 @@ bool dNumberOfPeopleChange_c::createLayout()
     mpRootPane = mLayout.getRootPane();
 
     mLayout.NPaneRegister(
-      mpNPlayerBasePos, {
-                          "N_pos1P_00",
-                          "N_pos2P_00",
-                          "N_pos3P_00",
-                          "N_pos4P_00",
-                          "N_pos1P_01",
-                          "N_pos2P_01",
-                          "N_pos3P_01",
-                          "N_pos1P_02",
-                          "N_pos2P_02",
-                          "N_pos2P_01",
-                        }
+      mpNPlayerBasePos, //
+      {
+        "N_pos1P_00",
+        "N_pos2P_00",
+        "N_pos3P_00",
+        "N_pos4P_00",
+        "N_pos1P_01",
+        "N_pos2P_01",
+        "N_pos3P_01",
+        "N_pos1P_02",
+        "N_pos2P_02",
+        "N_pos2P_01",
+      }
     );
 
     mLayout.TPaneNameRegister(
-      2, {
-           {"T_guide_01", 11},
-           {"T_yes_00", 25},
-           {"T_yes_01", 25},
-           {"T_no_01", 26},
-           {"T_no_00", 26},
-           {"T_titleNinzuMenu", 27},
-         }
+      2, //
+      {
+        {"T_guide_01", 11},
+        {"T_yes_00", 25},
+        {"T_yes_01", 25},
+        {"T_no_01", 26},
+        {"T_no_00", 26},
+        {"T_titleNinzuMenu", 27},
+      }
     );
 
     mLayout.TPaneRegister(
-      &mpTTitleNinzuMenu, {
-                            "T_titleNinzuMenu",
-                            "T_titleNinzu_00",
-                            "T_guide_01",
-                            "T_guideS_02",
-                          }
+      &mpTTitleNinzuMenu, //
+      {
+        "T_titleNinzuMenu",
+        "T_titleNinzu_00",
+        "T_guide_01",
+        "T_guideS_02",
+      }
     );
 
     mLayout.PPaneRegister(
-      mpPYesNoBase, {
-                      "P_yesBase_00",
-                      "P_noBase_00",
-                      "P_bgShadowST_00",
-                      "P_bgST_00",
-                      "P_stripeMLT_00",
-                      "P_remo1P_Light",
-                      "P_remo2P_Light",
-                      "P_remo3P_Light",
-                      "P_remo4P_Light",
-                      "P_base_00",
-                      "P_base_01",
-                      "P_base01_Menu43",
-                    }
+      mpPYesNoBase, //
+      {
+        "P_yesBase_00",
+        "P_noBase_00",
+        "P_bgShadowST_00",
+        "P_bgST_00",
+        "P_stripeMLT_00",
+        "P_remo1P_Light",
+        "P_remo2P_Light",
+        "P_remo3P_Light",
+        "P_remo4P_Light",
+        "P_base_00",
+        "P_base_01",
+        "P_base01_Menu43",
+      }
     );
 
     mLayout.WPaneRegister(
-      mpWButton, {
-                   "W_button_00",
-                   "W_button_00",
-                 }
+      mpWButton, //
+      {
+        "W_button_00",
+        "W_button_00",
+      }
     );
 
     mLayout.mPriority = 10;
@@ -281,7 +286,7 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::draw();
 [[address(0x8079FFD0)]]
 fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::doDelete();
 
-std::size_t dNumberOfPeopleChange_c::getCcFromPly(std::size_t ply)
+std::size_t dNumberOfPeopleChange_c::getCcFromPly(std::size_t ply) const
 {
     for (std::size_t cc = 0; cc < mCcCount; cc++) {
         if (mpCcSelBase[cc]->mPlayerNo == ply) {
@@ -292,7 +297,7 @@ std::size_t dNumberOfPeopleChange_c::getCcFromPly(std::size_t ply)
 }
 
 [[address(0x807A0060)]]
-void dNumberOfPeopleChange_c::UNDEF_807A0060()
+void dNumberOfPeopleChange_c::setCcAnimFrame()
 {
     float frame = 0.0f;
     for (std::size_t cc = 0; cc < mCcCount; cc++) {
@@ -459,7 +464,7 @@ void dNumberOfPeopleChange_c::checkRemoConnect()
 }
 
 [[address(0x807A09B0)]]
-int dNumberOfPeopleChange_c::getBaseForPlayerCount(int playerCount, int player);
+int dNumberOfPeopleChange_c::getBaseForPlayerCount(int playerCount, int player) const;
 
 [[address(0x807A09D0)]]
 void dNumberOfPeopleChange_c::calcBasesForPlayerCount()
@@ -552,6 +557,18 @@ bool dNumberOfPeopleChange_c::checkCancel()
     }
 
     return dGameCom::chkCancelButton(0);
+}
+
+void dNumberOfPeopleChange_c::setEasyPairingWait(bool enable)
+{
+    mEasyPairingWait = enable;
+    for (std::size_t cc = 0; cc < mCcCount; cc++) {
+        mpCcSelBase[cc]->mEasyPairingWait = enable;
+        mpCcSelContents[cc]->mEasyPairingWait = enable;
+    }
+    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+        mp2DPlayer[type]->mEasyPairingWait = enable;
+    }
 }
 
 [[address(0x807A0DA0)]]

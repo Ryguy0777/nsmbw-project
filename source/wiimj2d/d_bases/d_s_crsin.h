@@ -1,10 +1,9 @@
 #pragma once
 
+#include "d_en_boss/d_pregamelyt.h"
 #include "d_system/d_scene.h"
 #include "state/s_State.h"
 #include "state/s_StateMgrDefault.h"
-
-#include "d_en_boss/d_pregamelyt.h"
 
 class dScCrsin_c : public dScene_c
 {

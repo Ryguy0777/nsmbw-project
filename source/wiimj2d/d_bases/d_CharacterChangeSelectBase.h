@@ -129,7 +129,7 @@ public:
     /* 0x299 */ bool m0x299;
     /* 0x29A */ bool mDecided;
     /* 0x29B */ bool m0x29B;
-    /* 0x29C */ bool m0x29C;
+    /* 0x29C */ bool mEasyPairingWait;
 
     FILL(0x29D, 0x2A0);
 
@@ -156,7 +156,6 @@ public:
     static int getBaseFromCharacter(PLAYER_TYPE_e chara);
     static PLAYER_TYPE_e getCharacterFromIcon(Icon_e icon);
     static bool isLockedIcon(Icon_e icon);
-
     static u32 getLampPattern(int playerNo);
 
 public:

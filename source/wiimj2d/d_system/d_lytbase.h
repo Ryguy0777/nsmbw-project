@@ -4,7 +4,6 @@
 #include "d_system/d_lyttextbox.h"
 #include "framework/f_base.h"
 #include "machine/m_2d.h"
-#include <array>
 #include <nw4r/lyt/Layout.h>
 #include <nw4r/lyt/Pane.h>
 #include <nw4r/lyt/Picture.h>
@@ -24,7 +23,7 @@ public:
     virtual ~LytBase_c() override;
 
     /* VT+0x14 0x800C8A60 */
-    virtual bool build(const char* lytName, d2d::ResAccMult_c* resAcc) override;
+    virtual bool build(const char* lytName, d2d::ResAccMult_c* resAcc = nullptr) override;
 
     /* 0x800C8D00 */
     bool ReadResource(const char* arcName, bool param2);
@@ -74,39 +73,40 @@ public:
     }
 
     /* 0x800C9010 */
-    void TPaneNameRegister(const char** paneNames, const int* param2, int param3, int count);
+    void TPaneNameRegister(const char** paneNames, const int* msgNoLow, int msgNoHigh, int count);
 
     template <std::size_t N>
     [[gnu::always_inline]]
     constexpr inline void
-    TPaneNameRegister(int param3, const char* const (&paneNames)[N], const int (&param2)[N])
+    TPaneNameRegister(int msgNoHigh, const char* const (&paneNames)[N], const int (&msgNoLow)[N])
     {
-        return TPaneNameRegister(const_cast<const char**>(paneNames), param2, param3, N);
+        return TPaneNameRegister(const_cast<const char**>(paneNames), msgNoLow, msgNoHigh, N);
     }
 
     struct TPaneNameInfo {
         const char* name;
-        int param2;
+        int msgNoLow;
     };
 
 private:
     template <std::size_t N, std::size_t... Indexes>
     [[gnu::always_inline]]
-    constexpr inline void
-    PassTPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N], const std::index_sequence<Indexes...>&)
+    constexpr inline void PassTPaneNameRegister(
+      int msgNoHigh, const TPaneNameInfo (&panes)[N], const std::index_sequence<Indexes...>&
+    )
     {
         return TPaneNameRegister(
           const_cast<const char**>((const char* const[]) {panes[Indexes].name...}),
-          (const int[]) {panes[Indexes].param2...}, param3, N
+          (const int[]) {panes[Indexes].msgNoLow...}, msgNoHigh, N
         );
     }
 
 public:
     template <std::size_t N>
     [[gnu::always_inline]]
-    constexpr inline void TPaneNameRegister(int param3, const TPaneNameInfo (&panes)[N])
+    constexpr inline void TPaneNameRegister(int msgNoHigh, const TPaneNameInfo (&panes)[N])
     {
-        return PassTPaneNameRegister<N>(param3, panes, std::make_index_sequence<N>());
+        return PassTPaneNameRegister<N>(msgNoHigh, panes, std::make_index_sequence<N>());
     }
 
     /* 0x800C90A0 */
@@ -120,7 +120,7 @@ public:
     }
 
     /* 0x800C91E0 */
-    void GroupRegister(const char** groupNames, const int* param2, int count);
+    void GroupRegister(const char** groupNames, const int* animeRes, int count);
 
     struct GroupInfo {
         const char* name;
