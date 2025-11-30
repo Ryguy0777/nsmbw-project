@@ -124,11 +124,8 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
       },
     };
 
-    int index =
-      static_cast<int>(daPyMng_c::getPlayerTypeModelType(static_cast<PLAYER_TYPE_e>(playerType)));
-
     mPosOffset.x = 0.0;
-    mPosOffset.y = s_FUKIDASHI_Y_OFFSET[index][powerupType];
+    mPosOffset.y = s_FUKIDASHI_Y_OFFSET[playerType][powerupType];
     mPosOffset.z = 0.0;
 }
 
