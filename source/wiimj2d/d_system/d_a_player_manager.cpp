@@ -323,10 +323,12 @@ void daPyMng_c::createCourseInit()
             playerSetDist -= 2.0f * (entryNum - 4);
         }
 
+        f32 playerSetOffset = playerSetDist / 2 * (livePlayerCount - 1);
+
         if (isAmbush) {
-            playerSetPos.x -= playerSetDist / 2 * livePlayerCount;
+            playerSetPos.x -= playerSetOffset;
         } else {
-            playerSetPos.x += playerSetDist / 2 * livePlayerCount;
+            playerSetPos.x += playerSetOffset;
         }
 
         for (int i = 0; i < PLAYER_COUNT; i++) {
