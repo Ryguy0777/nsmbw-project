@@ -15,8 +15,14 @@ public:
     /* 0x808C5130 */
     da2DPlayer_c();
 
+    /* 0x808C5690 */
+    void calcPlayer();
+
     /* 0x808C5990 */
     void loadPlayer();
+
+    /* 0x808C6EE0 */
+    void FUN_808C6EE0(int);
 
 public:
     // Instance Variables
@@ -35,13 +41,12 @@ public:
     /* 0x240 */ s32 m0x240;
     /* 0x244 */ s32 m0x244;
     /* 0x248 */ int mPlayerNo;
-
-    FILL(0x24C, 0x250);
-
+    /* 0x24C */ float mSubZ;
     /* 0x250 */ f32 m0x250;
 
-    FILL(0x254, 0x25C);
+    FILL(0x254, 0x258);
 
+    /* 0x258 */ float mAddZ;
     /* 0x25C */ float mAddY;
 
     /* 0x260 */ bool mReady;
