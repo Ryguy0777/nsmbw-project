@@ -7,6 +7,7 @@
 #include "d_bases/d_CharacterChangeSelectArrow.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
+#include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_key.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_mj2d_game.h"

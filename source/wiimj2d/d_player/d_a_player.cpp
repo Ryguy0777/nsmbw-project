@@ -126,13 +126,9 @@ void dAcPy_c::checkRest()
     }
 
     if (gameOver) {
-        dScStage_c::goToSceneAfterLevel(
-          dProf::GAMEOVER, 0, 1, dFader_c::fader_type_e::BOWSER
-        );
+        dScStage_c::goToSceneAfterLevel(dProf::GAMEOVER, 0, 1, dFader_c::fader_type_e::BOWSER);
     } else {
-        dScStage_c::goToSceneAfterLevel(
-          dProf::WORLD_MAP, 0, 1, dFader_c::fader_type_e::BOWSER
-        );
+        dScStage_c::goToSceneAfterLevel(dProf::WORLD_MAP, 0, 1, dFader_c::fader_type_e::BOWSER);
     }
 }
 
@@ -144,7 +140,7 @@ void dAcPy_c::stopOtherDownDemo()
     }
 
     if (m0x1554 == 0) {
-        if (fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+        if (!dScStage_c::isGameStopAllowed()) {
             return;
         }
 
@@ -173,7 +169,7 @@ void dAcPy_c::stopOtherDownDemo()
 [[address(0x8013DB30)]]
 void dAcPy_c::playOtherDownDemo()
 {
-    if (fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+    if (!dScStage_c::isGameStopAllowed()) {
         return;
     }
 
@@ -487,7 +483,7 @@ UNDEF_80140420:;
 [[address(0x80141020)]]
 void dAcPy_c::initChangeInit()
 {
-    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE || daPyMng_c::isOnePlayer()) {
+    if (dScStage_c::isGameStopAllowed()) {
         if (isStatus(101)) {
             playGoalOther();
         } else {
@@ -507,7 +503,7 @@ bool dAcPy_c::executeChangeInit()
 
     setPowerup(mNextPowerup);
 
-    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE || daPyMng_c::isOnePlayer()) {
+    if (dScStage_c::isGameStopAllowed()) {
         stopOther();
         dAudio::pauseMove(mPlayerNo);
     }

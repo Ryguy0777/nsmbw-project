@@ -7,6 +7,7 @@
 #include "d_info.h"
 
 #include "d_bases/d_s_stage.h"
+#include "d_system/d_a_player_manager.h"
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"

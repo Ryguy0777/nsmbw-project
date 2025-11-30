@@ -3,8 +3,8 @@
 
 #include "d_a_yoshi.h"
 
+#include "d_bases/d_s_stage.h"
 #include "d_system/d_a_player_manager.h"
-#include "framework/f_feature.h"
 
 /* VT+0x0DC */
 [[address(0x80150E10)]]
@@ -18,7 +18,7 @@ void daYoshi_c::executeLastAll()
     calcHeadAttentionAngle();
     mModelMng.calc2();
 
-    if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE || daPyMng_c::isOnePlayer()) {
+    if (dScStage_c::isGameStopAllowed()) {
         if (isStatus(198)) {
             offStatus(198);
             stopOther();

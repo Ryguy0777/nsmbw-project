@@ -5,6 +5,7 @@
 
 #include "d_bases/d_a_wm_Map.h"
 #include "d_bases/d_a_wm_player.h"
+#include "d_system/d_a_player_manager.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_player_base.h"
 #include "machine/m_angle.h"

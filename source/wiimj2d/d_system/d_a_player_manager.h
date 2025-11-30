@@ -2,8 +2,8 @@
 
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
-#include "framework/f_base_id.h"
 #include "d_yoshi_model.h"
+#include "framework/f_base_id.h"
 
 class dAcPy_c;
 class daYoshi_c;
@@ -28,13 +28,19 @@ public:
     }
 
     [[nodiscard]]
+    static bool isOnePlayerInGame()
+    {
+        return getNumInGame() == 1;
+    }
+
+    [[nodiscard]]
     static bool isPlayerActive(int player)
     {
         return mActPlayerInfo & (1 << player);
     }
 
     /* 0x8005E9A0 */
-    static void createYoshi(mVec3_c &, int, dAcPy_c*);
+    static void createYoshi(mVec3_c&, int, dAcPy_c*);
 
     /* 0x8005EA60 */
     static void initGame();

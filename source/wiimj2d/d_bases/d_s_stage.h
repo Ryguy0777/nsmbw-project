@@ -1,9 +1,11 @@
 #pragma once
 
 #include "d_bases/d_profile.h"
+#include "d_system/d_a_player_manager.h"
 #include "d_system/d_base.h"
 #include "d_system/d_fader.h"
 #include "d_system/d_mj2d_game.h"
+#include "framework/f_feature.h"
 #include "machine/m_vec.h"
 
 class dGameDisplay_c;
@@ -42,6 +44,19 @@ public:
     };
 
 public:
+    // Instance Methods
+    // ^^^^^^
+
+    /* 0x80924950 */
+    bool CreatedLayouts() const;
+
+    /* 0x809251F0 */
+    void courseClear();
+
+    /* 0x809253E0 */
+    void restoreStartInfo();
+
+public:
     // Static Methods
     // ^^^^^^
 
@@ -53,14 +68,6 @@ public:
 
     /* 0x80101A70 */
     static dGameDisplay_c* getGameDisplay();
-
-    static inline dMiniGameCannon_c* getMiniGameCannon()
-    {
-        if (dScStage_c::m_instance == nullptr) {
-            return nullptr;
-        }
-        return dScStage_c::m_instance->mpMiniGameCannon;
-    }
 
     /* 0x80101AA0 */
     static void setLoopType();
@@ -76,17 +83,25 @@ public:
     goToSceneAfterLevel(int profile, int param2, int param3, dFader_c::fader_type_e faderType);
 
 public:
-    // Instance Methods
+    // Static Inline Methods
     // ^^^^^^
 
-    /* 0x80924950 */
-    bool CreatedLayouts() const;
+    static inline dMiniGameCannon_c* getMiniGameCannon()
+    {
+        if (dScStage_c::m_instance == nullptr) {
+            return nullptr;
+        }
+        return dScStage_c::m_instance->mpMiniGameCannon;
+    }
 
-    /* 0x809251F0 */
-    void courseClear();
+    static inline bool isGameStopAllowed()
+    {
+        if (!fFeature::DISABLE_POWERUP_CHANGE_PAUSE) {
+            return true;
+        }
 
-    /* 0x809253E0 */
-    void restoreStartInfo();
+        return daPyMng_c::isOnePlayerInGame() || isNowReplay();
+    }
 
 public:
     // Static Variables
