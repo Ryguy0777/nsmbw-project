@@ -7,7 +7,7 @@ import re
 xml = open(argv[1], 'r').read()
 elf_file = ELFFile(open(argv[2], 'rb'))
 text_section = elf_file.get_section_by_name('.text')
-output = open(argv[3], 'w')
+output = open(argv[4], 'w')
 
 # Remove indentation and newlines
 xml = xml.replace('    ', '').replace('\r', '').replace('\n', '')
@@ -27,6 +27,7 @@ for match in unique_matches:
     xml = xml.replace(f'id="{match}"', f'id="{short_id}"')
     m += 1
 
+xml = xml.replace("${INSERT_VERSION}", argv[3])
 xml = xml.replace("${INSERT_LOADER_DATA}", text_section.data().hex().upper())
 output.write(xml)
 output.close()

@@ -8,7 +8,7 @@
         <region type="C"/>
     </id>
     <options>
-        <section name="mkwcat">
+        <section name="mkwcat-nsmbw ${INSERT_VERSION}">
             <option name="Core (Required)" default="1">
                 <choice name="Enabled">
                     <patch id="loader"/>
@@ -53,7 +53,7 @@
                 </choice>
             </option>
 			<option name="Hide Motion Control Guides">
-                <choice name="When More Than 4 Players">
+                <choice name="With 5+ Players">
                     <patch id="FUKIDASHI_HIDE_PLAYERS"/>
                 </choice>
                 <choice name="Always">
