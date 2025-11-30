@@ -345,7 +345,10 @@ int main(int argc, char** argv)
     uint32_t regionModuleSections[std::size(ModuleSections)];
 
     for (std::size_t i = 0; i < std::size(ModuleSections); i++) {
-        regionModuleSections[i] = addressMapper.MapAddress(std::get<2>(ModuleSections[i]));
+        regionModuleSections[i] = std::get<2>(ModuleSections[i]);
+        if (region != mkwcat::Region::P1) {
+            regionModuleSections[i] = addressMapper.MapAddress(regionModuleSections[i]);
+        }
     }
 
     std::deque<Relocation> allRelocations;
@@ -452,8 +455,10 @@ int main(int argc, char** argv)
                     if (inside != std::end(ModuleSections)) {
                         rel.moduleID = std::get<0>(*inside);
                         rel.targetSection = std::get<1>(*inside);
-                        rel.addend = addressMapper.MapAddress(rel.addend) -
-                                     regionModuleSections[std::distance(ModuleSections, inside)];
+                        if (region != mkwcat::Region::P1) {
+                            rel.addend = addressMapper.MapAddress(rel.addend);
+                        }
+                        rel.addend -= regionModuleSections[std::distance(ModuleSections, inside)];
                     }
                 }
 
