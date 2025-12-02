@@ -297,7 +297,7 @@ void MiniGameCannonTitle()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
         mg->mActive = true;
-        mg->m0x2E0 = true;
+        mg->mIsTitleOpen = true;
     }
 }
 
@@ -306,8 +306,8 @@ void MiniGameCannonStart()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
         mg->mActive = true;
-        mg->m0x2DA = true;
-        mg->m0x2C0 = false;
+        mg->mIsWindowOpen = true;
+        mg->mCurrentState = false;
     }
 }
 
@@ -316,8 +316,8 @@ void MiniGameCannonResult()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
         mg->mActive = true;
-        mg->m0x2DA = true;
-        mg->m0x2C0 = true;
+        mg->mIsWindowOpen = true;
+        mg->mCurrentState = true;
     }
 }
 
@@ -334,7 +334,7 @@ bool MiniGameCannonEndCheck()
 void MiniGameCannonTitleCloseRequest()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
-        mg->m0x2E2 = true;
+        mg->mCloseTitle = true;
     }
 }
 
@@ -342,7 +342,7 @@ void MiniGameCannonTitleCloseRequest()
 void MiniGameCannonOperateCloseRequest()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
-        mg->m0x2E3 = true;
+        mg->mCloseOperate = true;
     }
 }
 
@@ -350,7 +350,7 @@ void MiniGameCannonOperateCloseRequest()
 void MiniGameCannonResultCloseRequest()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
-        mg->m0x2E4 = true;
+        mg->mCloseResult = true;
     }
 }
 
