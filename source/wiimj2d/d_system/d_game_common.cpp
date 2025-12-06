@@ -387,8 +387,8 @@ void MiniGameWireTurnOverCloseRequest();
 //[[address(0x800B4CC0)]]
 // void hash_F8207C44_B2544017;
 
-//[[address(0x800B4CF0)]]
-// void hash_8F40075D_69D61FE1;
+[[address(0x800B4CF0)]]
+void MiniGameWireFacePosEffect(const mVec3_c&);
 
 [[address(0x800B4DC0)]]
 void MiniGameMessageDisp(int param);
