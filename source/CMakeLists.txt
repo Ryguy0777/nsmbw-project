@@ -539,7 +539,7 @@ target_sources(project PRIVATE
 # NSMBW   d_bases.text:  0x8078BC60 - 0x8078DA20
     wiimj2d/d_bases/d_MiniGameCannon.cpp
 # NSMBW   d_bases.text:  0x8078DA20 - 0x80790450
-  # wiimj2d/d_bases/d_MiniGameWire.cpp
+    wiimj2d/d_bases/d_MiniGameWire.cpp
 # NSMBW   d_bases.text:  0x80790450 - 0x807916F0
   # wiimj2d/d_bases/d_ModeSelect.cpp
 # NSMBW   d_bases.text:  0x807916F0 - 0x80792B00
