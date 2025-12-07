@@ -158,8 +158,6 @@ void dSys_c::initCModule()
 
     SndAudioMgr::sInstance->loadKinopicoSound();
 
-    dYoshiMdl_c::setDefaultColors();
-
     ms_RootHeapMem1->mFlags.setBit(0);
     ms_RootHeapMem2->mFlags.setBit(0);
 
