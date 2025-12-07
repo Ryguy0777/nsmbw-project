@@ -73,6 +73,12 @@ dScCrsin_c::~dScCrsin_c()
 [[address(0x8091F560)]]
 bool dScCrsin_c::isDoneLoading();
 
+[[address(0x8091F940)]]
+void dScCrsin_c::initializeState_loadCourseProc()
+{
+    dYoshiMdl_c::setDefaultColors();
+}
+
 [[address(0x8091FE20)]]
 void dScCrsin_c::executeState_resWaitProc2()
 {
