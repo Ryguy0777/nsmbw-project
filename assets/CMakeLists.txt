@@ -70,7 +70,7 @@ set(DVD_FILES
     Object/C_rcha.arc/g3d/model.brres
     Object/I_yoshi_egg.arc/g3d/I_yoshi_egg.brres
     Object/Kinopico.arc/g3d/model.brres
-    Object/Kinopio.arc/g3d/model.brres
+    Object/KinopioBlackOrange.arc/g3d/model.brres
     Object/koopaJr_clown_ply.arc/g3d/koopaJr_clown_ply.brres
     Object/MG_remo_cannon.arc/g3d/MG_remo_cannon.brres
     Object/middle_flag.arc/g3d/middle_flag.brres
