@@ -2,6 +2,7 @@
 // NSMBW .text: 0x800FE2E0 - 0x800FFF80
 
 #include "d_yoshi_model.h"
+#include "d_bases/d_s_stage.h"
 #include "d_system/d_game_common.h"
 #include "framework/f_feature.h"
 
@@ -124,13 +125,15 @@ int dYoshiMdl_c::s_yoshiColors[dYoshiMdl_c::COLOR_COUNT] = {
 
 void dYoshiMdl_c::setDefaultColors()
 {
-    if (fFeature::YOSHI_COLOR_MODE == fFeature::YOSHI_COLOR_MODE_e::RANDOM) {
-        // Shuffle the s_yoshiColors array
-        for (int i = 0; i < dYoshiMdl_c::COLOR_COUNT; i++) {
-            int j = dGameCom::rndInt(i);
-            int temp = s_yoshiColors[i];
-            s_yoshiColors[i] = s_yoshiColors[j];
-            s_yoshiColors[j] = temp;
+    if (!dScStage_c::isNowReplay()) {
+        if (fFeature::YOSHI_COLOR_MODE == fFeature::YOSHI_COLOR_MODE_e::RANDOM) {
+            // Shuffle the s_yoshiColors array
+            for (int i = 0; i < dYoshiMdl_c::COLOR_COUNT; i++) {
+                int j = dGameCom::rndInt(i);
+                int temp = s_yoshiColors[i];
+                s_yoshiColors[i] = s_yoshiColors[j];
+                s_yoshiColors[j] = temp;
+            }
         }
     }
 }
