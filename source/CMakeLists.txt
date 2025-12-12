@@ -681,6 +681,8 @@ target_sources(project PRIVATE
 
 # NSMBW   d_bases.text:  0x80917960 - 0x8091A2F0
     wiimj2d/d_bases/d_s_GameSetup.cpp
+# NSMBW   d_bases.text:  0x8091A2F0 - 0x8091BA50
+    wiimj2d/d_bases/d_s_multi.cpp
 
 # NSMBW   d_bases.text:  0x8091CB70 - 0x8091EB60
     wiimj2d/d_bases/d_s_World9DeMo.cpp

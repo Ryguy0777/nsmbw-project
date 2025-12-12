@@ -242,3 +242,6 @@ void dMultiCourseSelect_c::finalizeState_DispWait()
 
 [[address(0x80799E80)]]
 void dMultiCourseSelect_c::setContentCourseNo(int index, int count);
+
+[[address(0x8079C410)]]
+void dMultiCourseSelect_c::getContentCourseNo(u8* worldNo, u8* courseNo, int index);

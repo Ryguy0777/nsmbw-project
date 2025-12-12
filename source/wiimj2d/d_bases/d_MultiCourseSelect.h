@@ -96,6 +96,9 @@ public:
     /* 0x80799E80 */
     void setContentCourseNo(int index, int count);
 
+    /* 0x8079C410 */
+    void getContentCourseNo(u8* worldNo, u8* courseNo, int index);
+
     PANE_LIST_e getPosPane(int playerCount, int player);
 
 public:
@@ -113,7 +116,16 @@ public:
     /* 0x40C */ LytTextBox_c* mpTextBoxes[7];
     /* 0x428 */ nw4r::lyt::Window* mpWindowPanes[5];
 
-    FILL(0x43C, 0x524);
+    FILL(0x43C, 0x4F4);
+
+    /* 0x4F4 */ int mCurrentSelection;
+
+    FILL(0x4F8, 0x50F);
+
+    /* 0x50F */ bool mBeginCourse;
+    /* 0x510 */ bool mExitWindowActive;
+
+    FILL(0x511, 0x524);
 
     // New (added 0xD0 bytes)
     /* 0x524 */ nw4r::lyt::Pane* mpNPBase[PLAYER_COUNT];
