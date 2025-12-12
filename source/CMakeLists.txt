@@ -553,7 +553,7 @@ target_sources(project PRIVATE
 # NSMBW   d_bases.text:  0x80795290 - 0x80798920
   # wiimj2d/d_bases/d_ModelPlayManager.cpp
 # NSMBW   d_bases.text:  0x80798920 - 0x8079D540
-  # wiimj2d/d_bases/d_MultiCourseSelect.cpp
+    wiimj2d/d_bases/d_MultiCourseSelect.cpp
 # NSMBW   d_bases.text:  0x8079D540 - 0x8079F630
   # wiimj2d/d_bases/d_MultiCourseSelectContents.cpp
 # NSMBW   d_bases.text:  0x8079F630 - 0x807A2CF0
@@ -561,7 +561,7 @@ target_sources(project PRIVATE
 # NSMBW   d_bases.text:  0x807A2CF0 - 0x807A3F50
   # wiimj2d/d_bases/d_OtehonClear.cpp
 # NSMBW   d_bases.text:  0x807A3F50 - 0x807A7770
-  # wiimj2d/d_bases/d_PointResultDateFile.cpp
+    wiimj2d/d_bases/d_PointResultDateFile.cpp
 # NSMBW   d_bases.text:  0x807A7770 - 0x807A89C0
   # wiimj2d/d_bases/d_PointResultDateFileFree.cpp
 # NSMBW   d_bases.text:  0x807A89C0 - 0x807ABE10
