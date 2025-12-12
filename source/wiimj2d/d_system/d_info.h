@@ -25,10 +25,10 @@ public:
     /* @unofficial */
     enum class MultiClearState_e {
         NONE = 0,           ///< Course is uncleared
-        NOW_CLEAR = 1,      ///< The course is now cleared, but not by all players
-        NOW_SP_CLEAR = 2,   ///< [Unused?] Cource is cleared in Coin Battle in singleplayer, is this a bug or an intentional feature?
-        NOW_TEAM_CLEAR = 3, ///< All players have now cleared this course
-        CLEAR = 4,          ///< The course was cleared prior
+        NOW_CLEAR = 1,      ///< Cleared by some players, activates the button frame
+        CLEAR = 2,          ///< Cleared by some players, button frame is already active
+        NOW_TEAM_CLEAR = 3, ///< Cleared by all players, activates the button frame
+        TEAM_CLEAR = 4,     ///< Cleared by all players, button frame is already active
     };
 
     enum class IbaraMode_e {
