@@ -102,6 +102,13 @@ bool dMultiCourseSelect_c::createLayoutExtra()
     for (int i = 0; i < PLAYER_COUNT; i++) {
         mpNPBase[i]->SetVisible(isCoin);
     }
+
+    // Adjust position of the exit prompt for Free Mode
+    if (!isCoin) {
+        nw4r::lyt::Pane* N_guideViewR_00;
+        mLayout.NPaneRegister(&N_guideViewR_00, {"N_guideViewR_00"});
+        N_guideViewR_00->SetSRTElement(1, -175.0);
+    }
     return true;
 }
 
@@ -179,8 +186,9 @@ void dMultiCourseSelect_c::setPlayerPos()
 
     // Get how many we have
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        int playerID = daPyMng_c::findPlayerWithType(daPyMng_c::mPlayerType[i]);
-        bool isActive = dGameCom::PlayerEnterCheck(playerID);
+        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e)i);
+        bool isActive = dGameCom::PlayerEnterCheck(player);
+
         if (isActive) {
             playerCount++;
             mpNPBase[i]->SetVisible(true);
@@ -191,8 +199,9 @@ void dMultiCourseSelect_c::setPlayerPos()
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         int paneIdx = static_cast<int>(getPosPane(playerCount, playerIdx));
-        int playerID = daPyMng_c::findPlayerWithType(daPyMng_c::mPlayerType[i]);
-        bool isActive = dGameCom::PlayerEnterCheck(playerID);
+        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e)i);
+        bool isActive = dGameCom::PlayerEnterCheck(player);
+
         if (isActive && (paneIdx != static_cast<int>(PANE_LIST_e::NONE))) {
             playerIdx++;
             mpNPBase[i]->SetTranslate(mpNPBase[paneIdx]->GetTranslate());
