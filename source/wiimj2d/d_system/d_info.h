@@ -87,7 +87,7 @@ public:
 
         /* 0x00 */ u8 mWorld;
         /* 0x01 */ u8 mLevel;
-        FILL(0x2, 0x4);
+
         /* 0x04 */ MultiClearState_e mClearState;
     };
 

@@ -98,17 +98,10 @@ bool dMultiCourseSelect_c::createLayoutExtra()
         }
     );
 
-    bool isCoin = (dInfo_c::mGameFlag & 0x20) == 0;
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        mpNPBase[i]->SetVisible(isCoin);
+        mpNPBase[i]->SetVisible(dInfo_c::mGameFlag & 0x40);
     }
 
-    // Adjust position of the exit prompt for Free Mode
-    if (!isCoin) {
-        nw4r::lyt::Pane* N_guideViewR_00;
-        mLayout.NPaneRegister(&N_guideViewR_00, {"N_guideViewR_00"});
-        N_guideViewR_00->SetSRTElement(1, -175.0);
-    }
     return true;
 }
 
@@ -209,14 +202,12 @@ void dMultiCourseSelect_c::setPlayerPos()
     }
 
     // New, move the guide text if we have more than 5 players
-    nw4r::lyt::Pane* N_guideViewR_00;
-    mLayout.NPaneRegister(&N_guideViewR_00, {"N_guideViewR_00"});
-
-    f32 transY = -175.0;
     if (playerCount > 5) {
-        transY = -212.0;
+        nw4r::lyt::Pane* N_guideViewR_00;
+        mLayout.NPaneRegister(&N_guideViewR_00, {"N_guideViewR_00"});
+        N_guideViewR_00->SetSRTElement(1, -212.0);
     }
-    N_guideViewR_00->SetSRTElement(1, transY);
+    
 }
 
 [[address(0x8079A7A0)]]
