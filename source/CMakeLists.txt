@@ -859,6 +859,14 @@ target_sources(project PRIVATE
     wiimj2d/DynamicLink.cpp
 
 #
+# wiimj2d/d_pipe_rnd
+# nsmbw-project
+#
+
+# nsmbw-project
+    wiimj2d/d_pipe_rnd/d_nextgoto_sort.cpp
+
+#
 # wiimj2d/component
 # NSMBW          .text:  0x80160C10 - 0x80161A60
 #
