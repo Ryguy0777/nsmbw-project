@@ -64,8 +64,9 @@ void dGameKeyCore_c::read()
                 classic = core->mpClassic;
             }
         } else if (isDolphin()) {
-            dolphin = controller->getGCController();
-            mRawHeld = dolphin->mDown;
+            if (dolphin = controller->getGCController(); dolphin) {
+                mRawHeld = dolphin->mDown;
+            }
         }
 
         if (core && !isClassic()) {
@@ -90,7 +91,7 @@ void dGameKeyCore_c::read()
             // Pointer
             mAngle.x = core->mStatus->horizon.x;
             mAngle.y = core->mStatus->horizon.y;
-        } else if (isClassic()) {
+        } else if (isClassic() && classic) {
             mRawHeld = classic->mDown;
 
             mAccel = {0.0f, classic->mLTrigger - classic->mRTrigger, 0.0f};
@@ -101,7 +102,7 @@ void dGameKeyCore_c::read()
             mAccelVerticalX = x;
             mAccelVerticalY = y;
             mAccelVerticalZ = z;
-        } else if (isDolphin()) {
+        } else if (isDolphin() && dolphin) {
             mRawHeld = dolphin->mDown;
 
             mAccel = {0.0f, dolphin->mLTrigger - dolphin->mRTrigger, 0.0f};
@@ -113,7 +114,6 @@ void dGameKeyCore_c::read()
             mAccelVerticalY = y;
             mAccelVerticalZ = z;
         }
-
     } else {
         // Replay is active, assign data from current replay
         mType = Type_e::CORE;
