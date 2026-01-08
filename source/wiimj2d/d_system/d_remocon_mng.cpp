@@ -86,7 +86,7 @@ void dRemoconMng_c::execute()
     bool allowConnect = false;
 
     // Only the first 4 matter because the rest are GameCube controllers
-    for (int i = mPad::CH_e::CHAN_0; i < mPad::CH_e::CHAN_LAST; i++) {
+    for (int i = mPad::CH_e::CHAN_0; i <= mPad::CH_e::CHAN_LAST; i++) {
         dConnect_c* connect = m_instance->mpConnectAll[i];
 
         if (!connect->mAllowConnect) {
