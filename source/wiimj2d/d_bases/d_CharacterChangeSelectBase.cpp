@@ -144,6 +144,10 @@ PLAYER_TYPE_e dCharacterChangeSelectBase_c::getCharacterFromIcon(Icon_e icon)
     case Icon_e::ICON_BLACK_TOAD:
     case Icon_e::ICON_BLACK_TOAD_LOCKED:
         return PLAYER_TYPE_e::BLACK_TOAD;
+    
+    case Icon_e::ICON_MII:
+    case Icon_e::ICON_MII_LOCKED:
+        return PLAYER_TYPE_e::MII;
     }
 }
 

@@ -55,11 +55,12 @@ enum PLAYER_TYPE_e {
     PURPLE_TOADETTE = 5,
     ORANGE_TOAD = 6,
     BLACK_TOAD = 7,
+    MII = 8,
     COUNT,
 };
 
-#define CHARACTER_COUNT 8
-#define PLAYER_COUNT 8 // Same as CHARACTER_COUNT
+#define CHARACTER_COUNT 9
+#define PLAYER_COUNT 8
 #define ORIGINAL_PLAYER_COUNT 4
 
 /**

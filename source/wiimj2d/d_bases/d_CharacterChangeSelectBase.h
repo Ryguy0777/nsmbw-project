@@ -24,7 +24,7 @@ public:
     // Constants and Types
     // ^^^^^^
 
-#define CHARACTER_LIST_COUNT 8
+#define CHARACTER_LIST_COUNT 9
 
     enum class Icon_e {
         // Reserved
@@ -46,12 +46,14 @@ public:
         ICON_ORANGE_TOAD_LOCKED = 14,
         ICON_BLACK_TOAD = 15,
         ICON_BLACK_TOAD_LOCKED = 16,
+        ICON_MII = 17,
+        ICON_MII_LOCKED = 18,
     };
 
     static constexpr Icon_e ICON_FROM_BASE[] = {
       Icon_e::ICON_MARIO,       Icon_e::ICON_LUIGI,      Icon_e::ICON_YELLOW_TOAD,
       Icon_e::ICON_BLUE_TOAD,   Icon_e::ICON_TOADETTE,   Icon_e::ICON_PURPLE_TOADETTE,
-      Icon_e::ICON_ORANGE_TOAD, Icon_e::ICON_BLACK_TOAD,
+      Icon_e::ICON_ORANGE_TOAD, Icon_e::ICON_BLACK_TOAD, Icon_e::ICON_MII,
     };
 
     static constexpr Icon_e ICON_LOCKED_FROM_BASE[] = {
@@ -59,6 +61,7 @@ public:
       Icon_e::ICON_YELLOW_TOAD_LOCKED, Icon_e::ICON_BLUE_TOAD_LOCKED,
       Icon_e::ICON_TOADETTE_LOCKED,    Icon_e::ICON_PURPLE_TOADETTE_LOCKED,
       Icon_e::ICON_ORANGE_TOAD_LOCKED, Icon_e::ICON_BLACK_TOAD_LOCKED,
+      Icon_e::ICON_MII_LOCKED,
     };
 
 public:

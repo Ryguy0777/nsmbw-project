@@ -92,6 +92,7 @@ set(DVD_FILES
     Object/Kinopio.arc/g3d/model.brres
     Object/koopaJr_clown_ply.arc/g3d/koopaJr_clown_ply.brres
     Object/MG_remo_cannon.arc/g3d/MG_remo_cannon.brres
+    Object/Mii.arc/g3d/model.brres
     Object/middle_flag.arc/g3d/middle_flag.brres
     Object/remo_kanaami.arc/g3d/remo_kanaami.brres
     Object/remo_lift_line.arc/g3d/remo_lift_line.brres

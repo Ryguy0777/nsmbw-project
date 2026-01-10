@@ -6,11 +6,12 @@
 #include "framework/f_feature.h"
 #include <cstring>
 
-const PLAYER_TYPE_e dMj2dGame_c::scDefaultPlayerTypes[PLAYER_COUNT] = {
+const PLAYER_TYPE_e dMj2dGame_c::scDefaultPlayerTypes[CHARACTER_COUNT] = {
   PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,
   PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,
   PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE,
-  PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD
+  PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD,
+  PLAYER_TYPE_e::MII
 };
 
 [[address(0x800CDFB0)]]

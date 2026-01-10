@@ -39,7 +39,7 @@ fBase_c::PACK_RESULT_e dScWorld9DeMo_c::create()
     saveGame->onWorldDataFlag(WORLD_e::WORLD_9, dMj2dGame_c::WORLD_COMPLETION_e::WORLD_UNLOCKED);
 
     // Make sure all players have at least 5 lives
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         if (daPyMng_c::mRest[i] < 5) {
             daPyMng_c::mRest[i] = 5;
         }

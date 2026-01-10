@@ -387,7 +387,7 @@ void dNumberOfPeopleChange_c::set2dPlyPosition()
         const nw4r::math::VEC2& paneScale = mpNPlayerBasePos[mPlyPlrBaseIndex[0]]->GetScale();
         scale.x = paneScale.x;
         scale.y = paneScale.y;
-        for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+        for (std::size_t type = 0; type < PLAYER_COUNT; type++) {
             mp2DPlayer[type]->mPos = {mp2DPlayer[type]->mPos.x, pos.y, mp2DPlayer[type]->mPos.z};
             mp2DPlayer[type]->mBaseScale = scale;
             mp2DPlayer[type]->mAddY = l_2d_player_offset;
@@ -522,7 +522,7 @@ void dNumberOfPeopleChange_c::setupPlayerTypes()
 
     // All indices need to have a unique player type, regardless of whether that player type is even
     // used
-    for (std::size_t type = 0, ply = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t type = 0, ply = 0; type < PLAYER_COUNT; type++) {
         if (typeActive[type]) {
             continue;
         }
@@ -566,7 +566,7 @@ void dNumberOfPeopleChange_c::setEasyPairingWait(bool enable)
         mpCcSelBase[cc]->mEasyPairingWait = enable;
         mpCcSelContents[cc]->mEasyPairingWait = enable;
     }
-    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t type = 0; type < PLAYER_COUNT; type++) {
         mp2DPlayer[type]->mEasyPairingWait = enable;
     }
 }
@@ -684,7 +684,7 @@ void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait()
         indicator->m0x234 = 0.0f;
     }
 
-    for (std::size_t ply = 0; ply < CHARACTER_COUNT; ply++) {
+    for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
         mp2DPlayer[ply]->mModelMng->mModel->updateBonusCap();
     }
 }
@@ -701,7 +701,7 @@ void dNumberOfPeopleChange_c::executeState_OnStageAnimeEndWait()
 void dNumberOfPeopleChange_c::finalizeState_OnStageAnimeEndWait()
 {
     mExiting = false;
-    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t type = 0; type < PLAYER_COUNT; type++) {
         mp2DPlayer[type]->m0x267 = 0;
     }
 }
@@ -843,7 +843,7 @@ void dNumberOfPeopleChange_c::initializeState_ButtonOnStageAnimeEndWait()
     mLayout.AnimeStartSetup(inYesNoButtons_guideNo);
     mLayout.AnimeStartSetup(inYesNoButtons_noButton);
 
-    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t type = 0; type < PLAYER_COUNT; type++) {
         mp2DPlayer[type]->m0x266 = 1;
     }
 
@@ -1036,7 +1036,7 @@ void dNumberOfPeopleChange_c::executeState_ExitAnimeEndCheck()
 [[address(0x807A2080)]]
 void dNumberOfPeopleChange_c::finalizeState_ExitAnimeEndCheck()
 {
-    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t type = 0; type < PLAYER_COUNT; type++) {
         mp2DPlayer[type]->m0x266 = 0;
         mp2DPlayer[type]->m0x269 = 1;
 

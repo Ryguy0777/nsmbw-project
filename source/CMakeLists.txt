@@ -333,6 +333,8 @@ target_sources(project PRIVATE
   # wiimj2d/d_system/d_md_actor.cpp
 # NSMBW          .text:  0x800CDB60 - 0x800CDFB0
     wiimj2d/d_system/d_message.cpp
+# nsmbw-project
+    wiimj2d/d_system/d_mii_model.cpp
 # NSMBW          .text:  0x800CDFB0 - 0x800CE660
     wiimj2d/d_system/d_mj2d_game.cpp
 # NSMBW          .text:  0x800CE660 - 0x800CE7F0

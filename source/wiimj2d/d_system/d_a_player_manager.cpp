@@ -74,34 +74,34 @@ PLAYER_TYPE_e daPyMng_c::mPlayerType[PLAYER_COUNT] = {
 
 /* 0x80355170 */
 // Index is player type
-PLAYER_MODE_e daPyMng_c::mPlayerMode[CHARACTER_COUNT];
+PLAYER_MODE_e daPyMng_c::mPlayerMode[PLAYER_COUNT];
 
 /* 0x80355180 */
 // Index is player type
-PLAYER_CREATE_ITEM_e daPyMng_c::mCreateItem[CHARACTER_COUNT];
+PLAYER_CREATE_ITEM_e daPyMng_c::mCreateItem[PLAYER_COUNT];
 
 /* 0x80355190 */
 // Index is player type
-int daPyMng_c::mRest[CHARACTER_COUNT] = {5, 5, 5, 5, 5, 5, 5, 5};
+int daPyMng_c::mRest[PLAYER_COUNT] = {5, 5, 5, 5, 5, 5, 5, 5};
 
 /* 0x803551A0 */
 // Index is player type
-s32 daPyMng_c::mCoin[CHARACTER_COUNT];
+s32 daPyMng_c::mCoin[PLAYER_COUNT];
 
 /* 0x803551B0 */
-s32 daPyMng_c::m_quakeTimer[CHARACTER_COUNT];
+s32 daPyMng_c::m_quakeTimer[PLAYER_COUNT];
 
 /* 0x803551C0 */
-s32 daPyMng_c::m_quakeEffectFlag[CHARACTER_COUNT];
+s32 daPyMng_c::m_quakeEffectFlag[PLAYER_COUNT];
 
 /* 0x803551E0 */
 static daPyDemoMng_c mDemoManager;
 
 /* 0x80429F90 */
-u16 daPyMng_c::m_star_time[CHARACTER_COUNT];
+u16 daPyMng_c::m_star_time[PLAYER_COUNT];
 
 /* 0x80429F98 */
-u16 daPyMng_c::m_star_count[CHARACTER_COUNT];
+u16 daPyMng_c::m_star_count[PLAYER_COUNT];
 
 [[address_data(0x80429FA0)]]
 int daPyMng_c::mScore;
@@ -205,7 +205,7 @@ void daPyMng_c::initStage()
     mStopTimerInfoOld = 0;
     mQuakeTrigger = 0;
 
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         m_quakeTimer[i] = 0;
         m_quakeEffectFlag[i] = 0;
     }
@@ -536,7 +536,7 @@ daYoshi_c* daPyMng_c::getYoshi(int index)
 int daPyMng_c::getYoshiNum()
 {
     int yoshiNum = 0;
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         if (fManager_c::searchBaseByID(m_yoshiID[i]) != nullptr) {
             yoshiNum++;
         }
@@ -556,13 +556,13 @@ PLAYER_TYPE_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
       PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,           PLAYER_TYPE_e::BLUE_TOAD,
       PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,       PLAYER_TYPE_e::LUIGI,
       PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE, PLAYER_TYPE_e::BLACK_TOAD,
-      PLAYER_TYPE_e::ORANGE_TOAD,
+      PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::MII,
     }[modelIndex];
 }
 
 dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerType)
 {
-    int playerTypeInt = static_cast<int>(playerType) % 8;
+    int playerTypeInt = static_cast<int>(playerType);
 
     if (!!(mCreateItem[playerTypeInt] & PLAYER_CREATE_ITEM_e::RESCUE_TOAD)) {
         return dPyMdlMng_c::ModelType_e::MODEL_TOAD_RED;
@@ -574,6 +574,7 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerT
       dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE,   dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW,
       dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
       dPyMdlMng_c::ModelType_e::MODEL_TOAD_ORANGE, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLACK,
+      dPyMdlMng_c::ModelType_e::MODEL_MII,
     }[playerTypeInt];
 }
 
@@ -695,7 +696,7 @@ int daPyMng_c::decNum()
 int daPyMng_c::getNumInGame()
 {
     int inGameCount = 0;
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mPlayerEntry[i] != 0 && mRest[int(mPlayerType[i])] > 0) {
             inGameCount++;
         }
@@ -718,7 +719,7 @@ int daPyMng_c::getEntryNum()
 [[address(0x80060110)]]
 int daPyMng_c::findPlayerWithType(PLAYER_TYPE_e playerType)
 {
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mPlayerType[i] == playerType) {
             return i;
         }
@@ -733,7 +734,7 @@ bool daPyMng_c::changeItemKinopioPlrNo(int* ownedPlayer);
 int daPyMng_c::getCoinAll()
 {
     int totalCoins = 0;
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         totalCoins += mCoin[i];
     }
     return totalCoins;
@@ -1075,7 +1076,7 @@ bool daPyMng_c::isCreateBalloon(int index)
 [[address(0x80061160)]]
 void daPyMng_c::checkCorrectCreateInfo()
 {
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mPlayerType[i] >= PLAYER_TYPE_e::COUNT || mPlayerType[i] < PLAYER_TYPE_e::MARIO) {
             mPlayerType[i] = PLAYER_TYPE_e::MARIO;
         }
@@ -1093,7 +1094,7 @@ void daPyMng_c::checkCorrectCreateInfo()
     }
 
     if (int coinCount = getCoinAll(); coinCount < 0 || coinCount > MAX_COINS) {
-        for (int i = 0; i < CHARACTER_COUNT; i++) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
             mCoin[i] = 0;
         }
     }

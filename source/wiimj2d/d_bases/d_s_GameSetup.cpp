@@ -145,7 +145,7 @@ UNDEF_80918850:;
 /* 80918854 38000005 */  li       r0, 5;
 /* 80918858 94035190 */  stwu     r0, mRest__9daPyMng_c@l(r3);
 
-                         li       r4, CHARACTER_COUNT - 1;
+                         li       r4, PLAYER_COUNT - 1;
                          mtctr    r4;
 L_StoreLivesLoop_Start:;
                          stwu     r0, 0x4@l(r3);
@@ -190,7 +190,7 @@ UNDEF_809188c4:;
 [[address(0x809188E0)]]
 void dScGameSetup_c::finalizeState_FileSelect()
 {
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
     }
 }

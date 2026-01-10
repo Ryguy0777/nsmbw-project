@@ -225,22 +225,22 @@ public:
     static PLAYER_TYPE_e mPlayerType[PLAYER_COUNT];
 
     /* 0x80355170 */
-    static PLAYER_MODE_e mPlayerMode[CHARACTER_COUNT];
+    static PLAYER_MODE_e mPlayerMode[PLAYER_COUNT];
 
     /* 0x80355180 */
-    static PLAYER_CREATE_ITEM_e mCreateItem[CHARACTER_COUNT];
+    static PLAYER_CREATE_ITEM_e mCreateItem[PLAYER_COUNT];
 
     /* 0x80355190 */
-    static int mRest[CHARACTER_COUNT];
+    static int mRest[PLAYER_COUNT];
 
     /* 0x803551A0 */
-    static s32 mCoin[CHARACTER_COUNT];
+    static s32 mCoin[PLAYER_COUNT];
 
     /* 0x803551B0 */
-    static s32 m_quakeTimer[CHARACTER_COUNT];
+    static s32 m_quakeTimer[PLAYER_COUNT];
 
     /* 0x803551C0 */
-    static s32 m_quakeEffectFlag[CHARACTER_COUNT];
+    static s32 m_quakeEffectFlag[PLAYER_COUNT];
 
     /* 0x803551E0 */
     static daPyDemoMng_c mDemoManager;
@@ -259,10 +259,10 @@ public:
     static u8 m_yoshiColor[PLAYER_COUNT];
 
     /* 0x80429F90 */
-    static u16 m_star_time[CHARACTER_COUNT];
+    static u16 m_star_time[PLAYER_COUNT];
 
     /* 0x80429F98 */
-    static u16 m_star_count[CHARACTER_COUNT];
+    static u16 m_star_count[PLAYER_COUNT];
 
     /* 0x80429FA0 */
     static int mScore;

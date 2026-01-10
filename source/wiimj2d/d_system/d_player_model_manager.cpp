@@ -3,6 +3,7 @@
 
 #include "d_player_model_manager.h"
 
+#include "d_mii_model.h"
 #include "d_kinopico_model.h"
 #include "d_kinopio_model.h"
 #include "d_mario_model.h"
@@ -39,6 +40,10 @@ void dPyMdlMng_c::construct(u8 index)
     case ModelType_e::MODEL_TOADETTE:
     case ModelType_e::MODEL_TOADETTE_PURPLE:
         mModel = new (mHeap::g_gameHeaps[0], 4) dKinopicoMdl_c(index);
+        break;
+    
+    case ModelType_e::MODEL_MII:
+        mModel = new (mHeap::g_gameHeaps[0], 4) dMiiMdl_c(index);
         break;
 
     default:

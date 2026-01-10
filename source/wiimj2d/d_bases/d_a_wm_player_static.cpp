@@ -33,6 +33,9 @@ const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
     case dPyMdlMng_c::ModelType_e::MODEL_TOADETTE:
     case dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE:
         return "kinopico_all_root";
+    
+    case dPyMdlMng_c::ModelType_e::MODEL_MII:
+        return "mii_all_root";
 
     case dPyMdlMng_c::ModelType_e::MODEL_YOSHI:
         return "yoshi_all_root";
