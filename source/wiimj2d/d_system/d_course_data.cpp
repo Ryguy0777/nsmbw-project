@@ -3,5 +3,5 @@
 
 #include "d_course_data.h"
 
-[[address(0x8005EE70)]]
+[[nsmbw(0x8005EE70)]]
 dCdFile_c* dCd_c::getFileP(int course);

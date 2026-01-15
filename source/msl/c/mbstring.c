@@ -3,5 +3,5 @@
 
 #include <cstdlib>
 
-[[address(0x802DF0EC)]]
+[[nsmbw(0x802DF0EC)]]
 std::size_t mbstowcs(wchar_t* dest, const char* src, std::size_t n);

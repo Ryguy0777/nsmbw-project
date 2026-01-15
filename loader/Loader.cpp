@@ -1,10 +1,10 @@
 #include <System.h>
 
-#undef address
-#define address(...) maybe_unused
+#undef nsmbw
+#define nsmbw(...) maybe_unused
 
-#undef address_data
-#define address_data(...) maybe_unused
+#undef nsmbw_data
+#define nsmbw_data(...) maybe_unused
 
 #undef EXTERN_SYMBOL
 #define EXTERN_SYMBOL(...)

@@ -7,10 +7,10 @@
 #include "d_system/d_game_common.h"
 #include <algorithm>
 
-[[address_data(0x80429EDC)]]
+[[nsmbw_data(0x80429EDC)]]
 dCourseSelectGuide_c* dCourseSelectGuide_c::m_instance;
 
-[[address(0x80010140)]]
+[[nsmbw(0x80010140)]]
 dCourseSelectGuide_c::~dCourseSelectGuide_c()
 {
     m_instance = nullptr;
@@ -23,7 +23,7 @@ dCourseSelectGuide_c::~dCourseSelectGuide_c()
 
 EXTERN_REPL(0x80010290, bool dCourseSelectGuide_c::createBaseLayout());
 
-[[address(0x80010290)]]
+[[nsmbw(0x80010290)]]
 bool dCourseSelectGuide_c::createLayout()
 {
     mpExtra = nullptr;
@@ -68,7 +68,7 @@ bool dCourseSelectGuide_c::createLayout()
     return true;
 }
 
-[[address(0x80010690)]]
+[[nsmbw(0x80010690)]]
 void dCourseSelectGuide_c::PlayerIconDisp()
 {
     if (mpExtra == nullptr) {
@@ -122,7 +122,7 @@ void dCourseSelectGuide_c::PlayerIconDisp()
     }
 }
 
-[[address(0x80010800)]]
+[[nsmbw(0x80010800)]]
 void dCourseSelectGuide_c::RestNumberDisp()
 {
     if (mpExtra == nullptr) {
@@ -142,7 +142,7 @@ void dCourseSelectGuide_c::RestNumberDisp()
     mRestDispNeeded = false;
 }
 
-[[address(0x800108C0)]]
+[[nsmbw(0x800108C0)]]
 void dCourseSelectGuide_c::RestAlphaDisp()
 {
     if (mpExtra == nullptr) {

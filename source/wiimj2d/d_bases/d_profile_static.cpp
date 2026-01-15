@@ -118,10 +118,10 @@ constexpr auto s_formatted_name_data = [] consteval {
 }();
 
 /* @renamed(@LOCAL@dProf_getName__FUs@s_table) */
-[[address_data(0x80320B58)]]
+[[nsmbw_data(0x80320B58)]]
 const char* s_name_table[LASTACTOR.StaticNonRegionalValue];
 
-[[address(0x801018C0)]]
+[[nsmbw(0x801018C0)]]
 const char* getName(dProfName profile)
 {
 

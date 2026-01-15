@@ -7,7 +7,7 @@
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 
-[[address(0x808377B0)]]
+[[nsmbw(0x808377B0)]]
 bool daLiftFall_c::checkRideStart() const
 {
     int count = 0;

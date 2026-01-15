@@ -3,5 +3,5 @@
 
 #include <revolution/si.h>
 
-[[address(0x801BBA60)]]
+[[nsmbw(0x801BBA60)]]
 void SIRefreshSamplingRate();

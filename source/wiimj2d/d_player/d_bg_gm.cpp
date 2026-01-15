@@ -16,7 +16,7 @@ u32 dBgGm_countr_one(u32 v)
     return r;
 }
 
-[[address(0x80154F90)]]
+[[nsmbw(0x80154F90)]]
 bool dBgGm_c::inW2CastleMazeBounds(float param1, float param2) ASM_METHOD(
   // clang-format off
 /* 80154F90 9421FFB0 */  stwu     r1, -80(r1);
@@ -107,7 +107,7 @@ u8 getFirstActivePlayer(u32 mask)
     return count;
 }
 
-[[address(0x801550A0)]]
+[[nsmbw(0x801550A0)]]
 int dBgGm_c::execute() ASM_METHOD(
   // clang-format off
 /* 801550A0 9421FE40 */  stwu     r1, -448(r1);
@@ -1815,7 +1815,7 @@ UNDEF_801568c8:;
   // clang-format on
 );
 
-[[address(0x80156960)]]
+[[nsmbw(0x80156960)]]
 dAcPy_c* dBgGm_c::getNumberPlayerP(int player)
 {
     u8 mask = daPyMng_c::getActScrollInfo();
@@ -1832,7 +1832,7 @@ dAcPy_c* dBgGm_c::getNumberPlayerP(int player)
     return nullptr;
 }
 
-[[address(0x80156A10)]]
+[[nsmbw(0x80156A10)]]
 int dBgGm_c::getActScrPlayerNum()
 {
     u8 mask = daPyMng_c::getActScrollInfo();
@@ -1847,7 +1847,7 @@ int dBgGm_c::getActScrPlayerNum()
     return num;
 }
 
-[[address(0x80156BF0)]]
+[[nsmbw(0x80156BF0)]]
 bool UNDEF_80156BF0(void* param1, void* param2, void* param3) ASM_METHOD(
   // clang-format off
 /* 80156BF0 9421FFA0 */  stwu     r1, -96(r1);
@@ -1952,7 +1952,7 @@ UNDEF_80156d30:;
   // clang-format on
 );
 
-[[address(0x80156D70)]]
+[[nsmbw(0x80156D70)]]
 bool dBgGm_c::isManualZoomActive(void* param1) ASM_METHOD(
   // clang-format off
 /* 80156D70 9421FFD0 */  stwu     r1, -48(r1);

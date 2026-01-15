@@ -5,31 +5,31 @@
 
 EXTERN_C_START
 
-[[address(0x802E1C28)]]
+[[nsmbw(0x802E1C28)]]
 char* strcpy(char* __restrict dst, const char* __restrict src);
 
-[[address(0x802E1CE8)]]
+[[nsmbw(0x802E1CE8)]]
 char* strncpy(char* dst, const char* src, size_t n);
 
-[[address(0x802E1D2C)]]
+[[nsmbw(0x802E1D2C)]]
 char* strcat(char* __restrict dst, const char* __restrict src);
 
-[[address(0x802E1D58)]]
+[[nsmbw(0x802E1D58)]]
 char* strncat(char* __restrict dst, const char* __restrict src, size_t n);
 
-[[address(0x802E1DA4)]]
+[[nsmbw(0x802E1DA4)]]
 int strcmp(const char* s1, const char* s2);
 
-[[address(0x802E1EC0)]]
+[[nsmbw(0x802E1EC0)]]
 int strncmp(const char* s1, const char* s2, size_t n);
 
-[[address(0x802E1F00)]]
+[[nsmbw(0x802E1F00)]]
 char* strchr(const char* s, int c);
 
-[[address(0x802E1F30)]]
+[[nsmbw(0x802E1F30)]]
 char* strrchr(const char* s, int c);
 
-[[address(0x802E1F78)]]
+[[nsmbw(0x802E1F78)]]
 char* strstr(const char* haystack, const char* needle);
 
 EXTERN_C_END

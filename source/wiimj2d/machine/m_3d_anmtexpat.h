@@ -30,7 +30,7 @@ public:
     // anmTexPat_c() : mpChildren(nullptr) {}
 
     // Some random address where this is weakly emitted
-    [[address(0x80836C10)]]
+    [[nsmbw(0x80836C10)]]
     anmTexPat_c();
 
     virtual ~anmTexPat_c();

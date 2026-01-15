@@ -3,8 +3,8 @@
 
 #include "d_a_wm_Map.h"
 
-[[address(0x808DFE50)]]
+[[nsmbw(0x808DFE50)]]
 void daWmMap_c::createEnemyActors();
 
-[[address(0x808E1750)]]
+[[nsmbw(0x808E1750)]]
 void daWmMap_c::createMapActors();

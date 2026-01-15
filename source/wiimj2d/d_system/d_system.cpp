@@ -17,10 +17,10 @@
 #include <revolution/dvd.h>
 #include <revolution/pad.h>
 
-[[address_data(0x8042A370)]]
+[[nsmbw_data(0x8042A370)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem1;
 
-[[address_data(0x8042A374)]]
+[[nsmbw_data(0x8042A374)]]
 EGG::ExpHeap* dSys_c::ms_RootHeapMem2;
 
 const dSys_c::CODE_REGION_e dSys_c::m_codeRegion = findCodeRegion();

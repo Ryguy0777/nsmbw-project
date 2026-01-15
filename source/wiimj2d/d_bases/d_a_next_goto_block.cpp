@@ -3,7 +3,7 @@
 
 #include "d_a_next_goto_block.h"
 
-[[address(0x8086E670)]]
+[[nsmbw(0x8086E670)]]
 daNextGotoBlock_c* daNextGotoBlock_c_classInit()
 {
     return new daNextGotoBlock_c();
@@ -13,7 +13,7 @@ daNextGotoBlock_c* daNextGotoBlock_c_classInit()
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x8086E6C0)]]
+[[nsmbw(0x8086E6C0)]]
 fBase_c::PACK_RESULT_e daNextGotoBlock_c::create();
 
 /**
@@ -21,20 +21,20 @@ fBase_c::PACK_RESULT_e daNextGotoBlock_c::create();
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
  */
-[[address(0x8086E870)]]
+[[nsmbw(0x8086E870)]]
 fBase_c::PACK_RESULT_e daNextGotoBlock_c::execute();
 
 /**
  * VT+0x2C
  * do method for the draw operation.
  */
-[[address(0x8086E8C0)]]
+[[nsmbw(0x8086E8C0)]]
 fBase_c::PACK_RESULT_e daNextGotoBlock_c::draw()
 {
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8086E8D0)]]
+[[nsmbw(0x8086E8D0)]]
 void daNextGotoBlock_c::normal_collcheck(dCc_c* self, dCc_c* other)
 {
     daNextGotoBlock_c* nextGotoBlock = reinterpret_cast<daNextGotoBlock_c*>(self->mpOwner);
@@ -59,7 +59,7 @@ void daNextGotoBlock_c::normal_collcheck(dCc_c* self, dCc_c* other)
     nextGotoBlock->mpaPlayers[index] = player;
 }
 
-[[address(0x8086EA10)]]
+[[nsmbw(0x8086EA10)]]
 void daNextGotoBlock_c::executeState_Move() ASM_METHOD(
   // clang-format off
 /* 8086EA10 9421FFB0 */  stwu     r1, -80(r1);
@@ -177,7 +177,7 @@ UNDEF_8086eb90:;
 );
 
 /* VT+0x48 */
-[[address(0x8086EBB0)]]
+[[nsmbw(0x8086EBB0)]]
 daNextGotoBlock_c::~daNextGotoBlock_c()
 {
 }

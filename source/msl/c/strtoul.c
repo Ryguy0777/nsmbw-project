@@ -3,8 +3,8 @@
 
 #include "msl/c/stdlib.h"
 
-[[address(0x802E1FE4)]]
+[[nsmbw(0x802E1FE4)]]
 unsigned long __strtoul(int, int, int (*)(void*, int, int), void*, int*, int*, int*);
 
-[[address(0x802E23F8)]]
+[[nsmbw(0x802E23F8)]]
 int atoi(const char* s);

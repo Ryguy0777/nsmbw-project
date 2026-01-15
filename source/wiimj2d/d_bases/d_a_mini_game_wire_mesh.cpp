@@ -4,7 +4,7 @@
 #include "d_bases/d_a_mini_game_wire_mesh.h"
 #include <cstring>
 
-[[address(0x808681B0)]]
+[[nsmbw(0x808681B0)]]
 daMiniGameWireMesh_c* daMiniGameWireMesh_c_classInit()
 {
     return new daMiniGameWireMesh_c();
@@ -76,7 +76,7 @@ UNDEF_80868290:;
 );
 
 /* VT+0x08 */
-[[address(0x808682B0)]]
+[[nsmbw(0x808682B0)]]
 fBase_c::PACK_RESULT_e daMiniGameWireMesh_c::create() ASM_METHOD(
   // clang-format off
 /* 808682B0 9421FFE0 */  stwu     r1, -32(r1);
@@ -146,7 +146,7 @@ fBase_c::PACK_RESULT_e daMiniGameWireMesh_c::create() ASM_METHOD(
 );
 
 /* VT+0x20 */
-[[address(0x80868420)]]
+[[nsmbw(0x80868420)]]
 fBase_c::PACK_RESULT_e daMiniGameWireMesh_c::execute()
 {
     mStateMgr.executeState();
@@ -158,7 +158,7 @@ fBase_c::PACK_RESULT_e daMiniGameWireMesh_c::execute()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x80868590)]]
+[[nsmbw(0x80868590)]]
 void daMiniGameWireMesh_c::ccCallback(dCc_c* me, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 80868590 9421FFE0 */  stwu     r1, -32(r1);
@@ -306,7 +306,7 @@ UNDEF_80868784:;
   // clang-format on
 );
 
-[[address(0x808687B0)]]
+[[nsmbw(0x808687B0)]]
 void daMiniGameWireMesh_c::updatePlayerAmiRoll(int index) ASM_METHOD(
   // clang-format off
 UNDEF_808687b0:;
@@ -365,7 +365,7 @@ UNDEF_80868860:;
   // clang-format on
 );
 
-[[address(0x80868880)]]
+[[nsmbw(0x80868880)]]
 void daMiniGameWireMesh_c::updateAll() ASM_METHOD(
   // clang-format off
 /* 80868880 9421FFD0 */  stwu     r1, -48(r1);
@@ -491,7 +491,7 @@ UNDEF_80868a2c:;
   // clang-format on
 );
 
-[[address(0x80868F00)]]
+[[nsmbw(0x80868F00)]]
 void daMiniGameWireMesh_c::setAmiRollPos() ASM_METHOD(
   // clang-format off
 /* 80868F00 9421FFE0 */  stwu     r1, -32(r1);
@@ -535,7 +535,7 @@ UNDEF_80868f60:;
   // clang-format on
 );
 
-[[address(0x80868F90)]]
+[[nsmbw(0x80868F90)]]
 void daMiniGameWireMesh_c::endAmiRollAction() ASM_METHOD(
   // clang-format off
 /* 80868F90 9421FFF0 */  stwu     r1, -16(r1);
@@ -567,14 +567,14 @@ UNDEF_80868fcc:;
   // clang-format on
 );
 
-[[address(0x80868FF0)]]
+[[nsmbw(0x80868FF0)]]
 void daMiniGameWireMesh_c::initializeState_PlayWait()
 {
     m0x8BA = 0;
     std::memset(&mPlayer0x8C4, 0, sizeof(mPlayer0x8C4));
 }
 
-[[address(0x80869050)]]
+[[nsmbw(0x80869050)]]
 void daMiniGameWireMesh_c::initializeState_PlayMove() ASM_METHOD(
   // clang-format off
 /* 80869050 9421FFE0 */  stwu     r1, -32(r1);
@@ -626,7 +626,7 @@ UNDEF_808690e4:;
   // clang-format on
 );
 
-[[address(0x80869110)]]
+[[nsmbw(0x80869110)]]
 void daMiniGameWireMesh_c::executeState_PlayMove() ASM_METHOD(
   // clang-format off
 /* 80869110 9421FFD0 */  stwu     r1, -48(r1);
@@ -787,7 +787,7 @@ UNDEF_80869328:;
   // clang-format on
 );
 
-[[address(0x80869680)]]
+[[nsmbw(0x80869680)]]
 void daMiniGameWireMesh_c::initializeState_ForceTurnUp()
 {
     m0x8B4 = 0;
@@ -795,7 +795,7 @@ void daMiniGameWireMesh_c::initializeState_ForceTurnUp()
     std::memset(mPlayer0x8BC, 0, sizeof(mPlayer0x8BC));
 }
 
-[[address(0x808696A0)]]
+[[nsmbw(0x808696A0)]]
 void daMiniGameWireMesh_c::executeState_ForceTurnUp() ASM_METHOD(
   // clang-format off
 /* 808696A0 9421FFF0 */  stwu     r1, -16(r1);

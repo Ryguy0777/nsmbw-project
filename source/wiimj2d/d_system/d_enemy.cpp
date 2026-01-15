@@ -7,7 +7,7 @@
  * VT+0x24
  * pre method for the execute operation.
  */
-[[address(0x80095240)]]
+[[nsmbw(0x80095240)]]
 fBase_c::PACK_RESULT_e dEn_c::preExecute() ASM_METHOD(
   // clang-format off
 /* 80095240 9421FFF0 */  stwu     r1, -16(r1);
@@ -153,7 +153,7 @@ UNDEF_80095468:;
   // clang-format on
 );
 
-[[address(0x80095950)]]
+[[nsmbw(0x80095950)]]
 void dEn_c::normal_collcheck(dCc_c* object, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 80095950 9421FFE0 */  stwu     r1, -32(r1);
@@ -345,7 +345,7 @@ UNDEF_80095be8:;
   // clang-format on
 );
 
-[[address(0x80097B90)]]
+[[nsmbw(0x80097B90)]]
 void dEn_c::slipBound(dActor_c*) ASM_METHOD(
   // clang-format off
 /* 80097B90 9421FFF0 */  stwu     r1, -16(r1);
@@ -391,7 +391,7 @@ void dEn_c::slipBound(dActor_c*) ASM_METHOD(
 );
 
 /* VT+0x8C */
-[[address(0x80097D30)]]
+[[nsmbw(0x80097D30)]]
 bool dEn_c::setEatSpitOut(dActor_c* actor)
 {
     calcSpitOutPos(actor);

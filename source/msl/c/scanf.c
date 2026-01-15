@@ -3,7 +3,7 @@
 
 EXTERN_C_START
 
-[[address(0x802E1BA0)]]
+[[nsmbw(0x802E1BA0)]]
 int __StringRead(void* pPtr, int ch, int act);
 
 EXTERN_C_END

@@ -18,13 +18,13 @@ EXTERN_C_START
 
 // 0x802E0744: float2str
 
-[[address(0x802E0EE0)]]
+[[nsmbw(0x802E0EE0)]]
 int __pformatter(
   void* (*WriteProc)(void*, const char*, size_t), void* WriteProcArg, const char* format_str,
   va_list arg
 );
 
-[[address(0x802E178C)]]
+[[nsmbw(0x802E178C)]]
 void* __FileWrite(void* pFile, const char* pBuffer, size_t char_num);
 
 // 0x802E17E4: __StringWrite
@@ -46,7 +46,7 @@ int fprintf(FILE* file, const char* format, ...)
 
 // UNUSED: fprintf_s
 
-[[address(0x802E1850)]]
+[[nsmbw(0x802E1850)]]
 int vprintf(const char* __restrict format, va_list ap);
 
 // UNUSED: vprintf_s
@@ -55,22 +55,22 @@ int vprintf(const char* __restrict format, va_list ap);
 
 // UNUSED: vfprintf_s
 
-[[address(0x802E18CC)]]
+[[nsmbw(0x802E18CC)]]
 int vsnprintf(char* __restrict s, size_t n, const char* __restrict format, va_list ap);
 
 // UNUSED: vsnprintf_s
 
-[[address(0x802E1954)]]
+[[nsmbw(0x802E1954)]]
 int vsprintf(char* __restrict s, const char* __restrict format, va_list ap);
 
 // UNUSED: vsprintf_s
 
-[[address(0x802E19D8)]]
+[[nsmbw(0x802E19D8)]]
 int snprintf(char* __restrict s, size_t n, const char* __restrict format, ...);
 
 // UNUSED: snprintf_s
 
-[[address(0x802E1ACC)]]
+[[nsmbw(0x802E1ACC)]]
 int sprintf(char* __restrict s, const char* __restrict format, ...);
 
 // UNUSED: sprintf_s

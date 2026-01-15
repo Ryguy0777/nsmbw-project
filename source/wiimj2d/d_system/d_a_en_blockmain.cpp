@@ -8,7 +8,7 @@
 #include "d_system/d_yoshi_model.h"
 #include "framework/f_feature.h"
 
-[[address(0x80021AB0)]]
+[[nsmbw(0x80021AB0)]]
 bool daEnBlockMain_c::isYossyColor(u16 yoshiColor)
 {
     int index = 0;
@@ -25,7 +25,7 @@ bool daEnBlockMain_c::isYossyColor(u16 yoshiColor)
     return true;
 }
 
-[[address(0x80021B30)]]
+[[nsmbw(0x80021B30)]]
 s16 daEnBlockMain_c::yossy_color_search()
 {
     s16 yoshiColor;
@@ -47,7 +47,7 @@ s16 daEnBlockMain_c::yossy_color_search()
     }
 }
 
-[[address(0x80022810)]]
+[[nsmbw(0x80022810)]]
 void daEnBlockMain_c::FUN_80022810() ASM_METHOD(
   // clang-format off
 /* 80022810 9421FFC0 */  stwu     r1, -64(r1);

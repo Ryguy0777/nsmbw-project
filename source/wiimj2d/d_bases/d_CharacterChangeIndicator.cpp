@@ -3,7 +3,7 @@
 
 #include "d_CharacterChangeIndicator.h"
 
-[[address(0x8076DC80)]]
+[[nsmbw(0x8076DC80)]]
 void dCharacterChangeIndicator_c::UNDEF_8076DC80() ASM_METHOD(
   // clang-format off
 /* 8076DC80 9421FFE0 */  stwu     r1, -32(r1);

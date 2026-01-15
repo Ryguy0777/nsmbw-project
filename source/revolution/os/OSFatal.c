@@ -9,7 +9,7 @@ EXTERN_C_START
 
 // 0x801AF5F0: ConfigureVideo
 
-[[address(0x801AF710)]]
+[[nsmbw(0x801AF710)]]
 void OSFatal(GXColor textColor, GXColor bgColor, const char* text);
 
 // 0x801AF900: Halt

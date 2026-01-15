@@ -9,13 +9,13 @@
 #include "d_system/d_message.h"
 #include "d_system/d_mj2d_game.h"
 
-[[address(0x8078BC60)]]
+[[nsmbw(0x8078BC60)]]
 dMiniGameCannon_c* dMiniGameCannon_c_classInit()
 {
     return new dMiniGameCannon_c;
 }
 
-[[address(0x8078BC90)]]
+[[nsmbw(0x8078BC90)]]
 dMiniGameCannon_c::dMiniGameCannon_c()
   : mStateMgr(*this, StateID_TitleOpenWait)
 {
@@ -29,14 +29,14 @@ dMiniGameCannon_c::dMiniGameCannon_c()
     mCloseResult = false;
 }
 
-[[address(0x8078BEA0)]]
+[[nsmbw(0x8078BEA0)]]
 dMiniGameCannon_c::~dMiniGameCannon_c()
 {
     // mStateMgr.~sStateMgr_c();
     mLayout.~LytBase_c();
 }
 
-[[address(0x8078BF30)]]
+[[nsmbw(0x8078BF30)]]
 fBase_c::PACK_RESULT_e dMiniGameCannon_c::create()
 {
     if (mReady) {
@@ -69,7 +69,7 @@ fBase_c::PACK_RESULT_e dMiniGameCannon_c::create()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8078C000)]]
+[[nsmbw(0x8078C000)]]
 bool dMiniGameCannon_c::createLayout()
 {
     if (!mLayout.ReadResource("miniGameCannon/miniGameCannon.arc", false)) {
@@ -211,7 +211,7 @@ bool dMiniGameCannon_c::createLayout()
     return true;
 }
 
-[[address(0x8078C140)]]
+[[nsmbw(0x8078C140)]]
 fBase_c::PACK_RESULT_e dMiniGameCannon_c::preExecute()
 {
     if (dBase_c::preExecute() == PACK_RESULT_e::NOT_READY) {
@@ -221,7 +221,7 @@ fBase_c::PACK_RESULT_e dMiniGameCannon_c::preExecute()
     return !dWarningManager_c::isWarning() ? PACK_RESULT_e::SUCCEEDED : PACK_RESULT_e::NOT_READY;
 }
 
-[[address(0x8078C180)]]
+[[nsmbw(0x8078C180)]]
 fBase_c::PACK_RESULT_e dMiniGameCannon_c::execute()
 {
     if (mReady && mActive) {
@@ -232,7 +232,7 @@ fBase_c::PACK_RESULT_e dMiniGameCannon_c::execute()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8078C200)]]
+[[nsmbw(0x8078C200)]]
 fBase_c::PACK_RESULT_e dMiniGameCannon_c::draw()
 {
     if (mReady && mActive) {
@@ -241,13 +241,13 @@ fBase_c::PACK_RESULT_e dMiniGameCannon_c::draw()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8078C240)]]
+[[nsmbw(0x8078C240)]]
 fBase_c::PACK_RESULT_e dMiniGameCannon_c::doDelete()
 {
     return mLayout.doDelete();
 }
 
-[[address(0x8078C250)]]
+[[nsmbw(0x8078C250)]]
 int dMiniGameCannon_c::getPosPaneIdx(int player)
 {
     int paneIdxArray[PLAYER_COUNT][PLAYER_COUNT] = {
@@ -263,7 +263,7 @@ int dMiniGameCannon_c::getPosPaneIdx(int player)
     return paneIdxArray[mNumPlayers-1][player];
 }
 
-[[address(0x8078C280)]]
+[[nsmbw(0x8078C280)]]
 void dMiniGameCannon_c::setPlayerPanePositions()
 {
     for (std::size_t i = 0, j = 0; i < PLAYER_COUNT; i++) {
@@ -286,7 +286,7 @@ void dMiniGameCannon_c::setPlayerPanePositions()
     }
 }
 
-[[address(0x8078C3F0)]]
+[[nsmbw(0x8078C3F0)]]
 void dMiniGameCannon_c::setAllText()
 {
     MsgRes_c* msgRes = dMessage_c::getMesRes();
@@ -307,7 +307,7 @@ void dMiniGameCannon_c::setAllText()
     }
 }
 
-[[address(0x8078C4D0)]]
+[[nsmbw(0x8078C4D0)]]
 bool dMiniGameCannon_c::isWin() const
 {
     for (std::size_t i = 0; i < std::size(mNumWon); i++) {
@@ -318,7 +318,7 @@ bool dMiniGameCannon_c::isWin() const
     return false;
 }
 
-[[address(0x8078C530)]]
+[[nsmbw(0x8078C530)]]
 void dMiniGameCannon_c::initializeState_TitleOpenWait()
 {
     mpRootPane->SetVisible(false);
@@ -326,7 +326,7 @@ void dMiniGameCannon_c::initializeState_TitleOpenWait()
     mCloseTitle = false;
 }
 
-[[address(0x8078C550)]]
+[[nsmbw(0x8078C550)]]
 void dMiniGameCannon_c::executeState_TitleOpenWait()
 {
     if (!mIsTitleOpen) {
@@ -336,12 +336,12 @@ void dMiniGameCannon_c::executeState_TitleOpenWait()
     return mStateMgr.changeState(StateID_TitleOpenAnimeEndWait);
 }
 
-[[address(0x8078C590)]]
+[[nsmbw(0x8078C590)]]
 void dMiniGameCannon_c::finalizeState_TitleOpenWait()
 {
 }
 
-[[address(0x8078C5A0)]]
+[[nsmbw(0x8078C5A0)]]
 void dMiniGameCannon_c::initializeState_TitleOpenAnimeEndWait()
 {
     mpRootPane->SetVisible(true);
@@ -360,7 +360,7 @@ void dMiniGameCannon_c::initializeState_TitleOpenAnimeEndWait()
     mAnimationActive = true;
 }
 
-[[address(0x8078C6B0)]]
+[[nsmbw(0x8078C6B0)]]
 void dMiniGameCannon_c::executeState_TitleOpenAnimeEndWait()
 {
     if (!mLayout.isAnime(-1)) {
@@ -368,19 +368,19 @@ void dMiniGameCannon_c::executeState_TitleOpenAnimeEndWait()
     }
 }
 
-[[address(0x8078C710)]]
+[[nsmbw(0x8078C710)]]
 void dMiniGameCannon_c::finalizeState_TitleOpenAnimeEndWait()
 {
     mAnimationActive = false;
 }
 
-[[address(0x8078C720)]]
+[[nsmbw(0x8078C720)]]
 void dMiniGameCannon_c::initializeState_TitleDisp()
 {
     mLayout.LoopAnimeStartSetup(20);
 }
 
-[[address(0x8078C730)]]
+[[nsmbw(0x8078C730)]]
 void dMiniGameCannon_c::executeState_TitleDisp()
 {
     if (!mCloseTitle) {
@@ -389,20 +389,20 @@ void dMiniGameCannon_c::executeState_TitleDisp()
     return mStateMgr.changeState(StateID_TitleExitAnimeEndWait);
 }
 
-[[address(0x8078C760)]]
+[[nsmbw(0x8078C760)]]
 void dMiniGameCannon_c::finalizeState_TitleDisp()
 {
     mLayout.AnimeEndSetup(20);
 }
 
-[[address(0x8078C770)]]
+[[nsmbw(0x8078C770)]]
 void dMiniGameCannon_c::initializeState_TitleExitAnimeEndWait()
 {
     mLayout.AnimeStartSetup(21, false);
     mAnimationActive = true;
 }
 
-[[address(0x8078C7B0)]]
+[[nsmbw(0x8078C7B0)]]
 void dMiniGameCannon_c::executeState_TitleExitAnimeEndWait()
 {
     if (!mLayout.isAnime(-1)) {
@@ -411,7 +411,7 @@ void dMiniGameCannon_c::executeState_TitleExitAnimeEndWait()
     }
 }
 
-[[address(0x8078C810)]]
+[[nsmbw(0x8078C810)]]
 void dMiniGameCannon_c::finalizeState_TitleExitAnimeEndWait()
 {
     mpRootPane->SetVisible(false);
@@ -425,12 +425,12 @@ void dMiniGameCannon_c::finalizeState_TitleExitAnimeEndWait()
     mCloseResult = false;
 }
 
-[[address(0x8078C8A0)]]
+[[nsmbw(0x8078C8A0)]]
 void dMiniGameCannon_c::initializeState_StartWait()
 {
 }
 
-[[address(0x8078C8B0)]]
+[[nsmbw(0x8078C8B0)]]
 void dMiniGameCannon_c::executeState_StartWait()
 {
     if (!mIsWindowOpen) {
@@ -441,7 +441,7 @@ void dMiniGameCannon_c::executeState_StartWait()
     return mStateMgr.changeState(StateID_OpenAnimeEndWait);
 }
 
-[[address(0x8078C8E0)]]
+[[nsmbw(0x8078C8E0)]]
 void dMiniGameCannon_c::finalizeState_StartWait()
 {
     mNumPlayers = 0;
@@ -457,7 +457,7 @@ void dMiniGameCannon_c::finalizeState_StartWait()
     }
 }
 
-[[address(0x8078C970)]]
+[[nsmbw(0x8078C970)]]
 void dMiniGameCannon_c::initializeState_OpenAnimeEndWait()
 {
     mLayout.AllAnimeEndSetup();
@@ -492,7 +492,7 @@ void dMiniGameCannon_c::initializeState_OpenAnimeEndWait()
     mAnimationActive = true;
 }
 
-[[address(0x8078CB80)]]
+[[nsmbw(0x8078CB80)]]
 void dMiniGameCannon_c::executeState_OpenAnimeEndWait()
 {
     if (mLayout.isAllAnime()) {
@@ -511,19 +511,19 @@ void dMiniGameCannon_c::executeState_OpenAnimeEndWait()
     return mStateMgr.changeState(*id);
 }
 
-[[address(0x8078CC40)]]
+[[nsmbw(0x8078CC40)]]
 void dMiniGameCannon_c::finalizeState_OpenAnimeEndWait()
 {
     mAnimationActive = false;
 }
 
-[[address(0x8078CC50)]]
+[[nsmbw(0x8078CC50)]]
 void dMiniGameCannon_c::initializeState_NowDisp()
 {
     mLayout.LoopAnimeStartSetup(2);
 }
 
-[[address(0x8078CC60)]]
+[[nsmbw(0x8078CC60)]]
 void dMiniGameCannon_c::executeState_NowDisp()
 {
     if (!mCloseOperate) {
@@ -533,13 +533,13 @@ void dMiniGameCannon_c::executeState_NowDisp()
     return mStateMgr.changeState(StateID_ExitAnimeEndWait);
 }
 
-[[address(0x8078CC90)]]
+[[nsmbw(0x8078CC90)]]
 void dMiniGameCannon_c::finalizeState_NowDisp()
 {
     mLayout.AnimeEndSetup(2);
 }
 
-[[address(0x8078CCA0)]]
+[[nsmbw(0x8078CCA0)]]
 void dMiniGameCannon_c::initializeState_ResultDispAnimeEndWait()
 {
     setPlayerPanePositions();
@@ -559,7 +559,7 @@ void dMiniGameCannon_c::initializeState_ResultDispAnimeEndWait()
     mAnimationActive = true;
 }
 
-[[address(0x8078CE10)]]
+[[nsmbw(0x8078CE10)]]
 void dMiniGameCannon_c::initializeState_ResultNowDisp()
 {
     if (!isWin()) {
@@ -576,7 +576,7 @@ void dMiniGameCannon_c::initializeState_ResultNowDisp()
     }
 }
 
-[[address(0x8078CE90)]]
+[[nsmbw(0x8078CE90)]]
 void dMiniGameCannon_c::executeState_ResultNowDisp()
 {
     if (!mCloseResult) {
@@ -585,7 +585,7 @@ void dMiniGameCannon_c::executeState_ResultNowDisp()
     return mStateMgr.changeState(StateID_ExitAnimeEndWait);
 }
 
-[[address(0x8078CEC0)]]
+[[nsmbw(0x8078CEC0)]]
 void dMiniGameCannon_c::finalizeState_ResultNowDisp()
 {
     if (isWin()) {
@@ -593,14 +593,14 @@ void dMiniGameCannon_c::finalizeState_ResultNowDisp()
     }
 }
 
-[[address(0x8078CF00)]]
+[[nsmbw(0x8078CF00)]]
 void dMiniGameCannon_c::initializeState_ExitAnimeEndWait()
 {
     mLayout.AnimeStartSetup(22, false);
     mAnimationActive = true;
 }
 
-[[address(0x8078CF40)]]
+[[nsmbw(0x8078CF40)]]
 void dMiniGameCannon_c::executeState_ExitAnimeEndWait()
 {
     setPlayerPanePositions();
@@ -610,7 +610,7 @@ void dMiniGameCannon_c::executeState_ExitAnimeEndWait()
     }
 }
 
-[[address(0x8078CFB0)]]
+[[nsmbw(0x8078CFB0)]]
 void dMiniGameCannon_c::finalizeState_ExitAnimeEndWait()
 {
     mAnimationActive = false;

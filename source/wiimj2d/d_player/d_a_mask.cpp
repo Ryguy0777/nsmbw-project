@@ -5,7 +5,7 @@
 
 class daPlBase_c;
 
-[[address(0x80126050)]]
+[[nsmbw(0x80126050)]]
 daPlBase_c* daMask_c_GetPlayerP(void* this_) ASM_METHOD(
   // clang-format off
 /* 80126060 88630392 */  lbz      r3, 0x392(r3);
@@ -26,7 +26,7 @@ daMask_c_GetPlayerP_outNull:;
   // clang-format on
 );
 
-[[address(0x801260B0)]]
+[[nsmbw(0x801260B0)]]
 bool daMask_c_isYoshi(u8* this_)
 {
     return this_[0x392] >= PLAYER_COUNT && this_[0x392] < PLAYER_COUNT * 2;

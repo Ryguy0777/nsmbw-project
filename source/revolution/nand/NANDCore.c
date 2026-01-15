@@ -5,13 +5,13 @@
 
 EXTERN_C_START
 
-[[address(0x801DA6B0)]]
+[[nsmbw(0x801DA6B0)]]
 NANDResult nandConvertErrorCode(s32 isfsError);
 
-[[address(0x801DAC30)]]
+[[nsmbw(0x801DAC30)]]
 NANDResult NANDGetHomeDir(char* out);
 
-[[address(0x801DAFB0)]]
+[[nsmbw(0x801DAFB0)]]
 NANDResult NANDGetType(const char* path, u8* type);
 
 EXTERN_C_END

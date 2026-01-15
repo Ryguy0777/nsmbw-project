@@ -5,7 +5,7 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x800389E0)]]
+[[nsmbw(0x800389E0)]]
 void daEnShell_c::Normal_VsPlHitCheck(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 800389E0 9421FFD0 */  stwu     r1, -48(r1);
@@ -397,7 +397,7 @@ UNDEF_80038fb4:;
 );
 
 /* VT+0x7C */
-[[address(0x80039610)]]
+[[nsmbw(0x80039610)]]
 void daEnShell_c::setCarryFall(dActor_c* actor, int cooldown)
 {
     if (setCollTimer(actor, cooldown) != 0xFF) {
@@ -405,7 +405,7 @@ void daEnShell_c::setCarryFall(dActor_c* actor, int cooldown)
     }
 }
 
-[[address(0x800396A0)]]
+[[nsmbw(0x800396A0)]]
 void daEnShell_c::setKickSlide(dCc_c* cc, dActor_c* actor) ASM_METHOD(
   // clang-format off
 /* 800396A0 9421FFD0 */  stwu     r1, -48(r1);
@@ -470,7 +470,7 @@ void daEnShell_c::setKickSlide(dCc_c* cc, dActor_c* actor) ASM_METHOD(
   // clang-format on
 );
 
-[[address(0x80039D70)]]
+[[nsmbw(0x80039D70)]]
 bool daEnShell_c::hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 80039D70 9421FFE0 */  stwu     r1, -32(r1);
@@ -529,7 +529,7 @@ UNDEF_80039e28:;
 );
 
 /* VT+0x8C */
-[[address(0x8003A5D0)]]
+[[nsmbw(0x8003A5D0)]]
 bool daEnShell_c::setEatSpitOut(dActor_c* actor) ASM_METHOD(
   // clang-format off
 /* 8003A5D0 9421FFD0 */  stwu     r1, -48(r1);
@@ -655,7 +655,7 @@ UNDEF_8003a768:;
   // clang-format on
 );
 
-[[address(0x8003B3E0)]]
+[[nsmbw(0x8003B3E0)]]
 void daEnShell_c::initializeState_Slide() ASM_METHOD(
   // clang-format off
 /* 8003B3E0 9421FFE0 */  stwu     r1, -32(r1);
@@ -869,7 +869,7 @@ UNDEF_8003b6d8:;
   // clang-format on
 );
 
-[[address(0x8003B830)]]
+[[nsmbw(0x8003B830)]]
 void daEnShell_c::executeState_Slide() ASM_METHOD(
   // clang-format off
 /* 8003B830 9421FFC0 */  stwu     r1, -64(r1);

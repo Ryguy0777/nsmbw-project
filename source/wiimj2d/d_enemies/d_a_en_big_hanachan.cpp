@@ -1,7 +1,7 @@
 // d_a_en_big_hanachan.cpp
 // NSMBW d_enemies.text: 0x809B1EC0 - 0x809B4200
 
-[[address(0x809B28C0)]]
+[[nsmbw(0x809B28C0)]]
 void daEnBigHanachan_c_Normal_VsPlHitCheck(void* this_, void* cc1, void* cc2) ASM_METHOD(
   // clang-format off
 /* 809B28C0 9421FFE0 */  stwu     r1, -32(r1);
@@ -126,7 +126,7 @@ UNDEF_809b2a98:;
   // clang-format on
 );
 
-[[address(0x809B2AD0)]]
+[[nsmbw(0x809B2AD0)]]
 void daEnBigHanachan_c_Normal_VsYoshiHitCheck(void* this_, void* cc1, void* cc2) ASM_METHOD(
   // clang-format off
 /* 809B2AD0 9421FFE0 */  stwu     r1, -32(r1);

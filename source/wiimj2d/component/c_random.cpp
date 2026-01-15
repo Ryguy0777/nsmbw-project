@@ -3,5 +3,5 @@
 
 #include "c_random.h"
 
-[[address(0x801615A0)]]
+[[nsmbw(0x801615A0)]]
 u32 cRnd_c::next(u32 limit);

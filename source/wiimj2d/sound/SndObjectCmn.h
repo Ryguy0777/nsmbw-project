@@ -91,32 +91,32 @@ public:
 
 /* VT+0x20 */
 template <>
-[[address(0x8006B330)]]
+[[nsmbw(0x8006B330)]]
 nw4r::snd::SoundHandle*
 NMSndObjectCmn<12>::startSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
 
 /* VT+0x24 */
 template <>
-[[address(0x8006B6C0)]]
+[[nsmbw(0x8006B6C0)]]
 nw4r::snd::SoundHandle* NMSndObjectCmn<12>::startSound(
   u32 soundId, const nw4r::math::VEC2& position, short seqParam, u32 remoteMask
 );
 
 /* VT+0x28 */
 template <>
-[[address(0x8006BA90)]]
+[[nsmbw(0x8006BA90)]]
 nw4r::snd::SoundHandle*
 NMSndObjectCmn<12>::holdSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
 
 /* VT+0x2C */
 template <>
-[[address(0x8006BBA0)]]
+[[nsmbw(0x8006BBA0)]]
 nw4r::snd::SoundHandle*
 NMSndObjectCmn<12>::holdSound(u32 soundId, int, const nw4r::math::VEC2& position, u32 remoteMask);
 
 /* VT+0x30 */
 template <>
-[[address(0x8006BDB0)]]
+[[nsmbw(0x8006BDB0)]]
 nw4r::snd::SoundHandle* NMSndObjectCmn<12>::holdSound(
   u32 soundId, int, const nw4r::math::VEC2& position, short seqParam, u32 remoteMask
 );

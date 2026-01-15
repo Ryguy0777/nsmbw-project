@@ -59,10 +59,10 @@ public:
     // Instance Methods
     // ^^^^^^
 
-    [[address(0x80267560)]]
+    [[nsmbw(0x80267560)]]
     void SetVolume(f32 volume, int);
 
-    [[address(0x802675F0)]]
+    [[nsmbw(0x802675F0)]]
     void SetPitch(f32 pitch);
 };
 

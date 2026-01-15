@@ -7,7 +7,7 @@ EXTERN_C_START
 
 // UNUSED: DCFlashInvalidate
 
-[[address(0x801AC560)]]
+[[nsmbw(0x801AC560)]]
 void DCEnable();
 
 // UNUSED: DCDisable
@@ -26,33 +26,33 @@ void DCEnable();
 
 // UNUSED: DCBlockInvalidate
 
-[[address(0x801AC580)]]
+[[nsmbw(0x801AC580)]]
 void DCInvalidateRange(void* addr, u32 amount);
 
-[[address(0x801AC5B0)]]
+[[nsmbw(0x801AC5B0)]]
 void DCFlushRange(void* addr, u32 amount);
 
-[[address(0x801AC5E0)]]
+[[nsmbw(0x801AC5E0)]]
 void DCStoreRange(void* addr, u32 amount);
 
-[[address(0x801AC610)]]
+[[nsmbw(0x801AC610)]]
 void DCFlushRangeNoSync(void* addr, u32 amount);
 
-[[address(0x801AC640)]]
+[[nsmbw(0x801AC640)]]
 void DCStoreRangeNoSync(void* addr, u32 amount);
 
-[[address(0x801AC670)]]
+[[nsmbw(0x801AC670)]]
 void DCZeroRange(void* addr, u32 amount);
 
 // UNUSED: DCTouchRange
 
-[[address(0x801AC6A0)]]
+[[nsmbw(0x801AC6A0)]]
 void ICInvalidateRange(void* addr, u32 amount);
 
-[[address(0x801AC6E0)]]
+[[nsmbw(0x801AC6E0)]]
 void ICFlashInvalidate();
 
-[[address(0x801AC6F0)]]
+[[nsmbw(0x801AC6F0)]]
 void ICEnable();
 
 // UNUSED: ICDisable
@@ -65,13 +65,13 @@ void ICEnable();
 
 // UNUSED: ICSync
 
-[[address(0x801AC710)]]
+[[nsmbw(0x801AC710)]]
 /* static */ void __LCEnable();
 
-[[address(0x801AC7E0)]]
+[[nsmbw(0x801AC7E0)]]
 void LCEnable();
 
-[[address(0x801AC820)]]
+[[nsmbw(0x801AC820)]]
 void LCDisable();
 
 // UNUSED: LCIsEnable
@@ -80,10 +80,10 @@ void LCDisable();
 
 // UNUSED: LCAllocTags
 
-[[address(0x801AC850)]]
+[[nsmbw(0x801AC850)]]
 void LCLoadBlocks(void* param_1, void* param_2, u32 param_3);
 
-[[address(0x801AC880)]]
+[[nsmbw(0x801AC880)]]
 void LCStoreBlocks(void* param_1, void* param_2, u32 param_3);
 
 // UNUSED: LCAlloc
@@ -92,13 +92,13 @@ void LCStoreBlocks(void* param_1, void* param_2, u32 param_3);
 
 // UNUSED: LCLoadData
 
-[[address(0x801AC8B0)]]
+[[nsmbw(0x801AC8B0)]]
 u32 LCStoreData(void* param_1, void* param_2, u32 param_3);
 
-[[address(0x801AC950)]]
+[[nsmbw(0x801AC950)]]
 u32 LCQueueLength();
 
-[[address(0x801AC960)]]
+[[nsmbw(0x801AC960)]]
 u32 LCQueueWait(u32 param_1);
 
 // UNUSED: LCFlushQueue
@@ -113,10 +113,10 @@ u32 LCQueueWait(u32 param_1);
 
 // UNUSED: L2SetWriteThrough
 
-[[address(0x801AC980)]]
+[[nsmbw(0x801AC980)]]
 /* static */ void DMAErrorHandler();
 
-[[address(0x801ACAD0)]]
+[[nsmbw(0x801ACAD0)]]
 void __OSCacheInit();
 
 EXTERN_C_END

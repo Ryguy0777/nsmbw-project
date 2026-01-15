@@ -3,5 +3,5 @@
 
 #include "d_bg_ctr.h"
 
-[[address(0x80080630)]]
+[[nsmbw(0x80080630)]]
 void dBg_ctr_c::updateObjBg();

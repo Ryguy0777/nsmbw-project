@@ -16,32 +16,32 @@
 #include "framework/f_base.h"
 #include "framework/f_feature.h"
 
-[[address(0x801275B0)]]
+[[nsmbw(0x801275B0)]]
 float dAcPy_c::getJumpSpeed();
 
-[[address(0x8012DD20)]]
+[[nsmbw(0x8012DD20)]]
 dAcPy_c* dAcPy_c::getCarryPlayer();
 
-[[address(0x8012E6E0)]]
+[[nsmbw(0x8012E6E0)]]
 bool dAcPy_c::releaseCarryActor();
 
-[[address(0x80138FA0)]]
+[[nsmbw(0x80138FA0)]]
 bool dAcPy_c::setBalloonInDamage();
 
-[[address(0x80139330)]]
+[[nsmbw(0x80139330)]]
 bool dAcPy_c::setBalloonInDispOutByYoshi(int param)
 {
     return setBalloonInDispOutBase(param, 1, false);
 }
 
 /* VT+0x11C */
-[[address(0x80139340)]]
+[[nsmbw(0x80139340)]]
 bool dAcPy_c::setBalloonInDispOut(int param)
 {
     return setBalloonInDispOutBase(param, 0, false);
 }
 
-[[address(0x80139350)]]
+[[nsmbw(0x80139350)]]
 bool dAcPy_c::setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg)
 {
     if (!isDispOutCheckOn()) {
@@ -97,7 +97,7 @@ bool dAcPy_c::setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg)
     return true;
 }
 
-[[address(0x8013D7B0)]]
+[[nsmbw(0x8013D7B0)]]
 void dAcPy_c::checkRest()
 {
     if (isItemKinopio()) {
@@ -132,7 +132,7 @@ void dAcPy_c::checkRest()
     }
 }
 
-[[address(0x8013DA30)]]
+[[nsmbw(0x8013DA30)]]
 void dAcPy_c::stopOtherDownDemo()
 {
     if (isItemKinopio()) {
@@ -166,7 +166,7 @@ void dAcPy_c::stopOtherDownDemo()
     dActor_c::mExecStopReq |= 0xD;
 }
 
-[[address(0x8013DB30)]]
+[[nsmbw(0x8013DB30)]]
 void dAcPy_c::playOtherDownDemo()
 {
     if (!dScStage_c::isGameStopAllowed()) {
@@ -189,7 +189,7 @@ void dAcPy_c::playOtherDownDemo()
 }
 
 /* VT+0x278 */
-[[address(0x8013DF10)]]
+[[nsmbw(0x8013DF10)]]
 void dAcPy_c::setFallDownDemo()
 {
     if (!isDispOutCheckOn()) {
@@ -217,13 +217,13 @@ void dAcPy_c::setFallDownDemoNoMsg()
     changeDemoState(StateID_DemoFallDown, 0);
 }
 
-[[address(0x8013FBE0)]]
+[[nsmbw(0x8013FBE0)]]
 void dAcPy_c::endDemoDokanCannon(mVec3_c &);
 
 /**
  * VT+0x28C
  */
-[[address(0x801400B0)]]
+[[nsmbw(0x801400B0)]]
 void dAcPy_c::executeDemoGoal_Run() ASM_METHOD(
   // clang-format off
 /* 801400B0 9421FFE0 */  stwu     r1, -32(r1);
@@ -483,7 +483,7 @@ UNDEF_80140420:;
   // clang-format on
 );
 
-[[address(0x80141020)]]
+[[nsmbw(0x80141020)]]
 void dAcPy_c::initChangeInit()
 {
     if (dScStage_c::isGameStopAllowed()) {
@@ -497,7 +497,7 @@ void dAcPy_c::initChangeInit()
     }
 }
 
-[[address(0x80141080)]]
+[[nsmbw(0x80141080)]]
 bool dAcPy_c::executeChangeInit()
 {
     if (mPlayerMode == mNextPowerup) {
@@ -525,10 +525,10 @@ bool dAcPy_c::executeChangeInit()
     return isPlayerGameStop();
 }
 
-[[address(0x801415A0)]]
+[[nsmbw(0x801415A0)]]
 void dAcPy_c::setChange(int param);
 
-[[address(0x80144C60)]]
+[[nsmbw(0x80144C60)]]
 void dAcPy_c::setSceneChangeInfo() ASM_METHOD(
   // clang-format off
 /* 80144C60 9421FFE0 */  stwu     r1, -32(r1);
@@ -687,7 +687,7 @@ UNDEF_80144e68:;
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80144EA0)]]
+[[nsmbw(0x80144EA0)]]
 fBase_c::PACK_RESULT_e dAcPy_c::create() ASM_METHOD(
   // clang-format off
 /* 80144EA0 9421FFF0 */  stwu     r1, -16(r1);
@@ -869,7 +869,7 @@ UNDEF_80145100:;
 );
 
 /* VT+0x3F4  */
-[[address(0x80146230)]]
+[[nsmbw(0x80146230)]]
 bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
 {
     if (mPlayerMode != mNextPowerup || isChange()) {
@@ -894,7 +894,7 @@ bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
 }
 
 /* VT+0x3F8 */
-[[address(0x80146310)]]
+[[nsmbw(0x80146310)]]
 bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
 {
     if (isDemo() || mPlayerMode != mNextPowerup || isChange()) {
@@ -914,5 +914,5 @@ bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
     return true;
 }
 
-[[address(0x80146F60)]]
+[[nsmbw(0x80146F60)]]
 void dAcPy_c::setCannonJump(float, float, int);

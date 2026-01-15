@@ -22,7 +22,7 @@ public:
     // ^^^^^^
 
     // Normally inline
-    [[address(0x800B3B20)]]
+    [[nsmbw(0x800B3B20)]]
     static bool isWarning();
 
 public:

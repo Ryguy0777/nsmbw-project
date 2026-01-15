@@ -1,7 +1,7 @@
 // d_a_en_item.cpp
 // NSMBW d_enemies.text: 0x80A26A80 - 0x80A2D610
 
-[[address(0x80A26C30)]]
+[[nsmbw(0x80A26C30)]]
 void daEnItem_c_create() ASM_METHOD(
     // clang-format off
 /* 80A26C30 9421FFB0 */  stwu     r1, -80(r1);

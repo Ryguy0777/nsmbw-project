@@ -3,5 +3,5 @@
 
 #include "d_lyttextbox.h"
 
-[[address(0x800C9B50)]]
+[[nsmbw(0x800C9B50)]]
 void LytTextBox_c::setMessage(MsgRes_c* msgRes, u32 msgSect, u32 msg, s32, ...);

@@ -5,20 +5,20 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x80A096E0)]]
+[[nsmbw(0x80A096E0)]]
 daEnGlpole_c* daEnGlpole_c_classInit()
 {
     return new daEnGlpole_c();
 }
 
-[[address(0x80A09710)]]
+[[nsmbw(0x80A09710)]]
 daEnGlpole_c::daEnGlpole_c();
 
 /**
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80A09980)]]
+[[nsmbw(0x80A09980)]]
 fBase_c::PACK_RESULT_e daEnGlpole_c::create() ASM_METHOD(
   // clang-format off
 /* 80A09980 9421FFE0 */  stwu     r1, -32(r1);
@@ -206,7 +206,7 @@ UNDEF_80a09c4c:;
   // clang-format on
 );
 
-[[address(0x80A0A700)]]
+[[nsmbw(0x80A0A700)]]
 bool daEnGlpole_c::isTopOfFlagPole(u32 mask, int player)
 {
     for (int i = 0; i < 7; i++) {
@@ -221,7 +221,7 @@ float l_POLE_PLAYER_BASE_POS[PLAYER_COUNT] = {
   8.0 * 1, 8.0 * 2, 8.0 * 3, 8.0 * 4, 8.0 * 5, 8.0 * 6, 8.0 * 7,
 };
 
-[[address(0x80A0AB10)]]
+[[nsmbw(0x80A0AB10)]]
 void UNDEF_80A0AB10() ASM_METHOD(
   // clang-format off
 /* 80A0AB10 9421FFD0 */  stwu     r1, -48(r1);
@@ -279,7 +279,7 @@ UNDEF_80a0abb4:;
   // clang-format on
 );
 
-[[address(0x80A0ABE0)]]
+[[nsmbw(0x80A0ABE0)]]
 void UNDEF_80A0ABE0() ASM_METHOD(
   // clang-format off
 UNDEF_80a0abe0:;
@@ -436,7 +436,7 @@ UNDEF_80a0adf0:;
   // clang-format on
 );
 
-[[address(0x80A0A9F0)]]
+[[nsmbw(0x80A0A9F0)]]
 void UNDEF_80A0A9F0() ASM_METHOD(
   // clang-format off
 /* 80A0A9F0 9421FFE0 */  stwu     r1, -32(r1);
@@ -518,7 +518,7 @@ UNDEF_80a0ab00:;
   // clang-format on
 );
 
-[[address(0x80A0B020)]]
+[[nsmbw(0x80A0B020)]]
 bool daEnGlpole_c::isAllPlayerOnPole()
 {
     int count = 0;

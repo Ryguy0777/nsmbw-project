@@ -3,12 +3,12 @@
 
 #include "d_block_mng.h"
 
-[[address_data(0x8042A0F8)]]
+[[nsmbw_data(0x8042A0F8)]]
 dBlockMng_c* dBlockMng_c::m_instance;
 
 // TODO 0x80087FAC
 
-[[address(0x80087F40)]]
+[[nsmbw(0x80087F40)]]
 void dBlockMng_c::brickHit(...) ASM_METHOD(
   // clang-format off
 /* 80087F40 9421FFD0 */  stwu     r1, -48(r1);
@@ -74,7 +74,7 @@ UNDEF_80087fec:;
   // clang-format on
 );
 
-[[address(0x800882E0)]]
+[[nsmbw(0x800882E0)]]
 void dBlockMng_c_hitHiddenBlock() ASM_METHOD(
   // clang-format off
 /* 800882E0 9421FFD0 */  stwu     r1, -48(r1);
@@ -145,7 +145,7 @@ UNDEF_800883b8:;
   // clang-format on
 );
 
-[[address(0x800883E0)]]
+[[nsmbw(0x800883E0)]]
 void dBlockMng_c_FUN_800883E0() ASM_METHOD(
   // clang-format off
 /* 800883E0 9421FF30 */  stwu     r1, -208(r1);

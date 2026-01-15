@@ -3,7 +3,7 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x80B1D450)]]
+[[nsmbw(0x80B1D450)]]
 s32 daEnBossCastleIggy_c_UNDEF_80b1d450() ASM_METHOD(
   // clang-format off
 /* 80B1D450 9421FFB0 */  stwu     r1, -80(r1);

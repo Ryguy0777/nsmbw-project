@@ -3,10 +3,10 @@
 
 #include "d_cyuukan.h"
 
-[[address(0x8008ED70)]]
+[[nsmbw(0x8008ED70)]]
 dCyuukan_c::dCyuukan_c();
 
-[[address(0x8008EDB0)]]
+[[nsmbw(0x8008EDB0)]]
 void dCyuukan_c::clear()
 {
     m0x14 = 0;
@@ -24,8 +24,8 @@ void dCyuukan_c::clear()
     }
 }
 
-[[address(0x8008EE00)]]
+[[nsmbw(0x8008EE00)]]
 void dCyuukan_c::courseIN();
 
-[[address(0x8008EEC0)]]
+[[nsmbw(0x8008EEC0)]]
 bool dCyuukan_c::checkEntry();

@@ -44,7 +44,7 @@ static constinit const nw4r::ut::Color PLY_CURSOR_EFF_COLOR_2[] = {
     "#1C1C1C", // Black Toad
 };
 
-[[address(0x8086AB90)]]
+[[nsmbw(0x8086AB90)]]
 void daMiniGameWireMeshMgrObj_c::EffectCursor2d() {
     GXColor fillClr, edgeClr;
 
@@ -68,7 +68,7 @@ void daMiniGameWireMeshMgrObj_c::EffectCursor2d() {
     }
 }
 
-[[address(0x8086AEA0)]]
+[[nsmbw(0x8086AEA0)]]
 void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor() {
     dAcPy_c *ply = daPyMng_c::getPlayer(mTurnPlayer);
 
@@ -137,7 +137,7 @@ void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor() {
     }
 }
 
-[[address(0x8086B230)]]
+[[nsmbw(0x8086B230)]]
 void daMiniGameWireMeshMgrObj_c::updateStockItem()
 {
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();

@@ -17,7 +17,7 @@
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x8091D350)]]
+[[nsmbw(0x8091D350)]]
 fBase_c::PACK_RESULT_e dScWorld9DeMo_c::create()
 {
     dFader_c::setFader(dFader_c::fader_type_e::FADE);
@@ -50,5 +50,5 @@ fBase_c::PACK_RESULT_e dScWorld9DeMo_c::create()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8091DEC0)]]
+[[nsmbw(0x8091DEC0)]]
 void dScWorld9DeMo_c::initLight();

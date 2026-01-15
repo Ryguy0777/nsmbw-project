@@ -1,7 +1,7 @@
 // d_a_en_brick_block.cpp
 // NSMBW d_enemies.text: 0x809D0090 - 0x809D0450
 
-[[address(0x809D0120)]]
+[[nsmbw(0x809D0120)]]
 void daEnBkBlock_c_onCreate() ASM_METHOD(
   // clang-format off
 /* 809D0120 9421FFE0 */  stwu     r1, -32(r1);

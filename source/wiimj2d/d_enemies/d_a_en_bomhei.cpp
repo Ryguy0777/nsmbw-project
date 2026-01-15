@@ -5,7 +5,7 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x809C9DD0)]]
+[[nsmbw(0x809C9DD0)]]
 void UNDEF_809C9DD0() ASM_METHOD(
   // clang-format off
 /* 809C9DD0 9421FFC0 */  stwu     r1, -64(r1);
@@ -153,7 +153,7 @@ UNDEF_809c9fd4:;
   // clang-format on
 );
 
-[[address(0x809CA8D0)]]
+[[nsmbw(0x809CA8D0)]]
 bool daEnBomhei_c::hitCallback_HipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 809CA8D0 9421FFE0 */  stwu     r1, -32(r1);
@@ -244,7 +244,7 @@ UNDEF_809caa14:;
   // clang-format on
 );
 
-[[address(0x809CBBC0)]]
+[[nsmbw(0x809CBBC0)]]
 void daEnBomhei_c::initializeState_Slide() ASM_METHOD(
   // clang-format off
 /* 809CBBC0 9421FFE0 */  stwu     r1, -32(r1);

@@ -6,10 +6,10 @@
 namespace EGG
 {
 
-[[address(0x802BA410)]]
+[[nsmbw(0x802BA410)]]
 Disposer::Disposer();
 
-[[address(0x802BA470)]]
+[[nsmbw(0x802BA470)]]
 Disposer::~Disposer();
 
 } // namespace EGG

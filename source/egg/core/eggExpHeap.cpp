@@ -6,7 +6,7 @@
 namespace EGG
 {
 
-[[address(0x802B9840)]]
+[[nsmbw(0x802B9840)]]
 u32 ExpHeap::getSizeForMBlock(const void* block);
 
 } // namespace EGG

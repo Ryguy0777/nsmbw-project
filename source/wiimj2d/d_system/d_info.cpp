@@ -13,22 +13,22 @@
 #include "d_system/d_save_manager.h"
 #include <cstring>
 
-[[address_data(0x80315E90)]]
+[[nsmbw_data(0x80315E90)]]
 dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
 
 /* 0x80359054 */
 dStartInfo_c dInfo_c::m_startInfo;
 
-[[address_data(0x8042A25C)]]
+[[nsmbw_data(0x8042A25C)]]
 dInfo_c* dInfo_c::m_instance;
 
-[[address_data(0x8042A260)]]
+[[nsmbw_data(0x8042A260)]]
 u32 dInfo_c::mGameFlag;
 
-[[address(0x800BB0E0)]]
+[[nsmbw(0x800BB0E0)]]
 dInfo_c::dInfo_c();
 
-[[address(0x800BB130)]]
+[[nsmbw(0x800BB130)]]
 dInfo_c::~dInfo_c();
 
 dInfo_c::dInfo_c(dInfo_c* old)
@@ -41,7 +41,7 @@ dInfo_c::dInfo_c(dInfo_c* old)
 
 EXTERN_SYMBOL(0x80315EA0, "__vt__7dInfo_c");
 
-[[address(0x800BB180)]]
+[[nsmbw(0x800BB180)]]
 void dInfo_c::PlayerStateInit()
 {
     for (s32 i = 0; i < PLAYER_COUNT; i++) {
@@ -51,35 +51,35 @@ void dInfo_c::PlayerStateInit()
     }
 }
 
-[[address(0x800BB1C0)]]
+[[nsmbw(0x800BB1C0)]]
 void dInfo_c::CourseSelectInit();
 
-[[address(0x800BB330)]]
+[[nsmbw(0x800BB330)]]
 void dInfo_c::addStockItem(int item)
 {
     auto* save = dSaveMng_c::m_instance->getSaveGame(-1);
     save->setStockItem(item, save->getStockItem(item) + 1);
 }
 
-[[address(0x800BB380)]]
+[[nsmbw(0x800BB380)]]
 void dInfo_c::subStockItem(int item)
 {
     auto* save = dSaveMng_c::m_instance->getSaveGame(-1);
     save->setStockItem(item, save->getStockItem(item) - 1);
 }
 
-[[address(0x800BB3D0)]]
+[[nsmbw(0x800BB3D0)]]
 u8 dInfo_c::getStockItem(int item) const
 {
     return dSaveMng_c::m_instance->getSaveGame(-1)->getStockItem(item);
 }
 
-[[address(0x800BB410)]]
+[[nsmbw(0x800BB410)]]
 void dInfo_c::clsStockItem(int item);
 
 EXTERN_SYMBOL(0x800BB450, "initGame__7dInfo_cFv");
 
-[[address(0x800BB5B0)]]
+[[nsmbw(0x800BB5B0)]]
 void dInfo_c::initMultiMode() {
     // Reset win counts
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -109,12 +109,12 @@ void dInfo_c::initMultiMode() {
 
 EXTERN_SYMBOL(0x800BB7D0, "startGame__7dInfo_cFRCQ27dInfo_c15StartGameInfo_s");
 
-[[address(0x800BB7D0)]]
+[[nsmbw(0x800BB7D0)]]
 void dInfo_c::startGame(const StartGameInfo_s& startGameInfo);
 
 EXTERN_SYMBOL(0x800BB8D0, "startStaffCredit__7dInfo_cFv");
 
-[[address(0x800BB940)]]
+[[nsmbw(0x800BB940)]]
 void dInfo_c::initStage()
 {
     m_startInfo.mCyuukan.mState = mCyuukan.mState;
@@ -181,10 +181,10 @@ void dInfo_c::initStage()
     UNDEF_8042a461 = UNDEF_8042a460;
 }
 
-[[address(0x800BBBC0)]]
+[[nsmbw(0x800BBBC0)]]
 void dInfo_c::SetWorldMapEnemy(int world, int index, const enemy_s& enemy);
 
-[[address(0x800BBC00)]]
+[[nsmbw(0x800BBC00)]]
 const dInfo_c::enemy_s& dInfo_c::GetWorldMapEnemy(int world, int index);
 
 EXTERN_SYMBOL(0x800BBC20, "SetMapEnemyInfo__7dInfo_cFiiii");
@@ -193,16 +193,16 @@ EXTERN_SYMBOL(0x800BBC40, "#0A406FBE");
 
 EXTERN_SYMBOL(0x800BBC60, "GetMapEnemyInfo__7dInfo_cFiiRQ27dInfo_c7enemy_s");
 
-[[address(0x800BBCA0)]]
+[[nsmbw(0x800BBCA0)]]
 void dInfo_c::SetIbaraNow(int i, IbaraMode_e mode);
 
-[[address(0x800BBCB0)]]
+[[nsmbw(0x800BBCB0)]]
 void dInfo_c::SetIbaraOld(int i, IbaraMode_e mode);
 
-[[address(0x800BBCC0)]]
+[[nsmbw(0x800BBCC0)]]
 dInfo_c::IbaraMode_e dInfo_c::GetIbaraNow(int i);
 
-[[address(0x800BBCD0)]]
+[[nsmbw(0x800BBCD0)]]
 dInfo_c::IbaraMode_e dInfo_c::GetIbaraOld(int i);
 
 EXTERN_SYMBOL(0x800BBCE0, "__sinit_\\d_info_cpp");

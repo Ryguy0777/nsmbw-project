@@ -12,7 +12,7 @@
 #include "d_system/d_msgres.h"
 #include <algorithm>
 
-[[address(0x80B6BCC0)]]
+[[nsmbw(0x80B6BCC0)]]
 void dPreGameLyt_c::setPlayerRest()
 {
     for (std::size_t i = 0; i < LytPlayerCount; i++) {
@@ -71,7 +71,7 @@ void dPreGameLyt_c::createLayoutExtra()
     );
 }
 
-[[address(0x80B6C040)]]
+[[nsmbw(0x80B6C040)]]
 void dPreGameLyt_c::createLayout() ASM_METHOD(
   // clang-format off
 /* 80B6C040 9421FFE0 */  stwu     r1, -32(r1);
@@ -368,7 +368,7 @@ UNDEF_80b6c474:;
   // clang-format on
 );
 
-[[address(0x80B6C830)]]
+[[nsmbw(0x80B6C830)]]
 void dPreGameLyt_c::Phase0_Init()
 {
     nw4r::math::VEC3 pos[LytPlayerCount], battPos[4];

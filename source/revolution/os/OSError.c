@@ -11,7 +11,7 @@ EXTERN_C_START
 
 // OVERRIDDEN: OSPanic
 
-[[address(0x801AD750)]]
+[[nsmbw(0x801AD750)]]
 void OSSetErrorHandler(void (*handler)(const char* file, int line, const char* msg));
 
 EXTERN_C_END

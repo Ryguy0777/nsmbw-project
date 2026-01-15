@@ -3,5 +3,5 @@
 
 #include "d_wm_effectManager.h"
 
-[[address(0x80103020)]]
+[[nsmbw(0x80103020)]]
 dWmEffectManager_c* dWmEffectManager_c::construct();

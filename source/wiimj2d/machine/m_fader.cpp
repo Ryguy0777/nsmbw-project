@@ -4,5 +4,5 @@
 
 #include "m_fader.h"
 
-[[address_data(0x8042A720)]]
+[[nsmbw_data(0x8042A720)]]
 mFader_c* mFader_c::mFader;

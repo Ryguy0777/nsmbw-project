@@ -8,7 +8,7 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 
-[[address(0x8091AC10)]]
+[[nsmbw(0x8091AC10)]]
 void dScMulti_c::executeState_SelectCourse()
 {
     if (mpCourseSelect->mExitWindowActive == false) {

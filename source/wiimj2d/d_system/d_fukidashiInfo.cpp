@@ -12,7 +12,7 @@
 #include <nw4r/lyt/Material.h>
 #include <nw4r/ut/Color.h>
 
-[[address(0x800B1990)]]
+[[nsmbw(0x800B1990)]]
 void dfukidashiInfo_c::draw()
 {
     if (!mDisplayed) {
@@ -31,7 +31,7 @@ void dfukidashiInfo_c::draw()
     }
 }
 
-[[address(0x800B1A50)]]
+[[nsmbw(0x800B1A50)]]
 void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
 {
     float s_FUKIDASHI_Y_OFFSET[PLAYER_COUNT][PLAYER_MODE_COUNT] = {
@@ -129,7 +129,7 @@ void dfukidashiInfo_c::SetPosOffset(int playerType, int powerupType)
     mPosOffset.z = 0.0;
 }
 
-[[address(0x800B1BD0)]]
+[[nsmbw(0x800B1BD0)]]
 void dfukidashiInfo_c::ColorSet()
 {
     static constinit nw4r::ut::Color l_PLAYER_COLOR_1[PLAYER_COUNT] = {
@@ -195,7 +195,7 @@ void dfukidashiInfo_c::ColorSet()
     material->SetTevColor(1, color3);
 }
 
-[[address(0x800B2230)]]
+[[nsmbw(0x800B2230)]]
 void dfukidashiInfo_c::executeState_Move() ASM_METHOD(
   // clang-format off
 /* 800B2230 9421FFF0 */  stwu     r1, -16(r1);
@@ -283,7 +283,7 @@ UNDEF_800b2330:;
   // clang-format on
 );
 
-[[address(0x800B2370)]]
+[[nsmbw(0x800B2370)]]
 void dfukidashiInfo_c::finalizeState_Move()
 {
     mLayout.AnimeEndSetup(m0x22C);
@@ -315,7 +315,7 @@ void dfukidashiInfo_c::finalizeState_Move()
     m0x23A = false;
 }
 
-[[address(0x800B24B0)]]
+[[nsmbw(0x800B24B0)]]
 void dfukidashiInfo_c::finalizeState_Exit()
 {
     u8* b56Value = mPlayerID < 4 ? &dInfo_c::m_instance->m0xB56[mPlayerID]

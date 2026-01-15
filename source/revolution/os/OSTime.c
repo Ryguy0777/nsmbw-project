@@ -5,10 +5,10 @@
 
 EXTERN_C_START
 
-[[address(0x801B60C0)]]
+[[nsmbw(0x801B60C0)]]
 OSTime OSGetTime();
 
-[[address(0x801B60E0)]]
+[[nsmbw(0x801B60E0)]]
 OSTick OSGetTick();
 
 // UNUSED: __SetTime

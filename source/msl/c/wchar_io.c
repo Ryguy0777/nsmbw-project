@@ -3,5 +3,5 @@
 
 #include "wchar.h"
 
-[[address(0x802E47E8)]]
+[[nsmbw(0x802E47E8)]]
 int fwide(FILE* file, int mode);

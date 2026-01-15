@@ -6,10 +6,10 @@
 namespace mHeap
 {
 
-[[address_data(0x80377F48)]]
+[[nsmbw_data(0x80377F48)]]
 EGG::Heap* g_gameHeaps[3];
 
-[[address(0x8016E630)]]
+[[nsmbw(0x8016E630)]]
 EGG::Heap* setCurrentHeap(EGG::Heap* heap);
 
 } // namespace mHeap

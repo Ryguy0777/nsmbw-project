@@ -3,5 +3,5 @@
 
 #include "d_a_ice.h"
 
-[[address(0x8011EFC0)]]
+[[nsmbw(0x8011EFC0)]]
 bool daIce_c::checkPlAttach_Head(int*);

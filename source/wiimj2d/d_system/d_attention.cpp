@@ -3,8 +3,8 @@
 
 #include "d_attention.h"
 
-[[address_data(0x8042A030)]]
+[[nsmbw_data(0x8042A030)]]
 dAttention_c* dAttention_c::mspInstance;
 
-[[address(0x800691B0)]]
+[[nsmbw(0x800691B0)]]
 void dAttention_c::update();

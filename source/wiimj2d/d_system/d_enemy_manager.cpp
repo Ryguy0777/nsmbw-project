@@ -7,13 +7,13 @@
 #include "d_system/d_audio.h"
 #include "sound/SndID.h"
 
-[[address_data(0x8042A1F0)]]
+[[nsmbw_data(0x8042A1F0)]]
 dEnemyMng_c* dEnemyMng_c::m_instance;
 
-[[address(0x800A7D30)]]
+[[nsmbw(0x800A7D30)]]
 void dEnemyMng_c::execute();
 
-[[address(0x800A7560)]]
+[[nsmbw(0x800A7560)]]
 void dEnemyMng_c::spawnYoshiEgg(mVec3_c* pos, int param_2, u32 param_3, s8 param_4, int param_5)
 {
     if (param_4 == -1) {

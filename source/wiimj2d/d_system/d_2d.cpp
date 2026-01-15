@@ -6,22 +6,22 @@
 namespace d2d
 {
 
-[[address(0x80006AA0)]]
+[[nsmbw(0x80006AA0)]]
 ResAccMultLoader_c::ResAccMultLoader_c();
 
-[[address(0x80006BE0)]]
+[[nsmbw(0x80006BE0)]]
 bool ResAccMultLoader_c::request(const char* path);
 
-[[address(0x80006EA0)]]
+[[nsmbw(0x80006EA0)]]
 void Multi_c::entry();
 
-[[address(0x80007010)]]
+[[nsmbw(0x80007010)]]
 void Multi_c::draw();
 
-[[address(0x80006EB0)]]
+[[nsmbw(0x80006EB0)]]
 void Multi_c::calc();
 
-[[address(0x80007220)]]
+[[nsmbw(0x80007220)]]
 nw4r::lyt::Pane* Multi_c::getRootPane();
 
 } // namespace d2d

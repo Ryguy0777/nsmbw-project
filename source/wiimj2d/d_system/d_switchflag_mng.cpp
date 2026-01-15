@@ -3,8 +3,8 @@
 
 #include "d_switchflag_mng.h"
 
-[[address_data(0x8042A358)]]
+[[nsmbw_data(0x8042A358)]]
 dSwitchFlagMng_c* dSwitchFlagMng_c::m_instance;
 
-[[address(0x800E4100)]]
+[[nsmbw(0x800E4100)]]
 void dSwitchFlagMng_c::execute();

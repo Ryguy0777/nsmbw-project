@@ -5,7 +5,7 @@
 
 EXTERN_C_START
 
-[[address(0x802DECC8)]]
+[[nsmbw(0x802DECC8)]]
 int fflush(FILE* file);
 
 EXTERN_C_END

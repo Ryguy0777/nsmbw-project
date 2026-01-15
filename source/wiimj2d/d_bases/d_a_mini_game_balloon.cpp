@@ -6,7 +6,7 @@
 #include "machine/m_ef.h"
 #include "machine/m_vec.h"
 
-[[address(0x80864170)]]
+[[nsmbw(0x80864170)]]
 bool daMiniGameBalloon_c::hitCallback_Cannon(dCc_c* self, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 80864170 9421FFA0 */  stwu     r1, -96(r1);

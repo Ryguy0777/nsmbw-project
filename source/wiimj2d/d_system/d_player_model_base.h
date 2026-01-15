@@ -111,10 +111,10 @@ public:
     virtual void offStarAnm();
 
     /* VT+0x48 */
-    [[address(0x800BD740) /* d_kinopio_model.o */]]
+    [[nsmbw(0x800BD740) /* d_kinopio_model.o */]]
     virtual void onStarEffect();
     /* VT+0x4C */
-    [[address(0x800BD730) /* d_kinopio_model.o */]]
+    [[nsmbw(0x800BD730) /* d_kinopio_model.o */]]
     virtual void offStarEffect();
 
     /* VT+0x50 0x800D5820 */

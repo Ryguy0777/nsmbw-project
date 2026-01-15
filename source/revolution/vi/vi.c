@@ -5,7 +5,7 @@ EXTERN_C_START
 
 #include <revolution/vi.h>
 
-[[address_data(0x8042AB30)]]
+[[nsmbw_data(0x8042AB30)]]
 s32 __VIDimmingFlag_SI_IDLE;
 
 EXTERN_SYMBOL(0x801BBB70, "OnShutdown");

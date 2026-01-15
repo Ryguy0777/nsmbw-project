@@ -15,11 +15,11 @@
 // Unknown 0x8015F820
 
 // Override of the weak symbol from OSError.c
-[[address(0x8015F870)]]
+[[nsmbw(0x8015F870)]]
 void OSReport(const char* format, ...);
 
 // Override of the weak symbol from OSError.c
-[[address(0x8015F880)]]
+[[nsmbw(0x8015F880)]]
 void OSVReport(const char* format, va_list args);
 
 static void** checkStackAddr(void* stackPtr)
@@ -67,7 +67,7 @@ static const char* getRegionInfo()
 }
 
 // Override of the weak symbol from OSError.c
-[[address(0x801AD620)]] [[noreturn]]
+[[nsmbw(0x801AD620)]] [[noreturn]]
 void OSPanic(const char* file, int line, const char* format, ...)
 {
     OSDisableInterrupts();

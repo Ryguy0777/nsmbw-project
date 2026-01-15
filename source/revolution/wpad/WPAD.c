@@ -5,19 +5,19 @@
 
 EXTERN_C_START
 
-[[address(0x801DFC40)]]
+[[nsmbw(0x801DFC40)]]
 WPADClearDeviceCallback WPADSetClearDeviceCallback(WPADClearDeviceCallback pCallback);
 
-[[address(0x801DFD10)]]
+[[nsmbw(0x801DFD10)]]
 BOOL WPADSetAcceptConnection(BOOL accept);
 
-[[address(0x801E0F80)]]
+[[nsmbw(0x801E0F80)]]
 void WPADDisconnect(WPADChannel chan);
 
-[[address(0x801E1080)]]
+[[nsmbw(0x801E1080)]]
 WPADResult WPADProbe(WPADChannel chan, u32* pDevType);
 
-[[address(0x801E1620)]]
+[[nsmbw(0x801E1620)]]
 void WPADControlMotor(WPADChannel chan, WPADMotorCommand command);
 
 EXTERN_C_END

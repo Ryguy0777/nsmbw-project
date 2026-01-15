@@ -3,8 +3,8 @@
 
 #include "d_tencoin_mng.h"
 
-[[address_data(0x8042A3B0)]]
+[[nsmbw_data(0x8042A3B0)]]
 dTenCoinMng_c* dTenCoinMng_c::m_instance;
 
-[[address(0x800E7640)]]
+[[nsmbw(0x800E7640)]]
 void dTenCoinMng_c::execute();

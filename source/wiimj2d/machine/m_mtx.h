@@ -74,7 +74,7 @@ public:
     /**
      * Extracts the translation vector from the matrix.
      */
-    [[address(0x8016F270)]]
+    [[nsmbw(0x8016F270)]]
     void multVecZero(nw4r::math::VEC3& out) const;
 
     /**

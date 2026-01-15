@@ -67,7 +67,7 @@ EXTERN_REPL(
   SoundType SoundArchiveFileReader::GetSoundTypeInternal(u32 id) const
 );
 
-[[address(0x80276020)]]
+[[nsmbw(0x80276020)]]
 SoundType SoundArchiveFileReader::GetSoundType(u32 id) const
 {
     return GetSoundTypeInternal(GetBaseToadetteSoundId(id));
@@ -79,7 +79,7 @@ EXTERN_REPL(
     const
 );
 
-[[address(0x80276110)]]
+[[nsmbw(0x80276110)]]
 bool SoundArchiveFileReader::ReadSoundInfo(u32 id, SoundArchive::SoundInfo* pSoundInfo) const
 {
     return ReadSoundInfoInternal(GetBaseToadetteSoundId(id), pSoundInfo);
@@ -91,7 +91,7 @@ EXTERN_REPL(
     const
 );
 
-[[address(0x80276350)]]
+[[nsmbw(0x80276350)]]
 bool SoundArchiveFileReader::ReadSeqSoundInfo(u32 id, SoundArchive::SeqSoundInfo* pInfo) const
 {
     bool result = ReadSeqSoundInfoInternal(GetBaseToadetteSoundId(id), pInfo);
@@ -103,7 +103,7 @@ bool SoundArchiveFileReader::ReadSeqSoundInfo(u32 id, SoundArchive::SeqSoundInfo
     return result;
 }
 
-[[address(0x80276630)]]
+[[nsmbw(0x80276630)]]
 bool SoundArchiveFileReader::ReadBankInfo(u32 id, SoundArchive::BankInfo* pInfo) const
 {
     if (id == TOADETTE_BANK) {
@@ -121,7 +121,7 @@ bool SoundArchiveFileReader::ReadBankInfo(u32 id, SoundArchive::BankInfo* pInfo)
     return true;
 }
 
-[[address(0x80276B10)]]
+[[nsmbw(0x80276B10)]]
 const char* SoundArchiveFileReader::GetSoundLabelString(u32 id) const;
 
 const char* SoundArchiveFileReader::GetString(u32 id) const

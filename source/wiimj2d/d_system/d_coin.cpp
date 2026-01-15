@@ -3,5 +3,5 @@
 
 #include "d_coin.h"
 
-[[address(0x8008DED0)]]
+[[nsmbw(0x8008DED0)]]
 int dCoin_c::execute();

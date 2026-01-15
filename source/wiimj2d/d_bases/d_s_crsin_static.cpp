@@ -3,5 +3,5 @@
 
 #include "d_s_crsin.h"
 
-[[address_data(0x8042A494)]]
+[[nsmbw_data(0x8042A494)]]
 dScCrsin_c* dScCrsin_c::m_instance;

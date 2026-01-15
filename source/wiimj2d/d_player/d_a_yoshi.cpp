@@ -7,7 +7,7 @@
 #include "d_system/d_a_player_manager.h"
 
 /* VT+0x0DC */
-[[address(0x80150E10)]]
+[[nsmbw(0x80150E10)]]
 void daYoshi_c::executeLastAll()
 {
     if (!isStatus(1)) {
@@ -33,5 +33,5 @@ void daYoshi_c::executeLastAll()
     }
 }
 
-[[address(0x80150420)]]
+[[nsmbw(0x80150420)]]
 void daYoshi_c::setHitTongueReserve();

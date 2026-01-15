@@ -5,7 +5,7 @@
 
 #include "d_player/d_a_player.h"
 
-[[address(0x80897F60)]]
+[[nsmbw(0x80897F60)]]
 daReverseBlock_c* daReverseBlock_c_classInit()
 {
     return new daReverseBlock_c();
@@ -15,14 +15,14 @@ daReverseBlock_c* daReverseBlock_c_classInit()
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80897FD0)]]
+[[nsmbw(0x80897FD0)]]
 fBase_c::PACK_RESULT_e daReverseBlock_c::create();
 
 /**
  * VT+0x20
  * do method for the execute operation.
  */
-[[address(0x80898190)]]
+[[nsmbw(0x80898190)]]
 fBase_c::PACK_RESULT_e daReverseBlock_c::execute()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -40,7 +40,7 @@ fBase_c::PACK_RESULT_e daReverseBlock_c::execute()
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
  */
-[[address(0x80898230)]]
+[[nsmbw(0x80898230)]]
 fBase_c::PACK_RESULT_e daReverseBlock_c::doDelete()
 {
     mCc0.release();
@@ -50,20 +50,20 @@ fBase_c::PACK_RESULT_e daReverseBlock_c::doDelete()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x80898280)]]
+[[nsmbw(0x80898280)]]
 void daReverseBlock_c::resetPlayerData()
 {
     mPlayerData.fill(0);
 }
 
-[[address(0x808983E0)]]
+[[nsmbw(0x808983E0)]]
 void daReverseBlock_c::updatePlayer(dAcPy_c* player, int index);
 
 /**
  * VT+0x48
  * Destroys the base.
  */
-[[address(0x80898450)]]
+[[nsmbw(0x80898450)]]
 daReverseBlock_c::~daReverseBlock_c()
 {
     mCc0.~dCc_c();

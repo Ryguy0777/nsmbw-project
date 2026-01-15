@@ -9,7 +9,7 @@
 
 short sSeesawAngle[PLAYER_COUNT];
 
-[[address(0x8083F550)]]
+[[nsmbw(0x8083F550)]]
 short daLiftRemoconSeesaw_c::CalculateInitialAngle()
 {
     dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[mRemotePlayerID];
@@ -25,7 +25,7 @@ short daLiftRemoconSeesaw_c::CalculateInitialAngle()
     }
 }
 
-[[address(0x8083F4F0)]]
+[[nsmbw(0x8083F4F0)]]
 short daLiftRemoconSeesaw_c::CalculateAngle()
 {
     dGameKeyCore_c* currentCore = dGameKey_c::m_instance->mpCores[mRemotePlayerID];

@@ -96,7 +96,7 @@ public:
     /* VT+0xC */
     virtual void draw() = 0;
 
-    [[address(0x80163990)]]
+    [[nsmbw(0x80163990)]]
     void entry();
 
     /* 0xC */ u8 mPriority;

@@ -6,7 +6,7 @@
 namespace nw4r::snd::detail::Util
 {
 
-[[address(0x80283BA0)]]
+[[nsmbw(0x80283BA0)]]
 const void* GetDataRefAddressImpl(RefType type, u32 value, const void* pBase);
 
 } // namespace nw4r::snd::detail::Util

@@ -16,7 +16,7 @@
 #include "d_system/d_start_info.h"
 #include "d_system/d_wm_lib.h"
 
-[[address(0x80924950)]]
+[[nsmbw(0x80924950)]]
 bool dScStage_c::CreatedLayouts() const
 {
     return !checkChildProcessCreateState() && (!mpMiniGameCannon || mpMiniGameCannon->mReady) &&
@@ -26,7 +26,7 @@ bool dScStage_c::CreatedLayouts() const
            (!mpStaffCreditScore || mpStaffCreditScore->mReady);
 }
 
-[[address(0x809251F0)]]
+[[nsmbw(0x809251F0)]]
 void dScStage_c::courseClear()
 {
     WORLD_e world = m_instance->mWorld;
@@ -99,7 +99,7 @@ void dScStage_c::courseClear()
     }
 }
 
-[[address(0x809253E0)]]
+[[nsmbw(0x809253E0)]]
 void dScStage_c::restoreStartInfo()
 {
     dInfo_c* info = dInfo_c::m_instance;

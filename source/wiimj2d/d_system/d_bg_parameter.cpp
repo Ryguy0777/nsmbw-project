@@ -3,5 +3,5 @@
 
 #include "d_bg_parameter.h"
 
-[[address_data(0x8042A0E0)]]
+[[nsmbw_data(0x8042A0E0)]]
 dBgParameter_c* dBgParameter_c::ms_Instance_p;

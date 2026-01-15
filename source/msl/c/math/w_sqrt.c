@@ -5,7 +5,7 @@
 
 EXTERN_C_START
 
-[[address(0x802E8B58)]]
+[[nsmbw(0x802E8B58)]]
 double sqrt(double x);
 
 EXTERN_C_END

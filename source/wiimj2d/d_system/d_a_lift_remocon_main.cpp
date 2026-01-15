@@ -8,10 +8,10 @@
 #include "d_system/d_actor.h"
 #include <revolution/os/OSError.h>
 
-[[address(0x800440C0)]]
+[[nsmbw(0x800440C0)]]
 u8 daLiftRemoconMain_c::PlayerNoRideCheck(u8 playerMask);
 
-[[address(0x800441E0)]]
+[[nsmbw(0x800441E0)]]
 u8 daLiftRemoconMain_c::UpdateControlPlayerNo(u8* rideCheck)
 {
     if (mpControlPlayerTimer == nullptr) {

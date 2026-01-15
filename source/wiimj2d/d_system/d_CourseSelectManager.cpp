@@ -14,23 +14,23 @@
 #include "d_system/d_mj2d_game.h"
 #include <iterator>
 
-[[address_data(0x809A2370)]]
+[[nsmbw_data(0x809A2370)]]
 dCourseSelectManager_c* dCourseSelectManager_c::m_instance;
 
-[[address(0x8092F020)]]
+[[nsmbw(0x8092F020)]]
 dCourseSelectManager_c* dCourseSelectManager_c_classInit()
 {
     return new dCourseSelectManager_c();
 }
 
-[[address(0x8092F050)]]
+[[nsmbw(0x8092F050)]]
 dCourseSelectManager_c::dCourseSelectManager_c();
 
 /**
  * VT+0x24
  * pre method for the execute operation.
  */
-[[address(0x8092F3D0)]]
+[[nsmbw(0x8092F3D0)]]
 fBase_c::PACK_RESULT_e dCourseSelectManager_c::preExecute()
 {
     if (dBase_c::preExecute() == PACK_RESULT_e::NOT_READY) {
@@ -54,7 +54,7 @@ fBase_c::PACK_RESULT_e dCourseSelectManager_c::preExecute()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8092F770)]]
+[[nsmbw(0x8092F770)]]
 void dCourseSelectManager_c::executeState_ContinueCheck()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -69,7 +69,7 @@ void dCourseSelectManager_c::executeState_ContinueCheck()
     mStateMgr.changeState(StateID_KeyWait);
 }
 
-[[address(0x8092F830)]]
+[[nsmbw(0x8092F830)]]
 void dCourseSelectManager_c::executeState_ContinueEndWait()
 {
     if (mpContinue->mDoExit) {
@@ -89,7 +89,7 @@ void dCourseSelectManager_c::executeState_ContinueEndWait()
     }
 }
 
-[[address(0x8092F940)]]
+[[nsmbw(0x8092F940)]]
 void dCourseSelectManager_c::executeState_KeyWait() ASM_METHOD(
   // clang-format off
 /* 8092F940 9421FFE0 */  stwu     r1, -32(r1);
@@ -250,7 +250,7 @@ UNDEF_8092fb68:;
   // clang-format on
 );
 
-[[address(0x8092FDF0)]]
+[[nsmbw(0x8092FDF0)]]
 void dCourseSelectManager_c::executeState_StockItemSelectWait()
 {
     if (mpStockItem->m0x8DD != 0) {
@@ -266,20 +266,20 @@ void dCourseSelectManager_c::executeState_StockItemSelectWait()
     mStateMgr.changeState(StateID_KeyWait);
 }
 
-[[address(0x80930960)]]
+[[nsmbw(0x80930960)]]
 void dCourseSelectManager_c::initializeState_EasyPairingWait()
 {
     mpNumPyChg->setEasyPairingWait(true);
     mpEasyPairing->m0x279 = true;
 }
 
-[[address(0x80930A10)]]
+[[nsmbw(0x80930A10)]]
 void dCourseSelectManager_c::finalizeState_EasyPairingWait()
 {
     mpNumPyChg->setEasyPairingWait(false);
 }
 
-[[address(0x809311E0)]]
+[[nsmbw(0x809311E0)]]
 PLAYER_MODE_e dCourseSelectManager_c::getPlayerPowerup(int playerIndex)
 {
     int plrType = static_cast<int>(daPyMng_c::mPlayerType[playerIndex]);

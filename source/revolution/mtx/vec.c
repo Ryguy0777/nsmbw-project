@@ -5,7 +5,7 @@
 
 EXTERN_C_START
 
-[[address(0x801C1790)]]
+[[nsmbw(0x801C1790)]]
 f32 PSVECSquareDistance(const Vec* a, const Vec* b);
 
 EXTERN_C_END

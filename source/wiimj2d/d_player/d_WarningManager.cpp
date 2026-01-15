@@ -3,11 +3,11 @@
 
 #include "d_WarningManager.h"
 
-[[address_data(0x8042A5B8)]]
+[[nsmbw_data(0x8042A5B8)]]
 dWarningManager_c* dWarningManager_c::m_instance;
 
-[[address_data(0x8042A5C0)]]
+[[nsmbw_data(0x8042A5C0)]]
 s32 dWarningManager_c::m_WarningForbid;
 
-[[address(0x8010E710)]]
+[[nsmbw(0x8010E710)]]
 void dWarningManager_c::onControllerCut(int player);

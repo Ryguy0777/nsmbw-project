@@ -12,7 +12,7 @@ int daIceBall_c_m_limit1[PLAYER_COUNT];
 [[gnu::section(".sdata")]]
 int daIceBall_c_m_limit2[PLAYER_COUNT];
 
-[[address(0x80123470)]]
+[[nsmbw(0x80123470)]]
 int daIceBall_c_create(void* this_) ASM_METHOD(
   // clang-format off
 /* 80123470 9421FFC0 */  stwu     r1, -64(r1);

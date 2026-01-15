@@ -27,7 +27,7 @@ public:
     // Instance Methods
     // ^^^^^^
 
-    [[address(0x8027A340)]]
+    [[nsmbw(0x8027A340)]]
     void DetachSound();
 
 public:

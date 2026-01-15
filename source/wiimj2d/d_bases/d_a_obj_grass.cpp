@@ -9,7 +9,7 @@ u32 daObjGrass_c_getSize() {
     return sizeof(daObjGrass_c);
 }
 
-[[address(0x808760E0)]]
+[[nsmbw(0x808760E0)]]
 daObjGrass_c* daObjGrass_c_classInit() ASM_METHOD(
   // clang-format off
 /* 808760E0 9421FFD0 */  stwu     r1, -48(r1);
@@ -80,7 +80,7 @@ UNDEF_808761c0:;
 );
 
 
-[[address(0x80876680)]]
+[[nsmbw(0x80876680)]]
 void daObjGrass_c_onExecute() ASM_METHOD(
   // clang-format off
 /* 80876680 9421FD80 */  stwu     r1, -640(r1);

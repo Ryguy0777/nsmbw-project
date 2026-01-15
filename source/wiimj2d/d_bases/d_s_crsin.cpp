@@ -10,7 +10,7 @@
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_resource_mng.h"
 
-[[address(0x8091EC50)]]
+[[nsmbw(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()
 {
     static const char* l_objectRes[] = {
@@ -64,22 +64,22 @@ int dScCrsin_c::loadDefaultObjectResPhase()
     return 1;
 }
 
-[[address(0x8091EFD0)]]
+[[nsmbw(0x8091EFD0)]]
 dScCrsin_c::~dScCrsin_c()
 {
     mPreGameLyt.~dPreGameLyt_c();
 }
 
-[[address(0x8091F560)]]
+[[nsmbw(0x8091F560)]]
 bool dScCrsin_c::isDoneLoading();
 
-[[address(0x8091F940)]]
+[[nsmbw(0x8091F940)]]
 void dScCrsin_c::initializeState_loadCourseProc()
 {
     dYoshiMdl_c::setDefaultColors();
 }
 
-[[address(0x8091FE20)]]
+[[nsmbw(0x8091FE20)]]
 void dScCrsin_c::executeState_resWaitProc2()
 {
     if (!isDoneLoading()) {

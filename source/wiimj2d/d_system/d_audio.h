@@ -42,20 +42,20 @@ public:
     // ^^^^^^
 
     /* VT+0x24 */
-    [[address(0x801052C0)]]
+    [[nsmbw(0x801052C0)]]
     virtual nw4r::snd::SoundHandle* startSound(u32 soundId, u32 remoteMask) override;
 
     /* VT+0x28 */
-    [[address(0x801050D0)]]
+    [[nsmbw(0x801050D0)]]
     virtual nw4r::snd::SoundHandle* holdSound(u32 soundId, u32 remoteMask) override;
 
     /* VT+0x30 */
-    [[address(0x80106040)]]
+    [[nsmbw(0x80106040)]]
     virtual nw4r::snd::SoundHandle*
     startSound(u32 soundId, short seqParam, u32 remoteMask) override;
 
     /* VT+0x34 */
-    [[address(0x801050C0)]]
+    [[nsmbw(0x801050C0)]]
     virtual nw4r::snd::SoundHandle* holdSound(u32 soundId, short seqParam, u32 remoteMask) override;
 };
 

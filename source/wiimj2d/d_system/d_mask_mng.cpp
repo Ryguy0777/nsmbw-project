@@ -6,7 +6,7 @@
 namespace dMaskMng
 {
 
-[[address(0x800CD290)]]
+[[nsmbw(0x800CD290)]]
 void CreatePlayerMask() ASM_METHOD(
   // clang-format off
 /* 800CD290 9421FFD0 */  stwu     r1, -48(r1);

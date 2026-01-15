@@ -10,7 +10,7 @@ int daFireBall_Player_c_m_limit1[PLAYER_COUNT];
 /* 0x80375850 */
 int daFireBall_Player_c_m_limit2[PLAYER_COUNT];
 
-[[address(0x8011A6B0)]]
+[[nsmbw(0x8011A6B0)]]
 void daFireBall_Player_c_createCheck(void* this_) ASM_METHOD(
   // clang-format off
 /* 8011A6B0 9421FFF0 */  stwu     r1, -16(r1);

@@ -5,7 +5,7 @@
 
 u32 daEnWaterStream_c_size = sizeof(daEnWaterStream_c);
 
-[[address(0x80AC7800)]]
+[[nsmbw(0x80AC7800)]]
 daEnWaterStream_c* daEnWaterStream_c_classInit() ASM_METHOD(
   // clang-format off
 /* 80AC7800 9421FFE0 */  stwu     r1, -32(r1);

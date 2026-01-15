@@ -9,13 +9,13 @@
 #include "d_yoshi_model.h"
 #include "machine/m_heap.h"
 
-[[address_data(0x803710A0)]]
+[[nsmbw_data(0x803710A0)]]
 dPyMdlBase_HIO_c dPyMdlMng_c::m_hio;
 
-[[address(0x800D6DB0)]]
+[[nsmbw(0x800D6DB0)]]
 dPyMdlMng_c::dPyMdlMng_c(dPyMdlMng_c::ModelType_e modelType);
 
-[[address(0x800D6E00)]]
+[[nsmbw(0x800D6E00)]]
 void dPyMdlMng_c::construct(u8 index)
 {
     switch (static_cast<ModelType_e>(index)) {
@@ -47,25 +47,25 @@ void dPyMdlMng_c::construct(u8 index)
     }
 }
 
-[[address(0x800D6EE0)]]
+[[nsmbw(0x800D6EE0)]]
 void dPyMdlMng_c::create(u8 param1, u8 param2, SceneType_c sceneType);
 
-[[address(0x800D6EF0)]]
+[[nsmbw(0x800D6EF0)]]
 dPyMdlMng_c::~dPyMdlMng_c();
 
-[[address(0x800D6F80)]]
+[[nsmbw(0x800D6F80)]]
 void dPyMdlMng_c::play();
 
-[[address(0x800D6FA0)]]
+[[nsmbw(0x800D6FA0)]]
 void dPyMdlMng_c::calc(mMtx_c& mtx);
 
-[[address(0x800D7030)]]
+[[nsmbw(0x800D7030)]]
 void dPyMdlMng_c::calc(mVec3_c vec, mAng3_c angle, mVec3_c vec2);
 
-[[address(0x800D70F0)]]
+[[nsmbw(0x800D70F0)]]
 void dPyMdlMng_c::calc2();
 
-[[address(0x800D7110)]]
+[[nsmbw(0x800D7110)]]
 void dPyMdlMng_c::draw();
 
 // 0x800D7140: __sinit_\d_player_model_manager_cpp

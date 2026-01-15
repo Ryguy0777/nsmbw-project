@@ -13,10 +13,10 @@
 #include "sound/SndObjectPlayer.h"
 #include <iterator>
 
-[[address_data(0x8042A55C)]]
+[[nsmbw_data(0x8042A55C)]]
 dWmSeManager_c* dWmSeManager_c::m_pInstance;
 
-[[address(0x80103F50)]]
+[[nsmbw(0x80103F50)]]
 dWmSeManager_c* dWmSeManager_c::construct()
 {
     dWmSeManager_c* seManager = new dWmSeManager_c();
@@ -24,19 +24,19 @@ dWmSeManager_c* dWmSeManager_c::construct()
     return m_pInstance = seManager;
 }
 
-[[address(0x80103FD0)]]
+[[nsmbw(0x80103FD0)]]
 dWmSeManager_c::SeParam_t::SeParam_t();
 
-[[address(0x80103FE0)]]
+[[nsmbw(0x80103FE0)]]
 dWmSeManager_c::SeParam_t::~SeParam_t();
 
 /* VT+0x8 */
-[[address(0x801041E0)]]
+[[nsmbw(0x801041E0)]]
 dWmSeManager_c::~dWmSeManager_c()
 {
 }
 
-[[address(0x80104250)]]
+[[nsmbw(0x80104250)]]
 void dWmSeManager_c::initialize()
 {
     for (int i = 0; i < std::size(mSeParam); i++) {
@@ -69,7 +69,7 @@ void dWmSeManager_c::initialize()
     mpObjCmnMap = new SndObjctCmnMap(*SndAudioMgr::sInstance->mpSoundArchivePlayer);
 }
 
-[[address(0x801046B0)]]
+[[nsmbw(0x801046B0)]]
 void dWmSeManager_c::execute() ASM_METHOD(
   // clang-format off
 UNDEF_801046b0:;
@@ -598,7 +598,7 @@ UNDEF_80104da4:;
   // clang-format on
 );
 
-[[address(0x80104DD0)]]
+[[nsmbw(0x80104DD0)]]
 void dWmSeManager_c::UNDEF_80104dd0() ASM_METHOD(
   // clang-format off
 /* 80104DD0 9421FFC0 */  stwu     r1, -64(r1);
@@ -800,7 +800,7 @@ UNDEF_801050a0:;
   // clang-format on
 );
 
-[[address(0x801050E0)]]
+[[nsmbw(0x801050E0)]]
 void dWmSeManager_c::playPlyVoice(
   WmPlyVoice_e voice, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode
 )
@@ -817,7 +817,7 @@ void dWmSeManager_c::playPlyVoice(
     playerSound->startVoiceSound(voiceId, 0);
 }
 
-[[address(0x80105170)]]
+[[nsmbw(0x80105170)]]
 void dWmSeManager_c::playPlySound(
   WmSound_e sound, dPyMdlMng_c::ModelType_e player, PLAYER_MODE_e playerMode, f32 param4
 )
@@ -854,17 +854,17 @@ void dWmSeManager_c::playPlySound(
     }
 }
 
-[[address(0x801057D0)]]
+[[nsmbw(0x801057D0)]]
 u32 dWmSeManager_c::getSoundId(WmSound_e sound) const;
 
-[[address(0x80105B30)]]
+[[nsmbw(0x80105B30)]]
 dWmSeManager_c::WmSoundType_e dWmSeManager_c::getSoundType(WmSound_e sound) const;
 
-[[address(0x80105BC0)]]
+[[nsmbw(0x80105BC0)]]
 SndObjctPly::PLAYER_VOICE_e dWmSeManager_c::getPlyVoiceId(WmPlyVoice_e voice) const;
 
-[[address(0x80105CA0)]]
+[[nsmbw(0x80105CA0)]]
 s32 dWmSeManager_c::getSoundPlyMode(PLAYER_MODE_e playerMode) const;
 
-[[address(0x80105D20)]]
+[[nsmbw(0x80105D20)]]
 u32 dWmSeManager_c::getBossSoundId(WmSound_e sound) const;

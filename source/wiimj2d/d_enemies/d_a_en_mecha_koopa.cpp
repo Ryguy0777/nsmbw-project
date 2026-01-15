@@ -3,7 +3,7 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x80A65530)]]
+[[nsmbw(0x80A65530)]]
 void UNDEF_80A65530() ASM_METHOD(
   // clang-format off
 /* 80A65530 9421FFE0 */  stwu     r1, -32(r1);

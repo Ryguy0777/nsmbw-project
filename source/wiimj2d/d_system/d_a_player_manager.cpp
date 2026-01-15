@@ -34,13 +34,13 @@
 #include <revolution/os.h>
 #include <revolution/os/OSLink.h>
 
-[[address_data(0x80429F80)]]
+[[nsmbw_data(0x80429F80)]]
 int daPyMng_c::mNum;
 
-[[address_data(0x80429F84)]]
+[[nsmbw_data(0x80429F84)]]
 s32 daPyMng_c::mCtrlPlrNo;
 
-[[address_data(0x80429F88)]]
+[[nsmbw_data(0x80429F88)]]
 u8 daPyMng_c::mOldActPlayerInfo;
 
 u64 daPyMng_c::mActPlayerInfo;
@@ -103,49 +103,49 @@ u16 daPyMng_c::m_star_time[CHARACTER_COUNT];
 /* 0x80429F98 */
 u16 daPyMng_c::m_star_count[CHARACTER_COUNT];
 
-[[address_data(0x80429FA0)]]
+[[nsmbw_data(0x80429FA0)]]
 int daPyMng_c::mScore;
 
-[[address_data(0x80429FA4)]]
+[[nsmbw_data(0x80429FA4)]]
 int daPyMng_c::mKinopioMode;
 
-[[address_data(0x80429FA8)]]
+[[nsmbw_data(0x80429FA8)]]
 s32 daPyMng_c::mTimeUpPlayerNum;
 
-[[address_data(0x80429FAC)]]
+[[nsmbw_data(0x80429FAC)]]
 s32 daPyMng_c::mAllBalloon;
 
-[[address_data(0x80429FB0)]]
+[[nsmbw_data(0x80429FB0)]]
 s32 daPyMng_c::mPauseEnableInfo;
 
-[[address_data(0x80429FB4)]]
+[[nsmbw_data(0x80429FB4)]]
 s32 daPyMng_c::mPauseDisable;
 
-[[address_data(0x80429FB8)]]
+[[nsmbw_data(0x80429FB8)]]
 s32 daPyMng_c::mStopTimerInfo;
 
-[[address_data(0x80429FBC)]]
+[[nsmbw_data(0x80429FBC)]]
 s32 daPyMng_c::mStopTimerInfoOld;
 
-[[address_data(0x80429FC0)]]
+[[nsmbw_data(0x80429FC0)]]
 s32 daPyMng_c::mQuakeTrigger;
 
-[[address_data(0x80429FC4)]]
+[[nsmbw_data(0x80429FC4)]]
 s32 daPyMng_c::mBgmState;
 
-[[address_data(0x80429FC8)]]
+[[nsmbw_data(0x80429FC8)]]
 int daPyMng_c::mBonusNoCap;
 
-[[address_data(0x80429FCC)]]
+[[nsmbw_data(0x80429FCC)]]
 int daPyMng_c::mKinopioCarryCount;
 
 // Functions
 // ^^^^^^
 
-[[address(0x8005E9A0)]]
+[[nsmbw(0x8005E9A0)]]
 void daPyMng_c::createYoshi(mVec3_c&, int, dAcPy_c*);
 
-[[address(0x8005EA60)]]
+[[nsmbw(0x8005EA60)]]
 void daPyMng_c::initGame()
 {
     mActPlayerInfo |= 1;
@@ -166,7 +166,7 @@ void daPyMng_c::initGame()
     mKinopioCarryCount = 0;
 }
 
-[[address(0x8005EB10)]]
+[[nsmbw(0x8005EB10)]]
 void daPyMng_c::initStage()
 {
     checkCorrectCreateInfo();
@@ -220,7 +220,7 @@ void daPyMng_c::initStage()
     dMultiMng_c::mspInstance->initStage();
 }
 
-[[address(0x8005ECE0)]]
+[[nsmbw(0x8005ECE0)]]
 void daPyMng_c::setDefaultParam()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -234,13 +234,13 @@ void daPyMng_c::setDefaultParam()
     mScore = 0;
 }
 
-[[address(0x8005ED90)]]
+[[nsmbw(0x8005ED90)]]
 mVec3_c daPyMng_c::getPlayerSetPos(u8 course, u8 gotoID);
 
-[[address(0x8005EE90)]]
+[[nsmbw(0x8005EE90)]]
 u8 daPyMng_c::getPlayerCreateAction();
 
-[[address(0x8005EEE0)]]
+[[nsmbw(0x8005EEE0)]]
 bool daPyMng_c::create(int player, mVec3_c position, int gotoKind, u8 faceLeft)
 {
     if (!(mActPlayerInfo & (1 << player))) {
@@ -254,7 +254,7 @@ bool daPyMng_c::create(int player, mVec3_c position, int gotoKind, u8 faceLeft)
     return true;
 }
 
-[[address(0x8005EF50)]]
+[[nsmbw(0x8005EF50)]]
 void daPyMng_c::createCourseInit()
 {
     dScStage_c* stage = dScStage_c::m_instance;
@@ -378,7 +378,7 @@ void daPyMng_c::createCourseInit()
     }
 }
 
-[[address(0x8005F570)]]
+[[nsmbw(0x8005F570)]]
 void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
 {
     mActPlayerInfo |= 1 << index;
@@ -390,7 +390,7 @@ void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
 
 static int mDeathCount[PLAYER_COUNT] = {};
 
-[[address(0x8005F5C0)]]
+[[nsmbw(0x8005F5C0)]]
 void daPyMng_c::update()
 {
     // Hack for incrementing death count
@@ -475,13 +475,13 @@ void daPyMng_c::update()
     dPyEffectMng_c::mspInstance->update();
 }
 
-[[address(0x8005F8C0)]]
+[[nsmbw(0x8005F8C0)]]
 void daPyMng_c::setPlayer(int index, dAcPy_c* player);
 
-[[address(0x8005F900)]]
+[[nsmbw(0x8005F900)]]
 dAcPy_c* daPyMng_c::getPlayer(int index);
 
-[[address(0x8005F920)]]
+[[nsmbw(0x8005F920)]]
 void daPyMng_c::decideCtrlPlrNo()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -492,7 +492,7 @@ void daPyMng_c::decideCtrlPlrNo()
     }
 }
 
-[[address(0x8005F990)]]
+[[nsmbw(0x8005F990)]]
 bool daPyMng_c::setYoshi(daPlBase_c* yoshi)
 {
     if (yoshi == nullptr) {
@@ -508,7 +508,7 @@ bool daPyMng_c::setYoshi(daPlBase_c* yoshi)
     return false;
 }
 
-[[address(0x8005FA00)]]
+[[nsmbw(0x8005FA00)]]
 void daPyMng_c::releaseYoshi(daPlBase_c* yoshi)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -519,7 +519,7 @@ void daPyMng_c::releaseYoshi(daPlBase_c* yoshi)
     }
 }
 
-[[address(0x8005FA60)]]
+[[nsmbw(0x8005FA60)]]
 daYoshi_c* daPyMng_c::getYoshi(int index)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -532,7 +532,7 @@ daYoshi_c* daPyMng_c::getYoshi(int index)
     return nullptr;
 }
 
-[[address(0x8005FB00)]]
+[[nsmbw(0x8005FB00)]]
 int daPyMng_c::getYoshiNum()
 {
     int yoshiNum = 0;
@@ -544,7 +544,7 @@ int daPyMng_c::getYoshiNum()
     return yoshiNum;
 }
 
-[[address(0x8005FB90)]]
+[[nsmbw(0x8005FB90)]]
 daPlBase_c* daPyMng_c::getCtrlPlayer(int index);
 
 PLAYER_TYPE_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
@@ -577,7 +577,7 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerT
     }[playerTypeInt];
 }
 
-[[address(0x8005FBE0)]]
+[[nsmbw(0x8005FBE0)]]
 dPyMdlMng_c::ModelType_e daPyMng_c::getCourseInPlayerModelType(u8 index)
 {
     return getPlayerTypeModelType(mPlayerType[index]);
@@ -588,26 +588,26 @@ int daPyMng_c::getPlayerColorType(PLAYER_TYPE_e playerType)
     return static_cast<int>(getModelPlayerType(getPlayerTypeModelType(playerType)));
 }
 
-[[address(0x8005FC20)]]
+[[nsmbw(0x8005FC20)]]
 void daPyMng_c::storeYoshiInfo(int index, dYoshiMdl_c::COLOR_e color, int fruit)
 {
     m_yoshiColor[index] = static_cast<u8>(color);
     m_yoshiFruit[index] = fruit;
 }
 
-[[address(0x8005FC40)]]
+[[nsmbw(0x8005FC40)]]
 dYoshiMdl_c::COLOR_e daPyMng_c::getYoshiColor(int index)
 {
     return static_cast<dYoshiMdl_c::COLOR_e>(m_yoshiColor[index]);
 }
 
-[[address(0x8005FC50)]]
+[[nsmbw(0x8005FC50)]]
 int daPyMng_c::getYoshiFruit(int index)
 {
     return m_yoshiFruit[index];
 }
 
-[[address(0x8005FC70)]]
+[[nsmbw(0x8005FC70)]]
 u32 daPyMng_c::getActScrollInfo()
 {
     u32 info = 0;
@@ -624,7 +624,7 @@ u32 daPyMng_c::getActScrollInfo()
     return info;
 }
 
-[[address(0x8005FD20)]]
+[[nsmbw(0x8005FD20)]]
 u8 daPyMng_c::getScrollNum()
 {
     int scrollNum = 0;
@@ -641,7 +641,7 @@ u8 daPyMng_c::getScrollNum()
     return (u8) scrollNum;
 }
 
-[[address(0x8005FDB0)]]
+[[nsmbw(0x8005FDB0)]]
 bool daPyMng_c::addNum(int num)
 {
     if (mActPlayerInfo & (1 << num)) {
@@ -656,7 +656,7 @@ bool daPyMng_c::addNum(int num)
     return true;
 }
 
-[[address(0x8005FE30)]]
+[[nsmbw(0x8005FE30)]]
 bool daPyMng_c::decNum(int num)
 {
     if (!(mActPlayerInfo & (1 << num))) {
@@ -673,7 +673,7 @@ bool daPyMng_c::decNum(int num)
     return true;
 }
 
-[[address(0x8005FEB0)]]
+[[nsmbw(0x8005FEB0)]]
 int daPyMng_c::addNum()
 {
     if (mNum >= PLAYER_COUNT) {
@@ -682,7 +682,7 @@ int daPyMng_c::addNum()
     return mNum++;
 }
 
-[[address(0x8005FED0)]]
+[[nsmbw(0x8005FED0)]]
 int daPyMng_c::decNum()
 {
     if (mNum <= 0) {
@@ -691,7 +691,7 @@ int daPyMng_c::decNum()
     return mNum--;
 }
 
-[[address(0x8005FEF0)]]
+[[nsmbw(0x8005FEF0)]]
 int daPyMng_c::getNumInGame()
 {
     int inGameCount = 0;
@@ -703,7 +703,7 @@ int daPyMng_c::getNumInGame()
     return inGameCount;
 }
 
-[[address(0x8005FFB0)]]
+[[nsmbw(0x8005FFB0)]]
 int daPyMng_c::getEntryNum()
 {
     int entryNum = 0;
@@ -715,7 +715,7 @@ int daPyMng_c::getEntryNum()
     return entryNum;
 }
 
-[[address(0x80060110)]]
+[[nsmbw(0x80060110)]]
 int daPyMng_c::findPlayerWithType(PLAYER_TYPE_e playerType)
 {
     for (int i = 0; i < CHARACTER_COUNT; i++) {
@@ -726,10 +726,10 @@ int daPyMng_c::findPlayerWithType(PLAYER_TYPE_e playerType)
     return -1;
 }
 
-[[address(0x80060170)]]
+[[nsmbw(0x80060170)]]
 bool daPyMng_c::changeItemKinopioPlrNo(int* ownedPlayer);
 
-[[address(0x80060200)]]
+[[nsmbw(0x80060200)]]
 int daPyMng_c::getCoinAll()
 {
     int totalCoins = 0;
@@ -739,7 +739,7 @@ int daPyMng_c::getCoinAll()
     return totalCoins;
 }
 
-[[address(0x80060250)]]
+[[nsmbw(0x80060250)]]
 void daPyMng_c::incCoin(int player)
 {
     changeItemKinopioPlrNo(&player);
@@ -787,10 +787,10 @@ void daPyMng_c::incCoin(int player)
     }
 }
 
-[[address(0x80060460)]]
+[[nsmbw(0x80060460)]]
 void daPyMng_c::addRest(int player, int num, bool playEffect);
 
-[[address(0x80060590)]]
+[[nsmbw(0x80060590)]]
 void daPyMng_c::incRestAll(bool playEffect)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -801,22 +801,22 @@ void daPyMng_c::incRestAll(bool playEffect)
 }
 
 // TODO (not that important)
-[[address(0x80060690)]]
+[[nsmbw(0x80060690)]]
 void daPyMng_c::addScore(int score, int player);
 
 // TODO (not that important)
-[[address(0x80060750)]]
+[[nsmbw(0x80060750)]]
 void daPyMng_c::stopStarBGM();
 
 // TODO (not that important)
-[[address(0x80060860)]]
+[[nsmbw(0x80060860)]]
 void daPyMng_c::stopYoshiBGM();
 
 /* 0x800608E0 */
-[[address(0x800608E0)]]
+[[nsmbw(0x800608E0)]]
 void daPyMng_c::checkLastAlivePlayer();
 
-[[address(0x80060970)]]
+[[nsmbw(0x80060970)]]
 void daPyMng_c::executeLastPlayer()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -834,7 +834,7 @@ void daPyMng_c::executeLastPlayer()
     }
 }
 
-[[address(0x80060A10)]]
+[[nsmbw(0x80060A10)]]
 void daPyMng_c::executeLastAll()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -853,7 +853,7 @@ void daPyMng_c::executeLastAll()
 }
 
 // TODO (not important)
-[[address(0x80060AB0)]]
+[[nsmbw(0x80060AB0)]]
 void daPyMng_c::deleteCullingYoshi();
 
 [[gnu::used]]
@@ -863,7 +863,7 @@ int l_QUAKE_SOUND_LIST[] = {
   SndID::SE_PLY_HPDP_SPECIAL_FOUR,
 };
 
-[[address(0x80060C10)]]
+[[nsmbw(0x80060C10)]]
 void daPyMng_c::setHipAttackQuake(int param1, u8 param2) ASM_METHOD(
   // clang-format off
 /* 80060C10 9421FFF0 */  stwu     r1, -16(r1);
@@ -963,7 +963,7 @@ UNDEF_80060da0:;
 );
 
 // TODO (not important?)
-[[address(0x80060DB0)]]
+[[nsmbw(0x80060DB0)]]
 void daPyMng_c::FUN_0x80060DB0() ASM_METHOD(
   // clang-format off
 /* 80060DB0 9421FFB0 */  stwu     r1, -80(r1);
@@ -1050,21 +1050,21 @@ UNDEF_80060eb4:;
   // clang-format on
 );
 
-[[address(0x80060EF0)]]
+[[nsmbw(0x80060EF0)]]
 void daPyMng_c::checkBonusNoCap()
 {
     mBonusNoCap = mRest[int(PLAYER_TYPE_e::MARIO)] >= MAX_LIVES;
 }
 
 // TODO
-[[address(0x80060F20)]]
+[[nsmbw(0x80060F20)]]
 void daPyMng_c::initYoshiPriority();
 
 // TODO
-[[address(0x80060FE0)]]
+[[nsmbw(0x80060FE0)]]
 void daPyMng_c::setYoshiPriority();
 
-[[address(0x80061110)]]
+[[nsmbw(0x80061110)]]
 bool daPyMng_c::isCreateBalloon(int index)
 {
     int playerType = int(mPlayerType[index]);
@@ -1072,7 +1072,7 @@ bool daPyMng_c::isCreateBalloon(int index)
     return !!(mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::BUBBLE) || mRest[playerType] <= 0;
 }
 
-[[address(0x80061160)]]
+[[nsmbw(0x80061160)]]
 void daPyMng_c::checkCorrectCreateInfo()
 {
     for (int i = 0; i < CHARACTER_COUNT; i++) {

@@ -30,7 +30,7 @@ public:
     virtual void createEffect(const char *name, int creatorID);
 
     /* VT+0xA0 0x8016CBF0 */
-    [[address(0x8016CBF0)]]
+    [[nsmbw(0x8016CBF0)]]
     virtual bool createEffect(const char *name, unsigned long, const mVec3_c* pos, const mAng3_c* angle, const mVec3_c* scale);
 
     /* VT+0xA4 0x8016CCA0 */
@@ -62,11 +62,11 @@ public:
     // This is normally inlined but is (luckily for us) emitted externally as its own function in
     // d_en_toride_kokoopa.cpp for use with __construct_array, alleviating the requirement for us to
     // recreate the entire vtable.
-    [[address(0x800A8AB0)]]
+    [[nsmbw(0x800A8AB0)]]
     levelEffect_c();
 
     // This also is normally inlined
-    [[address(0x80025F60)]]
+    [[nsmbw(0x80025F60)]]
     virtual ~levelEffect_c() override;
 
 public:
@@ -81,7 +81,7 @@ public:
     /* 0x124 */ u32 m0x124;
 };
 
-[[address(0x8016C9D0)]]
+[[nsmbw(0x8016C9D0)]]
 void createEffect(const char*, unsigned long, const mVec3_c*, const mAng3_c*, const mVec3_c*);
 
 } // namespace mEf

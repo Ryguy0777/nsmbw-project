@@ -11,7 +11,7 @@
 #include "d_player/d_a_player.h"
 #include <egg/math/eggMath.h>
 
-[[address(0x807DAC10)]]
+[[nsmbw(0x807DAC10)]]
 daCastleKokoopaDemo1st_c* daCastleKokoopaDemo1st_c_classInit()
 {
     auto* base = new daCastleKokoopaDemo1st_c();
@@ -64,7 +64,7 @@ daCastleKokoopaDemo1st_c::daCastleKokoopaDemo1st_c() ASM_METHOD(
   // clang-format on
 );
 
-[[address(0x807DACB0)]]
+[[nsmbw(0x807DACB0)]]
 bool daCastleKokoopaDemo1st_c::checkBattleStDemo()
 {
     switch (mCheckBattleStDemoStep) {
@@ -113,7 +113,7 @@ bool daCastleKokoopaDemo1st_c::checkBattleStDemo()
     return false;
 }
 
-[[address(0x807DB440)]]
+[[nsmbw(0x807DB440)]]
 bool daCastleKokoopaDemo1st_c::calcBattleStDemoControl()
 {
     int numPly = daPyMng_c::mNum;
@@ -170,7 +170,7 @@ bool daCastleKokoopaDemo1st_c::calcBattleStDemoControl()
     return true;
 }
 
-[[address(0x807DB740)]]
+[[nsmbw(0x807DB740)]]
 bool daCastleKokoopaDemo1st_c::calcIggyDemoScroll()
 {
     // Only used in World 5 Iggy castle boss
@@ -223,13 +223,13 @@ bool daCastleKokoopaDemo1st_c::calcIggyDemoScroll()
     return ready;
 }
 
-[[address(0x807DB920)]]
+[[nsmbw(0x807DB920)]]
 bool daCastleKokoopaDemo1st_c::isPlayerEntry(int player)
 {
     return daPyMng_c::mActPlayerInfo & (1 << player);
 }
 
-[[address(0x807DB950)]]
+[[nsmbw(0x807DB950)]]
 void daCastleKokoopaDemo1st_c::setFlag115()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -239,7 +239,7 @@ void daCastleKokoopaDemo1st_c::setFlag115()
     }
 }
 
-[[address(0x807DBA20)]]
+[[nsmbw(0x807DBA20)]]
 void daCastleKokoopaDemo1st_c::killPlayerFireball();
 
 // 0x807DBB20: daCastleKokoopaDemo1st_c::executeState_BattleStDemo patched in Four

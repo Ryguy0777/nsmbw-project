@@ -13,10 +13,10 @@
 #include <nw4r/lyt/Material.h>
 #include <revolution/os.h>
 
-[[address_data(0x8042A608)]]
+[[nsmbw_data(0x8042A608)]]
 dGameDisplay_c* dGameDisplay_c::m_instance;
 
-[[address(0x80157820)]]
+[[nsmbw(0x80157820)]]
 dGameDisplay_c* dGameDisplay_c_classInit()
 {
     return new dGameDisplay_c();
@@ -78,7 +78,7 @@ const long dGameDisplay_c::PLAYER_BOTH_TEXTBOX_INDEX[][2] = {
 
 #undef X
 
-[[address(0x80157850)]]
+[[nsmbw(0x80157850)]]
 dGameDisplay_c::dGameDisplay_c()
   : mStateMgr(*this, StateID_ProcMainGame)
   , mLayoutLoaded(false)
@@ -94,7 +94,7 @@ dGameDisplay_c::dGameDisplay_c()
 }
 
 /* VT+0x08 */
-[[address(0x80157AA0)]]
+[[nsmbw(0x80157AA0)]]
 dGameDisplay_c::~dGameDisplay_c()
 {
     OSReport("DESTRUCT dGameDisplay_c\n");
@@ -113,7 +113,7 @@ dGameDisplay_c::~dGameDisplay_c()
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80157B70)]]
+[[nsmbw(0x80157B70)]]
 fBase_c::PACK_RESULT_e dGameDisplay_c::create();
 
 /**
@@ -121,14 +121,14 @@ fBase_c::PACK_RESULT_e dGameDisplay_c::create();
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
  */
-[[address(0x80158230)]]
+[[nsmbw(0x80158230)]]
 fBase_c::PACK_RESULT_e dGameDisplay_c::doDelete();
 
 /**
  * VT+0x20
  * do method for the execute operation.
  */
-[[address(0x801580D0)]]
+[[nsmbw(0x801580D0)]]
 fBase_c::PACK_RESULT_e dGameDisplay_c::execute() ASM_METHOD(
   // clang-format off
 /* 801580D0 9421FFF0 */  stwu     r1, -16(r1);
@@ -186,7 +186,7 @@ UNDEF_801581b0:;
  * VT+0x2C
  * do method for the draw operation.
  */
-[[address(0x801581E0)]]
+[[nsmbw(0x801581E0)]]
 fBase_c::PACK_RESULT_e dGameDisplay_c::draw()
 {
     if (m0x452 && mLayoutLoaded) {
@@ -199,7 +199,7 @@ fBase_c::PACK_RESULT_e dGameDisplay_c::draw()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x80158830)]]
+[[nsmbw(0x80158830)]]
 bool dGameDisplay_c::createLayout()
 {
     if (!mLayout.ReadResource("gameScene/gameScene.arc", false)) {
@@ -352,7 +352,7 @@ void dGameDisplay_c::DecEffectTimers()
     }
 }
 
-[[address(0x801586C0)]]
+[[nsmbw(0x801586C0)]]
 void dGameDisplay_c::RestDispSetup()
 {
     nw4r::math::VEC3 position[4 + EXTRA_PLAYER_COUNT];
@@ -392,7 +392,7 @@ void dGameDisplay_c::RestDispSetup()
 }
 
 // Changed the parameter from playerNo to paneIndex and added bool return
-[[address(0x801591F0)]]
+[[nsmbw(0x801591F0)]]
 bool dGameDisplay_c::Effect1Up(int paneIndex) ASM_METHOD(
   // clang-format off
 /* 801591F0 9421FFB0 */  stwu     r1, -80(r1);
@@ -502,7 +502,7 @@ UNDEF_8015936c:;
   // clang-format on
 );
 
-[[address(0x80159390)]]
+[[nsmbw(0x80159390)]]
 void dGameDisplay_c::GrayColorSet(int player) ASM_METHOD(
   // clang-format off
 /* 80159390 9421FF90 */  stwu     r1, -112(r1);
@@ -674,7 +674,7 @@ UNDEF_80159608:;
   // clang-format on
 );
 
-[[address(0x80159620)]]
+[[nsmbw(0x80159620)]]
 void dGameDisplay_c::ReturnGrayColorSet(int player) ASM_METHOD(
   // clang-format off
 /* 80159620 9421FFE0 */  stwu     r1, -32(r1);
@@ -764,7 +764,7 @@ UNDEF_8015974c:;
   // clang-format on
 );
 
-[[address(0x801599C0)]]
+[[nsmbw(0x801599C0)]]
 void dGameDisplay_c::setPlayNum(int* playNum);
 
 void dGameDisplay_c::updatePlayNum(int* playNum)
@@ -801,14 +801,14 @@ void dGameDisplay_c::updatePlayNum(int* playNum)
     }
 }
 
-[[address(0x80159AA0)]]
+[[nsmbw(0x80159AA0)]]
 void dGameDisplay_c::setCoinNum(int coinNum);
 
-[[address(0x80159C00)]]
+[[nsmbw(0x80159C00)]]
 void dGameDisplay_c::setTime(int time);
 
-[[address(0x80159C30)]]
+[[nsmbw(0x80159C30)]]
 void dGameDisplay_c::setCollect();
 
-[[address(0x80159DF0)]]
+[[nsmbw(0x80159DF0)]]
 void dGameDisplay_c::setScore(int score);

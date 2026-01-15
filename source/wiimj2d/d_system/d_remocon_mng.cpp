@@ -8,16 +8,16 @@
 #include <revolution/os.h>
 #include <revolution/wpad.h>
 
-[[address_data(0x80428280)]]
+[[nsmbw_data(0x80428280)]]
 bool dRemoconMng_c::dConnect_c::m_isBoot;
 
-[[address_data(0x8042A308)]]
+[[nsmbw_data(0x8042A308)]]
 dRemoconMng_c* dRemoconMng_c::m_instance;
 
-[[address(0x800DC000)]]
+[[nsmbw(0x800DC000)]]
 void ClearDeviceCallback(s32);
 
-[[address(0x800DC040)]]
+[[nsmbw(0x800DC040)]]
 dRemoconMng_c::dRemoconMng_c();
 
 dRemoconMng_c::dRemoconMng_c(dRemoconMng_c* old)
@@ -53,7 +53,7 @@ dRemoconMng_c::dRemoconMng_c(dRemoconMng_c* old)
     }
 }
 
-[[address(0x800DC0D0)]]
+[[nsmbw(0x800DC0D0)]]
 dRemoconMng_c::~dRemoconMng_c()
 {
     for (std::size_t connect = 0; connect < CONNECT_COUNT; connect++) {
@@ -63,7 +63,7 @@ dRemoconMng_c::~dRemoconMng_c()
     }
 }
 
-[[address(0x800DC180)]]
+[[nsmbw(0x800DC180)]]
 dRemoconMng_c::dConnect_c::~dConnect_c()
 {
 #ifndef __has_macintosh_dt_fix
@@ -71,12 +71,12 @@ dRemoconMng_c::dConnect_c::~dConnect_c()
 #endif // !__has_macintosh_dt_fix
 }
 
-[[address(0x800DC360)]]
+[[nsmbw(0x800DC360)]]
 dRemoconMng_c::dConnect_c::dExtension_c::~dExtension_c()
 {
 }
 
-[[address(0x800DC570)]]
+[[nsmbw(0x800DC570)]]
 void dRemoconMng_c::execute()
 {
     for (int i = 0; i < CONNECT_COUNT; i++) {
@@ -102,7 +102,7 @@ void dRemoconMng_c::execute()
     WPADSetAcceptConnection(allowConnect);
 }
 
-[[address(0x800DC660)]]
+[[nsmbw(0x800DC660)]]
 dRemoconMng_c::dConnect_c::dConnect_c(mPad::CH_e channel)
   : mPlayerNo(-1)
   , mExtension(channel)
@@ -179,7 +179,7 @@ bool dRemoconMng_c::dConnect_c::splitExtension()
     return true;
 }
 
-[[address(0x800DC7E0)]]
+[[nsmbw(0x800DC7E0)]]
 void dRemoconMng_c::dConnect_c::executeState_Shutdown()
 {
     EGG::Controller* controller = mPad::g_core[mChannel];
@@ -222,7 +222,7 @@ void dRemoconMng_c::dConnect_c::executeState_Shutdown()
     mStateMgr.changeState(StateID_Setup);
 }
 
-[[address(0x800DC910)]]
+[[nsmbw(0x800DC910)]]
 void dRemoconMng_c::dConnect_c::initializeState_Setup()
 {
     // Call to dRemoconMng_c::dConnect_c::dExtension_c::setup removed because it's just a blr
@@ -246,7 +246,7 @@ void dRemoconMng_c::dConnect_c::initializeState_Setup()
     registerOrder();
 }
 
-[[address(0x800DC990)]]
+[[nsmbw(0x800DC990)]]
 void dRemoconMng_c::dConnect_c::finalizeState_Setup()
 {
     deregisterOrder();
@@ -260,7 +260,7 @@ void dRemoconMng_c::dConnect_c::finalizeState_Setup()
     }
 }
 
-[[address(0x800DC9D0)]]
+[[nsmbw(0x800DC9D0)]]
 void dRemoconMng_c::dConnect_c::executeState_Setup()
 {
     EGG::Controller* controller = mPad::g_core[mChannel];
@@ -288,10 +288,10 @@ void dRemoconMng_c::dConnect_c::executeState_Setup()
     mBattery = mPad::getBatteryLevel_ch(mPad::CH_e(mChannel));
 }
 
-[[address(0x800DCA60)]]
+[[nsmbw(0x800DCA60)]]
 void dRemoconMng_c::dConnect_c::execute();
 
-[[address(0x800DCA80)]]
+[[nsmbw(0x800DCA80)]]
 void dRemoconMng_c::dConnect_c::onRumbleEnable();
 
 void dRemoconMng_c::dConnect_c::dExtension_c::checkState()
@@ -334,65 +334,65 @@ void dRemoconMng_c::dConnect_c::dExtension_c::checkState()
     }
 }
 
-[[address(0x800DCAF0)]]
+[[nsmbw(0x800DCAF0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::initializeState_Wait()
 {
     mType = Type_e::WAIT;
 }
 
 // Empty
-[[address(0x800DCB00)]]
+[[nsmbw(0x800DCB00)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::finalizeState_Wait();
 
-[[address(0x800DCB10)]]
+[[nsmbw(0x800DCB10)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::executeState_Wait()
 {
     checkState();
 }
 
-[[address(0x800DCC40)]]
+[[nsmbw(0x800DCC40)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::initializeState_None()
 {
     mType = Type_e::NONE;
 }
 
 // Empty
-[[address(0x800DCC50)]]
+[[nsmbw(0x800DCC50)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::finalizeState_None();
 
-[[address(0x800DCC60)]]
+[[nsmbw(0x800DCC60)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::executeState_None()
 {
     checkState();
 }
 
-[[address(0x800DCD70)]]
+[[nsmbw(0x800DCD70)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::initializeState_Freestyle()
 {
     mType = Type_e::FREESTYLE;
 }
 
 // Empty
-[[address(0x800DCC80)]]
+[[nsmbw(0x800DCC80)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::finalizeState_Freestyle();
 
-[[address(0x800DCCA0)]]
+[[nsmbw(0x800DCCA0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::executeState_Freestyle()
 {
     checkState();
 }
 
-[[address(0x800DCEA0)]]
+[[nsmbw(0x800DCEA0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::initializeState_Other()
 {
     mType = Type_e::OTHER;
 }
 
 // Empty
-[[address(0x800DCEB0)]]
+[[nsmbw(0x800DCEB0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::finalizeState_Other();
 
-[[address(0x800DCEC0)]]
+[[nsmbw(0x800DCEC0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::executeState_Other()
 {
     checkState();
@@ -448,8 +448,8 @@ void dRemoconMng_c::dConnect_c::dExtension_c::executeState_Dolphin()
 {
 }
 
-[[address(0x800DCFD0)]]
+[[nsmbw(0x800DCFD0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::shutdown();
 
-[[address(0x800DCFF0)]]
+[[nsmbw(0x800DCFF0)]]
 void dRemoconMng_c::dConnect_c::dExtension_c::execute();

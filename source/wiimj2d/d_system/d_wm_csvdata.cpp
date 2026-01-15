@@ -3,5 +3,5 @@
 
 #include "d_wm_csvdata.h"
 
-[[address(0x800F57C0)]]
+[[nsmbw(0x800F57C0)]]
 char* dCsvData_c::GetPointName(int) const;

@@ -8,25 +8,25 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_wm_lib.h"
 
-[[address_data(0x8042A538)]]
+[[nsmbw_data(0x8042A538)]]
 bool dScWMap_c::m_GameOver;
 
 /* @unofficial */
-[[address(0x801027A0)]]
+[[nsmbw(0x801027A0)]]
 void dScWMap_c::EnterWorld(WORLD_e world, int node);
 
 /* @unofficial */
-[[address(0x80102B70)]]
+[[nsmbw(0x80102B70)]]
 u32 dScWMap_c::AssembleBootParam(WORLD_e, u32, int);
 
-[[address(0x80102B50)]]
+[[nsmbw(0x80102B50)]]
 u32 dScWMap_c::CreateBootParam()
 {
     dInfo_c* info = dInfo_c::m_instance;
     return AssembleBootParam(info->mWorld, info->mWmSceneNo, 5);
 }
 
-[[address(0x80102B90)]]
+[[nsmbw(0x80102B90)]]
 void dScWMap_c::initLoadGame()
 {
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame(-1);

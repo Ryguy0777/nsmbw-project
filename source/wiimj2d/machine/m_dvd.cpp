@@ -18,10 +18,10 @@ namespace mDvd
 
 int maxChunkSize = 0x10000;
 
-[[address(0x8016B230)]]
+[[nsmbw(0x8016B230)]]
 /* static */ EGG::StreamDecomp* newUncompressObj(u8 type);
 
-[[address(0x8016B270)]]
+[[nsmbw(0x8016B270)]]
 /* static */ void deleteUncompressObj(u8 type);
 
 class MultiArchiveBuilder_c
@@ -525,7 +525,7 @@ void* loadArchive(
     return newArcData;
 }
 
-[[address(0x8016B3E0)]]
+[[nsmbw(0x8016B3E0)]]
 void* loadToMainRAM(
   int entryNum, char* dst, EGG::Heap* heap, EGG::DvdRipper::EAllocDirection allocDir, s32 offset,
   u32* outAmountRead, u32* outFileSize, u32 decompressorType
@@ -601,7 +601,7 @@ void* loadToMainRAM(
 
 } // namespace mDvd
 
-[[address(0x8016B630)]]
+[[nsmbw(0x8016B630)]]
 void mDvd_command_c::waitDone() const;
 
 EXTERN_REPL(
@@ -609,7 +609,7 @@ EXTERN_REPL(
   mDvd_toMainRam_c* mDvd_toMainRam_c::createNoWait(const char* path, u8 param2, EGG::Heap* heap)
 );
 
-[[address(0x8016C0B0)]]
+[[nsmbw(0x8016C0B0)]]
 mDvd_toMainRam_c* mDvd_toMainRam_c::create(const char* path, u8 param2, EGG::Heap* heap)
 {
     mDvd_toMainRam_c* cmd = createNoWait(path, param2, heap);

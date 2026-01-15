@@ -10,19 +10,19 @@
 namespace dAudio
 {
 
-[[address_data(0x8042A03C)]]
+[[nsmbw_data(0x8042A03C)]]
 SndObjctCmnEmy_c* g_pSndObjEmy;
 
-[[address_data(0x8042A040)]]
+[[nsmbw_data(0x8042A040)]]
 SndObjctCmnMap_c* g_pSndObjMap;
 
 /* 0x803561F8 */
 NonPosSndObjctPly_c* g_pNonPosSndObjctPly[PLAYER_COUNT];
 
-[[address(0x80069520)]] [[nodiscard]]
+[[nsmbw(0x80069520)]] [[nodiscard]]
 bool isForbidRemoteSE();
 
-[[address(0x80069530)]]
+[[nsmbw(0x80069530)]]
 u32 getRemotePlayer(int player)
 {
     if (isForbidRemoteSE()) {
@@ -36,20 +36,20 @@ u32 getRemotePlayer(int player)
     return 0b10 << player;
 }
 
-[[address(0x8006A3F0)]]
+[[nsmbw(0x8006A3F0)]]
 nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
 
-[[address(0x8006A4B0)]]
+[[nsmbw(0x8006A4B0)]]
 void cvtSndObjctPos(nw4r::math::VEC2& out, const mVec3_c& pos);
 
-[[address(0x8006A7D0)]]
+[[nsmbw(0x8006A7D0)]]
 void pauseMove(int player);
 
-[[address(0x8006A7F0)]]
+[[nsmbw(0x8006A7F0)]]
 void pauseOffMove(int player);
 
 /* VT+0x08 - Moved here */
-[[address(0x80104160)]]
+[[nsmbw(0x80104160)]]
 SndObjctCSPly_c::~SndObjctCSPly_c()
 {
 }
