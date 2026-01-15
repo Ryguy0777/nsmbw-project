@@ -1,6 +1,6 @@
 #pragma once
 
-#include "msl/msl_c/stdio.h"
+#include "msl/c/stdio.h"
 #include <cstddef>
 
 namespace std

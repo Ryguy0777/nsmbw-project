@@ -37,8 +37,8 @@ set(CMAKE_CXX_LINK_FLAGS "")
 
 include_directories(
     source
-    source/msl/msl_c
-    source/msl/msl_cpp
+    source/msl/c
+    source/msl/cpp
     source/wiimj2d
 )
 

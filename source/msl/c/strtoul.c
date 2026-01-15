@@ -1,7 +1,7 @@
 // strtoul.c
 // NSMBW .text: 0x802E1FE4 - 0x802E24BC
 
-#include "msl/msl_c/stdlib.h"
+#include "msl/c/stdlib.h"
 
 [[address(0x802E1FE4)]]
 unsigned long __strtoul(int, int, int (*)(void*, int, int), void*, int*, int*, int*);
