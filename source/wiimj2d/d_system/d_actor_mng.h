@@ -1,5 +1,7 @@
 #pragma once
 
+class daBossDemo_c;
+
 class dActorMng_c
 {
 public:
@@ -11,6 +13,14 @@ public:
 
     /* 0x80066F70 */
     void execute();
+
+public:
+    // Instance Variables
+    // ^^^^^^
+
+    FILL(0x00, 0x18);
+
+    /* 0x18 */ daBossDemo_c* mpBossDemo;
 
 public:
     // Static Variables

@@ -8,15 +8,14 @@
 #include "d_bases/d_cs_seq_mng.h"
 #include "d_bases/d_profile.h"
 #include "d_bases/d_world_camera.h"
+#include "d_system/d_CourseSelectManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_lib.h"
-#include "egg/core/eggController.h"
 #include "machine/m_pad.h"
-#include "revolution/wpad.h"
-#include <d_system/d_CourseSelectManager.h>
+#include <egg/core/eggController.h>
 #include <revolution/os.h>
 
 /* 0x809A0DB8 */
@@ -288,8 +287,7 @@ u32 daWmPlayer_c::UNDEF_80904120()
               mPad::g_currentCore->getClassicController()->mTrig & EGG::cCLASSIC_BUTTON_Y;
             break;
         case dGameKeyCore_c::Type_e::DOLPHIN:
-            openWorldView =
-              mPad::g_currentCore->getGCController()->mTrig & EGG::cDOLPHIN_BUTTON_Y;
+            openWorldView = mPad::g_currentCore->getGCController()->mTrig & EGG::cDOLPHIN_BUTTON_Y;
             break;
         default:
             openWorldView = mPad::g_currentCore->downTrigger(EGG::cCORE_BUTTON_A);
