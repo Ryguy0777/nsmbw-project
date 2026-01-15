@@ -30,7 +30,7 @@ void ClearKinopioChukan();
 [[nsmbw(0x800FD1C0)]]
 void RestoreKinopioHelpGameInfo();
 
-[[address(0x800FD4A0)]]
+[[nsmbw(0x800FD4A0)]]
 dGameKeyCore_c::Type_e isYokoCon(int controllerNo)
 {
     // Originally, this function returned true

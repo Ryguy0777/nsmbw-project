@@ -217,6 +217,9 @@ target_sources(project PRIVATE
 # NSMBW   d_bases.text:  0x80910F00 - 0x809125E0
     d_a_yoshi_egg.cpp
 
+# NSMBW   d_bases.text:  0x80914680 - 0x80915690
+    d_cs_seq_mng.cpp
+
 # NSMBW   d_bases.text:  0x80917960 - 0x8091A2F0
     d_s_GameSetup.cpp
 # NSMBW   d_bases.text:  0x8091A2F0 - 0x8091BA50
