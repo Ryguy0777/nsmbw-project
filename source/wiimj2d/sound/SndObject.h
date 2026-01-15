@@ -107,40 +107,40 @@ public:
 
 /* VT+0x20 */
 template <>
-[[address(0x80046E00)]]
+[[nsmbw(0x80046E00)]]
 void NMSndObject<4>::calc(const nw4r::math::VEC2&);
 
 /* VT+0x24 */
 template <>
-[[address(0x80058910)]]
+[[nsmbw(0x80058910)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::startSound(u32, u32);
 
 /* VT+0x28 */
 template <>
-[[address(0x80058C10)]]
+[[nsmbw(0x80058C10)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::holdSound(u32, u32);
 
 /* VT+0x2C */
 template <>
-[[address(0x80059030)]]
+[[nsmbw(0x80059030)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::prepareSound(u32, u32);
 
 /* VT+0x30 */
 template <>
-[[address(0x80058A00)]]
+[[nsmbw(0x80058A00)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::startSound(u32, short, u32);
 
 /* VT+0x34 */
 template <>
-[[address(0x80058D60)]]
+[[nsmbw(0x80058D60)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::holdSound(u32, short, u32);
 
 /* VT+0x38 */
 template <>
-[[address(0x80058B20)]]
+[[nsmbw(0x80058B20)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::startSound(u32, const nw4r::math::VEC2&, u32);
 
 /* VT+0x3C */
 template <>
-[[address(0x80058EE0)]]
+[[nsmbw(0x80058EE0)]]
 nw4r::snd::SoundHandle* NMSndObject<4>::holdSound(u32, const nw4r::math::VEC2&, u32);

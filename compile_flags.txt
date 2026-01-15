@@ -29,8 +29,8 @@ c++
 -nostdinc
 -nostdinc++
 -Isource
--Isource/msl/msl_c
--Isource/msl/msl_cpp
+-Isource/msl/c
+-Isource/msl/cpp
 -Isource/wiimj2d
 -include
 source/System.h

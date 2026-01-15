@@ -6,17 +6,17 @@
 namespace EGG
 {
 
-[[address(0x8042B1E8)]]
+[[nsmbw(0x8042B1E8)]]
 Screen::TVMode Screen::sTVMode;
 
-[[address(0x80350820)]]
+[[nsmbw(0x80350820)]]
 Screen::TVModeInfo Screen::sTVModeInfo[TVMode::TV_MODE_MAX];
 
-[[address(0x802D0FB0)]]
+[[nsmbw(0x802D0FB0)]]
 Screen::Screen();
 
 /* VT+0x0C */
-[[address(0x802D1230)]]
+[[nsmbw(0x802D1230)]]
 void Screen::SetProjectionGX() const;
 
 } // namespace EGG

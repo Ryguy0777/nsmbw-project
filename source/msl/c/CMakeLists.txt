@@ -1,0 +1,27 @@
+
+#
+# WIIMJ2D.dol
+# NSMBW          TODO
+# PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src
+#
+target_sources(project PRIVATE
+# NSMBW          .text:  0x802DEC0C - 0x802DEDFC
+    file_io.c
+
+# NSMBW          .text:  0x802DF06C - 0x802DF264
+    mbstring.c
+# NSMBW          .text:  0x802DF264 - 0x802DF3D4
+    mem.c
+
+# NSMBW          .text:  0x802DF7A8 - 0x802E1BA0
+    printf.c
+# NSMBW          .text:  0x802E1BA0 - 0x802E1C28
+    scanf.c
+# NSMBW          .text:  0x802E1C28 - 0x802E4FC8
+    string.c
+# NSMBW          .text:  0x802E1FE4 - 0x802E24BC
+    strtoul.c
+
+# NSMBW          .text:  0x802E47E8 - 0x802E4860
+    wchar_io.c
+)

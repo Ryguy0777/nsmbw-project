@@ -3,8 +3,8 @@
 
 #include "d_player_effect_mng.h"
 
-[[address_data(0x8042A2D0)]]
+[[nsmbw_data(0x8042A2D0)]]
 dPyEffectMng_c* dPyEffectMng_c::mspInstance;
 
-[[address(0x800D2E70)]]
+[[nsmbw(0x800D2E70)]]
 void dPyEffectMng_c::update();

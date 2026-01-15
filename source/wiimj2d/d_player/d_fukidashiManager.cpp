@@ -6,16 +6,16 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 
-[[address(0x80156FE0)]]
+[[nsmbw(0x80156FE0)]]
 fBase_c* dfukidashiManager_c_classInit()
 {
     return new dfukidashiManager_c();
 }
 
-[[address_data(0x8042A600)]]
+[[nsmbw_data(0x8042A600)]]
 dfukidashiManager_c* dfukidashiManager_c::m_instance;
 
-[[address(0x80157010)]]
+[[nsmbw(0x80157010)]]
 dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
   // clang-format off
 /* 80157010 9421FFF0 */  stwu     r1, -16(r1);
@@ -48,7 +48,7 @@ dfukidashiManager_c::dfukidashiManager_c() ASM_METHOD(
 );
 
 /* VT+0x48 */
-[[address(0x80157080)]]
+[[nsmbw(0x80157080)]]
 dfukidashiManager_c::~dfukidashiManager_c()
 {
 #ifndef __has_macintosh_dt_fix
@@ -64,7 +64,7 @@ dfukidashiManager_c::~dfukidashiManager_c()
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80157110)]]
+[[nsmbw(0x80157110)]]
 fBase_c::PACK_RESULT_e dfukidashiManager_c::create() ASM_METHOD(
   // clang-format off
 /* 80157110 9421FFE0 */  stwu     r1, -32(r1);
@@ -114,7 +114,7 @@ UNDEF_80157184:;
  * VT+0x20
  * do method for the execute operation.
  */
-[[address(0x801571A0)]]
+[[nsmbw(0x801571A0)]]
 fBase_c::PACK_RESULT_e dfukidashiManager_c::execute() ASM_METHOD(
   // clang-format off
 /* 801571A0 9421FFF0 */  stwu     r1, -16(r1);
@@ -154,7 +154,7 @@ UNDEF_801571f4:;
  * VT+0x2C
  * do method for the draw operation.
  */
-[[address(0x80157210)]]
+[[nsmbw(0x80157210)]]
 fBase_c::PACK_RESULT_e dfukidashiManager_c::draw() ASM_METHOD(
   // clang-format off
 /* 80157210 9421FFF0 */  stwu     r1, -16(r1);
@@ -186,7 +186,7 @@ UNDEF_8015722c:;
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
  */
-[[address(0x80157260)]]
+[[nsmbw(0x80157260)]]
 fBase_c::PACK_RESULT_e dfukidashiManager_c::doDelete() ASM_METHOD(
   // clang-format off
 /* 80157260 9421FFF0 */  stwu     r1, -16(r1);
@@ -227,7 +227,7 @@ UNDEF_801572c4:;
   // clang-format on
 );
 
-[[address(0x80157360)]]
+[[nsmbw(0x80157360)]]
 void dfukidashiManager_c::FUN_80157360(int param1, int param2, int param3)
 {
     if (param2 == 8) {
@@ -241,7 +241,7 @@ void dfukidashiManager_c::FUN_80157360(int param1, int param2, int param3)
     }
 }
 
-[[address(0x80157450)]]
+[[nsmbw(0x80157450)]]
 void dfukidashiManager_c::FUN_80157450(int param1, int param2)
 {
     if (param2 < 0 || param2 >= 22) {
@@ -262,7 +262,7 @@ void dfukidashiManager_c::FUN_80157450(int param1, int param2)
     *afeValue = 1;
 }
 
-[[address(0x801574A0)]]
+[[nsmbw(0x801574A0)]]
 void dfukidashiManager_c::FUN_801574A0(int param1, int param2)
 {
     if (param2 < 0 || param2 >= 22) {

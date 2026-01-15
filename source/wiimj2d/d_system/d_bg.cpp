@@ -6,10 +6,10 @@
 #include "d_system/d_a_player_manager.h"
 #include "d_player/d_a_player.h"
 
-[[address_data(0x8042A0B0)]]
+[[nsmbw_data(0x8042A0B0)]]
 dBgGm_c* dBg_c::m_bg_p;
 
-[[address(0x800785E0)]]
+[[nsmbw(0x800785E0)]]
 bool dBg_c::UNDEF_800785E0()
 {
     u8 mask = daPyMng_c::getActScrollInfo();
@@ -26,7 +26,7 @@ bool dBg_c::UNDEF_800785E0()
     return false;
 }
 
-[[address(0x80078670)]]
+[[nsmbw(0x80078670)]]
 bool UNDEF_80078670() ASM_METHOD(
   // clang-format off
 /* 80078670 9421FFB0 */  stwu     r1, -80(r1);
@@ -104,7 +104,7 @@ UNDEF_80078740:;
   // clang-format on
 );
 
-[[address(0x8007BEF0)]]
+[[nsmbw(0x8007BEF0)]]
 void dBg_c::initScroll() ASM_METHOD(
   // clang-format off
 /* 8007BEF0 9421FF20 */  stwu     r1, -224(r1);
@@ -712,7 +712,7 @@ UNDEF_8007c6dc:;
 );
 
 #define D_STACK_SIZE (0x28 + 0x8 + PLAYER_COUNT * 4)
-[[address(0x8007CA90)]]
+[[nsmbw(0x8007CA90)]]
 void UNDEF_8007ca90() ASM_METHOD(
   // Stack layout:
   // 0x00-0x08: Previous frame / caller return address

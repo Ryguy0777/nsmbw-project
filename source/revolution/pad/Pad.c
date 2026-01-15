@@ -15,9 +15,9 @@ EXTERN_C_START
 // https://github.com/riidefi/mkw/blob/master/source/rvl/pad/rvlPad.c
 
 // Broadway / IOS global locations: https://wiibrew.org/wiki/Memory_Map
-[[address(0x800030E3)]]
+[[nsmbw(0x800030E3)]]
 extern u8 oslow_30e3;
-[[address(0x800030E0)]]
+[[nsmbw(0x800030E0)]]
 extern u16 oslow_30e0;
 
 static void SPEC0_MakeStatus(s32, PADStatus*, u32[2]);
@@ -39,7 +39,7 @@ static u32 PAD_AnalogMode = 0x00000300u;
 
 u32 PAD_Spec;
 
-[[address_data(0x8042AA8C)]]
+[[nsmbw_data(0x8042AA8C)]]
 u32 __PADFixBits;
 
 static u32 Spec = 5;
@@ -111,7 +111,7 @@ inline static void PADEnable(s32 chan)
 }
 
 // TODO: Move this to where it's actually located
-[[address(0x801B4600)]]
+[[nsmbw(0x801B4600)]]
 void OSSetWirelessID(s32, u16);
 
 inline static void PADDisable(s32 chan)

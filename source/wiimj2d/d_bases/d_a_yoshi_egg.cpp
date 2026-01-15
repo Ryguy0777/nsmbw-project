@@ -11,7 +11,7 @@ extern const float c_eggColorFrames[dYoshiMdl_c::COLOR_COUNT] = {
   0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0,
 };
 
-[[address(0x80911380)]]
+[[nsmbw(0x80911380)]]
 void daYoshiEgg_c::loadModel() ASM_METHOD(
   // clang-format off
 /* 80911380 9421FFB0 */  stwu     r1, -80(r1);
@@ -130,9 +130,9 @@ void daYoshiEgg_c::loadModel() ASM_METHOD(
   // clang-format on
 )
 
-  [[address(0x80911540)]] void daYoshiEgg_c::playAnimation(int);
+  [[nsmbw(0x80911540)]] void daYoshiEgg_c::playAnimation(int);
 
-[[address(0x80911610)]]
+[[nsmbw(0x80911610)]]
 void daYoshiEgg_c::spawnEggBreakEffect()
 {
     // TODO: Add effects for new egg colors
@@ -144,7 +144,7 @@ void daYoshiEgg_c::spawnEggBreakEffect()
     mEf::createEffect(eggBreakEffects[mColor], 0, &mPos, nullptr, nullptr);
 }
 
-[[address(0x80911680)]]
+[[nsmbw(0x80911680)]]
 void daYoshiEgg_c::hatchYoshi()
 {
     spawnEggBreakEffect();
@@ -152,7 +152,7 @@ void daYoshiEgg_c::hatchYoshi()
     deleteRequest();
 }
 
-[[address(0x80911AD0)]]
+[[nsmbw(0x80911AD0)]]
 void daYoshiEgg_c::initializeState_MultiJumpUp()
 {
     // Add some variation to the spawning speeds if >4 players
@@ -182,7 +182,7 @@ void daYoshiEgg_c::initializeState_MultiJumpUp()
     playAnimation(1);
 }
 
-[[address(0x80911BD0)]]
+[[nsmbw(0x80911BD0)]]
 void daYoshiEgg_c::initializeState_MultiJumpDown()
 {
     // Add some variation to the spawning speeds if >4 players

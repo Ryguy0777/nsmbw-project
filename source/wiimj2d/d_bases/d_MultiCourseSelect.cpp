@@ -7,19 +7,19 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 
-[[address(0x80798920)]]
+[[nsmbw(0x80798920)]]
 dMultiCourseSelect_c* dMultiCourseSelect_c_classInit()
 {
     return new dMultiCourseSelect_c();
 }
 
-[[address(0x80798950)]]
+[[nsmbw(0x80798950)]]
 dMultiCourseSelect_c::dMultiCourseSelect_c();
 
 EXTERN_REPL(0x807990D0, bool dMultiCourseSelect_c::createLayout());
 
 // Extra setup
-[[address(0x807990D0)]]
+[[nsmbw(0x807990D0)]]
 bool dMultiCourseSelect_c::createLayoutExtra()
 {
     if (!createLayout()) {
@@ -171,7 +171,7 @@ dMultiCourseSelect_c::PANE_LIST_e dMultiCourseSelect_c::getPosPane(int playerCou
     return posPane;
 }
 
-[[address(0x80799730)]]
+[[nsmbw(0x80799730)]]
 void dMultiCourseSelect_c::setPlayerPos()
 {
     int playerCount = 0;
@@ -210,7 +210,7 @@ void dMultiCourseSelect_c::setPlayerPos()
     
 }
 
-[[address(0x8079A7A0)]]
+[[nsmbw(0x8079A7A0)]]
 void dMultiCourseSelect_c::finalizeState_DispWait()
 {
     dInfo_c* info = dInfo_c::m_instance;
@@ -231,8 +231,8 @@ void dMultiCourseSelect_c::finalizeState_DispWait()
     setContentCourseNo(0, 0x14);
 }
 
-[[address(0x80799E80)]]
+[[nsmbw(0x80799E80)]]
 void dMultiCourseSelect_c::setContentCourseNo(int index, int count);
 
-[[address(0x8079C410)]]
+[[nsmbw(0x8079C410)]]
 void dMultiCourseSelect_c::getContentCourseNo(u8* worldNo, u8* courseNo, int index);

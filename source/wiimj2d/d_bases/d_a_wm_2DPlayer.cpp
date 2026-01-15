@@ -5,7 +5,7 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x808C5690)]]
+[[nsmbw(0x808C5690)]]
 void da2DPlayer_c::calcPlayer()
 {
     mVec3_c newScale = mBaseScale * 4.1;
@@ -21,7 +21,7 @@ void da2DPlayer_c::calcPlayer()
     FUN_808C6EE0(0);
 }
 
-[[address(0x808C5990)]]
+[[nsmbw(0x808C5990)]]
 void da2DPlayer_c::loadPlayer()
 {
     u32 id = mParam & 0xF;
@@ -33,5 +33,5 @@ void da2DPlayer_c::loadPlayer()
     mModelMng->mModel->setAnm(0, 1.2, 10.0, 0.0);
 }
 
-[[address(0x808C6EE0)]]
+[[nsmbw(0x808C6EE0)]]
 void da2DPlayer_c::FUN_808C6EE0(int);

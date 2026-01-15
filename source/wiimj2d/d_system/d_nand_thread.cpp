@@ -29,17 +29,17 @@ static void* rapidjsonRealloc(void* ptr, size_t size)
 #define RAPIDJSON_REALLOC rapidjsonRealloc
 #include <rapidjson/reader.h>
 
-[[address_data(0x8042A298)]]
+[[nsmbw_data(0x8042A298)]]
 dNandThread_c* dNandThread_c::m_instance;
 
 namespace
 {
 
 /* @unofficial */
-[[address_data(0x80359FC0)]]
+[[nsmbw_data(0x80359FC0)]]
 u8 l_nandBuf[0x4000];
 
-[[address_data(0x8035DFC0)]]
+[[nsmbw_data(0x8035DFC0)]]
 dMj2dData_c l_tmpSave;
 
 NANDFileInfo l_fileInfo;
@@ -113,7 +113,7 @@ struct NandFileStream_c {
 
 } // namespace
 
-[[address(0x800CEF80)]]
+[[nsmbw(0x800CEF80)]]
 void dNandThread_c::existCheck()
 {
     u8 type;
@@ -141,7 +141,7 @@ void dNandThread_c::reinitialize()
     }
 }
 
-[[address(0x800CF170)]]
+[[nsmbw(0x800CF170)]]
 bool dNandThread_c::cmdSave(dMj2dData_c* data)
 {
     if (!OSTryLockMutex(&mMutex)) {
@@ -177,7 +177,7 @@ int dNandThread_c::ioProc(__file_handle file, u8* buff, std::size_t* count, __id
 
 extern "C" NANDResult nandConvertErrorCode(s32 isfsError);
 
-[[address(0x800CF200)]]
+[[nsmbw(0x800CF200)]]
 int dNandThread_c::save()
 {
     const char* tmpPath = "/tmp/mkwcat-nsmbw.json";
@@ -293,7 +293,7 @@ int dNandThread_c::save()
     return 0;
 }
 
-[[address(0x800CF680)]]
+[[nsmbw(0x800CF680)]]
 int dNandThread_c::load()
 {
     std::memset(static_cast<void*>(&l_tmpSave), 0, sizeof(l_tmpSave));
@@ -340,13 +340,13 @@ int dNandThread_c::load()
     return 0;
 }
 
-[[address(0x800CFC20)]]
+[[nsmbw(0x800CFC20)]]
 void dNandThread_c::setNandError(s32 result);
 
-[[address(0x800CFCA0)]]
+[[nsmbw(0x800CFCA0)]]
 dMj2dData_c* dNandThread_c::getSaveData();
 
-[[address(0x800CFA50)]]
+[[nsmbw(0x800CFA50)]]
 void dNandThread_c::deleteFile()
 {
     setNandError(NANDDelete("mkwcat-nsmbw.json"));

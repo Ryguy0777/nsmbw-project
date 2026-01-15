@@ -3,7 +3,7 @@
 
 #include "d_system/d_a_player_manager.h"
 
-[[address(0x80857770)]]
+[[nsmbw(0x80857770)]]
 int daLineKinokoBlock_c_numPlayersInMask(u32 mask)
 {
     int count = 0;

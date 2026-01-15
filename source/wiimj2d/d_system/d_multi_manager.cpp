@@ -3,13 +3,13 @@
 
 #include "d_multi_manager.h"
 
-[[address_data(0x8042A290)]]
+[[nsmbw_data(0x8042A290)]]
 dMultiMng_c* dMultiMng_c::mspInstance;
 
 // TODO
-[[address(0x800CE950)]]
+[[nsmbw(0x800CE950)]]
 void dMultiMng_c::initStage();
 
 // TODO
-[[address(0x800CEAC0)]]
+[[nsmbw(0x800CEAC0)]]
 void dMultiMng_c::incCoin(int player);

@@ -27,7 +27,7 @@
 #include "framework/f_feature.h"
 #include "sound/SndSceneMgr.h"
 
-[[address(0x80917C80)]]
+[[nsmbw(0x80917C80)]]
 bool dScGameSetup_c::Phase_CreateLayoutManagers()
 {
 #define NEW(_TYPE, _PROFILE, _PARAM)                                                               \
@@ -60,7 +60,7 @@ bool dScGameSetup_c::Phase_CreateLayoutManagers()
 #undef NEW
 }
 
-[[address(0x80917EB0)]]
+[[nsmbw(0x80917EB0)]]
 bool dScGameSetup_c::Phase_Create2DPlayer()
 {
     da2DPlayer_c* player = static_cast<da2DPlayer_c*>(
@@ -83,7 +83,7 @@ bool dScGameSetup_c::Phase_Create2DPlayer()
     return true;
 }
 
-[[address(0x80918780)]]
+[[nsmbw(0x80918780)]]
 void dScGameSetup_c::executeState_FileSelect() ASM_METHOD(
   // clang-format off
 /* 80918780 9421FFE0 */  stwu     r1, -32(r1);
@@ -187,7 +187,7 @@ UNDEF_809188c4:;
   // clang-format on
 );
 
-[[address(0x809188E0)]]
+[[nsmbw(0x809188E0)]]
 void dScGameSetup_c::finalizeState_FileSelect()
 {
     for (int i = 0; i < CHARACTER_COUNT; i++) {
@@ -195,7 +195,7 @@ void dScGameSetup_c::finalizeState_FileSelect()
     }
 }
 
-[[address(0x80918B00)]]
+[[nsmbw(0x80918B00)]]
 void dScGameSetup_c::executeState_StartMember()
 {
     dSelectPlayer_c* selPly = mpSelectPlayer;
@@ -225,7 +225,7 @@ void dScGameSetup_c::executeState_StartMember()
     mStateMgr.changeState(dScGameSetup_c::StateID_ConnectionCheck);
 }
 
-[[address(0x80918C10)]]
+[[nsmbw(0x80918C10)]]
 void dScGameSetup_c::initializeState_ConnectionCheck()
 {
     if ((dInfo_c::mGameFlag & 0x10) != 0) {
@@ -249,20 +249,20 @@ void dScGameSetup_c::initializeState_ConnectionCheck()
     SndSceneMgr::sInstance->setGameSetupTrack(2);
 }
 
-[[address(0x80918DC0)]]
+[[nsmbw(0x80918DC0)]]
 void dScGameSetup_c::initializeState_EasyPairingWait()
 {
     mpNumPyChg->setEasyPairingWait(true);
     mpEasyPairing->m0x279 = true;
 }
 
-[[address(0x80918E70)]]
+[[nsmbw(0x80918E70)]]
 void dScGameSetup_c::finalizeState_EasyPairingWait()
 {
     mpNumPyChg->setEasyPairingWait(false);
 }
 
-[[address(0x80919190)]]
+[[nsmbw(0x80919190)]]
 void dScGameSetup_c::finalizeState_VoiceEndWait()
 {
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();

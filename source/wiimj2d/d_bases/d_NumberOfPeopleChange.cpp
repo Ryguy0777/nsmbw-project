@@ -23,13 +23,13 @@
 
 static const float l_2d_player_offset = 50.0f;
 
-[[address(0x8079F630)]]
+[[nsmbw(0x8079F630)]]
 fBase_c* dNumberOfPeopleChange_c_classInit()
 {
     return new dNumberOfPeopleChange_c();
 }
 
-[[address(0x8079F660)]]
+[[nsmbw(0x8079F660)]]
 dNumberOfPeopleChange_c::dNumberOfPeopleChange_c()
 {
 }
@@ -44,7 +44,7 @@ EXTERN_SYMBOL(
   0x8079F860, "__dt__59sFStateMgr_c<23dNumberOfPeopleChange_c,20sStateMethodUsr_FI_c>Fv"
 );
 
-[[address(0x8079F8D0)]]
+[[nsmbw(0x8079F8D0)]]
 dNumberOfPeopleChange_c::~dNumberOfPeopleChange_c()
 {
     // [clang-dt-m-bug]
@@ -55,7 +55,7 @@ dNumberOfPeopleChange_c::~dNumberOfPeopleChange_c()
     mIndicatorLytRes.~ResAccMultLoader_c();
 }
 
-[[address(0x8079F990)]]
+[[nsmbw(0x8079F990)]]
 fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
 {
     if (mReady) {
@@ -151,7 +151,7 @@ fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::create()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x8079FCD0)]]
+[[nsmbw(0x8079FCD0)]]
 bool dNumberOfPeopleChange_c::createLayout()
 {
     if (!mLayout.ReadResource("characterChange/characterChange.arc", false)) {
@@ -274,16 +274,16 @@ bool dNumberOfPeopleChange_c::createLayout()
     return true;
 }
 
-[[address(0x8079FE40)]]
+[[nsmbw(0x8079FE40)]]
 fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::preExecute();
 
-[[address(0x8079FEA0)]]
+[[nsmbw(0x8079FEA0)]]
 fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::execute();
 
-[[address(0x8079FF90)]]
+[[nsmbw(0x8079FF90)]]
 fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::draw();
 
-[[address(0x8079FFD0)]]
+[[nsmbw(0x8079FFD0)]]
 fBase_c::PACK_RESULT_e dNumberOfPeopleChange_c::doDelete();
 
 std::size_t dNumberOfPeopleChange_c::getCcFromPly(std::size_t ply) const
@@ -296,7 +296,7 @@ std::size_t dNumberOfPeopleChange_c::getCcFromPly(std::size_t ply) const
     return mCcCount;
 }
 
-[[address(0x807A0060)]]
+[[nsmbw(0x807A0060)]]
 void dNumberOfPeopleChange_c::setCcAnimFrame()
 {
     float frame = 0.0f;
@@ -317,7 +317,7 @@ void dNumberOfPeopleChange_c::setCcAnimFrame()
     }
 }
 
-[[address(0x807A0170)]]
+[[nsmbw(0x807A0170)]]
 void dNumberOfPeopleChange_c::setCcLytPosition()
 {
     for (std::size_t cc = 0; cc < mCcCount; cc++) {
@@ -374,7 +374,7 @@ void dNumberOfPeopleChange_c::setCcLytPosition()
     }
 }
 
-[[address(0x807A0440)]]
+[[nsmbw(0x807A0440)]]
 void dNumberOfPeopleChange_c::set2dPlyPosition()
 {
     if (dScene_c::m_nowScene != dProf::WORLD_MAP) {
@@ -420,7 +420,7 @@ void dNumberOfPeopleChange_c::set2dPlyPosition()
     }
 }
 
-[[address(0x807A07C0)]]
+[[nsmbw(0x807A07C0)]]
 void dNumberOfPeopleChange_c::disableInactiveControllers()
 {
     dRemoconMng_c* remoconMng = dRemoconMng_c::m_instance;
@@ -436,7 +436,7 @@ void dNumberOfPeopleChange_c::disableInactiveControllers()
     }
 }
 
-[[address(0x807A0870)]]
+[[nsmbw(0x807A0870)]]
 void dNumberOfPeopleChange_c::checkRemoConnect()
 {
     dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
@@ -463,10 +463,10 @@ void dNumberOfPeopleChange_c::checkRemoConnect()
     }
 }
 
-[[address(0x807A09B0)]]
+[[nsmbw(0x807A09B0)]]
 int dNumberOfPeopleChange_c::getBaseForPlayerCount(int playerCount, int player) const;
 
-[[address(0x807A09D0)]]
+[[nsmbw(0x807A09D0)]]
 void dNumberOfPeopleChange_c::calcBasesForPlayerCount()
 {
     int playerCount = mPlayerCount;
@@ -482,7 +482,7 @@ void dNumberOfPeopleChange_c::calcBasesForPlayerCount()
     }
 }
 
-[[address(0x807A0A50)]]
+[[nsmbw(0x807A0A50)]]
 void dNumberOfPeopleChange_c::setPlayerSelectPos()
 {
     for (std::size_t cc = 0; cc < mCcCount; cc++) {
@@ -508,7 +508,7 @@ void dNumberOfPeopleChange_c::setPlayerSelectPos()
     }
 }
 
-[[address(0x807A0BF0)]]
+[[nsmbw(0x807A0BF0)]]
 void dNumberOfPeopleChange_c::setupPlayerTypes()
 {
     bool typeActive[PLAYER_COUNT] = {};
@@ -536,7 +536,7 @@ void dNumberOfPeopleChange_c::setupPlayerTypes()
     }
 }
 
-[[address(0x807A0D20)]]
+[[nsmbw(0x807A0D20)]]
 bool dNumberOfPeopleChange_c::checkCancel()
 {
     bool p1Active = mpCcSelBase[0]->mDecided;
@@ -571,13 +571,13 @@ void dNumberOfPeopleChange_c::setEasyPairingWait(bool enable)
     }
 }
 
-[[address(0x807A0DA0)]]
+[[nsmbw(0x807A0DA0)]]
 void dNumberOfPeopleChange_c::initializeState_InitialSetup()
 {
     mExiting = mAllowControllerCut = false;
 }
 
-[[address(0x807A0DB0)]]
+[[nsmbw(0x807A0DB0)]]
 void dNumberOfPeopleChange_c::executeState_InitialSetup()
 {
     dInfo_c* info = dInfo_c::m_instance;
@@ -651,7 +651,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
     mStateMgr.changeState(StateID_OnStageAnimeEndWait);
 }
 
-[[address(0x807A1170)]]
+[[nsmbw(0x807A1170)]]
 void dNumberOfPeopleChange_c::finalizeState_InitialSetup()
 {
     dRemoconMng_c* remocons = dRemoconMng_c::m_instance;
@@ -660,7 +660,7 @@ void dNumberOfPeopleChange_c::finalizeState_InitialSetup()
     }
 }
 
-[[address(0x807A11A0)]]
+[[nsmbw(0x807A11A0)]]
 void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait()
 {
     mExiting = true;
@@ -689,7 +689,7 @@ void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait()
     }
 }
 
-[[address(0x807A12D0)]]
+[[nsmbw(0x807A12D0)]]
 void dNumberOfPeopleChange_c::executeState_OnStageAnimeEndWait()
 {
     if (!mLayout.isAnime(inWindow_guide) && !mLayout.isAnime(inWindow_Window)) {
@@ -697,7 +697,7 @@ void dNumberOfPeopleChange_c::executeState_OnStageAnimeEndWait()
     }
 }
 
-[[address(0x807A1340)]]
+[[nsmbw(0x807A1340)]]
 void dNumberOfPeopleChange_c::finalizeState_OnStageAnimeEndWait()
 {
     mExiting = false;
@@ -706,10 +706,10 @@ void dNumberOfPeopleChange_c::finalizeState_OnStageAnimeEndWait()
     }
 }
 
-[[address(0x807A1370)]]
+[[nsmbw(0x807A1370)]]
 void dNumberOfPeopleChange_c::initializeState_InfoOnStageAnimeEndWait();
 
-[[address(0x807A1380)]]
+[[nsmbw(0x807A1380)]]
 void dNumberOfPeopleChange_c::executeState_InfoOnStageAnimeEndWait()
 {
     bool isWorldMap = dScene_c::m_nowScene == dProf::WORLD_MAP;
@@ -733,13 +733,13 @@ void dNumberOfPeopleChange_c::executeState_InfoOnStageAnimeEndWait()
     return mStateMgr.changeState(*state);
 }
 
-[[address(0x807A14C0)]]
+[[nsmbw(0x807A14C0)]]
 void dNumberOfPeopleChange_c::finalizeState_InfoOnStageAnimeEndWait()
 {
     mAllowControllerCut = true;
 }
 
-[[address(0x807A14D0)]]
+[[nsmbw(0x807A14D0)]]
 void dNumberOfPeopleChange_c::initializeState_NowEntrantRecruit()
 {
     mCancelAllowed = true;
@@ -749,7 +749,7 @@ void dNumberOfPeopleChange_c::initializeState_NowEntrantRecruit()
     setPlayerSelectPos();
 }
 
-[[address(0x807A1510)]]
+[[nsmbw(0x807A1510)]]
 void dNumberOfPeopleChange_c::executeState_NowEntrantRecruit()
 {
     for (std::size_t cc = 0; cc < mPlayerCount; cc++) {
@@ -784,10 +784,10 @@ void dNumberOfPeopleChange_c::executeState_NowEntrantRecruit()
 }
 
 // Empty
-[[address(0x807A16C0)]]
+[[nsmbw(0x807A16C0)]]
 void dNumberOfPeopleChange_c::finalizeState_NowEntrantRecruit();
 
-[[address(0x807A16D0)]]
+[[nsmbw(0x807A16D0)]]
 void dNumberOfPeopleChange_c::initializeState_StoryModeCourseSelectExitWait()
 {
     mCancelAllowed = true;
@@ -797,7 +797,7 @@ void dNumberOfPeopleChange_c::initializeState_StoryModeCourseSelectExitWait()
     }
 }
 
-[[address(0x807A1710)]]
+[[nsmbw(0x807A1710)]]
 void dNumberOfPeopleChange_c::executeState_StoryModeCourseSelectExitWait()
 {
     for (std::size_t cc = 0; cc < mPlayerCount; cc++) {
@@ -818,24 +818,24 @@ void dNumberOfPeopleChange_c::executeState_StoryModeCourseSelectExitWait()
 }
 
 // Empty
-[[address(0x807A1810)]]
+[[nsmbw(0x807A1810)]]
 void dNumberOfPeopleChange_c::finalizeState_StoryModeCourseSelectExitWait();
 
 // Empty
-[[address(0x807A1820)]]
+[[nsmbw(0x807A1820)]]
 void dNumberOfPeopleChange_c::initializeState_InfoWindowExitWait();
 
-[[address(0x807A1830)]]
+[[nsmbw(0x807A1830)]]
 void dNumberOfPeopleChange_c::executeState_InfoWindowExitWait()
 {
     return mStateMgr.changeState(StateID_ButtonOnStageAnimeEndWait);
 }
 
 // Empty
-[[address(0x807A1850)]]
+[[nsmbw(0x807A1850)]]
 void dNumberOfPeopleChange_c::finalizeState_InfoWindowExitWait();
 
-[[address(0x807A1860)]]
+[[nsmbw(0x807A1860)]]
 void dNumberOfPeopleChange_c::initializeState_ButtonOnStageAnimeEndWait()
 {
     mLayout.AnimeStartSetup(inYesNoButtons_guideYes);
@@ -857,7 +857,7 @@ void dNumberOfPeopleChange_c::initializeState_ButtonOnStageAnimeEndWait()
     mCancelAllowed = false;
 }
 
-[[address(0x807A1990)]]
+[[nsmbw(0x807A1990)]]
 void dNumberOfPeopleChange_c::executeState_ButtonOnStageAnimeEndWait()
 {
     if (!mLayout.isAnime(inYesNoButtons_guideYes) && !mLayout.isAnime(inYesNoButtons_yesButton) &&
@@ -869,10 +869,10 @@ void dNumberOfPeopleChange_c::executeState_ButtonOnStageAnimeEndWait()
 }
 
 // Empty
-[[address(0x807A1A40)]]
+[[nsmbw(0x807A1A40)]]
 void dNumberOfPeopleChange_c::finalizeState_ButtonOnStageAnimeEndWait();
 
-[[address(0x807A1A50)]]
+[[nsmbw(0x807A1A50)]]
 void dNumberOfPeopleChange_c::initializeState_ButtonChangeAnimeEndWait()
 {
     if (mOffButton > -1) {
@@ -881,7 +881,7 @@ void dNumberOfPeopleChange_c::initializeState_ButtonChangeAnimeEndWait()
     mLayout.AnimeStartSetup(onYesNoButtons_yesButton + mOnButton, false);
 }
 
-[[address(0x807A1AB0)]]
+[[nsmbw(0x807A1AB0)]]
 void dNumberOfPeopleChange_c::executeState_ButtonChangeAnimeEndWait()
 {
     if ((mOffButton < 0 || !mLayout.isAnime(offYesNoButtons_yesButton + mOffButton)) &&
@@ -891,16 +891,16 @@ void dNumberOfPeopleChange_c::executeState_ButtonChangeAnimeEndWait()
 }
 
 // Empty
-[[address(0x807A1B30)]]
+[[nsmbw(0x807A1B30)]]
 void dNumberOfPeopleChange_c::finalizeState_ButtonChangeAnimeEndWait();
 
-[[address(0x807A1B40)]]
+[[nsmbw(0x807A1B40)]]
 void dNumberOfPeopleChange_c::initializeState_ButtonSelect()
 {
     dGameCom::SelectCursorSetup(mpPYesNoBase[mOnButton], 0, false);
 }
 
-[[address(0x807A1B60)]]
+[[nsmbw(0x807A1B60)]]
 void dNumberOfPeopleChange_c::executeState_ButtonSelect()
 {
     dGameKeyCore_c* core = dGameKey_c::getCurrentCore();
@@ -944,16 +944,16 @@ void dNumberOfPeopleChange_c::executeState_ButtonSelect()
     }
 }
 
-[[address(0x807A1D00)]]
+[[nsmbw(0x807A1D00)]]
 void dNumberOfPeopleChange_c::finalizeState_ButtonSelect();
 
-[[address(0x807A1D10)]]
+[[nsmbw(0x807A1D10)]]
 void dNumberOfPeopleChange_c::initializeState_ButtonDecision()
 {
     mLayout.AnimeStartSetup(hitYesNoButtons_yesButton + mOnButton, false);
 }
 
-[[address(0x807A1D30)]]
+[[nsmbw(0x807A1D30)]]
 void dNumberOfPeopleChange_c::executeState_ButtonDecision()
 {
     if (!mLayout.isAnime()) {
@@ -962,10 +962,10 @@ void dNumberOfPeopleChange_c::executeState_ButtonDecision()
 }
 
 // Empty
-[[address(0x807A1D90)]]
+[[nsmbw(0x807A1D90)]]
 void dNumberOfPeopleChange_c::finalizeState_ButtonDecision();
 
-[[address(0x807A1DA0)]]
+[[nsmbw(0x807A1DA0)]]
 void dNumberOfPeopleChange_c::initializeState_ExitAnimeEndCheck()
 {
     mCancelAllowed = false;
@@ -983,7 +983,7 @@ void dNumberOfPeopleChange_c::initializeState_ExitAnimeEndCheck()
     mExiting = true;
 }
 
-[[address(0x807A1E80)]]
+[[nsmbw(0x807A1E80)]]
 void dNumberOfPeopleChange_c::executeState_ExitAnimeEndCheck()
 {
     if (mLayout.isAnime()) {
@@ -1033,7 +1033,7 @@ void dNumberOfPeopleChange_c::executeState_ExitAnimeEndCheck()
     }
 }
 
-[[address(0x807A2080)]]
+[[nsmbw(0x807A2080)]]
 void dNumberOfPeopleChange_c::finalizeState_ExitAnimeEndCheck()
 {
     for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {

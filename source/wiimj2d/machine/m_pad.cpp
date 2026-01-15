@@ -24,26 +24,26 @@ constinit std::array<CH_e, CH_e::COUNT> g_playerChannel = [] {
     return arr;
 }();
 
-[[address_data(0x8042A740)]]
+[[nsmbw_data(0x8042A740)]]
 EGG::CoreControllerMgr* g_padMg;
 
-[[address_data(0x8042A744)]]
+[[nsmbw_data(0x8042A744)]]
 CH_e g_currentCoreID;
 
-[[address_data(0x8042A748)]]
+[[nsmbw_data(0x8042A748)]]
 EGG::Controller* g_currentCore;
 
-[[address_data(0x8042A74C)]] [[gnu::weak]]
+[[nsmbw_data(0x8042A74C)]] [[gnu::weak]]
 bool g_IsConnectedOld[4];
 
 bool g_IsConnected[CH_e::COUNT] = {
   g_IsConnectedOld[0], g_IsConnectedOld[1], g_IsConnectedOld[2], g_IsConnectedOld[3]
 };
 
-[[address_data(0x8042A750)]]
+[[nsmbw_data(0x8042A750)]]
 u32 g_PadFrame;
 
-[[address(0x8042A754)]] [[gnu::weak]]
+[[nsmbw(0x8042A754)]] [[gnu::weak]]
 bool s_WPADInfoAvailableOld[4];
 
 /* 0x8042A754 */
@@ -52,16 +52,16 @@ bool s_WPADInfoAvailable[CH_e::COUNT]{
   s_WPADInfoAvailableOld[3]
 };
 
-[[address_data(0x8042A758)]]
+[[nsmbw_data(0x8042A758)]]
 s32 s_GetWPADInfoInterval;
 
-[[address_data(0x8042A75C)]]
+[[nsmbw_data(0x8042A75C)]]
 s32 s_GetWPADInfoCount;
 
-[[address(0x80378008)]] [[gnu::weak]]
+[[nsmbw(0x80378008)]] [[gnu::weak]]
 WPADInfo s_WPADInfoOld[4];
 
-[[address(0x80378068)]] [[gnu::weak]]
+[[nsmbw(0x80378068)]] [[gnu::weak]]
 WPADInfo s_WPADInfoTmpOld[4];
 
 /* 0x80378008 */
@@ -74,12 +74,12 @@ WPADInfo s_WPADInfoTmp[CH_e::COUNT] = {
   s_WPADInfoTmpOld[0], s_WPADInfoTmpOld[1], s_WPADInfoTmpOld[2], s_WPADInfoTmpOld[3]
 };
 
-[[address(0x80377FA8)]]
+[[nsmbw(0x80377FA8)]]
 PadAdditionalData_s g_PadAdditionalData[4];
 
 void initWPADInfo();
 
-[[address(0x8016F330)]]
+[[nsmbw(0x8016F330)]]
 void create()
 {
     g_padMg = EGG::CoreControllerMgr::instance();
@@ -88,7 +88,7 @@ void create()
     endPad();
 }
 
-[[address(0x8016F360)]]
+[[nsmbw(0x8016F360)]]
 void beginPad()
 {
     g_PadFrame++;
@@ -193,17 +193,17 @@ void beginPad()
     g_currentCore = g_core_order[g_currentCoreID];
 }
 
-[[address(0x8016F550)]]
+[[nsmbw(0x8016F550)]]
 void endPad()
 {
     g_padMg->endFrame();
     EGG::GCControllerMgr::instance()->endFrame();
 }
 
-[[address(0x8016F570)]]
+[[nsmbw(0x8016F570)]]
 void setCurrentChannel(CH_e chan);
 
-[[address(0x8016F5A0)]]
+[[nsmbw(0x8016F5A0)]]
 int getBatteryLevel_ch(CH_e chan)
 {
     if (chan <= CH_e::CHAN_3 && s_WPADInfoAvailable[chan]) {
@@ -212,14 +212,14 @@ int getBatteryLevel_ch(CH_e chan)
     return 4;
 }
 
-[[address(0x8016F640)]]
+[[nsmbw(0x8016F640)]]
 void clearWPADInfo(CH_e chan)
 {
     s_WPADInfo[chan] = {};
     s_WPADInfoAvailable[chan] = false;
 }
 
-[[address(0x8016F690)]]
+[[nsmbw(0x8016F690)]]
 void initWPADInfo()
 {
     for (int i = 0; i < CH_e::COUNT; i++) {
@@ -227,7 +227,7 @@ void initWPADInfo()
     }
 }
 
-[[address(0x8016F710)]]
+[[nsmbw(0x8016F710)]]
 int getWPADInfoAsync(CH_e chan);
 
 bool isGameCubeChannel(CH_e chan)

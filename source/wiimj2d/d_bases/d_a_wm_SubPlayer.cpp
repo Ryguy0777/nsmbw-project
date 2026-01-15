@@ -25,7 +25,7 @@ EXTERN_REPL(
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x808EB220)]]
+[[nsmbw(0x808EB220)]]
 fBase_c::PACK_RESULT_e daWmSubPlayer_c::create()
 {
     createSubPlayer();
@@ -38,7 +38,7 @@ fBase_c::PACK_RESULT_e daWmSubPlayer_c::create()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x808EB7D0)]]
+[[nsmbw(0x808EB7D0)]]
 void daWmSubPlayer_c::loadModel() ASM_METHOD(
   // clang-format off
 /* 808EB7D0 9421FFE0 */  stwu     r1, -32(r1);
@@ -116,10 +116,10 @@ UNDEF_808eb884:;
   // clang-format on
 );
 
-[[address(0x808EDC40)]]
+[[nsmbw(0x808EDC40)]]
 void daWmSubPlayer_c::setWalkSpeed(f32 speed);
 
-[[address(0x808EE0C0)]]
+[[nsmbw(0x808EE0C0)]]
 s32 daWmSubPlayer_c::getPlayerOrder()
 {
     s32 order = 1;
@@ -137,7 +137,7 @@ s32 daWmSubPlayer_c::getPlayerOrder()
     return order;
 }
 
-[[address(0x808EE110)]]
+[[nsmbw(0x808EE110)]]
 f32 daWmSubPlayer_c::getDistanceToAheadPlayer();
 
 bool daWmSubPlayer_c::isPastAheadPlayer(float& distToNextNode)
@@ -165,10 +165,10 @@ bool daWmSubPlayer_c::isPastAheadPlayer(float& distToNextNode)
     return distToNextNode < mVec3_c::distance(ahead->mPos, toPos);
 }
 
-[[address(0x808EE200)]]
+[[nsmbw(0x808EE200)]]
 dWmPlayerBase_c* daWmSubPlayer_c::getAheadPlayer();
 
-[[address(0x808EE620)]]
+[[nsmbw(0x808EE620)]]
 void daWmSubPlayer_c::calcWalkSpeed()
 {
     f32 prevSpeedF = mSpeedF;
@@ -206,10 +206,10 @@ void daWmSubPlayer_c::calcWalkSpeed()
     }
 }
 
-[[address(0x808EE950)]]
+[[nsmbw(0x808EE950)]]
 int daWmSubPlayer_c::getSubPlayerNum();
 
-[[address(0x808EE960)]]
+[[nsmbw(0x808EE960)]]
 f32 daWmSubPlayer_c::getPlayerOrderDistance()
 {
     using FloatArray = f32[];
@@ -238,7 +238,7 @@ f32 daWmSubPlayer_c::getPlayerOrderDistance()
     }[getPlayerOrderTableIndex(getPlayerOrder())];
 }
 
-[[address(0x808EE9B0)]]
+[[nsmbw(0x808EE9B0)]]
 s16 daWmSubPlayer_c::getPlayerOrderAngle()
 {
     using AngleArray = s16[];
@@ -296,7 +296,7 @@ s16 daWmSubPlayer_c::getPlayerOrderAngle()
     }[getPlayerOrderTableIndex(getPlayerOrder())];
 }
 
-[[address(0x808EEA00)]]
+[[nsmbw(0x808EEA00)]]
 s32 daWmSubPlayer_c::getPlayerOrderTableIndex(int playerOrder)
 {
     int subPlayerNum = getSubPlayerNum();
@@ -309,19 +309,19 @@ s32 daWmSubPlayer_c::getPlayerOrderTableIndex(int playerOrder)
     return l_INDEX_TABLE[subPlayerNum - 1] + playerOrder;
 }
 
-[[address(0x808EEF00)]]
+[[nsmbw(0x808EEF00)]]
 bool daWmSubPlayer_c::isWrongDirection(PATH_DIR_e dir1, PATH_DIR_e dir2);
 
-[[address(0x808EEF70)]]
+[[nsmbw(0x808EEF70)]]
 bool daWmSubPlayer_c::isSubPlayerStopPoint();
 
-[[address(0x808EF2B0)]]
+[[nsmbw(0x808EF2B0)]]
 bool daWmSubPlayer_c::isPlayerType(PLAYER_TYPE_e playerType)
 {
     return dMj2dGame_c::scDefaultPlayerTypes[getPlayerNo()] == playerType;
 }
 
-[[address(0x808EF2D0)]]
+[[nsmbw(0x808EF2D0)]]
 bool daWmSubPlayer_c::isPlayerStar()
 {
     return static_cast<bool>(
@@ -330,7 +330,7 @@ bool daWmSubPlayer_c::isPlayerStar()
     );
 }
 
-[[address(0x808EF680)]]
+[[nsmbw(0x808EF680)]]
 daWmSubPlayer_c::NodeTrail_c::Node_s* daWmSubPlayer_c::NodeTrail_c::pushNext()
 {
     if (mUsedCount >= mAllocCount) {
@@ -345,13 +345,13 @@ daWmSubPlayer_c::NodeTrail_c::Node_s* daWmSubPlayer_c::NodeTrail_c::pushNext()
     return &mpNodes[(mFirstNode + mUsedCount++) % mAllocCount];
 }
 
-[[address(0x808EF6D0)]]
+[[nsmbw(0x808EF6D0)]]
 daWmSubPlayer_c::NodeTrail_c::Node_s* daWmSubPlayer_c::NodeTrail_c::popFirst();
 
 /* VT+0x0C */
-[[address(0x808EF730)]]
+[[nsmbw(0x808EF730)]]
 void daWmSubPlayer_c::NodeTrailBase_c::alloc(int count);
 
 /* VT+0x10 */
-[[address(0x808EF780)]]
+[[nsmbw(0x808EF780)]]
 void daWmSubPlayer_c::NodeTrailBase_c::alloc(int count, EGG::Heap* heap);

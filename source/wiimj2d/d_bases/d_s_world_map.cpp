@@ -31,7 +31,7 @@
 #include "d_system/d_wm_actor.h"
 #include <iterator>
 
-[[address(0x80926E10)]]
+[[nsmbw(0x80926E10)]]
 bool dScWMap_c::createLayoutPhase()
 {
 #define NEW(_TYPE, _PROFILE, _PARAM)                                                               \
@@ -83,7 +83,7 @@ bool dScWMap_c::createLayoutPhase()
 #undef NEW
 }
 
-[[address(0x809271C0)]]
+[[nsmbw(0x809271C0)]]
 bool dScWMap_c::createActorsPhase()
 {
     dWmActor_c::construct(dProf::WM_MAP, this, 0, nullptr, nullptr);

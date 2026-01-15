@@ -11,10 +11,10 @@ extern const char* const c_yoshiColorNames[dYoshiMdl_c::COLOR_COUNT] = {
   "Y_TexCrimson", "Y_TexOrange", "Y_TexPurple", "Y_TexAzure",
 };
 
-[[address(0x800FE2E0)]]
+[[nsmbw(0x800FE2E0)]]
 dYoshiMdl_c::dYoshiMdl_c(u8 index);
 
-[[address(0x800FE510)]]
+[[nsmbw(0x800FE510)]]
 void dYoshiMdl_c::getPlayerObjectRes() ASM_METHOD(
   // clang-format off
 /* 800FE510 9421FFD0 */  stwu     r1, -48(r1);

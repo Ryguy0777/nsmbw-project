@@ -3,7 +3,7 @@
 
 #include "d_CharacterChangeSelectArrow.h"
 
-[[address(0x8076E600)]]
+[[nsmbw(0x8076E600)]]
 void dCharacterChangeSelectArrow_c::executeState_OnStageWait() ASM_METHOD(
   // clang-format off
 /* 8076E600 80030264 */  lwz      r0, 612(r3);
@@ -41,7 +41,7 @@ UNDEF_8076e658:;
   // clang-format on
 );
 
-[[address(0x8076EA00)]]
+[[nsmbw(0x8076EA00)]]
 void dCharacterChangeSelectArrow_c::executeState_HitAnimeEndWait() ASM_METHOD(
   // clang-format off
 /* 8076EA00 9421FFF0 */  stwu     r1, -16(r1);

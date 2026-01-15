@@ -383,35 +383,35 @@ static constexpr u16 PLAYER_VOICE_SOUND_ID_LIST[SndObjctPly::PLAYER_SOUND_INDEX_
 };
 
 /* VT+0x24 */
-[[address(0x8019A0F0)]]
+[[nsmbw(0x8019A0F0)]]
 nw4r::snd::SoundHandle* SndObjctPly::startSound(u32 soundId, u32 remoteMask);
 
 /* VT+0x28 */
-[[address(0x8019A1E0)]]
+[[nsmbw(0x8019A1E0)]]
 nw4r::snd::SoundHandle* SndObjctPly::holdSound(u32 soundId, u32 remoteMask);
 
 /* VT+0x30 */
-[[address(0x8019A330)]]
+[[nsmbw(0x8019A330)]]
 nw4r::snd::SoundHandle* SndObjctPly::startSound(u32 soundId, short seqParam, u32 remoteMask);
 
 /* VT+0x34 */
-[[address(0x8019A450)]]
+[[nsmbw(0x8019A450)]]
 nw4r::snd::SoundHandle* SndObjctPly::holdSound(u32 soundId, short seqParam, u32 remoteMask);
 
 /* VT+0x38 */
-[[address(0x8019A5D0)]]
+[[nsmbw(0x8019A5D0)]]
 nw4r::snd::SoundHandle*
 SndObjctPly::startSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
 
 /* VT+0x3C */
-[[address(0x8019A6C0)]]
+[[nsmbw(0x8019A6C0)]]
 nw4r::snd::SoundHandle*
 SndObjctPly::holdSound(u32 soundId, const nw4r::math::VEC2& position, u32 remoteMask);
 
-[[address(0x8019A810)]]
+[[nsmbw(0x8019A810)]]
 nw4r::snd::SoundHandle* SndObjctPly::startFootSound(u32 soundId, f32 param2, u32 remoteMask);
 
-[[address(0x8019AAB0)]]
+[[nsmbw(0x8019AAB0)]]
 nw4r::snd::SoundHandle* SndObjctPly::startVoiceSound(PLAYER_VOICE_e voice, u32 remoteMask)
 {
     if (voice >= PLAYER_VOICE_e::COUNT || mPlayerSndIndex >= PLAYER_SOUND_INDEX_e::COUNT) {
@@ -461,7 +461,7 @@ nw4r::snd::SoundHandle* SndObjctPly::startVoiceSound(PLAYER_VOICE_e voice, u32 r
     return handle;
 }
 
-[[address(0x8019ABB0)]]
+[[nsmbw(0x8019ABB0)]]
 nw4r::snd::SoundHandle* SndObjctPly::holdVoiceSound(PLAYER_VOICE_e voice, u32 remoteMask)
 {
     if (voice >= PLAYER_VOICE_e::COUNT || mPlayerSndIndex >= PLAYER_SOUND_INDEX_e::COUNT) {

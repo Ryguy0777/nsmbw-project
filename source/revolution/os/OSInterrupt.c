@@ -5,13 +5,13 @@
 
 EXTERN_C_START
 
-[[address(0x801B1280)]]
+[[nsmbw(0x801B1280)]]
 bool OSDisableInterrupts();
 
-[[address(0x801B12A0)]]
+[[nsmbw(0x801B12A0)]]
 bool OSEnableInterrupts();
 
-[[address(0x801B12C0)]]
+[[nsmbw(0x801B12C0)]]
 bool OSRestoreInterrupts(bool status);
 
 EXTERN_C_END

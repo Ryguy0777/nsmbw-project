@@ -5,7 +5,7 @@
 
 #include <mkwcat/Relocate.hpp>
 
-[[address(0x807F1A00)]]
+[[nsmbw(0x807F1A00)]]
 daFloorJrC_c* daFloorJrC_c_classInit()
 {
     daFloorJrC_c* obj = new daFloorJrC_c;
@@ -20,10 +20,10 @@ daFloorJrC_c* daFloorJrC_c_classInit()
     return obj;
 }
 
-[[address(0x807F20B0)]]
+[[nsmbw(0x807F20B0)]]
 daFloorJrC_c::daFloorJrC_c();
 
-[[address(0x807F28E0)]]
+[[nsmbw(0x807F28E0)]]
 void daFloorJrC_c::clearPlayerInfo()
 {
     m0x674 = m0x670;
@@ -38,7 +38,7 @@ void daFloorJrC_c::clearPlayerInfo()
     m0x684 = 0;
 }
 
-[[address(0x807F2940)]]
+[[nsmbw(0x807F2940)]]
 bool daFloorJrC_c::checkPlayerFlag(int player)
 {
     return m0x686[player] && !m0x68A[player];

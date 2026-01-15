@@ -1,0 +1,10 @@
+#pragma once
+
+#include "msl/c/stdarg.h"
+
+namespace std
+{
+
+using ::va_list;
+
+} // namespace std

@@ -7,10 +7,10 @@
 #include <nw4r/lyt/Material.h>
 #include <nw4r/ut/Color.h>
 
-[[address(0x80015200)]]
+[[nsmbw(0x80015200)]]
 void dSmallScore_c::setPlayer1upColor(int player);
 
-[[address(0x80015210)]]
+[[nsmbw(0x80015210)]]
 void dSmallScore_c::setPlayer1000Color(int player)
 {
     static constinit const nw4r::ut::Color l_PLY_COLOR_0[] = {
@@ -46,7 +46,7 @@ void dSmallScore_c::setPlayer1000Color(int player)
     mTxt1000->SetVtxColor(2, l_PLY_COLOR_2[index]);
 }
 
-[[address(0x800153B0)]]
+[[nsmbw(0x800153B0)]]
 void dSmallScore_c::setPlayer100Color(int player)
 {
     static constinit const nw4r::ut::Color l_PLY_COLOR[] = {

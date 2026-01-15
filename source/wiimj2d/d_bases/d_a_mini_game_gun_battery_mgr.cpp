@@ -12,35 +12,35 @@
 #include "sound/SndID.h"
 #include "sound/SndSceneMgr.h"
 
-[[address(0x80866120)]]
+[[nsmbw(0x80866120)]]
 daMiniGameGunBatteryMgrObj_c* daMiniGameGunBatteryMgrObj_c_classInit()
 {
     return new daMiniGameGunBatteryMgrObj_c();
 }
 
-[[address(0x80866210)]]
+[[nsmbw(0x80866210)]]
 daMiniGameGunBatteryMgrObj_c::daMiniGameGunBatteryMgrObj_c()
   : mStateMgr(*this, StateID_ShowRule)
 {
 }
 
-[[address(0x80866450)]]
+[[nsmbw(0x80866450)]]
 fBase_c::PACK_RESULT_e daMiniGameGunBatteryMgrObj_c::create();
 
-[[address(0x808664B0)]]
+[[nsmbw(0x808664B0)]]
 fBase_c::PACK_RESULT_e daMiniGameGunBatteryMgrObj_c::preExecute();
 
-[[address(0x808664F0)]]
+[[nsmbw(0x808664F0)]]
 fBase_c::PACK_RESULT_e daMiniGameGunBatteryMgrObj_c::execute();
 
-[[address(0x80866530)]]
+[[nsmbw(0x80866530)]]
 void daMiniGameGunBatteryMgrObj_c::hitBalloon(int player, int lives)
 {
     mPlayers[player].mNumLives += lives;
     mPlayers[player].mNumHit++;
 }
 
-[[address(0x80866560)]]
+[[nsmbw(0x80866560)]]
 void daMiniGameGunBatteryMgrObj_c::addResultRest()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -50,16 +50,16 @@ void daMiniGameGunBatteryMgrObj_c::addResultRest()
     }
 }
 
-[[address(0x808665F0)]]
+[[nsmbw(0x808665F0)]]
 bool daMiniGameGunBatteryMgrObj_c::checkMessageClose();
 
-[[address(0x80866640)]]
+[[nsmbw(0x80866640)]]
 void daMiniGameGunBatteryMgrObj_c::setMessageCloseWait(int value)
 {
     mMessageCloseWaitTimer = value;
 }
 
-[[address(0x80866650)]]
+[[nsmbw(0x80866650)]]
 void daMiniGameGunBatteryMgrObj_c::setPlayerDone(int player)
 {
     if (player == -1 || mPlayers[player].mDone) {
@@ -70,7 +70,7 @@ void daMiniGameGunBatteryMgrObj_c::setPlayerDone(int player)
     mNumDone++;
 }
 
-[[address(0x808666E0)]]
+[[nsmbw(0x808666E0)]]
 void daMiniGameGunBatteryMgrObj_c::executeState_ShowRule()
 {
     bool closed;
@@ -140,7 +140,7 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowRule()
     }
 }
 
-[[address(0x80866A90)]]
+[[nsmbw(0x80866A90)]]
 void daMiniGameGunBatteryMgrObj_c::executeState_ShowResult()
 {
     bool win, closed;
@@ -208,7 +208,7 @@ void daMiniGameGunBatteryMgrObj_c::executeState_ShowResult()
     }
 }
 
-[[address(0x80866CF0)]]
+[[nsmbw(0x80866CF0)]]
 daMiniGameGunBatteryMgrObj_c::~daMiniGameGunBatteryMgrObj_c()
 {
 }

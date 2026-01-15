@@ -17,7 +17,7 @@ float remoCannonGuideColorSet(int playerNo)
     return static_cast<float>(playerNo);
 }
 
-[[address(0x80A950A0)]]
+[[nsmbw(0x80A950A0)]]
 void daEnRemoconCannon_c::setupGuide(dRemoconCannonGuide_c** guide, int mPlayerNo) ASM_METHOD(
   // clang-format off
 /* 80A950A0 9421FFD0 */  stwu     r1, -48(r1);
@@ -83,7 +83,7 @@ UNDEF_80a9515c:;
   // clang-format on
 );
 
-[[address(0x80A854B0)]]
+[[nsmbw(0x80A854B0)]]
 void daEnRemoconCannon_c::createModel() ASM_METHOD(
   // clang-format off
 /* 80A954B0 9421FFD0 */  stwu     r1, -48(r1);
@@ -197,7 +197,7 @@ void daEnRemoconCannon_c::createModel() ASM_METHOD(
   // clang-format on
 );
 
-[[address(0x80A95890)]]
+[[nsmbw(0x80A95890)]]
 void daEnRemoconCannon_c::setBodyColor()
 {
     if (mPlayerNo > -1) {
@@ -238,7 +238,7 @@ static constinit const nw4r::ut::Color PLY_TRAIL_EFF_COLOR_2[] = {
     "#6C6C6C", // Black Toad
 };
 
-[[address(0x80A95990)]]
+[[nsmbw(0x80A95990)]]
 void daEnRemoconCannon_c::EffectDischargeTail()
 {
     GXColor color0, color1;
@@ -268,7 +268,7 @@ void daEnRemoconCannon_c::EffectDischargeTail()
     }
 }
 
-[[address(0x80A95C00)]]
+[[nsmbw(0x80A95C00)]]
 void daEnRemoconCannon_c::UNDEF_80a95c00() ASM_METHOD(
   // clang-format off
 /* 80A95C00 9421FFE0 */  stwu     r1, -32(r1);
@@ -312,7 +312,7 @@ UNDEF_80a95c68:;
   // clang-format on
 );
 
-[[address(0x80A960A0)]]
+[[nsmbw(0x80A960A0)]]
 void daEnRemoconCannon_c::firePlayer(int playerType)
 {
     float modifiers[4] = {15.0, 7.0, 7.0, 7.0};
@@ -332,16 +332,16 @@ void daEnRemoconCannon_c::firePlayer(int playerType)
 }
 
 
-[[address(0x80A96210)]]
+[[nsmbw(0x80A96210)]]
 mVec3_c daEnRemoconCannon_c::calcTiltPos();
 
-[[address(0x80A964E0)]]
+[[nsmbw(0x80A964E0)]]
 bool daEnRemoconCannon_c::UNDEF_80a964e0(short target)
 {
     return dGameCom::CalculateTiltShoulder(&mTargetAngle, target, 400, mPlayerNo, 0x3520);
 }
 
-[[address(0x80A96C10)]]
+[[nsmbw(0x80A96C10)]]
 void daEnRemoconCannon_c::initializeState_Fire() ASM_METHOD(
 /* 80A96C10 9421FFA0 */  stwu     r1, -96(r1);
 /* 80A96C14 7C0802A6 */  mflr     r0;

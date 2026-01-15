@@ -3,8 +3,8 @@
 
 #include "d_stage_timer.h"
 
-[[address_data(0x8042A350)]]
+[[nsmbw_data(0x8042A350)]]
 dStageTimer_c* dStageTimer_c::m_instance;
 
-[[address(0x800E3A20)]]
+[[nsmbw(0x800E3A20)]]
 void dStageTimer_c::execute();

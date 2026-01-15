@@ -3,7 +3,7 @@
 
 #include "d_s_movie.h"
 
-[[address(0x80922910)]]
+[[nsmbw(0x80922910)]]
 fBase_c::PACK_RESULT_e dScMovie_c::execute() ASM_METHOD(
   // clang-format off
 /* 80922910 9421FFC0 */  stwu     r1, -64(r1);

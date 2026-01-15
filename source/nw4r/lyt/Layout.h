@@ -18,7 +18,7 @@ public:
     // Instance Methods
     // ^^^^^^
 
-    [[address(0x802AD660)]]
+    [[nsmbw(0x802AD660)]]
     nw4r::ut::Rect GetLayoutRect() const;
 };
 

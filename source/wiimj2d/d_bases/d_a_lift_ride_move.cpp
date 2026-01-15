@@ -5,7 +5,7 @@
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 
-[[address(0x80845D60)]]
+[[nsmbw(0x80845D60)]]
 bool daLiftRideMove_c::isAllPlayerOnLift()
 {
     int numPlayer = 0;

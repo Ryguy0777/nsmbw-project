@@ -31,7 +31,7 @@
 #include "sound/SndAudioMgr.h"
 #include <revolution/vi.h>
 
-[[address(0x80830690)]]
+[[nsmbw(0x80830690)]]
 daLastActorStage_c* daLastActorStage_c_classInit()
 {
     return new daLastActorStage_c();
@@ -41,7 +41,7 @@ daLastActorStage_c* daLastActorStage_c_classInit()
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x808306E0)]]
+[[nsmbw(0x808306E0)]]
 fBase_c::PACK_RESULT_e daLastActorStage_c::create()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -57,14 +57,14 @@ fBase_c::PACK_RESULT_e daLastActorStage_c::create()
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
  */
-[[address(0x80830710)]]
+[[nsmbw(0x80830710)]]
 fBase_c::PACK_RESULT_e daLastActorStage_c::doDelete();
 
 /**
  * VT+0x20
  * do method for the execute operation.
  */
-[[address(0x80830720)]]
+[[nsmbw(0x80830720)]]
 fBase_c::PACK_RESULT_e daLastActorStage_c::execute()
 {
     if (!dGameCom::isGameStop(0xFFFFFFFF)) {
@@ -170,5 +170,5 @@ fBase_c::PACK_RESULT_e daLastActorStage_c::execute()
  * VT+0x2C
  * do method for the draw operation.
  */
-[[address(0x80830BB0)]]
+[[nsmbw(0x80830BB0)]]
 fBase_c::PACK_RESULT_e daLastActorStage_c::draw();

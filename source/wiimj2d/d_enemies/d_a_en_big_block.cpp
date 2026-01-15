@@ -1,7 +1,7 @@
 // d_a_en_big_block.cpp
 // NSMBW d_enemies.text: 0x809B88C0 - 0x809B9DF0
 
-[[address(0x809B90B0)]]
+[[nsmbw(0x809B90B0)]]
 void daEnBigBlock_c_FUN_809B90B0() ASM_METHOD(
     // clang-format off
 /* 809B90B0 9421FFE0 */  stwu     r1, -32(r1);

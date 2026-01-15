@@ -3,7 +3,7 @@
 
 #include "d_a_en_jimen_pakkun_base.h"
 
-[[address(0x8002F870)]]
+[[nsmbw(0x8002F870)]]
 void daEnJimenPakkunBase_c::Normal_VsPlHitCheck(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 8002F870 9421FFE0 */  stwu     r1, -32(r1);
@@ -44,7 +44,7 @@ UNDEF_8002f8f4:;
   // clang-format on
 );
 
-[[address(0x8002F970)]]
+[[nsmbw(0x8002F970)]]
 int hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 8002F970 9421FFE0 */  stwu     r1, -32(r1);

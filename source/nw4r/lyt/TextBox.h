@@ -44,16 +44,16 @@ class TextBox : public Pane
     SIZE_ASSERT(0x104);
 
 public:
-    [[address(0x802ADFE0)]]
+    [[nsmbw(0x802ADFE0)]]
     TextBox(res::TextBox* res, ResBlockSet& resBlockSet);
 
-    [[address(0x802AE2D0)]]
+    [[nsmbw(0x802AE2D0)]]
     ~TextBox();
 
-    [[address(0x802AE510)]]
+    [[nsmbw(0x802AE510)]]
     ut::Rect GetTextDrawRect() const;
 
-    [[address(0x802AF000)]]
+    [[nsmbw(0x802AF000)]]
     u16 SetString(const wchar_t* pStr, u16 pos);
 
     ut::Color GetTextColor(u32 idx) const

@@ -1,0 +1,8 @@
+#pragma once
+
+#include "msl/c/wchar.h"
+
+namespace std
+{
+
+}

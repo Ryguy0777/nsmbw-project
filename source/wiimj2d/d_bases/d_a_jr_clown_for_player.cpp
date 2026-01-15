@@ -4,7 +4,7 @@
 #include "d_a_jr_clown_for_player.h"
 #include "machine/m_3d_fanm.h"
 
-[[address(0x808116B0)]]
+[[nsmbw(0x808116B0)]]
 void daJrClownForPlayer_c::setPlayerEmblem(int playerNo)
 {
     mResPat = mRes.GetResAnmTexPat("ply_change");

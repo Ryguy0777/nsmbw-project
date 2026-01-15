@@ -22,7 +22,7 @@ EXTERN_SYMBOL(0x801A9CC0, "PPCMtdec");
 EXTERN_SYMBOL(0x801A9CD0, "PPCSync");
 // UNUSED: PPCEieio
 
-[[address(0x801A9CE0)]] [[noreturn]]
+[[nsmbw(0x801A9CE0)]] [[noreturn]]
 void PPCHalt();
 
 // UNUSED: PPCMfmmcr0

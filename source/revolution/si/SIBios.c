@@ -6,16 +6,16 @@
 
 EXTERN_C_START
 
-[[address_data(0x803402D0)]] struct Si_ {
+[[nsmbw_data(0x803402D0)]] struct Si_ {
     /* 0x00 */ s32 status;
     /* 0x04 */ u32 xy;
     FILL(0x08, 0x20);
 } Si;
 
-[[address_data(0x803402E8)]]
+[[nsmbw_data(0x803402E8)]]
 u32 Type_SI[4];
 
-[[address_data(0x8038FAD0)]] struct Packet_ {
+[[nsmbw_data(0x8038FAD0)]] struct Packet_ {
     /* 0x00 */ s32 x0;
     FILL(0x04, 0x20);
 } Packet[4];
@@ -38,7 +38,7 @@ u32 SIGetStatus(s32 chan)
     return sr;
 }
 
-[[address(0x801BB7C0)]]
+[[nsmbw(0x801BB7C0)]]
 u32 SIGetType(s32 chan);
 
 void SISetCommand(s32 param_1, u32 param_2)
@@ -51,7 +51,7 @@ void SITransferCommands()
     *(u32*) 0xCD006438 = 0x80000000;
 }
 
-[[address(0x801BB390)]]
+[[nsmbw(0x801BB390)]]
 bool SITransfer(
   s32 chan, void* out, u32 outSize, void* in, u32 inSize, SICallback callback, s64 param_7
 );

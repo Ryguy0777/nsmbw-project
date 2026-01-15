@@ -3,5 +3,5 @@
 
 #include "f_manager.h"
 
-[[address(0x80162E40)]]
+[[nsmbw(0x80162E40)]]
 fBase_c* fManager_c::searchBaseByID(fBaseID_e id);

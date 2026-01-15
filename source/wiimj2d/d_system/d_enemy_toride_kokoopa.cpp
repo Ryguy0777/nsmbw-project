@@ -1,7 +1,7 @@
 // d_enemy_toride_kokoopa.cpp
 // NSMBW .text: 0x800A8710 - 0x800B0A20
 
-[[address(0x800B0840)]]
+[[nsmbw(0x800B0840)]]
 void UNDEF_800B0840() ASM_METHOD(
   // clang-format off
 /* 800B0840 9421FFE0 */  stwu     r1, -32(r1);

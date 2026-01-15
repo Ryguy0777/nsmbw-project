@@ -16,10 +16,10 @@ namespace EGG
 // Variables
 // ^^^^^^
 
-[[address_data(0x8042B150)]]
+[[nsmbw_data(0x8042B150)]]
 CoreControllerMgr* CoreControllerMgr::sInstance;
 
-[[address_data(0x8042B160)]]
+[[nsmbw_data(0x8042B160)]]
 bool s_allocatorCreated;
 
 // Functions
@@ -47,23 +47,23 @@ u32 getStickButton(const f32& x, const f32& y)
 }
 } // namespace
 
-[[address(0x802BC9E0)]]
+[[nsmbw(0x802BC9E0)]]
 u32 CoreStatus::getFSStickButton() const
 {
     return getStickButton(getFSStickX(), getFSStickY())
            << std::countr_zero<u32>(cCORE_FSSTICK_BUTTONS);
 }
 
-[[address(0x802BCA90)]]
+[[nsmbw(0x802BCA90)]]
 CoreController::CoreController();
 
-[[address(0x802BCAF0)]]
+[[nsmbw(0x802BCAF0)]]
 void CoreController::sceneReset();
 
-[[address(0x802BCBB0)]]
+[[nsmbw(0x802BCBB0)]]
 Vector2f CoreController::getDpdRawPos();
 
-[[address(0x802BCBF0)]]
+[[nsmbw(0x802BCBF0)]]
 void Controller::startMotor()
 {
     if (getClassicController()) {
@@ -79,7 +79,7 @@ void Controller::startMotor()
     }
 }
 
-[[address(0x802BCC00)]]
+[[nsmbw(0x802BCC00)]]
 void Controller::stopMotor()
 {
     if (getClassicController()) {
@@ -95,7 +95,7 @@ void Controller::stopMotor()
     }
 }
 
-[[address(0x802BCC10)]]
+[[nsmbw(0x802BCC10)]]
 void Controller::createRumbleMgr(u8 overlap_num)
 {
     if (getClassicController()) {
@@ -113,7 +113,7 @@ void Controller::createRumbleMgr(u8 overlap_num)
     mgr->createUnit(overlap_num, this);
 }
 
-[[address(0x802BCC70)]]
+[[nsmbw(0x802BCC70)]]
 void Controller::startPatternRumble(const char* pattern, int frame, bool force)
 {
     if (getClassicController()) {
@@ -129,7 +129,7 @@ void Controller::startPatternRumble(const char* pattern, int frame, bool force)
     }
 }
 
-[[address(0x802BCC90)]]
+[[nsmbw(0x802BCC90)]]
 void Controller::startPowerFrameRumble(f32 power, int frame, bool force)
 {
     if (getClassicController()) {
@@ -145,7 +145,7 @@ void Controller::startPowerFrameRumble(f32 power, int frame, bool force)
     }
 }
 
-[[address(0x802BCCB0)]]
+[[nsmbw(0x802BCCB0)]]
 void Controller::stopRumbleMgr()
 {
     if (getClassicController()) {
@@ -161,10 +161,10 @@ void Controller::stopRumbleMgr()
     }
 }
 
-[[address(0x802BCCD0)]]
+[[nsmbw(0x802BCCD0)]]
 void CoreController::calc_posture_matrix(Matrix34f& posture, bool checkStable);
 
-[[address(0x802BD0D0)]]
+[[nsmbw(0x802BD0D0)]]
 void CoreController::beginFrame(PADStatus*)
 {
     s32 kpad_result;
@@ -286,10 +286,10 @@ void CoreController::beginFrame(PADStatus*)
     }
 }
 
-[[address(0x802BD660)]]
+[[nsmbw(0x802BD660)]]
 CoreController* CoreControllerMgr::getNthController(int n);
 
-[[address(0x802BD790)]]
+[[nsmbw(0x802BD790)]]
 CoreControllerMgr::CoreControllerMgr();
 
 void CoreControllerMgr::initClassic()
@@ -306,10 +306,10 @@ void CoreControllerMgr::initClassic()
     }
 }
 
-[[address(0x802BDBB0)]]
+[[nsmbw(0x802BDBB0)]]
 void CoreControllerMgr::beginFrame();
 
-[[address(0x802BDC60)]]
+[[nsmbw(0x802BDC60)]]
 void CoreControllerMgr::endFrame();
 
 void GCController::beginFrame(PADStatus* status)
@@ -463,25 +463,25 @@ void ClassicController::endFrame()
 {
 }
 
-[[address(0x802BDFF0)]]
+[[nsmbw(0x802BDFF0)]]
 ControllerRumbleMgr::ControllerRumbleMgr();
 
-[[address(0x802BE3B0)]]
+[[nsmbw(0x802BE3B0)]]
 ControllerRumbleMgr::~ControllerRumbleMgr();
 
-[[address(0x802BE050)]]
+[[nsmbw(0x802BE050)]]
 void ControllerRumbleMgr::createUnit(u8 overlap_num, Controller* pController);
 
-[[address(0x802BE0E0)]]
+[[nsmbw(0x802BE0E0)]]
 void ControllerRumbleMgr::stop();
 
-[[address(0x802BE150)]]
+[[nsmbw(0x802BE150)]]
 void ControllerRumbleMgr::calc();
 
-[[address(0x802BE260)]]
+[[nsmbw(0x802BE260)]]
 void ControllerRumbleMgr::startPattern(const char* pPattern, int frame, bool force);
 
-[[address(0x802BE2B0)]]
+[[nsmbw(0x802BE2B0)]]
 void ControllerRumbleMgr::startPowerFrame(f32 power, int frame, bool force);
 
 } // namespace EGG

@@ -7,7 +7,7 @@
 #include "d_player/d_a_player.h"
 
 
-[[address(0x8002D730)]]
+[[nsmbw(0x8002D730)]]
 int daEnDpakkunBase_c::hitCallback_YoshiHipAttk(dCc_c* main, dCc_c* other) ASM_METHOD(
   // clang-format off
 /* 8002D730 9421FFE0 */  stwu     r1, -32(r1);
@@ -73,7 +73,7 @@ UNDEF_8002d81c:;
 // Four patch: daEnDpakkunBase_c::hitCallback_Star
 // Four patch: daEnDpakkunBase_c::hitCallback_Shell
 
-[[address(0x8002DAB0)]]
+[[nsmbw(0x8002DAB0)]]
 bool daEnDpakkunBase_c::isPlayerDemo()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {

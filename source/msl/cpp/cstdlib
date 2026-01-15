@@ -1,0 +1,12 @@
+#pragma once
+
+#include "cstddef"
+#include "msl/c/stdlib.h"
+
+namespace std
+{
+
+using ::mbstowcs;
+using ::atoi;
+
+} // namespace std

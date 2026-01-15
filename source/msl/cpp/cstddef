@@ -1,0 +1,13 @@
+#pragma once
+
+#include "msl/c/stddef.h"
+
+namespace std
+{
+
+using ::size_t;
+using ::ptrdiff_t;
+
+using nullptr_t = decltype(nullptr);
+
+} // namespace std

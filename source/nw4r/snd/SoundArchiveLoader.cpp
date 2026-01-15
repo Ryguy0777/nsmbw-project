@@ -7,7 +7,7 @@
 namespace nw4r::snd::detail
 {
 
-[[address(0x80277210)]]
+[[nsmbw(0x80277210)]]
 void* SoundArchiveLoader::LoadGroup(
   u32 id, SoundMemoryAllocatable* pAllocatable, void** ppWaveBuffer, u32 blockSize
 );

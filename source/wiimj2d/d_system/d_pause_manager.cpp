@@ -3,14 +3,14 @@
 
 #include "d_pause_manager.h"
 
-[[address_data(0x8042A2B8)]]
+[[nsmbw_data(0x8042A2B8)]]
 PauseManager_c* PauseManager_c::m_instance;
 
-[[address_data(0x8042A2C2)]]
+[[nsmbw_data(0x8042A2C2)]]
 bool PauseManager_c::m_OtasukeAfter;
 
-[[address(0x800D0C10)]]
+[[nsmbw(0x800D0C10)]]
 void PauseManager_c::setPauseEnable(bool enable);
 
-[[address(0x800D1350)]]
+[[nsmbw(0x800D1350)]]
 void PauseManager_c::setPause();

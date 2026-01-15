@@ -1,7 +1,7 @@
 // d_a_en_block.cpp
 // NSMBW d_enemies.text: 0x809BED80 - 0x809C0770
 
-[[address(0x809BEE00)]]
+[[nsmbw(0x809BEE00)]]
 void daEnBlock_c_onCreate() ASM_METHOD(
   // clang-format off
 /* 809BEE00 9421FFE0 */  stwu     r1, -32(r1);
@@ -304,7 +304,7 @@ UNDEF_809bf190:;
   // clang-format on
 );
 
-[[address(0x809BF590)]]
+[[nsmbw(0x809BF590)]]
 void daEnBlock_c_spawnItems() ASM_METHOD(
   // clang-format off
 /* 809BF590 9421FFC0 */  stwu     r1, -64(r1);
@@ -482,7 +482,7 @@ UNDEF_809bf7f4:;
   // clang-format on
 );
 
-[[address(0x809BFB40)]]
+[[nsmbw(0x809BFB40)]]
 void daEnBlock_c_spawnSubItem() ASM_METHOD(
   // clang-format off
 /* 809BFB40 9421FFE0 */  stwu     r1, -32(r1);
@@ -522,7 +522,7 @@ void daEnBlock_c_spawnSubItem() ASM_METHOD(
   // clang-format on
 );
 
-[[address(0x809BFDD0)]]
+[[nsmbw(0x809BFDD0)]]
 void daEnBlock_c_spawnContent() ASM_METHOD(
   // clang-format off
 /* 809BFDD0 9421FFD0 */  stwu     r1, -48(r1);

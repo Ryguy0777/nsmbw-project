@@ -1,0 +1,13 @@
+#pragma once
+
+#include "msl/c/math.h"
+
+namespace std
+{
+
+using ::fabs;
+using ::fabsf;
+using ::sqrt;
+using ::sqrtf;
+
+} // namespace std

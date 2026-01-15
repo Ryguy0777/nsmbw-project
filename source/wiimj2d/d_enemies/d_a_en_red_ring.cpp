@@ -8,7 +8,7 @@ u32 daEnRedRing_c_sizeof()
     return sizeof(daEnRedRing_c);
 }
 
-[[address(0x80A926A0)]]
+[[nsmbw(0x80A926A0)]]
 daEnRedRing_c* daEnRedRing_c_classInit() ASM_METHOD(
   // clang-format off
 /* 80A926A0 9421FFE0 */  stwu     r1, -32(r1);
@@ -113,7 +113,7 @@ UNDEF_80a927f4:;
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80A92820)]]
+[[nsmbw(0x80A92820)]]
 fBase_c::PACK_RESULT_e daEnRedRing_c::create() ASM_METHOD(
   // clang-format off
 /* 80A92820 9421FFE0 */  stwu     r1, -32(r1);
@@ -212,10 +212,10 @@ UNDEF_80a92964:;
   // clang-format on
 );
 
-[[address(0x80A92E80)]]
+[[nsmbw(0x80A92E80)]]
 void daEnRedRing_c::UNDEF_80A92E80();
 
-[[address(0x80A93140)]]
+[[nsmbw(0x80A93140)]]
 void daEnRedRing_c::executeState_Wait() ASM_METHOD(
   // clang-format off
 /* 80A93140 9421FFE0 */  stwu     r1, -32(r1);

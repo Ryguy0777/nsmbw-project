@@ -10,17 +10,17 @@
 #include <revolution/os.h>
 #include <revolution/os/OSError.h>
 
-[[address(0x80429F74)]]
+[[nsmbw(0x80429F74)]]
 daPyDemoMng_c* daPyDemoMng_c::mspInstance;
 
-[[address(0x8005B3A0)]]
+[[nsmbw(0x8005B3A0)]]
 daPyDemoMng_c::daPyDemoMng_c();
 
 /* VT+0x8 */
-[[address(0x8005B3E0)]]
+[[nsmbw(0x8005B3E0)]]
 daPyDemoMng_c::~daPyDemoMng_c();
 
-[[address(0x8005B430)]]
+[[nsmbw(0x8005B430)]]
 void daPyDemoMng_c::initStage();
 
 EXTERN_REPL(
@@ -28,7 +28,7 @@ EXTERN_REPL(
   void daPyDemoMng_c::baseInit()
 );
 
-[[address(0x8005B4A0)]]
+[[nsmbw(0x8005B4A0)]]
 void daPyDemoMng_c::init()
 {
     baseInit();
@@ -39,13 +39,13 @@ void daPyDemoMng_c::init()
     }
 }
 
-[[address(0x8005B550)]]
+[[nsmbw(0x8005B550)]]
 void daPyDemoMng_c::update();
 
-[[address(0x8005B5C0)]]
+[[nsmbw(0x8005B5C0)]]
 void daPyDemoMng_c::setDemoMode(Mode_e mode, int state);
 
-[[address(0x8005B6A0)]]
+[[nsmbw(0x8005B6A0)]]
 void daPyDemoMng_c::calcNotGoalPlayer() ASM_METHOD(
   // clang-format off
 /* 8005B6A0 9421FFF0 */  stwu     r1, -16(r1);
@@ -151,7 +151,7 @@ static int get_index_daPyDemoMng_c_mCourseOutList(int index)
 #define convIdx60 get_index_daPyDemoMng_c_mCourseInList
 #define convIdx70 get_index_daPyDemoMng_c_mCourseOutList
 
-[[address(0x8005B780)]]
+[[nsmbw(0x8005B780)]]
 int daPyDemoMng_c::setGoalDemoList(int param)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -164,7 +164,7 @@ int daPyDemoMng_c::setGoalDemoList(int param)
     return -1;
 }
 
-[[address(0x8005B840)]]
+[[nsmbw(0x8005B840)]]
 int daPyDemoMng_c::getPoleBelowPlayer(int param)
 {
     for (int i = 0; i < mPlayerCount; i++) {
@@ -180,7 +180,7 @@ int daPyDemoMng_c::getPoleBelowPlayer(int param)
 #define STACK_PLAYER_ARRAY2 (0x10 + PLAYER_COUNT * 4)
 #define STACK_SIZE (STACK_PLAYER_ARRAY2 + PLAYER_COUNT * 4 + 0x50)
 
-[[address(0x8005B8A0)]]
+[[nsmbw(0x8005B8A0)]]
 void daPyDemoMng_c::executeGoalDemo_Pole() ASM_METHOD(
   // clang-format off
 /* 8005B8A0 9421FF80 */  stwu     r1, -STACK_SIZE(r1);
@@ -499,7 +499,7 @@ UNDEF_8005bcc4:;
   // clang-format on
 );
 
-[[address(0x8005BCF0)]]
+[[nsmbw(0x8005BCF0)]]
 void daPyDemoMng_c::executeGoalDemo_PoleDown()
 {
     mDemoState = 2;
@@ -516,7 +516,7 @@ void daPyDemoMng_c::executeGoalDemo_PoleDown()
     }
 }
 
-[[address(0x8005BD60)]]
+[[nsmbw(0x8005BD60)]]
 void daPyDemoMng_c::executeGoalDemo_JumpCheck()
 {
     if (!(mFlags & 0x2)) {
@@ -544,7 +544,7 @@ void daPyDemoMng_c::executeGoalDemo_JumpCheck()
     m0x0C = 10;
 }
 
-[[address(0x8005BE30)]]
+[[nsmbw(0x8005BE30)]]
 void daPyDemoMng_c::executeGoalDemo_Jump() ASM_METHOD(
   // clang-format off
 /* 8005BE30 9421FFF0 */  stwu     r1, -16(r1);
@@ -610,7 +610,7 @@ UNDEF_8005bef4:;
   // clang-format on
 );
 
-[[address(0x8005BF10)]]
+[[nsmbw(0x8005BF10)]]
 void daPyDemoMng_c::executeGoalDemo_Land()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -634,7 +634,7 @@ void daPyDemoMng_c::executeGoalDemo_Land()
     mFlags |= 0x8;
 }
 
-[[address(0x8005BFD0)]]
+[[nsmbw(0x8005BFD0)]]
 void daPyDemoMng_c::executeGoalDemo_KimeWait()
 {
     bool setFlag = false;
@@ -664,7 +664,7 @@ void daPyDemoMng_c::executeGoalDemo_KimeWait()
     }
 }
 
-[[address(0x8005C130)]]
+[[nsmbw(0x8005C130)]]
 void daPyDemoMng_c::setGoalDemoKimeAll()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -679,7 +679,7 @@ void daPyDemoMng_c::setGoalDemoKimeAll()
     }
 }
 
-[[address(0x8005C1A0)]]
+[[nsmbw(0x8005C1A0)]]
 void daPyDemoMng_c::setGoalDemoRunCastle()
 {
     setDemoMode(Mode_e::MODE_0, 0);
@@ -696,7 +696,7 @@ void daPyDemoMng_c::setGoalDemoRunCastle()
     }
 }
 
-[[address(0x8005C210)]]
+[[nsmbw(0x8005C210)]]
 bool daPyDemoMng_c::isAllPlayerGoalIn()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -719,7 +719,7 @@ bool daPyDemoMng_c::isAllPlayerGoalIn()
     return true;
 }
 
-[[address(0x8005C6D0)]]
+[[nsmbw(0x8005C6D0)]]
 void daPyDemoMng_c::calcGoalCenterPos()
 {
     int count = 0;
@@ -755,7 +755,7 @@ void daPyDemoMng_c::calcGoalCenterPos()
     }
 }
 
-[[address(0x8005C930)]]
+[[nsmbw(0x8005C930)]]
 bool daPyDemoMng_c::startControlDemoAll()
 {
     if (daPyMng_c::mNum == 0) {
@@ -781,7 +781,7 @@ bool daPyDemoMng_c::startControlDemoAll()
     return ret == 0;
 }
 
-[[address(0x8005C9D0)]]
+[[nsmbw(0x8005C9D0)]]
 bool daPyDemoMng_c::isAllPlayerControlDemo()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -804,7 +804,7 @@ bool daPyDemoMng_c::isAllPlayerControlDemo()
     return true;
 }
 
-[[address(0x8005CA50)]]
+[[nsmbw(0x8005CA50)]]
 void daPyDemoMng_c::endControlDemoAll(int param)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -821,7 +821,7 @@ void daPyDemoMng_c::endControlDemoAll(int param)
     }
 }
 
-[[address(0x8005CAD0)]]
+[[nsmbw(0x8005CAD0)]]
 int daPyDemoMng_c::getControlDemoPlayerNum()
 {
     int count = 0;
@@ -844,7 +844,7 @@ int daPyDemoMng_c::getControlDemoPlayerNum()
     return count;
 }
 
-[[address(0x8005CB70)]]
+[[nsmbw(0x8005CB70)]]
 void daPyDemoMng_c::onLandStopReq()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -863,7 +863,7 @@ void daPyDemoMng_c::onLandStopReq()
     }
 }
 
-[[address(0x8005CC00)]]
+[[nsmbw(0x8005CC00)]]
 bool daPyDemoMng_c::startControlDemoLandPlayer()
 {
     if (daPyMng_c::mNum == 0) {
@@ -895,7 +895,7 @@ bool daPyDemoMng_c::startControlDemoLandPlayer()
     return ret != 0;
 }
 
-[[address(0x8005CDD0)]]
+[[nsmbw(0x8005CDD0)]]
 bool daPyDemoMng_c::isLandAll()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -916,7 +916,7 @@ bool daPyDemoMng_c::isLandAll()
     return true;
 }
 
-[[address(0x8005CE50)]]
+[[nsmbw(0x8005CE50)]]
 void daPyDemoMng_c::UNDEF_8005CE50(s32 param)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -933,7 +933,7 @@ void daPyDemoMng_c::UNDEF_8005CE50(s32 param)
     }
 }
 
-[[address(0x8005CED0)]]
+[[nsmbw(0x8005CED0)]]
 void daPyDemoMng_c::executeStartToride()
 {
     if (mDemoState == 0) {
@@ -968,7 +968,7 @@ void daPyDemoMng_c::executeStartToride()
     }
 }
 
-[[address(0x8005D050)]]
+[[nsmbw(0x8005D050)]]
 void daPyDemoMng_c::setCourseOutList(s8 param)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -979,7 +979,7 @@ void daPyDemoMng_c::setCourseOutList(s8 param)
     }
 }
 
-[[address(0x8005D0D0)]]
+[[nsmbw(0x8005D0D0)]]
 void daPyDemoMng_c::turnNextDemoNo()
 {
     for (int i = 0; i < PLAYER_COUNT - 1; i++) {
@@ -988,7 +988,7 @@ void daPyDemoMng_c::turnNextDemoNo()
     mCourseInList[convIdx60(PLAYER_COUNT - 1)] = -1;
 }
 
-[[address(0x8005D100)]]
+[[nsmbw(0x8005D100)]]
 void daPyDemoMng_c::clearDemoNo(s8 param)
 {
     int demoWriteCount = 0;
@@ -1004,7 +1004,7 @@ void daPyDemoMng_c::clearDemoNo(s8 param)
     }
 }
 
-[[address(0x8005D280)]]
+[[nsmbw(0x8005D280)]]
 void daPyDemoMng_c::genCourseInList()
 {
     u32 playerOutMask = 0;

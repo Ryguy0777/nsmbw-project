@@ -7,14 +7,14 @@
 #include "d_system/d_game_key_core.h"
 #include "machine/m_heap.h"
 
-[[address_data(0x8042A230)]]
+[[nsmbw_data(0x8042A230)]]
 dGameKey_c* dGameKey_c::m_instance =
   [](mHeap::ScopeHeap_c = 0) { return new dGameKey_c(m_instance); }();
 
-[[address(0x800B5930)]]
+[[nsmbw(0x800B5930)]]
 void dGameKey_c::createInstance(EGG::Heap* heap);
 
-[[address(0x800B5980)]]
+[[nsmbw(0x800B5980)]]
 dGameKey_c::dGameKey_c()
 {
     static constexpr mPad::CH_e s_channels[8] = {
@@ -48,7 +48,7 @@ dGameKey_c::dGameKey_c(dGameKey_c* old)
 }
 
 /* VT+0x8 */
-[[address(0x800B5A00)]]
+[[nsmbw(0x800B5A00)]]
 dGameKey_c::~dGameKey_c()
 {
     for (int i = 0; i < CORE_COUNT; i++) {
@@ -56,7 +56,7 @@ dGameKey_c::~dGameKey_c()
     }
 }
 
-[[address(0x800B5AB0)]]
+[[nsmbw(0x800B5AB0)]]
 void dGameKey_c::allclear()
 {
     for (int i = 0; i < CORE_COUNT; i++) {
@@ -64,7 +64,7 @@ void dGameKey_c::allclear()
     }
 }
 
-[[address(0x800B5B00)]]
+[[nsmbw(0x800B5B00)]]
 int dGameKey_c::read()
 {
     for (int i = 0; i < CORE_COUNT; i++) {

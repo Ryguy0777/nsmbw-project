@@ -46,7 +46,7 @@ public:
 
     const TexMap* GetTexMapAry() const;
 
-    [[address(0x802B3440)]]
+    [[nsmbw(0x802B3440)]]
     TexMap* GetTexMapAry();
 
     const TexSRT* GetTexSRTAry() const;

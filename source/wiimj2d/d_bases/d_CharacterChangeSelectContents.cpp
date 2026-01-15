@@ -7,16 +7,16 @@
 #include "d_system/d_game_common.h"
 #include <algorithm>
 
-[[address(0x80772A50)]]
+[[nsmbw(0x80772A50)]]
 dCharacterChangeSelectContents_c* dCharacterChangeSelectContents_c_classInit()
 {
     return new dCharacterChangeSelectContents_c();
 }
 
-[[address(0x80772A80)]]
+[[nsmbw(0x80772A80)]]
 dCharacterChangeSelectContents_c::dCharacterChangeSelectContents_c();
 
-[[address(0x80772E30)]]
+[[nsmbw(0x80772E30)]]
 bool dCharacterChangeSelectContents_c::createLayout()
 {
     bool ret = mLayout.hasAccessor();
@@ -84,7 +84,7 @@ void dCharacterChangeSelectContents_c::setMarioIconVisible(int param2)
     mpaPictures[param2]->SetVisible(true);
 }
 
-[[address(0x80773220)]]
+[[nsmbw(0x80773220)]]
 void dCharacterChangeSelectContents_c::dispNextConPicture(Icon_e iconNext, int side)
 {
     for (std::size_t pic = side; pic < std::size(mpaPictures); pic += 2) {
@@ -121,7 +121,7 @@ void dCharacterChangeSelectContents_c::dispNextConPicture(Icon_e iconNext, int s
     mpaTextBoxes[2 + side]->SetVisible(true);
 }
 
-[[address(0x80773840)]]
+[[nsmbw(0x80773840)]]
 void dCharacterChangeSelectContents_c::finalizeState_OnStageWait()
 {
     mLives[0] = daPyMng_c::mRest[0];

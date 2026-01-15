@@ -4,7 +4,7 @@
 #include "d_a_player_key.h"
 #include "d_game_key.h"
 #include "d_system/d_game_key_core.h"
-[[address(0x8005E040)]]
+[[nsmbw(0x8005E040)]]
 void dAcPyKey_c::update() ASM_METHOD(
   // clang-format off
 /* 8005E040 9421FFE0 */  stwu     r1, -32(r1);
@@ -179,7 +179,7 @@ UNDEF_8005e294:;
   // clang-format on
 );
 
-[[address(0x8005E590)]]
+[[nsmbw(0x8005E590)]]
 u16 dAcPyKey_c::triggerOne() const
 {
     dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[mRemoconID];
@@ -195,7 +195,7 @@ u16 dAcPyKey_c::triggerOne() const
     }
 }
 
-[[address(0x8005E5D0)]]
+[[nsmbw(0x8005E5D0)]]
 u16 dAcPyKey_c::buttonOne() const
 {
     dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[mRemoconID];
@@ -211,7 +211,7 @@ u16 dAcPyKey_c::buttonOne() const
     }
 }
 
-[[address(0x8005E8B0)]]
+[[nsmbw(0x8005E8B0)]]
 bool dAcPyKey_c::triggerJumpBuf(int param2) ASM_METHOD(
   // clang-format off
 /* 8005E8B0 80030000 */  lwz      r0, 0(r3);
@@ -245,8 +245,8 @@ UNDEF_8005e904:;
   // clang-format on
 );
 
-[[address(0x8005E910)]]
+[[nsmbw(0x8005E910)]]
 void dAcPyKey_c::onDemoButton(int button);
 
-[[address(0x8005E930)]]
+[[nsmbw(0x8005E930)]]
 void dAcPyKey_c::offDemoButton(int button);

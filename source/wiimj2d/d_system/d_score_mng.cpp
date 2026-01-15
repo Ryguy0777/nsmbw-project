@@ -8,10 +8,10 @@
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
 
-[[address_data(0x8042A330)]]
+[[nsmbw_data(0x8042A330)]]
 dScoreMng_c* dScoreMng_c::m_instance;
 
-[[address(0x800E2500)]]
+[[nsmbw(0x800E2500)]]
 void dScoreMng_c::MiniGameScoreSet(mVec3_c& vec, u32 score, int playerNo)
 {
     dGameCom::CreateSmallScore(vec, score + 16, playerNo, false);

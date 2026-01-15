@@ -13,7 +13,7 @@ public:
     virtual ~SoundHeap();
 
     /* VT+0xC */
-    [[address(0x8027A470)]]
+    [[nsmbw(0x8027A470)]]
     virtual void* Alloc(u32 size);
 };
 

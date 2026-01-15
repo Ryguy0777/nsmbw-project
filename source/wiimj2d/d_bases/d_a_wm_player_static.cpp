@@ -7,13 +7,13 @@
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_wm_lib.h"
 
-[[address_data(0x8042A480)]]
+[[nsmbw_data(0x8042A480)]]
 daWmPlayer_c* daWmPlayer_c::ms_instance;
 
-[[address(0x80100A50)]]
+[[nsmbw(0x80100A50)]]
 int daWmPlayer_c::getSubPlayerNum();
 
-[[address(0x80100B60)]]
+[[nsmbw(0x80100B60)]]
 const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
 {
     switch (character) {
@@ -44,7 +44,7 @@ const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
     return nullptr;
 }
 
-[[address(0x80100C50)]]
+[[nsmbw(0x80100C50)]]
 dWmSeManager_c::WmPlyVoice_e daWmPlayer_c::getCourseInVoiceId(int node)
 {
     int subPlayerCount = getSubPlayerNum();
@@ -61,8 +61,8 @@ dWmSeManager_c::WmPlyVoice_e daWmPlayer_c::getCourseInVoiceId(int node)
     return dWmSeManager_c::WmPlyVoice_e::COURSE_IN_MULTI;
 }
 
-[[address(0x801011A0)]]
+[[nsmbw(0x801011A0)]]
 bool daWmPlayer_c::isPlayerStarMode();
 
-[[address(0x80101220)]]
+[[nsmbw(0x80101220)]]
 void daWmPlayer_c::startStarSound();

@@ -10,7 +10,7 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_wm_lib.h"
 
-[[address(0x80788F10)]]
+[[nsmbw(0x80788F10)]]
 void dGameOver_c::finalizeState_ExitAnimeEndWait()
 {
     dMj2dGame_c *save = dSaveMng_c::m_instance->getSaveGame();

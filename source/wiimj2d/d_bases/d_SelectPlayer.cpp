@@ -67,16 +67,16 @@ enum GROUP_e {
     GROUP_COUNT,
 };
 
-[[address(0x807ABE10)]]
+[[nsmbw(0x807ABE10)]]
 dSelectPlayer_c* dSelectPlayer_c_classInit()
 {
     return new dSelectPlayer_c();
 }
 
-[[address(0x807ABE40)]]
+[[nsmbw(0x807ABE40)]]
 dSelectPlayer_c::dSelectPlayer_c();
 
-[[address(0x807AC170)]]
+[[nsmbw(0x807AC170)]]
 fBase_c::PACK_RESULT_e dSelectPlayer_c::createLayout()
 {
     if (mLayoutLoaded) {
@@ -222,7 +222,7 @@ fBase_c::PACK_RESULT_e dSelectPlayer_c::createLayout()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x807AC3D0)]]
+[[nsmbw(0x807AC3D0)]]
 void dSelectPlayer_c::executeState_StartWait()
 {
     if (!m0x26A) {
@@ -241,7 +241,7 @@ void dSelectPlayer_c::executeState_StartWait()
     return mStateMgr.changeState(StateID_OnStageAnimeEndWait);
 }
 
-[[address(0x807AC4A0)]]
+[[nsmbw(0x807AC4A0)]]
 void dSelectPlayer_c::initializeState_OnStageAnimeEndWait()
 {
     mLayout.AllAnimeEndSetup();
@@ -253,7 +253,7 @@ void dSelectPlayer_c::initializeState_OnStageAnimeEndWait()
     mLayout.AnimeStartSetup(A00_Window_a_in, false);
 }
 
-[[address(0x807AC610)]]
+[[nsmbw(0x807AC610)]]
 void dSelectPlayer_c::initializeState_ButtonChangeAnimeEndWait()
 {
     mButtonAnimeOff = mButtonAnimeOn;
@@ -273,7 +273,7 @@ void dSelectPlayer_c::initializeState_ButtonChangeAnimeEndWait()
     mLayout.AnimeStartSetup(mButtonAnimeOn, false);
 }
 
-[[address(0x807AC6E0)]]
+[[nsmbw(0x807AC6E0)]]
 void dSelectPlayer_c::executeState_ButtonChangeAnimeEndWait()
 {
     if (!mLayout.isAnime(-1)) {
@@ -283,13 +283,13 @@ void dSelectPlayer_c::executeState_ButtonChangeAnimeEndWait()
     }
 }
 
-[[address(0x807AC780)]]
+[[nsmbw(0x807AC780)]]
 void dSelectPlayer_c::initializeState_StartMemberSelect()
 {
     dGameCom::SelectCursorSetup(mpaButtons[mCurrentButton], 0, 0);
 }
 
-[[address(0x807AC7A0)]]
+[[nsmbw(0x807AC7A0)]]
 void dSelectPlayer_c::executeState_StartMemberSelect()
 {
     dGameKeyCore_c* core = dGameKey_c::m_instance->mpCores[static_cast<int>(mPad::g_currentCoreID)];
@@ -340,7 +340,7 @@ void dSelectPlayer_c::executeState_StartMemberSelect()
     }
 }
 
-[[address(0x807AC960)]]
+[[nsmbw(0x807AC960)]]
 void dSelectPlayer_c::initializeState_MultiStartMemberSelect()
 {
     nw4r::lyt::Picture* pane;
@@ -354,10 +354,10 @@ void dSelectPlayer_c::initializeState_MultiStartMemberSelect()
 }
 
 // TODO
-[[address(0x807AC980)]]
+[[nsmbw(0x807AC980)]]
 void dSelectPlayer_c::executeState_MultiStartMemberSelect();
 
-[[address(0x807ACAD0)]]
+[[nsmbw(0x807ACAD0)]]
 void dSelectPlayer_c::initializeState_StartMemberButtonAnime()
 {
     SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_DECIDE, 1);
@@ -370,7 +370,7 @@ void dSelectPlayer_c::initializeState_StartMemberButtonAnime()
     }
 }
 
-[[address(0x807ACBD0)]]
+[[nsmbw(0x807ACBD0)]]
 void dSelectPlayer_c::initializeState_ExitAnimeEndWait()
 {
     mLayout.AnimeStartSetup(B01_underGuide_a_out, false);
@@ -381,7 +381,7 @@ void dSelectPlayer_c::initializeState_ExitAnimeEndWait()
     }
 }
 
-[[address(0x807ACC40)]]
+[[nsmbw(0x807ACC40)]]
 void dSelectPlayer_c::executeState_ExitAnimeEndWait()
 {
     if (!mLayout.isAnime(B01_underGuide_a_out) && !mLayout.isAnime(A00_Window_a_out) &&

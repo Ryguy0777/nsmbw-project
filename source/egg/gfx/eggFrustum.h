@@ -26,7 +26,7 @@ public:
     // Instance Methods
     // ^^^^^^
 
-    [[address(0x802C6DD0)]]
+    [[nsmbw(0x802C6DD0)]]
     void ResetOrthographic(f32 top, f32 bottom, f32 left, f32 right, f32, f32);
 
     ProjectionType GetProjectionType() const

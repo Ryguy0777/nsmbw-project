@@ -1,0 +1,20 @@
+#pragma once
+
+#include "msl/c/stdio.h"
+#include <cstddef>
+
+namespace std
+{
+
+using ::FILE;
+
+using ::fflush;
+
+using ::fprintf;
+using ::snprintf;
+using ::sprintf;
+using ::vprintf;
+using ::vsnprintf;
+using ::vsprintf;
+
+} // namespace std

@@ -24,28 +24,28 @@
 namespace dGameCom
 {
 
-[[address(0x800B2E70)]]
+[[nsmbw(0x800B2E70)]]
 void initRandomSeed();
 
-[[address(0x800B2EE0)]]
+[[nsmbw(0x800B2EE0)]]
 u32 rndInt(u32 max);
 
-[[address(0x800B2F00)]]
+[[nsmbw(0x800B2F00)]]
 f32 rnd();
 
-[[address(0x800B2F10)]]
+[[nsmbw(0x800B2F10)]]
 f32 rndF(f32 max);
 
-[[address(0x800B30C0)]]
+[[nsmbw(0x800B30C0)]]
 f32 getDispCenterX();
 
-[[address(0x800B2FB0)]]
+[[nsmbw(0x800B2FB0)]]
 void initGame();
 
-[[address(0x800B32E0)]]
+[[nsmbw(0x800B32E0)]]
 mVec3_c ScalePosForAspectRatio(const mVec3_c&);
 
-[[address(0x800B34D0)]]
+[[nsmbw(0x800B34D0)]]
 void CreateBlueNumber(const mVec3_c& pos, int type, int playerNo)
 {
     if (playerNo >= PLAYER_COUNT) {
@@ -57,7 +57,7 @@ void CreateBlueNumber(const mVec3_c& pos, int type, int playerNo)
     );
 }
 
-[[address(0x800B3510)]]
+[[nsmbw(0x800B3510)]]
 void CreateRedNumber(const mVec3_c& pos, int playerNo)
 {
     if (playerNo >= PLAYER_COUNT) {
@@ -69,7 +69,7 @@ void CreateRedNumber(const mVec3_c& pos, int playerNo)
     );
 }
 
-[[address(0x800B3540)]]
+[[nsmbw(0x800B3540)]]
 void CreateSmallScore(const mVec3_c& pos, int type, int playerNo, bool goal)
 {
     int color = PLAYER_COUNT;
@@ -87,10 +87,10 @@ void CreateSmallScore(const mVec3_c& pos, int type, int playerNo, bool goal)
     }
 }
 
-[[address(0x800B35B0)]]
+[[nsmbw(0x800B35B0)]]
 void CreateSmallAll1up(const mVec3_c&);
 
-[[address(0x800B35D0)]]
+[[nsmbw(0x800B35D0)]]
 void GoalScoreExecute(const mVec3_c& pos, int playerNo)
 {
     if (playerNo >= PLAYER_COUNT) {
@@ -102,10 +102,10 @@ void GoalScoreExecute(const mVec3_c& pos, int playerNo)
     );
 }
 
-[[address(0x800B37E0)]]
+[[nsmbw(0x800B37E0)]]
 void ScalePosForLayoutEffect(const mVec3_c&, bool);
 
-[[address(0x800B3980)]]
+[[nsmbw(0x800B3980)]]
 short CalculateTilt(int, float, float);
 
 bool CalculateTiltShoulder(
@@ -129,7 +129,7 @@ bool CalculateTiltShoulder(
     }
 }
 
-[[address(0x800B3600)]]
+[[nsmbw(0x800B3600)]]
 void FUN_800B3600(int, int) ASM_METHOD(
   // clang-format off
 /* 800B3600 800DAB64 */  lwz      r0, UNDEF_8042a4e4@sda21;
@@ -210,16 +210,16 @@ UNDEF_800b3704:;
   // clang-format on
 );
 
-[[address(0x800B3B50)]]
+[[nsmbw(0x800B3B50)]]
 bool isGameStop(u32 flag);
 
-[[address(0x800B3B60)]]
+[[nsmbw(0x800B3B60)]]
 void LayoutDispNumber(const int& value, const int& maxChars, LytTextBox_c* textBox, bool itoaType);
 
-[[address(0x800B3BE0)]]
+[[nsmbw(0x800B3BE0)]]
 void LayoutDispNumberDigit(int const& value, LytTextBox_c* textBox, bool itoaType);
 
-[[address(0x800B3C50)]]
+[[nsmbw(0x800B3C50)]]
 void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum)
 {
     static constinit const nw4r::ut::Color l_PLY_COLOR_0[] = {
@@ -252,16 +252,16 @@ void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum)
     windowMaterial->SetTevColor(1, l_PLY_COLOR_2[index]);
 }
 
-[[address(0x800B44D0)]]
+[[nsmbw(0x800B44D0)]]
 void SelectCursorSetup(nw4r::lyt::Picture* pane, int param2, bool param3);
 
-[[address(0x800B4760)]]
+[[nsmbw(0x800B4760)]]
 bool PlayerEnterCheck(int player)
 {
     return dInfo_c::m_instance->getPlyConnectStage(player) == dInfo_c::PlyConnectStage_e::ENTER;
 }
 
-[[address(0x800B4780)]]
+[[nsmbw(0x800B4780)]]
 void Player1upColor(LytTextBox_c* textBox, int player)
 {
     static constinit const nw4r::ut::Color l_PLY_COLOR_0[] = {
@@ -292,7 +292,7 @@ void Player1upColor(LytTextBox_c* textBox, int player)
     textBox->SetVtxColor(2, l_PLY_COLOR_2[index]);
 }
 
-[[address(0x800B4940)]]
+[[nsmbw(0x800B4940)]]
 void MiniGameCannonTitle()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -301,7 +301,7 @@ void MiniGameCannonTitle()
     }
 }
 
-[[address(0x800B4970)]]
+[[nsmbw(0x800B4970)]]
 void MiniGameCannonStart()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -311,7 +311,7 @@ void MiniGameCannonStart()
     }
 }
 
-[[address(0x800B49A0)]]
+[[nsmbw(0x800B49A0)]]
 void MiniGameCannonResult()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -321,7 +321,7 @@ void MiniGameCannonResult()
     }
 }
 
-[[address(0x800B49D0)]]
+[[nsmbw(0x800B49D0)]]
 bool MiniGameCannonEndCheck()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -330,7 +330,7 @@ bool MiniGameCannonEndCheck()
     return false;
 }
 
-[[address(0x800B4A00)]]
+[[nsmbw(0x800B4A00)]]
 void MiniGameCannonTitleCloseRequest()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -338,7 +338,7 @@ void MiniGameCannonTitleCloseRequest()
     }
 }
 
-[[address(0x800B4A30)]]
+[[nsmbw(0x800B4A30)]]
 void MiniGameCannonOperateCloseRequest()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -346,7 +346,7 @@ void MiniGameCannonOperateCloseRequest()
     }
 }
 
-[[address(0x800B4A60)]]
+[[nsmbw(0x800B4A60)]]
 void MiniGameCannonResultCloseRequest()
 {
     if (dMiniGameCannon_c* mg = dScStage_c::getMiniGameCannon()) {
@@ -354,49 +354,49 @@ void MiniGameCannonResultCloseRequest()
     }
 }
 
-[[address(0x800B4A90)]]
+[[nsmbw(0x800B4A90)]]
 void MiniGameWireTitle();
 
-[[address(0x800B4AC0)]]
+[[nsmbw(0x800B4AC0)]]
 void MiniGameWireStart();
 
-//[[address(0x800B4AF0)]]
+//[[nsmbw(0x800B4AF0)]]
 // void hash_71636FC0_C70BA13D;
 
-[[address(0x800B4B20)]]
+[[nsmbw(0x800B4B20)]]
 void MiniGameWireResult(const int* param);
 
-[[address(0x800B4B90)]]
+[[nsmbw(0x800B4B90)]]
 bool MiniGameWireEndCheck();
 
-[[address(0x800B4BC0)]]
+[[nsmbw(0x800B4BC0)]]
 void MiniGameWireTitleCloseRequest();
 
-[[address(0x800B4BF0)]]
+[[nsmbw(0x800B4BF0)]]
 void MiniGameWireOperateCloseRequest();
 
-[[address(0x800B4C20)]]
+[[nsmbw(0x800B4C20)]]
 void MiniGameWireResultCloseRequest();
 
-[[address(0x800B4C50)]]
+[[nsmbw(0x800B4C50)]]
 void MiniGameWireTurnOverCloseRequest();
 
-//[[address(0x800B4C80)]]
+//[[nsmbw(0x800B4C80)]]
 // void hash_28043523_E21C82B0;
 
-//[[address(0x800B4CC0)]]
+//[[nsmbw(0x800B4CC0)]]
 // void hash_F8207C44_B2544017;
 
-[[address(0x800B4CF0)]]
+[[nsmbw(0x800B4CF0)]]
 void MiniGameWireFacePosEffect(const mVec3_c&);
 
-[[address(0x800B4DC0)]]
+[[nsmbw(0x800B4DC0)]]
 void MiniGameMessageDisp(int param);
 
-[[address(0x800B4E00)]]
+[[nsmbw(0x800B4E00)]]
 void MiniGameMessageClose();
 
-[[address(0x800B4E30)]]
+[[nsmbw(0x800B4E30)]]
 bool isNowCourseClear()
 {
     if (fFeature::ALWAYS_CAN_EXIT_COURSE) {
@@ -415,7 +415,7 @@ bool isNowCourseClear()
     );
 }
 
-[[address(0x800B5340)]]
+[[nsmbw(0x800B5340)]]
 bool chkContinue()
 {
     // Original function is flawed as it indexes in mPlayerType twice (so like
@@ -431,16 +431,16 @@ bool chkContinue()
     return false;
 }
 
-[[address(0x800B53F0)]]
+[[nsmbw(0x800B53F0)]]
 bool chkCancelButton(int player)
 {
     return dGameKey_c::m_instance->mpCores[player]->checkMenuCancel();
 }
 
-[[address(0x800B5450)]]
+[[nsmbw(0x800B5450)]]
 void setWorldClearFlag();
 
-[[address(0x800B5500)]]
+[[nsmbw(0x800B5500)]]
 SCAspectRatio GetAspectRatio();
 
 } // namespace dGameCom

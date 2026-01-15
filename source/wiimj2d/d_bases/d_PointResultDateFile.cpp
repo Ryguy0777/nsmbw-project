@@ -13,7 +13,7 @@ static const SndID::Type PLY_CLEAR_SND[4][2] = {
     {SndID::SE_VOC_KO2_GET_PRIZE, SndID::SE_VOC_KO2_CLEAR_MULTI},
 };
 
-[[address(0x807A6680)]]
+[[nsmbw(0x807A6680)]]
 void dPointResultDateFile_c::executeState_StarOnStage()
 {
     if (!mLayout.isAnime()) {

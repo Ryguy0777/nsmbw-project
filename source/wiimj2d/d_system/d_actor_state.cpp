@@ -3,37 +3,37 @@
 
 #include "d_actor_state.h"
 
-[[address(0x80066FC0)]]
+[[nsmbw(0x80066FC0)]]
 dActorState_c::dActorState_c();
 
 /* VT+0x48 */
-[[address(0x800671B0)]]
+[[nsmbw(0x800671B0)]]
 dActorState_c::~dActorState_c();
 
 /* VT+0xD4 */
-[[address(0x80067230)]]
+[[nsmbw(0x80067230)]]
 void dActorState_c::initializeState_Gegneric();
 
 /* VT+0xD8 */
-[[address(0x80067250)]]
+[[nsmbw(0x80067250)]]
 void dActorState_c::executeState_Gegneric();
 
 /* VT+0xDC */
-[[address(0x80067240)]]
+[[nsmbw(0x80067240)]]
 void dActorState_c::finalizeState_Gegneric();
 
 /* VT+0xD4 */
-[[address(0x800675C0)]]
+[[nsmbw(0x800675C0)]]
 void dActorMultiState_c::changeState(const sStateIDIf_c& state);
 
 /* VT+0xD8 */
-[[address(0x80067590)]]
+[[nsmbw(0x80067590)]]
 void dActorMultiState_c::initializeState_GegnericMulti();
 
 /* VT+0xDC */
-[[address(0x800675B0)]]
+[[nsmbw(0x800675B0)]]
 void dActorMultiState_c::executeState_GegnericMulti();
 
 /* VT+0xE0 */
-[[address(0x800675A0)]]
+[[nsmbw(0x800675A0)]]
 void dActorMultiState_c::finalizeState_GegnericMulti();

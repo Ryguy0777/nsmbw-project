@@ -22,7 +22,7 @@
 /* 0x809A0DB8 */
 dInfo_c::PlyConnectStage_e daWmPlayer_c::ms_plyConnectStage[SUBPLAYER_COUNT];
 
-[[address(0x809027C0)]]
+[[nsmbw(0x809027C0)]]
 daWmPlayer_c::daWmPlayer_c()
   : dWmPlayerBase_c()
   , mModelManager(dPyMdlMng_c::ModelType_e::MODEL_NONE)
@@ -40,7 +40,7 @@ daWmPlayer_c::daWmPlayer_c()
     mp0x29C = nullptr;
 }
 
-[[address(0x80902890)]]
+[[nsmbw(0x80902890)]]
 daWmPlayer_c::~daWmPlayer_c()
 {
     ms_instance = nullptr;
@@ -57,7 +57,7 @@ daWmPlayer_c::~daWmPlayer_c()
  * VT+0x08
  * do method for the create operation.
  */
-[[address(0x80902960)]]
+[[nsmbw(0x80902960)]]
 fBase_c::PACK_RESULT_e daWmPlayer_c::create()
 {
     mAngle.y = 0;
@@ -90,14 +90,14 @@ fBase_c::PACK_RESULT_e daWmPlayer_c::create()
  * VT+0x20
  * do method for the execute operation.
  */
-[[address(0x809029E0)]]
+[[nsmbw(0x809029E0)]]
 fBase_c::PACK_RESULT_e daWmPlayer_c::execute();
 
 /**
  * VT+0x2C
  * do method for the draw operation.
  */
-[[address(0x80902AC0)]]
+[[nsmbw(0x80902AC0)]]
 fBase_c::PACK_RESULT_e daWmPlayer_c::draw();
 
 /**
@@ -105,10 +105,10 @@ fBase_c::PACK_RESULT_e daWmPlayer_c::draw();
  * do method for the delete operation. This method was renamed due to conflict with the delete
  * C++ keyword.
  */
-[[address(0x80902B30)]]
+[[nsmbw(0x80902B30)]]
 fBase_c::PACK_RESULT_e daWmPlayer_c::doDelete();
 
-[[address(0x80902BD0)]]
+[[nsmbw(0x80902BD0)]]
 void daWmPlayer_c::createSubPlayers()
 {
     mPrevPlayer = nullptr;
@@ -133,7 +133,7 @@ void daWmPlayer_c::createSubPlayers()
     prevPlayer->mNextPlayer = nullptr;
 }
 
-[[address(0x80902CA0)]]
+[[nsmbw(0x80902CA0)]]
 void daWmPlayer_c::updateActivePlayers()
 {
     bool singleEntry = dWmLib::IsSingleEntry();
@@ -177,10 +177,10 @@ void daWmPlayer_c::updateActivePlayers()
     }
 }
 
-[[address(0x80902E30)]]
+[[nsmbw(0x80902E30)]]
 void daWmPlayer_c::setPlayerActive(u32 id, bool param2, bool param3);
 
-[[address(0x80902ED0)]]
+[[nsmbw(0x80902ED0)]]
 void daWmPlayer_c::
   UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3) ASM_METHOD(
     // clang-format off
@@ -249,7 +249,7 @@ UNDEF_80902f78:;
     // clang-format on
   );
 
-[[address(0x80902FA0)]]
+[[nsmbw(0x80902FA0)]]
 void daWmPlayer_c::setSubPlayerPower()
 {
     dInfo_c* info = dInfo_c::m_instance;
@@ -268,7 +268,7 @@ void daWmPlayer_c::setSubPlayerPower()
     }
 }
 
-[[address(0x80904120)]]
+[[nsmbw(0x80904120)]]
 u32 daWmPlayer_c::UNDEF_80904120()
 {
     if (!UNDEF_809087A0()) {
@@ -353,29 +353,29 @@ u32 daWmPlayer_c::UNDEF_80904120()
     return uVar3;
 }
 
-[[address(0x80904370)]]
+[[nsmbw(0x80904370)]]
 u32 daWmPlayer_c::UNDEF_80904370(u32);
 
-[[address(0x80904440)]]
+[[nsmbw(0x80904440)]]
 u32 daWmPlayer_c::UNDEF_80904440();
 
-[[address(0x80904810)]]
+[[nsmbw(0x80904810)]]
 u32 daWmPlayer_c::UNDEF_80904810();
 
-[[address(0x80907A60)]]
+[[nsmbw(0x80907A60)]]
 daWmPlayer_c::PATH_DIR_e daWmPlayer_c::getMovementDirection();
 
-[[address(0x809087A0)]]
+[[nsmbw(0x809087A0)]]
 bool daWmPlayer_c::UNDEF_809087A0();
 
-[[address(0x80908DA0)]]
+[[nsmbw(0x80908DA0)]]
 u32 daWmPlayer_c::UNDEF_80908DA0();
 
 /* VT+0x60 0x80909940 */
-[[address(0x80909940)]]
+[[nsmbw(0x80909940)]]
 void daWmPlayer_c::VT_0x60();
 
-[[address(0x809093D0)]]
+[[nsmbw(0x809093D0)]]
 void daWmPlayer_c::initActiveCharaFlags()
 {
     dInfo_c* info = dInfo_c::m_instance;
@@ -392,34 +392,34 @@ void daWmPlayer_c::initActiveCharaFlags()
 /**
  * VT+0x70
  */
-[[address(0x8090BE30)]]
+[[nsmbw(0x8090BE30)]]
 void daWmPlayer_c::VT_0x70();
 
 /**
  * VT+0x74
  */
-[[address(0x8090C160)]]
+[[nsmbw(0x8090C160)]]
 void daWmPlayer_c::VT_0x74();
 
 /**
  * VT+0x80
  */
-[[address(0x8090C8C0)]]
+[[nsmbw(0x8090C8C0)]]
 void daWmPlayer_c::VT_0x80();
 
 /**
  * VT+0x78
  */
-[[address(0x8090C8E0)]]
+[[nsmbw(0x8090C8E0)]]
 void daWmPlayer_c::VT_0x78();
 
 /**
  * VT+0x7C
  */
-[[address(0x8090C940)]]
+[[nsmbw(0x8090C940)]]
 void daWmPlayer_c::procDemoLose();
 
-[[address(0x8090CE10)]]
+[[nsmbw(0x8090CE10)]]
 bool daWmPlayer_c::startGame(WORLD_e world, STAGE_e stage, u8 entrance) ASM_METHOD(
   // clang-format off
 /* 8090CE10 9421FFA0 */  stwu     r1, -96(r1);

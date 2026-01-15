@@ -14,16 +14,16 @@
 #include "sound/SndSceneMgr.h"
 #include <iterator>
 
-[[address(0x807AF370)]]
+[[nsmbw(0x807AF370)]]
 dStockItem_c* dStockItem_c_classInit()
 {
     return new dStockItem_c();
 }
 
-[[address(0x807AF3A0)]]
+[[nsmbw(0x807AF3A0)]]
 dStockItem_c::dStockItem_c();
 
-[[address(0x807AF8D0)]]
+[[nsmbw(0x807AF8D0)]]
 bool dStockItem_c::createLayout() {
     if (!mLayout.ReadResource("stockItem/stockItem.arc", false)) {
       return false;
@@ -197,7 +197,7 @@ bool dStockItem_c::createLayout() {
     return true;
 }
 
-[[address(0x807AFB90)]]
+[[nsmbw(0x807AFB90)]]
 dStockItem_c::PANE_LIST_e dStockItem_c::getPosPaneForPlayer(int player)
 {
     using PaneList = PANE_LIST_e[8][8];
@@ -264,7 +264,7 @@ dStockItem_c::PANE_LIST_e dStockItem_c::getPosPaneForPlayer(int player)
     return posPane;
 }
 
-[[address(0x807AFBC0)]]
+[[nsmbw(0x807AFBC0)]]
 void dStockItem_c::calcPosScale() ASM_METHOD(
   // clang-format off
 /* 807AFBC0 9421FE30 */  stwu     r1, -464(r1);
@@ -583,7 +583,7 @@ UNDEF_807afd88:;
   // clang-format on
 );
 
-[[address(0x807B00A0)]]
+[[nsmbw(0x807B00A0)]]
 void dStockItem_c::calc2DPlayerItemUpdate() ASM_METHOD(
   // clang-format off
 /* 807B00A0 9421FF90 */  stwu     r1, -112(r1);
@@ -772,7 +772,7 @@ UNDEF_807b031c:;
   // clang-format on
 );
 
-[[address(0x807B03A0)]]
+[[nsmbw(0x807B03A0)]]
 void dStockItem_c::calcUseEffects() ASM_METHOD(
   // clang-format off
 UNDEF_807b03a0:;
@@ -840,7 +840,7 @@ void stockItemPlayStarVoice(PLAYER_TYPE_e character, bool isMame)
     playerSound->startVoiceSound(SndObjctPly::PLAYER_VOICE_e::GET_STAR, 0);
 }
 
-[[address(0x807B06C0)]]
+[[nsmbw(0x807B06C0)]]
 bool dStockItem_c::checkItemSelect() ASM_METHOD(
   // clang-format off
 /* 807B06C0 9421FFD0 */  stwu     r1, -48(r1);
@@ -990,7 +990,7 @@ UNDEF_807b08bc:;
   // clang-format on
 );
 
-[[address(0x807B09D0)]]
+[[nsmbw(0x807B09D0)]]
 void dStockItem_c::executeState_WindowOpenInit() ASM_METHOD(
   // clang-format off
 /* 807B09D0 9421FFE0 */  stwu     r1, -32(r1);
@@ -1062,7 +1062,7 @@ UNDEF_807b0a74:;
   // clang-format on
 );
 
-[[address(0x807B13C0)]]
+[[nsmbw(0x807B13C0)]]
 void dStockItem_c::finalizeState_WindowCloseAnimeEndWait()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {

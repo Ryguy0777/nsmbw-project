@@ -8,7 +8,7 @@
 [[gnu::used]]
 constinit u32 daLineTrain_c_size = sizeof(daLineTrain_c);
 
-[[address(0x80859440)]]
+[[nsmbw(0x80859440)]]
 daLineTrain_c* daLineTrain_c_classInit() ASM_METHOD(
   // clang-format off
   /* 80859440 9421FFE0 */  stwu     r1, -32(r1);
@@ -101,7 +101,7 @@ UNDEF_8085956c:;
   // clang-format on
 );
 
-[[address(0x8085A990)]]
+[[nsmbw(0x8085A990)]]
 int daLineTrain_c::numPlayersRide()
 {
     return mPlayerRideMask.popCount();

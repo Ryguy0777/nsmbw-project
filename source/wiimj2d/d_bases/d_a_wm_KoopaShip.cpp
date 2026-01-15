@@ -3,5 +3,5 @@
 
 #include "d_a_wm_KoopaShip.h"
 
-[[address(0x808DE1A0)]]
+[[nsmbw(0x808DE1A0)]]
 void daWmKoopaShip_c::setup();

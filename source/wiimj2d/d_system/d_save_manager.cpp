@@ -14,10 +14,10 @@
 #include <cstring>
 #include <revolution/os/OSError.h>
 
-[[address_data(0x8042A320)]]
+[[nsmbw_data(0x8042A320)]]
 dSaveMng_c* dSaveMng_c::m_instance;
 
-[[address(0x800E0270)]]
+[[nsmbw(0x800E0270)]]
 void dSaveMng_c::create(EGG::Heap* heap)
 {
     EGG::Heap* prev = mHeap::setCurrentHeap(heap);
@@ -25,10 +25,10 @@ void dSaveMng_c::create(EGG::Heap* heap)
     mHeap::setCurrentHeap(prev);
 }
 
-[[address(0x800E02C0)]]
+[[nsmbw(0x800E02C0)]]
 dSaveMng_c::dSaveMng_c();
 
-[[address(0x800E03C0)]]
+[[nsmbw(0x800E03C0)]]
 void dSaveMng_c::refresh()
 {
     const void* data = dNandThread_c::getSaveData();
@@ -43,7 +43,7 @@ void dSaveMng_c::refresh()
     }
 }
 
-[[address(0x800E0470)]]
+[[nsmbw(0x800E0470)]]
 dMj2dGame_c* dSaveMng_c::getSaveGame(s8 slot)
 {
     if (slot == -1) {
@@ -52,7 +52,7 @@ dMj2dGame_c* dSaveMng_c::getSaveGame(s8 slot)
     return &mData.mSaveGames[slot];
 }
 
-[[address(0x800E04A0)]]
+[[nsmbw(0x800E04A0)]]
 dMj2dGame_c* dSaveMng_c::getTempGame(s8 slot)
 {
     if (slot == -1) {
@@ -61,7 +61,7 @@ dMj2dGame_c* dSaveMng_c::getTempGame(s8 slot)
     return &mData.mTempGames[slot];
 }
 
-[[address(0x800E04D0)]]
+[[nsmbw(0x800E04D0)]]
 void dSaveMng_c::saveGameCopy(s8 to, s8 from)
 {
     std::memcpy(
@@ -71,19 +71,19 @@ void dSaveMng_c::saveGameCopy(s8 to, s8 from)
     mData.mTempGames[to].initialize();
 }
 
-[[address(0x800E05A0)]]
+[[nsmbw(0x800E05A0)]]
 void dSaveMng_c::calcCRC()
 {
     // Do nothing
 }
 
-[[address(0x800E0630)]]
+[[nsmbw(0x800E0630)]]
 bool dSaveMng_c::startNandSave()
 {
     return mSaving = dNandThread_c::m_instance->cmdSave(&mData);
 }
 
-[[address(0x800E0D10)]]
+[[nsmbw(0x800E0D10)]]
 bool dSaveMng_c::startMultiModeNandSave()
 {
     dMj2dData_c* oldData = dNandThread_c::getSaveData();
@@ -99,7 +99,7 @@ bool dSaveMng_c::startMultiModeNandSave()
     return mSaving = dNandThread_c::m_instance->cmdSave(&nextData);
 }
 
-[[address(0x800E0E10)]]
+[[nsmbw(0x800E0E10)]]
 bool dSaveMng_c::startQuickNandSave()
 {
     dMj2dData_c* oldData = dNandThread_c::getSaveData();
@@ -112,7 +112,7 @@ bool dSaveMng_c::startQuickNandSave()
     return mSaving = dNandThread_c::m_instance->cmdSave(&nextData);
 }
 
-[[address(0x800E12C0)]]
+[[nsmbw(0x800E12C0)]]
 bool dSaveMng_c::startDeleteQuickNandSave()
 {
     dMj2dData_c* oldData = dNandThread_c::getSaveData();
@@ -125,7 +125,7 @@ bool dSaveMng_c::startDeleteQuickNandSave()
     return mSaving = dNandThread_c::m_instance->cmdSave(&nextData);
 }
 
-[[address(0x800E1A30)]]
+[[nsmbw(0x800E1A30)]]
 void dSaveMng_c::loadQuickSaveData(u8 file)
 {
     mData.mHeader.mLastSelectedFile = file;
@@ -135,7 +135,7 @@ void dSaveMng_c::loadQuickSaveData(u8 file)
     );
 }
 
-[[address(0x800E1780)]]
+[[nsmbw(0x800E1780)]]
 void dSaveMng_c::prepareSave()
 {
     dMj2dGame_c* game = getSaveGame();
@@ -166,7 +166,7 @@ void dSaveMng_c::prepareSave()
     game->mGameCompletion &= ~dMj2dGame_c::GAME_COMPLETION_e::SAVE_EMPTY;
 }
 
-[[address(0x800E1930)]]
+[[nsmbw(0x800E1930)]]
 void dSaveMng_c::initLoadGame(s8 file)
 {
     mData.mHeader.mLastSelectedFile = file;

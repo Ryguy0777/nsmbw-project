@@ -3,7 +3,7 @@
 
 #include "d_start_info.h"
 
-[[address(0x800E3BA0)]]
+[[nsmbw(0x800E3BA0)]]
 dStartInfo_c::dStartInfo_c()
 {
 }

@@ -14,13 +14,13 @@
 #include <revolution/pad.h>
 #include <utility>
 
-[[address(0x800B5B50)]]
+[[nsmbw(0x800B5B50)]]
 dGameKeyCore_c::dGameKeyCore_c(mPad::CH_e channel);
 
-[[address(0x800B5BE0)]]
+[[nsmbw(0x800B5BE0)]]
 void dGameKeyCore_c::allclear();
 
-[[address(0x800B5CB0)]]
+[[nsmbw(0x800B5CB0)]]
 void dGameKeyCore_c::read()
 {
     // Set data from previous frame
@@ -184,7 +184,7 @@ void dGameKeyCore_c::read()
     }
 }
 
-[[address(0x800B60D0)]]
+[[nsmbw(0x800B60D0)]]
 u32 dGameKeyCore_c::setConfigKey(u32 input)
 {
     u32 processed;
@@ -324,7 +324,7 @@ u32 dGameKeyCore_c::setConfigKey(u32 input)
     return processed;
 }
 
-[[address(0x800B61F0)]]
+[[nsmbw(0x800B61F0)]]
 void dGameKeyCore_c::handleTilting()
 {
     if (dScStage_c::m_replayPlay_p[mPlayerNo] != nullptr) {
@@ -339,7 +339,7 @@ void dGameKeyCore_c::handleTilting()
     }
 }
 
-[[address(0x800B62A0)]]
+[[nsmbw(0x800B62A0)]]
 void dGameKeyCore_c::setShakeY()
 {
     if (dScStage_c::m_replayPlay_p[mPlayerNo] != nullptr) {

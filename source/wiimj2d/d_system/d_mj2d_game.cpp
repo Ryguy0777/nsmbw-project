@@ -13,10 +13,10 @@ const PLAYER_TYPE_e dMj2dGame_c::scDefaultPlayerTypes[PLAYER_COUNT] = {
   PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD
 };
 
-[[address(0x800CDFB0)]]
+[[nsmbw(0x800CDFB0)]]
 dMj2dGame_c::dMj2dGame_c();
 
-[[address(0x800CDFC0)]]
+[[nsmbw(0x800CDFC0)]]
 void dMj2dGame_c::initialize()
 {
     std::memset(static_cast<void*>(this), 0, sizeof(dMj2dGame_c));
@@ -46,7 +46,7 @@ void dMj2dGame_c::initialize()
     setIbaraNow(2);
 }
 
-[[address(0x800CE110)]]
+[[nsmbw(0x800CE110)]]
 void dMj2dGame_c::versionUpdate()
 {
     if (mRevision.mMajor != SAVE_REVISION_MAJOR) {
@@ -56,50 +56,50 @@ void dMj2dGame_c::versionUpdate()
     mRevision.mMajor = SAVE_REVISION_MAJOR;
 }
 
-[[address(0x800CE150)]]
+[[nsmbw(0x800CE150)]]
 void dMj2dGame_c::setPlrID(int player, PLAYER_TYPE_e character)
 {
     mPlayerCharacter[player] = PLAYER_TYPE_u8_e(character);
 }
 
-[[address(0x800CE160)]]
+[[nsmbw(0x800CE160)]]
 PLAYER_TYPE_e dMj2dGame_c::getPlrID(int player) const
 {
     return PLAYER_TYPE_e(mPlayerCharacter[player]);
 }
 
-[[address(0x800CE170)]]
+[[nsmbw(0x800CE170)]]
 void dMj2dGame_c::setPlrMode(int player, PLAYER_MODE_e powerup)
 {
     mPlayerPowerup[player] = PLAYER_MODE_u8_e(powerup);
 }
 
-[[address(0x800CE180)]]
+[[nsmbw(0x800CE180)]]
 PLAYER_MODE_e dMj2dGame_c::getPlrMode(int player) const
 {
     return PLAYER_MODE_e(mPlayerPowerup[player]);
 }
 
-[[address(0x800CE190)]]
+[[nsmbw(0x800CE190)]]
 void dMj2dGame_c::setRest(int player, u8 lives)
 {
     mPlayerLife[player] = lives;
 }
 
-[[address(0x800CE1A0)]]
+[[nsmbw(0x800CE1A0)]]
 int dMj2dGame_c::getRest(int player) const
 {
     return mPlayerLife[player];
 }
 
-[[address(0x800CE1B0)]]
+[[nsmbw(0x800CE1B0)]]
 void dMj2dGame_c::setCreateItem(int player, PLAYER_CREATE_ITEM_e flag)
 {
     mPlayerCreateItem[player] =
       static_cast<PLAYER_CREATE_ITEM_u8_e>(flag & PLAYER_CREATE_ITEM_e::STAR_POWER);
 }
 
-[[address(0x800CE1C0)]]
+[[nsmbw(0x800CE1C0)]]
 PLAYER_CREATE_ITEM_e dMj2dGame_c::getCreateItem(int player) const
 {
     return static_cast<PLAYER_CREATE_ITEM_e>(
@@ -108,31 +108,31 @@ PLAYER_CREATE_ITEM_e dMj2dGame_c::getCreateItem(int player) const
     );
 }
 
-[[address(0x800CE1D0)]]
+[[nsmbw(0x800CE1D0)]]
 void dMj2dGame_c::setCoin(int player, s8 coins)
 {
     mPlayerCoin[player] = coins;
 }
 
-[[address(0x800CE1E0)]]
+[[nsmbw(0x800CE1E0)]]
 s8 dMj2dGame_c::getCoin(int player) const
 {
     return mPlayerCoin[player];
 }
 
-[[address(0x800CE1F0)]]
+[[nsmbw(0x800CE1F0)]]
 void dMj2dGame_c::setScore(u32 score)
 {
     mScore = score;
 }
 
-[[address(0x800CE200)]]
+[[nsmbw(0x800CE200)]]
 int dMj2dGame_c::getScore() const
 {
     return mScore;
 }
 
-[[address(0x800CE210)]]
+[[nsmbw(0x800CE210)]]
 void dMj2dGame_c::setStaffCreditHighScore(u16 score)
 {
     if (mStaffRollHighScore < score) {
@@ -140,28 +140,28 @@ void dMj2dGame_c::setStaffCreditHighScore(u16 score)
     }
 }
 
-[[address(0x800CE230)]]
+[[nsmbw(0x800CE230)]]
 int dMj2dGame_c::getStaffCreditHighScore()
 {
     return mStaffRollHighScore;
 }
 
-[[address(0x800CE240)]]
+[[nsmbw(0x800CE240)]]
 void dMj2dGame_c::onOtehonMenuOpenFlag(int movie)
 {
     mOtehonMenuOpen.setBit(movie);
 }
 
-[[address(0x800CE250)]]
+[[nsmbw(0x800CE250)]]
 bool dMj2dGame_c::isOtehonMenuOpenFlag(int movie) const
 {
     return mOtehonMenuOpen[movie];
 }
 
-[[address(0x800CE270)]]
+[[nsmbw(0x800CE270)]]
 void dMj2dGame_c::setCollectCoin(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e coins);
 
-[[address(0x800CE280)]]
+[[nsmbw(0x800CE280)]]
 int dMj2dGame_c::getTotalWorldCollectCoin(WORLD_e world)
 {
     if (fFeature::UNLOCKED_ALL_WORLDS) {
@@ -180,26 +180,26 @@ int dMj2dGame_c::getTotalWorldCollectCoin(WORLD_e world)
     return coinCount;
 }
 
-[[address(0x800CE300)]]
+[[nsmbw(0x800CE300)]]
 u8 dMj2dGame_c::isCollectCoin(WORLD_e world, STAGE_e level, int coin) const
 {
     return 1 << coin &
            static_cast<u32>(mCourseCompletion[static_cast<int>(world)][static_cast<int>(level)]);
 }
 
-[[address(0x800CE330)]]
+[[nsmbw(0x800CE330)]]
 void dMj2dGame_c::setStartKinokoKind(WORLD_e world, START_KINOKO_KIND_e kind)
 {
     mStartKinokoType[static_cast<int>(world)] = kind;
 }
 
-[[address(0x800CE340)]]
+[[nsmbw(0x800CE340)]]
 dMj2dGame_c::START_KINOKO_KIND_e dMj2dGame_c::getStartKinokoKind(WORLD_e world) const
 {
     return static_cast<START_KINOKO_KIND_e>(mStartKinokoType[static_cast<int>(world)]);
 }
 
-[[address(0x800CE350)]]
+[[nsmbw(0x800CE350)]]
 void dMj2dGame_c::setDeathCount(WORLD_e world, STAGE_e level, bool isSwitchPressed, u8 count)
 {
     {
@@ -217,7 +217,7 @@ void dMj2dGame_c::setDeathCount(WORLD_e world, STAGE_e level, bool isSwitchPress
     }
 }
 
-[[address(0x800CE3B0)]]
+[[nsmbw(0x800CE3B0)]]
 int dMj2dGame_c::getDeathCount(WORLD_e world, STAGE_e level, bool isSwitchPressed) const
 {
     // [Hardcoded check for World 3-4]
@@ -228,31 +228,31 @@ int dMj2dGame_c::getDeathCount(WORLD_e world, STAGE_e level, bool isSwitchPresse
     return mDeathCount[int(world)][int(level)];
 }
 
-[[address(0x800CE3E0)]]
+[[nsmbw(0x800CE3E0)]]
 void dMj2dGame_c::setSwitchDeathCount(u8 count)
 {
     mDeathCountSwitch = count;
 }
 
-[[address(0x800CE3F0)]]
+[[nsmbw(0x800CE3F0)]]
 int dMj2dGame_c::getSwitchDeathCount() const
 {
     return mDeathCountSwitch;
 }
 
-[[address(0x800CE400)]]
+[[nsmbw(0x800CE400)]]
 void dMj2dGame_c::setContinue(int player, s8 continues)
 {
     mPlayerContinue[player] = continues;
 }
 
-[[address(0x800CE410)]]
+[[nsmbw(0x800CE410)]]
 s8 dMj2dGame_c::getContinue(int player) const
 {
     return mPlayerContinue[player];
 }
 
-[[address(0x800CE420)]]
+[[nsmbw(0x800CE420)]]
 void dMj2dGame_c::setStockItem(int item, s8 count)
 {
     if (count > MAX_STOCK_ITEM) {
@@ -262,7 +262,7 @@ void dMj2dGame_c::setStockItem(int item, s8 count)
     mStockItemCount[item] = count;
 }
 
-[[address(0x800CE440)]]
+[[nsmbw(0x800CE440)]]
 dMj2dGame_c::WORLD_COMPLETION_e
 dMj2dGame_c::isWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag) const
 {
@@ -273,19 +273,19 @@ dMj2dGame_c::isWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag) const
     return flag & mWorldCompletion[static_cast<u8>(world)];
 }
 
-[[address(0x800CE450)]]
+[[nsmbw(0x800CE450)]]
 void dMj2dGame_c::onWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag)
 {
     mWorldCompletion[int(world)] |= flag;
 }
 
-[[address(0x800CE470)]]
+[[nsmbw(0x800CE470)]]
 void dMj2dGame_c::offWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag)
 {
     mWorldCompletion[int(world)] &= ~flag;
 }
 
-[[address(0x800CE490)]]
+[[nsmbw(0x800CE490)]]
 dMj2dGame_c::COURSE_COMPLETION_e dMj2dGame_c::getCourseDataFlag(WORLD_e world, STAGE_e level) const
 {
     u8 worldIndex = static_cast<u8>(world);
@@ -299,7 +299,7 @@ dMj2dGame_c::COURSE_COMPLETION_e dMj2dGame_c::getCourseDataFlag(WORLD_e world, S
     return completion;
 }
 
-[[address(0x800CE4B0)]]
+[[nsmbw(0x800CE4B0)]]
 bool dMj2dGame_c::isCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e flag) const
 {
     if (fFeature::COMPLETED_ALL_LEVELS) {
@@ -309,85 +309,85 @@ bool dMj2dGame_c::isCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETI
     return !!(flag & mCourseCompletion[static_cast<u8>(world)][static_cast<u8>(level)]);
 }
 
-[[address(0x800CE4E0)]]
+[[nsmbw(0x800CE4E0)]]
 void dMj2dGame_c::onCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e flag)
 {
     mCourseCompletion[static_cast<u8>(world)][static_cast<u8>(level)] |= flag;
 }
 
-[[address(0x800CE500)]]
+[[nsmbw(0x800CE500)]]
 void dMj2dGame_c::offCourseDataFlag(WORLD_e world, STAGE_e level, COURSE_COMPLETION_e flag)
 {
     mCourseCompletion[static_cast<u8>(world)][static_cast<u8>(level)] &= ~flag;
 }
 
-[[address(0x800CE520)]]
+[[nsmbw(0x800CE520)]]
 void dMj2dGame_c::setCSEnemyRevivalCnt(WORLD_e world, int enemy, int count)
 {
     mEnemyRevivalCount[int(world)][enemy] = count;
 }
 
-[[address(0x800CE540)]]
+[[nsmbw(0x800CE540)]]
 u8 dMj2dGame_c::getCSEnemyRevivalCnt(WORLD_e world, int enemy) const
 {
     return mEnemyRevivalCount[int(world)][enemy];
 }
 
-[[address(0x800CE560)]]
+[[nsmbw(0x800CE560)]]
 void dMj2dGame_c::setCSEnemySceneNo(WORLD_e world, int enemy, u8 subworld)
 {
     mEnemySceneNo[int(world)][enemy] = subworld;
 }
 
-[[address(0x800CE580)]]
+[[nsmbw(0x800CE580)]]
 u8 dMj2dGame_c::getCSEnemySceneNo(WORLD_e world, int enemy) const
 {
     return mEnemySceneNo[int(world)][enemy];
 }
 
-[[address(0x800CE5A0)]]
+[[nsmbw(0x800CE5A0)]]
 void dMj2dGame_c::setCSEnemyPosIndex(WORLD_e world, int enemy, u8 node)
 {
     mEnemyPosIndex[int(world)][enemy] = node;
 }
 
-[[address(0x800CE5C0)]]
+[[nsmbw(0x800CE5C0)]]
 s8 dMj2dGame_c::getCSEnemyPosIndex(WORLD_e world, int enemy) const
 {
     return mEnemyPosIndex[int(world)][enemy];
 }
 
-[[address(0x800CE5E0)]]
+[[nsmbw(0x800CE5E0)]]
 void dMj2dGame_c::setCSEnemyWalkDir(WORLD_e world, int enemy, PATH_DIRECTION_e direction)
 {
     mEnemyWalkDir[int(world)][enemy] = direction;
 }
 
-[[address(0x800CE600)]]
+[[nsmbw(0x800CE600)]]
 PATH_DIRECTION_e dMj2dGame_c::getCSEnemyWalkDir(WORLD_e world, int enemy) const
 {
     return mEnemyWalkDir[int(world)][enemy];
 }
 
-[[address(0x800CE620)]]
+[[nsmbw(0x800CE620)]]
 void dMj2dGame_c::setKinopioCourseNo(WORLD_e world, STAGE_e level)
 {
     mKinopioCourseNo[int(world)] = level;
 }
 
-[[address(0x800CE630)]]
+[[nsmbw(0x800CE630)]]
 STAGE_e dMj2dGame_c::getKinopioCourseNo(WORLD_e world) const
 {
     return mKinopioCourseNo[int(world)];
 }
 
-[[address(0x800CE640)]]
+[[nsmbw(0x800CE640)]]
 void dMj2dGame_c::setIbaraNow(int ibaraNow)
 {
     mIbaraNow = ibaraNow;
 }
 
-[[address(0x800CE650)]]
+[[nsmbw(0x800CE650)]]
 u8 dMj2dGame_c::getIbaraNow() const
 {
     return mIbaraNow;

@@ -25,10 +25,10 @@ fBase_c* dCharacterChangeSelectBase_c_classInit()
     return base;
 }
 
-[[address(0x8076F400)]]
+[[nsmbw(0x8076F400)]]
 dCharacterChangeSelectBase_c::dCharacterChangeSelectBase_c();
 
-[[address(0x8076FA40)]]
+[[nsmbw(0x8076FA40)]]
 void dCharacterChangeSelectBase_c::clearPlayerNo()
 {
     if (mPlayerNo < 0) {
@@ -51,7 +51,7 @@ void dCharacterChangeSelectBase_c::clearPlayerNo()
     }
 }
 
-[[address(0x8076FAE0)]]
+[[nsmbw(0x8076FAE0)]]
 bool dCharacterChangeSelectBase_c::updateRemocon()
 {
     if (mPlayerNo >= 0) {
@@ -165,7 +165,7 @@ bool dCharacterChangeSelectBase_c::isLockedIcon(Icon_e icon)
     }
 }
 
-[[address(0x8076FC80)]]
+[[nsmbw(0x8076FC80)]]
 bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e character)
 {
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
@@ -181,7 +181,7 @@ bool dCharacterChangeSelectBase_c::isCharacterLocked(PLAYER_TYPE_e character)
     return false;
 }
 
-[[address(0x8076FD70)]]
+[[nsmbw(0x8076FD70)]]
 void dCharacterChangeSelectBase_c::calcContentsIcon(int swapIndex, int baseIndex)
 {
     Icon_e iconIndex = ICON_FROM_BASE[4 - baseIndex];
@@ -197,25 +197,25 @@ void dCharacterChangeSelectBase_c::calcContentsIcon(int swapIndex, int baseIndex
     }
 }
 
-[[address(0x8076FE40)]]
+[[nsmbw(0x8076FE40)]]
 void dCharacterChangeSelectBase_c::initDecidedCharacter()
 {
     mDecidedCharacter = getCharacterFromBase(mOption);
 }
 
-[[address(0x8076FE60)]]
+[[nsmbw(0x8076FE60)]]
 void dCharacterChangeSelectBase_c::initOption()
 {
     mOption = getBaseFromCharacter(daPyMng_c::mPlayerType[mPlayerNo]);
 }
 
-[[address(0x8076FE90)]]
+[[nsmbw(0x8076FE90)]]
 void dCharacterChangeSelectBase_c::resetIndicator()
 {
     mpCcIndicator->setLampPattern(0u);
 }
 
-[[address(0x8076FEE0)]]
+[[nsmbw(0x8076FEE0)]]
 void dCharacterChangeSelectBase_c::readyContents()
 {
     mOption = 4 - mPlayerNo;
@@ -228,7 +228,7 @@ void dCharacterChangeSelectBase_c::readyContents()
     mpCcIndicator->m0x234 = m0x2EC;
 }
 
-[[address(0x80770090)]]
+[[nsmbw(0x80770090)]]
 void dCharacterChangeSelectBase_c::finalizeState_OnStageWait()
 {
     resetIndicator();
@@ -265,7 +265,7 @@ void dCharacterChangeSelectBase_c::finalizeState_OnStageWait()
     }
 }
 
-[[address(0x807702A0)]]
+[[nsmbw(0x807702A0)]]
 void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait()
 {
     if (!m0x299) {
@@ -287,40 +287,40 @@ void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait()
     return mStateMgr.changeState(*state);
 }
 
-[[address(0x807703F0)]]
+[[nsmbw(0x807703F0)]]
 void dCharacterChangeSelectBase_c::finalizeState_OnStageAnimeEndWait();
 
-[[address(0x80770400)]]
+[[nsmbw(0x80770400)]]
 void dCharacterChangeSelectBase_c::initializeState_ConnectWait();
 
-[[address(0x80770430)]]
+[[nsmbw(0x80770430)]]
 void dCharacterChangeSelectBase_c::executeState_ConnectWait();
 
 // Empty
-[[address(0x80770540)]]
+[[nsmbw(0x80770540)]]
 void dCharacterChangeSelectBase_c::finalizeState_ConnectWait();
 
 // Empty
-[[address(0x80770550)]]
+[[nsmbw(0x80770550)]]
 void dCharacterChangeSelectBase_c::initializeState_SelectStartWait();
 
-[[address(0x80770560)]]
+[[nsmbw(0x80770560)]]
 void dCharacterChangeSelectBase_c::executeState_SelectStartWait();
 
 // Empty
-[[address(0x80770620)]]
+[[nsmbw(0x80770620)]]
 void dCharacterChangeSelectBase_c::finalizeState_SelectStartWait();
 
-[[address(0x80770630)]]
+[[nsmbw(0x80770630)]]
 void dCharacterChangeSelectBase_c::initializeState_ButtonExitAnimeEndWait();
 
-[[address(0x80770670)]]
+[[nsmbw(0x80770670)]]
 void dCharacterChangeSelectBase_c::executeState_ButtonExitAnimeEndWait();
 
-[[address(0x807706D0)]]
+[[nsmbw(0x807706D0)]]
 void dCharacterChangeSelectBase_c::finalizeState_ButtonExitAnimeEndWait();
 
-[[address(0x807706E0)]]
+[[nsmbw(0x807706E0)]]
 void dCharacterChangeSelectBase_c::initializeState_ButtonOnStageAnimeEndWait()
 {
     if (mPlayerNo < 0 || mpNumPyConnectStage[mPlayerNo] == dInfo_c::PlyConnectStage_e::OFF) {
@@ -336,25 +336,25 @@ void dCharacterChangeSelectBase_c::initializeState_ButtonOnStageAnimeEndWait()
     m0x296 = true;
 }
 
-[[address(0x80770790)]]
+[[nsmbw(0x80770790)]]
 void dCharacterChangeSelectBase_c::executeState_ButtonOnStageAnimeEndWait();
 
-[[address(0x80770820)]]
+[[nsmbw(0x80770820)]]
 void dCharacterChangeSelectBase_c::finalizeState_ButtonOnStageAnimeEndWait();
 
-[[address(0x80770830)]]
+[[nsmbw(0x80770830)]]
 void dCharacterChangeSelectBase_c::initializeState_ArrowDispWait();
 
-[[address(0x80770850)]]
+[[nsmbw(0x80770850)]]
 void dCharacterChangeSelectBase_c::executeState_ArrowDispWait();
 
-[[address(0x807708B0)]]
+[[nsmbw(0x807708B0)]]
 void dCharacterChangeSelectBase_c::finalizeState_ArrowDispWait();
 
-[[address(0x807708D0)]]
+[[nsmbw(0x807708D0)]]
 void dCharacterChangeSelectBase_c::initializeState_SelectWait();
 
-[[address(0x807708E0)]]
+[[nsmbw(0x807708E0)]]
 void dCharacterChangeSelectBase_c::executeState_SelectWait()
 {
     if (updateRemocon()) {
@@ -406,47 +406,47 @@ void dCharacterChangeSelectBase_c::executeState_SelectWait()
     }
 }
 
-[[address(0x80770B40)]]
+[[nsmbw(0x80770B40)]]
 void dCharacterChangeSelectBase_c::finalizeState_SelectWait();
 
-[[address(0x80770B50)]]
+[[nsmbw(0x80770B50)]]
 void dCharacterChangeSelectBase_c::initializeState_MoveAnimeStartWait();
 
-[[address(0x80770BA0)]]
+[[nsmbw(0x80770BA0)]]
 void dCharacterChangeSelectBase_c::executeState_MoveAnimeStartWait();
 
-[[address(0x80770BE0)]]
+[[nsmbw(0x80770BE0)]]
 void dCharacterChangeSelectBase_c::finalizeState_MoveAnimeStartWait();
 
-[[address(0x80770BF0)]]
+[[nsmbw(0x80770BF0)]]
 void dCharacterChangeSelectBase_c::initializeState_MoveAnimeEndWait();
 
-[[address(0x80770C90)]]
+[[nsmbw(0x80770C90)]]
 void dCharacterChangeSelectBase_c::executeState_MoveAnimeEndWait();
 
-[[address(0x80770D00)]]
+[[nsmbw(0x80770D00)]]
 void dCharacterChangeSelectBase_c::finalizeState_MoveAnimeEndWait();
 
-[[address(0x80770D80)]]
+[[nsmbw(0x80770D80)]]
 void dCharacterChangeSelectBase_c::initializeState_HitAnimeEndWait();
 
-[[address(0x80770E20)]]
+[[nsmbw(0x80770E20)]]
 void dCharacterChangeSelectBase_c::executeState_HitAnimeEndWait();
 
-[[address(0x80770E70)]]
+[[nsmbw(0x80770E70)]]
 void dCharacterChangeSelectBase_c::finalizeState_HitAnimeEndWait();
 
-[[address(0x80770E80)]]
+[[nsmbw(0x80770E80)]]
 void dCharacterChangeSelectBase_c::initializeState_HitAfterExitWait();
 
-[[address(0x80770E90)]]
+[[nsmbw(0x80770E90)]]
 void dCharacterChangeSelectBase_c::executeState_HitAfterExitWait();
 
 // Empty
-[[address(0x80770ED0)]]
+[[nsmbw(0x80770ED0)]]
 void dCharacterChangeSelectBase_c::finalizeState_HitAfterExitWait();
 
-[[address(0x80770EE0)]]
+[[nsmbw(0x80770EE0)]]
 void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageWait() ASM_METHOD(
   // clang-format off
 /* 80770EE0 9421FFD0 */  stwu     r1, -48(r1);
@@ -517,7 +517,7 @@ void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageW
   // clang-format on
 );
 
-[[address(0x80771090)]]
+[[nsmbw(0x80771090)]]
 void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
 {
     std::size_t index = static_cast<std::size_t>(mDecidedCharacter);
@@ -548,7 +548,7 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
     m0x296 = true;
 }
 
-[[address(0x80771220)]]
+[[nsmbw(0x80771220)]]
 void dCharacterChangeSelectBase_c::executeState_PlayerOnStageWait() ASM_METHOD(
   // clang-format off
 /* 80771220 800302D4 */  lwz      r0, 724(r3);
@@ -572,7 +572,7 @@ UNDEF_8077124c:;
   // clang-format on
 );
 
-[[address(0x80771270)]]
+[[nsmbw(0x80771270)]]
 void dCharacterChangeSelectBase_c::finalizeState_PlayerOnStageWait() ASM_METHOD(
   // clang-format off
 /* 80771270 808302D4 */  lwz      r4, 724(r3);
@@ -591,7 +591,7 @@ void dCharacterChangeSelectBase_c::finalizeState_PlayerOnStageWait() ASM_METHOD(
   // clang-format on
 );
 
-[[address(0x807712B0)]]
+[[nsmbw(0x807712B0)]]
 void dCharacterChangeSelectBase_c::initializeState_PlayerDisp()
 {
     mp2DPlayer[mDecidedCharacter]->mPlayerNo = mPlayerNo;
@@ -601,7 +601,7 @@ void dCharacterChangeSelectBase_c::initializeState_PlayerDisp()
     mDecided = true;
 }
 
-[[address(0x807712E0)]]
+[[nsmbw(0x807712E0)]]
 void dCharacterChangeSelectBase_c::executeState_PlayerDisp() ASM_METHOD(
   // clang-format off
 /* 807712E0 9421FFF0 */  stwu     r1, -16(r1);
@@ -668,14 +668,14 @@ UNDEF_807713b4:;
   // clang-format on
 );
 
-[[address(0x807713D0)]]
+[[nsmbw(0x807713D0)]]
 void dCharacterChangeSelectBase_c::finalizeState_PlayerDisp()
 {
     mDecided = false;
     mp2DPlayer[mDecidedCharacter]->mForbidJump = false;
 }
 
-[[address(0x807713E0)]]
+[[nsmbw(0x807713E0)]]
 void dCharacterChangeSelectBase_c::initializeState_PlayerExitWait() ASM_METHOD(
   // clang-format off
 /* 807713E0 800302D4 */  lwz      r0, 724(r3);
@@ -714,7 +714,7 @@ UNDEF_80771448:;
   // clang-format on
 );
 
-[[address(0x80771470)]]
+[[nsmbw(0x80771470)]]
 void dCharacterChangeSelectBase_c::executeState_PlayerExitWait() ASM_METHOD(
   // clang-format off
 /* 80771470 800302D4 */  lwz      r0, 724(r3);
@@ -738,7 +738,7 @@ UNDEF_8077149c:;
   // clang-format on
 );
 
-[[address(0x807714C0)]]
+[[nsmbw(0x807714C0)]]
 void dCharacterChangeSelectBase_c::finalizeState_PlayerExitWait() ASM_METHOD(
   // clang-format off
 /* 807714C0 800302D8 */  lwz      r0, 728(r3);

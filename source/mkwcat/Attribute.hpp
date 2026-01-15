@@ -17,9 +17,9 @@ struct Entry {
     } dest;
 };
 
-#define address(_ADDRESS) _Clang::__external__(#_ADDRESS)
+#define nsmbw(_ADDRESS) _Clang::__external__(#_ADDRESS)
 
-#define address_data(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)
+#define nsmbw_data(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)
 
 #define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE) SECTION(".external." #_ADDR) _PROTOTYPE
 

@@ -7,14 +7,14 @@
  * @unofficial
  * Looks like a badly stripped assert.
  */
-[[address(0x80161880)]]
+[[nsmbw(0x80161880)]]
 void cUnaryTree_Fatal();
 
-[[address(0x80161890)]]
+[[nsmbw(0x80161890)]]
 void cUnaryTreeMg_c::add(cUnaryTreeNd_c* nd, void* owner);
 
-[[address(0x80161940)]]
+[[nsmbw(0x80161940)]]
 void cUnaryTreeMg_c::remove(cUnaryTreeNd_c* nd, void* owner);
 
-[[address(0x80161A00)]]
+[[nsmbw(0x80161A00)]]
 void cUnaryTreeMg_c::clear();

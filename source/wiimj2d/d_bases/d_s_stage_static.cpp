@@ -6,49 +6,49 @@
 #include "d_system/d_mj2d_game.h"
 #include <mkwcat/Relocate.hpp>
 
-[[address_data(0x8042A4A8)]]
+[[nsmbw_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
 
-[[address_data(0x8042A4DC)]]
+[[nsmbw_data(0x8042A4DC)]]
 s32 dScStage_c::m_goalType;
 
-[[address_data(0x8042A4E0)]]
+[[nsmbw_data(0x8042A4E0)]]
 u32 dScStage_c::m_exeFrame;
 
-[[address_data(0x8042A4E4)]]
+[[nsmbw_data(0x8042A4E4)]]
 dScStage_c::GAME_MODE_e dScStage_c::m_gameMode;
 
-[[address_data(0x8042A4FC)]]
+[[nsmbw_data(0x8042A4FC)]]
 bool dScStage_c::m_isCourseIn;
 
-[[address_data(0x8042A4FD)]]
+[[nsmbw_data(0x8042A4FD)]]
 bool dScStage_c::m_isCourseOut;
 
-[[address_data(0x8042A4FE)]]
+[[nsmbw_data(0x8042A4FE)]]
 bool dScStage_c::m_isOtehonReturn;
 
-[[address_data(0x8042A4FF)]]
+[[nsmbw_data(0x8042A4FF)]]
 bool dScStage_c::m_isStaffCredit;
 
-[[address_data(0x8042A500)]]
+[[nsmbw_data(0x8042A500)]]
 s32 dScStage_c::m_miniGame;
 
-[[address_data(0x8042A504)]]
+[[nsmbw_data(0x8042A504)]]
 u8 dScStage_c::m_replayMode;
 
-[[address_data(0x8042A506)]]
+[[nsmbw_data(0x8042A506)]]
 bool dScStage_c::m_isReplayGoal;
 
-[[address_data(0x803744B0)]]
+[[nsmbw_data(0x803744B0)]]
 PLAYER_TYPE_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
 
 /* 0x803744D0 */
 dReplayPlay_c* dScStage_c::m_replayPlay_p[PLAYER_COUNT];
 
-[[address(0x80101A70)]]
+[[nsmbw(0x80101A70)]]
 dGameDisplay_c* dScStage_c::getGameDisplay();
 
-[[address(0x80101AA0)]]
+[[nsmbw(0x80101AA0)]]
 void dScStage_c::setLoopType() ASM_METHOD(
   // clang-format off
 /* 80101AA0 9421FFE0 */  stwu     r1, -32(r1);
@@ -117,13 +117,13 @@ UNDEF_80101b94:;
   // clang-format on
 );
 
-[[address(0x801020E0)]]
+[[nsmbw(0x801020E0)]]
 void dScStage_c::setCollectionCoin(int coin, PLAYER_TYPE_e player);
 
-[[address(0x801022C0)]]
+[[nsmbw(0x801022C0)]]
 bool dScStage_c::isNowReplay();
 
-[[address(0x80102370)]]
+[[nsmbw(0x80102370)]]
 void dScStage_c::goToSceneAfterLevel(int profile, int sceneParam, int exitMode, dFader_c::fader_type_e faderType) ASM_METHOD(
   // clang-format off
 /* 80102370 9421FFE0 */  stwu     r1, -32(r1);

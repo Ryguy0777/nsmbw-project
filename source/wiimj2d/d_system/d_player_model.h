@@ -74,7 +74,7 @@ public:
     virtual void draw() override;
 
     /* VT+0x28 */
-    [[address(0x800BD140) /* d_kinopio_model.o */]]
+    [[nsmbw(0x800BD140) /* d_kinopio_model.o */]]
     virtual m3d::mdl_c* getBodyMdl() override;
 
     /* VT+0x2C 0x800BD7D0 */
@@ -166,7 +166,7 @@ public:
     }
 
     /* VT+0xA8 */
-    [[address(0x800BD760)]]
+    [[nsmbw(0x800BD760)]]
     virtual float* getLegLengthP(u8) override;
 
     /* VT+0xAC 0x800D4750 */

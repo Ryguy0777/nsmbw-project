@@ -21,16 +21,16 @@
 #include <revolution/os.h>
 #include <revolution/sc.h>
 
-[[address(0x807775E0)]]
+[[nsmbw(0x807775E0)]]
 dContinue_c* dContinue_c_classInit()
 {
     return new dContinue_c();
 }
 
-[[address(0x80777610)]]
+[[nsmbw(0x80777610)]]
 dContinue_c::dContinue_c();
 
-[[address(0x807778A0)]]
+[[nsmbw(0x807778A0)]]
 fBase_c::PACK_RESULT_e dContinue_c::create()
 {
     if (!mLayoutLoaded) {
@@ -59,7 +59,7 @@ fBase_c::PACK_RESULT_e dContinue_c::create()
     return PACK_RESULT_e::SUCCEEDED;
 }
 
-[[address(0x807779D0)]]
+[[nsmbw(0x807779D0)]]
 bool dContinue_c::createLayout()
 {
     if (!mLayout.ReadResource("continue/continue.arc", false)) {
@@ -230,7 +230,7 @@ bool dContinue_c::createLayout()
     return true;
 }
 
-[[address(0x80777C20)]]
+[[nsmbw(0x80777C20)]]
 int dContinue_c::getPaneIdx(int playerID)
 {
     int paneIdxArray[PLAYER_COUNT][PLAYER_COUNT] = {
@@ -246,7 +246,7 @@ int dContinue_c::getPaneIdx(int playerID)
     return paneIdxArray[mPlayCount - 1][playerID];
 }
 
-[[address(0x80777C50)]]
+[[nsmbw(0x80777C50)]]
 void dContinue_c::setCardPosition()
 {
     int paneIdx = 0;
@@ -269,7 +269,7 @@ void dContinue_c::setCardPosition()
     }
 }
 
-[[address(0x80777DA0)]]
+[[nsmbw(0x80777DA0)]]
 void dContinue_c::setContinue()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -280,7 +280,7 @@ void dContinue_c::setContinue()
     }
 }
 
-[[address(0x80777E30)]]
+[[nsmbw(0x80777E30)]]
 void dContinue_c::setRest()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -291,7 +291,7 @@ void dContinue_c::setRest()
     }
 }
 
-[[address(0x80777EC0)]]
+[[nsmbw(0x80777EC0)]]
 void dContinue_c::setPlayerInfo()
 {
     mPlayCount = 0;
@@ -314,7 +314,7 @@ void dContinue_c::setPlayerInfo()
     }
 }
 
-[[address(0x80777FD0)]]
+[[nsmbw(0x80777FD0)]]
 void dContinue_c::EffectContinueInc(int playerID, int numLen)
 {
     nw4r::lyt::Pane* conTime = mpTConTime[playerID];
@@ -332,7 +332,7 @@ void dContinue_c::EffectContinueInc(int playerID, int numLen)
     }
 }
 
-[[address(0x807783E0)]]
+[[nsmbw(0x807783E0)]]
 void dContinue_c::executeState_ContinueCountUp()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -357,7 +357,7 @@ void dContinue_c::executeState_ContinueCountUp()
     mLayout.AnimeStartSetup(1, false);
 }
 
-[[address(0x807785A0)]]
+[[nsmbw(0x807785A0)]]
 void dContinue_c::executeState_RestCountUp()
 {
     if (!mLayout.isAnime(2)) {
@@ -385,7 +385,7 @@ static int ContinueReviveSE[] = {
     SndID::SE_VOC_KO_CONTINUE, SndID::SE_VOC_KO2_CONTINUE,
 };
 
-[[address(0x807786A0)]]
+[[nsmbw(0x807786A0)]]
 void dContinue_c::finalizeState_RestCountUp()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -398,7 +398,7 @@ void dContinue_c::finalizeState_RestCountUp()
     }
 }
 
-[[address(0x80778860)]]
+[[nsmbw(0x80778860)]]
 void dContinue_c::executeState_EndWait()
 {
     if (mExitDelay == 0) {
@@ -431,7 +431,7 @@ void dContinue_c::executeState_EndWait()
     }
 }
 
-[[address(0x807789B0)]]
+[[nsmbw(0x807789B0)]]
 void dContinue_c::finalizeState_EndWait()
 {
     dMj2dGame_c *save = dSaveMng_c::m_instance->getSaveGame();

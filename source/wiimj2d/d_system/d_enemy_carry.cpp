@@ -3,7 +3,7 @@
 
 #include "d_enemy_carry.h"
 
-[[address(0x8009EF90)]]
+[[nsmbw(0x8009EF90)]]
 void dEnemyCarry_c::initializeState_Throw()
 {
     setCollTimer(mPlayerNo, 12);

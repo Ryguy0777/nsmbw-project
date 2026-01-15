@@ -4,7 +4,7 @@
 
 #include <string.h>
 
-[[address(0x80004364)]]
+[[nsmbw(0x80004364)]]
 void* memcpy(void* dest, const void* src, size_t n) ASM_METHOD(
   // clang-format off
     subic.  r7, r5, 4;
@@ -103,7 +103,7 @@ L_MemcpyBegin1Word_2:;
   // clang-format on
 );
 
-[[address(0x800046B4)]]
+[[nsmbw(0x800046B4)]]
 void* memset(void* s, int c, size_t n) ASM_METHOD(
   // clang-format off
     cmpwi   r5, 4;
@@ -247,5 +247,5 @@ L_MemsetCacheAlignedNonZeroLoop:;
   // clang-format on
 );
 
-[[address(0x802DC98C)]]
+[[nsmbw(0x802DC98C)]]
 size_t strlen(const char* s);

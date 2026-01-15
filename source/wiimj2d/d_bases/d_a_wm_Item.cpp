@@ -3,5 +3,5 @@
 
 #include "d_a_wm_Item.h"
 
-[[address(0x808D4F40)]]
+[[nsmbw(0x808D4F40)]]
 void daWmItem_c::updateVisiblity();

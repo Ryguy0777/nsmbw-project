@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <mkwcat/Relocate.hpp>
 
-[[address(0x807D0070)]]
+[[nsmbw(0x807D0070)]]
 daBossKoopaJrDemo_c* daBossKoopaJrDemo_c_classInit()
 {
     return new daBossKoopaJrDemo_c;
@@ -40,7 +40,7 @@ UNDEF_807d00b4:;
   // clang-format on
 );
 
-[[address(0x807D00D0)]]
+[[nsmbw(0x807D00D0)]]
 void daBossKoopaJrDemo_c::initialize()
 {
     static const mVec3_c sc_doomship_offset[] = {
@@ -106,7 +106,7 @@ void daBossKoopaJrDemo_c::initialize()
     m0x484 = 0;
 }
 
-[[address(0x807D03B0)]]
+[[nsmbw(0x807D03B0)]]
 void daBossKoopaJrDemo_c::sortPlayers()
 {
     int count = 0;
@@ -124,7 +124,7 @@ void daBossKoopaJrDemo_c::sortPlayers()
     });
 }
 
-[[address(0x807D0490)]]
+[[nsmbw(0x807D0490)]]
 void daBossKoopaJrDemo_c::calcPlayerWalkPos()
 {
     int numPly = daPyMng_c::mNum;
@@ -144,7 +144,7 @@ void daBossKoopaJrDemo_c::calcPlayerWalkPos()
     mpFirstPlr = mpPlayersInOrder[numPly - 1];
 }
 
-[[address(0x807D0800)]]
+[[nsmbw(0x807D0800)]]
 bool daBossKoopaJrDemo_c::isPlayerEntry(int player)
 {
     return daPyMng_c::mActPlayerInfo & (1 << player);

@@ -4,16 +4,16 @@
 #include "d_MiniGameWire.h"
 #include "d_system/d_mj2d_game.h"
 
-[[address(0x8078DA20)]]
+[[nsmbw(0x8078DA20)]]
 dMiniGameWire_c* dMiniGameWire_c_classInit()
 {
     return new dMiniGameWire_c();
 }
 
-[[address(0x8078DA50)]]
+[[nsmbw(0x8078DA50)]]
 dMiniGameWire_c::dMiniGameWire_c();
 
-[[address(0x8078DE20)]]
+[[nsmbw(0x8078DE20)]]
 bool dMiniGameWire_c::createLayout() {
     if (!mLayout.ReadResource("miniGameWire/miniGameWire.arc", false)) {
         return false;
@@ -209,7 +209,7 @@ bool dMiniGameWire_c::createLayout() {
     return true;
 }
 
-[[address(0x8078E2B0)]]
+[[nsmbw(0x8078E2B0)]]
 void dMiniGameWire_c::setTurnFaceIcon() {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         mpExFaceIcon[i]->SetVisible(false);

@@ -43,7 +43,7 @@ public:
     virtual s32 writeData(const void* data, s32 len, s32 offset);
 
     /* VT+0x1C */
-    [[address(0x8008F750) /* d_dylink.cpp */]]
+    [[nsmbw(0x8008F750) /* d_dylink.cpp */]]
     virtual s32 getFileSize() const;
 
 private:

@@ -14,31 +14,31 @@
 #include <cstdio>
 #include <iterator>
 
-[[address(0x8004DB40)]]
+[[nsmbw(0x8004DB40)]]
 bool daPlBase_c::isDemoType(DemoType_e type);
 
-[[address(0x8004DD00)]]
+[[nsmbw(0x8004DD00)]]
 bool daPlBase_c::isDemo();
 
-[[address(0x8004DDE0)]]
+[[nsmbw(0x8004DDE0)]]
 bool daPlBase_c::isDemoAll();
 
-[[address(0x8004E040)]]
+[[nsmbw(0x8004E040)]]
 bool daPlBase_c::isPlayerGameStop();
 
-[[address(0x8004E050)]]
+[[nsmbw(0x8004E050)]]
 void daPlBase_c::stopOther();
 
-[[address(0x8004E100)]]
+[[nsmbw(0x8004E100)]]
 void daPlBase_c::playOther();
 
-[[address(0x8004E290)]]
+[[nsmbw(0x8004E290)]]
 void daPlBase_c::changeDemoState(const sStateIDIf_c& state, int param);
 
-[[address(0x80050D80)]]
+[[nsmbw(0x80050D80)]]
 bool daPlBase_c::isDispOutCheckOn();
 
-[[address(0x800510F0)]]
+[[nsmbw(0x800510F0)]]
 void daPlBase_c::stopGoalOther()
 {
     if (!isPlayerGameStop()) {
@@ -65,7 +65,7 @@ void daPlBase_c::stopGoalOther()
     }
 }
 
-[[address(0x800511A0)]]
+[[nsmbw(0x800511A0)]]
 void daPlBase_c::playGoalOther()
 {
     dActor_c::mExecStopReq &= ~0xF;
@@ -88,43 +88,43 @@ void daPlBase_c::playGoalOther()
     }
 }
 
-[[address(0x80051E70)]]
+[[nsmbw(0x80051E70)]]
 bool daPlBase_c::startControlDemo();
 
-[[address(0x80051EF0)]]
+[[nsmbw(0x80051EF0)]]
 void daPlBase_c::endControlDemo(int param);
 
-[[address(0x80051F30)]]
+[[nsmbw(0x80051F30)]]
 void daPlBase_c::setControlDemoDir(u8 direction);
 
-[[address(0x80052030)]]
+[[nsmbw(0x80052030)]]
 bool daPlBase_c::isControlDemoWait();
 
-[[address(0x80052080)]]
+[[nsmbw(0x80052080)]]
 void daPlBase_c::setControlDemoWalk(const f32& pos, const f32& speed);
 
-[[address(0x80052170)]]
+[[nsmbw(0x80052170)]]
 void daPlBase_c::setControlDemoAnm(int anim);
 
-[[address(0x80052470)]]
+[[nsmbw(0x80052470)]]
 bool daPlBase_c::isBossDemoLand();
 
-[[address(0x80056C70)]]
+[[nsmbw(0x80056C70)]]
 void daPlBase_c::onStatus(int flag);
 
-[[address(0x80056CB0)]]
+[[nsmbw(0x80056CB0)]]
 void daPlBase_c::offStatus(int flag);
 
-[[address(0x80056CF0)]]
+[[nsmbw(0x80056CF0)]]
 bool daPlBase_c::isStatus(int flag);
 
-[[address(0x80056E30)]]
+[[nsmbw(0x80056E30)]]
 dPyMdlBase_c *daPlBase_c::getModel();
 
-[[address(0x80057E70)]]
+[[nsmbw(0x80057E70)]]
 void daPlBase_c::playSound(SndID::Type, long);
 
-[[address(0x800583A0)]]
+[[nsmbw(0x800583A0)]]
 void daPlBase_c::calcHeadAttentionAngle();
 
 // Static array works here as we have a limited number of players

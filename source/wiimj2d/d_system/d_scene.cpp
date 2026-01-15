@@ -4,17 +4,17 @@
 
 #include "d_scene.h"
 
-[[address_data(0x80428A42)]]
+[[nsmbw_data(0x80428A42)]]
 u16 dScene_c::m_nowScene;
 
-[[address(0x800E1B10)]]
+[[nsmbw(0x800E1B10)]]
 dScene_c::~dScene_c();
 
-[[address(0x800E1F50)]]
+[[nsmbw(0x800E1F50)]]
 void dScene_c::setNextScene(u16 profile, u32 param, bool param2);
 
-[[address(0x800E2040)]]
+[[nsmbw(0x800E2040)]]
 void dScene_c::setFadeInFrame(u16 frames);
 
-[[address(0x800E2050)]]
+[[nsmbw(0x800E2050)]]
 void dScene_c::setFadeOutFrame(u16 frames);

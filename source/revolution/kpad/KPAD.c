@@ -5,7 +5,7 @@
 
 EXTERN_C_START
 
-[[address(0x801ED4F0)]]
+[[nsmbw(0x801ED4F0)]]
 int KPADReadEx(WPADChannel chan, KPADStatus* status, u32 count, s32* result);
 
 EXTERN_C_END

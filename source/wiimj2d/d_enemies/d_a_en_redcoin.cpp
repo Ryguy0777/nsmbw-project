@@ -13,7 +13,7 @@ u32 daEnRedcoin_c_sizeof()
     return sizeof(daEnRedcoin_c);
 }
 
-[[address(0x80A93990)]]
+[[nsmbw(0x80A93990)]]
 daEnRedcoin_c* daEnRedcoin_c_classInit() ASM_METHOD(
   // clang-format off
 /* 80A93990 9421FFF0 */  stwu     r1, -16(r1);
@@ -47,7 +47,7 @@ UNDEF_80a939e4:;
   // clang-format on
 );
 
-[[address(0x80A94250)]]
+[[nsmbw(0x80A94250)]]
 void daEnRedcoin_c::selectItems()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -78,7 +78,7 @@ void daEnRedcoin_c::selectItems()
     }
 }
 
-[[address(0x80A94340)]]
+[[nsmbw(0x80A94340)]]
 void daEnRedcoin_c::awardItems()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
