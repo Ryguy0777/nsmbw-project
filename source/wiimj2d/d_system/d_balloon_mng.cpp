@@ -14,6 +14,7 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "egg/math/eggMath.h"
+#include "framework/f_feature.h"
 #include "framework/f_manager.h"
 #include "framework/f_param.h"
 #include <cstddef>
@@ -73,7 +74,9 @@ void dBalloonMng_c::execute()
         }
     }
 
-    return execute1UpSwarm();
+    if (fFeature::BUBBLE_SWARM_MODE) {
+        return execute1UpSwarm();
+    }
 
     if (!(dInfo_c::mGameFlag & 0x10) || daPyMng_c::isOnePlayerInGame()) {
         return;
@@ -141,12 +144,18 @@ void dBalloonMng_c::execute()
 
 void dBalloonMng_c::execute1UpSwarm()
 {
-    int rampUp = EGG::Math<int>().lerp(float(mTotalTimer++) / float(SWARM_TIMER_MAX), 60 * 8, 60);
-    if (++mSwarmTimer < rampUp) {
+    int rampUp =
+      EGG::Math<int>().lerp(float(mTotalTimer++) / float(SWARM_TIMER_MAX), 60 * 16, 60 * 4);
+    if (++mSwarmTimer < rampUp && mSwarmTimer != 1) {
         return;
     }
-    mSwarmTimer = 0;
+    mSwarmTimer = 1;
 
+    createSwarmBalloon();
+}
+
+void dBalloonMng_c::createSwarmBalloon()
+{
     if (dActor_c* balloon = dActor_c::construct(
           dProf::EN_HATENA_BALLOON,
           fParam_c<daEnHatenaBalloon_c>(

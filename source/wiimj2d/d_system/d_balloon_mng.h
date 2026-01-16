@@ -9,7 +9,7 @@ public:
     // ^^^^^^
 
     static constexpr int TIMER_MAX = 30 * 60; // 30 seconds
-    static constexpr int SWARM_TIMER_MAX = 300 * 60; // 300 seconds
+    static constexpr int SWARM_TIMER_MAX = 500 * 60; // 500 seconds
 
 public:
     // Instance Methods
@@ -28,6 +28,7 @@ public:
     void execute();
 
     void execute1UpSwarm();
+    void createSwarmBalloon();
 
 public:
     // Instance Variables

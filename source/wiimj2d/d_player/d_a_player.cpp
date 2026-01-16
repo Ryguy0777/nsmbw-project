@@ -25,6 +25,9 @@ dAcPy_c* dAcPy_c::getCarryPlayer();
 [[nsmbw(0x8012E6E0)]]
 bool dAcPy_c::releaseCarryActor();
 
+[[nsmbw(0x80138E80)]]
+void dAcPy_c::setBalloonHelpVoice();
+
 [[nsmbw(0x80138FA0)]]
 bool dAcPy_c::setBalloonInDamage();
 
@@ -218,7 +221,7 @@ void dAcPy_c::setFallDownDemoNoMsg()
 }
 
 [[nsmbw(0x8013FBE0)]]
-void dAcPy_c::endDemoDokanCannon(mVec3_c &);
+void dAcPy_c::endDemoDokanCannon(mVec3_c&);
 
 /**
  * VT+0x28C

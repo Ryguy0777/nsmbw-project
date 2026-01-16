@@ -4,16 +4,18 @@
 #include "d_a_en_hatena_balloon.h"
 
 #include "d_enemies/d_a_en_item.h"
+#include "d_player/d_a_player.h"
 #include "d_system/d_actor_mng.h"
 #include "d_system/d_audio.h"
 #include "d_system/d_balloon_mng.h"
+#include "d_system/d_quake.h"
 #include "d_system/d_resource_mng.h"
+#include "framework/f_feature.h"
 #include "framework/f_param.h"
 #include "machine/m_3d_fanm.h"
 #include "machine/m_heap.h"
 #include "machine/m_vec.h"
 #include "sound/SndID.h"
-#include "sound/SndObjectMap.h"
 
 [[nsmbw(0x80111990)]]
 void daEnHatenaBalloon_c::model_set()
@@ -98,6 +100,9 @@ void daEnHatenaBalloon_c::model_set()
     mAllocator.adjustFrmHeap();
 }
 
+[[nsmbw(0x80111EC0)]]
+void daEnHatenaBalloon_c::anm_set(int);
+
 [[nsmbw(0x80112110)]]
 void daEnHatenaBalloon_c::createItem()
 {
@@ -117,4 +122,52 @@ void daEnHatenaBalloon_c::createItem()
     dAudio::g_pSndObjMap->startSound(
       SndID::SE_OBJ_CMN_BALLOON_BREAK, dAudio::cvtSndObjctPos(mPos), 0
     );
+
+    if (fFeature::BUBBLE_SWARM_MODE) {
+        dBalloonMng_c::m_instance->mSwarmTimer = 1;
+        dBalloonMng_c::m_instance->createSwarmBalloon();
+        dBalloonMng_c::m_instance->createSwarmBalloon();
+    }
+}
+
+[[nsmbw(0x80113090)]]
+void daEnHatenaBalloon_c::remocon_speed_set();
+
+[[nsmbw(0x80113400)]]
+void daEnHatenaBalloon_c::remocon_times_check();
+
+[[nsmbw(0x801134F0)]]
+void daEnHatenaBalloon_c::remocon_shake_check()
+{
+    if (!mHasItem && !fFeature::BUBBLE_SWARM_MODE) {
+        return;
+    }
+
+    if (m_shake_check_timer != 0) {
+        m_shake_check_timer--;
+        return;
+    }
+
+    if (mHasItem && fFeature::BUBBLE_SWARM_MODE) {
+        m_shake_check_timer = 30;
+        m_countdown_anm = 31;
+        anm_set(1);
+        remocon_speed_set();
+        return;
+    }
+
+    dAcPy_c* player = daPyMng_c::getPlayer(mPlayerNo);
+    if (player == nullptr || !player->mKey.triggerShakeJump()) {
+        return;
+    }
+
+    m_shake_check_timer = 30;
+    m_countdown_anm = 31;
+    remocon_times_check();
+    dQuake_c::m_instance->shockMotor(
+      mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_BUBBLE_SHAKE, 0, false
+    );
+    player->setBalloonHelpVoice();
+    anm_set(1);
+    remocon_speed_set();
 }

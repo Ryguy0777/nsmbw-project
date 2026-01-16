@@ -13,6 +13,7 @@ public:
 
     enum class TYPE_SHOCK_e {
         PLAYER_DAMAGE = 4,
+        PLAYER_BUBBLE_SHAKE = 10,
     };
 
 public:

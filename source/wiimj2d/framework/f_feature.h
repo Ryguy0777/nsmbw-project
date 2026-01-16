@@ -38,4 +38,6 @@ extern enum class YOSHI_COLOR_MODE_e : u8 {
     ALL_GREEN = 2,
 } YOSHI_COLOR_MODE;
 
+constexpr inline bool BUBBLE_SWARM_MODE = true;
+
 } // namespace fFeature

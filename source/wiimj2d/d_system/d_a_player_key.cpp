@@ -2,8 +2,10 @@
 // NSMBW .text: 0x8005DFD0 - 0x8005E9A0
 
 #include "d_a_player_key.h"
+
 #include "d_game_key.h"
 #include "d_system/d_game_key_core.h"
+
 [[nsmbw(0x8005E040)]]
 void dAcPyKey_c::update() ASM_METHOD(
   // clang-format off
@@ -175,9 +177,11 @@ UNDEF_8005e294:;
 /* 8005E2A4 7C0803A6 */  mtlr     r0;
 /* 8005E2A8 38210020 */  addi     r1, r1, 32;
 /* 8005E2AC 4E800020 */  blr;
-
   // clang-format on
 );
+
+[[nsmbw(0x8005E780)]]
+bool dAcPyKey_c::triggerShakeJump() const;
 
 [[nsmbw(0x8005E590)]]
 u16 dAcPyKey_c::triggerOne() const
@@ -204,7 +208,7 @@ u16 dAcPyKey_c::buttonOne() const
     case dGameKeyCore_c::Type_e::FREESTYLE:
         // Nunchuk mode
         return mDownButtons & dGameKeyCore_c::BTN_B;
-        
+
     default:
         // Other
         return mDownButtons & dGameKeyCore_c::BTN_1;

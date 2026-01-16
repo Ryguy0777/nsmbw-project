@@ -21,6 +21,9 @@ public:
     /* 0x8012E6E0 */
     bool releaseCarryActor();
 
+    /* 0x80138E80 */
+    void setBalloonHelpVoice();
+
     /* 0x80138FA0 */
     bool setBalloonInDamage();
 
