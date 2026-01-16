@@ -15,14 +15,14 @@ public:
     /**
      * Constructs an empty vector.
      */
-    mVec2_c()
+    constexpr mVec2_c()
     {
     }
 
     /**
      * Constructs a vector from a float array.
      */
-    mVec2_c(const f32* p)
+    constexpr mVec2_c(const f32* p)
     {
         x = p[0];
         y = p[1];
@@ -31,10 +31,14 @@ public:
     /**
      * Constructs a vector from two floating point values.
      */
-    mVec2_c(f32 fx, f32 fy)
+    constexpr mVec2_c(f32 fx, f32 fy)
     {
         x = fx;
         y = fy;
+    }
+
+    constexpr ~mVec2_c()
+    {
     }
 
     void init(float x, float y)

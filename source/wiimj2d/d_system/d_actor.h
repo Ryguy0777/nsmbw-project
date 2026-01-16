@@ -241,6 +241,9 @@ public:
       u8 layer
     );
 
+    /* 0x80064C10 */
+    static void setSoftLight_Item(m3d::bmdl_c& model);
+
 public:
     // Static Variables
     // ^^^^^^

@@ -124,6 +124,19 @@ enum class STOCK_ITEM_e : u8 {
 
 #define STOCK_ITEM_COUNT 7
 
+enum class ITEM_e : u8 {
+    MUSHROOM = 0,
+    FIRE_FLOWER = 1,
+    STAR = 2,
+    COIN = 3,
+    ICE_FLOWER = 4,
+    ONE_UP = 6,
+    PROPELLER_SHROOM = 11,
+    MINI_MUSHROOM = 13,
+    PENGUIN_SUIT = 14,
+    COIN2 = 16,
+};
+
 /**
  * The numbers corresponding to each level type.
  * @unofficial

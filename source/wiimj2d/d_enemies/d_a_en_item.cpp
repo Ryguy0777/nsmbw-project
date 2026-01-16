@@ -61,10 +61,10 @@ UNDEF_80a26cb4:;
 /* 80A26CFC C17F00A8 */  lfs      f11, 168(r31);
 /* 80A26D00          */  extrwi   r25, r29, 4, 12; // Player ID
 /* 80A26D04 C103000C */  lfs      f8, 12(r3);
-/* 80A26D08          */  extrwi   r12, r29, 2, 1; // Direction
+/* 80A26D08          */  extrwi   r12, r29, 2, 16; // Direction
 /* 80A26D0C C1230008 */  lfs      f9, 8(r3);
 /* 80A26D10 57ABA7FE */  extrwi   r11, r29, 1, 19;
-/* 80A26D14 57AA97FE */  extrwi   r10, r29, 1, 17;
+/* 80A26D14          */  extrwi   r10, r29, 1, 23; // wait parameter
 /* 80A26D18 57A99FFE */  extrwi   r9, r29, 1, 18;
 /* 80A26D1C 57A867BE */  extrwi   r8, r29, 2, 10;
 /* 80A26D20 57A757BE */  extrwi   r7, r29, 2, 8;

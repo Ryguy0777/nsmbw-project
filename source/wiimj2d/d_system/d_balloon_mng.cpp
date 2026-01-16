@@ -3,6 +3,7 @@
 
 #include "d_balloon_mng.h"
 #include "d_bases/d_profile.h"
+#include "d_player/d_a_en_hatena_balloon.h"
 #include "d_player/d_a_player.h"
 #include "d_system/d_a_boss_demo.h"
 #include "d_system/d_a_player_manager.h"
@@ -12,7 +13,9 @@
 #include "d_system/d_enemy_boss.h"
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
+#include "egg/math/eggMath.h"
 #include "framework/f_manager.h"
+#include "framework/f_param.h"
 #include <cstddef>
 #include <iterator>
 
@@ -57,8 +60,7 @@ void dBalloonMng_c::execute()
         return;
     }
 
-    if (!(dInfo_c::mGameFlag & 0x10) || daPyMng_c::isOnePlayerInGame() ||
-        dActorCreateMng_c::m_instance->mIsEndingDemo) {
+    if (dActorCreateMng_c::m_instance->mIsEndingDemo) {
         return;
     }
 
@@ -71,7 +73,13 @@ void dBalloonMng_c::execute()
         }
     }
 
-    if (m0x1C == false) {
+    return execute1UpSwarm();
+
+    if (!(dInfo_c::mGameFlag & 0x10) || daPyMng_c::isOnePlayerInGame()) {
+        return;
+    }
+
+    if (mPlyAvailable == false) {
         for (int ply = 0; ply < PLAYER_COUNT; ply++) {
             if (!daPyMng_c::isPlayerActive(ply)) {
                 continue;
@@ -79,7 +87,7 @@ void dBalloonMng_c::execute()
 
             if (dAcPy_c* player = daPyMng_c::getPlayer(ply);
                 player && (player->isStatus(4) || player->isChange())) {
-                m0x1C = true;
+                mPlyAvailable = true;
             }
         }
         return;
@@ -124,7 +132,27 @@ void dBalloonMng_c::execute()
     }
 
     if (dActor_c* balloon = dActor_c::construct(
-          dProf::EN_HATENA_BALLOON, 0x100, (const mVec3_c[1]) {{0.0f, 0.0f, 7300.0f}}, nullptr, 0
+          dProf::EN_HATENA_BALLOON, fParam_c<daEnHatenaBalloon_c>({.has_item = 1}),
+          (const mVec3_c[1]) {{0.0f, 0.0f, 7300.0f}}, nullptr, 0
+        )) {
+        mLastBalloonId = balloon->mUniqueID;
+    }
+}
+
+void dBalloonMng_c::execute1UpSwarm()
+{
+    int rampUp = EGG::Math<int>().lerp(float(mTotalTimer++) / float(SWARM_TIMER_MAX), 60 * 8, 60);
+    if (++mSwarmTimer < rampUp) {
+        return;
+    }
+    mSwarmTimer = 0;
+
+    if (dActor_c* balloon = dActor_c::construct(
+          dProf::EN_HATENA_BALLOON,
+          fParam_c<daEnHatenaBalloon_c>(
+            {.item_type = static_cast<u32>(ITEM_e::ONE_UP), .has_item = 1}
+          ),
+          (const mVec3_c[1]) {{0.0f, 0.0f, 7300.0f}}, nullptr, 0
         )) {
         mLastBalloonId = balloon->mUniqueID;
     }

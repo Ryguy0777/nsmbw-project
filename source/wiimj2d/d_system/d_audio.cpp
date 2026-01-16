@@ -5,6 +5,7 @@
 #include "d_audio.h"
 
 #include "d_system/d_mj2d_game.h"
+#include "machine/m_vec.h"
 #include <mkwcat/Relocate.hpp>
 
 namespace dAudio
@@ -37,10 +38,10 @@ u32 getRemotePlayer(int player)
 }
 
 [[nsmbw(0x8006A3F0)]]
-nw4r::math::VEC2 cvtSndObjctPos(const mVec2_c& pos);
+mVec2_c cvtSndObjctPos(const mVec2_c& pos);
 
 [[nsmbw(0x8006A4B0)]]
-void cvtSndObjctPos(nw4r::math::VEC2& out, const mVec3_c& pos);
+mVec2_c cvtSndObjctPos(const mVec3_c& pos);
 
 [[nsmbw(0x8006A7D0)]]
 void pauseMove(int player);

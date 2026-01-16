@@ -79,6 +79,9 @@ dActor_c* dActor_c::construct(
   u8 layer
 );
 
+[[nsmbw(0x80064C10)]]
+void dActor_c::setSoftLight_Item(m3d::bmdl_c& model);
+
 [[nsmbw(0x80065080)]]
 bool dActor_c::ActorDrawCullCheck();
 

@@ -9,6 +9,7 @@ public:
     // ^^^^^^
 
     static constexpr int TIMER_MAX = 30 * 60; // 30 seconds
+    static constexpr int SWARM_TIMER_MAX = 300 * 60; // 300 seconds
 
 public:
     // Instance Methods
@@ -26,6 +27,8 @@ public:
     /* 0x8006C1C0 */
     void execute();
 
+    void execute1UpSwarm();
+
 public:
     // Instance Variables
     // ^^^^^^
@@ -33,7 +36,9 @@ public:
     /* 0x00 */ fBaseID_e mLastBalloonId;
     /* 0x04 */ fBaseID_e mItemId[5];
     /* 0x18 */ int mCreateTimer;
-    /* 0x1C */ int m0x1C;
+    /* 0x1C */ u32 mPlyAvailable : 1;
+    /* 0x1C */ u32 mSwarmTimer : 9;
+    /* 0x1C */ u32 mTotalTimer : 15;
     /* 0x20 */ int mBossDead;
 
 public:

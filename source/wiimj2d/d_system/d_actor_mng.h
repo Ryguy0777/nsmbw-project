@@ -8,6 +8,9 @@ public:
     // Instance Methods
     // ^^^^^^
 
+    /* 0x80066540 */
+    bool envAllWaterCheck();
+
     /* 0x80066EC0 */
     void finalUpdate();
 

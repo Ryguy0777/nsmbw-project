@@ -327,6 +327,7 @@ UNDEF_809bf5c8:;
 /* 809BF5D0 C00300B4 */  lfs      f0, 180(r3);
 /* 809BF5D4          */  ori      r0, r5, 0xFF7F;
 /* 809BF5D8 C02300B0 */  lfs      f1, 176(r3);
+                         rlwimi   r6, r6, 32 - 15, 16, 17; // Move direction
 /* 809BF5DC 7CDC0038 */  and      r28, r6, r0;
 /* 809BF5E0 C04300AC */  lfs      f2, 172(r3);
 /* 809BF5E4 D0410008 */  stfs     f2, 8(r1);
@@ -490,14 +491,15 @@ void daEnBlock_c_spawnSubItem() ASM_METHOD(
 /* 809BFB48 3C8080AD */  lis      r4, UNDEF_80ace320@ha;
 /* 809BFB4C 3D0080AD */  lis      r8, UNDEF_80ace318@ha;
 /* 809BFB50 90010024 */  stw      r0, 36(r1);
-/* 809BFB54          */  lis      r5, 0xe0ffff7f@ha;
-/* 809BFB58          */  subi     r0, r5, 0xe0ffff7f@l;
+/* 809BFB54          */  lis      r5, 0x80ffff7f@ha;
+/* 809BFB58          */  subi     r0, r5, 0x80ffff7f@l;
 /* 809BFB5C C004E320 */  lfs      f0, UNDEF_80ace320@l(r4);
 /* 809BFB60 80C30004 */  lwz      r6, 4(r3);
 /* 809BFB64 3908E318 */  addi     r8, r8, UNDEF_80ace318@l;
 /* 809BFB68 C04300B0 */  lfs      f2, 176(r3);
 /* 809BFB6C 38A10008 */  addi     r5, r1, 8;
 /* 809BFB70 C02300B4 */  lfs      f1, 180(r3);
+                         rlwimi   r6, r6, 32 - 15, 16, 17; // Move direction
 /* 809BFB74 7CC00038 */  and      r0, r6, r0;
 /* 809BFB78 C06300AC */  lfs      f3, 172(r3);
 /* 809BFB7C 64040400 */  oris     r4, r0, 1024;

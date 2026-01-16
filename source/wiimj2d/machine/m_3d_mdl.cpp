@@ -6,6 +6,9 @@
 namespace m3d
 {
 
+[[nsmbw(0x80169ED0)]]
+bool mdl_c::create(nw4r::g3d::ResMdl, mAllocator_c*, u32, int, u32*);
+
 [[nsmbw(0x8016A070)]]
 void mdl_c::setAnm(banm_c&);
 

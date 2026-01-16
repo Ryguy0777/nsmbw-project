@@ -15,4 +15,7 @@ ResAnmChr ResFile::GetResAnmChr(const char* name) const;
 [[nsmbw(0x8023A340)]]
 ResAnmTexPat ResFile::GetResAnmTexPat(const char* name) const;
 
+[[nsmbw(0x8023A3B0)]]
+ResAnmTexSrt ResFile::GetResAnmTexSrt(const char* name) const;
+
 } // namespace nw4r::g3d

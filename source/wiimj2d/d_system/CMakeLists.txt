@@ -137,7 +137,7 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x80068040 - 0x80069020
     d_actorcreate_mng.cpp
 # NSMBW          .text:  0x80069020 - 0x800690F0
-  # d_allocator.cpp
+    d_allocator.cpp
 # NSMBW          .text:  0x800690F0 - 0x80069500
     d_attention.cpp
 # NSMBW          .text:  0x80069500 - 0x8006C0B0
@@ -369,7 +369,7 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x800DDA40 - 0x800DEA30
   # d_replay_play.cpp
 # NSMBW          .text:  0x800DDA40 - 0x800DF770
-  # d_res.cpp
+    d_res.cpp
 # NSMBW          .text:  0x800DF770 - 0x800DF950
 # NSMBW          .sbss:  0x8042A318 - 0x8042A31C
     d_resource_mng.cpp

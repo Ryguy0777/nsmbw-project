@@ -89,4 +89,10 @@ constexpr int countl_one(T x)
     return count;
 }
 
+template <class To, class From>
+constexpr To bit_cast(const From& from) noexcept
+{
+    return __builtin_bit_cast(To, from);
+}
+
 } // namespace std

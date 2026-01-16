@@ -45,7 +45,7 @@ public:
     }
 
     // Assumed to be here (emitted globally at 0x807C9890)
-    static T lerp(T t, const T& low, const T& high)
+    static T lerp(float t, const T& low, const T& high)
     {
         if (t < 0) {
             return low;
@@ -55,7 +55,7 @@ public:
             return high;
         }
 
-        return low + t * (high - low);
+        return low + T(t * (high - low));
     }
 
     static T sqrt(T);
