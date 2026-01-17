@@ -1,9 +1,21 @@
 // d_a_en_item.cpp
 // NSMBW d_enemies.text: 0x80A26A80 - 0x80A2D610
 
+#include "d_a_en_item.h"
+
+#include "d_player/d_a_player.h"
+#include "d_system/d_a_player_manager.h"
+#include "d_system/d_audio.h"
+#include "d_system/d_enemy_manager.h"
+#include "d_system/d_mj2d_game.h"
+#include "d_system/d_quake.h"
+#include "d_system/d_score_mng.h"
+#include "framework/f_feature.h"
+#include "sound/SndID.h"
+
 [[nsmbw(0x80A26C30)]]
-void daEnItem_c_create() ASM_METHOD(
-    // clang-format off
+fBase_c::PACK_RESULT_e daEnItem_c::create() ASM_METHOD(
+  // clang-format off
 /* 80A26C30 9421FFB0 */  stwu     r1, -80(r1);
 /* 80A26C34 7C0802A6 */  mflr     r0;
 /* 80A26C38 90010054 */  stw      r0, 84(r1);
@@ -545,5 +557,128 @@ UNDEF_80a27410:;
 /* 80A2741C 7C0803A6 */  mtlr     r0;
 /* 80A27420 38210050 */  addi     r1, r1, 80;
 /* 80A27424 4E800020 */  blr;
-    // clang-format on
+  // clang-format on
 );
+
+[[nsmbw(0x80A28240)]]
+void daEnItem_c::playGetItemEffect();
+
+[[nsmbw(0x80A282F0)]]
+bool daEnItem_c::collectItem()
+{
+    if (!mpCollectPlayer || mCollectPlayerNo == -1) {
+        return false;
+    }
+
+    dAcPy_c* player = daPyMng_c::getPlayer(mCollectPlayerNo);
+
+    if (player->isDemo()) {
+        mpCollectPlayer = nullptr;
+        mCollectPlayerNo = -1;
+        return false;
+    }
+
+    ITEM_e item = static_cast<ITEM_e>(mItemType);
+
+    if (item == ITEM_e::ONE_UP) {
+        if (fFeature::ONE_UP_KILLS_PLAYERS) {
+            player->set1UpKinokoEffect();
+            player->setForcedDamage(this, daPlBase_c::DamageType_e::POISON_FOG);
+        } else {
+            playGetItemQuake();
+            player->set1UpKinokoEffect();
+            dScoreMng_c::m_instance->UNDEF_800E25A0(8, mCollectPlayerNo, 1);
+        }
+        playGetItemEffect();
+        deleteRequest();
+        return true;
+    }
+
+    if (player->isItemKinopio()) {
+        mpCollectPlayer = nullptr;
+        mCollectPlayerNo = -1;
+        return false;
+    }
+
+    PLAYER_MODE_e mode = player->mNextMode;
+    unsigned collect = 0, change = 6;
+    switch (item) {
+    case ITEM_e::MUSHROOM:
+        if (mode != PLAYER_MODE_e::NONE && mode != PLAYER_MODE_e::MINI_MUSHROOM) {
+            collect = 2;
+            change = 0;
+        } else if (player->switchMode(PLAYER_MODE_e::MUSHROOM)) {
+            collect = 1;
+        }
+        break;
+
+    case ITEM_e::FIRE_FLOWER:
+        if (mode == PLAYER_MODE_e::FIRE_FLOWER) {
+            collect = 2;
+            change = 1;
+        } else if (player->switchMode(PLAYER_MODE_e::FIRE_FLOWER)) {
+            collect = 1;
+        }
+        break;
+
+    case ITEM_e::PROPELLER_SHROOM:
+        if (mode == PLAYER_MODE_e::PROPELLER_SHROOM) {
+            collect = 2;
+            change = 2;
+        } else if (player->switchMode(PLAYER_MODE_e::PROPELLER_SHROOM)) {
+            collect = 1;
+        }
+        break;
+
+    case ITEM_e::PENGUIN_SUIT:
+        if (mode == PLAYER_MODE_e::PENGUIN_SUIT) {
+            collect = 2;
+            change = 3;
+        } else if (player->switchMode(PLAYER_MODE_e::PENGUIN_SUIT)) {
+            collect = 1;
+        }
+        break;
+
+    case ITEM_e::MINI_MUSHROOM:
+        if (mode == PLAYER_MODE_e::MINI_MUSHROOM) {
+            collect = 2;
+            change = 4;
+        } else if (player->switchMode(PLAYER_MODE_e::MINI_MUSHROOM)) {
+            collect = 1;
+        }
+        break;
+
+    case ITEM_e::ICE_FLOWER:
+        if (mode == PLAYER_MODE_e::ICE_FLOWER) {
+            collect = 2;
+            change = 5;
+        } else if (player->switchMode(PLAYER_MODE_e::ICE_FLOWER)) {
+            collect = 1;
+        }
+        break;
+
+    default:
+        return false;
+    }
+
+    if (collect == 2 && change != 6) {
+        playGetItemQuake();
+        dAudio::g_pSndObjMap->startSound(
+          SndID::SE_PLY_GET_ITEM_AGAIN, dAudio::cvtSndObjctPos(mPos), 0
+        );
+    } else if (collect == 1) {
+        startGetItemShock();
+        dEnemyMng_c::m_instance->setNoGetItemTimer(mCollectPlayerNo);
+    }
+
+    dScoreMng_c::m_instance->UNDEF_800E25A0(4, mCollectPlayerNo, 1);
+    playGetItemEffect();
+    deleteRequest();
+    return true;
+}
+
+[[nsmbw(0x80A29070)]]
+void daEnItem_c::playGetItemQuake();
+
+[[nsmbw(0x80A290A0)]]
+void daEnItem_c::startGetItemShock();

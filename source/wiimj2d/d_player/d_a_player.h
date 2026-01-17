@@ -3,6 +3,7 @@
 #include "d_bases/d_profile.h"
 #include "d_system/d_a_player_base.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
 #include "state/s_State.h"
 
 class dAcPy_c : public daPlBase_c, public dProf::Info<dAcPy_c, dProf::PLAYER>
@@ -43,7 +44,7 @@ public:
     void playOtherDownDemo();
 
     /* 0x8013FBE0 */
-    void endDemoDokanCannon(mVec3_c &);
+    void endDemoDokanCannon(mVec3_c&);
 
     /* 0x80141020 */
     void initChangeInit();
@@ -56,6 +57,9 @@ public:
 
     /* 0x80144C60 */
     void setSceneChangeInfo();
+
+    /* 0x80145C00 */
+    bool switchMode(PLAYER_MODE_e mode);
 
     /* 0x80146F60 */
     void setCannonJump(float, float, int);
@@ -87,6 +91,9 @@ public:
     /* VT+0x3F8 0x80146310 */
     bool setForcedDamage(dActor_c* source, DamageType_e type) override;
 
+    /* VT+0x418 0x801436C0 */
+    void set1UpKinokoEffect() override;
+
 public:
     // Instance Variables
     // ^^^^^^
@@ -95,7 +102,7 @@ public:
 
     FILL(0x14D8, 0x14E0);
 
-    /* 0x14E0 */ PLAYER_MODE_e mNextPowerup;
+    /* 0x14E0 */ PLAYER_MODE_e mNextMode;
 
     FILL(0x14E4, 0x153C);
 

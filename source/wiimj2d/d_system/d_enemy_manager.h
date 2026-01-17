@@ -12,7 +12,10 @@ public:
     void execute();
 
     /* 0x800A7560 */
-    void spawnYoshiEgg(mVec3_c *pos, int param_2, u32 param_3, s8 param_4, int param_5);
+    void spawnYoshiEgg(mVec3_c* pos, int param_2, u32 param_3, s8 param_4, int param_5);
+
+    /* 0x800A7860 */
+    void setNoGetItemTimer(int playerNo);
 
 public:
     // Static Variables

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "d_bases/d_profile.h"
+#include "d_system/d_allocator.h"
 #include "d_system/d_enemy.h"
 
 class daEnItem_c : public dEn_c, public dProf::Info<daEnItem_c, dProf::EN_ITEM>
@@ -31,4 +32,44 @@ public:
         /* 25 */ u32 unk25 : 2 = 0;
         /* 27 */ u32 type : 5 = 0;
     };
+
+public:
+    // Virtual Methods
+    // ^^^^^^
+
+    PACK_RESULT_e create() override;
+
+public:
+    // Instance Methods
+    // ^^^^^^
+
+    /* 0x80A282F0 */
+    bool collectItem();
+
+    /* 0x80A28240 */
+    void playGetItemEffect();
+
+    /* 0x80A29070 */
+    void playGetItemQuake();
+
+    /* 0x80A290A0 */
+    void startGetItemShock();
+
+private:
+    // Instance Variables
+    // ^^^^^^
+
+    /* 0x524 */ dHeapAllocator_c mAllocator;
+
+    FILL(0x540, 0xBEC);
+
+    /* 0xBEC */ dAcPy_c* mpCollectPlayer;
+
+    FILL(0xBF0, 0xDCA);
+
+    /* 0xDCA */ u16 mItemType;
+
+    FILL(0xDCC, 0xDFF);
+
+    /* 0xDFF */ s8 mCollectPlayerNo;
 };

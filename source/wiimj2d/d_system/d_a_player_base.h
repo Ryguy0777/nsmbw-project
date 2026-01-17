@@ -775,7 +775,7 @@ public:
     }
 
     /* 0x80056E30 */
-    dPyMdlBase_c *getModel();
+    dPyMdlBase_c* getModel();
 
     /* 0x80057E70 */
     void playSound(SndID::Type, long);

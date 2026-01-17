@@ -23,6 +23,9 @@ public:
     /* 0x800D8CA0 */
     void shockMotor(s8 player, TYPE_SHOCK_e type, int flag, bool grabActive);
 
+    /* 0x800D8E20 */
+    void UNDEF_800d8e20(s8 player, int type, int flag, bool grabActive);
+
 public:
     // Instance Variables
     // ^^^^^^

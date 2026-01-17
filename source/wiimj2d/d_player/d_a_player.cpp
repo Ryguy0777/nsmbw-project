@@ -503,11 +503,11 @@ void dAcPy_c::initChangeInit()
 [[nsmbw(0x80141080)]]
 bool dAcPy_c::executeChangeInit()
 {
-    if (mPlayerMode == mNextPowerup) {
+    if (mPlayerMode == mNextMode) {
         return false;
     }
 
-    setPowerup(mNextPowerup);
+    setPowerup(mNextMode);
 
     if (dScStage_c::isGameStopAllowed()) {
         stopOther();
@@ -871,11 +871,14 @@ UNDEF_80145100:;
   // clang-format on
 );
 
+[[nsmbw(0x80145C00)]]
+bool dAcPy_c::switchMode(PLAYER_MODE_e mode);
+
 /* VT+0x3F4  */
 [[nsmbw(0x80146230)]]
 bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
 {
-    if (mPlayerMode != mNextPowerup || isChange()) {
+    if (mPlayerMode != mNextMode || isChange()) {
         return false;
     }
 
@@ -900,7 +903,7 @@ bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
 [[nsmbw(0x80146310)]]
 bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
 {
-    if (isDemo() || mPlayerMode != mNextPowerup || isChange()) {
+    if (isDemo() || mPlayerMode != mNextMode || isChange()) {
         return false;
     }
 
@@ -916,6 +919,9 @@ bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
 
     return true;
 }
+
+[[nsmbw(0x801436C0)]]
+void dAcPy_c::set1UpKinokoEffect();
 
 [[nsmbw(0x80146F60)]]
 void dAcPy_c::setCannonJump(float, float, int);

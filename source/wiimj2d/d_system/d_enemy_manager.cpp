@@ -32,3 +32,6 @@ void dEnemyMng_c::spawnYoshiEgg(mVec3_c* pos, int param_2, u32 param_3, s8 param
       &eggPos, nullptr, 0
     );
 }
+
+[[nsmbw(0x800A7860)]]
+void dEnemyMng_c::setNoGetItemTimer(int playerNo);

@@ -40,4 +40,6 @@ extern enum class YOSHI_COLOR_MODE_e : u8 {
 
 constexpr inline bool BUBBLE_SWARM_MODE = true;
 
+constexpr inline bool ONE_UP_KILLS_PLAYERS = true;
+
 } // namespace fFeature
