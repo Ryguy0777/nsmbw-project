@@ -8,7 +8,6 @@
 #include "d_system/d_audio.h"
 #include "d_system/d_enemy_manager.h"
 #include "d_system/d_mj2d_game.h"
-#include "d_system/d_quake.h"
 #include "d_system/d_score_mng.h"
 #include "framework/f_feature.h"
 #include "sound/SndID.h"
@@ -598,6 +597,16 @@ bool daEnItem_c::collectItem()
         mpCollectPlayer = nullptr;
         mCollectPlayerNo = -1;
         return false;
+    }
+
+    if (item == ITEM_e::STAR) {
+        playGetItemQuake();
+        player->setStar(daPlBase_c::StarSet_e(0), 660);
+        dScoreMng_c::m_instance->UNDEF_800E25A0(4, mCollectPlayerNo, 1);
+        dEnemyMng_c::m_instance->setNoGetItemTimer(mCollectPlayerNo);
+        playGetItemEffect();
+        deleteRequest();
+        return true;
     }
 
     PLAYER_MODE_e mode = player->mNextMode;
