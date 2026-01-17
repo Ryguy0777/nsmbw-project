@@ -83,7 +83,7 @@ UNDEF_80a9515c:;
   // clang-format on
 );
 
-[[nsmbw(0x80A854B0)]]
+[[nsmbw(0x80A954B0)]]
 void daEnRemoconCannon_c::createModel() ASM_METHOD(
   // clang-format off
 /* 80A954B0 9421FFD0 */  stwu     r1, -48(r1);
