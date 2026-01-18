@@ -856,115 +856,54 @@ void daPyMng_c::executeLastAll()
 [[nsmbw(0x80060AB0)]]
 void daPyMng_c::deleteCullingYoshi();
 
-[[gnu::used]]
-int l_QUAKE_SOUND_LIST[] = {
-  SndID::SE_PLY_HPDP_SPECIAL_TWO,
-  SndID::SE_PLY_HPDP_SPECIAL_THREE,
-  SndID::SE_PLY_HPDP_SPECIAL_FOUR,
-};
-
 [[nsmbw(0x80060C10)]]
-void daPyMng_c::setHipAttackQuake(int param1, u8 param2) ASM_METHOD(
-  // clang-format off
-/* 80060C10 9421FFF0 */  stwu     r1, -16(r1);
-/* 80060C14 7C0802A6 */  mflr     r0;
-/* 80060C18 2C04FFFF */  cmpwi    r4, -1;
-/* 80060C1C 3D008035 */  lis      r8, m_playerID__9daPyMng_c@ha;
-/* 80060C20 90010014 */  stw      r0, 20(r1);
-/* 80060C24 39085110 */  addi     r8, r8, m_playerID__9daPyMng_c@l;
-/* 80060C28 41820178 */  beq-     UNDEF_80060da0;
-/* 80060C2C 2C030002 */  cmpwi    r3, 2;
-/* 80060C30 40820020 */  bne-     UNDEF_80060c50;
-/* 80060C34 806DA968 */  lwz      r3, UNDEF_8042a2e8@sda21;
-/* 80060C38 7C840774 */  extsb    r4, r4;
-/* 80060C3C 38A00007 */  li       r5, 7;
-/* 80060C40 38C00000 */  li       r6, 0;
-/* 80060C44 38E00000 */  li       r7, 0;
-/* 80060C48 48078059 */  bl       UNDEF_800d8ca0;
-/* 80060C4C 48000154 */  b        UNDEF_80060da0;
-UNDEF_80060c50:;
-/* 80060C50 880DAB7F */  lbz      r0, UNDEF_8042a4ff@sda21;
-/* 80060C54 548915BA */  clrlslwi r9, r4, 24, 2;
-                         lis      r6, m_quakeTimer__9daPyMng_c@ha;
-/* 80060C58          */  addi     r6, r6, m_quakeTimer__9daPyMng_c@l;
-/* 80060C5C 38E00005 */  li       r7, 5;
-/* 80060C60 2C000000 */  cmpwi    r0, 0;
-                         lis      r5, m_quakeEffectFlag__9daPyMng_c@ha;
-/* 80060C64          */  addi     r5, r5, m_quakeEffectFlag__9daPyMng_c@l;
-/* 80060C68 38000000 */  li       r0, 0;
-/* 80060C6C 7CE6492E */  stwx     r7, r6, r9;
-/* 80060C70 39400000 */  li       r10, 0;
-/* 80060C74 7C05492E */  stwx     r0, r5, r9;
-/* 80060C78 40820084 */  bne-     UNDEF_80060cfc;
+void daPyMng_c::setHipAttackQuake(int type, u8 player)
+{
+    if (player == 0xFF) {
+        return;
+    }
 
-                         li       r11, 0;
-L_daPyMng_c_setHipAttackQuake_LoopStart:;
-                         cmpw     r11, r4;
-                         beq-     L_daPyMng_c_setHipAttackQuake_LoopCond;
+    if (type == 2) {
+        dQuake_c::m_instance->shockMotor(player, dQuake_c::TYPE_SHOCK_e::HIP_ATTACK2, 0, false);
+        return;
+    }
 
-                         lwz      r0, 0(r6);
-                         cmpwi    r0, 0;
-                         beq-     L_daPyMng_c_setHipAttackQuake_LoopCond;
+    m_quakeTimer[player] = 5;
+    m_quakeEffectFlag[player] = 0;
 
-                         stw      r7, 0(r6);
-                         addi     r10, r10, 1;
+    int count = 0;
+    for (int other = 0; other < PLAYER_COUNT; other++) {
+        if (other != player && m_quakeTimer[other] != 0) {
+            count++;
+        }
+    }
 
-L_daPyMng_c_setHipAttackQuake_LoopCond:;
-                         addi     r6, r6, 4;
-                         addi     r11, r11, 1;
-                         cmpwi    r11, PLAYER_COUNT;
-                         blt+     L_daPyMng_c_setHipAttackQuake_LoopStart;
+    if (dScStage_c::m_isStaffCredit ||
+        (!fFeature::ONE_PLAYER_SPECIAL_HIP_ATTACK_QUAKE && count == 0)) {
+        if (type == 1) {
+            dQuake_c::m_instance->startShock(
+              player, dQuake_c::TYPE_SHOCK_e::HIP_ATTACK, 3, 0, false
+            );
+        } else {
+            dQuake_c::m_instance->shockMotor(
+              player, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false
+            );
+        }
+    } else {
+        SndID::Type l_QUAKE_SOUND_LIST[] = {
+          SndID::SE_PLY_HPDP_SPECIAL_TWO,
+          SndID::SE_PLY_HPDP_SPECIAL_THREE,
+          SndID::SE_PLY_HPDP_SPECIAL_FOUR,
+        };
 
-UNDEF_80060cfc:;
-/* 80060CFC 2C0A0000 */  cmpwi    r10, 0;
-/* 80060D00 41820060 */  beq-     UNDEF_80060d60;
+        SndAudioMgr::sInstance->startSystemSe(l_QUAKE_SOUND_LIST[std::clamp(count - 1, 0, 2)], 1);
 
-                         subic.   r0, r10, 1;
-                         blt-     UNDEF_80060d58;
-                         cmpwi    r0, 2;
-                         blt-     L_daPyMng_c_setHipAttackQuake_ValidNumber;
-                         li       r0, 2;
-L_daPyMng_c_setHipAttackQuake_ValidNumber:;
+        setHipAttackSpecialEffect();
+    }
+}
 
-/* 80060D40 5400103A */  slwi     r0, r0, 2;
-                         lis      r4, l_QUAKE_SOUND_LIST@ha;
-/* 80060D44          */  addi     r4, r4, l_QUAKE_SOUND_LIST@l;
-/* 80060D48 806DADE8 */  lwz      r3, UNDEF_8042a768@sda21;
-/* 80060D4C 38A00001 */  li       r5, 1;
-/* 80060D50 7C84002E */  lwzx     r4, r4, r0;
-/* 80060D54 4813475D */  bl       UNDEF_801954b0;
-UNDEF_80060d58:;
-/* 80060D58 48000059 */  bl       UNDEF_80060db0;
-/* 80060D5C 48000044 */  b        UNDEF_80060da0;
-UNDEF_80060d60:;
-/* 80060D60 2C030001 */  cmpwi    r3, 1;
-/* 80060D64 40820024 */  bne-     UNDEF_80060d88;
-/* 80060D68 806DA968 */  lwz      r3, UNDEF_8042a2e8@sda21;
-/* 80060D6C 7C840774 */  extsb    r4, r4;
-/* 80060D70 38A00003 */  li       r5, 3;
-/* 80060D74 38C00003 */  li       r6, 3;
-/* 80060D78 38E00000 */  li       r7, 0;
-/* 80060D7C 39000000 */  li       r8, 0;
-/* 80060D80 48077E71 */  bl       UNDEF_800d8bf0;
-/* 80060D84 4800001C */  b        UNDEF_80060da0;
-UNDEF_80060d88:;
-/* 80060D88 806DA968 */  lwz      r3, UNDEF_8042a2e8@sda21;
-/* 80060D8C 7C840774 */  extsb    r4, r4;
-/* 80060D90 38A00004 */  li       r5, 4;
-/* 80060D94 38C00000 */  li       r6, 0;
-/* 80060D98 38E00000 */  li       r7, 0;
-/* 80060D9C 48077F05 */  bl       UNDEF_800d8ca0;
-UNDEF_80060da0:;
-/* 80060DA0 80010014 */  lwz      r0, 20(r1);
-/* 80060DA4 7C0803A6 */  mtlr     r0;
-/* 80060DA8 38210010 */  addi     r1, r1, 16;
-/* 80060DAC 4E800020 */  blr;
-  // clang-format on
-);
-
-// TODO (not important?)
 [[nsmbw(0x80060DB0)]]
-void daPyMng_c::FUN_0x80060DB0() ASM_METHOD(
+void daPyMng_c::setHipAttackSpecialEffect() ASM_METHOD(
   // clang-format off
 /* 80060DB0 9421FFB0 */  stwu     r1, -80(r1);
 /* 80060DB4 7C0802A6 */  mflr     r0;

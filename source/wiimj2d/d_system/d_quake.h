@@ -12,13 +12,18 @@ public:
     };
 
     enum class TYPE_SHOCK_e {
+        HIP_ATTACK = 3,
         PLAYER_DAMAGE = 4,
+        HIP_ATTACK2 = 7,
         PLAYER_BUBBLE_SHAKE = 10,
     };
 
 public:
     // Instance Methods
     // ^^^^^^
+
+    /* 0x800D8BF0 */
+    void startShock(s8 player, TYPE_SHOCK_e type, int flag, int comboCount, bool grabActive);
 
     /* 0x800D8CA0 */
     void shockMotor(s8 player, TYPE_SHOCK_e type, int flag, bool grabActive);

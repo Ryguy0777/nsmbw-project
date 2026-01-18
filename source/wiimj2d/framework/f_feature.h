@@ -42,4 +42,9 @@ constexpr inline bool BUBBLE_SWARM_MODE = true;
 
 constexpr inline bool ONE_UP_KILLS_PLAYERS = true;
 
+// Debugging features
+// ^^^^^^
+
+constexpr inline bool ONE_PLAYER_SPECIAL_HIP_ATTACK_QUAKE = true;
+
 } // namespace fFeature

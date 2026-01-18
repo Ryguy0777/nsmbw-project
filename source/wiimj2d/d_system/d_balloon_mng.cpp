@@ -2,6 +2,7 @@
 // NSMBW .text: 0x8006C0B0 - 0x8006C420
 
 #include "d_balloon_mng.h"
+
 #include "d_bases/d_profile.h"
 #include "d_player/d_a_en_hatena_balloon.h"
 #include "d_player/d_a_player.h"

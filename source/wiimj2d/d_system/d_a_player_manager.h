@@ -184,8 +184,8 @@ public:
     /* 0x80060C10 */
     static void setHipAttackQuake(int param1, u8 param2);
 
-    /* 0x80060DB0 */
-    static void FUN_0x80060DB0();
+    /* 0x80060DB0 @unofficial */
+    static void setHipAttackSpecialEffect();
 
     /* 0x80060EF0 */
     static void checkBonusNoCap();
