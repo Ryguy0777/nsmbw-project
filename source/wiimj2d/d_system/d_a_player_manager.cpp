@@ -10,6 +10,7 @@
 #include "d_player/d_gamedisplay.h"
 #include "d_system/d_a_player_demo_manager.h"
 #include "d_system/d_audio.h"
+#include "d_system/d_balloon_mng.h"
 #include "d_system/d_bg_parameter.h"
 #include "d_system/d_course_data.h"
 #include "d_system/d_game_common.h"
@@ -897,6 +898,10 @@ void daPyMng_c::setHipAttackQuake(int type, u8 player)
         };
 
         SndAudioMgr::sInstance->startSystemSe(l_QUAKE_SOUND_LIST[std::clamp(count - 1, 0, 2)], 1);
+
+        if (fFeature::BUBBLE_SWARM_MODE) {
+            dBalloonMng_c::m_instance->popAll();
+        }
 
         setHipAttackSpecialEffect();
     }

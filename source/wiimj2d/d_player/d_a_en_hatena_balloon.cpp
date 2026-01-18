@@ -17,6 +17,9 @@
 #include "machine/m_vec.h"
 #include "sound/SndID.h"
 
+[[nsmbw(0x80110DE0)]]
+void daEnHatenaBalloon_c::PlYsHitCheck(dActor_c* actor, daEnHatenaBalloon_c* balloon);
+
 [[nsmbw(0x80111990)]]
 void daEnHatenaBalloon_c::model_set()
 {

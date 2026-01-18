@@ -30,6 +30,8 @@ public:
     void execute1UpSwarm();
     void createSwarmBalloon();
 
+    void popAll();
+
 public:
     // Instance Variables
     // ^^^^^^

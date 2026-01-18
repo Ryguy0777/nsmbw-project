@@ -167,3 +167,17 @@ void dBalloonMng_c::createSwarmBalloon()
         mLastBalloonId = balloon->mUniqueID;
     }
 }
+
+void dBalloonMng_c::popAll()
+{
+    for (fBase_c* base = nullptr;
+         (base = fManager_c::searchBaseByProfName(dProf::EN_HATENA_BALLOON, base));) {
+        auto* balloon = dProf::cast<daEnHatenaBalloon_c>(base);
+        if (!balloon) {
+            continue;
+        }
+        balloon->PlYsHitCheck(balloon, balloon);
+        balloon->mBalloonPopPos = balloon->getCenterPos();
+        balloon->mPopReady = true;
+    }
+}

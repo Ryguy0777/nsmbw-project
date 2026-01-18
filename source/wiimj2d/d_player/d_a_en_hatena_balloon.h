@@ -1,6 +1,7 @@
 #pragma once
 
 #include "d_bases/d_profile.h"
+#include "d_system/d_actor.h"
 #include "d_system/d_allocator.h"
 #include "d_system/d_enemy.h"
 #include "machine/m_3d_anmchr.h"
@@ -28,6 +29,9 @@ public:
 public:
     // Instance Methods
     // ^^^^^^
+
+    /* 0x80110DE0 */
+    void PlYsHitCheck(dActor_c* actor, daEnHatenaBalloon_c* balloon);
 
     /* 0x80111990 */
     void model_set();
@@ -81,5 +85,11 @@ public:
 
     /* 0x810 */ u32 mPlayerNo;
 
-    FILL(0x814, 0x8A0);
+    FILL(0x814, 0x86C);
+
+    /* 0x86C */ bool mPopReady;
+
+    /* 0x870 */ mVec3_c mBalloonPopPos;
+
+    FILL(0x87C, 0x8A0);
 };
