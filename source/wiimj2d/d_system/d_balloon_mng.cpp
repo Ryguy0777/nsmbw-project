@@ -145,6 +145,10 @@ void dBalloonMng_c::execute()
 
 void dBalloonMng_c::execute1UpSwarm()
 {
+    if (mNoCloneTimer != 0) {
+        mNoCloneTimer--;
+    }
+
     int rampUp =
       EGG::Math<int>().lerp(float(mTotalTimer++) / float(SWARM_TIMER_MAX), 60 * 16, 60 * 4);
     if (++mSwarmTimer < rampUp && mSwarmTimer != 1) {
@@ -170,6 +174,8 @@ void dBalloonMng_c::createSwarmBalloon()
 
 void dBalloonMng_c::popAll()
 {
+    mNoCloneTimer = 60;
+
     for (fBase_c* base = nullptr;
          (base = fManager_c::searchBaseByProfName(dProf::EN_HATENA_BALLOON, base));) {
         auto* balloon = dProf::cast<daEnHatenaBalloon_c>(base);
@@ -180,4 +186,8 @@ void dBalloonMng_c::popAll()
         balloon->mBalloonPopPos = balloon->getCenterPos();
         balloon->mPopReady = true;
     }
+
+    createSwarmBalloon();
+
+    mSwarmTimer = 1;
 }

@@ -126,7 +126,7 @@ void daEnHatenaBalloon_c::createItem()
       SndID::SE_OBJ_CMN_BALLOON_BREAK, dAudio::cvtSndObjctPos(mPos), 0
     );
 
-    if (fFeature::BUBBLE_SWARM_MODE) {
+    if (fFeature::BUBBLE_SWARM_MODE && dBalloonMng_c::mNoCloneTimer == 0) {
         dBalloonMng_c::m_instance->mSwarmTimer = 1;
         dBalloonMng_c::m_instance->createSwarmBalloon();
         dBalloonMng_c::m_instance->createSwarmBalloon();

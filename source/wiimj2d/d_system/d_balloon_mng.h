@@ -49,4 +49,6 @@ public:
     // ^^^^^^
 
     /* 0x8042A068 */ static dBalloonMng_c* m_instance;
+
+    static inline u32 mNoCloneTimer = 0;
 };
