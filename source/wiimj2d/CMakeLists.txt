@@ -25,4 +25,4 @@ add_subdirectory(sound)
 
 # Added directories
 
-add_subdirectory(d_pipe_rnd)
+add_subdirectory(d_project)
