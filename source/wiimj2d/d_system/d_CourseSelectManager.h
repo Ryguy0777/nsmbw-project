@@ -3,14 +3,12 @@
 #include "d_bases/d_Continue.h"
 #include "d_bases/d_MessageWindow.h"
 #include "d_system/d_CourseSelectGuide.h"
-#include "d_system/d_a_player_manager.h"
 #include "d_system/d_base.h"
 #include "d_system/d_mj2d_game.h"
 #include "state/s_FStateFct.h"
 #include "state/s_State.h"
 #include "state/s_StateMethodUsr_FI.h"
 #include "state/s_StateMgr.h"
-
 
 class dCourseSelectMenu_c;
 class dNumberOfPeopleChange_c;

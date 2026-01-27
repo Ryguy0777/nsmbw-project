@@ -1,7 +1,7 @@
 // d_a_iceball.cpp
 // NSMBW .text: 0x801233F0 - 0x80124D40
 
-#include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
 #include <mkwcat/Relocate.hpp>
 
 /* 0x80375DA8 */
@@ -197,8 +197,8 @@ UNDEF_80123700:;
   // clang-format on
 );
 
-PATCH_REFERENCES(&
-  daIceBall_c_m_limit1,
+PATCH_REFERENCES(
+  &daIceBall_c_m_limit1, //
   {
     {0x8012348E, R_PPC_ADDR16_HA},
     {0x80123492, R_PPC_ADDR16_LO},
@@ -209,8 +209,8 @@ PATCH_REFERENCES(&
   }
 );
 
-PATCH_REFERENCES(&
-  daIceBall_c_m_limit2,
+PATCH_REFERENCES(
+  &daIceBall_c_m_limit2, //
   {
     {0x8012384A, R_PPC_ADDR16_HA},
     {0x8012384E, R_PPC_ADDR16_LO},

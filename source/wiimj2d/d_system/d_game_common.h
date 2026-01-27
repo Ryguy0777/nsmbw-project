@@ -83,7 +83,7 @@ bool isGameStop(u32 flag);
 void LayoutDispNumber(const int& value, const int& maxChars, LytTextBox_c* textBox, bool itoaType);
 
 /* 0x800B3BE0 */
-void LayoutDispNumberDigit(int const& value, LytTextBox_c* textBox, bool itoaType);
+void LayoutDispNumberDigit(const int& value, LytTextBox_c* textBox, bool itoaType);
 
 /* 0x800B3C50 */
 void WindowPaneColorSet(nw4r::lyt::Window* window, int playerNum);

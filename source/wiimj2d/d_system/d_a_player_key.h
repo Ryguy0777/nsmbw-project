@@ -39,7 +39,7 @@ public:
     u16 mPrevDownButtons;
     u16 mPrevTriggeredButtons;
     u16 mDownButtonsDemo;
-    u16 mTriggeredButtonsDemo; 
+    u16 mTriggeredButtonsDemo;
     u16 mDemoDoShake;
     u16 mStatus;
     u8 mHipAtkHoldCount;

@@ -3,8 +3,8 @@
 
 #include "d_actor.h"
 
-#include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
+#include "d_system/d_mj2d_game.h"
 
 [[nsmbw_data(0x80429FD8)]]
 u8 dActor_c::mExecStopReq;

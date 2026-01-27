@@ -3,8 +3,8 @@
 
 #include "d_bg.h"
 
-#include "d_system/d_a_player_manager.h"
 #include "d_player/d_a_player.h"
+#include "d_system/d_a_player_manager.h"
 
 [[nsmbw_data(0x8042A0B0)]]
 dBgGm_c* dBg_c::m_bg_p;

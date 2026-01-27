@@ -24,11 +24,11 @@ public:
 
     /* @unofficial */
     enum class MultiClearState_e {
-        NONE = 0,           ///< Course is uncleared
-        NOW_CLEAR = 1,      ///< Cleared by some players, activates the button frame
-        CLEAR = 2,          ///< Cleared by some players, button frame is already active
+        NONE = 0, ///< Course is uncleared
+        NOW_CLEAR = 1, ///< Cleared by some players, activates the button frame
+        CLEAR = 2, ///< Cleared by some players, button frame is already active
         NOW_TEAM_CLEAR = 3, ///< Cleared by all players, activates the button frame
-        TEAM_CLEAR = 4,     ///< Cleared by all players, button frame is already active
+        TEAM_CLEAR = 4, ///< Cleared by all players, button frame is already active
     };
 
     enum class IbaraMode_e {
@@ -258,7 +258,7 @@ public:
 #define ADJUST_dInfo_c_mEx0xB56 (OFFSET_dInfo_c_mEx0xB56 - 0xB56 - 4)
     /* 0xBC4? */ u8 mEx0xB56[PLAYER_COUNT - 4] = {};
 
-    /* 0xBC8 */  int mExCoinBattleWin[PLAYER_COUNT - 4];
+    /* 0xBC8 */ int mExCoinBattleWin[PLAYER_COUNT - 4];
 
 public:
     // Static Variables

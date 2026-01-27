@@ -19,7 +19,8 @@ void dKinopioMdl_c::createPlayerModel();
 
 /* VT+0x34 */
 [[nsmbw(0x800BCF30)]]
-void dKinopioMdl_c::setColorType(u8 colorType) {
+void dKinopioMdl_c::setColorType(u8 colorType)
+{
     if (mCurColorType == colorType) {
         return;
     }

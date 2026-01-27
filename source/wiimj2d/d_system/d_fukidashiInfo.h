@@ -2,8 +2,9 @@
 
 #include "d_system/d_lytbase.h"
 #include "machine/m_vec.h"
-#include <nw4r/lyt/Picture.h>
 #include "state/s_State.h"
+#include <nw4r/lyt/Picture.h>
+
 class dfukidashiInfo_c
 {
     SIZE_ASSERT(0x23C);

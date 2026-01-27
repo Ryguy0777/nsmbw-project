@@ -35,7 +35,7 @@ bool dCourseSelectGuide_c::createLayout()
     mpExtra = new Extra_s;
 
     mLayout.NPaneRegister(
-      mpExtra->mpNExIconPos,
+      mpExtra->mpNExIconPos, //
       {
         "N_IconPos5P_00",
         "N_IconPos6P_00",
@@ -44,7 +44,7 @@ bool dCourseSelectGuide_c::createLayout()
       }
     );
     mLayout.PPaneRegister(
-      &mpExtra->mpPKinopicoFace,
+      &mpExtra->mpPKinopicoFace, //
       {
         "P_kinopiFace_00",
         "P_player_05",
@@ -53,7 +53,7 @@ bool dCourseSelectGuide_c::createLayout()
       }
     );
     mLayout.TPaneRegister(
-      mpExtra->mpTExLifeNumber,
+      mpExtra->mpTExLifeNumber, //
       {
         "T_lifeNumber_04",
         "T_lifeNumber_05",

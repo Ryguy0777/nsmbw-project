@@ -2,8 +2,8 @@
 
 #include "d_enemy.h"
 #include "machine/m_3d_anmtexpat.h"
-#include "nw4r/g3d/g3d_resanmtexpat.h"
-#include "nw4r/g3d/g3d_resfile.h"
+#include <nw4r/g3d/g3d_resanmtexpat.h>
+#include <nw4r/g3d/g3d_resfile.h>
 
 class dEnJrClownBase_c : public dEn_c
 {

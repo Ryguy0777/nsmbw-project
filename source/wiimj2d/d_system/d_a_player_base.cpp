@@ -3,10 +3,10 @@
 
 #include "d_a_player_base.h"
 
-#include "d_profile/d_profile.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 #include "d_player/d_gamedisplay.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
 #include "framework/f_feature.h"
@@ -119,7 +119,7 @@ void daPlBase_c::offStatus(int flag);
 bool daPlBase_c::isStatus(int flag);
 
 [[nsmbw(0x80056E30)]]
-dPyMdlBase_c *daPlBase_c::getModel();
+dPyMdlBase_c* daPlBase_c::getModel();
 
 [[nsmbw(0x80057E70)]]
 void daPlBase_c::playSound(SndID::Type, long);

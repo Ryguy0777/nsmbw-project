@@ -2,6 +2,7 @@
 // NSMBW .text: 0x800208B0 - 0x80023C60
 
 #include "d_a_en_blockmain.h"
+
 #include "d_player/d_a_yoshi.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_actorcreate_mng.h"
