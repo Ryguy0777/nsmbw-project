@@ -38,13 +38,13 @@ extern enum class YOSHI_COLOR_MODE_e : u8 {
     ALL_GREEN = 2,
 } YOSHI_COLOR_MODE;
 
-constexpr inline bool BUBBLE_SWARM_MODE = true;
+constexpr inline bool BUBBLE_SWARM_MODE = false;
 
-constexpr inline bool ONE_UP_KILLS_PLAYERS = true;
+constexpr inline bool ONE_UP_KILLS_PLAYERS = false;
 
 // Debugging features
 // ^^^^^^
 
-constexpr inline bool ONE_PLAYER_SPECIAL_HIP_ATTACK_QUAKE = true;
+constexpr inline bool ONE_PLAYER_SPECIAL_HIP_ATTACK_QUAKE = false;
 
 } // namespace fFeature
