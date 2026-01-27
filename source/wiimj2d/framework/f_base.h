@@ -4,28 +4,6 @@
 #include "framework/f_profile.h"
 #include <cstdlib>
 
-class fBase_c;
-
-/**
- * A set of basic information needed to construct a generic base.
- */
-struct fBaseCtor_s {
-    /**
-     * The constructor function.
-     */
-    fBase_c* (*mClassInit)();
-
-    /**
-     * The execution priority of the base. Lower values mean higher priority.
-     */
-    u16 mExecuteOrder;
-
-    /**
-     * The draw priority of the base. Lower values mean higher priority.
-     */
-    u16 mDrawOrder;
-};
-
 class fBase_c
 {
     SIZE_ASSERT(0x64);

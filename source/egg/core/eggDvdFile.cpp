@@ -10,7 +10,7 @@ namespace EGG
 bool DvdFile::sIsInitialized;
 
 [[nsmbw_data(0x80423B70)]]
-nw4r::ut::List DvdFile::sDvdList;
+nw4r::ut::List DvdFile::sDvdList{};
 
 [[nsmbw(0x802B7C00)]]
 void DvdFile::initialize();

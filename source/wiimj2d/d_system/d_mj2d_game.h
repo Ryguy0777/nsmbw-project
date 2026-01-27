@@ -376,10 +376,7 @@ public:
     /**
      * Deletes the holder.
      */
-    ~dMj2dGame_c()
-    {
-    }
-
+    constexpr ~dMj2dGame_c() = default;
     /**
      * 0x800CDFC0
      * Initializes the slot data.

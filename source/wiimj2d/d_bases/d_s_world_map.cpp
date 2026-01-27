@@ -23,7 +23,7 @@
 #include "d_bases/d_YesNoWindow.h"
 #include "d_bases/d_a_wm_KoopaShip.h"
 #include "d_bases/d_a_wm_Map.h"
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_bases/d_wm_WorldSelect.h"
 #include "d_bases/d_wm_WorldSelectGuide.h"
 #include "d_player/d_SelectCursor.h"

@@ -19,7 +19,9 @@ struct Entry {
 
 #define nsmbw(_ADDRESS) _Clang::__external__(#_ADDRESS)
 
-#define nsmbw_data(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)
+#define nsmbw_data(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)] ][[__gnu__::__weak__]] [[_Clang::__require_constant_initialization__
+
+#define nsmbw_data_noconstinit(_ADDRESS) __gnu__::__section__(".external." #_ADDRESS)]] [[__gnu__::__weak__
 
 #define EXTERN_TEXT_INLINE(_ADDR, _PROTOTYPE) SECTION(".external." #_ADDR) _PROTOTYPE
 

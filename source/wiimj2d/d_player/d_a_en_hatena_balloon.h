@@ -1,6 +1,6 @@
 #pragma once
 
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_actor.h"
 #include "d_system/d_allocator.h"
 #include "d_system/d_enemy.h"

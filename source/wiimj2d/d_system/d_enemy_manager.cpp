@@ -3,7 +3,7 @@
 
 #include "d_enemy_manager.h"
 #include "d_actor.h"
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_audio.h"
 #include "sound/SndID.h"
 

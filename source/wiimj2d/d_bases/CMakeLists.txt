@@ -11,7 +11,7 @@ target_sources(project PRIVATE
     d_a_wm_player_static.cpp
 
 # NSMBW          .text:  0x801018C0 - 0x801018E0
-    d_profile_static.cpp
+    # d_profile_static.cpp # Moved to d_profile
 
 # NSMBW          .sbss:  0x8042A490 - 0x8042A498
     d_s_crsin_static.cpp

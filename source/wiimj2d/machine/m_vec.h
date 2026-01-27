@@ -178,14 +178,19 @@ public:
     /**
      * Constructs an empty vector.
      */
-    mVec3_c()
+    constexpr mVec3_c()
     {
+        if consteval {
+            x = 0.0f;
+            y = 0.0f;
+            z = 0.0f;
+        }
     }
 
     /**
      * Constructs a vector from a float array.
      */
-    mVec3_c(const f32* p)
+    constexpr mVec3_c(const f32* p)
     {
         x = p[0];
         y = p[1];
@@ -195,7 +200,7 @@ public:
     /**
      * Constructs a vector from three floating point values.
      */
-    mVec3_c(f32 fx, f32 fy, f32 fz)
+    constexpr mVec3_c(f32 fx, f32 fy, f32 fz)
     {
         x = fx;
         y = fy;
@@ -205,7 +210,7 @@ public:
     /**
      * Augmented addition operator.
      */
-    mVec3_c& operator+=(const mVec3_c& v)
+    constexpr mVec3_c& operator+=(const mVec3_c& v)
     {
         x += v.x;
         y += v.y;
@@ -216,7 +221,7 @@ public:
     /**
      * Augmented subtraction operator.
      */
-    mVec3_c& operator-=(const mVec3_c& v)
+    constexpr mVec3_c& operator-=(const mVec3_c& v)
     {
         x -= v.x;
         y -= v.y;
@@ -227,7 +232,7 @@ public:
     /**
      * Augmented scalar product operator.
      */
-    mVec3_c& operator*=(f32 f)
+    constexpr mVec3_c& operator*=(f32 f)
     {
         x *= f;
         y *= f;
@@ -238,7 +243,7 @@ public:
     /**
      * Augmented scalar division operator.
      */
-    mVec3_c& operator/=(f32 f)
+    constexpr mVec3_c& operator/=(f32 f)
     {
         return operator*=(1.0f / f);
     }
@@ -246,7 +251,7 @@ public:
     /**
      * Positive operator.
      */
-    mVec3_c operator+() const
+    constexpr mVec3_c operator+() const
     {
         return *this;
     }
@@ -254,7 +259,7 @@ public:
     /**
      * Negative operator.
      */
-    mVec3_c operator-() const
+    constexpr mVec3_c operator-() const
     {
         return mVec3_c(-x, -y, -z);
     }
@@ -262,7 +267,7 @@ public:
     /**
      * Addition operator.
      */
-    mVec3_c operator+(const mVec3_c& v) const
+    constexpr mVec3_c operator+(const mVec3_c& v) const
     {
         return mVec3_c(x + v.x, y + v.y, z + v.z);
     }
@@ -270,7 +275,7 @@ public:
     /**
      * Subtraction operator.
      */
-    mVec3_c operator-(const mVec3_c& v) const
+    constexpr mVec3_c operator-(const mVec3_c& v) const
     {
         return mVec3_c(x - v.x, y - v.y, z - v.z);
     }
@@ -278,7 +283,7 @@ public:
     /**
      * Scalar product operator.
      */
-    mVec3_c operator*(f32 f) const
+    constexpr mVec3_c operator*(f32 f) const
     {
         return mVec3_c(f * x, f * y, f * z);
     }
@@ -286,7 +291,7 @@ public:
     /**
      * Scalar division operator.
      */
-    mVec3_c operator/(f32 f) const
+    constexpr mVec3_c operator/(f32 f) const
     {
         f32 r = 1.0f / f;
         return operator*(r);
@@ -295,7 +300,7 @@ public:
     /**
      * Equality operator.
      */
-    bool operator==(const mVec3_c& v) const
+    constexpr bool operator==(const mVec3_c& v) const
     {
         return x == v.x && y == v.y && z == v.z;
     }
@@ -303,7 +308,7 @@ public:
     /**
      * Inequality operator.
      */
-    bool operator!=(const mVec3_c& v) const
+    constexpr bool operator!=(const mVec3_c& v) const
     {
         return x != v.x || y != v.y || z != v.z;
     }

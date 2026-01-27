@@ -12,6 +12,18 @@ using dProfName = fProfName;
 namespace dProf
 {
 
+constexpr std::size_t BASE_COUNT = 754;
+
+constexpr std::size_t COUNT = [] -> std::size_t {
+    std::size_t max = 0;
+#define PROFILE(_ID, _NAME, _CLASS) _ID > max ? max = _ID : 0;
+#include "d_profile_table.inc"
+#undef PROFILE
+    return max + 1;
+}();
+
+constexpr std::size_t CUSTOM_COUNT = COUNT - BASE_COUNT;
+
 template <dProfName V>
 struct Name_c {
     static constexpr dProfName StaticNonRegionalValue = V;
@@ -33,6 +45,12 @@ inline constexpr dProfName Name_c<V>::toNative()
 {
     // Apply the region-dependant changes to the value
     dProfName value = V;
+
+    if constexpr (V > LASTACTOR.StaticNonRegionalValue) {
+        // Custom actors are not region-dependent
+        return value;
+    }
+
     if constexpr (V >= TIME_UP.StaticNonRegionalValue) {
         if (dSys_c::m_codeRegion < dSys_c::CODE_REGION_e::K) {
             value -= 2;

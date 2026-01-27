@@ -9,7 +9,8 @@
 #include <egg/core/eggHeap.h>
 
 [[nsmbw_data(0x804296E8)]]
-constinit const dBaseCtor_s g_profile_BOOT{};
+extern constinit const dBaseProfile_s g_profile_BOOT{};
+
 [[nsmbw(0x8015BA70)]]
 fBase_c* dScBoot_c_classInit();
 

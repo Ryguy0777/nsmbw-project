@@ -3,7 +3,7 @@
 
 #include "d_Continue.h"
 
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_ef.h"
 #include "d_system/d_game_common.h"

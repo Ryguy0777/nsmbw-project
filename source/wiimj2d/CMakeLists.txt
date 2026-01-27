@@ -1,5 +1,6 @@
 add_subdirectory(d_system)
 add_subdirectory(d_stage)
+add_subdirectory(d_profile)
 add_subdirectory(d_bases)
 add_subdirectory(d_player)
 add_subdirectory(d_enemies)

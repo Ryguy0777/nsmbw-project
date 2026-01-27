@@ -7,7 +7,7 @@
 #include "d_system/d_game_key_core.h"
 #include "machine/m_heap.h"
 
-[[nsmbw_data(0x8042A230)]]
+[[nsmbw_data_noconstinit(0x8042A230)]]
 dGameKey_c* dGameKey_c::m_instance =
   [](mHeap::ScopeHeap_c = 0) { return new dGameKey_c(m_instance); }();
 

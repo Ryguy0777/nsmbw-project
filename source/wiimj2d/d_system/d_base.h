@@ -1,10 +1,11 @@
 #pragma once
 
 #include "component/c_unary_tree.h"
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "framework/f_base.h"
 
-using dBaseCtor_s = fBaseCtor_s;
+struct dBaseProfile_s : fProfileDat_c {
+};
 
 /**
  * An extension of fBase_c with base kind and name strings. All bases should

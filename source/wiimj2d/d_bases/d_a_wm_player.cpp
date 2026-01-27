@@ -6,7 +6,7 @@
 #include "d_bases/d_a_wm_KinoBalloon.h"
 #include "d_bases/d_a_wm_SubPlayer.h"
 #include "d_bases/d_cs_seq_mng.h"
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_bases/d_world_camera.h"
 #include "d_system/d_CourseSelectManager.h"
 #include "d_system/d_a_player_manager.h"

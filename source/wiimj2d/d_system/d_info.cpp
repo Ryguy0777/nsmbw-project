@@ -14,7 +14,7 @@
 #include <cstring>
 
 [[nsmbw_data(0x80315E90)]]
-dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo;
+dInfo_c::StartGameInfo_s dInfo_c::m_startGameInfo{};
 
 /* 0x80359054 */
 dStartInfo_c dInfo_c::m_startInfo;
@@ -80,13 +80,14 @@ void dInfo_c::clsStockItem(int item);
 EXTERN_SYMBOL(0x800BB450, "initGame__7dInfo_cFv");
 
 [[nsmbw(0x800BB5B0)]]
-void dInfo_c::initMultiMode() {
+void dInfo_c::initMultiMode()
+{
     // Reset win counts
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (i < 4)
             mCoinBattleWin[i] = 0;
         else
-            mExCoinBattleWin[i-4] = 0;
+            mExCoinBattleWin[i - 4] = 0;
     }
 
     // Reset clear states

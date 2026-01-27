@@ -6,7 +6,7 @@
 #include "machine/m_mtx.h"
 #include "machine/m_vec.h"
 
-struct dBaseActorCtor_s : dBaseCtor_s {
+struct dBaseActorProfile_s : dBaseProfile_s {
     /**
      * Various actor-related properties.
      */

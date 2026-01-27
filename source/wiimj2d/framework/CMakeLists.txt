@@ -13,6 +13,8 @@ target_sources(project PRIVATE
     f_list.cpp
 # NSMBW          .text:  0x80162E30 - 0x80163140
     f_manager.cpp
+# NSMBW          .sbss:  0x8042A698 - 0x8042A6A0
+    f_profile.cpp
 # NSMBW          .text:  0x80163140 - 0x801632B0
     f_tree.cpp
 )

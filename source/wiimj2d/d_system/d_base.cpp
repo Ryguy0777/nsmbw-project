@@ -3,7 +3,7 @@
 
 #include "d_base.h"
 
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include <revolution/os.h>
 
 [[nsmbw(0x8006C420)]]

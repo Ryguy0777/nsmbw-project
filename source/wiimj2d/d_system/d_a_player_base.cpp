@@ -3,7 +3,7 @@
 
 #include "d_a_player_base.h"
 
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
 #include "d_player/d_gamedisplay.h"

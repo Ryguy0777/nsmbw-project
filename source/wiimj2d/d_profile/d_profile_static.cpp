@@ -3,9 +3,9 @@
 
 #include "d_profile.h"
 
-#include "d_bases/d_profile.h"
 #include "d_player/d_a_player.h"
 #include "d_player/d_a_yoshi.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_base.h"
 #include "d_system/d_player_model_manager.h"
@@ -119,13 +119,26 @@ constexpr auto s_formatted_name_data = [] consteval {
 
 /* @renamed(@LOCAL@dProf_getName__FUs@s_table) */
 [[nsmbw_data(0x80320B58)]]
-const char* s_name_table[LASTACTOR.StaticNonRegionalValue];
+const char* s_base_name_table[BASE_COUNT];
+
+const std::array<const char*, CUSTOM_COUNT + 1> s_extra_name_table = [] {
+    std::array<const char*, CUSTOM_COUNT + 1> table{};
+#define PROFILE(_ID, _NAME, _CLASS)                                                                \
+    if constexpr (_ID >= dProf::BASE_COUNT) {                                                      \
+        table[_ID - dProf::BASE_COUNT] = STRINGIFY(_NAME);                                         \
+    }
+#include "d_profile_table.inc"
+#undef PROFILE
+    return table;
+}();
 
 [[nsmbw(0x801018C0)]]
 const char* getName(dProfName profile)
 {
-
-    return s_name_table[profile];
+    if (profile >= dProf::BASE_COUNT) {
+        return s_extra_name_table[profile - dProf::BASE_COUNT];
+    }
+    return s_base_name_table[profile];
 }
 
 const char* getFormattedName(dBase_c* actor)
@@ -166,23 +179,23 @@ const char* getFormattedName(dBase_c* actor)
     } else if (auto yoshi = actor->DynamicCast<daYoshi_c>()) {
         dYoshiMdl_c* yoshiMdl = static_cast<dYoshiMdl_c*>(yoshi->mpModelMng->mModel);
         switch (yoshiMdl->mColor) {
-            default:
-            case dYoshiMdl_c::COLOR_e::COLOR_GREEN:
-                return "Yoshi";
-            case dYoshiMdl_c::COLOR_e::COLOR_RED: // Pink
-                return "Poshi";
-            case dYoshiMdl_c::COLOR_e::COLOR_YELLOW: 
-                return "Yelloshi";
-            case dYoshiMdl_c::COLOR_e::COLOR_BLUE: // Light blue
-                return "Blueshi";
-            case dYoshiMdl_c::COLOR_e::COLOR_CRIMSON: // Red
-                return "Roshi";
-            case dYoshiMdl_c::COLOR_e::COLOR_ORANGE:
-                return "Oroshi";
-            case dYoshiMdl_c::COLOR_e::COLOR_PURPLE:
-                return "Purposhi";
-            case dYoshiMdl_c::COLOR_e::COLOR_AZURE: // Blue
-                return "Boshi";
+        default:
+        case dYoshiMdl_c::COLOR_e::COLOR_GREEN:
+            return "Yoshi";
+        case dYoshiMdl_c::COLOR_e::COLOR_RED: // Pink
+            return "Poshi";
+        case dYoshiMdl_c::COLOR_e::COLOR_YELLOW:
+            return "Yelloshi";
+        case dYoshiMdl_c::COLOR_e::COLOR_BLUE: // Light blue
+            return "Blueshi";
+        case dYoshiMdl_c::COLOR_e::COLOR_CRIMSON: // Red
+            return "Roshi";
+        case dYoshiMdl_c::COLOR_e::COLOR_ORANGE:
+            return "Oroshi";
+        case dYoshiMdl_c::COLOR_e::COLOR_PURPLE:
+            return "Purposhi";
+        case dYoshiMdl_c::COLOR_e::COLOR_AZURE: // Blue
+            return "Boshi";
         }
     }
 

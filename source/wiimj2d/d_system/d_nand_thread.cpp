@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <mkwcat/NoInitialize.hpp>
 #include <revolution/fs.h>
 #include <revolution/nand.h>
 #include <revolution/os/OSError.h>
@@ -32,7 +33,7 @@ static void* rapidjsonRealloc(void* ptr, size_t size)
 [[nsmbw_data(0x8042A298)]]
 dNandThread_c* dNandThread_c::m_instance;
 
-namespace
+namespace d_nand_thread_cpp
 {
 
 /* @unofficial */
@@ -40,7 +41,7 @@ namespace
 u8 l_nandBuf[0x4000];
 
 [[nsmbw_data(0x8035DFC0)]]
-dMj2dData_c l_tmpSave;
+dMj2dData_c l_tmpSave = mkwcat::NoInitialize<dMj2dData_c>();
 
 NANDFileInfo l_fileInfo;
 
@@ -111,7 +112,9 @@ struct NandFileStream_c {
     NANDResult mResult = NAND_RESULT_OK;
 };
 
-} // namespace
+} // namespace d_nand_thread_cpp
+
+using namespace d_nand_thread_cpp;
 
 [[nsmbw(0x800CEF80)]]
 void dNandThread_c::existCheck()

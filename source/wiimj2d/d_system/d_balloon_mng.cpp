@@ -3,9 +3,9 @@
 
 #include "d_balloon_mng.h"
 
-#include "d_bases/d_profile.h"
 #include "d_player/d_a_en_hatena_balloon.h"
 #include "d_player/d_a_player.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_a_boss_demo.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_actor.h"

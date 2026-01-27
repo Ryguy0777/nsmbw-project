@@ -26,6 +26,8 @@ public:
      */
     dMj2dHeader_c();
 
+    ~dMj2dHeader_c() = default;
+
     /**
      * Initializes the header data.
      */
@@ -61,7 +63,10 @@ public:
      */
     bool isMultiWorldOpenFlag(WORLD_e world);
 
-    inline u8 getSelectFileNo() {return mLastSelectedFile;}
+    inline u8 getSelectFileNo()
+    {
+        return mLastSelectedFile;
+    }
 
 private:
     /**

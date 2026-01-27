@@ -10,7 +10,7 @@ EXTERN_C_START
     /* 0x00 */ s32 status;
     /* 0x04 */ u32 xy;
     FILL(0x08, 0x20);
-} Si;
+} Si{};
 
 [[nsmbw_data(0x803402E8)]]
 u32 Type_SI[4];
@@ -18,7 +18,7 @@ u32 Type_SI[4];
 [[nsmbw_data(0x8038FAD0)]] struct Packet_ {
     /* 0x00 */ s32 x0;
     FILL(0x04, 0x20);
-} Packet[4];
+} Packet[4]{};
 
 bool SIIsChanBusy(s32 status)
 {

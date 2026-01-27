@@ -1,6 +1,6 @@
 #pragma once
 
-#include "d_bases/d_profile.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_actor.h"
 
 class daIce_c : public dActor_c, public dProf::Info<daIce_c, dProf::ICE_ACTOR>
