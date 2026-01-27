@@ -4,12 +4,21 @@
 #include "d_system/d_actor_state.h"
 #include "state/s_State.h"
 
-
 class dCc_c;
 
 class dEn_c : public dActorMultiState_c
 {
     SIZE_ASSERT(0x524);
+
+public:
+    // Structors
+    // ^^^^^^
+
+    /* 0x80094E80 */
+    dEn_c();
+
+    /* 0x80095130 */
+    virtual ~dEn_c() override;
 
 public:
     // Virtual Functions
@@ -144,7 +153,8 @@ public:
     /* VT+0x120 0x800A1370 */
     virtual void setDeathInfo_IceVanish();
 
-    /* VT+0x124 0x800206D0 */
+    /* VT+0x124 defined in d_a_en_bigpile.cpp */
+    [[nsmbw(0x800206D0)]]
     virtual bool isQuakeDamage();
 
     /* VT+0x128 0x80096230 */
@@ -288,7 +298,8 @@ public:
     /* VT+0x1F8 0x80097F60 */
     virtual void boyonBegin();
 
-    /* VT+0x1FC 0x800206C0 */
+    /* VT+0x1FC defined in d_a_en_bigpile.cpp */
+    [[nsmbw(0x800206C0)]]
     virtual void calcBoyonScale();
 
     /* VT+0x200 0x800A8060 */
@@ -303,13 +314,16 @@ public:
     /* VT+0x20C 0x800A8180 */
     virtual void returnState_Ice();
 
-    /* VT+0x210 0x800206B0 */
+    /* VT+0x210 defined in d_a_en_bigpile.cpp */
+    [[nsmbw(0x800206B0)]]
     virtual void beginFunsui();
 
-    /* VT+0x214 0x800206A0 */
+    /* VT+0x214 defined in d_a_en_bigpile.cpp */
+    [[nsmbw(0x80020680)]]
     virtual void endFunsui();
 
-    /* VT+0x218 0x80020690 */
+    /* VT+0x218 defined in d_a_en_bigpile.cpp */
+    [[nsmbw(0x80020690)]]
     virtual void isFunsui() const;
 
     /* VT+0x21C 0x800968E0 */

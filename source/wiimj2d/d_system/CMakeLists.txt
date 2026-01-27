@@ -234,7 +234,7 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x800A7450 - 0x800A7DA0
     d_enemy_manager.cpp
 # NSMBW          .text:  0x800A7DA0 - 0x800A8710
-  # d_enemy_state.cpp
+    d_enemy_state.cpp
 # NSMBW          .text:  0x800A8710 - 0x800B0A20
   # d_enemy_toride_kokoopa.cpp
 # NSMBW          .text:  0x800B0A20 - 0x800B0EA0

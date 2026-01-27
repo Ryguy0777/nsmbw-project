@@ -3,10 +3,15 @@
 
 #include "d_enemy.h"
 
-/**
- * VT+0x24
- * pre method for the execute operation.
- */
+[[nsmbw(0x80094E80)]]
+dEn_c::dEn_c();
+
+[[nsmbw(0x80095130)]]
+dEn_c::~dEn_c();
+
+[[nsmbw(0x800951D0)]]
+void dEn_c::postCreate(fBase_c::MAIN_STATE_e status);
+
 [[nsmbw(0x80095240)]]
 fBase_c::PACK_RESULT_e dEn_c::preExecute() ASM_METHOD(
   // clang-format off
@@ -152,6 +157,27 @@ UNDEF_80095468:;
 /* 80095478 4E800020 */  blr;
   // clang-format on
 );
+
+[[nsmbw(0x80095480)]]
+void dEn_c::postExecute(fBase_c::MAIN_STATE_e);
+
+[[nsmbw(0x800954A0)]]
+fBase_c::PACK_RESULT_e dEn_c::preDraw();
+
+[[nsmbw(0x80095520)]]
+void dEn_c::fumidamageEffect(const mVec3_c&);
+
+[[nsmbw(0x80095530)]]
+void dEn_c::hipatkEffect(const mVec3_c&);
+
+[[nsmbw(0x80095580)]]
+void dEn_c::fumidamageSE(const mVec3_c&, int);
+
+[[nsmbw(0x800955D0)]]
+void dEn_c::quakeAction();
+
+[[nsmbw(0x80095890)]]
+bool dEn_c::checkDispIn();
 
 [[nsmbw(0x80095950)]]
 void dEn_c::normal_collcheck(dCc_c* object, dCc_c* other) ASM_METHOD(
@@ -345,6 +371,81 @@ UNDEF_80095be8:;
   // clang-format on
 );
 
+[[nsmbw(0x80095C10)]]
+void dEn_c::Normal_VsEnHitCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80095C20)]]
+void dEn_c::Normal_VsPlHitCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80095C80)]]
+void dEn_c::Normal_VsYoshiHitCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80095CE0)]]
+bool dEn_c::EnDamageCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80095D30)]]
+bool dEn_c::PlDamageCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80095F50)]]
+bool dEn_c::YoshiDamageCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80096060)]]
+bool dEn_c::EtcDamageCheck(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80096230)]]
+void dEn_c::hitYoshiEat(dCc_c*, dCc_c*);
+
+[[nsmbw(0x80096700)]]
+void dEn_c::FumiScoreSet(dActor_c*);
+
+[[nsmbw(0x80096710)]]
+void dEn_c::FumiJumpSet(dActor_c*);
+
+[[nsmbw(0x80096720)]]
+void dEn_c::MameFumiJumpSet(dActor_c*);
+
+[[nsmbw(0x80096760)]]
+void dEn_c::YoshiFumiJumpSet(dActor_c*);
+
+[[nsmbw(0x80096770)]]
+void dEn_c::YoshiFumiScoreSet(dActor_c*);
+
+[[nsmbw(0x800968E0)]]
+bool dEn_c::checkComboClap(int);
+
+[[nsmbw(0x80096910)]]
+void dEn_c::fumiSE(dActor_c*);
+
+[[nsmbw(0x80096A20)]]
+void dEn_c::spinfumiSE(dActor_c*);
+
+[[nsmbw(0x80096B30)]]
+void dEn_c::yoshifumiSE(dActor_c*);
+
+[[nsmbw(0x80096C40)]]
+void dEn_c::mamefumiSE(dActor_c*);
+
+[[nsmbw(0x80096D60)]]
+void dEn_c::fumiEffect(dActor_c*);
+
+[[nsmbw(0x80096DF0)]]
+void dEn_c::spinfumiEffect(dActor_c*);
+
+[[nsmbw(0x80096E40)]]
+void dEn_c::yoshifumiEffect(dActor_c*);
+
+[[nsmbw(0x80096E50)]]
+void dEn_c::mamefumiEffect(dActor_c*);
+
+[[nsmbw(0x800973F0)]]
+void dEn_c::yoganSplashEffect(const mVec3_c&, f32);
+
+[[nsmbw(0x800974F0)]]
+void dEn_c::poisonSplashEffect(const mVec3_c&, f32);
+
+[[nsmbw(0x80097770)]]
+void dEn_c::setWaterSpeed();
+
 [[nsmbw(0x80097B90)]]
 void dEn_c::slipBound(dActor_c*) ASM_METHOD(
   // clang-format off
@@ -390,6 +491,12 @@ void dEn_c::slipBound(dActor_c*) ASM_METHOD(
   // clang-format on
 );
 
+[[nsmbw(0x80097C40)]]
+void dEn_c::setEatTongue(dActor_c*);
+
+[[nsmbw(0x80097CB0)]]
+void dEn_c::setEatTongueOff(dActor_c*);
+
 /* VT+0x8C */
 [[nsmbw(0x80097D30)]]
 bool dEn_c::setEatSpitOut(dActor_c* actor)
@@ -406,6 +513,18 @@ bool dEn_c::setEatSpitOut(dActor_c* actor)
 
     return true;
 }
+
+[[nsmbw(0x80097DF0)]]
+void dEn_c::calcEatInScale(dActor_c*);
+
+[[nsmbw(0x80097F20)]]
+void dEn_c::setDamage(dActor_c*);
+
+[[nsmbw(0x80097F60)]]
+void dEn_c::boyonBegin();
+
+[[nsmbw(0x80097F70)]]
+void dEn_c::block_hit_init();
 
 u8 dEn_c::setCollTimer(int player, u8 timer)
 {
