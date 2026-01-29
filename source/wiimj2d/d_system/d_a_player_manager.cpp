@@ -27,8 +27,10 @@
 #include "d_system/d_yoshi_model.h"
 #include "framework/f_feature.h"
 #include "framework/f_manager.h"
+#include "machine/m_ef.h"
 #include "machine/m_vec.h"
 #include "sound/SndID.h"
+#include "sound/SndSceneMgr.h"
 #include <algorithm>
 #include <mkwcat/Relocate.hpp>
 #include <numeric>
@@ -908,91 +910,37 @@ void daPyMng_c::setHipAttackQuake(int type, u8 player)
 }
 
 [[nsmbw(0x80060DB0)]]
-void daPyMng_c::setHipAttackSpecialEffect() ASM_METHOD(
-  // clang-format off
-/* 80060DB0 9421FFB0 */  stwu     r1, -80(r1);
-/* 80060DB4 7C0802A6 */  mflr     r0;
-/* 80060DB8 90010054 */  stw      r0, 84(r1);
-/* 80060DBC 39610040 */  addi     r11, r1, 64;
-/* 80060DC0 DBE10040 */  stfd     f31, 64(r1);
-/* 80060DC4 F3E10048 */  .long    0xF3E10048; // psq_st   f31, 72(r1), 0, 0;
-/* 80060DC8 4827C295 */  bl       UNDEF_802dd05c;
-/* 80060DCC 806DAE08 */  lwz      r3, UNDEF_8042a788@sda21;
-/* 80060DD0 4813B851 */  bl       UNDEF_8019c620; // onPowerImpact__11SndSceneMgrFv
-/* 80060DD4 3F808035 */  lis      r28, m_quakeTimer__9daPyMng_c@ha;
-/* 80060DD8 3F608035 */  lis      r27, m_quakeEffectFlag__9daPyMng_c@ha;
-/* 80060DDC C3E28A1C */  lfs      f31, -30180(r2);
-/* 80060DE0 3B9C51B0 */  addi     r28, r28, m_quakeTimer__9daPyMng_c@l;
-/* 80060DE4 3B7B51C0 */  addi     r27, r27, m_quakeEffectFlag__9daPyMng_c@l;
-/* 80060DE8 3B400000 */  li       r26, 0;
-/* 80060DEC 3BA00001 */  li       r29, 1;
-/* 80060DF0 3FC08031 */  lis      r30, UNDEF_80309a28@ha;
-/* 80060DF4 3FE08031 */  lis      r31, UNDEF_80309a3c@ha;
-UNDEF_80060df8:;
-/* 80060DF8 801C0000 */  lwz      r0, 0(r28);
-/* 80060DFC 2C000000 */  cmpwi    r0, 0;
-/* 80060E00 418200B4 */  beq-     UNDEF_80060eb4;
-/* 80060E04 801B0000 */  lwz      r0, 0(r27);
-/* 80060E08 2C000000 */  cmpwi    r0, 0;
-/* 80060E0C 408200A8 */  bne-     UNDEF_80060eb4;
-/* 80060E10 93BB0000 */  stw      r29, 0(r27);
-/* 80060E14 7F43D378 */  mr       r3, r26;
-/* 80060E18 4BFFEAE9 */  bl       getPlayer__9daPyMng_cFi;
-/* 80060E1C 2C030000 */  cmpwi    r3, 0;
-/* 80060E20 7C791B78 */  mr       r25, r3;
-/* 80060E24 41820090 */  beq-     UNDEF_80060eb4;
-/* 80060E28 3880004B */  li       r4, 75;
-/* 80060E2C 4BFF5EC5 */  bl       isStatus__10daPlBase_cFi;
-/* 80060E30 2C030000 */  cmpwi    r3, 0;
-/* 80060E34 41820010 */  beq-     UNDEF_80060e44;
-/* 80060E38 7F23CB78 */  mr       r3, r25;
-/* 80060E3C 480D8C55 */  bl       UNDEF_80139a90; // getRideYoshi__7dAcPy_cFv
-/* 80060E40 7C791B78 */  mr       r25, r3;
-UNDEF_80060e44:;
-/* 80060E44 2C190000 */  cmpwi    r25, 0;
-/* 80060E48 4182006C */  beq-     UNDEF_80060eb4;
-/* 80060E4C C01900AC */  lfs      f0, 172(r25);
-/* 80060E50 387E9A28 */  addi     r3, r30, UNDEF_80309a28@l;
-/* 80060E54 D0010008 */  stfs     f0, 8(r1);
-/* 80060E58 38A10008 */  addi     r5, r1, 8;
-/* 80060E5C 38800000 */  li       r4, 0;
-/* 80060E60 38C00000 */  li       r6, 0;
-/* 80060E64 C01900B0 */  lfs      f0, 176(r25);
-/* 80060E68 38E00000 */  li       r7, 0;
-/* 80060E6C D001000C */  stfs     f0, 12(r1);
-/* 80060E70 C01900B4 */  lfs      f0, 180(r25);
-/* 80060E74 D0010010 */  stfs     f0, 16(r1);
-/* 80060E78 4810BB59 */  bl       UNDEF_8016c9d0; // createEffect__3mEfFPCcUlPC7mVec3_cPC7mAng3_cPC7mVec3_c
-/* 80060E7C D3E10010 */  stfs     f31, 16(r1);
-/* 80060E80 387F9A3C */  addi     r3, r31, UNDEF_80309a3c@l;
-/* 80060E84 38A10008 */  addi     r5, r1, 8;
-/* 80060E88 38800000 */  li       r4, 0;
-/* 80060E8C 38C00000 */  li       r6, 0;
-/* 80060E90 38E00000 */  li       r7, 0;
-/* 80060E94 4810BB3D */  bl       UNDEF_8016c9d0; // createEffect__3mEfFPCcUlPC7mVec3_cPC7mAng3_cPC7mVec3_c
-/* 80060E98 806DA968 */  lwz      r3, UNDEF_8042a2e8@sda21;
-/* 80060E9C 7F440774 */  extsb    r4, r26;
-/* 80060EA0 38A00003 */  li       r5, 3;
-/* 80060EA4 38C00003 */  li       r6, 3;
-/* 80060EA8 38E00012 */  li       r7, 18;
-/* 80060EAC 39000000 */  li       r8, 0;
-/* 80060EB0 48077D41 */  bl       UNDEF_800d8bf0;
-UNDEF_80060eb4:;
-/* 80060EB4 3B5A0001 */  addi     r26, r26, 1;
-/* 80060EB8 3B7B0004 */  addi     r27, r27, 4;
-/* 80060EBC 2C1A0004 */  cmpwi    r26, PLAYER_COUNT;
-/* 80060EC0 3B9C0004 */  addi     r28, r28, 4;
-/* 80060EC4 4180FF34 */  blt+     UNDEF_80060df8;
-/* 80060EC8 39610040 */  addi     r11, r1, 64;
-/* 80060ECC E3E10048 */  .long    0xE3E10048; // psq_l    f31, 72(r1), 0, 0;
-/* 80060ED0 CBE10040 */  lfd      f31, 64(r1);
-/* 80060ED4 4827C1D5 */  bl       UNDEF_802dd0a8;
-/* 80060ED8 80010054 */  lwz      r0, 84(r1);
-/* 80060EDC 7C0803A6 */  mtlr     r0;
-/* 80060EE0 38210050 */  addi     r1, r1, 80;
-/* 80060EE4 4E800020 */  blr;
-  // clang-format on
-);
+void daPyMng_c::setHipAttackSpecialEffect()
+{
+    SndSceneMgr::sInstance->onPowerImpact();
+
+    for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
+        if (m_quakeTimer[ply] == 0 || m_quakeEffectFlag[ply] != 0) {
+            continue;
+        }
+
+        m_quakeEffectFlag[ply] = 1;
+
+        dAcPy_c* player = getPlayer(ply);
+        if (player == nullptr) {
+            continue;
+        }
+        daPlBase_c* base = player;
+
+        if (player->isStatus(daPlBase_c::Status_e::RIDING_YOSHI)) {
+            base = player->getRideYoshi();
+            if (base == nullptr) {
+                continue;
+            }
+        }
+
+        mVec3_c effectPos = base->mPos;
+        mEf::createEffect("Wm_mr_vshipattack", 0, &effectPos, nullptr, nullptr);
+        effectPos.z = 3000.0f;
+        mEf::createEffect("Wm_mr_vshipattack_ind", 0, &effectPos, nullptr, nullptr);
+        dQuake_c::m_instance->startShock(ply, dQuake_c::TYPE_SHOCK_e::HIP_ATTACK, 3, 18, false);
+    }
+}
 
 [[nsmbw(0x80060EF0)]]
 void daPyMng_c::checkBonusNoCap()

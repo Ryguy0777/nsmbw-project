@@ -12,6 +12,9 @@ public:
     /* 0x8019C010 @unofficial */
     void setMiniGameTrack(int track);
 
+    /* 0x8019C620 */
+    void onPowerImpact();
+
     /* 0x8019CDB0 */
     void closeWindow();
 

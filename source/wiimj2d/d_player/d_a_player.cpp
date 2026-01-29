@@ -100,6 +100,18 @@ bool dAcPy_c::setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg)
     return true;
 }
 
+[[nsmbw(0x80139800)]]
+void dAcPy_c::setRideOffPlayerJump(f32, f32);
+
+[[nsmbw(0x80139910)]]
+void dAcPy_c::setRideOffYoshiJump(daPlBase_c*);
+
+[[nsmbw(0x80139A90)]]
+daYoshi_c* dAcPy_c::getRideYoshi();
+
+[[nsmbw(0x80139AE0)]]
+void dAcPy_c::setRideOnYoshi(daYoshi_c* yoshi);
+
 [[nsmbw(0x8013D7B0)]]
 void dAcPy_c::checkRest()
 {

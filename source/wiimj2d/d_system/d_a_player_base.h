@@ -66,7 +66,10 @@ public:
     /* @unofficial */
     enum class Status_e {
         // Dead or in a bubble
-        DEAD = 0x4,
+        DEAD = 4,
+
+        // Riding Yoshi
+        RIDING_YOSHI = 75,
     };
 
 public:

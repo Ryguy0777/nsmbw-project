@@ -1,5 +1,6 @@
 #pragma once
 
+#include "d_player/d_a_yoshi.h"
 #include "d_profile/d_profile.h"
 #include "d_system/d_a_player_base.h"
 #include "d_system/d_a_player_manager.h"
@@ -65,6 +66,18 @@ public:
     void setCannonJump(float, float, int);
 
     void setFallDownDemoNoMsg();
+
+    /* 0x80139800 */
+    void setRideOffPlayerJump(f32, f32);
+
+    /* 0x80139910 */
+    void setRideOffYoshiJump(daPlBase_c*);
+
+    /* 0x80139A90 */
+    daYoshi_c* getRideYoshi();
+
+    /* 0x80139AE0 */
+    void setRideOnYoshi(daYoshi_c* yoshi);
 
 public:
     // Virtual Functions
