@@ -9,6 +9,16 @@ class dActor_c : public dBaseActor_c
     SIZE_ASSERT(0x392);
 
 public:
+    // Structors
+    // ^^^^^^
+
+    /* 0x80064110 */
+    dActor_c();
+
+    /* VT+0x44 0x800642B0 */
+    virtual ~dActor_c();
+
+public:
     // Static Constants
     // ^^^^^^
 

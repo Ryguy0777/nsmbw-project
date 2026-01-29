@@ -12,6 +12,12 @@ u8 dActor_c::mExecStopReq;
 [[nsmbw_data(0x80429FDA)]]
 u8 dActor_c::mExecStop;
 
+[[nsmbw(0x80064110)]]
+dActor_c::dActor_c();
+
+[[nsmbw(0x800642B0)]]
+dActor_c::~dActor_c();
+
 /**
  * VT+0x0C
  * pre method for the create operation.
