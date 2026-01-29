@@ -81,6 +81,7 @@ add_compile_options(
     -Wno-frame-address
     -Wno-nested-anon-types
     -Wno-gnu-anonymous-struct
+    -Wno-gnu-case-range
     -Wno-c99-extensions
     -Wno-c++26-extensions
     -Wno-unused-private-field

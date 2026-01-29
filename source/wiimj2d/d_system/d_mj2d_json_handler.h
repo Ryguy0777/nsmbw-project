@@ -1,12 +1,12 @@
 #pragma once
 
+#include "component/c_json.h"
 #include "d_mj2d_game.h"
 #include "d_mj2d_header.h"
-#include <cstdint>
 #include <cstdio>
 #include <variant>
 
-class dMj2dJsonHandler_c
+class dMj2dJsonHandler_c : public cJsonParser_c::HandlerIf_c
 {
 private:
     // Instance Methods
@@ -24,52 +24,42 @@ private:
     }
 
 public:
-    bool Null() const
+    bool null() const override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool Bool(bool value)
-    {
-        return Uint(value);
-    }
+    bool value(u32 value) override;
 
-    bool Int(int value)
-    {
-        return Uint(value);
-    }
-
-    bool Uint(unsigned int value);
-
-    bool Int64(std::int64_t value) const
+    bool value(s64 value) const override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool Uint64(std::uint64_t value) const
+    bool value(u64 value) const override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool RawNumber(const char* str, std::size_t length, bool copy) const
+    bool rawNumber(const char* str, std::size_t length, bool copy) const override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool Double(double value) const
+    bool value(double value) const override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool String(const char* str, std::size_t length, bool copy);
+    bool string(const char* str, std::size_t length, bool copy) override;
 
-    bool Key(const char* str, std::size_t length, bool copy);
+    bool key(const char* str, std::size_t length, bool copy) override;
 
-    bool StartObject();
-    bool EndObject(std::size_t memberCount);
+    bool startObject() override;
+    bool endObject() override;
 
-    bool StartArray();
-    bool EndArray(std::size_t elementCount);
+    bool startArray() override;
+    bool endArray() override;
 
 private:
     // Constants and Types

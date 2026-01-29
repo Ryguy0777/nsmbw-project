@@ -136,7 +136,7 @@ static const char* encodeStageName(STAGE_e stage)
     }[static_cast<size_t>(stage)];
 }
 
-bool dMj2dJsonHandler_c::Uint(unsigned int value)
+bool dMj2dJsonHandler_c::value(u32 value)
 {
     if (!expectValue()) {
         return mFlags & UNKNOWN_OBJECT;
@@ -218,7 +218,7 @@ bool dMj2dJsonHandler_c::Uint(unsigned int value)
     return true;
 }
 
-bool dMj2dJsonHandler_c::String(const char* str, std::size_t length, bool copy)
+bool dMj2dJsonHandler_c::string(const char* str, std::size_t length, bool copy)
 {
     // OS_REPORT("String: %.*s\n", (int) length, str);
 
@@ -269,10 +269,10 @@ bool dMj2dJsonHandler_c::String(const char* str, std::size_t length, bool copy)
     } else if (std::holds_alternative<bool*>(mpValue)) {
         if (length == 4 && hash == strHash("true")) {
             mValueCount++;
-            Uint(true);
+            value(true);
         } else if (length == 5 && hash == strHash("false")) {
             mValueCount++;
-            Uint(false);
+            value(false);
         } else {
             return false;
         }
@@ -424,7 +424,7 @@ bool dMj2dJsonHandler_c::String(const char* str, std::size_t length, bool copy)
     return true;
 }
 
-bool dMj2dJsonHandler_c::Key(const char* str, std::size_t length, bool copy)
+bool dMj2dJsonHandler_c::key(const char* str, std::size_t length, bool copy)
 {
     u32 hash = strHash(str, length);
 
@@ -933,7 +933,7 @@ bool dMj2dJsonHandler_c::Key(const char* str, std::size_t length, bool copy)
     }
 }
 
-bool dMj2dJsonHandler_c::StartObject()
+bool dMj2dJsonHandler_c::startObject()
 {
     if (mFlags & UNKNOWN_OBJECT) {
         mUnknownNest++;
@@ -949,7 +949,7 @@ bool dMj2dJsonHandler_c::StartObject()
     return false;
 }
 
-bool dMj2dJsonHandler_c::EndObject(std::size_t memberCount)
+bool dMj2dJsonHandler_c::endObject()
 {
     if (mFlags & UNKNOWN_OBJECT) {
         if (mUnknownNest == 0) {
@@ -1014,7 +1014,7 @@ bool dMj2dJsonHandler_c::EndObject(std::size_t memberCount)
     return false;
 }
 
-bool dMj2dJsonHandler_c::StartArray()
+bool dMj2dJsonHandler_c::startArray()
 {
     if (mFlags & UNKNOWN_OBJECT) {
         mUnknownNest++;
@@ -1030,7 +1030,7 @@ bool dMj2dJsonHandler_c::StartArray()
     return false;
 }
 
-bool dMj2dJsonHandler_c::EndArray(std::size_t elementCount)
+bool dMj2dJsonHandler_c::endArray()
 {
     if (mFlags & UNKNOWN_OBJECT) {
         if (mUnknownNest == 0) {
