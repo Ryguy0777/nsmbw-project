@@ -76,14 +76,14 @@ private:
     // ^^^^^^
 
     enum Flag_e {
-        UNKNOWN_OBJECT = 1 << 0,
-        EXPECT_ARRAY_START = 1 << 1,
-        EXPECT_ARRAY_END = 1 << 2,
-        EXPECT_OBJECT_START = 1 << 3,
-        TEMP_SAVE = 1 << 4,
-        BIT_FLAGS_LE = 1 << 5,
-        JSON_END = 1 << 6,
-        SUBTRACT_1 = 1 << 7,
+        UNKNOWN_OBJECT = 0_bit,
+        EXPECT_ARRAY_START = 1_bit,
+        EXPECT_ARRAY_END = 2_bit,
+        EXPECT_OBJECT_START = 3_bit,
+        TEMP_SAVE = 4_bit,
+        BIT_FLAGS_LE = 5_bit,
+        JSON_END = 6_bit,
+        SUBTRACT_1 = 7_bit,
     };
 
     enum class Object_e {
