@@ -34,6 +34,22 @@ constexpr bool deadly_1up = false;
 // Debugging features
 // ^^^^^^
 
+// Autoboot mode
+enum class AUTOBOOT_MODE_e : u8 {
+    DISABLED = 0,
+    COURSE = 1,
+    MOVIE = 2,
+    STAFFROLL = 3,
+} constexpr autoboot_mode = AUTOBOOT_MODE_e::DISABLED;
+
+constexpr u8 autoboot_world = 1;
+constexpr u8 autoboot_stage = 22;
+constexpr u8 autoboot_course = 2;
+constexpr u8 autoboot_next_goto = 1;
+constexpr u8 autoboot_movie = 2;
+constexpr u8 autoboot_player_count = 1;
+constexpr u8 autoboot_powerup = 0;
+
 constexpr bool one_player_special_hip_attack_quake = false;
 
 } // namespace fFeat
