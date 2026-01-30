@@ -2,6 +2,7 @@
 // nsmbw-project
 
 #include "c_json.h"
+#include "mkwcat/BaseTypes.hpp"
 #include "revolution/os/OSError.h"
 #include <cstdlib>
 
@@ -45,6 +46,30 @@ int cJsonParser_c::consume()
     mPeekChar = -1;
     while (true) {
         if (int c = take(); c > ' ' || c < 0) {
+            if (c == '/' && peek() == '/') {
+                // Skip line comment
+                while (true) {
+                    c = take();
+                    if (c == '\n' || c < 0) {
+                        break;
+                    }
+                }
+                continue;
+            } else if (c == '/' && peek() == '*') {
+                // Skip block comment
+                take();
+                while (true) {
+                    c = take();
+                    if (c < 0) {
+                        return -1;
+                    }
+                    if (c == '*' && peek() == '/') {
+                        take();
+                        break;
+                    }
+                }
+                continue;
+            }
             return c;
         }
     }
@@ -230,7 +255,7 @@ bool cJsonParser_c::parse(
                 result = handler->rawNumber(number, numPos, false);
                 end = true;
             } else {
-                int intValue = std::atoi(number);
+                s64 intValue = std::atoi(number);
                 result = handler->value(intValue);
                 end = true;
             }

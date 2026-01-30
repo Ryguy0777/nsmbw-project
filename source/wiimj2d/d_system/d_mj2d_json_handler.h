@@ -6,7 +6,7 @@
 #include <cstdio>
 #include <variant>
 
-class dMj2dJsonHandler_c : public cJsonParser_c::HandlerIf_c
+class dMj2dJsonHandler_c final : public cJsonParser_c::HandlerIf_c
 {
 private:
     // Instance Methods
@@ -24,29 +24,19 @@ private:
     }
 
 public:
-    bool null() const override
+    bool null() override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool value(u32 value) override;
+    bool value(s64 number) override;
 
-    bool value(s64 value) const override
+    bool rawNumber(const char* str, std::size_t length, bool copy) override
     {
         return mFlags & UNKNOWN_OBJECT;
     }
 
-    bool value(u64 value) const override
-    {
-        return mFlags & UNKNOWN_OBJECT;
-    }
-
-    bool rawNumber(const char* str, std::size_t length, bool copy) const override
-    {
-        return mFlags & UNKNOWN_OBJECT;
-    }
-
-    bool value(double value) const override
+    bool value(double number) override
     {
         return mFlags & UNKNOWN_OBJECT;
     }

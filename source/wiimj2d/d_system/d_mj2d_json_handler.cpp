@@ -3,6 +3,7 @@
 
 #include "d_mj2d_json_handler.h"
 
+#include "component/c_json.h"
 #include "d_system/d_mj2d_data.h"
 #include "d_system/d_nand_thread.h"
 #include <cstdlib>
@@ -136,8 +137,10 @@ static const char* encodeStageName(STAGE_e stage)
     }[static_cast<size_t>(stage)];
 }
 
-bool dMj2dJsonHandler_c::value(u32 value)
+bool dMj2dJsonHandler_c::value(s64 number)
 {
+    u32 value = static_cast<u32>(number);
+
     if (!expectValue()) {
         return mFlags & UNKNOWN_OBJECT;
     }
@@ -269,10 +272,10 @@ bool dMj2dJsonHandler_c::string(const char* str, std::size_t length, bool copy)
     } else if (std::holds_alternative<bool*>(mpValue)) {
         if (length == 4 && hash == strHash("true")) {
             mValueCount++;
-            value(true);
+            HandlerIf_c::value(true);
         } else if (length == 5 && hash == strHash("false")) {
             mValueCount++;
-            value(false);
+            HandlerIf_c::value(false);
         } else {
             return false;
         }

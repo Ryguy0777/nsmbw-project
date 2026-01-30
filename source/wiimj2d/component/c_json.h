@@ -8,23 +8,16 @@ public:
     class HandlerIf_c
     {
     public:
-        virtual bool null() const = 0;
+        virtual bool null() = 0;
 
         virtual bool value(bool number)
         {
-            return value(u32(number));
+            return value(s64(number));
         }
 
-        virtual bool value(int number)
-        {
-            return value(u32(number));
-        }
-
-        virtual bool value(u32 number) = 0;
-        virtual bool value(s64 number) const = 0;
-        virtual bool value(u64 number) const = 0;
-        virtual bool value(double number) const = 0;
-        virtual bool rawNumber(const char* str, std::size_t length, bool copy) const = 0;
+        virtual bool value(s64 number) = 0;
+        virtual bool value(double number) = 0;
+        virtual bool rawNumber(const char* str, std::size_t length, bool copy) = 0;
         virtual bool string(const char* str, std::size_t length, bool copy) = 0;
         virtual bool key(const char* str, std::size_t length, bool copy) = 0;
         virtual bool startObject() = 0;
