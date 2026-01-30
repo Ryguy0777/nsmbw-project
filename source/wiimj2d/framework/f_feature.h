@@ -30,6 +30,7 @@ namespace fFeat
 } yoshi_color_mode;
 constexpr bool bubble_swarm_mode = false;
 constexpr bool deadly_1up = false;
+constexpr bool pipe_randomizer = true;
 
 // Debugging features
 // ^^^^^^
