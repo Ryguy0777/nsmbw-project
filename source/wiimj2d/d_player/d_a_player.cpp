@@ -82,9 +82,7 @@ bool dAcPy_c::setBalloonInDispOutBase(int type, bool yoshi, bool noDeathMsg)
 
     if (type == 2 || type == 0) {
         playVoice(SndObjctPly::PLAYER_VOICE_e::SCROLL_OUT, 0);
-        dQuake_c::m_instance->shockMotor(
-          mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false
-        );
+        dQuake_c::m_instance->shockMotor(mPlrNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
 
         damageType = DamageType_e::SCROLL_OUT;
     }
@@ -163,7 +161,7 @@ void dAcPy_c::stopOtherDownDemo()
         return;
     }
 
-    daPyDemoMng_c::mspInstance->mOwnedPlayer = mPlayerNo;
+    daPyDemoMng_c::mspInstance->mOwnedPlayer = mPlrNo;
     dActor_c::mExecStopReq |= 0xF;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -508,7 +506,7 @@ void dAcPy_c::initChangeInit()
             playOther();
         }
 
-        dAudio::pauseOffMove(mPlayerNo);
+        dAudio::pauseOffMove(mPlrNo);
     }
 }
 
@@ -523,7 +521,7 @@ bool dAcPy_c::executeChangeInit()
 
     if (dScStage_c::isGameStopAllowed()) {
         stopOther();
-        dAudio::pauseMove(mPlayerNo);
+        dAudio::pauseMove(mPlrNo);
     }
 
     setChange(1);
@@ -902,7 +900,7 @@ bool dAcPy_c::setDamage(dActor_c* source, DamageType_e type)
         return false;
     }
 
-    dQuake_c::m_instance->shockMotor(mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
+    dQuake_c::m_instance->shockMotor(mPlrNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
 
     if (fFeat::death_messages != fFeat::DEATH_MESSAGES_MODE_e::DISABLED) {
         addDeathMessage(source, type, isStatus(Status_e::DEAD));
@@ -923,7 +921,7 @@ bool dAcPy_c::setForcedDamage(dActor_c* source, DamageType_e type)
         return false;
     }
 
-    dQuake_c::m_instance->shockMotor(mPlayerNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
+    dQuake_c::m_instance->shockMotor(mPlrNo, dQuake_c::TYPE_SHOCK_e::PLAYER_DAMAGE, 0, false);
 
     if (fFeat::death_messages != fFeat::DEATH_MESSAGES_MODE_e::DISABLED) {
         addDeathMessage(source, type, isStatus(Status_e::DEAD));

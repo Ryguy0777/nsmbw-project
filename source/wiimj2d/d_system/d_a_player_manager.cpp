@@ -527,7 +527,7 @@ daYoshi_c* daPyMng_c::getYoshi(int index)
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         daYoshi_c* yoshi = static_cast<daYoshi_c*>(fManager_c::searchBaseByID(m_yoshiID[i]));
-        if (yoshi != nullptr && *yoshi->getPlrNo() == index) {
+        if (yoshi != nullptr && yoshi->getPlrNo() == index) {
             return yoshi;
         }
     }
@@ -539,7 +539,7 @@ daYoshi_c* daPyMng_c::getYoshi(int index)
 int daPyMng_c::getYoshiNum()
 {
     int yoshiNum = 0;
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
         if (fManager_c::searchBaseByID(m_yoshiID[i]) != nullptr) {
             yoshiNum++;
         }

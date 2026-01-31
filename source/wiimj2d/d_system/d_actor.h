@@ -101,9 +101,9 @@ public:
     }
 
     /* VT+0x6C 0x8001D200 */
-    virtual u8* getPlrNo()
+    virtual const s8& getPlrNo()
     {
-        return &mPlayerNo;
+        return mPlrNo;
     }
 
     /* VT+0x70 0x80065620 */
@@ -264,7 +264,7 @@ public:
     FILL(0x349, 0x38C);
 
     /* 0x38C */ ACTOR_TYPE_e mActorType;
-    /* 0x38D */ u8 mPlayerNo;
+    /* 0x38D */ s8 mPlrNo;
     /* 0x38E */ u8 m0x38E;
     /* 0x38F */ u8 mLayer;
     /* 0x390 */ u8 m0x390;

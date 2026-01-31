@@ -140,8 +140,8 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
         return;
     }
 
-    fBaseID_e lastHit = s_lastHitEnemy[mPlayerNo];
-    s_lastHitEnemy[mPlayerNo] = source ? source->mUniqueID : fBaseID_e::NONE;
+    fBaseID_e lastHit = s_lastHitEnemy[mPlrNo];
+    s_lastHitEnemy[mPlrNo] = source ? source->mUniqueID : fBaseID_e::NONE;
 
     bool repeat = source ? source->mUniqueID == lastHit : false;
 
@@ -459,6 +459,6 @@ void daPlBase_c::addDeathMessage(dActor_c* source, DamageType_e type, bool death
     std::mbstowcs(wideMessage, formattedMessage, std::size(wideMessage));
 
     dGameDisplay_c::m_instance->newDeathMessage(
-      wideMessage, daPyMng_c::mPlayerType[*player->getPlrNo()]
+      wideMessage, daPyMng_c::mPlayerType[player->getPlrNo()]
     );
 }
