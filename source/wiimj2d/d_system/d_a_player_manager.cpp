@@ -246,7 +246,7 @@ u8 daPyMng_c::getPlayerCreateAction();
 [[nsmbw(0x8005EEE0)]]
 bool daPyMng_c::create(int player, mVec3_c position, int gotoKind, u8 faceLeft)
 {
-    if (!(mActPlayerInfo & (1 << player))) {
+    if (!(mPlayerEntry[player])) {
         return false;
     }
 
