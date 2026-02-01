@@ -6,9 +6,11 @@
 #include <bit>
 #include <cstring>
 #include <iterator>
+#include <memory>
 #include <revolution/kpad.h>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
+#include <type_traits>
 
 namespace EGG
 {
@@ -294,14 +296,13 @@ CoreControllerMgr::CoreControllerMgr();
 
 void CoreControllerMgr::initClassic()
 {
-    u8* classicCtrl =
-      new (alignof(ClassicController)) u8[sizeof(ClassicController) * mControllers.mSize];
+    ClassicController* classicCtrl =
+      std::allocator<ClassicController>{}.allocate(mControllers.mSize);
 
     for (int i = 0; i < mControllers.mSize; i++) {
         CoreController* core = mControllers(i);
         if (core->mpClassic == nullptr) {
-            core->mpClassic =
-              new (classicCtrl + sizeof(ClassicController) * i) ClassicController(core);
+            core->mpClassic = std::construct_at<ClassicController>(classicCtrl + i, core);
         }
     }
 }

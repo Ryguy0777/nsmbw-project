@@ -9,6 +9,7 @@
 #include <egg/gfx/eggFrustum.h>
 #include <egg/gfx/eggScreen.h>
 #include <iterator>
+#include <memory>
 #include <nw4r/lyt/Material.h>
 #include <nw4r/lyt/Resources.h>
 #include <nw4r/lyt/TextBox.h>
@@ -57,18 +58,17 @@ static constinit struct MaterialList1 {
       .materialNum = 1,
     },
   .offset1 = offsetof(MaterialList1, material),
-  .material =
-    {
-      .materialName = "Mat_DeathMsg",
-      .foreColor = "#00000000",
-      .backColor = "#FFFFFFFF",
-      .colorReg3 = "#00000000",
-      .tevColor1 = "#00000000",
-      .tevColor2 = "#00000000",
-      .tevColor3 = "#00000000",
-      .tevColor4 = "#00000000",
-      .flags = 0,
-    },
+  .material = {
+    .materialName = "Mat_DeathMsg",
+    .foreColor = "#00000000",
+    .backColor = "#FFFFFFFF",
+    .colorReg3 = "#00000000",
+    .tevColor1 = "#00000000",
+    .tevColor2 = "#00000000",
+    .tevColor3 = "#00000000",
+    .tevColor4 = "#00000000",
+    .flags = 0,
+  },
 };
 
 static constinit struct TextBox1 {
@@ -124,8 +124,7 @@ dDeathMsgMgr_c::dDeathMsgMgr_c()
   , mCount(0)
 {
     // Allocate memory without constructing
-    mTextBox =
-      reinterpret_cast<nw4r::lyt::TextBox*>(new u8[sizeof(nw4r::lyt::TextBox) * MAX_MESSAGES]);
+    mTextBox = std::allocator<nw4r::lyt::TextBox>{}.allocate(MAX_MESSAGES);
 
     for (u32 i = 0; i < MAX_MESSAGES; i++) {
         mTimeToLive[i] = 0;
@@ -134,11 +133,8 @@ dDeathMsgMgr_c::dDeathMsgMgr_c()
 
 dDeathMsgMgr_c::~dDeathMsgMgr_c()
 {
-    for (s32 i = 0; i < MAX_MESSAGES; i++) {
-        mTextBox[i].~TextBox();
-    }
-
-    delete[] reinterpret_cast<u8*>(mTextBox);
+    std::destroy(mTextBox, mTextBox + MAX_MESSAGES);
+    std::allocator<nw4r::lyt::TextBox>{}.deallocate(mTextBox, MAX_MESSAGES);
 }
 
 void dDeathMsgMgr_c::build(nw4r::lyt::ResourceAccessor* resAcc, nw4r::lyt::DrawInfo* drawInfo)
@@ -147,7 +143,7 @@ void dDeathMsgMgr_c::build(nw4r::lyt::ResourceAccessor* resAcc, nw4r::lyt::DrawI
     mpDrawInfo = drawInfo;
 
     for (s32 i = 0; i < MAX_MESSAGES; i++) {
-        new (&mTextBox[i]) nw4r::lyt::TextBox(&s_txt1.main, mResBlockSet);
+        std::construct_at<nw4r::lyt::TextBox>(mTextBox + i, &s_txt1.main, mResBlockSet);
         mTextBox[i].SetVisible(false);
     }
 }

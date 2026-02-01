@@ -6,6 +6,7 @@
 #include "d_system/d_mj2d_game.h"
 #include "machine/m_pad.h"
 #include <egg/core/eggController.h>
+#include <memory>
 #include <revolution/os.h>
 #include <revolution/wpad.h>
 
@@ -29,10 +30,10 @@ dRemoconMng_c::dRemoconMng_c(dRemoconMng_c* old)
         pConnect->mChannel = connect;
         pConnect->mPlayerNo = -1;
     }
-    u8* pAllConnect = new (alignof(dConnect_c)) u8[sizeof(dConnect_c) * (CONNECT_COUNT - 4)];
+    dConnect_c* pAllConnect = std::allocator<dConnect_c>{}.allocate(CONNECT_COUNT - 4);
     for (std::size_t connect = 4; connect < CONNECT_COUNT; connect++) {
-        mpConnectAll[connect] = new (pAllConnect + sizeof(dConnect_c) * (connect - 4))
-          dConnect_c(static_cast<mPad::CH_e>(connect));
+        mpConnectAll[connect] =
+          std::construct_at<dConnect_c>(pAllConnect + (connect - 4), mPad::CH_e(connect));
     }
 
     operator delete(old);
