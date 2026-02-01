@@ -12,7 +12,7 @@
 EXTERN_C_START
 
 // Credit:
-// https://github.com/riidefi/mkw/blob/master/source/rvl/pad/rvlPad.c
+// https://github.com/doldecomp/mkw/blob/main/lib/rvl/pad/rvlPad.c
 
 // Broadway / IOS global locations: https://wiibrew.org/wiki/Memory_Map
 [[nsmbw(0x800030E3)]]
