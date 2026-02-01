@@ -24,8 +24,12 @@ struct Vec {
 };
 
 void PSMTXIdentity(Mtx* mtx);
+
+[[nsmbw(0x801C0680)]]
 void PSMTXConcat(const Mtx* a, const Mtx* b, Mtx* out);
 void PSMTXCopy(const Mtx* src, Mtx* dst);
+
+[[nsmbw(0x801C0D10)]]
 void PSMTXTrans(Mtx* mtx, float x, float y, float z);
 void PSMTXScale(Mtx* mtx, float x, float y, float z);
 
