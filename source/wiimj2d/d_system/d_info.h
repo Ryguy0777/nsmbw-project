@@ -42,6 +42,12 @@ public:
         ENTER = 3,
     };
 
+    enum class GameFlag_e : u32 {
+        MULTI_MODE = 4_bit,
+        FREE_FOR_ALL = 5_bit,
+        COIN_BATTLE = 6_bit,
+    };
+
     struct StartGameInfo_s {
         SIZE_ASSERT(0x10);
 
@@ -270,5 +276,7 @@ public:
 
     /* 0x8042A25C */ static dInfo_c* m_instance;
 
-    /* 0x8042A260 */ static u32 mGameFlag;
+    /* 0x8042A260 */ static GameFlag_e mGameFlag;
 };
+
+ENUM_BITWISE_OPERATORS(dInfo_c::GameFlag_e)

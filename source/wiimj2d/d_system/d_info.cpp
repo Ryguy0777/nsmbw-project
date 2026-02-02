@@ -23,7 +23,7 @@ dStartInfo_c dInfo_c::m_startInfo;
 dInfo_c* dInfo_c::m_instance;
 
 [[nsmbw_data(0x8042A260)]]
-u32 dInfo_c::mGameFlag;
+dInfo_c::GameFlag_e dInfo_c::mGameFlag;
 
 [[nsmbw(0x800BB0E0)]]
 dInfo_c::dInfo_c();

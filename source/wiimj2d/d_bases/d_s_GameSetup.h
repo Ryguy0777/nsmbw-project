@@ -21,11 +21,41 @@ public:
     // Instance Methods
     // ^^^^^^
 
+    /* 0x80917A70 */
+    bool Phase_LinkProfiles();
+
+    /* 0x80917BE0 */
+    bool Phase_CreateSequenceBG();
+
+    /* 0x80917C30 */
+    bool Phase_SyncAllRes();
+
     /* 0x80917C80 */
     bool Phase_CreateLayoutManagers();
 
+    /* 0x80917E00 */
+    bool Phase_WaitLayoutReady();
+
     /* 0x80917EB0 */
     bool Phase_Create2DPlayer();
+
+    /* 0x80917F50 */
+    bool Phase_CreateSelectCursor();
+
+    /* 0x80917FA0 */
+    bool Phase_WaitChildProcessCreateDone();
+
+    /* 0x80917BB0 */
+    bool Phase_LoadSound();
+
+    /* 0x80917FD0 */
+    bool Phase_SoundLoadedWait();
+
+    /* 0x80918000 */
+    bool Phase_InitGraphDrawFunc();
+
+    /* 0x80918450 */
+    bool executeDateFileAnimeOut();
 
 public:
     // Instance Variables

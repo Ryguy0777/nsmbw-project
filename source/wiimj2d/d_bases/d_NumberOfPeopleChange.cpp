@@ -8,8 +8,8 @@
 #include "d_bases/d_CharacterChangeSelectBase.h"
 #include "d_bases/d_CharacterChangeSelectContents.h"
 #include "d_bases/d_a_wm_2DPlayer.h"
-#include "d_profile/d_profile.h"
 #include "d_player/d_WarningManager.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_common.h"
 #include "d_system/d_game_key.h"
@@ -582,7 +582,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
 {
     dInfo_c* info = dInfo_c::m_instance;
 
-    if (info->mGameFlag & 0x10) {
+    if (!!(info->mGameFlag & dInfo_c::GameFlag_e::MULTI_MODE)) {
         info->PlayerStateInit();
     }
     info->m0xAFC = true;
@@ -924,7 +924,7 @@ void dNumberOfPeopleChange_c::executeState_ButtonSelect()
     if (core->checkMenuConfirm()) {
         if (mOnButton == 0) {
             SndAudioMgr::sInstance->startSystemSe(SndID::SE_SYS_DECIDE, 1);
-            if (!(dInfo_c::m_instance->mGameFlag & 0x10)) {
+            if (!(dInfo_c::m_instance->mGameFlag & dInfo_c::GameFlag_e::MULTI_MODE)) {
                 // TODO: Mini-mario pitch up
                 static const u16 PlayerDecideSounds[] = {
                   SndID::SE_VOC_MA_PLAYER_DECIDE,  SndID::SE_VOC_LU_CS_DECIDE_JOIN,

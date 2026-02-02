@@ -27,79 +27,49 @@ bool dMultiCourseSelect_c::createLayoutExtra()
     }
 
     mLayout.NPaneRegister(
-      mpNPBase,
+      mpNPBase, //
       {
-        "N_Pbase_00",
-        "N_Pbase_01",
-        "N_Pbase_03",
-        "N_Pbase_02",
-        "N_Pbase_04",
-        "N_Pbase_05",
-        "N_Pbase_06",
-        "N_Pbase_07",
+        "N_Pbase_00",       "N_Pbase_01",       "N_Pbase_03",       "N_Pbase_02",
+        "N_Pbase_04",       "N_Pbase_05",       "N_Pbase_06",       "N_Pbase_07",
 
         "N_1Player_Pos_00",
 
-        "N_2PlayerPos_00",
-        "N_2PlayerPos_01",
+        "N_2PlayerPos_00",  "N_2PlayerPos_01",
 
-        "N_3Player_Pos_00",
-        "N_3Player_Pos_01",
-        "N_3Player_Pos_02",
+        "N_3Player_Pos_00", "N_3Player_Pos_01", "N_3Player_Pos_02",
 
-        "N_4Player_Pos_00",
-        "N_4Player_Pos_01",
-        "N_4Player_Pos_02",
-        "N_4Player_Pos_03",
+        "N_4Player_Pos_00", "N_4Player_Pos_01", "N_4Player_Pos_02", "N_4Player_Pos_03",
 
-        "N_5Player_Pos_00",
-        "N_5Player_Pos_01",
-        "N_5Player_Pos_02",
-        "N_5Player_Pos_03",
+        "N_5Player_Pos_00", "N_5Player_Pos_01", "N_5Player_Pos_02", "N_5Player_Pos_03",
         "N_5Player_Pos_04",
 
-        "N_6Player_Pos_00",
-        "N_6Player_Pos_01",
-        "N_6Player_Pos_02",
-        "N_6Player_Pos_03",
-        "N_6Player_Pos_04",
-        "N_6Player_Pos_05",
+        "N_6Player_Pos_00", "N_6Player_Pos_01", "N_6Player_Pos_02", "N_6Player_Pos_03",
+        "N_6Player_Pos_04", "N_6Player_Pos_05",
 
-        "N_7Player_Pos_00",
-        "N_7Player_Pos_01",
-        "N_7Player_Pos_02",
-        "N_7Player_Pos_03",
-        "N_7Player_Pos_04",
-        "N_7Player_Pos_05",
-        "N_7Player_Pos_06",
+        "N_7Player_Pos_00", "N_7Player_Pos_01", "N_7Player_Pos_02", "N_7Player_Pos_03",
+        "N_7Player_Pos_04", "N_7Player_Pos_05", "N_7Player_Pos_06",
 
-        "N_8Player_Pos_00",
-        "N_8Player_Pos_01",
-        "N_8Player_Pos_02",
-        "N_8Player_Pos_03",
-        "N_8Player_Pos_04",
-        "N_8Player_Pos_05",
-        "N_8Player_Pos_06",
-        "N_8Player_Pos_07",
+        "N_8Player_Pos_00", "N_8Player_Pos_01", "N_8Player_Pos_02", "N_8Player_Pos_03",
+        "N_8Player_Pos_04", "N_8Player_Pos_05", "N_8Player_Pos_06", "N_8Player_Pos_07",
       }
     );
 
     mLayout.TPaneRegister(
-      mpTRankStar,
+      mpTRankStar, //
       {
-            "T_rankStar_00",
-            "T_rankStar_01",
-            "T_rankStar_02",
-            "T_rankStar_03",
-            "T_rankStar_04",
-            "T_rankStar_05",
-            "T_rankStar_06",
-            "T_rankStar_07",
-        }
+        "T_rankStar_00",
+        "T_rankStar_01",
+        "T_rankStar_02",
+        "T_rankStar_03",
+        "T_rankStar_04",
+        "T_rankStar_05",
+        "T_rankStar_06",
+        "T_rankStar_07",
+      }
     );
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        mpNPBase[i]->SetVisible(dInfo_c::mGameFlag & 0x40);
+        mpNPBase[i]->SetVisible(!!(dInfo_c::mGameFlag & dInfo_c::GameFlag_e::COIN_BATTLE));
     }
 
     return true;
@@ -179,7 +149,7 @@ void dMultiCourseSelect_c::setPlayerPos()
 
     // Get how many we have
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e)i);
+        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e) i);
         bool isActive = dGameCom::PlayerEnterCheck(player);
 
         if (isActive) {
@@ -192,7 +162,7 @@ void dMultiCourseSelect_c::setPlayerPos()
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
         int paneIdx = static_cast<int>(getPosPane(playerCount, playerIdx));
-        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e)i);
+        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e) i);
         bool isActive = dGameCom::PlayerEnterCheck(player);
 
         if (isActive && (paneIdx != static_cast<int>(PANE_LIST_e::NONE))) {
@@ -207,7 +177,6 @@ void dMultiCourseSelect_c::setPlayerPos()
         mLayout.NPaneRegister(&N_guideViewR_00, {"N_guideViewR_00"});
         N_guideViewR_00->SetSRTElement(1, -212.0);
     }
-    
 }
 
 [[nsmbw(0x8079A7A0)]]

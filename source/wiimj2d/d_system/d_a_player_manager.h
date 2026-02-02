@@ -18,6 +18,8 @@ public:
 
 #define MAX_COINS 99
 
+    static constexpr int START_REST = 5;
+
     // Static Methods
     // ^^^^^^
 

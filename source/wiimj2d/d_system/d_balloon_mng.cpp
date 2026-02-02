@@ -79,7 +79,7 @@ void dBalloonMng_c::execute()
         return execute1UpSwarm();
     }
 
-    if (!(dInfo_c::mGameFlag & 0x10) || daPyMng_c::isOnePlayerInGame()) {
+    if (!(dInfo_c::mGameFlag & dInfo_c::GameFlag_e::MULTI_MODE) || daPyMng_c::isOnePlayerInGame()) {
         return;
     }
 
