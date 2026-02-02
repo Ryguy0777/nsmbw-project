@@ -1027,10 +1027,7 @@ void daPyDemoMng_c::genCourseInList()
             continue;
         }
 
-        if (!!(
-              daPyMng_c::mCreateItem[static_cast<int>(daPyMng_c::mPlayerType[i])] &
-              PLAYER_CREATE_ITEM_e::BUBBLE
-            )) {
+        if (!!(daPyMng_c::mCreateItem[daPyMng_c::mPlayerType[i]] & PLAYER_CREATE_ITEM_e::BUBBLE)) {
             continue;
         }
 

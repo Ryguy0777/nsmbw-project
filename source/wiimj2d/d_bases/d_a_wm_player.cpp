@@ -6,8 +6,8 @@
 #include "d_bases/d_a_wm_KinoBalloon.h"
 #include "d_bases/d_a_wm_SubPlayer.h"
 #include "d_bases/d_cs_seq_mng.h"
-#include "d_profile/d_profile.h"
 #include "d_bases/d_world_camera.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_CourseSelectManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_game_key_core.h"
@@ -256,12 +256,12 @@ void daWmPlayer_c::setSubPlayerPower()
     for (u32 i = 0; i < PLAYER_COUNT; i++) {
         dInfo_c::PlyConnectStage_e flag = info->getPlyConnectStage(i);
         if (flag == dInfo_c::PlyConnectStage_e::ENTER) {
-            int playerType = static_cast<int>(daPyMng_c::mPlayerType[i]);
+            PLAYER_TYPE_e plrType = daPyMng_c::mPlayerType[i];
             int subPowerup =
               static_cast<int>(dCourseSelectManager_c::m_instance->getPlayerPowerup(i));
             UNDEF_80902ED0(
-              playerType, subPowerup,
-              daPyMng_c::mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::STAR_POWER
+              plrType, subPowerup,
+              daPyMng_c::mCreateItem[plrType] & PLAYER_CREATE_ITEM_e::STAR_POWER
             );
         }
     }

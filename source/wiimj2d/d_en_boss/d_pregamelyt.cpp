@@ -16,7 +16,7 @@
 void dPreGameLyt_c::setPlayerRest()
 {
     for (std::size_t i = 0; i < LytPlayerCount; i++) {
-        int rest = daPyMng_c::mRest[i];
+        int rest = daPyMng_c::mRest[static_cast<PLAYER_TYPE_e>(i)];
 
         LytTextBox_c *m0, *m1;
         if (i < 4) {
@@ -47,27 +47,25 @@ void dPreGameLyt_c::createLayoutExtra()
     mpExtra->mpTRemainderOld1 = old;
 
     mLayout.TPaneRegister(
-      mpExtra->mpTRemainder0,
-      {
-        "T_remainder_04",
-        "T_remainder_06",
-        "T_remainder_08",
-        "T_remainder_15",
-        "T_remainder_14",
-        "T_remainder_05",
-        "T_remainder_07",
-        "T_remainder_09",
-      }
+      mpExtra->mpTRemainder0, {
+                                "T_remainder_04",
+                                "T_remainder_06",
+                                "T_remainder_08",
+                                "T_remainder_15",
+                                "T_remainder_14",
+                                "T_remainder_05",
+                                "T_remainder_07",
+                                "T_remainder_09",
+                              }
     );
 
     mLayout.NPaneRegister(
-      mpExtra->mpNPlayer,
-      {
-        "N_kinopico_00",
-        "N_player_05",
-        "N_player_06",
-        "N_player_07",
-      }
+      mpExtra->mpNPlayer, {
+                            "N_kinopico_00",
+                            "N_player_05",
+                            "N_player_06",
+                            "N_player_07",
+                          }
     );
 }
 

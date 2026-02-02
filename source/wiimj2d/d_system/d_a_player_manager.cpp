@@ -32,6 +32,7 @@
 #include "sound/SndID.h"
 #include "sound/SndSceneMgr.h"
 #include <algorithm>
+#include <bit>
 #include <mkwcat/Relocate.hpp>
 #include <numeric>
 #include <revolution/os.h>
@@ -49,62 +50,54 @@ u8 daPyMng_c::mOldActPlayerInfo;
 u64 daPyMng_c::mActPlayerInfo;
 
 /* 0x80355110 */
-fBaseID_e daPyMng_c::m_playerID[PLAYER_COUNT];
+cArray_c<fBaseID_e, PLAYER_COUNT, int> daPyMng_c::m_playerID;
 
 /* 0x80355120 */
-fBaseID_e daPyMng_c::m_yoshiID[PLAYER_COUNT];
+cArray_c<fBaseID_e, PLAYER_COUNT, int> daPyMng_c::m_yoshiID;
 
 /* 0x80355130 */
-s32 daPyMng_c::mCourseInList[PLAYER_COUNT];
+cArray_c<s32, PLAYER_COUNT, int> daPyMng_c::mCourseInList;
 
 /* 0x80429F8C */
-u8 daPyMng_c::m_yoshiColor[PLAYER_COUNT];
+cArray_c<u8, PLAYER_COUNT, int> daPyMng_c::m_yoshiColor;
 
 /* 0x80355140 */
-s32 daPyMng_c::m_yoshiFruit[PLAYER_COUNT];
+cArray_c<s32, PLAYER_COUNT, int> daPyMng_c::m_yoshiFruit;
 
 /* 0x80355150 */
-s32 daPyMng_c::mPlayerEntry[PLAYER_COUNT];
+cArray_c<s32, PLAYER_COUNT, int> daPyMng_c::mPlayerEntry;
 
 /* 0x80355160 */
 // Index is player ID
-PLAYER_TYPE_e daPyMng_c::mPlayerType[PLAYER_COUNT] = {
-  dMj2dGame_c::scDefaultPlayerTypes[0], dMj2dGame_c::scDefaultPlayerTypes[1],
-  dMj2dGame_c::scDefaultPlayerTypes[2], dMj2dGame_c::scDefaultPlayerTypes[3],
-  dMj2dGame_c::scDefaultPlayerTypes[4], dMj2dGame_c::scDefaultPlayerTypes[5],
-  dMj2dGame_c::scDefaultPlayerTypes[6], dMj2dGame_c::scDefaultPlayerTypes[7]
-};
+cArray_c<PLAYER_TYPE_e, PLAYER_COUNT, int> daPyMng_c::mPlayerType =
+  std::bit_cast<cArray_c<PLAYER_TYPE_e, PLAYER_COUNT, int>>(dMj2dGame_c::scDefaultPlayerTypes);
 
 /* 0x80355170 */
-// Index is player type
-PLAYER_MODE_e daPyMng_c::mPlayerMode[CHARACTER_COUNT];
+cArray_c<PLAYER_MODE_e, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mPlayerMode;
 
 /* 0x80355180 */
-// Index is player type
-PLAYER_CREATE_ITEM_e daPyMng_c::mCreateItem[CHARACTER_COUNT];
+cArray_c<PLAYER_CREATE_ITEM_e, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mCreateItem;
 
 /* 0x80355190 */
-// Index is player type
-int daPyMng_c::mRest[CHARACTER_COUNT] = {5, 5, 5, 5, 5, 5, 5, 5};
+cArray_c<int, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mRest = {5, 5, 5, 5, 5, 5, 5, 5};
 
 /* 0x803551A0 */
-// Index is player type
-s32 daPyMng_c::mCoin[CHARACTER_COUNT];
+cArray_c<s32, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mCoin;
 
 /* 0x803551B0 */
-s32 daPyMng_c::m_quakeTimer[CHARACTER_COUNT];
+cArray_c<s32, PLAYER_COUNT, int> daPyMng_c::m_quakeTimer;
 
 /* 0x803551C0 */
-s32 daPyMng_c::m_quakeEffectFlag[CHARACTER_COUNT];
+cArray_c<s32, PLAYER_COUNT, int> daPyMng_c::m_quakeEffectFlag;
 
 /* 0x803551E0 */
 static daPyDemoMng_c mDemoManager;
 
 /* 0x80429F90 */
-u16 daPyMng_c::m_star_time[CHARACTER_COUNT];
+cArray_c<u16, PLAYER_COUNT, int> daPyMng_c::m_star_time;
 
 /* 0x80429F98 */
-u16 daPyMng_c::m_star_count[CHARACTER_COUNT];
+cArray_c<u16, PLAYER_COUNT, int> daPyMng_c::m_star_count;
 
 [[nsmbw_data(0x80429FA0)]]
 int daPyMng_c::mScore;
@@ -158,9 +151,9 @@ void daPyMng_c::initGame()
         mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
         mPlayerEntry[i] = 0;
 
-        int playerIndex = int(dMj2dGame_c::scDefaultPlayerTypes[i]);
-        mPlayerMode[playerIndex] = PLAYER_MODE_e::NONE;
-        mCreateItem[playerIndex] = PLAYER_CREATE_ITEM_e::NONE;
+        PLAYER_TYPE_e type = dMj2dGame_c::scDefaultPlayerTypes[i];
+        mPlayerMode[type] = PLAYER_MODE_e::NONE;
+        mCreateItem[type] = PLAYER_CREATE_ITEM_e::NONE;
     }
 
     setDefaultParam();
@@ -178,10 +171,10 @@ void daPyMng_c::initStage()
     mActPlayerInfo = 0;
     mOldActPlayerInfo = 0;
 
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        setPlayer(i, nullptr);
-        m_star_time[i] = 0;
-        m_star_count[i] = 0;
+    for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+        setPlayer(ply, nullptr);
+        m_star_time[ply] = 0;
+        m_star_count[ply] = 0;
     }
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -208,9 +201,11 @@ void daPyMng_c::initStage()
     mStopTimerInfoOld = 0;
     mQuakeTrigger = 0;
 
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
-        m_quakeTimer[i] = 0;
-        m_quakeEffectFlag[i] = 0;
+    for (auto& timer : m_quakeTimer) {
+        timer = 0;
+    }
+    for (auto& flag : m_quakeEffectFlag) {
+        flag = 0;
     }
 
     mBgmState = 0;
@@ -227,9 +222,9 @@ void daPyMng_c::initStage()
 void daPyMng_c::setDefaultParam()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        int playerIndex = int(mPlayerType[i]);
-        mRest[playerIndex] = 5;
-        mCoin[playerIndex] = 0;
+        PLAYER_TYPE_e type = mPlayerType[i];
+        mRest[type] = 5;
+        mCoin[type] = 0;
         m_playerID[i] = fBaseID_e::NONE;
         m_yoshiID[i] = fBaseID_e::NONE;
     }
@@ -387,11 +382,11 @@ void daPyMng_c::initKinopioPlayer(int kinopioMode, int index)
     mActPlayerInfo |= 1 << index;
     mOldActPlayerInfo |= 1 << index;
     mPlayerEntry[index] = 1;
-    mCreateItem[int(mPlayerType[index])] = PLAYER_CREATE_ITEM_e::RESCUE_TOAD;
+    mCreateItem[mPlayerType[index]] = PLAYER_CREATE_ITEM_e::RESCUE_TOAD;
     mKinopioMode = kinopioMode;
 }
 
-static int mDeathCount[PLAYER_COUNT] = {};
+static cArray_c<int, PLAYER_COUNT, PLAYER_TYPE_e> mDeathCount = {};
 
 [[nsmbw(0x8005F5C0)]]
 void daPyMng_c::update()
@@ -399,30 +394,31 @@ void daPyMng_c::update()
     // Hack for incrementing death count
     if (fFeat::infinite_lives) {
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            if (mRest[i] == 4) {
-                mDeathCount[i]++;
+            PLAYER_TYPE_e type = mPlayerType[i];
+            if (mRest[type] == 4) {
+                mDeathCount[type]++;
             }
-            mRest[i] = 5;
+            mRest[type] = 5;
         }
     }
 
     checkLastAlivePlayer();
     if (dGameDisplay_c* display = dScStage_c::getGameDisplay()) {
         if (fFeat::infinite_lives) {
-            display->updatePlayNum(mDeathCount);
+            display->updatePlayNum(mDeathCount.data());
         } else {
-            display->updatePlayNum(mRest);
+            display->updatePlayNum(mRest.data());
         }
         display->setCoinNum(getCoinAll());
         display->setScore(mScore);
         display->setCollect();
     }
 
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        if (m_quakeTimer[i] != 0) {
-            m_quakeTimer[i]--;
-            if (m_quakeTimer[i] == 0) {
-                m_quakeEffectFlag[i] = 0;
+    for (auto& timer : m_quakeTimer) {
+        if (timer != 0) {
+            timer--;
+            if (timer == 0) {
+                m_quakeEffectFlag[m_quakeTimer.index(timer)] = 0;
             }
         }
     }
@@ -431,11 +427,11 @@ void daPyMng_c::update()
         bool wait = false;
 
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            if (!isPlayerActive(i)) {
+            if (!isPlayerActive(static_cast<PLAYER_TYPE_e>(i))) {
                 continue;
             }
 
-            if (daPlBase_c* player = getCtrlPlayer(i);
+            if (daPlBase_c* player = getCtrlPlayer(static_cast<PLAYER_TYPE_e>(i));
                 player && !player->isStatus(100) && !player->isWaitFrameCountMax()) {
                 wait = true;
             }
@@ -450,14 +446,15 @@ void daPyMng_c::update()
         mQuakeTrigger = 0;
     } else if (mQuakeTrigger == 0) {
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            daPlBase_c* player = getCtrlPlayer(i);
+            daPlBase_c* player = getCtrlPlayer(static_cast<PLAYER_TYPE_e>(i));
             if (player == nullptr) {
                 continue;
             }
 
             if (dQuake_c::m_instance->mFlags.on(0x20)) {
                 player->onStatus(139);
-            } else if (dQuake_c::m_instance->mFlags.on(0x8) || m_quakeEffectFlag[i] == 0) {
+            } else if (dQuake_c::m_instance->mFlags.on(0x8) ||
+                       m_quakeEffectFlag[static_cast<PLAYER_TYPE_e>(i)] == 0) {
                 player->onStatus(140);
             }
         }
@@ -479,10 +476,10 @@ void daPyMng_c::update()
 }
 
 [[nsmbw(0x8005F8C0)]]
-void daPyMng_c::setPlayer(int index, dAcPy_c* player);
+void daPyMng_c::setPlayer(int plrNo, dAcPy_c* player);
 
 [[nsmbw(0x8005F900)]]
-dAcPy_c* daPyMng_c::getPlayer(int index);
+dAcPy_c* daPyMng_c::getPlayer(int plrNo);
 
 [[nsmbw(0x8005F920)]]
 void daPyMng_c::decideCtrlPlrNo()
@@ -548,7 +545,7 @@ int daPyMng_c::getYoshiNum()
 }
 
 [[nsmbw(0x8005FB90)]]
-daPlBase_c* daPyMng_c::getCtrlPlayer(int index);
+daPlBase_c* daPyMng_c::getCtrlPlayer(int plrNo);
 
 PLAYER_TYPE_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
 {
@@ -565,9 +562,7 @@ PLAYER_TYPE_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
 
 dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerType)
 {
-    int playerTypeInt = static_cast<int>(playerType) % 8;
-
-    if (!!(mCreateItem[playerTypeInt] & PLAYER_CREATE_ITEM_e::RESCUE_TOAD)) {
+    if (!!(mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::RESCUE_TOAD)) {
         return dPyMdlMng_c::ModelType_e::MODEL_TOAD_RED;
     }
 
@@ -577,7 +572,7 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerT
       dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE,   dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW,
       dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
       dPyMdlMng_c::ModelType_e::MODEL_TOAD_ORANGE, dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLACK,
-    }[playerTypeInt];
+    }[playerType];
 }
 
 [[nsmbw(0x8005FBE0)]]
@@ -699,7 +694,7 @@ int daPyMng_c::getNumInGame()
 {
     int inGameCount = 0;
     for (int i = 0; i < CHARACTER_COUNT; i++) {
-        if (mPlayerEntry[i] != 0 && mRest[int(mPlayerType[i])] > 0) {
+        if (mPlayerEntry[i] != 0 && mRest[mPlayerType[i]] > 0) {
             inGameCount++;
         }
     }
@@ -736,8 +731,8 @@ bool daPyMng_c::changeItemKinopioPlrNo(int* ownedPlayer);
 int daPyMng_c::getCoinAll()
 {
     int totalCoins = 0;
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
-        totalCoins += mCoin[i];
+    for (int coin : mCoin) {
+        totalCoins += coin;
     }
     return totalCoins;
 }
@@ -749,7 +744,7 @@ void daPyMng_c::incCoin(int player)
     dMultiMng_c::mspInstance->incCoin(player);
 
     if (getCoinAll() < MAX_COINS) {
-        mCoin[player]++;
+        mCoin[mPlayerType[player]]++;
         return;
     }
 
@@ -773,20 +768,20 @@ void daPyMng_c::incCoin(int player)
         objMap->startSound(SndID::SE_SYS_100COIN_ONE_UP_RC, pos, remoteMask);
     }
 
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        if (mPlayerEntry[i] == 0) {
+    for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+        if (mPlayerEntry[ply] == 0) {
             continue;
         }
 
-        if (dAcPy_c* pPlayer = getPlayer(i); pPlayer && pPlayer->isStatus(4)) {
-            addRest(i, 1, !noEntry);
+        if (dAcPy_c* pPlayer = getPlayer(ply); pPlayer && pPlayer->isStatus(4)) {
+            addRest(ply, 1, !noEntry);
         } else {
-            dScoreMng_c::m_instance->UNDEF_800E25A0(8, i, noEntry);
+            dScoreMng_c::m_instance->UNDEF_800E25A0(8, ply, noEntry);
         }
     }
 
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        mCoin[static_cast<int>(mPlayerType[i])] = 0;
+    for (auto& coin : mCoin) {
+        coin = 0;
     }
 }
 
@@ -945,7 +940,7 @@ void daPyMng_c::setHipAttackSpecialEffect()
 [[nsmbw(0x80060EF0)]]
 void daPyMng_c::checkBonusNoCap()
 {
-    mBonusNoCap = mRest[int(PLAYER_TYPE_e::MARIO)] >= MAX_LIVES;
+    mBonusNoCap = mRest[PLAYER_TYPE_e::MARIO] >= MAX_LIVES;
 }
 
 // TODO
@@ -957,36 +952,35 @@ void daPyMng_c::initYoshiPriority();
 void daPyMng_c::setYoshiPriority();
 
 [[nsmbw(0x80061110)]]
-bool daPyMng_c::isCreateBalloon(int index)
+bool daPyMng_c::isCreateBalloon(int plrNo)
 {
-    int playerType = int(mPlayerType[index]);
+    PLAYER_TYPE_e type = mPlayerType[plrNo];
 
-    return !!(mCreateItem[playerType] & PLAYER_CREATE_ITEM_e::BUBBLE) || mRest[playerType] <= 0;
+    return !!(mCreateItem[type] & PLAYER_CREATE_ITEM_e::BUBBLE) || mRest[type] <= 0;
 }
 
 [[nsmbw(0x80061160)]]
 void daPyMng_c::checkCorrectCreateInfo()
 {
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
-        if (mPlayerType[i] >= PLAYER_TYPE_e::COUNT || mPlayerType[i] < PLAYER_TYPE_e::MARIO) {
-            mPlayerType[i] = PLAYER_TYPE_e::MARIO;
+    for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+        if (mPlayerType[ply] >= PLAYER_TYPE_e::COUNT || mPlayerType[ply] < PLAYER_TYPE_e::MARIO) {
+            mPlayerType[ply] = PLAYER_TYPE_e::MARIO;
         }
 
-        int playerType = int(mPlayerType[i]);
+        PLAYER_TYPE_e type = mPlayerType[ply];
 
-        if (mPlayerMode[playerType] >= PLAYER_MODE_e::COUNT ||
-            mPlayerMode[playerType] < PLAYER_MODE_e::NONE) {
-            mPlayerMode[playerType] = PLAYER_MODE_e::NONE;
+        if (mPlayerMode[type] >= PLAYER_MODE_e::COUNT || mPlayerMode[type] < PLAYER_MODE_e::NONE) {
+            mPlayerMode[type] = PLAYER_MODE_e::NONE;
         }
 
-        if (mRest[playerType] > MAX_LIVES || mRest[playerType] < 0) {
-            mRest[playerType] = 5;
+        if (mRest[type] > MAX_LIVES || mRest[type] < 0) {
+            mRest[type] = 5;
         }
     }
 
     if (int coinCount = getCoinAll(); coinCount < 0 || coinCount > MAX_COINS) {
-        for (int i = 0; i < CHARACTER_COUNT; i++) {
-            mCoin[i] = 0;
+        for (auto& coin : mCoin) {
+            coin = 0;
         }
     }
 

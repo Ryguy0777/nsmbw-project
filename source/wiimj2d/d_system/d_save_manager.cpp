@@ -142,12 +142,15 @@ void dSaveMng_c::prepareSave()
     dGameCom::setWorldClearFlag();
 
     game->setScore(daPyMng_c::mScore);
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        game->setPlrID(i, daPyMng_c::mPlayerType[i]);
-        game->setPlrMode(i, daPyMng_c::mPlayerMode[i]);
-        game->setRest(i, daPyMng_c::mRest[i]);
-        game->setCreateItem(i, daPyMng_c::mCreateItem[i]);
-        game->setCoin(i, daPyMng_c::mCoin[i]);
+    for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+        game->setPlrID(ply, daPyMng_c::mPlayerType[ply]);
+
+        // Repurpose ply iterator as player type
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(ply);
+        game->setPlrMode(static_cast<int>(type), daPyMng_c::mPlayerMode[type]);
+        game->setRest(static_cast<int>(type), daPyMng_c::mRest[type]);
+        game->setCreateItem(static_cast<int>(type), daPyMng_c::mCreateItem[type]);
+        game->setCoin(static_cast<int>(type), daPyMng_c::mCoin[type]);
     }
 
     for (int w = 0; w < WORLD_COUNT; w++) {
@@ -174,11 +177,12 @@ void dSaveMng_c::initLoadGame(s8 file)
 
     daPyMng_c::mScore = game->getScore();
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        daPyMng_c::mPlayerType[static_cast<int>(game->getPlrID(i))] = static_cast<PLAYER_TYPE_e>(i);
-        daPyMng_c::mPlayerMode[i] = game->getPlrMode(i);
-        daPyMng_c::mRest[i] = game->getRest(i);
-        daPyMng_c::mCreateItem[i] = game->getCreateItem(i);
-        daPyMng_c::mCoin[i] = game->getCoin(i);
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
+        daPyMng_c::mPlayerType[static_cast<int>(game->getPlrID(i))] = type;
+        daPyMng_c::mPlayerMode[type] = game->getPlrMode(i);
+        daPyMng_c::mRest[type] = game->getRest(i);
+        daPyMng_c::mCreateItem[type] = game->getCreateItem(i);
+        daPyMng_c::mCoin[type] = game->getCoin(i);
     }
     daPyMng_c::checkBonusNoCap();
     dScWMap_c::initLoadGame();

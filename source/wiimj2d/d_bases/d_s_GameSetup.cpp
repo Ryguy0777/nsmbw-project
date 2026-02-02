@@ -3,7 +3,6 @@
 
 #include "d_s_GameSetup.h"
 
-#include "component/c_iterator.h"
 #include "d_bases/d_CharacterChangeIndicator.h"
 #include "d_bases/d_CharacterChangeSelectArrow.h"
 #include "d_bases/d_CharacterChangeSelectBase.h"
@@ -115,7 +114,7 @@ void dScGameSetup_c::executeState_FileSelect()
         }
         dSaveMng_c::m_instance->initLoadGame(choice);
     } else {
-        for (int& rest : cIter_c(daPyMng_c::mRest)) {
+        for (int& rest : daPyMng_c::mRest) {
             rest = daPyMng_c::START_REST;
         }
         daPyMng_c::checkBonusNoCap();

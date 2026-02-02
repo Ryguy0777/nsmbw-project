@@ -423,8 +423,8 @@ bool chkContinue()
     // mRest[int(mPlayerType[int(mPlayerType[i])])]). It doesn't matter but i think it's kinda
     // interesting.
 
-    for (int i = 0; i < CHARACTER_COUNT; i++) {
-        if (daPyMng_c::mRest[i] == 0) {
+    for (int rest : daPyMng_c::mRest) {
+        if (rest == 0) {
             return true;
         }
     }

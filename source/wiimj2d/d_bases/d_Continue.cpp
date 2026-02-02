@@ -39,7 +39,7 @@ fBase_c::PACK_RESULT_e dContinue_c::create()
         }
 
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            dMj2dGame_c *save = dSaveMng_c::m_instance->getSaveGame(-1);
+            dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame(-1);
             mContinue[i] = save->getContinue(i);
         }
 
@@ -133,10 +133,9 @@ bool dContinue_c::createLayout()
     );
 
     mLayout.PPaneRegister(
-      &mpP_bg_PContinue,
-      {
-        "P_bg_PContinue",
-      }
+      &mpP_bg_PContinue, {
+                           "P_bg_PContinue",
+                         }
     );
 
     mLayout.TPaneNameRegister(
@@ -166,54 +165,33 @@ bool dContinue_c::createLayout()
     mLayout.NPaneRegister(
       mpNPos4P,
       {
-        "N_4P_Pos_00",
-        "N_4P_Pos_01",
-        "N_4P_Pos_02",
-        "N_4P_Pos_03",
-        "N_3P_Pos_00",
-        "N_3P_Pos_01",
-        "N_3P_Pos_02",
-        "N_2P_Pos_00",
-        "N_2P_Pos_01",
-        "N_1P_Pos_00",
-        "N_4P_Pos_10",
-        "N_4P_Pos_11",
-        "N_4P_Pos_12",
-        "N_4P_Pos_13",
-        "N_5P_Pos_00",
-        "N_6P_Pos_00",
-        "N_7P_Pos_00",
-        "N_8P_Pos_00",
-        "N_dateFile_01P",
-        "N_dateFile_02P",
-        "N_dateFile_03P",
-        "N_dateFile_04P",
-        "N_dateFile_05P",
-        "N_dateFile_06P",
-        "N_dateFile_07P",
+        "N_4P_Pos_00",    "N_4P_Pos_01",    "N_4P_Pos_02",    "N_4P_Pos_03",    "N_3P_Pos_00",
+        "N_3P_Pos_01",    "N_3P_Pos_02",    "N_2P_Pos_00",    "N_2P_Pos_01",    "N_1P_Pos_00",
+        "N_4P_Pos_10",    "N_4P_Pos_11",    "N_4P_Pos_12",    "N_4P_Pos_13",    "N_5P_Pos_00",
+        "N_6P_Pos_00",    "N_7P_Pos_00",    "N_8P_Pos_00",    "N_dateFile_01P", "N_dateFile_02P",
+        "N_dateFile_03P", "N_dateFile_04P", "N_dateFile_05P", "N_dateFile_06P", "N_dateFile_07P",
         "N_dateFile_08P",
       }
     );
     mLayout.TPaneRegister(
-      mpTConTime,
-      {
-        "T_conTime_00",
-        "T_conTime_01",
-        "T_conTime_02",
-        "T_conTime_03",
-        "T_conTime_04",
-        "T_conTime_05",
-        "T_conTime_06",
-        "T_conTime_07",
-        "T_playerZanki_04",
-        "T_playerZanki_05",
-        "T_playerZanki_06",
-        "T_playerZanki_07",
-        "T_playerZanki_09",
-        "T_playerZanki_11",
-        "T_playerZanki_13",
-        "T_playerZanki_15",
-      }
+      mpTConTime, {
+                    "T_conTime_00",
+                    "T_conTime_01",
+                    "T_conTime_02",
+                    "T_conTime_03",
+                    "T_conTime_04",
+                    "T_conTime_05",
+                    "T_conTime_06",
+                    "T_conTime_07",
+                    "T_playerZanki_04",
+                    "T_playerZanki_05",
+                    "T_playerZanki_06",
+                    "T_playerZanki_07",
+                    "T_playerZanki_09",
+                    "T_playerZanki_11",
+                    "T_playerZanki_13",
+                    "T_playerZanki_15",
+                  }
     );
 
     // Rescale the layout for 4:3 mode
@@ -234,14 +212,10 @@ bool dContinue_c::createLayout()
 int dContinue_c::getPaneIdx(int playerID)
 {
     int paneIdxArray[PLAYER_COUNT][PLAYER_COUNT] = {
-      {9,  18, 18, 18, 18, 18, 18, 18}, 
-      {7,  8,  18, 18, 18, 18, 18, 18},
-      {4,  5,  6,  18, 18, 18, 18, 18},   
-      {0,  1,  2,  3,  18, 18, 18, 18},
-      {10, 11, 12, 13, 14, 18, 18, 18},        
-      {10, 11, 12, 13, 14, 15, 18, 18},
-      {10, 11, 12, 13, 14, 15, 16, 18},        
-      {10, 11, 12, 13, 14, 15, 16, 17},
+      {9, 18, 18, 18, 18, 18, 18, 18},  {7, 8, 18, 18, 18, 18, 18, 18},
+      {4, 5, 6, 18, 18, 18, 18, 18},    {0, 1, 2, 3, 18, 18, 18, 18},
+      {10, 11, 12, 13, 14, 18, 18, 18}, {10, 11, 12, 13, 14, 15, 18, 18},
+      {10, 11, 12, 13, 14, 15, 16, 18}, {10, 11, 12, 13, 14, 15, 16, 17},
     };
     return paneIdxArray[mPlayCount - 1][playerID];
 }
@@ -274,7 +248,7 @@ void dContinue_c::setContinue()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mMustRevive[i]) {
-            const int &continues = mContinue[i];
+            const int& continues = mContinue[i];
             dGameCom::LayoutDispNumberDigit(continues, mpTConTime[i], false);
         }
     }
@@ -285,7 +259,7 @@ void dContinue_c::setRest()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
         if (mMustRevive[i]) {
-            const int &restNum = mRestNum[i];
+            const int& restNum = mRestNum[i];
             dGameCom::LayoutDispNumberDigit(restNum, mpTPlyZanki[i], false);
         }
     }
@@ -297,12 +271,12 @@ void dContinue_c::setPlayerInfo()
     mPlayCount = 0;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e)i);
+        int player = daPyMng_c::findPlayerWithType((PLAYER_TYPE_e) i);
         mRestNum[i] = daPyMng_c::mRest[daPyMng_c::mPlayerType[player]];
 
         bool isActive = dGameCom::PlayerEnterCheck(player);
 
-        nw4r::lyt::Pane *dateFile = mpNDateFile[i];
+        nw4r::lyt::Pane* dateFile = mpNDateFile[i];
         if (isActive && (mRestNum[i] < 1)) {
             dateFile->SetVisible(true);
             mMustRevive[i] = true;
@@ -340,7 +314,9 @@ void dContinue_c::executeState_ContinueCountUp()
         if (mMustRevive[i]) {
             // Increment all continues
             int con = mContinue[i] + 1;
-            if (con > 99) { con = 99; }
+            if (con > 99) {
+                con = 99;
+            }
             mContinue[i] = con;
 
             // Now find the length of the number, then play our effect
@@ -379,22 +355,22 @@ void dContinue_c::executeState_RestCountUp()
 }
 
 static int ContinueReviveSE[] = {
-    SndID::SE_VOC_MA_CONTINUE, SndID::SE_VOC_LU_CONTINUE,
-    SndID::SE_VOC_KO_CONTINUE, SndID::SE_VOC_KO2_CONTINUE,
-    SndID::SE_VOC_KC_CONTINUE, SndID::SE_VOC_KC_CONTINUE,
-    SndID::SE_VOC_KO_CONTINUE, SndID::SE_VOC_KO2_CONTINUE,
+  SndID::SE_VOC_MA_CONTINUE,  SndID::SE_VOC_LU_CONTINUE,  SndID::SE_VOC_KO_CONTINUE,
+  SndID::SE_VOC_KO2_CONTINUE, SndID::SE_VOC_KC_CONTINUE,  SndID::SE_VOC_KC_CONTINUE,
+  SndID::SE_VOC_KO_CONTINUE,  SndID::SE_VOC_KO2_CONTINUE,
 };
 
 [[nsmbw(0x807786A0)]]
 void dContinue_c::finalizeState_RestCountUp()
 {
     for (int i = 0; i < PLAYER_COUNT; i++) {
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
         if (mMustRevive[i]) {
             SndAudioMgr::sInstance->startSystemSe(ContinueReviveSE[i], 1);
         }
-        daPyMng_c::mRest[i] = 5;
-        daPyMng_c::mCreateItem[i] = PLAYER_CREATE_ITEM_e::NONE;
-        daPyMng_c::mPlayerMode[i] = PLAYER_MODE_e::NONE;
+        daPyMng_c::mRest[type] = 5;
+        daPyMng_c::mCreateItem[type] = PLAYER_CREATE_ITEM_e::NONE;
+        daPyMng_c::mPlayerMode[type] = PLAYER_MODE_e::NONE;
     }
 }
 
@@ -403,7 +379,7 @@ void dContinue_c::executeState_EndWait()
 {
     if (mExitDelay == 0) {
         // Check if the user cancelled the menu on their own
-        int isPress = mPad::g_currentCore->downTrigger(WPAD_BUTTON_2|WPAD_BUTTON_A);
+        int isPress = mPad::g_currentCore->downTrigger(WPAD_BUTTON_2 | WPAD_BUTTON_A);
         if ((isPress != 0) && (mDelay != 0)) {
             mDelay = 0;
         }
@@ -434,7 +410,7 @@ void dContinue_c::executeState_EndWait()
 [[nsmbw(0x807789B0)]]
 void dContinue_c::finalizeState_EndWait()
 {
-    dMj2dGame_c *save = dSaveMng_c::m_instance->getSaveGame();
+    dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();
     for (int i = 0; i < PLAYER_COUNT; i++) {
         s8 newContinue = mContinue[i];
         save->setContinue(i, newContinue);

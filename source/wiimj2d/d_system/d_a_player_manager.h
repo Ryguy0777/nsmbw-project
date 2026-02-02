@@ -1,5 +1,6 @@
 #pragma once
 
+#include "component/c_array.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
 #include "d_yoshi_model.h"
@@ -38,7 +39,7 @@ public:
     [[nodiscard]]
     static bool isPlayerActive(int player)
     {
-        return mActPlayerInfo & (1 << player);
+        return mActPlayerInfo & (1ull << player);
     }
 
     /* 0x8005E9A0 */
@@ -62,23 +63,23 @@ public:
     static u8 getPlayerCreateAction();
 
     /* 0x8005EEE0 */
-    static bool create(int player, mVec3_c position, int gotoKind, u8 faceLeft);
+    static bool create(int plrNo, mVec3_c position, int gotoKind, u8 faceLeft);
 
     /* 0x8005EF50 */
     static void createCourseInit();
 
     /* 0x8005F570 @unofficial */
-    static void initKinopioPlayer(int kinopioMode, int index);
+    static void initKinopioPlayer(int kinopioMode, int player);
 
     /* 0x8005F5C0 */
     static void update();
 
     /* 0x8005F8C0 */
-    static void setPlayer(int index, dAcPy_c* player);
+    static void setPlayer(int plrNo, dAcPy_c* player);
 
     /* 0x8005F900 */
     [[nodiscard]]
-    static dAcPy_c* getPlayer(int index);
+    static dAcPy_c* getPlayer(int plrNo);
 
     /* 0x8005F920 */
     static void decideCtrlPlrNo();
@@ -97,7 +98,7 @@ public:
     static int getYoshiNum();
 
     /* 0x8005FB90 */
-    static daPlBase_c* getCtrlPlayer(int index);
+    static daPlBase_c* getCtrlPlayer(int plrNo);
 
     static PLAYER_TYPE_e getModelPlayerType(dPyMdlMng_c::ModelType_e modelType);
 
@@ -144,7 +145,7 @@ public:
     static int getEntryNum();
 
     /* 0x80060110 @unofficial */
-    static int findPlayerWithType(PLAYER_TYPE_e playerType);
+    static int findPlayerWithType(PLAYER_TYPE_e type);
 
     /* 0x80060170 */
     static bool changeItemKinopioPlrNo(int* ownedPlayer);
@@ -209,40 +210,40 @@ public:
     // ^^^^^^
 
     /* 0x80355110 */
-    static fBaseID_e m_playerID[PLAYER_COUNT];
+    static cArray_c<fBaseID_e, PLAYER_COUNT, int> m_playerID;
 
     /* 0x80355120 */
-    static fBaseID_e m_yoshiID[PLAYER_COUNT];
+    static cArray_c<fBaseID_e, PLAYER_COUNT, int> m_yoshiID;
 
     /* 0x80355130 */
-    static s32 mCourseInList[PLAYER_COUNT];
+    static cArray_c<s32, PLAYER_COUNT, int> mCourseInList;
 
     /* 0x80355140 */
-    static s32 m_yoshiFruit[PLAYER_COUNT];
+    static cArray_c<s32, PLAYER_COUNT, int> m_yoshiFruit;
 
     /* 0x80355150 */
-    static s32 mPlayerEntry[PLAYER_COUNT];
+    static cArray_c<s32, PLAYER_COUNT, int> mPlayerEntry;
 
     /* 0x80355160 */
-    static PLAYER_TYPE_e mPlayerType[PLAYER_COUNT];
+    static cArray_c<PLAYER_TYPE_e, PLAYER_COUNT, int> mPlayerType;
 
     /* 0x80355170 */
-    static PLAYER_MODE_e mPlayerMode[CHARACTER_COUNT];
+    static cArray_c<PLAYER_MODE_e, CHARACTER_COUNT, PLAYER_TYPE_e> mPlayerMode;
 
     /* 0x80355180 */
-    static PLAYER_CREATE_ITEM_e mCreateItem[CHARACTER_COUNT];
+    static cArray_c<PLAYER_CREATE_ITEM_e, CHARACTER_COUNT, PLAYER_TYPE_e> mCreateItem;
 
     /* 0x80355190 */
-    static int mRest[CHARACTER_COUNT];
+    static cArray_c<int, CHARACTER_COUNT, PLAYER_TYPE_e> mRest;
 
     /* 0x803551A0 */
-    static s32 mCoin[CHARACTER_COUNT];
+    static cArray_c<s32, CHARACTER_COUNT, PLAYER_TYPE_e> mCoin;
 
     /* 0x803551B0 */
-    static s32 m_quakeTimer[CHARACTER_COUNT];
+    static cArray_c<s32, PLAYER_COUNT, int> m_quakeTimer;
 
     /* 0x803551C0 */
-    static s32 m_quakeEffectFlag[CHARACTER_COUNT];
+    static cArray_c<s32, PLAYER_COUNT, int> m_quakeEffectFlag;
 
     /* 0x803551E0 */
     static daPyDemoMng_c mDemoManager;
@@ -258,13 +259,13 @@ public:
     static u64 mActPlayerInfo;
 
     /* 0x80429F8C */
-    static u8 m_yoshiColor[PLAYER_COUNT];
+    static cArray_c<u8, PLAYER_COUNT, int> m_yoshiColor;
 
     /* 0x80429F90 */
-    static u16 m_star_time[CHARACTER_COUNT];
+    static cArray_c<u16, PLAYER_COUNT, int> m_star_time;
 
     /* 0x80429F98 */
-    static u16 m_star_count[CHARACTER_COUNT];
+    static cArray_c<u16, PLAYER_COUNT, int> m_star_count;
 
     /* 0x80429FA0 */
     static int mScore;

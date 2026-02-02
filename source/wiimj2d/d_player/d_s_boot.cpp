@@ -38,15 +38,15 @@ void dScBoot_c::executeState_ProcEnd()
             dInfo_c::m_instance->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::OFF);
             continue;
         }
-        daPyMng_c::mPlayerType[ply] = dMj2dGame_c::scDefaultPlayerTypes[ply];
+        PLAYER_TYPE_e type = daPyMng_c::mPlayerType[ply] = dMj2dGame_c::scDefaultPlayerTypes[ply];
         daPyMng_c::mPlayerEntry[ply] = 1;
-        daPyMng_c::mPlayerMode[ply] = static_cast<PLAYER_MODE_e>(fFeat::autoboot_powerup);
+        daPyMng_c::mPlayerMode[type] = static_cast<PLAYER_MODE_e>(fFeat::autoboot_powerup);
         dInfo_c::m_instance->setPlyConnectStage(ply, dInfo_c::PlyConnectStage_e::ENTER);
         if (fFeat::autoboot_in_star) {
-            daPyMng_c::mCreateItem[ply] |= PLAYER_CREATE_ITEM_e::STAR_POWER;
+            daPyMng_c::mCreateItem[type] |= PLAYER_CREATE_ITEM_e::STAR_POWER;
         }
         if (fFeat::autoboot_on_yoshi) {
-            daPyMng_c::mCreateItem[ply] |= PLAYER_CREATE_ITEM_e::YOSHI;
+            daPyMng_c::mCreateItem[type] |= PLAYER_CREATE_ITEM_e::YOSHI;
         }
     }
 

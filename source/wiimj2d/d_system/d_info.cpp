@@ -133,15 +133,14 @@ void dInfo_c::initStage()
     m_startInfo.mCyuukan.m0x2C[1] = mCyuukan.m0x2C[1];
     m_startInfo.mSwitchOn = mSwitchOn;
 
-    for (s32 i = 0; i < PLAYER_COUNT; i++) {
-        int player = static_cast<int>(daPyMng_c::mPlayerType[i]);
-        m_startInfo.mPlayerIndex[player] = i;
-        m_startInfo.mPlayerMode[player] =
-          static_cast<PLAYER_MODE_e>(daPyMng_c::mPlayerMode[player]);
-        m_startInfo.mIsEntry[player] = daPyMng_c::mPlayerEntry[i] != 0;
-        m_startInfo.mCoin[player] = daPyMng_c::mCoin[player];
-        m_startInfo.mRest[player] = daPyMng_c::mRest[player];
-        m_startInfo.mCreateItem[player] = daPyMng_c::mCreateItem[player];
+    for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+        PLAYER_TYPE_e type = daPyMng_c::mPlayerType[ply];
+        m_startInfo.mPlayerIndex[type] = ply;
+        m_startInfo.mPlayerMode[type] = static_cast<PLAYER_MODE_e>(daPyMng_c::mPlayerMode[type]);
+        m_startInfo.mIsEntry[type] = daPyMng_c::mPlayerEntry[ply] != 0;
+        m_startInfo.mCoin[type] = daPyMng_c::mCoin[type];
+        m_startInfo.mRest[type] = daPyMng_c::mRest[type];
+        m_startInfo.mCreateItem[type] = daPyMng_c::mCreateItem[type];
     }
 
     m_startInfo.mScore = daPyMng_c::mScore;

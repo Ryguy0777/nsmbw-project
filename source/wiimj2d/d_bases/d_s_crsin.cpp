@@ -92,9 +92,9 @@ void dScCrsin_c::executeState_resWaitProc2()
             daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
             daPyMng_c::mPlayerEntry[i] = 1;
 
-            int playerType = int(dMj2dGame_c::scDefaultPlayerTypes[i]);
-            daPyMng_c::mPlayerMode[playerType] = PLAYER_MODE_e::MUSHROOM;
-            daPyMng_c::mCreateItem[playerType] = PLAYER_CREATE_ITEM_e::NONE;
+            PLAYER_TYPE_e plrType = dMj2dGame_c::scDefaultPlayerTypes[i];
+            daPyMng_c::mPlayerMode[plrType] = PLAYER_MODE_e::MUSHROOM;
+            daPyMng_c::mCreateItem[plrType] = PLAYER_CREATE_ITEM_e::NONE;
         }
     } else if (dScStage_c::m_isStaffCredit) {
         // Setup players for credits
@@ -103,14 +103,14 @@ void dScCrsin_c::executeState_resWaitProc2()
 
             dRemoconMng_c::m_instance->mpConnect[i]->setAllowConnect(true);
 
-            int playerType = int(daPyMng_c::mPlayerType[i]);
+            PLAYER_TYPE_e plrType = daPyMng_c::mPlayerType[i];
 
-            daPyMng_c::mPlayerMode[playerType] = PLAYER_MODE_e::MUSHROOM;
-            if (daPyMng_c::mRest[playerType] < 5) {
-                daPyMng_c::mRest[playerType] = 5;
+            daPyMng_c::mPlayerMode[plrType] = PLAYER_MODE_e::MUSHROOM;
+            if (daPyMng_c::mRest[plrType] < 5) {
+                daPyMng_c::mRest[plrType] = 5;
             }
 
-            daPyMng_c::mCreateItem[playerType] = PLAYER_CREATE_ITEM_e::NONE;
+            daPyMng_c::mCreateItem[plrType] = PLAYER_CREATE_ITEM_e::NONE;
         }
     }
 

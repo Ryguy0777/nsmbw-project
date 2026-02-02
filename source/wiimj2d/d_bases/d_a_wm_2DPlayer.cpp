@@ -25,7 +25,7 @@ void da2DPlayer_c::calcPlayer()
 void da2DPlayer_c::loadPlayer()
 {
     u32 id = mParam & 0xF;
-    mPowerup = daPyMng_c::mPlayerMode[id];
+    mPowerup = daPyMng_c::mPlayerMode[static_cast<PLAYER_TYPE_e>(id)];
 
     mModelMng = new dPyMdlMng_c(daPyMng_c::getPlayerTypeModelType(static_cast<PLAYER_TYPE_e>(id)));
     mModelMng->create(id, static_cast<u8>(mPowerup), dPyMdlMng_c::SceneType_c::SCENE_TYPE_2);

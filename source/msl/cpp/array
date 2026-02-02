@@ -133,7 +133,6 @@ public:
         }
     }
 
-private:
     value_type m_data[N] = {};
 };
 

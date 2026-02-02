@@ -4,7 +4,9 @@
 #include "d_CharacterChangeSelectContents.h"
 
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_cc.h"
 #include "d_system/d_game_common.h"
+#include "d_system/d_mj2d_game.h"
 #include <algorithm>
 
 [[nsmbw(0x80772A50)]]
@@ -124,10 +126,10 @@ void dCharacterChangeSelectContents_c::dispNextConPicture(Icon_e iconNext, int s
 [[nsmbw(0x80773840)]]
 void dCharacterChangeSelectContents_c::finalizeState_OnStageWait()
 {
-    mLives[0] = daPyMng_c::mRest[0];
-    mLives[1] = daPyMng_c::mRest[1];
-    mLives[2] = daPyMng_c::mRest[3];
-    mLives[3] = daPyMng_c::mRest[2];
+    mLives[0] = daPyMng_c::mRest[PLAYER_TYPE_e::MARIO];
+    mLives[1] = daPyMng_c::mRest[PLAYER_TYPE_e::LUIGI];
+    mLives[2] = daPyMng_c::mRest[PLAYER_TYPE_e::BLUE_TOAD];
+    mLives[3] = daPyMng_c::mRest[PLAYER_TYPE_e::YELLOW_TOAD];
 
     m0x28C = Icon_e::ICON_NONE;
     m0x294 = Icon_e::ICON_NONE;

@@ -57,9 +57,9 @@ fBase_c::PACK_RESULT_e dCourseSelectManager_c::preExecute()
 [[nsmbw(0x8092F770)]]
 void dCourseSelectManager_c::executeState_ContinueCheck()
 {
-    for (int i = 0; i < PLAYER_COUNT; i++) {
+    for (int rest : daPyMng_c::mRest) {
         // Original function is flawed like in dGameCom::chkContinue()
-        if (daPyMng_c::mRest[i] == 0) {
+        if (rest == 0) {
             mStateMgr.changeState(StateID_ContinueEndWait);
             return;
         }

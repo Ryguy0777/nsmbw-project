@@ -130,7 +130,7 @@ void dCourseSelectGuide_c::RestNumberDisp()
     }
 
     for (std::size_t i = 0; i < LytPlayerCount; i++) {
-        s16 rest = daPyMng_c::mRest[i];
+        s16 rest = daPyMng_c::mRest[static_cast<PLAYER_TYPE_e>(i)];
         if (rest != mStoredRestNumber[i]) {
             mStoredRestNumber[i] = rest;
             dGameCom::LayoutDispNumber(

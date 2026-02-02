@@ -15,7 +15,9 @@ void dScMulti_c::executeState_SelectCourse()
         if (mpCourseSelect->mBeginCourse) {
             u8 worldNum = 0;
             u8 levelNum = 0;
-            mpCourseSelect->getContentCourseNo(&worldNum, &levelNum, mpCourseSelect->mCurrentSelection);
+            mpCourseSelect->getContentCourseNo(
+              &worldNum, &levelNum, mpCourseSelect->mCurrentSelection
+            );
 
             // Prepare the course
             dInfo_c::StartGameInfo_s startInfo;
@@ -23,19 +25,19 @@ void dScMulti_c::executeState_SelectCourse()
             startInfo.isDemo = false;
             startInfo.courseID = 0;
             startInfo.gotoID = 0xFF;
-            startInfo.world1 = (WORLD_e)worldNum;
-            startInfo.world2 = (WORLD_e)worldNum;
-            startInfo.stage1 = (STAGE_e)levelNum;
-            startInfo.stage2 = (STAGE_e)levelNum;
+            startInfo.world1 = (WORLD_e) worldNum;
+            startInfo.world2 = (WORLD_e) worldNum;
+            startInfo.stage1 = (STAGE_e) levelNum;
+            startInfo.stage2 = (STAGE_e) levelNum;
 
             // Setup active players
             for (int i = 0; i < PLAYER_COUNT; i++) {
                 bool isActive = dGameCom::PlayerEnterCheck(i);
                 if (isActive) {
-                    int playerType = daPyMng_c::mPlayerType[i];
+                    PLAYER_TYPE_e type = daPyMng_c::mPlayerType[i];
                     daPyMng_c::mPlayerEntry[i] = true;
-                    daPyMng_c::mPlayerMode[playerType] = PLAYER_MODE_e::NONE;
-                    daPyMng_c::mCreateItem[playerType] = PLAYER_CREATE_ITEM_e::NONE;
+                    daPyMng_c::mPlayerMode[type] = PLAYER_MODE_e::NONE;
+                    daPyMng_c::mCreateItem[type] = PLAYER_CREATE_ITEM_e::NONE;
                 } else {
                     daPyMng_c::mPlayerEntry[i] = false;
                 }
