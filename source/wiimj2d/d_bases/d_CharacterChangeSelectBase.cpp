@@ -277,7 +277,7 @@ void dCharacterChangeSelectBase_c::executeState_OnStageAnimeEndWait()
     if (isWorldMap && mpNumPyConnectStage[mPlayerNo] == dInfo_c::PlyConnectStage_e::ENTER) {
         initOption();
         initDecidedCharacter();
-        da2DPlayer_c* p2dPlayer = mp2DPlayer[static_cast<std::size_t>(mDecidedCharacter)];
+        da2DPlayer_c* p2dPlayer = mp2DPlayer[mDecidedCharacter];
         p2dPlayer->mBasePos = mAllBasePos[0];
         p2dPlayer->mPos = mAllBasePos[0];
         state = &StateID_PlayerDisp;
@@ -521,7 +521,7 @@ void dCharacterChangeSelectBase_c::initializeState_ExitAnimeEndForPlayerOnStageW
 void dCharacterChangeSelectBase_c::initializeState_PlayerOnStageWait()
 {
     std::size_t index = static_cast<std::size_t>(mDecidedCharacter);
-    da2DPlayer_c* player = mp2DPlayer[index];
+    da2DPlayer_c* player = mp2DPlayer[mDecidedCharacter];
 
     u16 sound = (u16[][2]) {
       {SndID::SE_VOC_MA_PLAYER_JOIN, SndID::SE_VOC_MA_PLAYER_JOIN_MAME},

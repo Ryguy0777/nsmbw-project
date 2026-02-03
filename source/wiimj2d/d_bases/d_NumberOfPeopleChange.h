@@ -132,9 +132,9 @@ public:
 
     void setEasyPairingWait(bool enable);
 
-    inline void setPlayer(std::size_t index, da2DPlayer_c* player)
+    inline void setPlayer(PLAYER_TYPE_e type, da2DPlayer_c* player)
     {
-        mp2DPlayer[index] = player;
+        mp2DPlayer[type] = player;
     }
 
     [[nodiscard]]
@@ -263,7 +263,7 @@ public:
     dCharacterChangeSelectArrow_c* mpCcSelArrow[MAX_CC_COUNT] = {};
     dCharacterChangeIndicator_c* mpCcIndicator[MAX_CC_COUNT] = {};
 
-    da2DPlayer_c* mp2DPlayer[CHARACTER_COUNT];
+    cEnumArray_c<da2DPlayer_c*, PLAYER_TYPE_e> mp2DPlayer;
 
     int mConnectPlrNo[REMOCON_CONNECT_COUNT];
     dInfo_c::PlyConnectStage_e mPlyConnectStage[PLAYER_COUNT];

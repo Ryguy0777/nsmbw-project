@@ -13,8 +13,8 @@
 [[nsmbw(0x80788F10)]]
 void dGameOver_c::finalizeState_ExitAnimeEndWait()
 {
-    dMj2dGame_c *save = dSaveMng_c::m_instance->getSaveGame();
-    dInfo_c *info = dInfo_c::m_instance;
+    dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();
+    dInfo_c* info = dInfo_c::m_instance;
 
     // Back up some stuff since dSaveMng_c::initLoadGame() overwrites it
     s8 backup_continues[PLAYER_COUNT];
@@ -27,12 +27,13 @@ void dGameOver_c::finalizeState_ExitAnimeEndWait()
 
     for (int world = 0; world < WORLD_COUNT; world++) {
         for (int level = 0; level < STAGE_COUNT; level++) {
-            backup_deathCounts[world][level] = save->getDeathCount((WORLD_e)world, (STAGE_e)level, false);
+            backup_deathCounts[world][level] =
+              save->getDeathCount(static_cast<WORLD_e>(world), static_cast<STAGE_e>(level), false);
         }
     }
     backup_switchDeathCount = save->getDeathCount(WORLD_e::WORLD_3, STAGE_e::STAGE_4, true);
 
-    u32 backup_playerType[PLAYER_COUNT];
+    PLAYER_TYPE_e backup_playerType[PLAYER_COUNT];
     u32 backup_playerRest[PLAYER_COUNT];
     u32 backup_score;
 
@@ -51,7 +52,7 @@ void dGameOver_c::finalizeState_ExitAnimeEndWait()
 
     // Now restore everything
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        daPyMng_c::mPlayerType[i] = (PLAYER_TYPE_e)backup_playerType[i];
+        daPyMng_c::mPlayerType[i] = backup_playerType[i];
         daPyMng_c::mRest[daPyMng_c::mPlayerType[i]] = backup_playerRest[i];
         daPyMng_c::mCoin[daPyMng_c::mPlayerType[i]] = 0;
         daPyMng_c::mPlayerMode[daPyMng_c::mPlayerType[i]] = PLAYER_MODE_e::NONE;
@@ -65,7 +66,10 @@ void dGameOver_c::finalizeState_ExitAnimeEndWait()
 
     for (int world = 0; world < WORLD_COUNT; world++) {
         for (int level = 0; level < STAGE_COUNT; level++) {
-            save->setDeathCount((WORLD_e)world, (STAGE_e)level, false, backup_deathCounts[world][level]);
+            save->setDeathCount(
+              static_cast<WORLD_e>(world), static_cast<STAGE_e>(level), false,
+              backup_deathCounts[world][level]
+            );
         }
     }
     save->setDeathCount(WORLD_e::WORLD_3, STAGE_e::STAGE_4, true, backup_switchDeathCount);

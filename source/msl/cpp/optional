@@ -1,0 +1,97 @@
+#pragma once
+
+#include <new>
+#include <utility>
+
+namespace std
+{
+
+template <class T>
+class optional
+{
+public:
+    // Type Aliases
+    // ^^^^^^
+
+    using value_type = T;
+
+public:
+    // Structors
+    // ^^^^^^
+
+    constexpr optional() noexcept
+      : m_pointer(nullptr)
+    {
+    }
+
+    constexpr optional(const value_type& value) noexcept
+      : m_pointer(new(m_storage) value_type(value))
+    {
+    }
+
+    constexpr optional(const optional& other) noexcept
+    {
+        if (other.has_value()) {
+            m_pointer = new (m_storage) value_type(*other);
+        }
+    }
+
+    constexpr ~optional() noexcept
+    {
+        if (m_pointer) {
+            m_pointer->~value_type();
+        }
+    }
+
+public:
+    // Instance Methods
+    // ^^^^^^
+
+    constexpr bool has_value() const noexcept
+    {
+        return m_pointer != nullptr;
+    }
+
+    constexpr value_type& value() &
+    {
+        return *m_pointer;
+    }
+
+    constexpr const value_type& value() const&
+    {
+        return *m_pointer;
+    }
+
+    constexpr value_type&& value() &&
+    {
+        return std::move(*m_pointer);
+    }
+
+    constexpr const value_type&& value() const&&
+    {
+        return std::move(*m_pointer);
+    }
+
+public:
+    // Operators
+    // ^^^^^^
+
+    constexpr const value_type& operator*() const noexcept
+    {
+        return *m_pointer;
+    }
+
+    constexpr value_type& operator*() noexcept
+    {
+        return *m_pointer;
+    }
+
+public:
+    // Instance Variables
+    // ^^^^^^
+
+    alignas(value_type) unsigned char m_storage[sizeof(value_type)];
+    value_type* m_pointer = nullptr;
+};
+
+} // namespace std

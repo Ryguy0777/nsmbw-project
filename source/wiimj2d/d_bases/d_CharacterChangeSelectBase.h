@@ -1,5 +1,6 @@
 #pragma once
 
+#include "component/c_array.h"
 #include "d_system/d_base.h"
 #include "d_system/d_info.h"
 #include "d_system/d_lytbase.h"
@@ -101,7 +102,7 @@ public:
 
     union {
         /* 0x080 */ da2DPlayer_c* REMOVED(mp2DPlayer)[4];
-        /* 0x080 */ da2DPlayer_c** mp2DPlayer;
+        /* 0x080 */ cEnumArrayRef_c<da2DPlayer_c*, PLAYER_TYPE_e> mp2DPlayer;
     };
 
     /* 0x090 */ LytBase_c mLayout;

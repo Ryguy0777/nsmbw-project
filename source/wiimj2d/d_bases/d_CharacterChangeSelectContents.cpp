@@ -4,7 +4,6 @@
 #include "d_CharacterChangeSelectContents.h"
 
 #include "d_system/d_a_player_manager.h"
-#include "d_system/d_cc.h"
 #include "d_system/d_game_common.h"
 #include "d_system/d_mj2d_game.h"
 #include <algorithm>
@@ -103,13 +102,13 @@ void dCharacterChangeSelectContents_c::dispNextConPicture(Icon_e iconNext, int s
 
     dGameCom::LayoutDispNumber(daPyMng_c::mRest[type], 2, mpaTextBoxes[side], false);
 
-    int picIndex = (const int[]) {
+    int picIndex = cEnumArray_c<int, PLAYER_TYPE_e>{
       std::distance(mpaPictures, mpaMarioPictures), // Mario
       2, // Luigi
       4, // Blue Toad
       6, // Yellow Toad
       0, // Other
-    }[std::min<std::size_t>(type, 4)];
+    }[std::min(type, PLAYER_TYPE_e::TOADETTE)];
 
     if (picIndex != 0) {
         mpaPictures[picIndex + side]->SetVisible(true);

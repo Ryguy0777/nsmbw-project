@@ -45,8 +45,9 @@ void dScStage_c::courseClear()
             // Hacky, but it works
             // For some reason, mCreateItem will have the star flag reset by this function
             // Even though the original game's version doesn't.
-            daPyMng_c::mCreateItem[static_cast<PLAYER_TYPE_e>(i)] =
-              startInfo.mCreateItem[i] & ~PLAYER_CREATE_ITEM_e::STAR_POWER;
+            PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
+            daPyMng_c::mCreateItem[type] =
+              startInfo.mCreateItem[type] & ~PLAYER_CREATE_ITEM_e::STAR_POWER;
         }
     }
 
@@ -122,14 +123,14 @@ void dScStage_c::restoreStartInfo()
     info->mSwitchOn = startInfo.mSwitchOn;
 
     for (int i = 0; i < PLAYER_COUNT; i++) {
-        int index = startInfo.mPlayerIndex[i];
-        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(index);
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
+        int index = startInfo.mPlayerIndex[type];
         daPyMng_c::mPlayerType[index] = type;
-        daPyMng_c::mPlayerMode[type] = startInfo.mPlayerMode[i];
-        daPyMng_c::mPlayerEntry[index] = startInfo.mIsEntry[i];
-        daPyMng_c::mCoin[type] = startInfo.mCoin[i];
-        daPyMng_c::mRest[type] = startInfo.mRest[i];
-        daPyMng_c::mCreateItem[type] = startInfo.mCreateItem[i];
+        daPyMng_c::mPlayerMode[type] = startInfo.mPlayerMode[type];
+        daPyMng_c::mPlayerEntry[index] = startInfo.mIsEntry[type];
+        daPyMng_c::mCoin[type] = startInfo.mCoin[type];
+        daPyMng_c::mRest[type] = startInfo.mRest[type];
+        daPyMng_c::mCreateItem[type] = startInfo.mCreateItem[type];
     }
 
     daPyMng_c::mScore = startInfo.mScore;

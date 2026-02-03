@@ -23,11 +23,12 @@
 #include "d_bases/d_YesNoWindow.h"
 #include "d_bases/d_a_wm_KoopaShip.h"
 #include "d_bases/d_a_wm_Map.h"
-#include "d_profile/d_profile.h"
 #include "d_bases/d_wm_WorldSelect.h"
 #include "d_bases/d_wm_WorldSelectGuide.h"
 #include "d_player/d_SelectCursor.h"
+#include "d_profile/d_profile.h"
 #include "d_system/d_CourseSelectManager.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_actor.h"
 #include <iterator>
 
@@ -102,18 +103,18 @@ bool dScWMap_c::createActorsPhase()
     dNumberOfPeopleChange_c* numPyChg = crsSelMng->mpNumPyChg;
     dStockItem_c* stockItem = crsSelMng->mpStockItem;
 
-    for (int i = 0; i < PLAYER_COUNT; i++) {
-        crsSelMng->mpa2DPlayer[i] = reinterpret_cast<da2DPlayer_c*>(
-          dBaseActor_c::construct(dProf::WM_2D_PLAYER, this, i, nullptr, nullptr)
+    for (int type = 0; type < CHARACTER_COUNT; type++) {
+        crsSelMng->mpa2DPlayer[type] = reinterpret_cast<da2DPlayer_c*>(
+          dBaseActor_c::construct(dProf::WM_2D_PLAYER, this, type, nullptr, nullptr)
         );
 
         if (numPyChg != nullptr) {
-            numPyChg->setPlayer(i, crsSelMng->mpa2DPlayer[i]);
+            numPyChg->setPlayer(static_cast<PLAYER_TYPE_e>(type), crsSelMng->mpa2DPlayer[type]);
         }
         if (stockItem != nullptr) {
-            stockItem->mpa2DPlayer[i] = crsSelMng->mpa2DPlayer[i];
-            if (i < 4) {
-                stockItem->REMOVED(mpa2DPlayer)[i] = crsSelMng->mpa2DPlayer[i];
+            stockItem->mpa2DPlayer[type] = crsSelMng->mpa2DPlayer[type];
+            if (type < 4) {
+                stockItem->REMOVED(mpa2DPlayer)[type] = crsSelMng->mpa2DPlayer[type];
             }
         }
     }

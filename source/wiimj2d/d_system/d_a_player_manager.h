@@ -228,16 +228,16 @@ public:
     static cArray_c<PLAYER_TYPE_e, PLAYER_COUNT, int> mPlayerType;
 
     /* 0x80355170 */
-    static cArray_c<PLAYER_MODE_e, CHARACTER_COUNT, PLAYER_TYPE_e> mPlayerMode;
+    static cEnumArray_c<PLAYER_MODE_e, PLAYER_TYPE_e> mPlayerMode;
 
     /* 0x80355180 */
-    static cArray_c<PLAYER_CREATE_ITEM_e, CHARACTER_COUNT, PLAYER_TYPE_e> mCreateItem;
+    static cEnumArray_c<PLAYER_CREATE_ITEM_e, PLAYER_TYPE_e> mCreateItem;
 
     /* 0x80355190 */
-    static cArray_c<int, CHARACTER_COUNT, PLAYER_TYPE_e> mRest;
+    static cEnumArray_c<int, PLAYER_TYPE_e> mRest;
 
     /* 0x803551A0 */
-    static cArray_c<s32, CHARACTER_COUNT, PLAYER_TYPE_e> mCoin;
+    static cEnumArray_c<int, PLAYER_TYPE_e> mCoin;
 
     /* 0x803551B0 */
     static cArray_c<s32, PLAYER_COUNT, int> m_quakeTimer;

@@ -114,7 +114,7 @@ public:
     void setPlayerActive(u32 id, bool param2, bool param3);
 
     /* 0x80902ED0 */
-    void UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3);
+    void UNDEF_80902ED0(PLAYER_TYPE_e param_1, int param_2, PLAYER_CREATE_ITEM_e param_3);
 
     /* 0x80902FA0 @unofficial */
     void setSubPlayerPower();
@@ -167,7 +167,7 @@ public:
 
     /* 0x80100A50 */
     static int getSubPlayerNum();
-    
+
     /* 0x80100B60 @unofficial */
     static const char* getSkeletonRoot(dPyMdlMng_c::ModelType_e character);
 

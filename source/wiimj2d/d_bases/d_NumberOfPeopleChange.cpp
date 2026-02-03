@@ -16,6 +16,7 @@
 #include "d_system/d_game_key_core.h"
 #include "d_system/d_info.h"
 #include "d_system/d_message.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_scene.h"
 #include "sound/SndAudioMgr.h"
@@ -387,7 +388,8 @@ void dNumberOfPeopleChange_c::set2dPlyPosition()
         const nw4r::math::VEC2& paneScale = mpNPlayerBasePos[mPlyPlrBaseIndex[0]]->GetScale();
         scale.x = paneScale.x;
         scale.y = paneScale.y;
-        for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+        for (std::size_t i = 0; i < CHARACTER_COUNT; i++) {
+            PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
             mp2DPlayer[type]->mPos = {mp2DPlayer[type]->mPos.x, pos.y, mp2DPlayer[type]->mPos.z};
             mp2DPlayer[type]->mBaseScale = scale;
             mp2DPlayer[type]->mAddY = l_2d_player_offset;
@@ -413,7 +415,7 @@ void dNumberOfPeopleChange_c::set2dPlyPosition()
             scale.y = paneScale.y;
             scale.z = 1.0f;
         }
-        std::size_t type = static_cast<std::size_t>(mPlyDecidedPlayerType[ply]);
+        PLAYER_TYPE_e type = mPlyDecidedPlayerType[ply];
         mp2DPlayer[type]->mPos = pos;
         mp2DPlayer[type]->mBaseScale = scale;
         mp2DPlayer[type]->mAddY = l_2d_player_offset;
@@ -566,7 +568,8 @@ void dNumberOfPeopleChange_c::setEasyPairingWait(bool enable)
         mpCcSelBase[cc]->mEasyPairingWait = enable;
         mpCcSelContents[cc]->mEasyPairingWait = enable;
     }
-    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t i = 0; i < CHARACTER_COUNT; i++) {
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
         mp2DPlayer[type]->mEasyPairingWait = enable;
     }
 }
@@ -610,7 +613,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
         base->mpCcIndicator = indicator;
         base->mPlayerCount = mPlayerCount;
         contents->mpCcIndicator = indicator;
-        base->mp2DPlayer = mp2DPlayer;
+        base->mp2DPlayer = &mp2DPlayer;
         mSetupPlayers[cc] = -1;
         indicator->mpPInfoBaseS->SetVisible(true);
         indicator->mpPInfoBase->SetVisible(true);
@@ -618,8 +621,7 @@ void dNumberOfPeopleChange_c::executeState_InitialSetup()
     }
 
     for (std::size_t ply = 0; ply < PLAYER_COUNT; ply++) {
-        std::size_t playerType = static_cast<std::size_t>(daPyMng_c::mPlayerType[ply]);
-        da2DPlayer_c* player = mp2DPlayer[playerType];
+        da2DPlayer_c* player = mp2DPlayer[daPyMng_c::mPlayerType[ply]];
 
         player->mAddY = l_2d_player_offset;
 
@@ -684,8 +686,9 @@ void dNumberOfPeopleChange_c::initializeState_OnStageAnimeEndWait()
         indicator->m0x234 = 0.0f;
     }
 
-    for (std::size_t ply = 0; ply < CHARACTER_COUNT; ply++) {
-        mp2DPlayer[ply]->mModelMng->mModel->updateBonusCap();
+    for (std::size_t i = 0; i < CHARACTER_COUNT; i++) {
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
+        mp2DPlayer[type]->mModelMng->mModel->updateBonusCap();
     }
 }
 
@@ -702,7 +705,7 @@ void dNumberOfPeopleChange_c::finalizeState_OnStageAnimeEndWait()
 {
     mExiting = false;
     for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
-        mp2DPlayer[type]->m0x267 = 0;
+        mp2DPlayer[static_cast<PLAYER_TYPE_e>(type)]->m0x267 = 0;
     }
 }
 
@@ -844,7 +847,7 @@ void dNumberOfPeopleChange_c::initializeState_ButtonOnStageAnimeEndWait()
     mLayout.AnimeStartSetup(inYesNoButtons_noButton);
 
     for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
-        mp2DPlayer[type]->m0x266 = 1;
+        mp2DPlayer[static_cast<PLAYER_TYPE_e>(type)]->m0x266 = 1;
     }
 
     for (std::size_t cc = 0; cc < mCcCount; cc++) {
@@ -1003,8 +1006,8 @@ void dNumberOfPeopleChange_c::executeState_ExitAnimeEndCheck()
             daPyMng_c::mPlayerType[cc] = dMj2dGame_c::scDefaultPlayerTypes[cc];
         }
         std::size_t type = static_cast<std::size_t>(daPyMng_c::mPlayerType[cc]);
-        if (mp2DPlayer[type]->m0x261) {
-            mp2DPlayer[type]->m0x269 = 1;
+        if (mp2DPlayer[static_cast<PLAYER_TYPE_e>(type)]->m0x261) {
+            mp2DPlayer[static_cast<PLAYER_TYPE_e>(type)]->m0x269 = 1;
         }
 
         auto* indicator = mpCcIndicator[cc];
@@ -1036,7 +1039,8 @@ void dNumberOfPeopleChange_c::executeState_ExitAnimeEndCheck()
 [[nsmbw(0x807A2080)]]
 void dNumberOfPeopleChange_c::finalizeState_ExitAnimeEndCheck()
 {
-    for (std::size_t type = 0; type < CHARACTER_COUNT; type++) {
+    for (std::size_t i = 0; i < CHARACTER_COUNT; i++) {
+        PLAYER_TYPE_e type = static_cast<PLAYER_TYPE_e>(i);
         mp2DPlayer[type]->m0x266 = 0;
         mp2DPlayer[type]->m0x269 = 1;
 

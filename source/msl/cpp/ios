@@ -1,0 +1,9 @@
+#pragma once
+
+namespace std
+{
+
+using streamoff = long;
+using streampos = long;
+
+} // namespace std

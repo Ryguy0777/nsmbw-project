@@ -77,7 +77,7 @@ bool dScGameSetup_c::Phase_Create2DPlayer()
     if (mPlayerCreateIdx < std::size(mpa2DPlayer)) {
         mpa2DPlayer[mPlayerCreateIdx] = player;
     }
-    mpNumPyChg->mp2DPlayer[mPlayerCreateIdx] = player;
+    mpNumPyChg->mp2DPlayer[static_cast<PLAYER_TYPE_e>(mPlayerCreateIdx)] = player;
 
     if (++mPlayerCreateIdx < CHARACTER_LIST_COUNT) {
         return false;
@@ -178,7 +178,7 @@ void dScGameSetup_c::initializeState_ConnectionCheck()
             PLAYER_TYPE_e type = daPyMng_c::mPlayerType[i];
             daPyMng_c::mPlayerMode[type] = PLAYER_MODE_e::NONE;
 
-            dPyMdlBase_c* mdl = mpNumPyChg->mp2DPlayer[i]->mModelMng->mModel;
+            dPyMdlBase_c* mdl = mpNumPyChg->mp2DPlayer[type]->mModelMng->mModel;
             if ((mdl->mVisibilityFlags & 0x100) != 0) {
                 mdl->offStarAnm();
             }

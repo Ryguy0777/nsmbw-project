@@ -204,7 +204,7 @@ void daEnRemoconCannon_c::setBodyColor()
         dAcPy_c* player = daPyMng_c::getPlayer(mPlayerNo);
         float frame = 0.0;
         if (player != nullptr) {
-            frame = static_cast<float>(player->mPlayerType + 1);
+            frame = static_cast<float>(static_cast<int>(player->mPlayerType) + 1);
             mAnmTexPat.setFrame(frame, 0);
             mAnmTexPat.setRate(0.0, 0);
             player->playSound(SndID::SE_OBJ_RC_CONTROL_ON, 0);
@@ -248,7 +248,7 @@ void daEnRemoconCannon_c::EffectDischargeTail()
         if (((ply != nullptr) && !ply->isStatus(0x7D)) && mCannonFired[i]) {
             mVec3_c effPos = {ply->mPos.x, ply->mPos.y, 5500.0};
 
-            int playerType = ply->mPlayerType;
+            int playerType = static_cast<int>(ply->mPlayerType);
             if (playerType >= PLAYER_COUNT) {
                 color0 = {0xFF, 0xFF, 0xFF, 0xFF};
                 color1 = {0xFF, 0xFF, 0xFF, 0xFF};

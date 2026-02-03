@@ -9,7 +9,6 @@
 #include "d_bases/d_wm_seManager.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_audio.h"
-#include "d_system/d_game_common.h"
 #include "d_system/d_mj2d_game.h"
 #include "sound/SndSceneMgr.h"
 #include <iterator>
@@ -24,9 +23,10 @@ dStockItem_c* dStockItem_c_classInit()
 dStockItem_c::dStockItem_c();
 
 [[nsmbw(0x807AF8D0)]]
-bool dStockItem_c::createLayout() {
+bool dStockItem_c::createLayout()
+{
     if (!mLayout.ReadResource("stockItem/stockItem.arc", false)) {
-      return false;
+        return false;
     }
 
     mLayout.build("stockItem_27.brlyt", nullptr);
@@ -48,20 +48,15 @@ bool dStockItem_c::createLayout() {
 
     mLayout.GroupRegister(
       StringArray{
-        "A00_Window",
-        "B00_itemButton", "B01_itemButton", "B02_itemButton", "B06_itemButton", "B04_itemButton", "B05_itemButton", "B03_itemButton",
-        "B00_itemButton", "B01_itemButton", "B02_itemButton", "B06_itemButton", "B04_itemButton", "B05_itemButton", "B03_itemButton",
-        "B00_itemButton", "B01_itemButton", "B02_itemButton", "B06_itemButton", "B04_itemButton", "B05_itemButton", "B03_itemButton",
-        "B00_itemButton", "B01_itemButton", "B02_itemButton", "B06_itemButton", "B04_itemButton", "B05_itemButton", "B03_itemButton",
-        "A00_Window",
+        "A00_Window",     "B00_itemButton", "B01_itemButton", "B02_itemButton", "B06_itemButton",
+        "B04_itemButton", "B05_itemButton", "B03_itemButton", "B00_itemButton", "B01_itemButton",
+        "B02_itemButton", "B06_itemButton", "B04_itemButton", "B05_itemButton", "B03_itemButton",
+        "B00_itemButton", "B01_itemButton", "B02_itemButton", "B06_itemButton", "B04_itemButton",
+        "B05_itemButton", "B03_itemButton", "B00_itemButton", "B01_itemButton", "B02_itemButton",
+        "B06_itemButton", "B04_itemButton", "B05_itemButton", "B03_itemButton", "A00_Window",
       },
       IntArray{
-        0,
-        1, 1, 1, 1, 1, 1, 1,
-        2, 2, 2, 2, 2, 2, 2,
-        3, 3, 3, 3, 3, 3, 3,
-        4, 4, 4, 4, 4, 4, 4,
-        5,
+        0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5,
       },
       0x1E
     );
@@ -69,23 +64,22 @@ bool dStockItem_c::createLayout() {
     mpRootPane = mLayout.getRootPane();
 
     mLayout.NPaneRegister(
-      mpNullPanes,
-      {
-        "N_forUse_1PPos",
-        "N_forUse_2PPos",
-        "N_forUse_3PPos",
-        "N_forUse_4PPos",
-        "N_iconKinoko_00",
-        "N_iconFlower_00",
-        "N_iconPro_00",
-        "N_iconIce_00",
-        "N_iconPen_00",
-        "N_mameKinoko_00",
-        "N_iconStar_00",
-        "N_stockItem",
-        "N_stockItem_01",
-        "N_itemSelect_00",
-      }
+      mpNullPanes, {
+                     "N_forUse_1PPos",
+                     "N_forUse_2PPos",
+                     "N_forUse_3PPos",
+                     "N_forUse_4PPos",
+                     "N_iconKinoko_00",
+                     "N_iconFlower_00",
+                     "N_iconPro_00",
+                     "N_iconIce_00",
+                     "N_iconPen_00",
+                     "N_mameKinoko_00",
+                     "N_iconStar_00",
+                     "N_stockItem",
+                     "N_stockItem_01",
+                     "N_itemSelect_00",
+                   }
     );
 
     mLayout.TPaneNameRegister(
@@ -101,96 +95,51 @@ bool dStockItem_c::createLayout() {
     );
 
     mLayout.PPaneRegister(
-      mpPicturePanes,
-      {
-        "P_iconKinoko_00",
-        "P_iconFlower_00",
-        "P_iconPro_00",
-        "P_iconIce_00",
-        "P_iconPen_00",
-        "P_mameKinoko_00",
-        "P_iconStar_00",
-        "P_buttonBase_00",
-        "P_buttonBase_01",
-        "P_buttonBase_02",
-        "P_buttonBase_06",
-        "P_buttonBase_04",
-        "P_buttonBase_05",
-        "P_buttonBase_03",
-        "P_iconBase_00",
-        "P_iconBase_01",
-        "P_iconBase_02",
-        "P_iconBase_03",
-        "P_iconBase_04",
-        "P_iconBase_05",
-        "P_iconBase_06",
-        "P_iconBase_07",
-        "P_iconBase_08",
-        "P_iconBase_09",
-      }
+      mpPicturePanes, {
+                        "P_iconKinoko_00", "P_iconFlower_00", "P_iconPro_00",    "P_iconIce_00",
+                        "P_iconPen_00",    "P_mameKinoko_00", "P_iconStar_00",   "P_buttonBase_00",
+                        "P_buttonBase_01", "P_buttonBase_02", "P_buttonBase_06", "P_buttonBase_04",
+                        "P_buttonBase_05", "P_buttonBase_03", "P_iconBase_00",   "P_iconBase_01",
+                        "P_iconBase_02",   "P_iconBase_03",   "P_iconBase_04",   "P_iconBase_05",
+                        "P_iconBase_06",   "P_iconBase_07",   "P_iconBase_08",   "P_iconBase_09",
+                      }
     );
 
     // New
     mLayout.NPaneRegister(
-      mpNForUsePos,
-      {
-        "N_forUse_1PPos",
-        "N_forUse_2PPos",
-        "N_forUse_3PPos",
-        "N_forUse_4PPos",
-        "N_forUse_5PPos",
-        "N_forUse_5PPos",
-        "N_forUse_5PPos",
-        "N_forUse_5PPos",
-      }
+      mpNForUsePos, {
+                      "N_forUse_1PPos",
+                      "N_forUse_2PPos",
+                      "N_forUse_3PPos",
+                      "N_forUse_4PPos",
+                      "N_forUse_5PPos",
+                      "N_forUse_5PPos",
+                      "N_forUse_5PPos",
+                      "N_forUse_5PPos",
+                    }
     );
 
     mLayout.PPaneRegister(
       mpPIconBase4P,
       {
-        "P_iconBase_00",
-        "P_iconBase_01",
-        "P_iconBase_02",
-        "P_iconBase_03",
+        "P_iconBase_00", "P_iconBase_01", "P_iconBase_02", "P_iconBase_03",
 
-        "P_iconBase_04",
-        "P_iconBase_05",
+        "P_iconBase_04", "P_iconBase_05",
 
-        "P_iconBase_06",
-        "P_iconBase_07",
-        "P_iconBase_08",
+        "P_iconBase_06", "P_iconBase_07", "P_iconBase_08",
 
         "P_iconBase_09",
 
-        "P_iconBase_10",
-        "P_iconBase_11",
-        "P_iconBase_12",
-        "P_iconBase_13",
-        "P_iconBase_14",
+        "P_iconBase_10", "P_iconBase_11", "P_iconBase_12", "P_iconBase_13", "P_iconBase_14",
 
-        "P_iconBase_15",
-        "P_iconBase_16",
-        "P_iconBase_17",
-        "P_iconBase_18",
-        "P_iconBase_19",
+        "P_iconBase_15", "P_iconBase_16", "P_iconBase_17", "P_iconBase_18", "P_iconBase_19",
         "P_iconBase_20",
 
-        "P_iconBase_21",
-        "P_iconBase_22",
-        "P_iconBase_23",
-        "P_iconBase_24",
-        "P_iconBase_25",
-        "P_iconBase_26",
-        "P_iconBase_27",
+        "P_iconBase_21", "P_iconBase_22", "P_iconBase_23", "P_iconBase_24", "P_iconBase_25",
+        "P_iconBase_26", "P_iconBase_27",
 
-        "P_iconBase_28",
-        "P_iconBase_29",
-        "P_iconBase_30",
-        "P_iconBase_31",
-        "P_iconBase_32",
-        "P_iconBase_33",
-        "P_iconBase_34",
-        "P_iconBase_35",
+        "P_iconBase_28", "P_iconBase_29", "P_iconBase_30", "P_iconBase_31", "P_iconBase_32",
+        "P_iconBase_33", "P_iconBase_34", "P_iconBase_35",
       }
     );
 
@@ -833,9 +782,10 @@ UNDEF_807b0430:;
   // clang-format on
 )
 
-void stockItemPlayStarVoice(PLAYER_TYPE_e character, bool isMame)
+  void stockItemPlayStarVoice(PLAYER_TYPE_e character, bool isMame)
 {
-    dAudio::SndObjctCSPly_c* playerSound = dWmSeManager_c::m_pInstance->mpObjCSPlyArray[character];
+    dAudio::SndObjctCSPly_c* playerSound =
+      dWmSeManager_c::m_pInstance->mpObjCSPlyArray[static_cast<int>(character)];
     playerSound->mSoundPlyMode = (isMame) ? 3 : 0;
     playerSound->startVoiceSound(SndObjctPly::PLAYER_VOICE_e::GET_STAR, 0);
 }

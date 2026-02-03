@@ -33,6 +33,7 @@
 #include "sound/SndSceneMgr.h"
 #include <algorithm>
 #include <bit>
+#include <memory>
 #include <mkwcat/Relocate.hpp>
 #include <numeric>
 #include <revolution/os.h>
@@ -73,16 +74,16 @@ cArray_c<PLAYER_TYPE_e, PLAYER_COUNT, int> daPyMng_c::mPlayerType =
   std::bit_cast<cArray_c<PLAYER_TYPE_e, PLAYER_COUNT, int>>(dMj2dGame_c::scDefaultPlayerTypes);
 
 /* 0x80355170 */
-cArray_c<PLAYER_MODE_e, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mPlayerMode;
+cEnumArray_c<PLAYER_MODE_e, PLAYER_TYPE_e> daPyMng_c::mPlayerMode;
 
 /* 0x80355180 */
-cArray_c<PLAYER_CREATE_ITEM_e, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mCreateItem;
+cEnumArray_c<PLAYER_CREATE_ITEM_e, PLAYER_TYPE_e> daPyMng_c::mCreateItem;
 
 /* 0x80355190 */
-cArray_c<int, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mRest = {5, 5, 5, 5, 5, 5, 5, 5};
+cEnumArray_c<int, PLAYER_TYPE_e> daPyMng_c::mRest = mRest.of(START_REST);
 
 /* 0x803551A0 */
-cArray_c<s32, CHARACTER_COUNT, PLAYER_TYPE_e> daPyMng_c::mCoin;
+cEnumArray_c<int, PLAYER_TYPE_e> daPyMng_c::mCoin;
 
 /* 0x803551B0 */
 cArray_c<s32, PLAYER_COUNT, int> daPyMng_c::m_quakeTimer;
@@ -426,12 +427,12 @@ void daPyMng_c::update()
     if (dNext_c::m_instance->mExitReq) {
         bool wait = false;
 
-        for (int i = 0; i < PLAYER_COUNT; i++) {
-            if (!isPlayerActive(static_cast<PLAYER_TYPE_e>(i))) {
+        for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+            if (!isPlayerActive(ply)) {
                 continue;
             }
 
-            if (daPlBase_c* player = getCtrlPlayer(static_cast<PLAYER_TYPE_e>(i));
+            if (daPlBase_c* player = getCtrlPlayer(ply);
                 player && !player->isStatus(100) && !player->isWaitFrameCountMax()) {
                 wait = true;
             }
@@ -445,16 +446,15 @@ void daPyMng_c::update()
     if (dQuake_c::m_instance->mFlags.off(0x38)) {
         mQuakeTrigger = 0;
     } else if (mQuakeTrigger == 0) {
-        for (int i = 0; i < PLAYER_COUNT; i++) {
-            daPlBase_c* player = getCtrlPlayer(static_cast<PLAYER_TYPE_e>(i));
+        for (int ply = 0; ply < PLAYER_COUNT; ply++) {
+            daPlBase_c* player = getCtrlPlayer(ply);
             if (player == nullptr) {
                 continue;
             }
 
             if (dQuake_c::m_instance->mFlags.on(0x20)) {
                 player->onStatus(139);
-            } else if (dQuake_c::m_instance->mFlags.on(0x8) ||
-                       m_quakeEffectFlag[static_cast<PLAYER_TYPE_e>(i)] == 0) {
+            } else if (dQuake_c::m_instance->mFlags.on(0x8) || m_quakeEffectFlag[ply] == 0) {
                 player->onStatus(140);
             }
         }
@@ -549,15 +549,12 @@ daPlBase_c* daPyMng_c::getCtrlPlayer(int plrNo);
 
 PLAYER_TYPE_e daPyMng_c::getModelPlayerType(dPyMdlMng_c::ModelType_e modelType)
 {
-    int modelIndex = static_cast<int>(modelType);
-
-    using PlayerTypeArray = PLAYER_TYPE_e[];
-    return PlayerTypeArray{
+    return cEnumArray_c<PLAYER_TYPE_e, dPyMdlMng_c::ModelType_e>{
       PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,           PLAYER_TYPE_e::BLUE_TOAD,
       PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,       PLAYER_TYPE_e::LUIGI,
       PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE, PLAYER_TYPE_e::BLACK_TOAD,
       PLAYER_TYPE_e::ORANGE_TOAD,
-    }[modelIndex];
+    }[modelType];
 }
 
 dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerType)
@@ -566,8 +563,7 @@ dPyMdlMng_c::ModelType_e daPyMng_c::getPlayerTypeModelType(PLAYER_TYPE_e playerT
         return dPyMdlMng_c::ModelType_e::MODEL_TOAD_RED;
     }
 
-    using ModelTypeArray = dPyMdlMng_c::ModelType_e[];
-    return ModelTypeArray{
+    return cEnumArray_c<dPyMdlMng_c::ModelType_e, PLAYER_TYPE_e>{
       dPyMdlMng_c::ModelType_e::MODEL_MARIO,       dPyMdlMng_c::ModelType_e::MODEL_LUIGI,
       dPyMdlMng_c::ModelType_e::MODEL_TOAD_BLUE,   dPyMdlMng_c::ModelType_e::MODEL_TOAD_YELLOW,
       dPyMdlMng_c::ModelType_e::MODEL_TOADETTE,    dPyMdlMng_c::ModelType_e::MODEL_TOADETTE_PURPLE,
@@ -990,7 +986,7 @@ void daPyMng_c::checkCorrectCreateInfo()
 }
 
 PATCH_REFERENCES(
-  &daPyMng_c::m_playerID, //
+  daPyMng_c::m_playerID.data(), //
   {
     {0x8005EA6A, R_PPC_ADDR16_HA}, {0x8005EA76, R_PPC_ADDR16_LO}, {0x8005EB26, R_PPC_ADDR16_HA},
     {0x8005EB2A, R_PPC_ADDR16_LO}, {0x8005ECE6, R_PPC_ADDR16_HA}, {0x8005ECEA, R_PPC_ADDR16_LO},
@@ -1006,7 +1002,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::m_yoshiID, //
+  daPyMng_c::m_yoshiID.data(), //
   {
     {0x8005F9A2, R_PPC_ADDR16_HA}, {0x8005F9AA, R_PPC_ADDR16_LO}, {0x8005F9C6, R_PPC_ADDR16_HA},
     {0x8005F9D6, R_PPC_ADDR16_LO}, {0x8005FA0A, R_PPC_ADDR16_HA}, {0x8005FA12, R_PPC_ADDR16_LO},
@@ -1020,7 +1016,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mCourseInList, //
+  daPyMng_c::mCourseInList.data(), //
   {
     {0x8005D656, R_PPC_ADDR16_HA},
     {0x8005D65E, R_PPC_ADDR16_LO},
@@ -1031,7 +1027,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::m_yoshiFruit, //
+  daPyMng_c::m_yoshiFruit.data(), //
   {
     {0x8005FC22, R_PPC_ADDR16_HA},
     {0x8005FC32, R_PPC_ADDR16_LO},
@@ -1041,7 +1037,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mPlayerEntry, //
+  daPyMng_c::mPlayerEntry.data(), //
   {
     {0x8005D31A, R_PPC_ADDR16_HA}, {0x8005D32E, R_PPC_ADDR16_LO}, {0x8005EEEA, R_PPC_ADDR16_HA},
     {0x8005EEF6, R_PPC_ADDR16_LO}, {0x8005F38A, R_PPC_ADDR16_HA}, {0x8005F392, R_PPC_ADDR16_LO},
@@ -1063,7 +1059,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mPlayerType, //
+  daPyMng_c::mPlayerType.data(), //
   {
     {0x8001B7E2, R_PPC_ADDR16_HA}, {0x8001B7F2, R_PPC_ADDR16_LO}, {0x8001CD52, R_PPC_ADDR16_HA},
     {0x8001CD5A, R_PPC_ADDR16_LO}, {0x8005D31E, R_PPC_ADDR16_HA}, {0x8005D336, R_PPC_ADDR16_LO},
@@ -1128,7 +1124,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mPlayerMode, //
+  daPyMng_c::mPlayerMode.data(), //
   {
     {0x8001B7E6, R_PPC_ADDR16_HA}, {0x8001B7FE, R_PPC_ADDR16_LO}, {0x800BB96E, R_PPC_ADDR16_HA},
     {0x800BB9A2, R_PPC_ADDR16_LO}, {0x800E17BA, R_PPC_ADDR16_HA}, {0x800E17CE, R_PPC_ADDR16_LO},
@@ -1151,7 +1147,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mCreateItem, //
+  daPyMng_c::mCreateItem.data(), //
   {
     {0x8005D326, R_PPC_ADDR16_HA}, {0x8005D342, R_PPC_ADDR16_LO}, {0x8005FBE6, R_PPC_ADDR16_HA},
     {0x8005FBF2, R_PPC_ADDR16_LO}, {0x800BB97A, R_PPC_ADDR16_HA}, {0x800BB9B2, R_PPC_ADDR16_LO},
@@ -1176,7 +1172,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mRest, //
+  daPyMng_c::mRest.data(), //
   {
     {0x80010822, R_PPC_ADDR16_HA}, {0x80010832, R_PPC_ADDR16_LO}, {0x8001CD56, R_PPC_ADDR16_HA},
     {0x8001CD62, R_PPC_ADDR16_LO}, {0x8006052E, R_PPC_ADDR16_HA}, {0x80060542, R_PPC_ADDR16_LO},
@@ -1199,7 +1195,7 @@ PATCH_REFERENCES(
 );
 
 PATCH_REFERENCES(
-  &daPyMng_c::mCoin, //
+  daPyMng_c::mCoin.data(), //
   {
     {0x80060206, R_PPC_ADDR16_HA},
     {0x80060216, R_PPC_ADDR16_LO},

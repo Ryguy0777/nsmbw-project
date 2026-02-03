@@ -181,7 +181,7 @@ void daWmPlayer_c::setPlayerActive(u32 id, bool param2, bool param3);
 
 [[nsmbw(0x80902ED0)]]
 void daWmPlayer_c::
-  UNDEF_80902ED0(u32 param_1, int param_2, PLAYER_CREATE_ITEM_e param_3) ASM_METHOD(
+  UNDEF_80902ED0(PLAYER_TYPE_e param_1, int param_2, PLAYER_CREATE_ITEM_e param_3) ASM_METHOD(
     // clang-format off
 /* 80902ED0 9421FFE0 */  stwu     r1, -32(r1);
 /* 80902ED4 7C0802A6 */  mflr     r0;

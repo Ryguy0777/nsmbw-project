@@ -114,6 +114,12 @@ __trait_transform(remove_pointer, <T* const volatile>);
 
 __trait_expression(add_pointer, T*);
 
+// Sign Modifiers
+// ^^^^^^
+
+__trait_expression(make_signed, __make_signed(T));
+__trait_expression(make_unsigned, __make_unsigned(T));
+
 // Arrays
 // ^^^^^^
 
@@ -260,9 +266,9 @@ __trait_predicate_cc(bool, is_assignable, __is_assignable(T, U));
 __trait_predicate_cc(bool, is_trivially_assignable, __is_trivially_assignable(T, U));
 __trait_predicate_cc(bool, is_nothrow_assignable, __is_nothrow_assignable(T, U));
 
-__trait_predicate_c(bool, is_copy_assignable, (is_assignable_v<T, const T&>) );
-__trait_predicate_c(bool, is_trivially_copy_assignable, (is_trivially_assignable_v<T, const T&>) );
-__trait_predicate_c(bool, is_nothrow_copy_assignable, (is_nothrow_assignable_v<T, const T&>) );
+__trait_predicate_c(bool, is_copy_assignable, (is_assignable_v<T&, const T&>) );
+__trait_predicate_c(bool, is_trivially_copy_assignable, (is_trivially_assignable_v<T&, const T&>) );
+__trait_predicate_c(bool, is_nothrow_copy_assignable, (is_nothrow_assignable_v<T&, const T&>) );
 
 __trait_predicate_c(bool, is_move_assignable, (is_assignable_v<T, T&&>) );
 __trait_predicate_c(bool, is_trivially_move_assignable, (is_trivially_assignable_v<T, T&&>) );
@@ -284,8 +290,61 @@ __trait_predicate_cu(size_t, extent, __array_extent(T, N));
 // Type Relationships
 // ^^^^^^
 
-__trait_predicate_cc(bool, is_same, __is_same_as(T, U));
+__trait_predicate_cc(bool, is_same, __is_same(T, U));
 __trait_predicate_cc(bool, is_base_of, __is_base_of(T, U));
+__trait_predicate_cc(bool, is_convertible, __is_convertible(T, U));
+__trait_predicate_cc(bool, is_nothrow_convertible, __is_nothrow_convertible(T, U));
+__trait_predicate_cc(bool, is_layout_compatible, __is_layout_compatible(T, U));
+__trait_predicate_cc(
+  bool, is_pointer_interconvertible_base_of, __is_pointer_interconvertible_base_of(T, U)
+);
+
+template <class Fn, class... Args>
+concept __is_invocable =
+  requires(Fn fn, Args&&... args) { __builtin_invoke(fn, static_cast<Args &&>(args)...); };
+
+template <class R, class Fn, class... Args>
+concept __is_invocable_r = requires(Fn fn, Args&&... args) {
+    __builtin_invoke(fn, static_cast<Args &&>(args)...);
+    requires __is_convertible(decltype(__builtin_invoke(fn, static_cast<Args&&>(args)...)), R);
+};
+
+template <class Fn, class... Args>
+concept __nothrow_invocable = requires(Fn fn, Args&&... args) {
+    __builtin_invoke(fn, static_cast<Args &&>(args)...);
+    requires noexcept(__builtin_invoke(fn, static_cast<Args&&>(args)...));
+};
+
+template <class R, class Fn, class... Args>
+concept __nothrow_invocable_r = requires(Fn fn, Args&&... args) {
+    __builtin_invoke(fn, static_cast<Args &&>(args)...);
+    requires noexcept(__builtin_invoke(fn, static_cast<Args&&>(args)...));
+    requires __is_convertible(decltype(__builtin_invoke(fn, static_cast<Args&&>(args)...)), R);
+};
+
+template <class Fn, class... Args>
+struct is_invocable : integral_constant<bool, __is_invocable<Fn, Args...>> {
+};
+template <class Fn, class... Args>
+constexpr bool is_invocable_v = is_invocable<Fn, Args...>::value;
+
+template <class R, class Fn, class... Args>
+struct is_invocable_r : integral_constant<bool, __is_invocable_r<R, Fn, Args...>> {
+};
+template <class R, class Fn, class... Args>
+constexpr bool is_invocable_r_v = is_invocable_r<R, Fn, Args...>::value;
+
+template <class Fn, class... Args>
+struct is_nothrow_invocable : integral_constant<bool, __nothrow_invocable<Fn, Args...>> {
+};
+template <class Fn, class... Args>
+constexpr bool is_nothrow_invocable_v = is_nothrow_invocable<Fn, Args...>::value;
+
+template <class R, class Fn, class... Args>
+struct is_nothrow_invocable_r : integral_constant<bool, __nothrow_invocable_r<R, Fn, Args...>> {
+};
+template <class R, class Fn, class... Args>
+constexpr bool is_nothrow_invocable_r_v = is_nothrow_invocable_r<R, Fn, Args...>::value;
 
 #undef __trait_predicate_c
 #undef __trait_predicate_cc

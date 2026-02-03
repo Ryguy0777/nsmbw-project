@@ -5,6 +5,7 @@
 #include "d_a_wm_player.h"
 #include "d_bases/d_a_wm_Map.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_lib.h"
 
 [[nsmbw_data(0x8042A480)]]
@@ -37,18 +38,16 @@ const char* daWmPlayer_c::getSkeletonRoot(dPyMdlMng_c::ModelType_e character)
     case dPyMdlMng_c::ModelType_e::MODEL_YOSHI:
         return "yoshi_all_root";
 
-    case dPyMdlMng_c::ModelType_e::MODEL_NONE:
+    default:
         return nullptr;
     }
-
-    return nullptr;
 }
 
 [[nsmbw(0x80100C50)]]
 dWmSeManager_c::WmPlyVoice_e daWmPlayer_c::getCourseInVoiceId(int node)
 {
     int subPlayerCount = getSubPlayerNum();
-    if (subPlayerCount < 1 && daPyMng_c::mPlayerType[0] == MARIO) {
+    if (subPlayerCount < 1 && daPyMng_c::mPlayerType[0] == PLAYER_TYPE_e::MARIO) {
         char* nodeName =
           daWmMap_c::m_instance->mCsvData[daWmMap_c::m_instance->mCurrentMap].GetPointName(node);
         STAGE_e stage = dWmLib::GetCourseNoFromPointName(nodeName);

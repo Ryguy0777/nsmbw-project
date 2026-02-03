@@ -33,6 +33,8 @@ public:
         MODEL_TOADETTE_PURPLE = 7,
         MODEL_TOAD_BLACK = 8,
         MODEL_TOAD_ORANGE = 9,
+
+        COUNT,
     };
 
     enum class SceneType_c {

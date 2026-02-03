@@ -184,9 +184,8 @@ void dMultiCourseSelect_c::finalizeState_DispWait()
 {
     dInfo_c* info = dInfo_c::m_instance;
 
-    for (int i = 0; i < PLAYER_COUNT; i++) {
+    for (int playerType = 0; playerType < CHARACTER_COUNT; playerType++) {
         int winCount = 0;
-        int playerType = daPyMng_c::mPlayerType[i];
 
         if (playerType < 4) {
             winCount = info->mCoinBattleWin[playerType];

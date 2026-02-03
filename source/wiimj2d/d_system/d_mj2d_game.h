@@ -45,7 +45,7 @@
 /**
  * The identifiers for each character.
  */
-enum PLAYER_TYPE_e {
+enum class PLAYER_TYPE_e {
     MARIO = 0,
     LUIGI = 1,
     BLUE_TOAD = 2,

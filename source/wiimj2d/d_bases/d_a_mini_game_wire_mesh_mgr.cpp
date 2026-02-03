@@ -20,36 +20,37 @@
  * 0x8086B910 - getInitialTurnPlayerID() [needs to support 8 players]
  * 0x8086B990 - setTurnPlayer()
  * 0x8086BEE0 - executeState_ShowResult()
-*/
+ */
 
 static constinit const nw4r::ut::Color PLY_CURSOR_EFF_COLOR_1[] = {
-    "#FFAB00", // Mario
-    "#66FF00", // Luigi
-    "#00FFFF", // Blue Toad
-    "#FFFF44", // Yellow Toad
-    "#F09BE2", // Toadette
-    "#A472F8", // Purple Toadette
-    "#FFC642", // Orange Toad
-    "#999999", // Black Toad
+  "#FFAB00", // Mario
+  "#66FF00", // Luigi
+  "#00FFFF", // Blue Toad
+  "#FFFF44", // Yellow Toad
+  "#F09BE2", // Toadette
+  "#A472F8", // Purple Toadette
+  "#FFC642", // Orange Toad
+  "#999999", // Black Toad
 };
 
 static constinit const nw4r::ut::Color PLY_CURSOR_EFF_COLOR_2[] = {
-    "#FF1B00", // Mario
-    "#00FF15", // Luigi
-    "#006CFF", // Blue Toad
-    "#FFC000", // Yellow Toad
-    "#CC1BFF", // Toadette
-    "#6F00FF", // Purple Toadette
-    "#FF6600", // Orange Toad
-    "#1C1C1C", // Black Toad
+  "#FF1B00", // Mario
+  "#00FF15", // Luigi
+  "#006CFF", // Blue Toad
+  "#FFC000", // Yellow Toad
+  "#CC1BFF", // Toadette
+  "#6F00FF", // Purple Toadette
+  "#FF6600", // Orange Toad
+  "#1C1C1C", // Black Toad
 };
 
 [[nsmbw(0x8086AB90)]]
-void daMiniGameWireMeshMgrObj_c::EffectCursor2d() {
+void daMiniGameWireMeshMgrObj_c::EffectCursor2d()
+{
     GXColor fillClr, edgeClr;
 
     if (daPyMng_c::getPlayer(mTurnPlayer) != nullptr) {
-        int playerType = daPyMng_c::mPlayerType[mTurnPlayer];
+        int playerType = static_cast<int>(daPyMng_c::mPlayerType[mTurnPlayer]);
         if (playerType >= PLAYER_COUNT) {
             fillClr = {0xFF, 0xFF, 0xFF, 0xFF};
             edgeClr = {0xFF, 0xFF, 0xFF, 0xFF};
@@ -63,20 +64,23 @@ void daMiniGameWireMeshMgrObj_c::EffectCursor2d() {
 
         mEffectCursor2d.createEffect("Wm_mg_cursor_2d", 0, &pos, nullptr, nullptr);
         mEffectCursor2d.setRegisterColor(fillClr, edgeClr, 0, EGG::Effect::ERecursive::RECURSIVE_3);
-        mEffectCursor2d.setRegisterAlpha(fillClr.a, edgeClr.a, 0, EGG::Effect::ERecursive::RECURSIVE_3);
+        mEffectCursor2d.setRegisterAlpha(
+          fillClr.a, edgeClr.a, 0, EGG::Effect::ERecursive::RECURSIVE_3
+        );
         mEffectCursor2d.update();
     }
 }
 
 [[nsmbw(0x8086AEA0)]]
-void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor() {
-    dAcPy_c *ply = daPyMng_c::getPlayer(mTurnPlayer);
+void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor()
+{
+    dAcPy_c* ply = daPyMng_c::getPlayer(mTurnPlayer);
 
     if ((((mPlayNum > 1) && mUpdateCursor) && !mIsGameFail) && (!mIsBadPanelFlip && ply)) {
         GXColor fillClr, edgeClr;
 
         // Set the color
-        int playerType = daPyMng_c::mPlayerType[mTurnPlayer];
+        int playerType = static_cast<int>(daPyMng_c::mPlayerType[mTurnPlayer]);
         if (playerType >= PLAYER_COUNT) {
             fillClr = {0xFF, 0xFF, 0xFF, 0xFF};
             edgeClr = {0xFF, 0xFF, 0xFF, 0xFF};
@@ -86,7 +90,7 @@ void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor() {
         }
 
         // Now position it on the player
-        dPyMdlBase_c *mdl = ply->getModel();
+        dPyMdlBase_c* mdl = ply->getModel();
         mMtx_c jointMtx;
         mdl->getJointMtx(&jointMtx, 1);
 
@@ -98,7 +102,7 @@ void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor() {
         effPos.z = 5500.0f;
 
         float modifier, smallModifier;
-        if (ply->mPlayerType >= BLUE_TOAD) {
+        if (ply->mPlayerType != PLAYER_TYPE_e::MARIO && ply->mPlayerType != PLAYER_TYPE_e::LUIGI) {
             modifier = 8.0f;
             smallModifier = modifier;
         } else {
@@ -125,12 +129,18 @@ void daMiniGameWireMeshMgrObj_c::EffectPlayerCursor() {
 
         mEffectCursor.createEffect("Wm_mg_cursor", 0, &effPos, 0, &effScale);
         mEffectCursor.setRegisterColor(fillClr, edgeClr, 0, EGG::Effect::ERecursive::RECURSIVE_3);
-        mEffectCursor.setRegisterAlpha(fillClr.a, edgeClr.a, 0, EGG::Effect::ERecursive::RECURSIVE_3);
+        mEffectCursor.setRegisterAlpha(
+          fillClr.a, edgeClr.a, 0, EGG::Effect::ERecursive::RECURSIVE_3
+        );
 
         if (!mHasPlayedCursorSt) {
             mEffectCursorSt.createEffect("Wm_mg_cursor_st", 0, &effPos, 0, &effScale);
-            mEffectCursorSt.setRegisterColor(fillClr, edgeClr, 0, EGG::Effect::ERecursive::RECURSIVE_3);
-            mEffectCursorSt.setRegisterAlpha(fillClr.a, edgeClr.a, 0, EGG::Effect::ERecursive::RECURSIVE_3);
+            mEffectCursorSt.setRegisterColor(
+              fillClr, edgeClr, 0, EGG::Effect::ERecursive::RECURSIVE_3
+            );
+            mEffectCursorSt.setRegisterAlpha(
+              fillClr.a, edgeClr.a, 0, EGG::Effect::ERecursive::RECURSIVE_3
+            );
             mEffectCursorSt.update();
             mHasPlayedCursorSt = true;
         }
