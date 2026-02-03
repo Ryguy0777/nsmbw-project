@@ -310,13 +310,13 @@ concept __is_invocable_r = requires(Fn fn, Args&&... args) {
 };
 
 template <class Fn, class... Args>
-concept __nothrow_invocable = requires(Fn fn, Args&&... args) {
+concept __is_nothrow_invocable = requires(Fn fn, Args&&... args) {
     __builtin_invoke(fn, static_cast<Args &&>(args)...);
     requires noexcept(__builtin_invoke(fn, static_cast<Args&&>(args)...));
 };
 
 template <class R, class Fn, class... Args>
-concept __nothrow_invocable_r = requires(Fn fn, Args&&... args) {
+concept __is_nothrow_invocable_r = requires(Fn fn, Args&&... args) {
     __builtin_invoke(fn, static_cast<Args &&>(args)...);
     requires noexcept(__builtin_invoke(fn, static_cast<Args&&>(args)...));
     requires __is_convertible(decltype(__builtin_invoke(fn, static_cast<Args&&>(args)...)), R);
@@ -335,13 +335,13 @@ template <class R, class Fn, class... Args>
 constexpr bool is_invocable_r_v = is_invocable_r<R, Fn, Args...>::value;
 
 template <class Fn, class... Args>
-struct is_nothrow_invocable : integral_constant<bool, __nothrow_invocable<Fn, Args...>> {
+struct is_nothrow_invocable : integral_constant<bool, __is_nothrow_invocable<Fn, Args...>> {
 };
 template <class Fn, class... Args>
 constexpr bool is_nothrow_invocable_v = is_nothrow_invocable<Fn, Args...>::value;
 
 template <class R, class Fn, class... Args>
-struct is_nothrow_invocable_r : integral_constant<bool, __nothrow_invocable_r<R, Fn, Args...>> {
+struct is_nothrow_invocable_r : integral_constant<bool, __is_nothrow_invocable_r<R, Fn, Args...>> {
 };
 template <class R, class Fn, class... Args>
 constexpr bool is_nothrow_invocable_r_v = is_nothrow_invocable_r<R, Fn, Args...>::value;

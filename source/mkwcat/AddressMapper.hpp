@@ -1,5 +1,5 @@
 //
-//  Attribute.hpp
+//  mkwcat/AddressMapper.hpp
 //  nsmbw-project
 //
 

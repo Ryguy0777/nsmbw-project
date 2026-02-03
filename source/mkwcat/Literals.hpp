@@ -1,5 +1,5 @@
 //
-//  Literals.hpp
+//  mkwcat/Literals.hpp
 //  nsmbw-project
 //
 

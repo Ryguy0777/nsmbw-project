@@ -1,5 +1,5 @@
 //
-//  Attribute.hpp
+//  mkwcat/Attribute.hpp
 //  nsmbw-project
 //
 

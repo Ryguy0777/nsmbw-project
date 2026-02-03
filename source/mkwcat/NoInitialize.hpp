@@ -1,5 +1,5 @@
 //
-//  NoInitialize.hpp
+//  mkwcat/NoInitialize.hpp
 //  nsmbw-project
 //
 

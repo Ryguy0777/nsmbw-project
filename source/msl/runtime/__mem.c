@@ -2,7 +2,7 @@
 // NSMBW .init: 0x80004364 - 0x800046E4
 // NSMBW .text: 0x802DC98C - 0x802DC9A8
 
-#include <string.h>
+EXTERN_C_START
 
 [[nsmbw(0x80004364)]]
 void* memcpy(void* dest, const void* src, size_t n) ASM_METHOD(
@@ -250,3 +250,5 @@ L_MemsetCacheAlignedNonZeroLoop:;
 
 [[nsmbw(0x802DC98C)]]
 size_t strlen(const char* s);
+
+EXTERN_C_END

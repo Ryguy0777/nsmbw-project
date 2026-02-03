@@ -164,16 +164,6 @@ bool OSDisableInterrupts();
 [[address_loader(0x802E19D8)]]
 int snprintf(char* __restrict s, size_t n, const char* __restrict format, ...);
 
-void* memcpy(void* __restrict dest, const void* __restrict src, size_t n)
-{
-    u8* d = static_cast<u8*>(dest);
-    const u8* s = static_cast<const u8*>(src);
-    for (size_t i = 0; i < n; i++) {
-        d[i] = s[i];
-    }
-    return dest;
-}
-
 namespace
 {
 

@@ -4,6 +4,7 @@
 #include "d_remocon_mng.h"
 
 #include "d_system/d_mj2d_game.h"
+#include "egg/audio/eggAudioRmtSpeaker.h"
 #include "machine/m_pad.h"
 #include <egg/core/eggController.h>
 #include <memory>
@@ -262,14 +263,12 @@ void dRemoconMng_c::dConnect_c::initializeState_Setup()
 {
     // Call to dRemoconMng_c::dConnect_c::dExtension_c::setup removed because it's just a blr
 
-    OS_REPORT("SETUP CONTROLLER %d\n", static_cast<int>(mChannel));
+    OS_REPORT("Controller setup %d\n", static_cast<int>(mChannel));
 
     mBattery = mPad::getBatteryLevel_ch(mPad::CH_e(mChannel));
 
     if (mChannel >= mPad::CH_e::CHAN_0 && mChannel <= mPad::CH_e::CHAN_LAST) {
-        // Some Wii Remote speaker thing
-        void UNDEF_802d6d50(mPad::CH_e channel, int param2);
-        UNDEF_802d6d50(mPad::CH_e(mChannel), 0);
+        EGG::AudioRmtSpeaker::setup(mChannel, nullptr);
 
         // The rumble when you connect a Wii Remote. I don't want this to play for GameCube
         // controllers preferably.
@@ -288,10 +287,8 @@ void dRemoconMng_c::dConnect_c::finalizeState_Setup()
 
     mExtension.shutdown();
 
-    if (mChannel < mPad::CH_e::CHAN_GC_0) {
-        // Some Wii Remote speaker thing
-        void UNDEF_802d6db0(mPad::CH_e channel, int param2);
-        UNDEF_802d6db0(mPad::CH_e(mChannel), 0);
+    if (mChannel >= mPad::CH_e::CHAN_0 && mChannel <= mPad::CH_e::CHAN_LAST) {
+        EGG::AudioRmtSpeaker::setup(mChannel, nullptr);
     }
 }
 

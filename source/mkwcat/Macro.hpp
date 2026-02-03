@@ -1,5 +1,5 @@
 //
-//  Macro.hpp
+//  mkwcat/Macro.hpp
 //  nsmbw-project
 //
 

@@ -9,13 +9,35 @@ EXTERN_C_START
 //
 
 /* 0x80004364 */
-void* memcpy(void* __restrict dest, const void* __restrict src, size_t n);
+constexpr inline void* memcpy(void* __restrict dest, const void* __restrict src, size_t n)
+{
+    unsigned char* d = static_cast<unsigned char*>(dest);
+    const unsigned char* s = static_cast<const unsigned char*>(src);
+    for (size_t i = 0; i < n; i++) {
+        d[i] = s[i];
+    }
+    return dest;
+}
 
 /* 0x800046B4 */
-void* memset(void* s, int c, size_t n);
+constexpr inline void* memset(void* s, int c, size_t n)
+{
+    unsigned char* p = static_cast<unsigned char*>(s);
+    for (size_t i = 0; i < n; i++) {
+        p[i] = static_cast<unsigned char>(c);
+    }
+    return s;
+}
 
 /* 0x800046B4 */
-size_t strlen(const char* s);
+constexpr inline size_t strlen(const char* s)
+{
+    size_t length = 0;
+    while (s[length] != char()) {
+        ++length;
+    }
+    return length;
+}
 
 //
 // mem.c
@@ -64,6 +86,5 @@ char* strrchr(const char* s, int c);
 
 /* 0x802E1F78 */
 char* strstr(const char* haystack, const char* needle);
-
 
 EXTERN_C_END

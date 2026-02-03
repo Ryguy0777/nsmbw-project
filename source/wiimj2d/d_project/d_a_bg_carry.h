@@ -5,7 +5,7 @@
 #include "d_system/d_bg_ctr.h"
 #include "state/s_State.h"
 
-class daBgCarry_c : public dActorMultiState_c
+class daBgCarry_c final : public dActorMultiState_c
 {
 public:
     // Structors
@@ -55,7 +55,7 @@ public:
     mVec3_c calcCarryPos(const mVec3_c& offset);
 
     void placeTile();
-    
+
     void destroyBrick();
 
 public:

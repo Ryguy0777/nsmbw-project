@@ -192,7 +192,7 @@ target_sources(project PRIVATE
 # NSMBW          .text:  0x8008ED70 - 0x8008F110
     d_cyuukan.cpp
 # NSMBW          .text:  0x8008F110 - 0x8008F460
-  # d_dvd.cpp
+    d_dvd.cpp
 # NSMBW          .text:  0x8008F460 - 0x8008F920
   # d_dylink.cpp
 # NSMBW          .text:  0x8008F920 - 0x8008FE30

@@ -46,6 +46,9 @@ public:
         MULTI_MODE = 4_bit,
         FREE_FOR_ALL = 5_bit,
         COIN_BATTLE = 6_bit,
+
+        // Added in nsmbw-project
+        PIPE_RANDOMIZER = 12_bit,
     };
 
     struct StartGameInfo_s {

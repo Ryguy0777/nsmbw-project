@@ -8,6 +8,7 @@
 #include "d_system/d_nand_thread.h"
 #include <cstdlib>
 #include <cstring>
+#include <mkwcat/ToString.hpp>
 #include <revolution/os/OSError.h>
 
 static inline constexpr u32 strHash(const char* str, std::size_t length)
@@ -223,10 +224,11 @@ bool dMj2dJsonHandler_c::value(s64 number)
 
 bool dMj2dJsonHandler_c::string(const char* str, std::size_t length, bool copy)
 {
-    // OS_REPORT("String: %.*s\n", (int) length, str);
-
     if (!expectValue()) {
-        OS_REPORT("Not expecting String() %d\n", mFlags & UNKNOWN_OBJECT);
+        OS_REPORT(
+          "Not expecting string() (UNKNOWN_OBJECT=%s)\n",
+          mkwcat::ToString(!!(mFlags & UNKNOWN_OBJECT)).data()
+        );
         return mFlags & UNKNOWN_OBJECT;
     }
 
@@ -433,7 +435,7 @@ bool dMj2dJsonHandler_c::key(const char* str, std::size_t length, bool copy)
 
     if (length == 0 || mValueCount != 0 ||
         mFlags & (EXPECT_ARRAY_START | EXPECT_ARRAY_END | EXPECT_OBJECT_START)) {
-        OS_REPORT("Unexpected key: %.*s\n", (int) length, str);
+        OS_REPORT("Unexpected key: %.*s\n", static_cast<int>(length), str);
         return false;
     }
 
