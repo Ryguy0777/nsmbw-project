@@ -49,13 +49,32 @@ void dNextGotoList_c::freeResource(char* data)
 
 dNextGotoList_c::dNextGotoList_c(const char* data, std::size_t dataSize)
 {
+    bool read = false;
     if (!cJsonParser_c::parse(
           this, const_cast<char*>(data), dataSize,
           [](void* buffer, std::size_t size, void* userData) -> int {
+        bool& read = *static_cast<bool*>(userData);
+        if (read) {
+            return 0;
+        }
+        read = true;
         return static_cast<int>(size);
-    }, nullptr
+    }, &read
         )) {
         clear();
+        return;
+    }
+
+    if (size() % 2) {
+        // Ensure an even number of entries for pairing. Use the unused Coin Battle-2 area
+        push_back({
+          .world = 2 - 1,
+          .stage = 20 - 1,
+          .course = 2 - 1,
+          .nextgoto = 1,
+          .group_start = true,
+          .group_end = true,
+        });
     }
 }
 
@@ -92,7 +111,6 @@ bool dNextGotoList_c::key(const char* str, std::size_t length, bool copy)
     switch (m_state) {
     default:
         return false;
-
     case State_e::ROOT: {
         // Stage Name "%02d-%02d"
         int world = std::atoi(str);
@@ -115,10 +133,10 @@ bool dNextGotoList_c::key(const char* str, std::size_t length, bool copy)
 
     case State_e::STAGE: {
         // Course/Area Name "c%d"
-        if (length < 2 || str[0] != 'c' || str[1] < '0' || str[1] > '3') {
+        if (length < 2 || str[0] != 'c' || str[1] < '1' || str[1] > '4') {
             return false;
         }
-        int course = str[1] - '0';
+        int course = str[1] - '1';
         m_entry.course = static_cast<u32>(course);
         m_nextState = State_e::COURSE;
         return true;
@@ -155,38 +173,43 @@ bool dNextGotoList_c::endObject()
         m_state = m_nextState = State_e::NONE;
         return true;
     }
-    if (m_nextState >= m_state) {
-        return false;
+    if (m_state == State_e::STAGE) {
+        m_state = m_nextState = State_e::ROOT;
+        return true;
     }
-
-    m_state = m_nextState;
-    return true;
+    return false;
 }
 
 bool dNextGotoList_c::startArray()
 {
-    if (m_state != State_e::COURSE) {
+    if (m_state == State_e::COURSE) {
+        m_state = m_nextState = State_e::GROUP;
+        m_entry.group_start = true;
+        m_groupHasEntry = false;
+        return true;
+    }
+    if (m_state != State_e::STAGE || m_nextState != State_e::COURSE) {
         return false;
     }
-
-    m_state = m_nextState = State_e::GROUP;
-    m_entry.group_start = true;
-    m_groupHasEntry = false;
+    m_state = m_nextState = State_e::COURSE;
     return true;
 }
 
 bool dNextGotoList_c::endArray()
 {
-    if (m_state != State_e::GROUP) {
-        return false;
+    if (m_state == State_e::GROUP) {
+        if (m_groupHasEntry) {
+            back().group_end = true;
+        }
+        m_entry.group_start = false;
+        m_state = m_nextState = State_e::COURSE;
+        return true;
     }
-
-    if (m_groupHasEntry) {
-        back().group_end = true;
+    if (m_state == State_e::COURSE) {
+        m_state = m_nextState = State_e::STAGE;
+        return true;
     }
-    m_entry.group_start = false;
-    m_state = m_nextState = State_e::COURSE;
-    return true;
+    return false;
 }
 
 #pragma clang diagnostic ignored "-Wc++11-narrowing"
@@ -288,7 +311,7 @@ dNextGotoList_c::LookupEntry_s dNextGotoList_c::Randomizer_c::select1()
         }
 
         // Start of a group, let's find the end
-        for (u32 i = 0; i < m_entCount; i++) {
+        for (u32 i = 1; i < m_entCount; i++) {
             if (m_pEntList[i].group_end) {
                 m_curGroupEnd = i + 1;
                 break;

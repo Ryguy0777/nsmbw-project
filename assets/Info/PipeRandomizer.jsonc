@@ -156,7 +156,7 @@
                 1
             ]
         ]
-        //// Skip: Course 3
+        // Skip: Course 3
     },
     // Skip: 01-22 (Tower)
     "01-24": { // Castle
@@ -168,7 +168,7 @@
             7,
             10 // Accessible via jumping
         ],
-        //// Skip: Course 2
+        // Skip: Course 2
         "c3": [
             [
                 1,
@@ -320,7 +320,7 @@
                 105
             ]
         ]
-        //// Skip: Course 2
+        // Skip: Course 2
     },
     // Skip: 02-22 (Tower)
     "02-24": { // Castle
@@ -329,7 +329,7 @@
             101,
             102
         ]
-        //// Skip: Course 2
+        // Skip: Course 2
     },
     "03-01": {
         "c1": [
@@ -490,7 +490,7 @@
                 100
             ]
         ]
-        //// Skip: Course 2
+        // Skip: Course 2
     },
     "04-01": {
         "c1": [
@@ -663,7 +663,7 @@
                 8
             ]
         ],
-        //// Skip: Course 2
+        // Skip: Course 2
         "c3": [
             [
                 1
@@ -671,8 +671,8 @@
         ]
     },
     "04-24": { // Castle
-        //// Skip: Course 1
-        //// Skip: Course 2
+        // Skip: Course 1
+        // Skip: Course 2
         "c3": [
             // Next 2 reachable via door
             1,
@@ -969,7 +969,7 @@
             2,
             4
         ],
-        //// Skip: Course 2
+        // Skip: Course 2
         "c3": [
             [
                 1,
@@ -984,7 +984,7 @@
                 2
             ]
         ]
-        //// Skip: Course 2
+        // Skip: Course 2
     },
     "06-38": { // Airship
         "c1": [
@@ -1160,7 +1160,7 @@
                 5
             ]
         ],
-        //// Skip: Course 2
+        // Skip: Course 2
         "c3": [
             2,
             // Strange situation: 7 here will always have an entrance from the beginning of the level
@@ -1178,7 +1178,7 @@
                 9
             ]
         ]
-        //// Skip: Course 2
+        // Skip: Course 2
     },
     "08-01": {
         "c1": [
@@ -1302,7 +1302,7 @@
                 4
             ]
         ]
-        //// Skip: Course 4
+        // Skip: Course 4
     },
     "08-38": { // Airship
         "c1": [
@@ -1458,11 +1458,7 @@
             118,
             119,
             120,
-            121,
-            // This entrance will be skipped if the entry count is an odd number
-            [
-                1
-            ]
+            121
         ]
     }
     // Skip: 09-08

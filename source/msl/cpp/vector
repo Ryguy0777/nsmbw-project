@@ -108,6 +108,26 @@ public:
         return m_data[m_size - 1];
     }
 
+    constexpr pointer begin() noexcept
+    {
+        return m_data;
+    }
+
+    constexpr const_pointer begin() const noexcept
+    {
+        return m_data;
+    }
+
+    constexpr pointer end() noexcept
+    {
+        return m_data + m_size;
+    }
+
+    constexpr const_pointer end() const noexcept
+    {
+        return m_data + m_size;
+    }
+
     pointer data() noexcept
     {
         return m_data;
@@ -158,17 +178,6 @@ public:
             reserve(m_capacity > 0 ? m_capacity * 2 : 1);
         }
         std::allocator_traits<allocator_type>::construct(m_allocator, m_data + m_size, value);
-        m_size++;
-    }
-
-    constexpr void push_back(value_type&& value)
-    {
-        if (m_size == m_capacity) {
-            reserve(m_capacity > 0 ? m_capacity * 2 : 1);
-        }
-        std::allocator_traits<allocator_type>::construct(
-          m_allocator, m_data + m_size, std::move(value)
-        );
         m_size++;
     }
 

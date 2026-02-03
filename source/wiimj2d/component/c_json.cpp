@@ -9,6 +9,12 @@
 [[gnu::noinline]]
 int cJsonParser_c::take()
 {
+    if (mRawPeekChar >= 0) {
+        int c = mRawPeekChar;
+        mRawPeekChar = -1;
+        return c;
+    }
+
     int c = -1;
     if (mBufferPos < mBufferAmount) {
         c = int(mBuffer[mBufferPos++]) & 0xFF;
@@ -23,6 +29,7 @@ int cJsonParser_c::take()
                 mEof = true;
             }
         } else {
+            mEof |= (readResult == 0);
             return -1;
         }
     } else {
@@ -33,6 +40,20 @@ int cJsonParser_c::take()
     }
     return c;
 };
+
+// Peek the next raw character without consuming it
+[[gnu::noinline]]
+int cJsonParser_c::peekRaw()
+{
+    if (mRawPeekChar >= 0) {
+        return mRawPeekChar;
+    }
+    if (int c = take(); c >= 0) {
+        mRawPeekChar = c;
+        return c;
+    }
+    return -1;
+}
 
 // Consume the next non-whitespace character
 [[gnu::noinline]]
@@ -46,7 +67,7 @@ int cJsonParser_c::consume()
     mPeekChar = -1;
     while (true) {
         if (int c = take(); c > ' ' || c < 0) {
-            if (c == '/' && peek() == '/') {
+            if (c == '/' && peekRaw() == '/') {
                 // Skip line comment
                 while (true) {
                     c = take();
@@ -55,7 +76,7 @@ int cJsonParser_c::consume()
                     }
                 }
                 continue;
-            } else if (c == '/' && peek() == '*') {
+            } else if (c == '/' && peekRaw() == '*') {
                 // Skip block comment
                 take();
                 while (true) {
@@ -63,7 +84,7 @@ int cJsonParser_c::consume()
                     if (c < 0) {
                         return -1;
                     }
-                    if (c == '*' && peek() == '/') {
+                    if (c == '*' && peekRaw() == '/') {
                         take();
                         break;
                     }

@@ -8,7 +8,7 @@ public:
     // ^^^^^^
 
     /* 0x801615A0 */
-    u32 next(u32 limit);
+    u32 next(u32 limit = -1);
 
 public:
     // Instance Variables

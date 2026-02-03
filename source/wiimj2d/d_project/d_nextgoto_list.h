@@ -54,6 +54,11 @@ public:
 
     void randomize(s32 seed);
 
+    s32 getSeed() const
+    {
+        return m_seed;
+    }
+
 private:
     // Instance Variables
     // ^^^^^^

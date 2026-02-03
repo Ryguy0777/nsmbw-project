@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mkwcat/BaseTypes.hpp"
 #include <component/c_bitmask.h>
 
 /**
@@ -366,6 +367,28 @@ public:
         COUNT,
     };
 
+    enum class PIPE_RANDOMIZER_MODE_e : u8 {
+        /**
+         * Pipe Randomizer is disabled.
+         */
+        DISABLED = 0,
+
+        /**
+         * Single randomization across the entire game.
+         */
+        PER_GAME,
+
+        /**
+         * Different randomization per course.
+         */
+        PER_COURSE,
+
+        /**
+         * Randomizes everytime with no consistency.
+         */
+        PER_EXIT,
+    };
+
 public:
     /**
      * Constructs the holder.
@@ -647,6 +670,26 @@ public:
         mGameCompletion = GAME_COMPLETION_e::SAVE_EMPTY;
     }
 
+    PIPE_RANDOMIZER_MODE_e getPipeRandomizerMode() const
+    {
+        return mPipeRandomizerMode;
+    }
+
+    s32 getPipeRandomizerSeed() const
+    {
+        return mPipeRandomizerSeed;
+    }
+
+    void setPipeRandomizerMode(PIPE_RANDOMIZER_MODE_e mode)
+    {
+        mPipeRandomizerMode = mode;
+    }
+
+    void setPipeRandomizerSeed(s32 seed)
+    {
+        mPipeRandomizerSeed = seed;
+    }
+
 private:
     enum PLAYER_TYPE_u8_e : u8 {
     };
@@ -820,6 +863,16 @@ private:
      * Ensures space for the CRC32 checksum.
      */
     // u32 mChecksumSpace;
+
+    /**
+     * The pipe randomizer mode.
+     */
+    PIPE_RANDOMIZER_MODE_e mPipeRandomizerMode;
+
+    /**
+     * The seed used by pipe randomizer for entrance shuffling.
+     */
+    s32 mPipeRandomizerSeed;
 
 public:
     /**

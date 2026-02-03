@@ -32,6 +32,7 @@ public:
 
 private:
     int take();
+    int peekRaw();
     int peek();
     int consume();
     bool error();
@@ -51,6 +52,7 @@ private:
     std::size_t mBufferPos = 0;
     bool mEof = false;
     int mPeekChar = -1;
+    int mRawPeekChar = -1;
     const ReadMethod mRead;
     void* const mUserData;
 };

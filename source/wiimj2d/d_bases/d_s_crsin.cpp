@@ -3,12 +3,16 @@
 
 #include "d_s_crsin.h"
 
+#include "component/c_random.h"
 #include "d_bases/d_s_stage.h"
+#include "d_project/d_nextgoto_list.h"
 #include "d_system/d_a_player_manager.h"
+#include "d_system/d_game_common.h"
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_remocon_mng.h"
 #include "d_system/d_resource_mng.h"
+#include "d_system/d_save_manager.h"
 
 [[nsmbw(0x8091EC50)]]
 int dScCrsin_c::loadDefaultObjectResPhase()
@@ -86,31 +90,72 @@ void dScCrsin_c::executeState_resWaitProc2()
         return;
     }
 
-    if (dInfo_c::m_instance->m_startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
+    const auto& startGameInfo = dInfo_c::m_instance->m_startGameInfo;
+    if (startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
         // Setup players for title screen
+        int powerupMode = dGameCom::rndInt(128);
         for (int i = 0; i < 8; i++) {
             daPyMng_c::mPlayerType[i] = dMj2dGame_c::scDefaultPlayerTypes[i];
-            daPyMng_c::mPlayerEntry[i] = 1;
+            daPyMng_c::mPlayerEntry[i] = true;
 
             PLAYER_TYPE_e plrType = dMj2dGame_c::scDefaultPlayerTypes[i];
-            daPyMng_c::mPlayerMode[plrType] = PLAYER_MODE_e::MUSHROOM;
+
+            if (powerupMode < 4) {
+                daPyMng_c::mPlayerMode[plrType] = PLAYER_MODE_e::NONE;
+            } else if (powerupMode == 4) {
+                daPyMng_c::mPlayerMode[plrType] = PLAYER_MODE_e::MINI_MUSHROOM;
+            } else {
+                int mode = dGameCom::rndInt(PLAYER_MODE_COUNT - 2) + 1;
+                if (mode >= static_cast<int>(PLAYER_MODE_e::MINI_MUSHROOM)) {
+                    mode++;
+                }
+                daPyMng_c::mPlayerMode[plrType] = static_cast<PLAYER_MODE_e>(mode);
+            }
+
             daPyMng_c::mCreateItem[plrType] = PLAYER_CREATE_ITEM_e::NONE;
         }
     } else if (dScStage_c::m_isStaffCredit) {
         // Setup players for credits
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            daPyMng_c::mPlayerEntry[i] = 1;
+            daPyMng_c::mPlayerEntry[i] = true;
 
             dRemoconMng_c::m_instance->mpConnect[i]->setAllowConnect(true);
 
             PLAYER_TYPE_e plrType = daPyMng_c::mPlayerType[i];
 
             daPyMng_c::mPlayerMode[plrType] = PLAYER_MODE_e::MUSHROOM;
-            if (daPyMng_c::mRest[plrType] < 5) {
-                daPyMng_c::mRest[plrType] = 5;
+            if (daPyMng_c::mRest[plrType] < daPyMng_c::START_REST) {
+                daPyMng_c::mRest[plrType] = daPyMng_c::START_REST;
             }
 
             daPyMng_c::mCreateItem[plrType] = PLAYER_CREATE_ITEM_e::NONE;
+        }
+    } else if (auto& game = *dSaveMng_c::m_instance->getSaveGame();
+               game.getPipeRandomizerMode() != dMj2dGame_c::PIPE_RANDOMIZER_MODE_e::DISABLED) {
+        dNextGotoList_c::create();
+        auto mode = game.getPipeRandomizerMode();
+        if (mode == dMj2dGame_c::PIPE_RANDOMIZER_MODE_e::PER_GAME) {
+            if (dNextGotoList_c::ms_lookup.empty() ||
+                dNextGotoList_c::ms_instance.getSeed() != game.getPipeRandomizerSeed()) {
+                dNextGotoList_c::ms_instance.randomize(game.getPipeRandomizerSeed());
+            }
+        } else if (mode == dMj2dGame_c::PIPE_RANDOMIZER_MODE_e::PER_COURSE) {
+            u32 seed = static_cast<u32>(game.getPipeRandomizerSeed());
+            u32 add = static_cast<u32>(startGameInfo.world1) << 24;
+            add += static_cast<u32>(startGameInfo.stage1) << 16;
+            cRnd_c rnd(seed);
+            (void) rnd.next();
+            rnd.mSeed += add;
+            (void) rnd.next();
+            rnd.mSeed += add;
+            (void) rnd.next();
+            rnd.mSeed += add;
+            seed = rnd.next();
+
+            if (dNextGotoList_c::ms_lookup.empty() ||
+                dNextGotoList_c::ms_instance.getSeed() != seed) {
+                dNextGotoList_c::ms_instance.randomize(seed);
+            }
         }
     }
 

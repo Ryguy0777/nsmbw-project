@@ -424,7 +424,7 @@ void daPyMng_c::update()
         }
     }
 
-    if (dNext_c::m_instance->mExitReq) {
+    if (dNext_c::m_instance->m_exitReq) {
         bool wait = false;
 
         for (int ply = 0; ply < PLAYER_COUNT; ply++) {
@@ -439,7 +439,7 @@ void daPyMng_c::update()
         }
 
         if (!wait) {
-            dNext_c::m_instance->mTimer = 0;
+            dNext_c::m_instance->m_timer = 0;
         }
     }
 

@@ -3,6 +3,7 @@
 #include "System.h"
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_mj2d_game.h"
+#include "d_system/d_save_manager.h"
 #include "d_system/d_start_info.h"
 
 class dInfo_c
@@ -46,9 +47,6 @@ public:
         MULTI_MODE = 4_bit,
         FREE_FOR_ALL = 5_bit,
         COIN_BATTLE = 6_bit,
-
-        // Added in nsmbw-project
-        PIPE_RANDOMIZER = 12_bit,
     };
 
     struct StartGameInfo_s {
@@ -189,6 +187,12 @@ public:
         } else {
             return mExPlyConnectStage[index - 4] = value;
         }
+    }
+
+    static inline bool isPipeRandomizer()
+    {
+        return dSaveMng_c::m_instance->getSaveGame()->getPipeRandomizerMode() !=
+               dMj2dGame_c::PIPE_RANDOMIZER_MODE_e::DISABLED;
     }
 
 public:

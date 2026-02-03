@@ -199,11 +199,10 @@ s32 MultiArchiveBuilder_c::addEntry(FstEntry entry, const char* name, s32 dstInd
     *dstEntry = {
       .isDir = entry.isDir,
       .stringOffset = static_cast<u32>(addString(name)),
-      .dir =
-        {
-          .parent = entry.dir.parent,
-          .next = entry.isDir ? dstIndex + 1 : entry.file.length,
-        },
+      .dir = {
+        .parent = entry.dir.parent,
+        .next = entry.isDir ? dstIndex + 1 : entry.file.length,
+      },
     };
 
     mDstCount++;
@@ -370,11 +369,10 @@ void MultiArchiveBuilder_c::addRootEntry(const char* name)
     *rootEntry = {
       .isDir = 1,
       .stringOffset = 0,
-      .dir =
-        {
-          .parent = 0,
-          .next = 1,
-        },
+      .dir = {
+        .parent = 0,
+        .next = 1,
+      },
     };
 
     if (name != nullptr) {
@@ -544,15 +542,11 @@ void* loadToMainRAM(
         result = EGG::DvdRipper::loadToMainRAMDecomp(
           &dvdFile, decomp, (u8*) dst, heap, allocDir, offset, 0, maxChunkSize, nullptr, nullptr
         );
-
+        fileSize = amountRead = EGG::ExpHeap::getSizeForMBlock(result);
         deleteUncompressObj(decompressorType);
-        u32 size = dvdFile.mFileInfo.length;
         dvdFile.close();
         if (result != nullptr) {
-            u32 b = EGG::ExpHeap::getSizeForMBlock(result);
-            DCStoreRangeNoSync(result, b);
-            fileSize = size;
-            amountRead = size;
+            DCStoreRangeNoSync(result, EGG::ExpHeap::getSizeForMBlock(result));
         }
     } else {
         char path[256] = {};
