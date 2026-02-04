@@ -5,6 +5,7 @@
 #include <nw4r/math/types.h>
 #include "nw4r/ut/Color.h"
 #include <revolution/gx/GXEnum.h>
+#include <revolution/gx/GXPixel.h>
 
 
 namespace nw4r {

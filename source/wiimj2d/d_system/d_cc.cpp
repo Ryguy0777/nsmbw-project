@@ -21,3 +21,9 @@ void dCc_c::set(dActor_c* actor, sCcDatNewF* collInfo);
 
 [[nsmbw(0x8008C9E0)]]
 void dCc_c::execute();
+
+[[nsmbw(0x8008C510)]]
+float dCc_c::getCenterPosY();
+
+[[nsmbw(0x8008C570)]]
+float dCc_c::getCenterPosX();

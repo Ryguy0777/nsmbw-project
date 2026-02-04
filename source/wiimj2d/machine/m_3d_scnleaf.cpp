@@ -6,6 +6,9 @@
 namespace m3d
 {
 
+[[nsmbw(0x8016A220)]]
+int scnLeaf_c::entry();
+
 [[nsmbw(0x8016A3E0)]]
 void scnLeaf_c::setPriorityDraw(int, int);
 

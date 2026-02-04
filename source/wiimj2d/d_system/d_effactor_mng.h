@@ -11,6 +11,9 @@ public:
     /* 0x800923D0 */
     void execute();
 
+    /* 0x80092480 */
+    void draw();
+
     /* 0x800925F0 */
     bool createBlockFragEff(mVec3_c&, unsigned long, s8);
 

@@ -112,6 +112,12 @@ public:
     /* 0x8008C3E0 */
     void set(dActor_c* actor, sCcDatNewF* collInfo);
 
+    /* 0x8008C510 */
+    float getCenterPosY();
+
+    /* 0x8008C570 */
+    float getCenterPosX();
+
 public:
     // Static Methods
     // ^^^^^^

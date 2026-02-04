@@ -30,6 +30,7 @@
 #include "machine/m_fader.h"
 #include "sound/SndAudioMgr.h"
 #include <revolution/vi.h>
+#include "d_project/d_collision_render.h"
 
 [[nsmbw(0x80830690)]]
 daLastActorStage_c* daLastActorStage_c_classInit()
@@ -171,4 +172,10 @@ fBase_c::PACK_RESULT_e daLastActorStage_c::execute()
  * do method for the draw operation.
  */
 [[nsmbw(0x80830BB0)]]
-fBase_c::PACK_RESULT_e daLastActorStage_c::draw();
+fBase_c::PACK_RESULT_e daLastActorStage_c::draw()
+{
+    dEffActorMng_c::m_instance->draw();
+    dCollisionRender_c::m_instance.entry();
+
+    return PACK_RESULT_e::SUCCEEDED;
+}

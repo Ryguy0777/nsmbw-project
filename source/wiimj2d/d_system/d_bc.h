@@ -2,6 +2,7 @@
 
 #include "d_system/d_rc.h"
 #include "egg/prim/eggBitFlag.h"
+#include <cstddef>
 
 enum SensorFlags {
     SENSOR_IS_POINT = 0,
@@ -48,6 +49,8 @@ class dBg_ctr_c;
 
 class dBc_c
 {
+    VTABLE(0x0, dBc_c, 0x8030F6D0);
+
 public:
     // Structors
     // ^^^^^^

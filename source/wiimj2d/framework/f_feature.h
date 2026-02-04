@@ -51,4 +51,9 @@ constexpr bool autoboot_staffroll = false;
 
 constexpr bool one_player_special_hip_attack_quake = false;
 
+constexpr bool draw_hitboxes = true;
+constexpr bool draw_colliders = true;
+constexpr bool draw_sensors = true;
+constexpr bool draw_ridables = true;
+
 } // namespace fFeat

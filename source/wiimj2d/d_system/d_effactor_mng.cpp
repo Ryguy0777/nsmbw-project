@@ -9,5 +9,8 @@ dEffActorMng_c* dEffActorMng_c::m_instance;
 [[nsmbw(0x800923D0)]]
 void dEffActorMng_c::execute();
 
+[[nsmbw(0x80092480)]]
+void dEffActorMng_c::draw();
+
 [[nsmbw(0x800925F0)]]
 bool dEffActorMng_c::createBlockFragEff(mVec3_c&, unsigned long, s8);
