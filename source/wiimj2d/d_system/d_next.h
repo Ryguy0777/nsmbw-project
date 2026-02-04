@@ -45,6 +45,6 @@ public:
     /* 0x18 */ bool m_exitReq;
     /* 0x19 */ bool m_isSimpleChange;
     /* 0x1A */ bool m_isChangeScene;
-    /* 0x1C */ int m_timer;
+    /* 0x1C */ short m_timer;
     /* 0x20 */ dFader_c::fader_type_e m_faderType;
 };
