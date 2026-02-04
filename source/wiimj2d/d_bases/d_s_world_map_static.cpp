@@ -8,6 +8,11 @@
 #include "d_system/d_save_manager.h"
 #include "d_system/d_wm_lib.h"
 
+[[nsmbw_data(0x8042A52D)]]
+WORLD_e dScWMap_c::m_WorldNo;
+[[nsmbw_data(0x8042A52E)]]
+u8 dScWMap_c::m_SceneNo;
+
 [[nsmbw_data(0x8042A538)]]
 bool dScWMap_c::m_GameOver;
 

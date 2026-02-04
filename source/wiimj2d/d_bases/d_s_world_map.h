@@ -25,6 +25,12 @@ public:
     /* 0x80102B90 */
     static void initLoadGame();
 
+    /* 0x800105B0, 0x808DEB70 */
+    static WORLD_e getWorldNo()
+    {
+        return m_WorldNo;
+    }
+
 public:
     // Instance Methods
     // ^^^^^^
@@ -49,6 +55,8 @@ public:
     // Static Variables
     // ^^^^^^
 
-    /* 0x8042A538 */
-    static bool m_GameOver;
+    /* 0x8042A52D */ static WORLD_e m_WorldNo;
+    /* 0x8042A52E */ static u8 m_SceneNo;
+
+    /* 0x8042A538 */ static bool m_GameOver;
 };
