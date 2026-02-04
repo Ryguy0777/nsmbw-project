@@ -7,9 +7,8 @@
 #include <cstring>
 
 const PLAYER_TYPE_e dMj2dGame_c::scDefaultPlayerTypes[PLAYER_COUNT] = {
-  PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,
-  PLAYER_TYPE_e::YELLOW_TOAD, PLAYER_TYPE_e::BLUE_TOAD,
-  PLAYER_TYPE_e::TOADETTE,    PLAYER_TYPE_e::PURPLE_TOADETTE,
+  PLAYER_TYPE_e::MARIO,       PLAYER_TYPE_e::LUIGI,     PLAYER_TYPE_e::YELLOW_TOAD,
+  PLAYER_TYPE_e::BLUE_TOAD,   PLAYER_TYPE_e::TOADETTE,  PLAYER_TYPE_e::PURPLE_TOADETTE,
   PLAYER_TYPE_e::ORANGE_TOAD, PLAYER_TYPE_e::BLACK_TOAD
 };
 
@@ -164,10 +163,6 @@ void dMj2dGame_c::setCollectCoin(WORLD_e world, STAGE_e level, COURSE_COMPLETION
 [[nsmbw(0x800CE280)]]
 int dMj2dGame_c::getTotalWorldCollectCoin(WORLD_e world)
 {
-    if (fFeat::unlocked_all_worlds) {
-        return STAR_COIN_COUNT * STAGE_COUNT;
-    }
-
     int coinCount = 0;
     for (int level = 0; level < STAGE_COUNT; level++) {
         for (u32 coin = 0; coin < STAR_COIN_COUNT; coin++) {
@@ -266,10 +261,6 @@ void dMj2dGame_c::setStockItem(int item, s8 count)
 dMj2dGame_c::WORLD_COMPLETION_e
 dMj2dGame_c::isWorldDataFlag(WORLD_e world, WORLD_COMPLETION_e flag) const
 {
-    if (fFeat::unlocked_all_worlds) {
-        return flag;
-    }
-
     return flag & mWorldCompletion[static_cast<u8>(world)];
 }
 

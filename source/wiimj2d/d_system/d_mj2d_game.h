@@ -217,6 +217,7 @@ enum class WORLD_e : u8 {
 };
 
 #define WORLD_COUNT 10
+#define ORIGINAL_WORLD_COUNT 10
 
 #define COLLECTION_COIN_COUNT 3
 
