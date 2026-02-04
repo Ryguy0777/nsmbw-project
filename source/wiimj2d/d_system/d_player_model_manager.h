@@ -33,6 +33,7 @@ public:
         MODEL_TOADETTE_PURPLE = 7,
         MODEL_TOAD_BLACK = 8,
         MODEL_TOAD_ORANGE = 9,
+        MODEL_GAMEWATCH = 10,
 
         COUNT,
     };

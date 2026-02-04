@@ -278,8 +278,6 @@ target_sources(project PRIVATE
   # d_kinoko_kasa_draw.cpp
 # NSMBW          .text:  0x800BC9A0 - 0x800BCBD0
   # d_kinoko_lift_draw.cpp
-# nsmbw-project
-    d_kinopico_model.cpp
 # NSMBW          .text:  0x800BCBD0 - 0x800BD7F0
     d_kinopio_model.cpp
 # NSMBW          .text:  0x800BD7F0 - 0x800C0060

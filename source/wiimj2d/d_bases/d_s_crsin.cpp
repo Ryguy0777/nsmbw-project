@@ -22,6 +22,7 @@ int dScCrsin_c::loadDefaultObjectResPhase()
       "Luigi",
       "Kinopio",
       "Kinopico", // Added
+      "GameWatch", // Added
       "Yoshi",
       "P_rcha",
       "L_rcha",

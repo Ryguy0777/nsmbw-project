@@ -87,6 +87,7 @@ set(DVD_FILES
     Layout/staffCredit/staffCredit.arc/arc/timg/im_kinopioIcon_Orange_gray.tpl
     Layout/stockItem/stockItem.arc/arc/blyt/stockItem_27.brlyt
     Object/boat_light_wood.arc/g3d/boat_light_wood.brres
+    Object/GameWatch.arc/g3d/model.brres
     Object/C_rcha.arc/g3d/model.brres
     Object/I_yoshi_egg.arc/g3d/I_yoshi_egg.brres
     Object/Kinopico.arc/g3d/model.brres

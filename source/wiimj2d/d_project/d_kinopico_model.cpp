@@ -1,5 +1,5 @@
 // d_kinopico_model.cpp
-// NSMBW: ---
+// nsmbw-project
 
 #include "d_kinopico_model.h"
 
