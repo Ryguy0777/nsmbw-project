@@ -21,6 +21,18 @@ public:
     /* 0x808E1750 */
     void createMapActors();
 
+    /* 0x808E2250 */
+    bool IsRouteOpen(const char* routeName);
+
+    /* 0x808E2250 */
+    bool IsRouteOpen2(const char* routeName);
+
+    /* 0x808E2380 */
+    bool IsIbaraRouteOpen(const char* subRoute1, const char* subRoute2);
+
+    /* 0x808E2380 */
+    bool IsIbaraRouteOpen2(const char* subRoute1, const char* subRoute2);
+
 public:
     // Static Variables
     // ^^^^^^

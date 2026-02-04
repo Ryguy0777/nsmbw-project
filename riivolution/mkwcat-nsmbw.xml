@@ -19,9 +19,9 @@
                     <patch id="unlocked_all_worlds"/>
                 </choice>
             </option>
-            <option name="All courses available">
+            <option name="All world map paths available">
                 <choice name="Enabled">
-                    <patch id="completed_all_levels"/>
+                    <patch id="all_paths_available"/>
                 </choice>
             </option>
             <option name="Death counter (unlimited lives)">
@@ -127,6 +127,9 @@
     </patch>
     <patch id="deadly_1up">
         <memory offset="0x80006795" value="01"/>
+    </patch>
+    <patch id="all_paths_available">
+        <memory offset="0x80006796" value="01"/>
     </patch>
     <patch id="loader">
         <!-- Call Custom Module Loader -->

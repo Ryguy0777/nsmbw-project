@@ -31,6 +31,7 @@ namespace fFeat
 [[nsmbw_data(0x8000678F)]] bool liftable_tiles;
 [[nsmbw_data(0x80006794)]] bool bubble_swarm_mode;
 [[nsmbw_data(0x80006795)]] bool deadly_1up;
+[[nsmbw_data(0x80006796)]] bool all_paths_available;
 
 // Debugging features
 // ^^^^^^

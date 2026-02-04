@@ -196,12 +196,10 @@ target_sources(project PRIVATE
 
 # NSMBW   d_bases.text:  0x808DBCB0 - 0x808DE620
     d_a_wm_KoopaShip.cpp
-# NSMBW   d_bases.text:  0x808DEA90 - 0x808E3700
-    d_a_wm_Map.cpp
 # NSMBW   d_bases.text:  0x808DE620 - 0x808DEA90
     d_a_wm_Manta.cpp
 # NSMBW   d_bases.text:  0x808DEA90 - 0x808E3700
-    d_a_wm_Map_static.cpp
+    d_a_wm_Map.cpp
 # NSMBW   d_bases.text:  0x808E3700 - 0x808E3DA0
     d_a_wm_Note.cpp
 # NSMBW   d_bases.text:  0x808E3DA0 - 0x808E4440
