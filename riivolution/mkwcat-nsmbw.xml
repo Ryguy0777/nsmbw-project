@@ -29,11 +29,6 @@
                     <patch id="infinite_lives"/>
                 </choice>
             </option>
-            <option name="No pause on powerup state change">
-                <choice name="Enabled">
-                    <patch id="disable_mode_change_pause"/>
-                </choice>
-            </option>
             <option name="Display death messages">
                 <choice name="On all damage">
                     <patch id="death_messages_death_and_damage"/>
@@ -42,29 +37,44 @@
                     <patch id="death_messages_death_only"/>
                 </choice>
             </option>
+            <option name="1-Up Bubble Swarm mode">
+                <choice name="Enabled">
+                    <patch id="bubble_swarm_mode"/>
+                </choice>
+            </option>
+            <option name="Deadly 1-ups">
+                <choice name="Enabled">
+                    <patch id="deadly_1up"/>
+                </choice>
+            </option>
+            <option name="No pause on powerup state change">
+                <choice name="Enabled">
+                    <patch id="disable_mode_change_pause"/>
+                </choice>
+            </option>
             <option name="Always allow Exit Course">
                 <choice name="Enabled">
                     <patch id="always_can_exit_course"/>
                 </choice>
             </option>
-            <option name="Shake with Buttons">
+            <option name="Shake with buttons">
                 <choice name="Enabled">
                     <patch id="shake_with_button"/>
                 </choice>
             </option>
-            <option name="Hide Motion Control Guides">
-                <choice name="With 5+ Players">
+            <option name="Hide motion control guides">
+                <choice name="With 5+ players">
                     <patch id="fukidashi_hide_players"/>
                 </choice>
                 <choice name="Always">
                     <patch id="fukidashi_hide_always"/>
                 </choice>
             </option>
-            <option name="Yoshi Color Modifier">
-                <choice name="Random Colors">
+            <option name="Yoshi color modifier">
+                <choice name="Random colors">
                     <patch id="yoshi_random_colors"/>
                 </choice>
-                <choice name="Always Green">
+                <choice name="Always green">
                     <patch id="yoshi_all_green"/>
                 </choice>
             </option>
@@ -111,6 +121,12 @@
     </patch>
     <patch id="yoshi_all_green">
         <memory offset="0x8000678E" value="02"/>
+    </patch>
+    <patch id="bubble_swarm_mode">
+        <memory offset="0x80006794" value="01"/>
+    </patch>
+    <patch id="deadly_1up">
+        <memory offset="0x80006795" value="01"/>
     </patch>
     <patch id="loader">
         <!-- Call Custom Module Loader -->
