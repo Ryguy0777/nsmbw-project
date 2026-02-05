@@ -41,7 +41,7 @@ public:
     virtual ~daWmPlayer_c() override;
 
 public:
-    // Virtual Functions
+    // Virtual Methods
     // ^^^^^^
 
     /**
@@ -145,6 +145,12 @@ public:
 
     /* 0x80907590 */
     void UNDEF_80907590();
+
+    /* 0x80907D10 */
+    bool isRouteClosedByGate(int node);
+
+    /* 0x80907D10 */
+    bool isRouteClosedByGate2(int node);
 
     /* 0x80907A60 */
     PATH_DIR_e getMovementDirection();

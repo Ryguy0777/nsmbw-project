@@ -10,7 +10,6 @@
 #include <revolution/kpad.h>
 #include <revolution/pad.h>
 #include <revolution/wpad.h>
-#include <type_traits>
 
 namespace EGG
 {

@@ -14,6 +14,7 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_wm_lib.h"
+#include "framework/f_feature.h"
 #include "machine/m_pad.h"
 #include <egg/core/eggController.h>
 #include <revolution/os.h>
@@ -359,6 +360,17 @@ u32 daWmPlayer_c::UNDEF_80904440();
 
 [[nsmbw(0x80904810)]]
 u32 daWmPlayer_c::UNDEF_80904810();
+
+EXTERN_REPL(0x80907D10, bool daWmPlayer_c::isRouteClosedByGate2(int node));
+
+[[nsmbw(0x80907D10)]]
+bool daWmPlayer_c::isRouteClosedByGate(int node)
+{
+    if (fFeat::all_paths_available) {
+        return false;
+    }
+    return isRouteClosedByGate2(node);
+}
 
 [[nsmbw(0x80907A60)]]
 daWmPlayer_c::PATH_DIR_e daWmPlayer_c::getMovementDirection();
