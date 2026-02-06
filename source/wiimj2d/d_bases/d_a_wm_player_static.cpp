@@ -2,6 +2,7 @@
 // NSMBW .text: 0x80100A10 - 0x801016B0
 // NSMBW .sbss: 0x8042A47E - 0x8042A484
 
+#include "component/c_lib.h"
 #include "d_a_wm_player.h"
 #include "d_bases/d_a_wm_Map.h"
 #include "d_system/d_a_player_manager.h"
@@ -50,9 +51,12 @@ dWmSeManager_c::WmPlyVoice_e daWmPlayer_c::getCourseInVoiceId(int node)
     if (subPlayerCount < 1 && daPyMng_c::mPlayerType[0] == PLAYER_TYPE_e::MARIO) {
         char* nodeName =
           daWmMap_c::m_instance->mCsvData[daWmMap_c::m_instance->mCurrentMap].GetPointName(node);
-        STAGE_e stage = dWmLib::GetCourseNoFromPointName(nodeName);
-        STAGE_TYPE_e stageType = dWmLib::GetCourseTypeFromCourseNo(static_cast<int>(stage));
-        if ((static_cast<u32>(stageType) - 1 < 3) || stageType == STAGE_TYPE_e::DOOMSHIP) {
+        dWmLib::StageType_e stageType =
+          dWmLib::GetCourseTypeFromCourseNo(dWmLib::GetCourseNoFromPointName(nodeName));
+        if (cLib::isOneOf(
+              stageType, dWmLib::StageType_e::GHOST, dWmLib::StageType_e::TOWER,
+              dWmLib::StageType_e::CASTLE, dWmLib::StageType_e::DOOMSHIP
+            )) {
             return dWmSeManager_c::WmPlyVoice_e::COURSE_IN_HARD;
         }
         return dWmSeManager_c::WmPlyVoice_e::COURSE_IN;

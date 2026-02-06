@@ -4,6 +4,7 @@
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
+#include "d_system/d_wm_lib.h"
 #include "d_system/d_wm_player_base.h"
 #include "machine/m_vec.h"
 
@@ -72,29 +73,19 @@ public:
     /* VT+0x60 0x80909940 */
     virtual void VT_0x60() override;
 
-    /**
-     * VT+0x70 0x8090BE30
-     */
+    /* VT+0x70 0x8090BE30 */
     virtual void VT_0x70() override;
 
-    /**
-     * VT+0x74 0x8090C160
-     */
+    /* VT+0x74 0x8090C160 */
     virtual void VT_0x74() override;
 
-    /**
-     * VT+0x78 0x8090C8E0
-     */
+    /* VT+0x78 0x8090C8E0 */
     virtual void VT_0x78() override;
 
-    /**
-     * VT+0x7C 0x8090C940
-     */
+    /* VT+0x7C 0x8090C940 */
     virtual void procDemoLose() override;
 
-    /**
-     * VT+0x80 0x8090C8C0
-     */
+    /* VT+0x80 0x8090C8C0 */
     virtual void VT_0x80() override;
 
 public:
@@ -153,7 +144,7 @@ public:
     bool isRouteClosedByGate2(int node);
 
     /* 0x80907A60 */
-    PATH_DIR_e getMovementDirection();
+    dWmLib::MovementDir_e getMovementDirection();
 
     /* 0x809087A0 */
     bool UNDEF_809087A0();

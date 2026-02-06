@@ -148,7 +148,7 @@ void dInfo_c::initStage()
     if (m_startGameInfo.stage1 != STAGE_e::STAFFROLL) {
         m0x060 = 0;
     }
-    m0x064 = 0;
+    m_zoromeTime = 0;
     m0x068 = 0;
     m0x06C = 0;
 

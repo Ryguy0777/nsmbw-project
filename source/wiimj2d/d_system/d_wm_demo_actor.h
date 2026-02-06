@@ -19,16 +19,6 @@ public:
     // Constants and Types
     // ^^^^^^
 
-    /* @unofficial */
-    enum class PATH_DIR_e {
-        UP = 0,
-        DOWN = 1,
-        SOUTH = 2,
-        NORTH = 3,
-        EAST = 4,
-        WEST = 5,
-    };
-
 public:
     /**
      * VT+0x48 0x800F6F40

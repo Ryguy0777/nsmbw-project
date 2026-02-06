@@ -229,9 +229,9 @@ enum class WORLD_e : u8 {
 #define SAVE_REVISION_MINOR 0
 
 enum PATH_DIRECTION_e : s8 {
-    NORMAL,
-    REVERSE,
-    INITIAL,
+    NORMAL = 0,
+    REVERSE = 1,
+    INITIAL = 2,
 };
 
 class dSaveMng_c;

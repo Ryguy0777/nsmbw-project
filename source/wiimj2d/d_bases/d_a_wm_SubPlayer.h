@@ -2,6 +2,7 @@
 
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_player_model_manager.h"
+#include "d_system/d_wm_lib.h"
 #include "d_system/d_wm_player_base.h"
 
 class daWmSubPlayer_c : public dWmPlayerBase_c
@@ -142,7 +143,7 @@ public:
     s32 getPlayerOrderTableIndex(int playerOrder);
 
     /* 0x808EEF00 */
-    bool isWrongDirection(PATH_DIR_e dir1, PATH_DIR_e dir2);
+    bool isWrongDirection(dWmLib::MovementDir_e dir1, dWmLib::MovementDir_e dir2);
 
     /* 0x808EEF70 */
     bool isSubPlayerStopPoint();
@@ -171,7 +172,7 @@ public:
     /* 0x1F4 */ int mFromNode;
     /* 0x1F8 */ int mToNode;
     FILL(0x1FC, 0x200);
-    /* 0x200 */ PATH_DIR_e mMoveDir;
+    /* 0x200 */ dWmLib::MovementDir_e mMoveDir;
     FILL(0x204, 0x208);
     /* 0x208 */ int mSubPlayerNo;
 

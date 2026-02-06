@@ -49,6 +49,7 @@ public:
         COIN_BATTLE = 6_bit,
     };
 
+
     struct StartGameInfo_s {
         SIZE_ASSERT(0x10);
 
@@ -211,7 +212,7 @@ public:
     FILL(0x04C, 0x060);
 
     /* 0x060 */ s32 m0x060;
-    /* 0x064 */ s32 m0x064;
+    /* 0x064 */ int m_zoromeTime;
     /* 0x068 */ s32 m0x068;
     /* 0x06C */ u8 m0x06C;
 

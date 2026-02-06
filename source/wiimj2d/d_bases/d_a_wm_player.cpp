@@ -373,7 +373,7 @@ bool daWmPlayer_c::isRouteClosedByGate(int node)
 }
 
 [[nsmbw(0x80907A60)]]
-daWmPlayer_c::PATH_DIR_e daWmPlayer_c::getMovementDirection();
+dWmLib::MovementDir_e daWmPlayer_c::getMovementDirection();
 
 [[nsmbw(0x809087A0)]]
 bool daWmPlayer_c::UNDEF_809087A0();

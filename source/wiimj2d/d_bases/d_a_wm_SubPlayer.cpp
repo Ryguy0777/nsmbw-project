@@ -181,7 +181,7 @@ void daWmSubPlayer_c::calcWalkSpeed()
         };
 
         setWalkSpeed(l_SPEED_FACTOR_ARR[getPlayerOrder()]);
-    } else if (mMoveDir != PATH_DIR_e::UP && mMoveDir != PATH_DIR_e::DOWN) {
+    } else if (mMoveDir != dWmLib::MovementDir_e::UP && mMoveDir != dWmLib::MovementDir_e::DOWN) {
         ahead = isPastAheadPlayer(distToNextNode);
         f32 distance;
         if (ahead || (distance = getDistanceToAheadPlayer()) < 40.0) {
@@ -310,7 +310,7 @@ s32 daWmSubPlayer_c::getPlayerOrderTableIndex(int playerOrder)
 }
 
 [[nsmbw(0x808EEF00)]]
-bool daWmSubPlayer_c::isWrongDirection(PATH_DIR_e dir1, PATH_DIR_e dir2);
+bool daWmSubPlayer_c::isWrongDirection(dWmLib::MovementDir_e dir1, dWmLib::MovementDir_e dir2);
 
 [[nsmbw(0x808EEF70)]]
 bool daWmSubPlayer_c::isSubPlayerStopPoint();
