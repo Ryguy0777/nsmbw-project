@@ -56,9 +56,9 @@ void dScStage_c::courseClear()
     dInfo_c::StartGameInfo_s& startGameInfo = info->m_startGameInfo;
 
     if (startGameInfo.screenType == dInfo_c::ScreenType_e::NORMAL) {
-        if ((startGameInfo.stage1 < STAGE_e::KINOKO_HOUSE ||
-             startGameInfo.stage1 > STAGE_e::KINOKO_HOUSE_7) &&
-            startGameInfo.stage1 != STAGE_e::PEACH_CASTLE) {
+        if ((startGameInfo.stage1.stage < STAGE_e::KINOKO_HOUSE ||
+             startGameInfo.stage1.stage > STAGE_e::KINOKO_HOUSE_7) &&
+            startGameInfo.stage1.stage != STAGE_e::PEACH_CASTLE) {
             cyuukan->clear();
         }
 

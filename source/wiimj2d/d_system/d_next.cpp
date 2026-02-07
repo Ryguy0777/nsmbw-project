@@ -43,10 +43,8 @@ void dNext_c::pipeRandomizerChangeScene(int index)
       .courseID = static_cast<u8>(entry.course),
       .isDemo = dInfo_c::m_startGameInfo.isDemo,
       .screenType = dInfo_c::m_startGameInfo.screenType,
-      .world1 = static_cast<WORLD_e>(entry.world),
-      .stage1 = static_cast<STAGE_e>(entry.stage),
-      .world2 = static_cast<WORLD_e>(entry.world),
-      .stage2 = static_cast<STAGE_e>(entry.stage),
+      .stage1 = {static_cast<WORLD_e>(entry.world), static_cast<STAGE_e>(entry.stage)},
+      .stage2 = {static_cast<WORLD_e>(entry.world), static_cast<STAGE_e>(entry.stage)},
     });
 }
 

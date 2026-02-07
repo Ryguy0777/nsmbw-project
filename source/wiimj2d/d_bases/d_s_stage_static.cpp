@@ -4,10 +4,14 @@
 #include "d_s_stage.h"
 
 #include "d_system/d_mj2d_game.h"
+#include "framework/f_feature.h"
 #include <mkwcat/Relocate.hpp>
 
 [[nsmbw_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
+
+[[nsmbw_data(0x8042A4D8)]]
+int dScStage_c::m_titleCount;
 
 [[nsmbw_data(0x8042A4DC)]]
 s32 dScStage_c::m_goalType;
@@ -38,6 +42,9 @@ u8 dScStage_c::m_replayMode;
 
 [[nsmbw_data(0x8042A506)]]
 bool dScStage_c::m_isReplayGoal;
+
+[[nsmbw_data(0x803744BC)]]
+u8 dScStage_c::m_titleRandomTable[TITLE_REPLAY_COUNT];
 
 [[nsmbw_data(0x803744B0)]]
 PLAYER_TYPE_e dScStage_c::mCollectionCoin[COLLECTION_COIN_COUNT];
@@ -124,8 +131,9 @@ void dScStage_c::setCollectionCoin(int coin, PLAYER_TYPE_e player);
 bool dScStage_c::isNowReplay();
 
 [[nsmbw(0x80102370)]]
-void dScStage_c::goToSceneAfterLevel(int profile, int sceneParam, int exitMode, dFader_c::fader_type_e faderType) ASM_METHOD(
-  // clang-format off
+void dScStage_c::
+  setNextScene(dProfName profile, int param, Exit_e exitMode, dFader_c::fader_type_e faderType) ASM_METHOD(
+    // clang-format off
 /* 80102370 9421FFE0 */  stwu     r1, -32(r1);
 /* 80102374 7C0802A6 */  mflr     r0;
 /* 80102378 90010024 */  stw      r0, 36(r1);
@@ -146,9 +154,9 @@ void dScStage_c::goToSceneAfterLevel(int profile, int sceneParam, int exitMode, 
 /* 801023B4 4182001C */  beq-     UNDEF_801023d0;
 /* 801023B8 281D0008 */  cmplwi   r29, 8;
 /* 801023BC 41820014 */  beq-     UNDEF_801023d0;
-/* 801023C0 38600000 */  li       r3, 0;
+/* 801023C0 38600000 */  li       r3, 1;
 /* 801023C4 38800000 */  li       r4, 0;
-/* 801023C8 4BFFF519 */  bl       UNDEF_801018e0;
+/* 801023C8 4BFFF519 */  bl       startTitle__17dScRestartCrsin_cFUcb;
 /* 801023CC 480001CC */  b        UNDEF_80102598;
 UNDEF_801023d0:;
 /* 801023D0 7FA3EB78 */  mr       r3, r29;
@@ -158,7 +166,7 @@ UNDEF_801023d0:;
 /* 801023E0 480001B8 */  b        UNDEF_80102598;
 UNDEF_801023e4:;
 /* 801023E4 800DA8E0 */  lwz      r0, UNDEF_8042a260@sda21;
-/* 801023E8 540006F7 */  rlwinm.  r0, r0, 0, 27, 27           ;
+/* 801023E8 540006F7 */  rlwinm.  r0, r0, 0, 27, 27;
 /* 801023EC 418200D4 */  beq-     UNDEF_801024c0;
 /* 801023F0 83ADA910 */  lwz      r29, UNDEF_8042a290@sda21;
 /* 801023F4 2C1D0000 */  cmpwi    r29, 0;
@@ -172,7 +180,7 @@ UNDEF_80102410:;
 /* 80102410 801E0000 */  lwz      r0, 0(r30);
 /* 80102414 7FA3EB78 */  mr       r3, r29;
 /* 80102418 7F85E378 */  mr       r5, r28;
-/* 8010241C 5400103A */  slwi     r0, r0, 2                 ;
+/* 8010241C 5400103A */  slwi     r0, r0, 2;
 /* 80102420 7C9F002E */  lwzx     r4, r31, r0;
 /* 80102424 4BFCC60D */  bl       UNDEF_800cea30;
 /* 80102428 3B9C0001 */  addi     r28, r28, 1;
@@ -194,7 +202,7 @@ UNDEF_80102438:;
 UNDEF_80102478:;
 /* 80102478 4BFB2C19 */  bl       UNDEF_800b5090;
 /* 8010247C 800DA8E0 */  lwz      r0, UNDEF_8042a260@sda21;
-/* 80102480 540006B5 */  rlwinm.  r0, r0, 0, 26, 26           ;
+/* 80102480 540006B5 */  rlwinm.  r0, r0, 0, 26, 26;
 /* 80102484 41820018 */  beq-     UNDEF_8010249c;
 /* 80102488 38600009 */  li       r3, 9;
 /* 8010248C 38800000 */  li       r4, 0;
@@ -249,14 +257,14 @@ UNDEF_80102528:;
 /* 80102538 2C1B0000 */  cmpwi    r27, 0;
 /* 8010253C 4082003C */  bne-     UNDEF_80102578;
 /* 80102540 3C80802F */  lis      r4, UNDEF_802f4cf0@ha;
-/* 80102544 546015BA */  clrlslwi r0, r3, 24, 2              ;
+/* 80102544 546015BA */  clrlslwi r0, r3, 24, 2;
 /* 80102548 38844CF0 */  addi     r4, r4, UNDEF_802f4cf0@l;
 /* 8010254C 7C84002E */  lwzx     r4, r4, r0;
 /* 80102550 2C04000A */  cmpwi    r4, 10;
 /* 80102554 41820024 */  beq-     UNDEF_80102578;
 /* 80102558 80ADA8DC */  lwz      r5, UNDEF_8042a25c@sda21;
 /* 8010255C 38000003 */  li       r0, 3;
-/* 80102560 5483063E */  clrlwi   r3, r4, 24                ;
+/* 80102560 5483063E */  clrlwi   r3, r4, 24;
 /* 80102564 38800000 */  li       r4, 0;
 /* 80102568 90050370 */  stw      r0, 880(r5);
 /* 8010256C 38A00000 */  li       r5, 0;
@@ -278,9 +286,20 @@ UNDEF_80102598:;
 /* 801025A0 80010024 */  lwz      r0, 36(r1);
 /* 801025A4 7C0803A6 */  mtlr     r0;
 /* 801025A8 38210020 */  addi     r1, r1, 32;
-/* 801025AC 4E800020 */  blr      ;
-  // clang-format on
-);
+/* 801025AC 4E800020 */  blr;
+    // clang-format on
+  );
+
+[[nsmbw(0x801026B0)]]
+void dScStage_c::calcTitleCount()
+{
+    if (fFeat::autoboot_title_demo) {
+        // Moved to dScRestartCrsin_c::startTitle()
+        return;
+    }
+
+    dScStage_c::m_titleCount = (dScStage_c::m_titleCount + 1) % TITLE_REPLAY_COUNT;
+}
 
 PATCH_REFERENCES(
   &dScStage_c::m_replayPlay_p, //

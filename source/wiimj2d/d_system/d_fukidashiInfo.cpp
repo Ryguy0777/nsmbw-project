@@ -295,8 +295,8 @@ void dfukidashiInfo_c::finalizeState_Move()
 
     u8* afeValue = mPlayerID < 4 ? dInfo->m0xAFE[mPlayerID] : dInfo->mEx0xAFE[mPlayerID - 4];
 
-    if (!(dInfo_c::m_startGameInfo.world1 == WORLD_e::WORLD_1 &&
-          dInfo_c::m_startGameInfo.stage1 == STAGE_e::STAGE_1)) {
+    if (!(dInfo_c::m_startGameInfo.stage1.world == WORLD_e::WORLD_1 &&
+          dInfo_c::m_startGameInfo.stage1.stage == STAGE_e::STAGE_1)) {
         afeValue[m0x220] = 1;
     }
 
@@ -320,8 +320,8 @@ void dfukidashiInfo_c::finalizeState_Exit()
     u8* b56Value = mPlayerID < 4 ? &dInfo_c::m_instance->m0xB56[mPlayerID]
                                  : &dInfo_c::m_instance->mEx0xB56[mPlayerID - 4];
 
-    if ((dInfo_c::m_startGameInfo.world1 == WORLD_e::WORLD_1 &&
-         dInfo_c::m_startGameInfo.stage1 == STAGE_e::STAGE_1) ||
+    if ((dInfo_c::m_startGameInfo.stage1.world == WORLD_e::WORLD_1 &&
+         dInfo_c::m_startGameInfo.stage1.stage == STAGE_e::STAGE_1) ||
         m0x230 >= 0) {
         *b56Value = 0;
     }

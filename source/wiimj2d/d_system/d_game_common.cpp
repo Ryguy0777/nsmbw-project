@@ -411,7 +411,7 @@ bool isNowCourseClear()
 
     dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame();
     return save->isCourseDataFlag(
-      dInfo_c::m_startGameInfo.world1, dInfo_c::m_startGameInfo.stage1,
+      dInfo_c::m_startGameInfo.stage1.world, dInfo_c::m_startGameInfo.stage1.stage,
       dMj2dGame_c::COURSE_COMPLETION_e::GOAL_MASK
     );
 }

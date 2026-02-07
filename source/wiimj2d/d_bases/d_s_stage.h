@@ -34,7 +34,7 @@ struct dReplayPlay_c {
 class dScStage_c : public dBase_c
 {
 public:
-    // Constants and Types
+    // Nested Types
     // ^^^^^^
 
     // @unofficial
@@ -43,7 +43,15 @@ public:
         UNKNOWN_2 = 2,
     };
 
+    enum class Exit_e {
+    };
+
 public:
+    // Constants
+    // ^^^^^^
+
+    static constexpr int TITLE_REPLAY_COUNT = 15;
+
     // Instance Methods
     // ^^^^^^
 
@@ -78,9 +86,12 @@ public:
     /* 0x801022C0 */
     static bool isNowReplay();
 
-    /* 0x80102370 @unofficial */
+    /* 0x80102370 */
     static void
-    goToSceneAfterLevel(int profile, int sceneParam, int exitMode, dFader_c::fader_type_e faderType);
+    setNextScene(dProfName profile, int param, Exit_e exitMode, dFader_c::fader_type_e faderType);
+
+    /* 0x801026B0 */
+    static void calcTitleCount();
 
 public:
     // Static Inline Methods
@@ -109,6 +120,9 @@ public:
 
     /* 0x8042A4A8 */
     static dScStage_c* m_instance;
+
+    /* 0x8042A4D8 */
+    static int m_titleCount;
 
     /* 0x8042A4DC */
     static s32 m_goalType;
@@ -142,6 +156,9 @@ public:
 
     /* 0x803744B0 */
     static PLAYER_TYPE_e mCollectionCoin[COLLECTION_COIN_COUNT];
+
+    /* 0x803744BC */
+    static u8 m_titleRandomTable[TITLE_REPLAY_COUNT];
 
     /* 0x803744D0 */
     static dReplayPlay_c* m_replayPlay_p[PLAYER_COUNT];

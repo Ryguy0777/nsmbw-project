@@ -145,7 +145,7 @@ void dInfo_c::initStage()
 
     m_startInfo.mScore = daPyMng_c::mScore;
 
-    if (m_startGameInfo.stage1 != STAGE_e::STAFFROLL) {
+    if (m_startGameInfo.stage1.stage != STAGE_e::STAFFROLL) {
         m0x060 = 0;
     }
     m_zoromeTime = 0;
@@ -156,9 +156,9 @@ void dInfo_c::initStage()
 
     mCyuukan.courseIN();
 
-    if ((m_startGameInfo.stage1 < STAGE_e::KINOKO_HOUSE ||
-         m_startGameInfo.stage1 > STAGE_e::KINOKO_HOUSE_4) &&
-        m_startGameInfo.stage1 != STAGE_e::PEACH_CASTLE) {
+    if ((m_startGameInfo.stage1.stage < STAGE_e::KINOKO_HOUSE ||
+         m_startGameInfo.stage1.stage > STAGE_e::KINOKO_HOUSE_4) &&
+        m_startGameInfo.stage1.stage != STAGE_e::PEACH_CASTLE) {
         mCyuukanState = mCyuukan.mState;
     } else {
         mCyuukanState = -1;

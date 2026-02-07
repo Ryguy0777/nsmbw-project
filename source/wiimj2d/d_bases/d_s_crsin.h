@@ -32,10 +32,12 @@ public:
     /* 0x0B0 */ dPreGameLyt_c mPreGameLyt;
 
 public:
-    // Static Methods
+    // Static Variables
     // ^^^^^^
 
     /* 0x8042A494 */ static dScCrsin_c* m_instance;
+
+    /* 0x8042A490 */ static bool m_isDispOff;
 
 public:
     // State IDs

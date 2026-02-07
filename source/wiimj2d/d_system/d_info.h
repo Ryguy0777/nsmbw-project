@@ -49,6 +49,36 @@ public:
         COIN_BATTLE = 6_bit,
     };
 
+    /* @unofficial? */
+    struct StageNo_s {
+        WORLD_e world;
+        STAGE_e stage;
+
+        constexpr bool operator==(const StageNo_s& other) const
+        {
+            return world == other.world && stage == other.stage;
+        }
+
+        constexpr bool operator==(const STAGE_e& stage) const
+        {
+            return this->stage == stage;
+        }
+
+        constexpr bool operator==(const WORLD_e& world) const
+        {
+            return this->world == world;
+        }
+
+        constexpr operator STAGE_e() const
+        {
+            return stage;
+        }
+
+        constexpr operator WORLD_e() const
+        {
+            return world;
+        }
+    };
 
     struct StartGameInfo_s {
         SIZE_ASSERT(0x10);
@@ -74,10 +104,8 @@ public:
 
         /* 0x08 */ ScreenType_e screenType;
 
-        /* 0x0C */ WORLD_e world1;
-        /* 0x0D */ STAGE_e stage1;
-        /* 0x0E */ WORLD_e world2;
-        /* 0x0F */ STAGE_e stage2;
+        /* 0x0C */ StageNo_s stage1;
+        /* 0x0E */ StageNo_s stage2;
     };
 
     struct enemy_s {
@@ -194,6 +222,12 @@ public:
     {
         return dSaveMng_c::m_instance->getSaveGame()->getPipeRandomizerMode() !=
                dMj2dGame_c::PIPE_RANDOMIZER_MODE_e::DISABLED;
+    }
+
+    /* 0x807823C0 */
+    static void clearGameFlag(GameFlag_e flag)
+    {
+        mGameFlag = static_cast<GameFlag_e>(static_cast<u32>(mGameFlag) & ~static_cast<u32>(flag));
     }
 
 public:

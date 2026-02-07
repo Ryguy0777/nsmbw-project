@@ -25,10 +25,8 @@ void dScMulti_c::executeState_SelectCourse()
             startInfo.isDemo = false;
             startInfo.courseID = 0;
             startInfo.gotoID = 0xFF;
-            startInfo.world1 = (WORLD_e) worldNum;
-            startInfo.world2 = (WORLD_e) worldNum;
-            startInfo.stage1 = (STAGE_e) levelNum;
-            startInfo.stage2 = (STAGE_e) levelNum;
+            startInfo.stage1 = {static_cast<WORLD_e>(worldNum), static_cast<STAGE_e>(levelNum)};
+            startInfo.stage2 = startInfo.stage1;
 
             // Setup active players
             for (int i = 0; i < PLAYER_COUNT; i++) {

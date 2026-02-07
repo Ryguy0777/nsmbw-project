@@ -1,5 +1,6 @@
 #pragma once
 
+#include "d_system/d_info.h"
 #include "d_system/d_scene.h"
 
 class dScRestartCrsin_c : public dScene_c
@@ -9,5 +10,11 @@ public:
     // ^^^^^^
 
     /* 0x801018E0 */
-    static void startTitle(u8, bool);
+    static void startTitle(u8 isDemo, bool);
+
+public:
+    // Static Variables
+    // ^^^^^^
+
+    /* 0x80374060 */ static dInfo_c::StartGameInfo_s m_startGameInfo;
 };

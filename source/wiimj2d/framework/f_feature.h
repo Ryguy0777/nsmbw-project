@@ -36,20 +36,22 @@ namespace fFeat
 // Debugging features
 // ^^^^^^
 
-constexpr u8 autoboot_world = 0;
-constexpr u8 autoboot_stage = 0;
-constexpr u8 autoboot_course = 0;
-constexpr u8 autoboot_next_goto = 1 + 0;
-constexpr u8 autoboot_player_count = 0;
-constexpr u8 autoboot_player_index = 0;
-constexpr u8 autoboot_powerup = 0;
-constexpr bool autoboot_in_star = false;
-constexpr bool autoboot_on_yoshi = false;
+inline u8 autoboot_world = 0;
+inline u8 autoboot_stage = 0;
+inline u8 autoboot_course = 0;
+inline u8 autoboot_next_goto = 1 + 0;
+inline u8 autoboot_player_count = 0;
+inline u8 autoboot_player_index = 0;
+inline u8 autoboot_powerup = 0;
+inline bool autoboot_in_star = false;
+inline bool autoboot_on_yoshi = false;
 
-constexpr u8 autoboot_movie = 0;
+inline bool autoboot_staffroll = false;
 
-constexpr bool autoboot_staffroll = false;
+inline u8 autoboot_movie = 0;
 
-constexpr bool one_player_special_hip_attack_quake = false;
+inline u8 autoboot_title_demo = 0;
+
+inline bool one_player_special_hip_attack_quake = false;
 
 } // namespace fFeat

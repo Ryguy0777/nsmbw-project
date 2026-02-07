@@ -195,11 +195,10 @@ void dAcPy_c::checkRest()
         }
     }
 
-    if (gameOver) {
-        dScStage_c::goToSceneAfterLevel(dProf::GAMEOVER, 0, 1, dFader_c::fader_type_e::BOWSER);
-    } else {
-        dScStage_c::goToSceneAfterLevel(dProf::WORLD_MAP, 0, 1, dFader_c::fader_type_e::BOWSER);
-    }
+    dScStage_c::setNextScene(
+      gameOver ? dProf::GAMEOVER : dProf::WORLD_MAP, 0, dScStage_c::Exit_e(1),
+      dFader_c::fader_type_e::BOWSER
+    );
 }
 
 [[nsmbw(0x8013DA30)]]

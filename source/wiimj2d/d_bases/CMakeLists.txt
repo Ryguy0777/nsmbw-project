@@ -67,7 +67,7 @@ target_sources(project PRIVATE
 # NSMBW   d_bases.text:  0x807801F0 - 0x80781980
   # d_EasyPairing.cpp
 # NSMBW   d_bases.text:  0x80781980 - 0x80782AB0
-  # d_EventOpeningTitle.cpp
+    d_EventOpeningTitle.cpp
 # NSMBW   d_bases.text:  0x80782AB0 - 0x80788510
   # d_FileSelect.cpp
 # NSMBW   d_bases.text:  0x80788510 - 0x80789810

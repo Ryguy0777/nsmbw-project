@@ -141,8 +141,8 @@ void dScCrsin_c::executeState_resWaitProc2()
             }
         } else if (mode == dMj2dGame_c::PIPE_RANDOMIZER_MODE_e::PER_COURSE) {
             u32 seed = static_cast<u32>(game.getPipeRandomizerSeed());
-            u32 add = static_cast<u32>(startGameInfo.world1) << 24;
-            add += static_cast<u32>(startGameInfo.stage1) << 16;
+            u32 add = static_cast<u32>(startGameInfo.stage1.stage) << 24;
+            add += static_cast<u32>(startGameInfo.stage1.world) << 16;
             cRnd_c rnd(seed);
             (void) rnd.next();
             rnd.mSeed += add;
