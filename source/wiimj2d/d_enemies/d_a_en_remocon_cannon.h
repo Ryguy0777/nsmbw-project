@@ -1,8 +1,7 @@
 #pragma once
 
-#include "System.h"
-#include "d_system/d_enemy.h"
 #include "d_system/d_ef.h"
+#include "d_system/d_enemy.h"
 #include "machine/m_3d_anmchr.h"
 #include "machine/m_3d_anmtexpat.h"
 #include "machine/m_vec.h"
@@ -78,8 +77,8 @@ public:
 
     FILL(0x7A8, 0x7BC);
 
-    /* 0x7BC */ dRemoconCannonGuide_c *mpGuide;
-    
+    /* 0x7BC */ dRemoconCannonGuide_c* mpGuide;
+
     FILL(0x7C0, 0x888);
 
     /* 0x888 */ bool mHasPlayer;

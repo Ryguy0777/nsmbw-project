@@ -5,6 +5,7 @@
 
 #include "d_bases/d_s_restart_crsin.h"
 #include "d_bases/d_s_stage.h"
+#include "d_project/d_demo_info.h"
 #include "d_system/d_a_player_manager.h"
 #include "d_system/d_info.h"
 #include "d_system/d_mj2d_game.h"
@@ -12,7 +13,6 @@
 #include "framework/f_feature.h"
 #include <algorithm>
 #include <egg/core/eggHeap.h>
-#include <numeric>
 
 [[nsmbw_data(0x804296E8)]]
 extern constinit const dBaseProfile_s g_profile_BOOT{};
@@ -30,13 +30,15 @@ void dScBoot_c::executeState_WiiStrapFadeOut();
 void dScBoot_c::executeState_ProcEnd()
 {
     if (fFeat::autoboot_title_demo > 0 &&
-        fFeat::autoboot_title_demo <= dScStage_c::TITLE_REPLAY_COUNT) {
-        std::iota(
-          dScStage_c::m_titleRandomTable,
-          dScStage_c::m_titleRandomTable + dScStage_c::TITLE_REPLAY_COUNT, 0
-        );
+        fFeat::autoboot_title_demo <= dDemoInfo::c_titleDemoStageCnt) {
         dScStage_c::m_titleCount = fFeat::autoboot_title_demo - 2;
         return dScRestartCrsin_c::startTitle(1, false);
+    }
+
+    if (fFeat::autoboot_hint_movie_demo > 0 &&
+        fFeat::autoboot_hint_movie_demo <= dDemoInfo::c_otehonInfoCnt) {
+        dScStage_c::m_titleCount = fFeat::autoboot_hint_movie_demo - 2;
+        return dScRestartCrsin_c::reStartPeachCastle();
     }
 
     if (fFeat::autoboot_player_index) {
@@ -76,11 +78,11 @@ void dScBoot_c::executeState_ProcEnd()
         __extension__ dInfo_c::m_instance->startGame(
           dInfo_c::StartGameInfo_s{
             .demoTime = 0,
-            .demoType = 0,
-            .gotoID = static_cast<u8>(fFeat::autoboot_next_goto - 1),
-            .courseID = static_cast<u8>((fFeat::autoboot_course ?: 1) - 1),
+            .otehonType = {},
+            .nextGotoNo = static_cast<u8>(fFeat::autoboot_next_goto - 1),
+            .courseNo = static_cast<u8>((fFeat::autoboot_course ?: 1) - 1),
             .isDemo = false,
-            .screenType = dInfo_c::ScreenType_e::NORMAL,
+            .demoType = dInfo_c::DemoType_e::NONE,
             .stage1 =
               {static_cast<WORLD_e>(fFeat::autoboot_world - 1),
                static_cast<STAGE_e>(fFeat::autoboot_stage - 1)},

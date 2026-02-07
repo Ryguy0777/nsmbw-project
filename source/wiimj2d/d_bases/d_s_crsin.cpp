@@ -91,7 +91,7 @@ void dScCrsin_c::executeState_resWaitProc2()
     }
 
     const auto& startGameInfo = dInfo_c::m_instance->m_startGameInfo;
-    if (startGameInfo.screenType == dInfo_c::ScreenType_e::TITLE) {
+    if (startGameInfo.demoType == dInfo_c::DemoType_e::TITLE) {
         // Setup players for title screen
         int powerupMode = dGameCom::rndInt(128);
         for (int i = 0; i < 8; i++) {

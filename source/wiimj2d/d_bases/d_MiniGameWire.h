@@ -1,16 +1,15 @@
 #pragma once
 
-#include "System.h"
 #include "d_system/d_base.h"
 #include "d_system/d_lytbase.h"
 #include "d_system/d_lyttextbox.h"
-#include <nw4r/lyt/Pane.h>
-#include <nw4r/lyt/Picture.h>
 #include "nw4r/lyt/Window.h"
 #include "state/s_FStateFct.h"
 #include "state/s_StateInterfaces.h"
 #include "state/s_StateMethodUsr_FI.h"
 #include "state/s_StateMgr.h"
+#include <nw4r/lyt/Pane.h>
+#include <nw4r/lyt/Picture.h>
 
 class dMiniGameWire_c : public dBase_c
 {
@@ -38,7 +37,8 @@ public:
     // ^^^^^^
 
     /* 0x070 */ LytBase_c mLayout;
-    /* 0x208 */ sStateMgr_c<dMiniGameWire_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c> mStateMgr;
+    /* 0x208 */ sStateMgr_c<dMiniGameWire_c, sStateMethodUsr_FI_c, sFStateFct_c, sStateIDChk_c>
+      mStateMgr;
 
     /* 0x244 */ nw4r::lyt::Pane* mpRootPane;
 

@@ -12,6 +12,9 @@ public:
     /* 0x801018E0 */
     static void startTitle(u8 isDemo, bool);
 
+    /* 0x801019D0 */
+    static void reStartPeachCastle();
+
 public:
     // Static Variables
     // ^^^^^^

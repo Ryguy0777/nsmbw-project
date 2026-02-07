@@ -386,7 +386,7 @@ void dPreGameLyt_c::Phase0_Init()
         pane->SetVisible(false);
     }
 
-    if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::SUPER_GUIDE) {
+    if (dInfo_c::m_startGameInfo.demoType != dInfo_c::DemoType_e::SUPER_GUIDE) {
         std::size_t count = 0, battCount = 0;
         bool middle = daPyMng_c::getEntryNum() <= 4;
         for (i = 0; i < PLAYER_COUNT; i++) {
@@ -433,7 +433,7 @@ void dPreGameLyt_c::Phase0_Init()
 
     m0x2E1 = true;
 
-    if (dInfo_c::m_startGameInfo.screenType == dInfo_c::ScreenType_e::SUPER_GUIDE) {
+    if (dInfo_c::m_startGameInfo.demoType == dInfo_c::DemoType_e::SUPER_GUIDE) {
         MsgRes_c* msgRes = dMessage_c::getMesRes();
         mpTOtasukePlay0->setMessage(msgRes, 102, 45, 0);
         mpTOtasukePlay1->setMessage(msgRes, 102, 45, 0);

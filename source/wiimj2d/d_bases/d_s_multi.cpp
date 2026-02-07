@@ -21,10 +21,10 @@ void dScMulti_c::executeState_SelectCourse()
 
             // Prepare the course
             dInfo_c::StartGameInfo_s startInfo;
-            startInfo.screenType = dInfo_c::ScreenType_e::NORMAL;
+            startInfo.demoType = dInfo_c::DemoType_e::NONE;
             startInfo.isDemo = false;
-            startInfo.courseID = 0;
-            startInfo.gotoID = 0xFF;
+            startInfo.courseNo = 0;
+            startInfo.nextGotoNo = 0xFF;
             startInfo.stage1 = {static_cast<WORLD_e>(worldNum), static_cast<STAGE_e>(levelNum)};
             startInfo.stage2 = startInfo.stage1;
 

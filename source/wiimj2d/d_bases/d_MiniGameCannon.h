@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include "d_system/d_base.h"
 #include "d_system/d_lytbase.h"
 #include "state/s_State.h"
@@ -130,17 +129,17 @@ public:
     FILL(0x2E5, 0x2E8);
 
     // New (added 0xE8 bytes)
-    /* 0x2E8 */ nw4r::lyt::Pane* mpN8pPos[4];//0
-    /* 0x2F8 */ nw4r::lyt::Pane* mpN7pPos[3];//4
-    /* 0x304 */ nw4r::lyt::Pane* mpN6pPos[2];//7
-    /* 0x30C */ nw4r::lyt::Pane* mpN5pPos;//9
-    /* 0x310 */ nw4r::lyt::Pane* mpN4pPosEx[4];//10
-    /* 0x320 */ nw4r::lyt::Pane* mpN4pPos[4];//14
-    /* 0x330 */ nw4r::lyt::Pane* mpN3pPos[3];//18
-    /* 0x33C */ nw4r::lyt::Pane* mpN2pPos[2];//21
-    /* 0x344 */ nw4r::lyt::Pane* mpN1pPos;//23
+    /* 0x2E8 */ nw4r::lyt::Pane* mpN8pPos[4]; // 0
+    /* 0x2F8 */ nw4r::lyt::Pane* mpN7pPos[3]; // 4
+    /* 0x304 */ nw4r::lyt::Pane* mpN6pPos[2]; // 7
+    /* 0x30C */ nw4r::lyt::Pane* mpN5pPos; // 9
+    /* 0x310 */ nw4r::lyt::Pane* mpN4pPosEx[4]; // 10
+    /* 0x320 */ nw4r::lyt::Pane* mpN4pPos[4]; // 14
+    /* 0x330 */ nw4r::lyt::Pane* mpN3pPos[3]; // 18
+    /* 0x33C */ nw4r::lyt::Pane* mpN2pPos[2]; // 21
+    /* 0x344 */ nw4r::lyt::Pane* mpN1pPos; // 23
 
-    /* 0x348 */ nw4r::lyt::Pane* mpNPlayer[8];//24
+    /* 0x348 */ nw4r::lyt::Pane* mpNPlayer[8]; // 24
     /* 0x368 */ LytTextBox_c* mpT1up[8];
     /* 0x388 */ nw4r::lyt::Picture* mpPPlayer[8];
     /* 0x3A8 */ int mNumWon[8];

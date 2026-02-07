@@ -46,6 +46,10 @@ public:
     enum class Exit_e {
     };
 
+    /* @unofficial? */
+    enum class ExitMode_e {
+    };
+
 public:
     // Constants
     // ^^^^^^
@@ -117,6 +121,9 @@ public:
 public:
     // Static Variables
     // ^^^^^^
+
+    /* 0x8042931C */
+    static ExitMode_e m_exitMode;
 
     /* 0x8042A4A8 */
     static dScStage_c* m_instance;

@@ -7,6 +7,9 @@
 #include "framework/f_feature.h"
 #include <mkwcat/Relocate.hpp>
 
+[[nsmbw_data(0x8042931C)]]
+dScStage_c::ExitMode_e dScStage_c::m_exitMode = dScStage_c::ExitMode_e(2);
+
 [[nsmbw_data(0x8042A4A8)]]
 dScStage_c* dScStage_c::m_instance;
 

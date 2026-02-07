@@ -295,7 +295,7 @@ void daPyMng_c::createCourseInit()
         std::iota(createOrder, createOrder + PLAYER_COUNT, 0);
         int entryNum = getEntryNum();
 
-        if (dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
+        if (dInfo_c::m_startGameInfo.demoType != dInfo_c::DemoType_e::TITLE) {
             // Randomize the spawn order
             float createOrderRandom[PLAYER_COUNT];
             int randomCount = entryNum > 4 ? entryNum : 4;
@@ -320,7 +320,7 @@ void daPyMng_c::createCourseInit()
 
         f32 playerSetDist = 24.0f;
 
-        if (entryNum > 4 && dInfo_c::m_startGameInfo.screenType != dInfo_c::ScreenType_e::TITLE) {
+        if (entryNum > 4 && dInfo_c::m_startGameInfo.demoType != dInfo_c::DemoType_e::TITLE) {
             playerSetDist -= 2.0f * (entryNum - 4);
         }
 

@@ -38,11 +38,11 @@ void dNext_c::pipeRandomizerChangeScene(int index)
     const dNextGotoList_c::Entry_s& entry = dNextGotoList_c::ms_instance[nextIndex];
     return dInfo_c::m_instance->startGame({
       .demoTime = dInfo_c::m_startGameInfo.demoTime,
-      .demoType = dInfo_c::m_startGameInfo.demoType,
-      .gotoID = static_cast<u8>(entry.nextgoto),
-      .courseID = static_cast<u8>(entry.course),
+      .otehonType = dInfo_c::m_startGameInfo.otehonType,
+      .nextGotoNo = static_cast<u8>(entry.nextgoto),
+      .courseNo = static_cast<u8>(entry.course),
       .isDemo = dInfo_c::m_startGameInfo.isDemo,
-      .screenType = dInfo_c::m_startGameInfo.screenType,
+      .demoType = dInfo_c::m_startGameInfo.demoType,
       .stage1 = {static_cast<WORLD_e>(entry.world), static_cast<STAGE_e>(entry.stage)},
       .stage2 = {static_cast<WORLD_e>(entry.world), static_cast<STAGE_e>(entry.stage)},
     });

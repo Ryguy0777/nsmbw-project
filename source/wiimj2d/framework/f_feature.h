@@ -51,6 +51,7 @@ inline bool autoboot_staffroll = false;
 inline u8 autoboot_movie = 0;
 
 inline u8 autoboot_title_demo = 0;
+inline u8 autoboot_hint_movie_demo = 0;
 
 inline bool one_player_special_hip_attack_quake = false;
 

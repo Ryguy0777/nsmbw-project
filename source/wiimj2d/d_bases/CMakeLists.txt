@@ -93,7 +93,7 @@ target_sources(project PRIVATE
 # NSMBW   d_bases.text:  0x80794F90 - 0x80795290
   # d_ModelPlayGuide.cpp
 # NSMBW   d_bases.text:  0x80795290 - 0x80798920
-  # d_ModelPlayManager.cpp
+    d_ModelPlayManager.cpp
 # NSMBW   d_bases.text:  0x80798920 - 0x8079D540
     d_MultiCourseSelect.cpp
 # NSMBW   d_bases.text:  0x8079D540 - 0x8079F630

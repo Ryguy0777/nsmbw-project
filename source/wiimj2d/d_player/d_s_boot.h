@@ -59,7 +59,7 @@ public:
 
     sState_Extern(0x80377848, dScBoot_c, WiiStrapDispEndWait);
 
-    /*
+    /**
      * executeState: 0x8015D010
      */
     sState_Extern(0x80377888, dScBoot_c, WiiStrapFadeOut);

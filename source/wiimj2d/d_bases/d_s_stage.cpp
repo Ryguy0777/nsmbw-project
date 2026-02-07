@@ -55,7 +55,7 @@ void dScStage_c::courseClear()
 
     dInfo_c::StartGameInfo_s& startGameInfo = info->m_startGameInfo;
 
-    if (startGameInfo.screenType == dInfo_c::ScreenType_e::NORMAL) {
+    if (startGameInfo.demoType == dInfo_c::DemoType_e::NONE) {
         if ((startGameInfo.stage1.stage < STAGE_e::KINOKO_HOUSE ||
              startGameInfo.stage1.stage > STAGE_e::KINOKO_HOUSE_7) &&
             startGameInfo.stage1.stage != STAGE_e::PEACH_CASTLE) {
@@ -86,16 +86,16 @@ void dScStage_c::courseClear()
     }
 
     bool isSecretExit = m_goalType == 1;
-    if (startGameInfo.screenType != dInfo_c::ScreenType_e::NORMAL &&
+    if (startGameInfo.demoType != dInfo_c::DemoType_e::NONE &&
         (world != WORLD_e::WORLD_3 || stage != STAGE_e::STAGE_4)) {
         isSecretExit = false;
     }
 
     dWmLib::procCourseClear(
-      isSecretExit, startGameInfo.screenType == dInfo_c::ScreenType_e::SUPER_GUIDE, world, stage
+      isSecretExit, startGameInfo.demoType == dInfo_c::DemoType_e::SUPER_GUIDE, world, stage
     );
 
-    if (startGameInfo.screenType != dInfo_c::ScreenType_e::NORMAL) {
+    if (startGameInfo.demoType != dInfo_c::DemoType_e::NONE) {
         restoreStartInfo();
     }
 }

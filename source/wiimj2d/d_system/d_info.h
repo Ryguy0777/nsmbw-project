@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include "d_system/d_cyuukan.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_save_manager.h"
@@ -8,19 +7,26 @@
 
 class dInfo_c
 {
-    /* 0x000 VTABLE 0x80315EA0 */
+    VTABLE(0x000, dInfo_c, 0x80315EA0);
 
 public:
     // Constants and Types
     // ^^^^^^
 
     /* @unofficial */
-    enum class ScreenType_e {
-        NORMAL = 0,
+    enum class DemoType_e {
+        NONE = 0,
         SUPER_GUIDE = 1,
         TITLE = 2,
         TITLE_REPLAY = 3,
         HINT_MOVIE = 4,
+    };
+
+    enum class OtehonType_e : u8 {
+        SUPER_SKILLS = 0,
+        ENDLESS_1UPS = 1,
+        STAR_COIN = 2,
+        SECRET_EXIT = 3,
     };
 
     /* @unofficial */
@@ -83,26 +89,35 @@ public:
     struct StartGameInfo_s {
         SIZE_ASSERT(0x10);
 
+        /**
+         * Time the demo will end after.
+         */
         /* 0x00 */ u32 demoTime;
 
         /**
-         * Hint movie type (0 = Super Skills, 1 = 1UP, 2 = Star Coin, 3 = Secret Exit)
+         * Hint movie kind.
          */
-        /* 0x04 */ u8 demoType;
+        /* 0x04 */ OtehonType_e otehonType;
 
         /**
-         * Goto ID (a.k.a. entrance)
+         * NextGoto number (a.k.a. entrance).
          */
-        /* 0x05 */ u8 gotoID;
+        /* 0x05 */ u8 nextGotoNo;
 
         /**
-         * Course ID (a.k.a. area)
+         * Course number (a.k.a. area).
          */
-        /* 0x06 */ u8 courseID;
+        /* 0x06 */ u8 courseNo;
 
+        /**
+         * Is a replay/demo.
+         */
         /* 0x07 */ bool isDemo;
 
-        /* 0x08 */ ScreenType_e screenType;
+        /**
+         * The type of the demo.
+         */
+        /* 0x08 */ DemoType_e demoType;
 
         /* 0x0C */ StageNo_s stage1;
         /* 0x0E */ StageNo_s stage2;

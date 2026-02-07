@@ -1,6 +1,5 @@
 #pragma once
 
-#include "System.h"
 #include "d_system/d_mj2d_game.h"
 #include "d_system/d_scene.h"
 #include "state/s_State.h"
